@@ -1,4 +1,4 @@
-require 'stubba_class_method'
+require 'mocha/stubba_class_method'
 
 class StubbaAnyInstanceMethod < StubbaClassMethod
   

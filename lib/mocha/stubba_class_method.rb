@@ -1,4 +1,4 @@
-require 'metaclass'
+require 'mocha/metaclass'
 
 class StubbaClassMethod
   

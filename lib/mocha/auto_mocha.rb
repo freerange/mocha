@@ -1,4 +1,4 @@
-require 'mocha_class'
+require 'mocha/mocha_class'
 
 class Module
   

@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'stubba_object'
+require 'mocha/stubba_object'
 
 class StubbaObjectTest < Test::Unit::TestCase
   

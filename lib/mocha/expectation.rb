@@ -1,5 +1,5 @@
-require 'infinite_range'
-require 'pretty_parameters'
+require 'mocha/infinite_range'
+require 'mocha/pretty_parameters'
 
 class Expectation
   

@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'mocha_inspect'
+require 'mocha/mocha_inspect'
 
 class MochaInspectTest
   def self.suite

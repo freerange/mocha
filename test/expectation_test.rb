@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'expectation'
+require 'mocha/expectation'
 
 class ExpectationTest < Test::Unit::TestCase
   

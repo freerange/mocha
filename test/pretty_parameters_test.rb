@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'pretty_parameters'
+require 'mocha/pretty_parameters'
 
 class PrettyParametersTest < Test::Unit::TestCase
 

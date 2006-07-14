@@ -1,4 +1,4 @@
-require 'mocha_methods'
+require 'mocha/mocha_methods'
 require 'test/unit/assertions'
 
 class Mocha

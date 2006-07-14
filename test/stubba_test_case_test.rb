@@ -1,6 +1,6 @@
 require 'test_helper'
-require 'stubba_test_case'
-require 'mocha'
+require 'mocha/stubba_test_case'
+require 'mocha/mocha'
 
 class StubbaTestCaseTest < Test::Unit::TestCase
   

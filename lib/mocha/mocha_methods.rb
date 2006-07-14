@@ -1,4 +1,4 @@
-require 'expectation'
+require 'mocha/expectation'
 
 module MochaMethods
   

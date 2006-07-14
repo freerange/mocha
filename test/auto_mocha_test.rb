@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'auto_mocha'
+require 'mocha/auto_mocha'
 
 class AutoMochaTest < Test::Unit::TestCase
   

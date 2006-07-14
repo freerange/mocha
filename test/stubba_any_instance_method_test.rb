@@ -1,6 +1,6 @@
 require 'test_helper'
-require 'stubba_any_instance_method'
-require 'mocha'
+require 'mocha/stubba_any_instance_method'
+require 'mocha/mocha'
 
 class StubbaAnyInstanceMethodTest < Test::Unit::TestCase
   

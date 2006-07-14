@@ -1,4 +1,4 @@
-require 'stubba'
+require 'mocha/stubba'
 
 class Test::Unit::TestCase
     

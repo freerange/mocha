@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'stubba_test_case' # only works if loaded before any derived test cases
+require 'mocha/stubba_test_case' # only works if loaded before any derived test cases
 
 require 'test/unit/ui/console/testrunner'
 

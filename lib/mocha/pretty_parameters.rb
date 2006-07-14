@@ -1,4 +1,4 @@
-require 'mocha_inspect'
+require 'mocha/mocha_inspect'
 
 class PrettyParameters
   

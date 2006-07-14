@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'infinite_range'
+require 'mocha/infinite_range'
 
 class InfiniteRangeTest < Test::Unit::TestCase
   

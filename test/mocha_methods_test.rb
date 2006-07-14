@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'mocha_methods'
+require 'mocha/mocha_methods'
 
 class MochaMethodsTest < Test::Unit::TestCase
   

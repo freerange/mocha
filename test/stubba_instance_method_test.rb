@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'stubba_instance_method'
+require 'mocha/stubba_instance_method'
 
 class StubbaInstanceMethodTest < Test::Unit::TestCase
    

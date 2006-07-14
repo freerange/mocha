@@ -1,7 +1,7 @@
-require 'mocha'
-require 'stubba_instance_method'
-require 'stubba_class_method'
-require 'stubba_any_instance_method'
+require 'mocha/mocha'
+require 'mocha/stubba_instance_method'
+require 'mocha/stubba_class_method'
+require 'mocha/stubba_any_instance_method'
 
 class Object
   
