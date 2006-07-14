@@ -1,8 +1,10 @@
 require 'test_helper'
 require 'mocha/stubba_any_instance_method'
-require 'mocha/mocha'
+require 'mocha/mock'
 
 class StubbaAnyInstanceMethodTest < Test::Unit::TestCase
+  
+  include Mocha
   
   def test_should_hide_original_method
     klass = Class.new { def method_x; end }
@@ -27,9 +29,9 @@ class StubbaAnyInstanceMethodTest < Test::Unit::TestCase
   def test_should_define_a_new_method
     klass = Class.new { def method_x; end } 
     method = StubbaAnyInstanceMethod.new(klass, :method_x)
-    mocha = Mocha.new
+    mocha = Mock.new
     mocha.expects(:method_x).with(:param1, :param2).returns(:result)
-    any_instance = Mocha.new(:mocha => mocha)
+    any_instance = Mock.new(:mocha => mocha)
     klass.define_instance_method(:any_instance) { any_instance }
     
     method.define_new_method
@@ -66,7 +68,7 @@ class StubbaAnyInstanceMethodTest < Test::Unit::TestCase
 
   def test_should_call_remove_new_method
     klass = Class.new { def method_x; end }
-    any_instance = Mocha.new(:reset_mocha => nil)
+    any_instance = Mock.new(:reset_mocha => nil)
     klass.define_instance_method(:any_instance) { any_instance }
     method = StubbaAnyInstanceMethod.new(klass, :method_x)
     method.replace_instance_method(:restore_original_method) { }
@@ -80,7 +82,7 @@ class StubbaAnyInstanceMethodTest < Test::Unit::TestCase
 
   def test_should_call_restore_original_method
     klass = Class.new { def method_x; end }
-    any_instance = Mocha.new(:reset_mocha => nil)
+    any_instance = Mock.new(:reset_mocha => nil)
     klass.define_instance_method(:any_instance) { any_instance }
     method = StubbaAnyInstanceMethod.new(klass, :method_x)
     method.replace_instance_method(:remove_new_method) { }
@@ -94,7 +96,7 @@ class StubbaAnyInstanceMethodTest < Test::Unit::TestCase
 
   def test_should_call_reset_mocha
     klass = Class.new { def method_x; end }
-    any_instance = Mocha.new(:reset_mocha => nil)
+    any_instance = Mock.new(:reset_mocha => nil)
     klass.define_instance_method(:any_instance) { any_instance }
     method = StubbaAnyInstanceMethod.new(klass, :method_x)
     method.replace_instance_method(:remove_new_method) { }

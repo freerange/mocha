@@ -1,8 +1,10 @@
 require 'test_helper'
 require 'mocha/stubba_test_case'
-require 'mocha/mocha'
+require 'mocha/mock'
 
 class StubbaTestCaseTest < Test::Unit::TestCase
+  
+  include Mocha
   
   def test_should_instantiate_new_stubba
     test_class = Class.new(Test::Unit::TestCase) { def test_me; end }
@@ -16,7 +18,7 @@ class StubbaTestCaseTest < Test::Unit::TestCase
   def test_should_unstub_all_stubbed_methods
     test_class = Class.new(Test::Unit::TestCase) { def test_me; end }
     test = test_class.new(:test_me)
-    stubba = Mocha.new(:unstub_all => nil)
+    stubba = Mock.new(:unstub_all => nil)
     replace_stubba(stubba) do
       test.teardown
     end
@@ -26,7 +28,7 @@ class StubbaTestCaseTest < Test::Unit::TestCase
   def test_should_set_stubba_to_nil
     test_class = Class.new(Test::Unit::TestCase) { def test_me; end }
     test = test_class.new(:test_me)
-    stubba = Mocha.new(:unstub_all => nil)
+    stubba = Mock.new(:unstub_all => nil)
     replace_stubba(stubba) do
       test.teardown
       assert_nil $stubba

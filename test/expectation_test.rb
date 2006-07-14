@@ -3,6 +3,8 @@ require 'mocha/expectation'
 
 class ExpectationTest < Test::Unit::TestCase
   
+  include Mocha
+  
   def test_should_match_calls_to_same_method_with_any_parameters
     expectation = Expectation.new(:expected_method)
     assert expectation.match?(:expected_method, 1, 2, 3)
@@ -180,6 +182,8 @@ end
 
 class ExpectationSimilarExpectationsTest < Test::Unit::TestCase
   
+  include Mocha
+
   attr_reader :expectation
   def setup
     @expectation = Expectation.new(:meth).with(2)

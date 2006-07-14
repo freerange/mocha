@@ -3,11 +3,13 @@ require 'mocha/stubba_object'
 
 class StubbaObjectTest < Test::Unit::TestCase
   
+  include Mocha
+  
   def test_should_build_mocha
     instance = Object.new
     mocha = instance.mocha
     assert_not_nil mocha
-    assert mocha.is_a?(Mocha)
+    assert mocha.is_a?(Mock)
   end
   
   def test_should_reuse_existing_mocha
@@ -24,7 +26,7 @@ class StubbaObjectTest < Test::Unit::TestCase
   
   def test_should_stub_instance_method
     instance = Object.new
-    stubba = Mocha.new
+    stubba = Mock.new
     stubba.expects(:stub).with(StubbaInstanceMethod.new(instance, :method1))
     replace_stubba(stubba) do
       instance.expects(:method1)
@@ -34,7 +36,7 @@ class StubbaObjectTest < Test::Unit::TestCase
   
   def test_should_build_and_store_expectation
     instance = Object.new
-    stubba = Mocha.new(:stub => nil)
+    stubba = Mock.new(:stub => nil)
     replace_stubba(stubba) do
       expectation = instance.expects(:method1)
       assert_equal [expectation], instance.mocha.expectations
@@ -43,7 +45,7 @@ class StubbaObjectTest < Test::Unit::TestCase
   
   def test_should_verify_expectations
     instance = Object.new
-    stubba = Mocha.new(:stub => nil)
+    stubba = Mock.new(:stub => nil)
     replace_stubba(stubba) do
       instance.expects(:method1).with(:value1, :value2)
     end
@@ -66,7 +68,7 @@ class StubbaObjectTest < Test::Unit::TestCase
   
   def test_should_stub_class_method
     klass = Class.new
-    stubba = Mocha.new
+    stubba = Mock.new
     stubba.expects(:stub).with(StubbaClassMethod.new(klass, :method1))
     replace_stubba(stubba) do
       klass.expects(:method1)
@@ -76,7 +78,7 @@ class StubbaObjectTest < Test::Unit::TestCase
   
   def test_should_build_and_store_class_method_expectation
     klass = Class.new
-    stubba = Mocha.new(:stub => nil)
+    stubba = Mock.new(:stub => nil)
     replace_stubba(stubba) do
       expectation = klass.expects(:method1)
       assert_equal [expectation], klass.mocha.expectations
@@ -85,7 +87,7 @@ class StubbaObjectTest < Test::Unit::TestCase
   
   def test_should_stub_module_method
     mod = Module.new
-    stubba = Mocha.new
+    stubba = Mock.new
     stubba.expects(:stub).with(StubbaClassMethod.new(mod, :method1))
     replace_stubba(stubba) do
       mod.expects(:method1)
@@ -95,7 +97,7 @@ class StubbaObjectTest < Test::Unit::TestCase
   
   def test_should_build_and_store_module_method_expectation
     mod = Module.new
-    stubba = Mocha.new(:stub => nil)
+    stubba = Mock.new(:stub => nil)
     replace_stubba(stubba) do
       expectation = mod.expects(:method1)
       assert_equal [expectation], mod.mocha.expectations

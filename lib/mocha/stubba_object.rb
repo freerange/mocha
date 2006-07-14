@@ -1,4 +1,4 @@
-require 'mocha/mocha'
+require 'mocha/mock'
 require 'mocha/stubba_instance_method'
 require 'mocha/stubba_class_method'
 require 'mocha/stubba_any_instance_method'
@@ -6,7 +6,7 @@ require 'mocha/stubba_any_instance_method'
 class Object
   
   def mocha
-    @mocha ||= Mocha.new
+    @mocha ||= Mocha::Mock.new
   end
   
   def reset_mocha

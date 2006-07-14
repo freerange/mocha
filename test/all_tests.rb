@@ -19,23 +19,23 @@ end
 
 Test::Unit::UI::Console::TestRunner.run(SupportUnitTests)
 
-require 'auto_mocha_test'
+require 'auto_mock_test'
 require 'expectation_test'
 require 'infinite_range_test'
-require 'mocha_methods_test'
-require 'mocha_class_test'
-require 'mocha_test'
+require 'mock_methods_test'
+require 'mock_class_test'
+require 'mock_test'
 
 class MochaUnitTests
   
   def self.suite
     suite = Test::Unit::TestSuite.new('MochaUnitTests')
-    suite << AutoMochaTest.suite
+    suite << AutoMockTest.suite
     suite << ExpectationTest.suite
     suite << InfiniteRangeTest.suite
-    suite << MochaMethodsTest.suite
-    suite << MochaClassTest.suite
-    suite << MochaTest.suite
+    suite << MockMethodsTest.suite
+    suite << MockClassTest.suite
+    suite << MockTest.suite
     suite
   end
   
@@ -57,6 +57,7 @@ class StubbaUnitTests
     suite << StubbaClassMethodTest.suite
     suite << StubbaInstanceMethodTest.suite
     suite << StubbaAnyInstanceMethodTest.suite
+    suite << StubbaTestCaseTest.suite
     suite
   end
   
@@ -81,17 +82,17 @@ Test::Unit::UI::Console::TestRunner.run(IsolatedStubbaUnitTests)
 require 'stubba_integration_test'
 Test::Unit::UI::Console::TestRunner.run(StubbaIntegrationTest)
 
-require 'mocha_acceptance_test'
+require 'mock_acceptance_test'
 require 'stubba_acceptance_test'
-require 'auto_mocha_acceptance_test'
+require 'auto_mock_acceptance_test'
 
 class AcceptanceTests
   
   def self.suite
     suite = Test::Unit::TestSuite.new('AcceptanceTests')
-    suite << MochaAcceptanceTest.suite
+    suite << MockAcceptanceTest.suite
     suite << StubbaAcceptanceTest.suite
-    suite << AutoMochaAcceptanceTest.suite
+    suite << AutoMockAcceptanceTest.suite
     suite
   end
   

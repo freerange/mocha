@@ -1,7 +1,7 @@
 require 'test_helper'
-require 'mocha/mocha'
+require 'mocha/mock'
 
-class MochaAcceptanceTest < Test::Unit::TestCase
+class MockAcceptanceTest < Test::Unit::TestCase
   
   class Rover
 
@@ -34,10 +34,12 @@ class MochaAcceptanceTest < Test::Unit::TestCase
     end
 
   end
+  
+  include Mocha
 
   def test_should_move_both_tracks_forward_ten_steps
-    left_track = Mocha.new
-    right_track = Mocha.new
+    left_track = Mock.new
+    right_track = Mock.new
     steps_per_metre = 5
     rover = Rover.new(left_track, right_track, steps_per_metre, nil)
     
@@ -54,8 +56,8 @@ class MochaAcceptanceTest < Test::Unit::TestCase
   end
   
   def test_should_move_both_tracks_backward_ten_steps
-    left_track = Mocha.new
-    right_track = Mocha.new
+    left_track = Mock.new
+    right_track = Mock.new
     steps_per_metre = 5
     rover = Rover.new(left_track, right_track, steps_per_metre, nil)
     
@@ -72,8 +74,8 @@ class MochaAcceptanceTest < Test::Unit::TestCase
   end
   
   def test_should_move_left_track_forwards_five_steps_and_right_track_backwards_five_steps
-    left_track = Mocha.new
-    right_track = Mocha.new
+    left_track = Mock.new
+    right_track = Mock.new
     steps_per_degree = 5.0 / 90.0
     rover = Rover.new(left_track, right_track, nil, steps_per_degree)
     
@@ -90,8 +92,8 @@ class MochaAcceptanceTest < Test::Unit::TestCase
   end
   
   def test_should_move_left_track_backwards_five_steps_and_right_track_forwards_five_steps
-    left_track = Mocha.new
-    right_track = Mocha.new
+    left_track = Mock.new
+    right_track = Mock.new
     steps_per_degree = 5.0 / 90.0
     rover = Rover.new(left_track, right_track, nil, steps_per_degree)
     

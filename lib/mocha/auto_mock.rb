@@ -1,4 +1,4 @@
-require 'mocha/mocha_class'
+require 'mocha/mock_class'
 
 class Module
   
@@ -11,7 +11,7 @@ class Module
   end
 
   def const_missing(symbol)
-    mochas[symbol] ||= MochaClass.dup
+    mochas[symbol] ||= Mocha::MockClass.dup
   end
   
   def verify_all
@@ -20,7 +20,7 @@ class Module
   
 end
 
-MochaClass.class_eval do
+Mocha::MockClass.class_eval do
   
   class << self
     
@@ -29,7 +29,7 @@ MochaClass.class_eval do
     end
 
     def const_missing(symbol)
-      mochas[symbol] ||= MochaClass.dup
+      mochas[symbol] ||= Mocha::MockClass.dup
     end
     
     def verify_all

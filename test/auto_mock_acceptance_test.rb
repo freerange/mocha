@@ -1,6 +1,6 @@
 require 'test_helper'
-require 'mocha/mocha'
-require 'mocha/auto_mocha'
+require 'mocha/mock'
+require 'mocha/auto_mock'
 
 class Product < ActiveRecord::Base
    
@@ -14,7 +14,7 @@ class Product < ActiveRecord::Base
   
 end
 
-class AutoMochaAcceptanceTest < Test::Unit::TestCase
+class AutoMockAcceptanceTest < Test::Unit::TestCase
   
   def test_should_find_all_products_released_since_specified_date
     new_releases = [Product.new]
@@ -24,9 +24,9 @@ class AutoMochaAcceptanceTest < Test::Unit::TestCase
   
   def test_should_find_sales_for_this_product_which_exceeded_specified_price
     product = Product.new
-    cheap_order = Mocha.new
+    cheap_order = Mocha::Mock.new
     cheap_order.expects(:price).returns(5)
-    expensive_order = Mocha.new
+    expensive_order = Mocha::Mock.new
     expensive_order.expects(:price).returns(15)
     orders = [cheap_order, expensive_order]
     product.expects(:sales).returns(orders)

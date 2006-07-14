@@ -1,7 +1,7 @@
 require 'test_helper'
-require 'mocha/auto_mocha'
+require 'mocha/auto_mock'
 
-class AutoMochaTest < Test::Unit::TestCase
+class AutoMockTest < Test::Unit::TestCase
   
   def setup
     reset_mochas
