@@ -3,7 +3,7 @@ require 'mocha/stubba_test_case' # only works if loaded before any derived test 
 
 require 'test/unit/ui/console/testrunner'
 
-require 'mocha_inspect_test'
+require 'inspect_test'
 require 'pretty_parameters_test'
 
 class SupportUnitTests

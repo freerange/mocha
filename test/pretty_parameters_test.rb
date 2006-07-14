@@ -2,6 +2,8 @@ require 'test_helper'
 require 'mocha/pretty_parameters'
 
 class PrettyParametersTest < Test::Unit::TestCase
+  
+  include Mocha
 
   def test_should_remove_outer_array_braces
     params = [1, 2, [3, 4]]
