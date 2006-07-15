@@ -1,4 +1,6 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
+require 'method_definer'
+
 require 'mocha/expectation'
 
 class ExpectationTest < Test::Unit::TestCase

@@ -1,4 +1,6 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
+require 'method_definer'
+
 require 'stubba/instance_method'
 
 class InstanceMethodTest < Test::Unit::TestCase

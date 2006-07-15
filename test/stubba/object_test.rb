@@ -1,4 +1,6 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
+require 'stubba_replacer'
+
 require 'stubba/object'
 
 class ObjectTest < Test::Unit::TestCase

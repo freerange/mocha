@@ -1,0 +1,1 @@
+require 'auto_mocha/auto_mock'
