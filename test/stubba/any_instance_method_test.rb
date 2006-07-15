@@ -1,4 +1,4 @@
-require 'test_helper'
+require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'stubba/any_instance_method'
 require 'mocha/mock'
 

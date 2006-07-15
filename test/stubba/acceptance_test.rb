@@ -1,4 +1,4 @@
-require 'test_helper'
+require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'stubba/object'
 require 'stubba/test_case'
 
@@ -30,7 +30,7 @@ module Thingy
   
 end
 
-class StubbaAcceptanceTest < Test::Unit::TestCase
+class AcceptanceTest < Test::Unit::TestCase
   
   def test_should_stub_instance_method
     widget = Widget.new

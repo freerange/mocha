@@ -44,10 +44,10 @@ end
 Test::Unit::UI::Console::TestRunner.run(MochaUnitTests)
 
 require 'stubba/stubba_test'
-require 'stubba/stubba_class_method_test'
-require 'stubba/stubba_instance_method_test'
-require 'stubba/stubba_any_instance_method_test'
-require 'stubba/stubba_test_case_test'
+require 'stubba/class_method_test'
+require 'stubba/instance_method_test'
+require 'stubba/any_instance_method_test'
+require 'stubba/test_case_test'
 
 class StubbaUnitTests
   
@@ -57,7 +57,7 @@ class StubbaUnitTests
     suite << ClassMethodTest.suite
     suite << InstanceMethodTest.suite
     suite << AnyInstanceMethodTest.suite
-    suite << StubbaTestCaseTest.suite
+    suite << TestCaseTest.suite
     suite
   end
   
@@ -65,13 +65,13 @@ end
 
 Test::Unit::UI::Console::TestRunner.run(StubbaUnitTests)
 
-require 'stubba/stubba_object_test'
+require 'stubba/object_test'
 
 class IsolatedStubbaUnitTests # avoid loading stubba_object until now which breaks other stubba unit tests
   
   def self.suite
     suite = Test::Unit::TestSuite.new('IsolatedStubbaUnitTests')
-    suite << StubbaObjectTest.suite
+    suite << ObjectTest.suite
     suite
   end
   
@@ -79,11 +79,11 @@ end
 
 Test::Unit::UI::Console::TestRunner.run(IsolatedStubbaUnitTests)
 
-require 'stubba/stubba_integration_test'
-Test::Unit::UI::Console::TestRunner.run(StubbaIntegrationTest)
+require 'stubba/integration_test'
+Test::Unit::UI::Console::TestRunner.run(IntegrationTest)
 
 require 'mock_acceptance_test'
-require 'stubba/stubba_acceptance_test'
+require 'stubba/acceptance_test'
 require 'auto_mock_acceptance_test'
 
 class AcceptanceTests
@@ -91,7 +91,7 @@ class AcceptanceTests
   def self.suite
     suite = Test::Unit::TestSuite.new('AcceptanceTests')
     suite << MockAcceptanceTest.suite
-    suite << StubbaAcceptanceTest.suite
+    suite << AcceptanceTest.suite
     suite << AutoMockAcceptanceTest.suite
     suite
   end

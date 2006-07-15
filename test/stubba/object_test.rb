@@ -1,7 +1,7 @@
-require 'test_helper'
+require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'stubba/object'
 
-class StubbaObjectTest < Test::Unit::TestCase
+class ObjectTest < Test::Unit::TestCase
   
   include Stubba
   include Mocha
