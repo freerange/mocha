@@ -19,7 +19,7 @@ end
 
 Test::Unit::UI::Console::TestRunner.run(SupportUnitTests)
 
-require 'auto_mock_test'
+require 'auto_mocha/auto_mock_test'
 require 'mocha/expectation_test'
 require 'mocha/infinite_range_test'
 require 'mocha/mock_methods_test'

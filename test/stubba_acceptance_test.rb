@@ -1,6 +1,5 @@
 require 'test_helper'
-require 'stubba/object'
-require 'stubba/test_case'
+require 'stubba'
 
 class Widget
   

@@ -1,6 +1,5 @@
 $:.unshift File.join(File.dirname(__FILE__), "..", "lib")
 require 'test/unit'
-require 'set'
 require 'mocha/metaclass'
 
 class Object

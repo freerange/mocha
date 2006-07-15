@@ -1,5 +1,6 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'mocha/mock_methods'
+require 'set'
 
 class MockMethodsTest < Test::Unit::TestCase
   

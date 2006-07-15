@@ -1,6 +1,6 @@
 require 'test_helper'
-require 'mocha/mock'
-require 'mocha/auto_mock'
+require 'mocha'
+require 'auto_mocha'
 
 class Product < ActiveRecord::Base
    

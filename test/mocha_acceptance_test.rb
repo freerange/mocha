@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'mocha/mock'
+require 'mocha'
 
 class MochaAcceptanceTest < Test::Unit::TestCase
   
