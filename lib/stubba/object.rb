@@ -1,7 +1,7 @@
 require 'mocha/mock'
-require 'mocha/stubba_instance_method'
-require 'mocha/stubba_class_method'
-require 'mocha/stubba_any_instance_method'
+require 'stubba/instance_method'
+require 'stubba/class_method'
+require 'stubba/any_instance_method'
 
 class Object
   
@@ -14,7 +14,7 @@ class Object
   end
   
   def stubba_method
-    StubbaInstanceMethod
+    Stubba::InstanceMethod
   end
   
   def stubba_object
@@ -42,7 +42,7 @@ end
 class Module
   
   def stubba_method
-    StubbaClassMethod
+    Stubba::ClassMethod
   end
     
 end
@@ -50,7 +50,7 @@ end
 class Class
   
   def stubba_method
-    StubbaClassMethod
+    Stubba::ClassMethod
   end
 
   class AnyInstance
@@ -60,7 +60,7 @@ class Class
     end
     
     def stubba_method
-      StubbaAnyInstanceMethod
+      Stubba::AnyInstanceMethod
     end
     
     def stubba_object

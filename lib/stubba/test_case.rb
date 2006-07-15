@@ -1,4 +1,4 @@
-require 'mocha/stubba'
+require 'stubba/stubba'
 
 class Test::Unit::TestCase
     
@@ -7,7 +7,7 @@ class Test::Unit::TestCase
   end
   
   def setup_with_stubba
-    $stubba = Stubba.new
+    $stubba = Stubba::Stubba.new
   end
   
   def teardown_with_stubba

@@ -1,9 +1,10 @@
 require 'test_helper'
-require 'mocha/stubba'
+require 'stubba/stubba'
 require 'mocha/mock'
 
 class StubbaTest < Test::Unit::TestCase
   
+  include Stubba
   include Mocha
   
   def test_should_start_with_empty_stubba_methods

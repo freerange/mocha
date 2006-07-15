@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'mocha/stubba_test_case' # only works if loaded before any derived test cases
+require 'stubba/test_case' # only works if loaded before any derived test cases
 
 require 'test/unit/ui/console/testrunner'
 
@@ -54,9 +54,9 @@ class StubbaUnitTests
   def self.suite
     suite = Test::Unit::TestSuite.new('StubbaUnitTests')
     suite << StubbaTest.suite
-    suite << StubbaClassMethodTest.suite
-    suite << StubbaInstanceMethodTest.suite
-    suite << StubbaAnyInstanceMethodTest.suite
+    suite << ClassMethodTest.suite
+    suite << InstanceMethodTest.suite
+    suite << AnyInstanceMethodTest.suite
     suite << StubbaTestCaseTest.suite
     suite
   end

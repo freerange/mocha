@@ -1,6 +1,6 @@
 require 'test_helper'
-require 'mocha/stubba_object'
-require 'mocha/stubba_test_case'
+require 'stubba/object'
+require 'stubba/test_case'
 
 class Widget
   

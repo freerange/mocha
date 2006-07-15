@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'mocha/stubba_test_case'
+require 'stubba/test_case'
 require 'mocha/mock'
 
 class StubbaTestCaseTest < Test::Unit::TestCase
@@ -11,7 +11,7 @@ class StubbaTestCaseTest < Test::Unit::TestCase
     test = test_class.new(:test_me)
     replace_stubba(nil) do
       test.setup
-      assert $stubba.is_a?(Stubba)
+      assert $stubba.is_a?(Stubba::Stubba)
     end
   end
 
