@@ -1,4 +1,4 @@
-require 'mocha/mock_class'
+require 'auto_mocha/mock_class'
 
 class Module
   

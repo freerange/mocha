@@ -1,5 +1,5 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
-require 'mocha/mock_class'
+require 'auto_mocha/mock_class'
 
 class MockClassTest < Test::Unit::TestCase
   

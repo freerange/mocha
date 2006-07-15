@@ -5,36 +5,20 @@ require 'test/unit/ui/console/testrunner'
 
 require 'mocha/inspect_test'
 require 'mocha/pretty_parameters_test'
-
-class SupportUnitTests
-  
-  def self.suite
-    suite = Test::Unit::TestSuite.new('SupportUnitTests')
-    suite << InspectTest.suite
-    suite << PrettyParametersTest.suite
-    suite
-  end
-  
-end
-
-Test::Unit::UI::Console::TestRunner.run(SupportUnitTests)
-
-require 'auto_mocha/auto_mock_test'
 require 'mocha/expectation_test'
 require 'mocha/infinite_range_test'
 require 'mocha/mock_methods_test'
-require 'mocha/mock_class_test'
 require 'mocha/mock_test'
 
 class MochaUnitTests
   
   def self.suite
     suite = Test::Unit::TestSuite.new('MochaUnitTests')
-    suite << AutoMockTest.suite
+    suite << InspectTest.suite
+    suite << PrettyParametersTest.suite
     suite << ExpectationTest.suite
     suite << InfiniteRangeTest.suite
     suite << MockMethodsTest.suite
-    suite << MockClassTest.suite
     suite << MockTest.suite
     suite
   end
@@ -42,6 +26,21 @@ class MochaUnitTests
 end
 
 Test::Unit::UI::Console::TestRunner.run(MochaUnitTests)
+
+require 'auto_mocha/mock_class_test'
+require 'auto_mocha/auto_mock_test'
+
+class AutoMochaUnitTests
+  
+  def self.suite
+    suite = Test::Unit::TestSuite.new('AutoMochaUnitTests')
+    suite << AutoMockTest.suite
+    suite << MockClassTest.suite
+  end
+  
+end
+
+Test::Unit::UI::Console::TestRunner.run(AutoMochaUnitTests)
 
 require 'stubba/stubba_test'
 require 'stubba/class_method_test'
@@ -79,8 +78,8 @@ end
 
 Test::Unit::UI::Console::TestRunner.run(IsolatedStubbaUnitTests)
 
-require 'stubba/integration_test'
-Test::Unit::UI::Console::TestRunner.run(IntegrationTest)
+require 'stubba_integration_test'
+Test::Unit::UI::Console::TestRunner.run(StubbaIntegrationTest)
 
 require 'mocha_acceptance_test'
 require 'stubba_acceptance_test'

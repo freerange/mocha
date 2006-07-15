@@ -1,10 +1,10 @@
-require File.join(File.dirname(__FILE__), "..", "test_helper")
+require 'test_helper'
 require 'stubba_replacer'
 
 require 'stubba/object'
 require 'stubba/test_case'
 
-class IntegrationTest < Test::Unit::TestCase
+class StubbaIntegrationTest < Test::Unit::TestCase
   
   class DontMessWithMe
     def self.method_x
