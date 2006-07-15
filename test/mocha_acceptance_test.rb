@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'mocha/mock'
 
-class MockAcceptanceTest < Test::Unit::TestCase
+class MochaAcceptanceTest < Test::Unit::TestCase
   
   class Rover
 

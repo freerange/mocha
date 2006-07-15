@@ -3,14 +3,14 @@ require 'stubba/test_case' # only works if loaded before any derived test cases
 
 require 'test/unit/ui/console/testrunner'
 
-require 'inspect_test'
-require 'pretty_parameters_test'
+require 'mocha/inspect_test'
+require 'mocha/pretty_parameters_test'
 
 class SupportUnitTests
   
   def self.suite
     suite = Test::Unit::TestSuite.new('SupportUnitTests')
-    suite << MochaInspectTest.suite
+    suite << InspectTest.suite
     suite << PrettyParametersTest.suite
     suite
   end
@@ -20,11 +20,11 @@ end
 Test::Unit::UI::Console::TestRunner.run(SupportUnitTests)
 
 require 'auto_mock_test'
-require 'expectation_test'
-require 'infinite_range_test'
-require 'mock_methods_test'
-require 'mock_class_test'
-require 'mock_test'
+require 'mocha/expectation_test'
+require 'mocha/infinite_range_test'
+require 'mocha/mock_methods_test'
+require 'mocha/mock_class_test'
+require 'mocha/mock_test'
 
 class MochaUnitTests
   
@@ -82,16 +82,16 @@ Test::Unit::UI::Console::TestRunner.run(IsolatedStubbaUnitTests)
 require 'stubba/integration_test'
 Test::Unit::UI::Console::TestRunner.run(IntegrationTest)
 
-require 'mock_acceptance_test'
-require 'stubba/acceptance_test'
+require 'mocha_acceptance_test'
+require 'stubba_acceptance_test'
 require 'auto_mock_acceptance_test'
 
 class AcceptanceTests
   
   def self.suite
     suite = Test::Unit::TestSuite.new('AcceptanceTests')
-    suite << MockAcceptanceTest.suite
-    suite << AcceptanceTest.suite
+    suite << MochaAcceptanceTest.suite
+    suite << StubbaAcceptanceTest.suite
     suite << AutoMockAcceptanceTest.suite
     suite
   end

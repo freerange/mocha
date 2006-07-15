@@ -1,14 +1,14 @@
-require 'test_helper'
+require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'mocha/inspect'
 
-class MochaInspectTest
+class InspectTest
   def self.suite
     suite = Test::Unit::TestSuite.new('MochaInspectTests')
     suite << ObjectInspectTest.suite
-    suite << TimeDateMochaInspectTest.suite
-    suite << StringMochaInspectTest.suite
-    suite << ArrayMochaInstanceTest.suite
-    suite << HashMochaInspectTest.suite
+    suite << TimeDateInspectTest.suite
+    suite << StringInspectTest.suite
+    suite << ArrayInstanceTest.suite
+    suite << HashInspectTest.suite
     suite
   end
 end
@@ -22,7 +22,7 @@ class ObjectInspectTest < Test::Unit::TestCase
   
 end
 
-class TimeDateMochaInspectTest < Test::Unit::TestCase
+class TimeDateInspectTest < Test::Unit::TestCase
   
   def test_should_use_include_date_in_seconds
     time = Time.now
@@ -41,7 +41,7 @@ class TimeDateMochaInspectTest < Test::Unit::TestCase
   
 end
 
-class StringMochaInspectTest < Test::Unit::TestCase
+class StringInspectTest < Test::Unit::TestCase
   
   def test_should_replace_escaped_quotes_with_single_quote
     string = "my_string"
@@ -50,7 +50,7 @@ class StringMochaInspectTest < Test::Unit::TestCase
   
 end
 
-class ArrayMochaInstanceTest < Test::Unit::TestCase
+class ArrayInstanceTest < Test::Unit::TestCase
   
   def test_should_use_inspect
     array = [1, 2]
@@ -64,7 +64,7 @@ class ArrayMochaInstanceTest < Test::Unit::TestCase
   
 end
 
-class HashMochaInspectTest < Test::Unit::TestCase
+class HashInspectTest < Test::Unit::TestCase
   
   def test_should_keep_spacing_between_key_value
     hash = {:a => true}
