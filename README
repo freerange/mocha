@@ -1,24 +1,24 @@
 = Mocha
 
-Mocha is a library for mocking and stubbing with unit tests using a syntax like that of JMock[http://www.jmock.org] and SchMock[http://rubyforge.org/projects/schmock].
+Mocha is a library for mocking and stubbing within tests using a syntax like that of JMock[http://www.jmock.org] and SchMock[http://rubyforge.org/projects/schmock].
 
 Mocha comes in three parts:
 
-  1. Mocha - traditional mock objects with expectations and verification
-  2. Stubba - allows mocking and stubbing of methods on real (non-mock) classes
-  3. AutoMocha - magically provides mocks in the place of undefined classes
+1. Mocha - traditional mock objects with expectations and verification
+2. Stubba - allows mocking and stubbing of methods on real (non-mock) classes
+3. AutoMocha - magically provides mocks in the place of undefined classes
 
-Stubba & AutoMocha are the main difference between this mocking library and others like FlexMock[http://onestepback.org/software/flexmock] and RSpec[http://rspec.rubyforge.org].
+Stubba and AutoMocha are the main difference between this mocking library and others like FlexMock[http://onestepback.org/software/flexmock] and RSpec[http://rspec.rubyforge.org].
 
 == Provenance
 
-Mocha & Stubba have been created by amalgamating a number of techniques developed by my Reevoo[http://www.reevoo.com] colleagues (Ben[http://www.reevoo.com/blogs/bengriffiths/], Chris[http://blog.seagul.co.uk] & Paul[http://po-ru.com]) and I[http:blog.floehopper.org] under a common syntax. They are both in use on real-world projects using {Ruby On Rails}[http://www.rubyonrails.org]. AutoMocha is more experimental and is at an earlier stage of development.
+Mocha and Stubba have been created by amalgamating a number of techniques developed by me (James[http:blog.floehopper.org]) and my Reevoo[http://www.reevoo.com] colleagues (Ben[http://www.reevoo.com/blogs/bengriffiths/], Chris[http://blog.seagul.co.uk] and Paul[http://po-ru.com]) into a common syntax. They are both in use on real-world Rails[http://www.rubyonrails.org] projects. AutoMocha is more experimental and is at an earlier stage of development.
 
-== Download & Installation
+== Download and Installation
 
 You can download Mocha from here[http://rubyforge.org/projects/mocha] or install Mocha with the following command.
 
- $ gem install flexmock
+ $ gem install mocha
 
 == License
 
@@ -26,7 +26,11 @@ Copyright Revieworld Ltd. 2006
  	
 You may use, copy and redistribute this library under the same terms as Ruby itself (see http://www.ruby-lang.org/en/LICENSE.txt).
 
-== Simple Mocha Example
+== Examples
+
+See MochaAcceptanceTest, StubbaAcceptanceTest, AutoMochaAcceptanceTest and unit tests for more examples.
+
+=== Mocha Example
 
   class Enterprise
 
@@ -40,7 +44,9 @@ You may use, copy and redistribute this library under the same terms as Ruby its
 
   end
 
-  require 'mocha'
+	require 'rubygems'
+	require 'mocha'
+	require 'test/unit'
 
   class EnterpriseTest < Test::Unit::TestCase
 
@@ -56,10 +62,12 @@ You may use, copy and redistribute this library under the same terms as Ruby its
 
   end
 
-== Simple Stubba Example
+=== Stubba Example
 
   class Order
-
+  
+    attr_accessor :shipped_on
+  
     def total_cost
       line_items.inject(0) { |total, line_item| total + line_item.price } + shipping_cost
     end
@@ -71,57 +79,62 @@ You may use, copy and redistribute this library under the same terms as Ruby its
     def shipping_cost
       total_weight * 5 + 10
     end
-  
+
     class << self
 
-	    def find_all
-	      Database.connection.select_all('select * from orders')
-	    end
+      def find_all
+        # Database.connection.execute('select * from orders...
+      end
+    
+      def number_shipped_since(date)
+        find_all.select { |order| order.shipped_on > date }.size
+      end
 
-	    def number_shipped_since(date)
-	      find_all.select { |order| order.shipped_on > date }.size
-	    end
-	
-	    def unshipped_value
-	      find_all.inject(0) { |order| order.shipped_on ? 0 : order.total_cost }
-	    end
-	
-	  end
+      def unshipped_value
+        find_all.inject(0) { |total, order| order.shipped_on ? total : total + order.total_cost }
+      end
+
+    end
+
   end
 
+  require 'rubygems'
   require 'stubba'
+  require 'test/unit'
 
   class OrderTest < Test::Unit::TestCase
 
     # illustrates stubbing instance method
     def test_should_calculate_shipping_cost_based_on_total_weight
-	    order = Order.new
-	    order.stubs(:total_weight).returns(10)
-	    assert_equal 60, order.shipping_cost
+      order = Order.new
+      order.stubs(:total_weight).returns(10)
+      assert_equal 60, order.shipping_cost
     end
 
     # illustrates stubbing class method
     def test_should_count_number_of_orders_shipped_after_specified_date
-      order_1 = Order.new(:shipped_on => 1.week.ago)
-      order_2 = Order.new(:shipped_on => 3.weeks.ago)
+      now = Time.now; week_in_secs = 7 * 24 * 60 * 60
+      order_1 = Order.new; order_1.shipped_on = now - 1 * week_in_secs
+      order_2 = Order.new; order_2.shipped_on = now - 3 * week_in_secs
       Order.stubs(:find_all).returns([order_1, order_2])
-      assert_equal 1, Order.number_shipped_since(2.weeks.ago)
+      assert_equal 1, Order.number_shipped_since(now - 2 * week_in_secs)
     end
 
     # illustrates stubbing instance method for all instances of a class
     def test_should_calculate_value_of_unshipped_orders
-      order_1 = Order.create
-      order_2 = Order.create
-      Order.any_instance.stubs(:shipped_on).returns(Time.now)
+      Order.stubs(:find_all).returns([Order.new, Order.new, Order.new])
+      Order.any_instance.stubs(:shipped_on).returns(nil)
       Order.any_instance.stubs(:total_cost).returns(10)
-      assert_equal 20, Order.unshipped_value
+      assert_equal 30, Order.unshipped_value
     end
 
   end
 
-== Simple AutoMocha Example
+=== AutoMocha Example
   
   class Article
+  
+    attr_reader :id
 
     def accepted_comments
       Comment.find_all_by_article_id(self.id).select { |comment| comment.accepted? }
@@ -129,7 +142,9 @@ You may use, copy and redistribute this library under the same terms as Ruby its
 
   end
 
+  require 'rubygems'
   require 'auto_mocha'
+  require 'test/unit'
 
   class OrderTest < Test::Unit::TestCase
 
@@ -146,3 +161,4 @@ You may use, copy and redistribute this library under the same terms as Ruby its
     end
 
   end
+
