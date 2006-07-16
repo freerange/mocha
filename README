@@ -1,0 +1,148 @@
+= Mocha
+
+Mocha is a library for mocking and stubbing with unit tests using a syntax like that of JMock[http://www.jmock.org] and SchMock[http://rubyforge.org/projects/schmock].
+
+Mocha comes in three parts:
+
+  1. Mocha - traditional mock objects with expectations and verification
+  2. Stubba - allows mocking and stubbing of methods on real (non-mock) classes
+  3. AutoMocha - magically provides mocks in the place of undefined classes
+
+Stubba & AutoMocha are the main difference between this mocking library and others like FlexMock[http://onestepback.org/software/flexmock] and RSpec[http://rspec.rubyforge.org].
+
+== Provenance
+
+Mocha & Stubba have been created by amalgamating a number of techniques developed by my Reevoo[http://www.reevoo.com] colleagues (Ben[http://www.reevoo.com/blogs/bengriffiths/], Chris[http://blog.seagul.co.uk] & Paul[http://po-ru.com]) and I[http:blog.floehopper.org] under a common syntax. They are both in use on real-world projects using {Ruby On Rails}[http://www.rubyonrails.org]. AutoMocha is more experimental and is at an earlier stage of development.
+
+== Download & Installation
+
+You can download Mocha from here[http://rubyforge.org/projects/mocha] or install Mocha with the following command.
+
+ $ gem install flexmock
+
+== License
+
+Copyright Revieworld Ltd. 2006
+ 	
+You may use, copy and redistribute this library under the same terms as Ruby itself (see http://www.ruby-lang.org/en/LICENSE.txt).
+
+== Simple Mocha Example
+
+  class Enterprise
+
+    def initialize(dilithium)
+      @dilithium = dilithium
+    end
+
+    def go(warp_factor)
+      warp_factor.times { @dilithium.nuke(:anti_matter) }
+    end
+
+  end
+
+  require 'mocha'
+
+  class EnterpriseTest < Test::Unit::TestCase
+
+    include Mocha
+
+    def test_should_boldly_go
+      dilithium = Mock.new
+      dilithium.expects(:nuke).with(:anti_matter).at_least_once
+      enterprise = Enterprise.new(dilithium)
+      enterprise.go(2)
+      dilithium.verify
+    end
+
+  end
+
+== Simple Stubba Example
+
+  class Order
+
+    def total_cost
+      line_items.inject(0) { |total, line_item| total + line_item.price } + shipping_cost
+    end
+
+    def total_weight
+      line_items.inject(0) { |total, line_item| total + line_item.weight }
+    end
+
+    def shipping_cost
+      total_weight * 5 + 10
+    end
+  
+    class << self
+
+	    def find_all
+	      Database.connection.select_all('select * from orders')
+	    end
+
+	    def number_shipped_since(date)
+	      find_all.select { |order| order.shipped_on > date }.size
+	    end
+	
+	    def unshipped_value
+	      find_all.inject(0) { |order| order.shipped_on ? 0 : order.total_cost }
+	    end
+	
+	  end
+  end
+
+  require 'stubba'
+
+  class OrderTest < Test::Unit::TestCase
+
+    # illustrates stubbing instance method
+    def test_should_calculate_shipping_cost_based_on_total_weight
+	    order = Order.new
+	    order.stubs(:total_weight).returns(10)
+	    assert_equal 60, order.shipping_cost
+    end
+
+    # illustrates stubbing class method
+    def test_should_count_number_of_orders_shipped_after_specified_date
+      order_1 = Order.new(:shipped_on => 1.week.ago)
+      order_2 = Order.new(:shipped_on => 3.weeks.ago)
+      Order.stubs(:find_all).returns([order_1, order_2])
+      assert_equal 1, Order.number_shipped_since(2.weeks.ago)
+    end
+
+    # illustrates stubbing instance method for all instances of a class
+    def test_should_calculate_value_of_unshipped_orders
+      order_1 = Order.create
+      order_2 = Order.create
+      Order.any_instance.stubs(:shipped_on).returns(Time.now)
+      Order.any_instance.stubs(:total_cost).returns(10)
+      assert_equal 20, Order.unshipped_value
+    end
+
+  end
+
+== Simple AutoMocha Example
+  
+  class Article
+
+    def accepted_comments
+      Comment.find_all_by_article_id(self.id).select { |comment| comment.accepted? }
+    end
+
+  end
+
+  require 'auto_mocha'
+
+  class OrderTest < Test::Unit::TestCase
+
+    include Mocha
+
+    # illustrates stubbing of previously undefined class Comment
+    def test_should_return_accepted_comments_for_this_article
+      unaccepted_comment = Mock.new(:accepted? => false)
+      accepted_comment = Mock.new(:accepted? => true)
+      comments = [unaccepted_comment, accepted_comment]
+      Comment.stubs(:find_all_by_article_id).returns(comments)
+      article = Article.new
+      assert_equal [accepted_comment], article.accepted_comments
+    end
+
+  end
