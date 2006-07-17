@@ -16,7 +16,7 @@ Mocha and Stubba have been created by amalgamating a number of techniques develo
 
 == Download and Installation
 
-You can download Mocha from here[http://rubyforge.org/projects/mocha] or install Mocha with the following command.
+You can download Mocha from here[http://rubyforge.org/projects/mocha] or install it with the following command.
 
  $ gem install mocha
 
@@ -44,9 +44,9 @@ See MochaAcceptanceTest, StubbaAcceptanceTest, AutoMochaAcceptanceTest and unit 
 
   end
 
-	require 'rubygems'
-	require 'mocha'
-	require 'test/unit'
+  require 'rubygems'
+  require 'mocha'
+  require 'test/unit'
 
   class EnterpriseTest < Test::Unit::TestCase
 

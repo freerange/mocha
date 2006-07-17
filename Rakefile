@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'rake/rdoctask'
 require 'rake/gempackagetask'
+require 'rake/contrib/sshpublisher'
 
 desc "Default task is currently to run all tests"
 task :default => :test_all
@@ -16,6 +17,11 @@ Rake::RDocTask.new do |task|
   task.rdoc_dir = 'doc'
   task.options << '--title Mocha --main README --line-numbers --inline-source'
   task.rdoc_files.include('README', 'lib/**/*.rb')
+end
+
+desc "Upload RDoc to RubyForge"
+task :publish_rdoc => [:rdoc] do
+  Rake::SshDirPublisher.new("jamesmead@rubyforge.org", "/var/www/gforge-projects/mocha", "doc").upload
 end
 
 Gem::manage_gems
