@@ -16,12 +16,28 @@ desc 'Generate RDoc'
 Rake::RDocTask.new do |task|
   task.rdoc_dir = 'doc'
   task.options << '--title Mocha --main README --line-numbers --inline-source'
-  task.rdoc_files.include('README', 'lib/**/*.rb')
+  task.rdoc_files.include('README', 'agiledox.txt', 'lib/**/*.rb')
 end
 
 desc "Upload RDoc to RubyForge"
 task :publish_rdoc => [:rdoc] do
   Rake::SshDirPublisher.new("jamesmead@rubyforge.org", "/var/www/gforge-projects/mocha", "doc").upload
+end
+
+desc "Generate agiledox-like documentation for tests"
+task :agiledox do
+  File.open('agiledox.txt', 'w') do |output|
+    tests = FileList['test/**/*_test.rb']
+    tests.each do |file|
+      m = %r".*/([^/].*)_test.rb".match(file)
+      output << m[1]+" should:\n"
+      test_definitions = File::readlines(file).select {|line| line =~ /.*def test.*/}
+      test_definitions.sort.each do |definition|
+        m = %r"test_(should_)?(.*)".match(definition)
+        output << " - "+m[2].gsub(/_/," ") << "\n"
+      end
+    end
+  end
 end
 
 Gem::manage_gems
