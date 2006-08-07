@@ -48,7 +48,7 @@ class MultipleSetupAndTeardownTest < Test::Unit::TestCase
     test_result = Test::Unit::TestResult.new
     test.run(test_result) {}
     assert test_result.passed?
-    assert_equal [:setup, :setup_1, :test_me], test.methods_called
+    assert_equal [:setup_1, :setup, :test_me], test.methods_called
   end
   
   def test_4
@@ -66,7 +66,7 @@ class MultipleSetupAndTeardownTest < Test::Unit::TestCase
     test_result = Test::Unit::TestResult.new
     test.run(test_result) {}
     assert test_result.passed?
-    assert_equal [:setup, :setup_1, :test_me], test.methods_called
+    assert_equal [:setup_1, :setup, :test_me], test.methods_called
   end
   
   def test_5
@@ -85,7 +85,7 @@ class MultipleSetupAndTeardownTest < Test::Unit::TestCase
     test_result = Test::Unit::TestResult.new
     test.run(test_result) {}
     assert test_result.passed?
-    assert_equal [:setup, :setup_with_fixtures, :setup_1, :test_me, :teardown_with_fixtures], test.methods_called
+    assert_equal [:setup_with_fixtures, :setup_1, :setup, :test_me, :teardown_with_fixtures], test.methods_called
   end
   
 end
