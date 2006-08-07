@@ -3,9 +3,7 @@ require 'mocha/mock'
 module AutoVerify
   
   def self.included(base)
-    unless base.ancestors.include?(self) then
-      base.add_teardown_method(:teardown_mocks)
-    end
+    base.add_teardown_method(:teardown_mocks)
   end
 
   def mocks
@@ -16,9 +14,22 @@ module AutoVerify
     @mocks = nil
   end
 
-  def mock
-    mocks << Mocha::Mock.new
-    mocks.last
+  def mock(expectations = {})
+    mock = Mocha::Mock.new
+    expectations.each do |method, result|
+      mock.expects(method).returns(result)
+    end
+    mocks << mock
+    mock
+  end
+  
+  def stub(expectations = {})
+    mock = Mocha::Mock.new
+    expectations.each do |method, result|
+      mock.stubs(method).returns(result)
+    end
+    mocks << mock
+    mock
   end
 
   def teardown_mocks

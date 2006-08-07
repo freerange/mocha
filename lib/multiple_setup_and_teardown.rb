@@ -28,9 +28,9 @@ module MultipleSetupAndTeardown
         alias_method :teardown_original, :teardown
         define_method(:teardown_new) do
           begin
-            teardown_original
-          ensure
             teardown_mocha
+          ensure
+            teardown_original
           end
         end
       else
@@ -87,16 +87,16 @@ module MultipleSetupAndTeardown
 
         private
 
-        def inherited_with_inheritable_attributes(child)
-          inherited_without_inheritable_attributes(child) if respond_to?(:inherited_without_inheritable_attributes)
+        def inherited_with_setup_and_teardown_methods(child)
+          inherited_without_setup_and_teardown_methods(child) if respond_to?(:inherited_without_setup_and_teardown_methods, true)
           child.instance_variable_set('@setup_methods', setup_methods.dup)
           child.instance_variable_set('@teardown_methods', teardown_methods.dup)
         end
 
-        if respond_to?(:inherited)
-          alias_method :inherited_without_inheritable_attributes, :inherited
+        if respond_to?(:inherited, true)
+          alias_method :inherited_without_setup_and_teardown_methods, :inherited
         end
-        alias_method :inherited, :inherited_with_inheritable_attributes
+        alias_method :inherited, :inherited_with_setup_and_teardown_methods
 
       end
 
