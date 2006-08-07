@@ -1,13 +1,12 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
-require 'stubba_replacer'
+require 'mocha/mock'
 
 require 'stubba/object'
 
 class ObjectTest < Test::Unit::TestCase
   
-  include Stubba
   include Mocha
-  
+    
   def test_should_build_mocha
     instance = Object.new
     mocha = instance.mocha
@@ -29,29 +28,23 @@ class ObjectTest < Test::Unit::TestCase
   
   def test_should_stub_instance_method
     instance = Object.new
-    stubba = Mock.new
-    stubba.expects(:stub).with(InstanceMethod.new(instance, :method1))
-    replace_stubba(stubba) do
-      instance.expects(:method1)
-    end
-    stubba.verify(:stub)
+    $stubba = Mock.new
+    $stubba.expects(:stub).with(Stubba::InstanceMethod.new(instance, :method1))
+    instance.expects(:method1)
+    $stubba.verify(:stub)
   end 
   
   def test_should_build_and_store_expectation
     instance = Object.new
-    stubba = Mock.new(:stub => nil)
-    replace_stubba(stubba) do
-      expectation = instance.expects(:method1)
-      assert_equal [expectation], instance.mocha.expectations
-    end
+    $stubba = Mock.new(:stub => nil)
+    expectation = instance.expects(:method1)
+    assert_equal [expectation], instance.mocha.expectations
   end
   
   def test_should_verify_expectations
     instance = Object.new
-    stubba = Mock.new(:stub => nil)
-    replace_stubba(stubba) do
-      instance.expects(:method1).with(:value1, :value2)
-    end
+    $stubba = Mock.new(:stub => nil)
+    instance.expects(:method1).with(:value1, :value2)
     assert_raise(Test::Unit::AssertionFailedError) { instance.verify }
   end
   
@@ -71,56 +64,48 @@ class ObjectTest < Test::Unit::TestCase
   
   def test_should_stub_class_method
     klass = Class.new
-    stubba = Mock.new
-    stubba.expects(:stub).with(ClassMethod.new(klass, :method1))
-    replace_stubba(stubba) do
-      klass.expects(:method1)
-    end
-    stubba.verify(:stub)
+    $stubba = Mock.new
+    $stubba.expects(:stub).with(Stubba::ClassMethod.new(klass, :method1))
+    klass.expects(:method1)
+    $stubba.verify(:stub)
   end 
   
   def test_should_build_and_store_class_method_expectation
     klass = Class.new
-    stubba = Mock.new(:stub => nil)
-    replace_stubba(stubba) do
-      expectation = klass.expects(:method1)
-      assert_equal [expectation], klass.mocha.expectations
-    end
+    $stubba = Mock.new(:stub => nil)
+    expectation = klass.expects(:method1)
+    assert_equal [expectation], klass.mocha.expectations
   end
   
   def test_should_stub_module_method
     mod = Module.new
-    stubba = Mock.new
-    stubba.expects(:stub).with(ClassMethod.new(mod, :method1))
-    replace_stubba(stubba) do
-      mod.expects(:method1)
-    end
-    stubba.verify(:stub)
+    $stubba = Mock.new
+    $stubba.expects(:stub).with(Stubba::ClassMethod.new(mod, :method1))
+    mod.expects(:method1)
+    $stubba.verify(:stub)
   end
   
   def test_should_build_and_store_module_method_expectation
     mod = Module.new
-    stubba = Mock.new(:stub => nil)
-    replace_stubba(stubba) do
-      expectation = mod.expects(:method1)
-      assert_equal [expectation], mod.mocha.expectations
-    end
+    $stubba = Mock.new(:stub => nil)
+    expectation = mod.expects(:method1)
+    assert_equal [expectation], mod.mocha.expectations
   end
   
   def test_should_use_stubba_instance_method_for_object
-    assert_equal InstanceMethod, Object.new.stubba_method
+    assert_equal Stubba::InstanceMethod, Object.new.stubba_method
   end
     
   def test_should_use_stubba_class_method_for_module
-    assert_equal ClassMethod, Module.new.stubba_method
+    assert_equal Stubba::ClassMethod, Module.new.stubba_method
   end
     
   def test_should_use_stubba_class_method_for_class
-    assert_equal ClassMethod, Class.new.stubba_method
+    assert_equal Stubba::ClassMethod, Class.new.stubba_method
   end
   
   def test_should_use_stubba_class_method_for_any_instance
-    assert_equal AnyInstanceMethod, Class::AnyInstance.new(nil).stubba_method
+    assert_equal Stubba::AnyInstanceMethod, Class::AnyInstance.new(nil).stubba_method
   end
   
   def test_should_stub_self_for_object

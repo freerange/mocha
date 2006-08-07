@@ -1,6 +1,3 @@
-require 'test_helper'
-require 'stubba/test_case' # only works if loaded before any derived test cases
-
 require 'test/unit/ui/console/testrunner'
 
 require 'mocha/inspect_test'
@@ -9,89 +6,71 @@ require 'mocha/expectation_test'
 require 'mocha/infinite_range_test'
 require 'mocha/mock_methods_test'
 require 'mocha/mock_test'
+require 'mocha/auto_verify_test'
 
-class MochaUnitTests
+require 'auto_mocha/mock_class_test'
+require 'auto_mocha/auto_mock_test'
+
+require 'stubba/central_test'
+require 'stubba/class_method_test'
+require 'stubba/instance_method_test'
+require 'stubba/any_instance_method_test'
+require 'stubba/setup_and_teardown_test'
+require 'stubba/object_test'
+
+require 'multiple_setup_and_teardown_test'
+
+class UnitTests
   
   def self.suite
-    suite = Test::Unit::TestSuite.new('MochaUnitTests')
+    suite = Test::Unit::TestSuite.new('UnitTests')
     suite << InspectTest.suite
     suite << PrettyParametersTest.suite
     suite << ExpectationTest.suite
     suite << InfiniteRangeTest.suite
     suite << MockMethodsTest.suite
     suite << MockTest.suite
-    suite
-  end
-  
-end
-
-Test::Unit::UI::Console::TestRunner.run(MochaUnitTests)
-
-require 'auto_mocha/mock_class_test'
-require 'auto_mocha/auto_mock_test'
-
-class AutoMochaUnitTests
-  
-  def self.suite
-    suite = Test::Unit::TestSuite.new('AutoMochaUnitTests')
-    suite << AutoMockTest.suite
+    suite << AutoVerifyTest.suite
     suite << MockClassTest.suite
-  end
-  
-end
-
-Test::Unit::UI::Console::TestRunner.run(AutoMochaUnitTests)
-
-require 'stubba/stubba_test'
-require 'stubba/class_method_test'
-require 'stubba/instance_method_test'
-require 'stubba/any_instance_method_test'
-require 'stubba/test_case_test'
-
-class StubbaUnitTests
-  
-  def self.suite
-    suite = Test::Unit::TestSuite.new('StubbaUnitTests')
-    suite << StubbaTest.suite
+    suite << AutoMockTest.suite
+    suite << CentralTest.suite
     suite << ClassMethodTest.suite
     suite << InstanceMethodTest.suite
     suite << AnyInstanceMethodTest.suite
-    suite << TestCaseTest.suite
-    suite
-  end
-  
-end
-
-Test::Unit::UI::Console::TestRunner.run(StubbaUnitTests)
-
-require 'stubba/object_test'
-
-class IsolatedStubbaUnitTests # avoid loading stubba_object until now which breaks other stubba unit tests
-  
-  def self.suite
-    suite = Test::Unit::TestSuite.new('IsolatedStubbaUnitTests')
+    suite << SetupAndTeardownTest.suite
     suite << ObjectTest.suite
+    suite << MultipleSetupAndTeardownTest.suite
     suite
   end
   
 end
 
-Test::Unit::UI::Console::TestRunner.run(IsolatedStubbaUnitTests)
+Test::Unit::UI::Console::TestRunner.run(UnitTests)
 
 require 'stubba_integration_test'
-Test::Unit::UI::Console::TestRunner.run(StubbaIntegrationTest)
+
+class IntegrationTests
+  
+  def self.suite
+    suite = Test::Unit::TestSuite.new('IntegrationTests')
+    suite << StubbaIntegrationTest.suite
+  end
+  
+end
+
+Test::Unit::UI::Console::TestRunner.run(IntegrationTests)
 
 require 'mocha_acceptance_test'
-require 'stubba_acceptance_test'
 require 'auto_mock_acceptance_test'
+require 'stubba_acceptance_test'
 
 class AcceptanceTests
   
   def self.suite
     suite = Test::Unit::TestSuite.new('AcceptanceTests')
     suite << MochaAcceptanceTest.suite
-    suite << StubbaAcceptanceTest.suite
     suite << AutoMockAcceptanceTest.suite
+    suite << StubbaAcceptanceTest.suite
     suite
   end
   

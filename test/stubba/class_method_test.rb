@@ -7,7 +7,6 @@ require 'stubba/class_method'
 class ClassMethodTest < Test::Unit::TestCase
   
   include Stubba
-  include Mocha
 
   def test_should_provide_hidden_version_of_method_name
     method = ClassMethod.new(nil, :original_method_name)
@@ -46,7 +45,7 @@ class ClassMethodTest < Test::Unit::TestCase
   
   def test_should_define_a_new_method_which_should_call_mocha_method_missing
     klass = Class.new { def self.method_x; end }
-    mocha = Mock.new
+    mocha = Mocha::Mock.new
     klass.define_instance_method(:mocha) { mocha }
     mocha.expects(:method_x).with(:param1, :param2).returns(:result)
     method = ClassMethod.new(klass, :method_x)

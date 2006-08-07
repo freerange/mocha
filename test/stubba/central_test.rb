@@ -1,14 +1,15 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
-require 'stubba/stubba'
+
+require 'stubba/central'
 require 'mocha/mock'
 
-class StubbaTest < Test::Unit::TestCase
+class CentralTest < Test::Unit::TestCase
   
-  include Stubba
   include Mocha
+  include Stubba
   
   def test_should_start_with_empty_stubba_methods
-    stubba = Stubba.new
+    stubba = Central.new
     
     assert_equal [], stubba.stubba_methods
   end
@@ -16,7 +17,7 @@ class StubbaTest < Test::Unit::TestCase
   def test_should_stub_method_if_not_already_stubbed
     method = Mock.new
     method.expects(:stub)
-    stubba = Stubba.new
+    stubba = Central.new
     
     stubba.stub(method)
     
@@ -26,7 +27,7 @@ class StubbaTest < Test::Unit::TestCase
   def test_should_not_stub_method_if_already_stubbed
     method = Mock.new
     method.expects(:stub).times(0)
-    stubba = Stubba.new
+    stubba = Central.new
     stubba_methods = Mock.new
     stubba_methods.stubs(:include?).with(method).returns(true)
     stubba.stubba_methods = stubba_methods
@@ -39,7 +40,7 @@ class StubbaTest < Test::Unit::TestCase
   def test_should_record_method
     method = Mock.new
     method.expects(:stub)
-    stubba = Stubba.new
+    stubba = Central.new
     
     stubba.stub(method)
     
@@ -47,7 +48,7 @@ class StubbaTest < Test::Unit::TestCase
   end
   
   def test_should_unstub_all_methods
-    stubba = Stubba.new
+    stubba = Central.new
     method_1 = Mock.new(:unstub => nil)
     method_2 = Mock.new(:unstub => nil)
     stubba.stubba_methods = [method_1, method_2]

@@ -34,7 +34,8 @@ class AnyInstanceMethodTest < Test::Unit::TestCase
     method = AnyInstanceMethod.new(klass, :method_x)
     mocha = Mock.new
     mocha.expects(:method_x).with(:param1, :param2).returns(:result)
-    any_instance = Mock.new(:mocha => mocha)
+    any_instance = Object.new
+    any_instance.define_instance_method(:mocha) { mocha }
     klass.define_instance_method(:any_instance) { any_instance }
     
     method.define_new_method
@@ -99,7 +100,7 @@ class AnyInstanceMethodTest < Test::Unit::TestCase
 
   def test_should_call_reset_mocha
     klass = Class.new { def method_x; end }
-    any_instance = Mock.new(:reset_mocha => nil)
+    any_instance = Class.new { attr_accessor :mocha_was_reset; def reset_mocha; self.mocha_was_reset = true; end }.new
     klass.define_instance_method(:any_instance) { any_instance }
     method = AnyInstanceMethod.new(klass, :method_x)
     method.replace_instance_method(:remove_new_method) { }
@@ -107,7 +108,7 @@ class AnyInstanceMethodTest < Test::Unit::TestCase
     
     method.unstub
 
-    any_instance.verify(:reset_mocha)
+    assert any_instance.mocha_was_reset
   end
 
 end

@@ -35,11 +35,9 @@ class MochaAcceptanceTest < Test::Unit::TestCase
 
   end
   
-  include Mocha
-
   def test_should_move_both_tracks_forward_ten_steps
-    left_track = Mock.new
-    right_track = Mock.new
+    left_track = mock()
+    right_track = mock()
     steps_per_metre = 5
     rover = Rover.new(left_track, right_track, steps_per_metre, nil)
     
@@ -50,14 +48,11 @@ class MochaAcceptanceTest < Test::Unit::TestCase
     right_track.stubs(:moving?).returns(false)
     
     rover.forward(2)
-    
-    left_track.verify
-    right_track.verify
   end
   
   def test_should_move_both_tracks_backward_ten_steps
-    left_track = Mock.new
-    right_track = Mock.new
+    left_track = mock()
+    right_track = mock()
     steps_per_metre = 5
     rover = Rover.new(left_track, right_track, steps_per_metre, nil)
     
@@ -68,14 +63,11 @@ class MochaAcceptanceTest < Test::Unit::TestCase
     right_track.stubs(:moving?).returns(false)
     
     rover.backward(2)
-    
-    left_track.verify
-    right_track.verify
   end
   
   def test_should_move_left_track_forwards_five_steps_and_right_track_backwards_five_steps
-    left_track = Mock.new
-    right_track = Mock.new
+    left_track = mock()
+    right_track = mock()
     steps_per_degree = 5.0 / 90.0
     rover = Rover.new(left_track, right_track, nil, steps_per_degree)
     
@@ -86,14 +78,11 @@ class MochaAcceptanceTest < Test::Unit::TestCase
     right_track.stubs(:moving?).returns(false)
     
     rover.right(90)
-    
-    left_track.verify
-    right_track.verify
   end
   
   def test_should_move_left_track_backwards_five_steps_and_right_track_forwards_five_steps
-    left_track = Mock.new
-    right_track = Mock.new
+    left_track = mock()
+    right_track = mock()
     steps_per_degree = 5.0 / 90.0
     rover = Rover.new(left_track, right_track, nil, steps_per_degree)
     
@@ -104,9 +93,6 @@ class MochaAcceptanceTest < Test::Unit::TestCase
     right_track.stubs(:moving?).returns(false)
     
     rover.left(90)
-    
-    left_track.verify
-    right_track.verify
   end
   
 end

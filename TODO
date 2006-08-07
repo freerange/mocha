@@ -1,6 +1,6 @@
-- check examples in readme
 - write rdoc for most important methods/classes e.g. expectation
 - mock() method on test case to hide implementation detail of Mocha.new
+- remove mocha/stubba from call stack when assertion error raised
 - include functionality into test case using module include for more flexibility - instead of re-opening test/unit/test_case
 - improve implementation of test case setup/teardown
 - experienced problem when including a module with setup method into a TestCase derived class (something like nil.unstub_all in teardown)

@@ -1,6 +1,6 @@
 module Stubba
   
-  class Stubba
+  class Central
   
     attr_accessor :stubba_methods
   
