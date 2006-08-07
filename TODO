@@ -1,3 +1,5 @@
+- make verify method private
+- auto-verify for stubs?
 - write rdoc for most important methods/classes e.g. expectation
 - mock() method on test case to hide implementation detail of Mocha.new
 - remove mocha/stubba from call stack when assertion error raised
