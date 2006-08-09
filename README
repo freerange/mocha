@@ -2,17 +2,18 @@
 
 Mocha is a library for mocking and stubbing within tests using a syntax like that of JMock[http://www.jmock.org] and SchMock[http://rubyforge.org/projects/schmock].
 
-Mocha comes in three parts:
+Mocha comes in four parts:
 
 1. Mocha - traditional mock objects with expectations and verification
 2. Stubba - allows mocking and stubbing of methods on real (non-mock) classes
 3. AutoMocha - magically provides mocks in the place of undefined classes
+4. SmartTestCase - allows addition of multiple setup and teardown methods for a Test::Unit::TestCase
 
 Stubba and AutoMocha are the main difference between this mocking library and others like FlexMock[http://onestepback.org/software/flexmock] and RSpec[http://rspec.rubyforge.org].
 
 == Provenance
 
-Mocha and Stubba have been created by amalgamating a number of techniques developed by me (James[http:blog.floehopper.org]) and my Reevoo[http://www.reevoo.com] colleagues (Ben[http://www.reevoo.com/blogs/bengriffiths/], Chris[http://blog.seagul.co.uk] and Paul[http://po-ru.com]) into a common syntax. They are both in use on real-world Rails[http://www.rubyonrails.org] projects. AutoMocha is more experimental and is at an earlier stage of development.
+Mocha and Stubba have been created by amalgamating a number of techniques developed by me (James[http:blog.floehopper.org]) and my Reevoo[http://www.reevoo.com] colleagues (Ben[http://www.reevoo.com/blogs/bengriffiths/], Chris[http://blog.seagul.co.uk] and Paul[http://po-ru.com]) into a common syntax. They are both in use on real-world Rails[http://www.rubyonrails.org] projects. AutoMocha is more experimental and is at an earlier stage of development. SmartTestCase has been exrtacted from Mocha and Stubba to remove duplication and allow its use in isolation.
 
 == Download and Installation
 
@@ -50,14 +51,11 @@ See MochaAcceptanceTest, StubbaAcceptanceTest, AutoMochaAcceptanceTest and unit 
 
   class EnterpriseTest < Test::Unit::TestCase
 
-    include Mocha
-
     def test_should_boldly_go
-      dilithium = Mock.new
-      dilithium.expects(:nuke).with(:anti_matter).at_least_once
+      dilithium = mock()
+      dilithium.expects(:nuke).with(:anti_matter).at_least_once  # auto-verified at end of test
       enterprise = Enterprise.new(dilithium)
       enterprise.go(2)
-      dilithium.verify
     end
 
   end
@@ -148,12 +146,10 @@ See MochaAcceptanceTest, StubbaAcceptanceTest, AutoMochaAcceptanceTest and unit 
 
   class OrderTest < Test::Unit::TestCase
 
-    include Mocha
-
     # illustrates stubbing of previously undefined class Comment
     def test_should_return_accepted_comments_for_this_article
-      unaccepted_comment = Mock.new(:accepted? => false)
-      accepted_comment = Mock.new(:accepted? => true)
+      unaccepted_comment = stub(:accepted? => false)
+      accepted_comment = stub(:accepted? => true)
       comments = [unaccepted_comment, accepted_comment]
       Comment.stubs(:find_all_by_article_id).returns(comments)
       article = Article.new

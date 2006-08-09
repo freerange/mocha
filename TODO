@@ -1,22 +1,15 @@
-- make verify method private
+- make verify method private (makes this unnecessary - fail if attempt to verify stub)
 - auto-verify for stubs?
+- allow hash parameter for stubs and expects methods particularly for stubba
 - write rdoc for most important methods/classes e.g. expectation
-- mock() method on test case to hide implementation detail of Mocha.new
 - remove mocha/stubba from call stack when assertion error raised
-- include functionality into test case using module include for more flexibility - instead of re-opening test/unit/test_case
-- improve implementation of test case setup/teardown
-- experienced problem when including a module with setup method into a TestCase derived class (something like nil.unstub_all in teardown)
 - test for setting expectations on class methods (and instance methods?) from within TestCase#setup
-- test for verifying expectations from within TestCase#teardown
 - use Object#inspect(:mocha) instead of Object#mocha_inspect?
 - allow stubbing of private/protected methods?
 - should all instances share expectations for any_instance or should each instance have their own - in which case how do we provide access to the instances
-- check if mocking 'new' method is still possible
 - detect existing or added definition of mocha methods e.g. expects and alias to __expects?
-- think more about different behaviour for expects/stubs
-- auto-verify? default to on, allow switch off?
+- allow switch off of auto-verify?
 - fail if verify called with no expectations? set expectation - expects(:blah).never to ensure method not called
-- fail if attempt to verify stub??
 - maybe use blank_slate as mocha parent class to allow mocking of standard object methods?
 - more jmock style stuff - e.g. return values on consecutive calls, labels/required order, more sophisticated param matching?
 - stubs should only return a fixed value - no blocks allowed for return values and no parameter expectations allowed?
