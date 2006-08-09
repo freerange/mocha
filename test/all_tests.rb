@@ -18,7 +18,7 @@ require 'stubba/any_instance_method_test'
 require 'stubba/setup_and_teardown_test'
 require 'stubba/object_test'
 
-require 'multiple_setup_and_teardown_test'
+require 'smart_test_case/multiple_setup_and_teardown_test'
 
 class UnitTests
   

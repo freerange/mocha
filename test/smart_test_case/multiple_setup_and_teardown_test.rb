@@ -1,5 +1,5 @@
-require 'test_helper'
-require 'multiple_setup_and_teardown'
+require File.join(File.dirname(__FILE__), "..", "test_helper")
+require 'smart_test_case/multiple_setup_and_teardown'
 require 'active_record_test_case'
 
 class MultipleSetupAndTeardownTest < Test::Unit::TestCase

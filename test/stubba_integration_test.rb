@@ -1,7 +1,7 @@
 require 'test_helper'
 
 require 'stubba/object'
-require 'multiple_setup_and_teardown'
+require 'smart_test_case/multiple_setup_and_teardown'
 require 'stubba/setup_and_teardown'
 
 class StubbaIntegrationTest < Test::Unit::TestCase
