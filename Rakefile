@@ -45,7 +45,7 @@ Gem::manage_gems
 specification = Gem::Specification.new do |s|
 	s.name   = "mocha"
   s.summary = "Mocking and stubbing library"
-	s.version = "0.1.2"
+	s.version = "0.2.0"
 	s.author = 'James Mead'
 	s.description = <<-EOF
     Mocking and stubbing library with JMock/SchMock syntax, which allows mocking and stubbing of methods on real (non-mock) classes.
