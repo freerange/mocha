@@ -14,9 +14,11 @@ end
 
 desc 'Generate RDoc'
 Rake::RDocTask.new do |task|
+  task.main = 'README'
+  task.title = 'Mocha'
   task.rdoc_dir = 'doc'
-  task.options << '--title Mocha --main README --line-numbers --inline-source'
-  task.rdoc_files.include('README', 'agiledox.txt', 'lib/**/*.rb')
+  task.options << "--line-numbers" << "--inline-source"
+  task.rdoc_files.include('README', 'RELEASE', 'agiledox.txt', 'lib/**/*.rb')
 end
 
 desc "Upload RDoc to RubyForge"
@@ -25,7 +27,7 @@ task :publish_rdoc => [:rdoc] do
 end
 
 desc "Generate agiledox-like documentation for tests"
-task :agiledox do
+file 'agiledox.txt' do
   File.open('agiledox.txt', 'w') do |output|
     tests = FileList['test/**/*_test.rb']
     tests.each do |file|

@@ -6,41 +6,41 @@
 
 So instead of...
 
-wotsit = Mocha.new
-wotsit.expects(:thingummy).with(5).returns(10)
-doobrey = Doobrey.new(wotsit)
-doobrey.hoojamaflip
-wotsit.verify
+  wotsit = Mocha.new
+  wotsit.expects(:thingummy).with(5).returns(10)
+  doobrey = Doobrey.new(wotsit)
+  doobrey.hoojamaflip
+  wotsit.verify
 
 you need to do...
 
-wotsit = mock()
-wotsit.expects(:thingummy).with(5).returns(10)
-doobrey = Doobrey.new(wotsit)
-doobrey.hoojamaflip
-# no need to verify
+  wotsit = mock()
+  wotsit.expects(:thingummy).with(5).returns(10)
+  doobrey = Doobrey.new(wotsit)
+  doobrey.hoojamaflip
+  # no need to verify
 
 There are also shortcuts as follows...
 
 instead of...
 
-wotsit = Mocha.new
-wotsit.expects(:thingummy).returns(10)
-wotsit.expects(:summat).returns(25)
+  wotsit = Mocha.new
+  wotsit.expects(:thingummy).returns(10)
+  wotsit.expects(:summat).returns(25)
 
 you can have...
 
-wotsit = mock(:thingummy => 5, :summat => 25)
+  wotsit = mock(:thingummy => 5, :summat => 25)
 
 and instead of...
 
-wotsit = Mocha.new
-wotsit.stubs(:thingummy).returns(10)
-wotsit.stubs(:summat).returns(25)
+  wotsit = Mocha.new
+  wotsit.stubs(:thingummy).returns(10)
+  wotsit.stubs(:summat).returns(25)
 
 you can have...
 
-wotsit = stub(:thingummy => 5, :summat => 25)
+  wotsit = stub(:thingummy => 5, :summat => 25)
 
 = 0.1.2
 
