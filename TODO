@@ -1,7 +1,10 @@
+- rails plugin
+- include verification count in test result
+- add stub_everything method
+- think about behaviour when more than one expectation/stubbed method match
 - make respond_to? have correct behaviour for mocks (and stubs?)
 - auto-verify for stubs?
 - display number of verifications in test results
-- rails plugin
 - make verify method private (makes this unnecessary - fail if attempt to verify stub)
 - allow hash parameter for stubs and expects methods particularly for stubba
 - write rdoc for most important methods/classes e.g. expectation
