@@ -1,0 +1,1 @@
+require 'stubba' if ENV['RAILS_ENV'] == 'test'
