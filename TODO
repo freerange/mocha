@@ -1,5 +1,8 @@
-- make verify method private (makes this unnecessary - fail if attempt to verify stub)
+- make respond_to? have correct behaviour for mocks (and stubs?)
 - auto-verify for stubs?
+- display number of verifications in test results
+- rails plugin
+- make verify method private (makes this unnecessary - fail if attempt to verify stub)
 - allow hash parameter for stubs and expects methods particularly for stubba
 - write rdoc for most important methods/classes e.g. expectation
 - remove mocha/stubba from call stack when assertion error raised
