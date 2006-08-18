@@ -43,7 +43,8 @@ class SetupAndTeardownTest < Test::Unit::TestCase
 
   def test_should_unstub_all_stubbed_methods
     test_case = stubbed_test_case_class.new
-    stubba = Mock.new(:unstub_all => nil)
+    stubba = Mock.new
+    stubba.expects(:unstub_all)
     $stubba = stubba
     
     test_case.teardown_stubs
@@ -53,7 +54,8 @@ class SetupAndTeardownTest < Test::Unit::TestCase
 
   def test_should_set_stubba_to_nil
     test_case = stubbed_test_case_class.new
-    $stubba = Mock.new(:unstub_all => nil)
+    $stubba = Mock.new
+    $stubba.stubs(:unstub_all)
 
     test_case.teardown_stubs
     

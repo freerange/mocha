@@ -49,8 +49,10 @@ class CentralTest < Test::Unit::TestCase
   
   def test_should_unstub_all_methods
     stubba = Central.new
-    method_1 = Mock.new(:unstub => nil)
-    method_2 = Mock.new(:unstub => nil)
+    method_1 = Mock.new
+    method_1.expects(:unstub)
+    method_2 = Mock.new
+    method_2.expects(:unstub)
     stubba.stubba_methods = [method_1, method_2]
 
     stubba.unstub_all

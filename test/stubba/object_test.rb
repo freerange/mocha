@@ -36,14 +36,16 @@ class ObjectTest < Test::Unit::TestCase
   
   def test_should_build_and_store_expectation
     instance = Object.new
-    $stubba = Mock.new(:stub => nil)
+    $stubba = Mock.new
+    $stubba.stubs(:stub)
     expectation = instance.expects(:method1)
     assert_equal [expectation], instance.mocha.expectations
   end
   
   def test_should_verify_expectations
     instance = Object.new
-    $stubba = Mock.new(:stub => nil)
+    $stubba = Mock.new
+    $stubba.stubs(:stub)
     instance.expects(:method1).with(:value1, :value2)
     assert_raise(Test::Unit::AssertionFailedError) { instance.verify }
   end
@@ -72,7 +74,8 @@ class ObjectTest < Test::Unit::TestCase
   
   def test_should_build_and_store_class_method_expectation
     klass = Class.new
-    $stubba = Mock.new(:stub => nil)
+    $stubba = Mock.new
+    $stubba.stubs(:stub)
     expectation = klass.expects(:method1)
     assert_equal [expectation], klass.mocha.expectations
   end
@@ -87,7 +90,8 @@ class ObjectTest < Test::Unit::TestCase
   
   def test_should_build_and_store_module_method_expectation
     mod = Module.new
-    $stubba = Mock.new(:stub => nil)
+    $stubba = Mock.new
+    $stubba.stubs(:stub)
     expectation = mod.expects(:method1)
     assert_equal [expectation], mod.mocha.expectations
   end

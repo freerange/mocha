@@ -72,7 +72,8 @@ class AnyInstanceMethodTest < Test::Unit::TestCase
 
   def test_should_call_remove_new_method
     klass = Class.new { def method_x; end }
-    any_instance = Mock.new(:reset_mocha => nil)
+    any_instance = Mock.new
+    any_instance.stubs(:reset_mocha)
     klass.define_instance_method(:any_instance) { any_instance }
     method = AnyInstanceMethod.new(klass, :method_x)
     method.replace_instance_method(:restore_original_method) { }
@@ -86,7 +87,8 @@ class AnyInstanceMethodTest < Test::Unit::TestCase
 
   def test_should_call_restore_original_method
     klass = Class.new { def method_x; end }
-    any_instance = Mock.new(:reset_mocha => nil)
+    any_instance = Mock.new
+    any_instance.stubs(:reset_mocha)
     klass.define_instance_method(:any_instance) { any_instance }
     method = AnyInstanceMethod.new(klass, :method_x)
     method.replace_instance_method(:remove_new_method) { }

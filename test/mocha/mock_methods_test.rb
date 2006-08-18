@@ -134,4 +134,17 @@ class MockMethodsTest < Test::Unit::TestCase
     assert_equal parameters_for_yield, yielded_parameters
   end
   
+  def test_should_respond_to_expected_method
+    mock = Object.new
+    mock.extend(MockMethods)
+    mock.expects(:method1)
+    assert_equal true, mock.respond_to?(:method1)
+  end
+  
+  def test_should_not_respond_to_expected_method
+    mock = Object.new
+    mock.extend(MockMethods)
+    assert_equal false, mock.respond_to?(:method1)
+  end
+  
 end

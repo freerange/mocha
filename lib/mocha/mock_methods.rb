@@ -29,6 +29,10 @@ module Mocha
     		end
   		end
   	end
+  	
+  	def respond_to?(symbol)
+  	  expectations.any? { |expectation| expectation.method_name == symbol }
+	  end
 	
   	def super_method_missing(symbol, *arguments, &block)
   	  raise NoMethodError

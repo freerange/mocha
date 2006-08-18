@@ -1,5 +1,3 @@
-- rails plugin
-- include verification count in test result
 - add stub_everything method
 - think about behaviour when more than one expectation/stubbed method match
 - make respond_to? have correct behaviour for mocks (and stubs?)
