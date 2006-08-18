@@ -42,13 +42,8 @@ module Mocha
       expectations.detect { |expectation| expectation.match?(symbol, *arguments) }
     end
   
-    def expectations_matching(method_names)
-      expectations.select { |expectation| method_names.include?(expectation.method_name) }
-    end
-
-    def verify(*method_names)
-      for_verification = method_names.empty? ? expectations : expectations_matching(method_names)
-      for_verification.each { |expectation| expectation.verify }
+    def verify(&block)
+      expectations.each { |expectation| expectation.verify(&block) }
     end
   
   end

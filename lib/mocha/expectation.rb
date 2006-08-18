@@ -15,13 +15,14 @@ module Mocha
       end
     end
   
-    attr_reader :method_name
+    attr_reader :method_name, :backtrace
 
     def initialize(method_name)
       @method_name = method_name
       @count = 1
       @parameters, @parameter_block = AlwaysEqual.new, nil
       @invoked, @return_value = 0, nil
+      @backtrace = caller
     end
 
     def match?(method_name, *arguments)
@@ -73,8 +74,11 @@ module Mocha
     end
 
     def verify
+      yield(self) if block_given?
       unless (@count === @invoked) then
-        raise Test::Unit::AssertionFailedError, "#{message}: expected calls: #{@count}, actual calls: #{@invoked}"
+        failure = Test::Unit::AssertionFailedError.new("#{message}: expected calls: #{@count}, actual calls: #{@invoked}")
+        failure.set_backtrace(backtrace)
+        raise failure
       end
     end
   

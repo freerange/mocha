@@ -39,6 +39,18 @@ class AutoVerifyTest < Test::Unit::TestCase
     assert mocks.all? { |mock| mock.verify_called }
   end
   
+  def test_should_provide_block_for_adding_assertion
+    mock_class = Class.new do
+      def verify(&block); yield; end
+    end
+    mock = mock_class.new
+    test_case.replace_instance_method(:mocks)  { [mock] }
+    test_case.define_instance_accessor(:add_assertion_called)
+    test_case.define_instance_method(:add_assertion) { self.add_assertion_called = true }
+    test_case.teardown_mocks
+    assert test_case.add_assertion_called
+  end
+  
   def test_should_reset_mocks_on_teardown
     mock = Class.new { define_method(:verify) {} }.new
     test_case.mocks << mock

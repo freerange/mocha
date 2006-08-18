@@ -33,8 +33,8 @@ class Object
     mocha.stubs(symbol)
   end
   
-  def verify(*method_names)
-    mocha.verify(*method_names)
+  def verify
+    mocha.verify
   end
   
 end

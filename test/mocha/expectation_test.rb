@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'method_definer'
-
 require 'mocha/expectation'
+require 'execution_point'
 
 class ExpectationTest < Test::Unit::TestCase
   
@@ -151,6 +151,36 @@ class ExpectationTest < Test::Unit::TestCase
     assert_raise(Test::Unit::AssertionFailedError) {
       expectation.verify
     }
+  end
+  
+  def test_should_yield_self_to_block
+    expectation = Expectation.new(:expected_method)
+    expectation.invoke
+    yielded_expectation = nil
+    expectation.verify { |x| yielded_expectation = x }
+    assert_equal expectation, yielded_expectation
+  end
+  
+  def test_should_yield_to_block_before_raising_exception
+    expectation = Expectation.new(:expected_method)
+    yielded = false
+    assert_raise(Test::Unit::AssertionFailedError) {
+      expectation.verify { |x| yielded = true }
+    }
+    assert yielded
+  end
+  
+  def test_should_store_backtrace_from_point_where_expectation_was_created
+    execution_point = ExecutionPoint.current; expectation = Expectation.new(:expected_method)
+    assert_equal execution_point, ExecutionPoint.new(expectation.backtrace)
+  end
+  
+  def test_should_set_backtrace_on_assertion_failed_error_to_point_where_expectation_was_created
+    execution_point = ExecutionPoint.current; expectation = Expectation.new(:expected_method)
+    error = assert_raise(Test::Unit::AssertionFailedError) {  
+      expectation.verify
+    }
+    assert_equal execution_point, ExecutionPoint.new(error.backtrace)
   end
   
   def test_should_display_expectation_message_in_exception_message

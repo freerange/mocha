@@ -107,35 +107,21 @@ class MockMethodsTest < Test::Unit::TestCase
     end
   end
   
-  def test_should_only_verify_expectations_matching_method_name
-    mock = Object.new
-    mock.extend(MockMethods)
-    mock.expects(:method1)
-    mock.expects(:method2)
-    mock.method1
-    assert_nothing_raised(Test::Unit::AssertionFailedError) do
-      mock.verify(:method1)
-    end
-    assert_raise(Test::Unit::AssertionFailedError) do
-      mock.verify(:method2)
-    end
-  end
-  
-  def test_should_only_verify_expectations_matching_multiple_method_names
-    mock = Object.new
-    mock.extend(MockMethods)
-    mock.expects(:method1)
-    mock.expects(:method2)
-    assert_raise(Test::Unit::AssertionFailedError) do
-      mock.verify(:method1, :method2)
-    end
-  end
-  
   def test_should_report_possible_expectations
     mock = Object.new.extend(MockMethods)
     mock.expects(:meth).with(1)
     exception = assert_raise(Test::Unit::AssertionFailedError) { mock.meth(2) }
     assert_equal "Unexpected message :meth(2)\nSimilar expectations :meth(1)", exception.message
+  end
+  
+  def test_should_pass_block_through_to_expectations_verify_method
+    mock = Object.new
+    mock.extend(MockMethods)
+    expected_expectation = mock.expects(:method1)
+    mock.method1
+    expectations = []
+    mock.verify() { |expectation| expectations << expectation }
+    assert_equal [expected_expectation], expectations
   end
   
 end

@@ -31,7 +31,7 @@ class ObjectTest < Test::Unit::TestCase
     $stubba = Mock.new
     $stubba.expects(:stub).with(Stubba::InstanceMethod.new(instance, :method1))
     instance.expects(:method1)
-    $stubba.verify(:stub)
+    $stubba.verify
   end 
   
   def test_should_build_and_store_expectation
@@ -67,7 +67,7 @@ class ObjectTest < Test::Unit::TestCase
     $stubba = Mock.new
     $stubba.expects(:stub).with(Stubba::ClassMethod.new(klass, :method1))
     klass.expects(:method1)
-    $stubba.verify(:stub)
+    $stubba.verify
   end 
   
   def test_should_build_and_store_class_method_expectation
@@ -82,7 +82,7 @@ class ObjectTest < Test::Unit::TestCase
     $stubba = Mock.new
     $stubba.expects(:stub).with(Stubba::ClassMethod.new(mod, :method1))
     mod.expects(:method1)
-    $stubba.verify(:stub)
+    $stubba.verify
   end
   
   def test_should_build_and_store_module_method_expectation
