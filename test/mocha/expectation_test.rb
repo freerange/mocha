@@ -57,6 +57,14 @@ class ExpectationTest < Test::Unit::TestCase
     assert !expectation.match?(:expected_method, 1, 0, 3)
   end
   
+  def test_should_yield_with_specified_parameters
+    parameters_for_yield = [1, 2, 3]
+    expectation = Expectation.new(:expected_method).yields(*parameters_for_yield)
+    yielded_parameters = nil
+    expectation.invoke() { |*parameters| yielded_parameters  = parameters }
+    assert_equal parameters_for_yield, yielded_parameters
+  end
+
   def test_should_return_specified_value
     expectation = Expectation.new(:expected_method).returns(99)
     assert_equal 99, expectation.invoke

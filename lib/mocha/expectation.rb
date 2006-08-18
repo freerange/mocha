@@ -58,6 +58,11 @@ module Mocha
       self
     end
   
+    def yields(*parameters)
+      @parameters_to_yield = parameters
+      self
+    end
+
     def returns(value)
       @return_value = value
       self
@@ -70,6 +75,7 @@ module Mocha
 
     def invoke
       @invoked += 1
+      yield(*@parameters_to_yield) if block_given?
       @return_value.is_a?(Proc) ? @return_value.call : @return_value
     end
 

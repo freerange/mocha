@@ -124,4 +124,14 @@ class MockMethodsTest < Test::Unit::TestCase
     assert_equal [expected_expectation], expectations
   end
   
+  def test_should_yield_supplied_parameters_to_block
+    mock = Object.new
+    mock.extend(MockMethods)
+    parameters_for_yield = [1, 2, 3]
+    mock.expects(:method1).yields(*parameters_for_yield)
+    yielded_parameters = nil
+    mock.method1() { |*parameters| yielded_parameters = parameters }
+    assert_equal parameters_for_yield, yielded_parameters
+  end
+  
 end
