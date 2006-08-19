@@ -144,5 +144,13 @@ class ClassMethodTest < Test::Unit::TestCase
     
     assert klass.reset_called
   end
+  
+  def test_should_return_mock_for_stubbee
+    mocha = Object.new
+    stubbee = Object.new
+    stubbee.define_instance_accessor(:mocha) { mocha }
+    method = ClassMethod.new(stubbee, :method_name)
+    assert_equal stubbee.mocha, method.mock
+  end
 
 end

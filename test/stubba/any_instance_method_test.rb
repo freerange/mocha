@@ -113,4 +113,14 @@ class AnyInstanceMethodTest < Test::Unit::TestCase
     assert any_instance.mocha_was_reset
   end
 
+  def test_should_return_any_instance_mocha_for_stubbee
+    mocha = Object.new
+    any_instance = Object.new
+    any_instance.define_instance_method(:mocha) { mocha }
+    stubbee = Class.new
+    stubbee.define_instance_method(:any_instance) { any_instance }
+    method = AnyInstanceMethod.new(stubbee, :method_name)
+    assert_equal stubbee.any_instance.mocha, method.mock
+  end
+
 end

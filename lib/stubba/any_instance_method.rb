@@ -9,6 +9,10 @@ module Stubba
       restore_original_method
       object.any_instance.reset_mocha
     end
+    
+    def mock
+      object.any_instance.mocha
+    end
    
     def hide_original_method
       object.class_eval "alias_method :#{hidden_method}, :#{method}" if object.method_defined?(method)
