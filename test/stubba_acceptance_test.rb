@@ -35,7 +35,6 @@ class StubbaAcceptanceTest < Test::Unit::TestCase
     widget = Widget.new
     widget.expects(:model).returns('different_model')
     assert_equal 'different_model', widget.model
-    widget.verify
   end
   
   def test_should_stub_module_method
@@ -75,14 +74,12 @@ class StubbaAcceptanceTest < Test::Unit::TestCase
   def should_stub_module_method
     Thingy.expects(:wotsit).returns(:dooda)
     assert_equal :dooda, Thingy.wotsit
-    Thingy.verify
   end
   
   def should_stub_class_method
     widgets = [Widget.new]
     Widget.expects(:find).with(:all).returns(widgets)
     assert_equal widgets, Widget.find(:all)
-    Widget.verify
   end 
   
   def should_stub_two_different_class_methods
@@ -92,7 +89,6 @@ class StubbaAcceptanceTest < Test::Unit::TestCase
     Widget.expects(:create).with(:model => 'wombat').returns(created_widget)
     assert_equal found_widgets, Widget.find(:all)
     assert_equal created_widget, Widget.create(:model => 'wombat')
-    Widget.verify
   end
   
   def should_stub_instance_method_on_any_instance_of_a_class
@@ -101,7 +97,6 @@ class StubbaAcceptanceTest < Test::Unit::TestCase
     widget_2 = Widget.new
     assert_equal 'another_model', widget_1.model
     assert_equal 'another_model', widget_2.model
-    Widget.any_instance.verify
   end
 
 end
