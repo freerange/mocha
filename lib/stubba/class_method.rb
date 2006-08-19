@@ -4,10 +4,10 @@ module Stubba
 
   class ClassMethod
   
-    attr_reader :object, :method
+    attr_reader :stubbee, :method
    
-    def initialize(object, method)
-      @object, @method = object, method
+    def initialize(stubbee, method)
+      @stubbee, @method = stubbee, method
     end
   
     def stub
@@ -18,27 +18,27 @@ module Stubba
     def unstub
       remove_new_method
       restore_original_method
-      object.reset_mocha
+      stubbee.reset_mocha
     end
     
     def mock
-      object.mocha
+      stubbee.mocha
     end
   
     def hide_original_method
-      object.metaclass.class_eval "alias_method :#{hidden_method}, :#{method}" if object.metaclass.method_defined?(method)
+      stubbee.metaclass.class_eval "alias_method :#{hidden_method}, :#{method}" if stubbee.metaclass.method_defined?(method)
     end
   
     def define_new_method
-      object.metaclass.class_eval "def #{method}(*args, &block); mocha.method_missing(:#{method}, *args, &block); end"
+      stubbee.metaclass.class_eval "def #{method}(*args, &block); mocha.method_missing(:#{method}, *args, &block); end"
     end
   
     def remove_new_method
-      object.metaclass.class_eval "remove_method :#{method}"
+      stubbee.metaclass.class_eval "remove_method :#{method}"
     end
   
     def restore_original_method
-      object.metaclass.class_eval "alias_method :#{method}, :#{hidden_method}; remove_method :#{hidden_method}" if object.metaclass.method_defined?(hidden_method)
+      stubbee.metaclass.class_eval "alias_method :#{method}, :#{hidden_method}; remove_method :#{hidden_method}" if stubbee.metaclass.method_defined?(hidden_method)
     end
   
     def hidden_method
@@ -46,18 +46,18 @@ module Stubba
     end  
   
     def cannot_replace_method_error
-      Test::Unit::AssertionFailedError.new("Cannot replace #{method} because it is not defined in #{object}.")
+      Test::Unit::AssertionFailedError.new("Cannot replace #{method} because it is not defined in #{stubbee}.")
     end
   
     def eql?(other)
       return false unless (other.class == self.class)
-      (object == other.object) and (method == other.method)
+      (stubbee == other.stubbee) and (method == other.method)
     end
   
     alias_method :==, :eql?
   
     def to_s
-      "#{object}.#{method}"
+      "#{stubbee}.#{method}"
     end
 
   end

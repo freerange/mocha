@@ -14,7 +14,7 @@ module Stubba
     end
   
     def exists?
-      object.respond_to?(method)
+      stubbee.respond_to?(method)
     end
     
   end
