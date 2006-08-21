@@ -1,5 +1,6 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'mocha/mock'
+require 'method_definer'
 
 require 'stubba/object'
 
@@ -50,6 +51,34 @@ class ObjectTest < Test::Unit::TestCase
     assert_raise(Test::Unit::AssertionFailedError) { instance.verify }
   end
   
+  def test_should_pass_backtrace_into_expects
+    instance = Object.new
+    $stubba = Mock.new
+    $stubba.stubs(:stub)
+    mocha = Object.new
+    mocha.define_instance_accessor(:expects_parameters)
+    mocha.define_instance_method(:expects) { |*parameters| self.expects_parameters = parameters }
+    backtrace = Object.new
+    instance.define_instance_method(:mocha) { mocha }
+    instance.define_instance_method(:caller) { backtrace }
+    instance.expects(:method1)
+    assert_equal [:method1, backtrace], mocha.expects_parameters
+  end
+      
+  def test_should_pass_backtrace_into_stubs
+    instance = Object.new
+    $stubba = Mock.new
+    $stubba.stubs(:stub)
+    mocha = Object.new
+    mocha.define_instance_accessor(:stubs_parameters)
+    mocha.define_instance_method(:stubs) { |*parameters| self.stubs_parameters = parameters }
+    backtrace = Object.new
+    instance.define_instance_method(:mocha) { mocha }
+    instance.define_instance_method(:caller) { backtrace }
+    instance.stubs(:method1)
+    assert_equal [:method1, backtrace], mocha.stubs_parameters
+  end
+      
   def test_should_build_any_instance_object
     klass = Class.new
     any_instance = klass.any_instance
@@ -132,5 +161,5 @@ class ObjectTest < Test::Unit::TestCase
     any_instance = Class::AnyInstance.new(klass)
     assert_equal klass, any_instance.stubba_object
   end
-      
+  
 end

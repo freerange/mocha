@@ -1,19 +1,16 @@
-- add stub_everything method
+- do not automatically yield if block_given in expectation invoke 
+- make respond_to? have correct behaviour for stubba?
+- add stub_everything method?
 - think about behaviour when more than one expectation/stubbed method match
-- make respond_to? have correct behaviour for mocks (and stubs?)
-- auto-verify for stubs?
-- display number of verifications in test results
 - make verify method private (makes this unnecessary - fail if attempt to verify stub)
 - allow hash parameter for stubs and expects methods particularly for stubba
 - write rdoc for most important methods/classes e.g. expectation
-- remove mocha/stubba from call stack when assertion error raised
 - test for setting expectations on class methods (and instance methods?) from within TestCase#setup
 - use Object#inspect(:mocha) instead of Object#mocha_inspect?
 - allow stubbing of private/protected methods?
 - should all instances share expectations for any_instance or should each instance have their own - in which case how do we provide access to the instances
 - detect existing or added definition of mocha methods e.g. expects and alias to __expects?
 - allow switch off of auto-verify?
-- fail if verify called with no expectations? set expectation - expects(:blah).never to ensure method not called
 - maybe use blank_slate as mocha parent class to allow mocking of standard object methods?
 - more jmock style stuff - e.g. return values on consecutive calls, labels/required order, more sophisticated param matching?
 - stubs should only return a fixed value - no blocks allowed for return values and no parameter expectations allowed?

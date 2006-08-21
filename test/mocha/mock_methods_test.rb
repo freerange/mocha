@@ -16,6 +16,22 @@ class MockMethodsTest < Test::Unit::TestCase
     assert_equal [expectation1, expectation2].to_set, mock.expectations.to_set
   end
   
+  def test_should_pass_backtrace_into_expectation
+    mock = Object.new
+    mock.extend(MockMethods)
+    backtrace = Object.new
+    expectation = mock.expects(:method1, backtrace)
+    assert_equal backtrace, expectation.backtrace
+  end
+  
+  def test_should_pass_backtrace_into_stub
+    mock = Object.new
+    mock.extend(MockMethods)
+    backtrace = Object.new
+    stub = mock.stubs(:method1, backtrace)
+    assert_equal backtrace, stub.backtrace
+  end
+  
   def test_should_create_and_add_stubs
     mock = Object.new
     mock.extend(MockMethods)

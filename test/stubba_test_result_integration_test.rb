@@ -1,14 +1,15 @@
 require 'test_helper'
+require 'stubba/object'
 require 'smart_test_case/multiple_setup_and_teardown'
-require 'mocha/auto_verify'
+require 'stubba/setup_and_teardown'
 require 'shared/backtracefilter'
 require 'execution_point'
 
-class MochaTestResultIntegrationTest < Test::Unit::TestCase
+class StubbaTestResultIntegrationTest < Test::Unit::TestCase
 
   def test_should_include_expectation_verification_in_assertion_count
     test_result = run_test do
-      object = mock()
+      object = Class.new { def message; end }.new
       object.expects(:message)
       object.message
     end
@@ -24,7 +25,7 @@ class MochaTestResultIntegrationTest < Test::Unit::TestCase
   
   def test_should_not_include_stubbing_expectation_verification_in_assertion_count
     test_result = run_test do
-      object = mock()
+      object = Class.new { def message; end }.new
       object.stubs(:message)
       object.message
     end
@@ -33,16 +34,8 @@ class MochaTestResultIntegrationTest < Test::Unit::TestCase
   
   def test_should_include_expectation_verification_failure_in_failure_count
     test_result = run_test do
-      object = mock()
+      object = Class.new { def message; end }.new
       object.expects(:message)
-    end
-    assert_equal 1, test_result.failure_count
-  end
-  
-  def test_should_include_unexpected_verification_failure_in_failure_count
-    test_result = run_test do
-      object = mock()
-      object.message
     end
     assert_equal 1, test_result.failure_count
   end
@@ -60,21 +53,8 @@ class MochaTestResultIntegrationTest < Test::Unit::TestCase
     test_result.add_listener(Test::Unit::TestResult::FAULT, &lambda { |fault| faults << fault })
     execution_point = nil
     run_test(test_result) do
-      object = mock()
+      object = Class.new { def message; end }.new
       execution_point = ExecutionPoint.current; object.expects(:message)
-    end
-    assert_equal 1, faults.size
-    assert_equal execution_point, ExecutionPoint.new(faults.first.location)
-  end
-  
-  def test_should_display_backtrace_indicating_line_number_where_unexpected_method_was_called
-    test_result = Test::Unit::TestResult.new
-    faults = []
-    test_result.add_listener(Test::Unit::TestResult::FAULT, &lambda { |fault| faults << fault })
-    execution_point = nil
-    run_test(test_result) do
-      object = mock()
-      execution_point = ExecutionPoint.current; object.message 
     end
     assert_equal 1, faults.size
     assert_equal execution_point, ExecutionPoint.new(faults.first.location)
@@ -95,7 +75,7 @@ class MochaTestResultIntegrationTest < Test::Unit::TestCase
   def run_test(test_result = Test::Unit::TestResult.new, &block)
     test_class = Class.new(Test::Unit::TestCase) do
       include MultipleSetupAndTeardown
-      include AutoVerify
+      include SetupAndTeardown
       define_method(:test_me, &block)
     end
     test = test_class.new(:test_me)

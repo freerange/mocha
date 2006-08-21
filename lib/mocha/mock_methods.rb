@@ -7,13 +7,13 @@ module Mocha
       @expectations ||= []
     end
 
-    def expects(symbol)
-      expectations << Expectation.new(symbol)
+    def expects(symbol, backtrace = nil)
+      expectations << Expectation.new(symbol, backtrace)
       expectations.last
     end
 
-    def stubs(symbol)
-      expectations << Stub.new(symbol)
+    def stubs(symbol, backtrace = nil)
+      expectations << Stub.new(symbol, backtrace)
       expectations.last
     end
 

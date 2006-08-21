@@ -57,6 +57,17 @@ class ExpectationTest < Test::Unit::TestCase
     assert !expectation.match?(:expected_method, 1, 0, 3)
   end
   
+  def test_should_store_provided_backtrace
+    backtrace = Object.new
+    expectation = Expectation.new(:expected_method, backtrace)
+    assert_equal backtrace, expectation.backtrace
+  end
+  
+  def test_should_default_backtrace_to_caller
+    execution_point = ExecutionPoint.current; expectation = Expectation.new(:expected_method)
+    assert_equal execution_point, ExecutionPoint.new(expectation.backtrace)
+  end
+  
   def test_should_yield_with_specified_parameters
     parameters_for_yield = [1, 2, 3]
     expectation = Expectation.new(:expected_method).yields(*parameters_for_yield)

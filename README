@@ -45,9 +45,9 @@ See MochaAcceptanceTest, StubbaAcceptanceTest, AutoMochaAcceptanceTest and unit 
 
   end
 
+  require 'test/unit'
   require 'rubygems'
   require 'mocha'
-  require 'test/unit'
 
   class EnterpriseTest < Test::Unit::TestCase
 
@@ -96,9 +96,9 @@ See MochaAcceptanceTest, StubbaAcceptanceTest, AutoMochaAcceptanceTest and unit 
 
   end
 
+  require 'test/unit'
   require 'rubygems'
   require 'stubba'
-  require 'test/unit'
 
   class OrderTest < Test::Unit::TestCase
 

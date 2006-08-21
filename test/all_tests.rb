@@ -48,6 +48,7 @@ end
 Test::Unit::UI::Console::TestRunner.run(UnitTests)
 
 require 'mocha_test_result_integration_test'
+require 'stubba_test_result_integration_test'
 require 'stubba_integration_test'
 
 class IntegrationTests
@@ -55,6 +56,7 @@ class IntegrationTests
   def self.suite
     suite = Test::Unit::TestSuite.new('IntegrationTests')
     suite << MochaTestResultIntegrationTest.suite
+    suite << StubbaTestResultIntegrationTest.suite
     suite << StubbaIntegrationTest.suite
   end
   
