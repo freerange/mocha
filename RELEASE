@@ -1,3 +1,14 @@
+= 0.3.0
+
+* Rails plugin.
+* Auto-verify for expectations on concrete classes.
+* Include each expectation verification in the test result assertion count.
+* Filter out noise from assertion backtraces.
+* Point assertion backtrace to line where failing expectation was created.
+* New yields method for expectations.
+* Create stubs which stub all method calls.
+* Mocks now respond_to? expected methods.
+
 = 0.2.1
 
 * Rename MochaAcceptanceTest::Rover#move method to avoid conflict with Rake (in Ruby 1.8.4 only?)

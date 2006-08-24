@@ -20,6 +20,10 @@ Mocha and Stubba have been created by amalgamating a number of techniques develo
 You can download Mocha from here[http://rubyforge.org/projects/mocha] or install it with the following command.
 
  $ gem install mocha
+ 
+== Ruby on Rails plugin
+
+  $ script/plugin install svn://rubyforge.org/var/svn/mocha/trunk
 
 == License
 
