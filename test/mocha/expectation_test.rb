@@ -68,6 +68,20 @@ class ExpectationTest < Test::Unit::TestCase
     assert_equal execution_point, ExecutionPoint.new(expectation.backtrace)
   end
   
+  def test_should_not_yield
+    expectation = Expectation.new(:expected_method)
+    yielded = false
+    expectation.invoke() { yielded = true }
+    assert_equal false, yielded
+  end
+
+  def test_should_yield_no_parameters
+    expectation = Expectation.new(:expected_method).yields
+    yielded_parameters = nil
+    expectation.invoke() { |*parameters| yielded_parameters  = parameters }
+    assert_equal Array.new, yielded_parameters
+  end
+
   def test_should_yield_with_specified_parameters
     parameters_for_yield = [1, 2, 3]
     expectation = Expectation.new(:expected_method).yields(*parameters_for_yield)

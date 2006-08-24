@@ -14,16 +14,45 @@ class AutoVerifyTest < Test::Unit::TestCase
     end
   end
   
+  def test_should_add_mock_type_expectations
+    test_case.define_instance_accessor(:expectation_type, :expectations)
+    test_case.define_instance_method(:build_mock_with_expectations) do |expectation_type, expectations|
+      self.expectation_type = expectation_type
+      self.expectations = expectations
+    end
+    expectations = { :method1 => :value1, :method2 => :value2 }
+    
+    test_case.mock(expectations)
+    
+    assert_equal :expects, test_case.expectation_type
+    assert_equal expectations, test_case.expectations
+  end
+  
+  def test_should_add_stub_type_expectations
+    test_case.define_instance_accessor(:expectation_type, :expectations)
+    test_case.define_instance_method(:build_mock_with_expectations) do |expectation_type, expectations|
+      self.expectation_type = expectation_type
+      self.expectations = expectations
+    end
+    expectations = { :method1 => :value1, :method2 => :value2 }
+    
+    test_case.stub(expectations)
+    
+    assert_equal :stubs, test_case.expectation_type
+    assert_equal expectations, test_case.expectations
+  end
+  
   def test_should_build_mock
-    assert test_case.mock.is_a?(Mocha::Mock)
+    mock = test_case.build_mock_with_expectations
+    assert mock.is_a?(Mocha::Mock)
   end
   
   def test_should_build_new_mock_each_time
-    assert_not_equal test_case.mock, test_case.mock
+    assert_not_equal test_case.build_mock_with_expectations, test_case.build_mock_with_expectations
   end
   
   def test_should_store_each_new_mock
-    expected = Array.new(3) { test_case.mock }
+    expected = Array.new(3) { test_case.build_mock_with_expectations }
     assert_equal expected, test_case.mocks
   end
   
@@ -56,6 +85,11 @@ class AutoVerifyTest < Test::Unit::TestCase
     test_case.mocks << mock
     test_case.teardown_mocks
     assert test_case.mocks.empty?
+  end
+  
+  def test_should_stub_everything
+    mock = test_case.stub_everything
+    assert_equal true, mock.stub_everything
   end
   
 end

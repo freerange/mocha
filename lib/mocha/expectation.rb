@@ -24,6 +24,10 @@ module Mocha
       @invoked, @return_value = 0, nil
       @backtrace = backtrace || caller
     end
+    
+    def yield?
+      @yield
+    end
 
     def match?(method_name, *arguments)
       if @parameter_block then
@@ -59,6 +63,7 @@ module Mocha
     end
   
     def yields(*parameters)
+      @yield = true
       @parameters_to_yield = parameters
       self
     end
@@ -75,7 +80,7 @@ module Mocha
 
     def invoke
       @invoked += 1
-      yield(*@parameters_to_yield) if block_given?
+      yield(*@parameters_to_yield) if yield? and block_given?
       @return_value.is_a?(Proc) ? @return_value.call : @return_value
     end
 

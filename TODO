@@ -1,6 +1,3 @@
-- do not automatically yield if block_given in expectation invoke 
-- make respond_to? have correct behaviour for stubba?
-- add stub_everything method?
 - think about behaviour when more than one expectation/stubbed method match
 - make verify method private (makes this unnecessary - fail if attempt to verify stub)
 - allow hash parameter for stubs and expects methods particularly for stubba

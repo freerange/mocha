@@ -33,6 +33,16 @@ class ClassMethodTest < Test::Unit::TestCase
     assert klass.respond_to?(hidden_method_x)
   end
   
+  def test_should_respond_to_original_method_name_after_original_method_has_been_hidden
+    klass = Class.new { def self.original_method_name; end }
+    method = ClassMethod.new(klass, :original_method_name)
+    hidden_method_x = method.hidden_method
+    
+    method.hide_original_method
+
+    assert klass.respond_to?(:original_method_name)
+  end
+  
   def test_should_not_hide_original_method_if_method_not_defined
     klass = Class.new
     method = ClassMethod.new(klass, :method_x)
@@ -75,7 +85,7 @@ class ClassMethodTest < Test::Unit::TestCase
     method.restore_original_method
     
     assert_equal :original_result, klass.method_x 
-    assert !klass.respond_to?(hidden_method_x)
+    assert_equal false, klass.respond_to?(hidden_method_x)
   end
 
   def test_should_not_restore_original_method_if_hidden_method_is_not_defined

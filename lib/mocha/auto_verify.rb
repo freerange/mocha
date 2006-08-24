@@ -15,26 +15,29 @@ module AutoVerify
   end
 
   def mock(expectations = {})
-    mock = Mocha::Mock.new
-    expectations.each do |method, result|
-      mock.expects(method).returns(result)
-    end
-    mocks << mock
-    mock
+    build_mock_with_expectations(:expects, expectations)
   end
   
   def stub(expectations = {})
-    mock = Mocha::Mock.new
-    expectations.each do |method, result|
-      mock.stubs(method).returns(result)
-    end
-    mocks << mock
-    mock
+    build_mock_with_expectations(:stubs, expectations)
+  end
+  
+  def stub_everything
+    Mocha::Mock.new(stub_everything = true)
   end
 
   def teardown_mocks
     mocks.each { |mock| mock.verify { add_assertion } }
     reset_mocks
+  end
+  
+  def build_mock_with_expectations(expectation_type = :expects, expectations = {})
+    mock = Mocha::Mock.new
+    expectations.each do |method, result|
+      mock.send(expectation_type, method).returns(result)
+    end
+    mocks << mock
+    mock
   end
   
 end

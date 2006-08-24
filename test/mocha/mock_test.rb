@@ -24,4 +24,14 @@ class MockTest < Test::Unit::TestCase
    assert_equal [expectation], mock.expectations
   end
   
+  def test_should_not_stub_everything_by_default
+    mock = Mock.new
+    assert_equal false, mock.stub_everything
+  end
+  
+  def test_should_stub_everything
+    mock = Mock.new(stub_everything = true)
+    assert_equal true, mock.stub_everything
+  end
+  
 end

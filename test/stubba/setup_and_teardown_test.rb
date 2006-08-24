@@ -55,14 +55,13 @@ class SetupAndTeardownTest < Test::Unit::TestCase
 
   def test_should_pass_block_to_add_assertion_to_test_case
     test_case = stubbed_test_case_class.new
-    stubba = Mock.new
-    stubba.stubs(:verify_all)
-    stubba.stubs(:unstub_all)
-    $stubba = stubba
+    $stubba = Mock.new
+    $stubba.stubs(:verify_all).yields
+    $stubba.stubs(:unstub_all)
     
     test_case.teardown_stubs
     
-    assert test_case.add_assertion_called 
+    assert_equal true, test_case.add_assertion_called 
   end
 
   def test_should_unstub_all_stubbed_methods
