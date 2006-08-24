@@ -42,9 +42,48 @@ class AutoVerifyTest < Test::Unit::TestCase
     assert_equal expectations, test_case.expectations
   end
   
+  def test_should_add_greedy_stub_type_expectations
+    test_case.define_instance_accessor(:expectation_type, :expectations)
+    test_case.define_instance_method(:build_mock_with_expectations) do |expectation_type, expectations|
+      self.expectation_type = expectation_type
+      self.expectations = expectations
+    end
+    expectations = { :method1 => :value1, :method2 => :value2 }
+    
+    test_case.stub_everything(expectations)
+    
+    assert_equal :stub_everything, test_case.expectation_type
+    assert_equal expectations, test_case.expectations
+  end
+  
   def test_should_build_mock
     mock = test_case.build_mock_with_expectations
     assert mock.is_a?(Mocha::Mock)
+  end
+  
+  def test_should_add_expectation_to_mock
+    mock = test_case.build_mock_with_expectations(:expects, :expected_method => 'return_value')
+    assert_equal 'return_value', mock.expected_method
+  end
+  
+  def test_should_build_stub
+    stub = test_case.build_mock_with_expectations(:stubs)
+    assert stub.is_a?(Mocha::Mock)
+  end
+  
+  def test_should_add_expectation_to_stub
+    stub = test_case.build_mock_with_expectations(:stubs, :stubbed_method => 'return_value')
+    assert_equal 'return_value', stub.stubbed_method
+  end
+  
+  def test_should_build_greedy_stub
+    greedy_stub = test_case.build_mock_with_expectations(:stub_everything)
+    assert greedy_stub.stub_everything
+  end
+  
+  def test_should_add_expectations_to_greedy_stub
+    greedy_mock = test_case.build_mock_with_expectations(:stub_everything, :stubbed_method => 'return_value')
+    assert_equal 'return_value', greedy_mock.stubbed_method
   end
   
   def test_should_build_new_mock_each_time
@@ -90,6 +129,21 @@ class AutoVerifyTest < Test::Unit::TestCase
   def test_should_stub_everything
     mock = test_case.stub_everything
     assert_equal true, mock.stub_everything
+  end
+  
+  def test_should_add_mock_to_mocks
+    mock = test_case.mock
+    assert_equal [mock], test_case.mocks
+  end
+  
+  def test_should_add_stub_to_mocks
+    stub = test_case.stub
+    assert_equal [stub], test_case.mocks
+  end
+  
+  def test_should_add_greedy_stub_to_mocks
+    greedy_stub = test_case.stub_everything
+    assert_equal [greedy_stub], test_case.mocks
   end
   
 end

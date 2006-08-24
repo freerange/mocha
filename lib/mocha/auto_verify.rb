@@ -22,8 +22,8 @@ module AutoVerify
     build_mock_with_expectations(:stubs, expectations)
   end
   
-  def stub_everything
-    Mocha::Mock.new(stub_everything = true)
+  def stub_everything(expectations = {})
+    build_mock_with_expectations(:stub_everything, expectations)
   end
 
   def teardown_mocks
@@ -32,7 +32,9 @@ module AutoVerify
   end
   
   def build_mock_with_expectations(expectation_type = :expects, expectations = {})
-    mock = Mocha::Mock.new
+    stub_everything = (expectation_type == :stub_everything)
+    expectation_type = :stubs if expectation_type == :stub_everything
+    mock = Mocha::Mock.new(stub_everything)
     expectations.each do |method, result|
       mock.send(expectation_type, method).returns(result)
     end
