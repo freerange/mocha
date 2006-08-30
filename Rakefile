@@ -18,7 +18,7 @@ Rake::RDocTask.new do |task|
   task.title = 'Mocha'
   task.rdoc_dir = 'doc'
   task.options << "--line-numbers" << "--inline-source"
-  task.rdoc_files.include('README', 'RELEASE', 'agiledox.txt', 'lib/**/*.rb')
+  task.rdoc_files.include('README', 'RELEASE', 'COPYING', 'MIT-LICENSE', 'agiledox.txt', 'lib/**/*.rb')
 end
 
 desc "Upload RDoc to RubyForge"
@@ -47,7 +47,7 @@ Gem::manage_gems
 specification = Gem::Specification.new do |s|
 	s.name   = "mocha"
   s.summary = "Mocking and stubbing library"
-	s.version = "0.3.0"
+	s.version = "0.3.1"
 	s.author = 'James Mead'
 	s.description = <<-EOF
     Mocking and stubbing library with JMock/SchMock syntax, which allows mocking and stubbing of methods on real (non-mock) classes.

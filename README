@@ -29,7 +29,7 @@ You can download Mocha from here[http://rubyforge.org/projects/mocha] or install
 
 Copyright Revieworld Ltd. 2006
  	
-You may use, copy and redistribute this library under the same terms as Ruby itself (see http://www.ruby-lang.org/en/LICENSE.txt).
+You may use, copy and redistribute this library under the same terms as Ruby itself (see http://www.ruby-lang.org/en/LICENSE.txt) or under the MIT license (see http://mocha.rubyforge.org/files/MIT-LICENSE.html).
 
 == Examples
 
