@@ -1,5 +1,6 @@
 - remove auto_mocha and put it in its own rubyforge project
 - provide some means to un-stubba an object - ideally should restore any methods with same names as stubba methods c.f. dealing with expectations for methods called :expects, :stubs, etc.
+- automate releases cf rspec
 - on_consecutive_calls functionality
 - think about behaviour when more than one expectation/stubbed method match
 - make verify method private (makes this unnecessary - fail if attempt to verify stub)
