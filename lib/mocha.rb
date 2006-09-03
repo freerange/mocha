@@ -3,5 +3,5 @@ require 'mocha/auto_verify'
 require 'shared/backtracefilter'
 
 class Test::Unit::TestCase
-  include AutoVerify unless ancestors.include?(AutoVerify)
+  include Mocha::AutoVerify unless ancestors.include?(Mocha::AutoVerify)
 end

@@ -10,7 +10,7 @@ class AutoVerifyTest < Test::Unit::TestCase
     @test_case = Object.new
     class << test_case
       def self.add_teardown_method(symbol); end
-      include AutoVerify
+      include Mocha::AutoVerify
     end
   end
   

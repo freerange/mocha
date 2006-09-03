@@ -2,6 +2,7 @@ require 'rubygems'
 require 'rake/rdoctask'
 require 'rake/gempackagetask'
 require 'rake/contrib/sshpublisher'
+require 'coderay'
 
 desc "Default task is currently to run all tests"
 task :default => :test_all
@@ -17,12 +18,13 @@ Rake::RDocTask.new do |task|
   task.main = 'README'
   task.title = 'Mocha'
   task.rdoc_dir = 'doc'
+  task.template = "html_with_google_analytics"
   task.options << "--line-numbers" << "--inline-source"
-  task.rdoc_files.include('README', 'RELEASE', 'COPYING', 'MIT-LICENSE', 'agiledox.txt', 'lib/**/*.rb')
+  task.rdoc_files.include('README', 'RELEASE', 'COPYING', 'MIT-LICENSE', 'agiledox.txt', 'lib/mocha/auto_verify.rb', 'lib/mocha/mock_methods.rb', 'lib/mocha/expectation.rb', 'lib/stubba/object.rb')
 end
 
 desc "Upload RDoc to RubyForge"
-task :publish_rdoc => [:rdoc] do
+task :publish_rdoc => [:rdoc, :examples] do
   Rake::SshDirPublisher.new("jamesmead@rubyforge.org", "/var/www/gforge-projects/mocha", "doc").upload
 end
 
@@ -38,6 +40,26 @@ file 'agiledox.txt' do
         m = %r"test_(should_)?(.*)".match(definition)
         output << " - "+m[2].gsub(/_/," ") << "\n"
       end
+    end
+  end
+end
+
+desc "Convert example ruby files to syntax-highlighted html"
+task :examples do
+  mkdir_p 'doc/examples'
+  File.open('doc/examples/coderay.css', 'w') do |output|
+    output << CodeRay::Encoders[:html]::CSS.new.stylesheet
+  end
+  ['mocha', 'stubba', 'misc'].each do |filename|
+    File.open("doc/examples/#{filename}.html", 'w') do |file|
+      file << "<html>"
+      file << "<head>"
+      file << %q(<link rel="stylesheet" media="screen" href="coderay.css" type="text/css">)
+      file << "</head>"
+      file << "<body>"
+      file << CodeRay.scan_file("examples/#{filename}.rb").html.div
+      file << "</body>"
+      file << "</html>"
     end
   end
 end

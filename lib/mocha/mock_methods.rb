@@ -1,7 +1,11 @@
 require 'mocha/expectation'
 
 module Mocha
+  # Methods added to mock objects.
+  # These methods all return an expectation which can be further modified by methods on Mocha::Expectation.
   module MockMethods
+    
+    # :stopdoc:
     
     attr_reader :stub_everything
   
@@ -9,16 +13,26 @@ module Mocha
       @expectations ||= []
     end
 
+    # :startdoc:
+
+    # :call-seq: expects(symbol) -> expectation
+    #
+    # Adds an expectation that a method identified by +symbol+ must be called exactly once with any parameters.
     def expects(symbol, backtrace = nil)
       expectations << Expectation.new(symbol, backtrace)
       expectations.last
     end
 
+    # :call-seq: stubs(symbol) -> expectation
+    #
+    # Adds an expectation that a method identified by +symbol+ may be called any number of times with any parameters.
     def stubs(symbol, backtrace = nil)
       expectations << Stub.new(symbol, backtrace)
       expectations.last
     end
     
+    # :stopdoc:
+
     def method_missing(symbol, *arguments, &block)
       matching_expectation = matching_expectation(symbol, *arguments)
       if matching_expectation then
@@ -50,6 +64,12 @@ module Mocha
       expectations.detect { |expectation| expectation.match?(symbol, *arguments) }
     end
   
+    # :startdoc:
+
+    # :call-seq: verify
+    # 
+    # Asserts that all expectations have been fulfilled.
+    # Called automatically at the end of a test for mock objects created by methods in Mocha::AutoVerify.
     def verify(&block)
       expectations.each { |expectation| expectation.verify(&block) }
     end

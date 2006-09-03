@@ -1,164 +1,35 @@
 = Mocha
 
-Mocha is a library for mocking and stubbing within tests using a syntax like that of JMock[http://www.jmock.org] and SchMock[http://rubyforge.org/projects/schmock].
+Mocha is a library for mocking and stubbing within a TestCase[http://www.ruby-doc.org/core/classes/Test/Unit.html] using a syntax like that of JMock[http://www.jmock.org], and SchMock[http://rubyforge.org/projects/schmock].
 
-Mocha comes in four parts:
+One of its main advantages is that it allows you to mock and stub methods on _real_ (non-mock) classes and instances. You can for example stub ActiveRecord[http://api.rubyonrails.com/classes/ActiveRecord/Base.html] instance methods like +create+, +save+, +destroy+ and even class methods like +find+ to avoid hitting the database in unit tests. This is a feature that is not currently offered by other Ruby[http://www.ruby-doc.org/] mocking libraries like FlexMock[http://onestepback.org/software/flexmock] and RSpec[http://rspec.rubyforge.org].
 
-1. Mocha - traditional mock objects with expectations and verification
-2. Stubba - allows mocking and stubbing of methods on real (non-mock) classes
-3. AutoMocha - magically provides mocks in the place of undefined classes
-4. SmartTestCase - allows addition of multiple setup and teardown methods for a Test::Unit::TestCase
+Mocha provides a unified, simple and readable syntax for both traditional mocking and for mocking with non-mock objects.
 
-Stubba and AutoMocha are the main difference between this mocking library and others like FlexMock[http://onestepback.org/software/flexmock] and RSpec[http://rspec.rubyforge.org].
-
-== Provenance
-
-Mocha and Stubba have been created by amalgamating a number of techniques developed by me (James[http:blog.floehopper.org]) and my Reevoo[http://www.reevoo.com] colleagues (Ben[http://www.reevoo.com/blogs/bengriffiths/], Chris[http://blog.seagul.co.uk] and Paul[http://po-ru.com]) into a common syntax. They are both in use on real-world Rails[http://www.rubyonrails.org] projects. AutoMocha is more experimental and is at an earlier stage of development. SmartTestCase has been exrtacted from Mocha and Stubba to remove duplication and allow its use in isolation.
+Mocha has been harvested from projects at Reevoo[http://www.reevoo.com] by me (James[http:blog.floehopper.org]) and my colleagues Ben[http://www.reevoo.com/blogs/bengriffiths/], Chris[http://blog.seagul.co.uk] and Paul[http://po-ru.com]. Mocha is in use on real-world Rails[http://www.rubyonrails.org] projects.
 
 == Download and Installation
 
-You can download Mocha from here[http://rubyforge.org/projects/mocha] or install it with the following command.
+Install the gem with the following command...
 
- $ gem install mocha
+  $ gem install mocha
  
-== Ruby on Rails plugin
+Or install the Rails[http://www.rubyonrails.org] plugin...
 
   $ script/plugin install svn://rubyforge.org/var/svn/mocha/trunk
+
+Or download Mocha from here - http://rubyforge.org/projects/mocha
+
+== Examples
+
+* Quick Start - {Usage Examples}[link:examples/misc.html]
+* Traditional mocking - {Star Trek Example}[link:examples/mocha.html]
+* Setting expectations on real classes - {Order Example}[link:examples/stubba.html]
+* More examples on {Floehopper's Blog}[http://blog.floehopper.org]
+* {Mailing List Archives}[http://rubyforge.org/pipermail/mocha-developer/]
 
 == License
 
 Copyright Revieworld Ltd. 2006
  	
-You may use, copy and redistribute this library under the same terms as Ruby itself (see http://www.ruby-lang.org/en/LICENSE.txt) or under the MIT license (see http://mocha.rubyforge.org/files/MIT-LICENSE.html).
-
-== Examples
-
-See MochaAcceptanceTest, StubbaAcceptanceTest, AutoMochaAcceptanceTest and unit tests for more examples.
-
-=== Mocha Example
-
-  class Enterprise
-
-    def initialize(dilithium)
-      @dilithium = dilithium
-    end
-
-    def go(warp_factor)
-      warp_factor.times { @dilithium.nuke(:anti_matter) }
-    end
-
-  end
-
-  require 'test/unit'
-  require 'rubygems'
-  require 'mocha'
-
-  class EnterpriseTest < Test::Unit::TestCase
-
-    def test_should_boldly_go
-      dilithium = mock()
-      dilithium.expects(:nuke).with(:anti_matter).at_least_once  # auto-verified at end of test
-      enterprise = Enterprise.new(dilithium)
-      enterprise.go(2)
-    end
-
-  end
-
-=== Stubba Example
-
-  class Order
-  
-    attr_accessor :shipped_on
-  
-    def total_cost
-      line_items.inject(0) { |total, line_item| total + line_item.price } + shipping_cost
-    end
-
-    def total_weight
-      line_items.inject(0) { |total, line_item| total + line_item.weight }
-    end
-
-    def shipping_cost
-      total_weight * 5 + 10
-    end
-
-    class << self
-
-      def find_all
-        # Database.connection.execute('select * from orders...
-      end
-    
-      def number_shipped_since(date)
-        find_all.select { |order| order.shipped_on > date }.size
-      end
-
-      def unshipped_value
-        find_all.inject(0) { |total, order| order.shipped_on ? total : total + order.total_cost }
-      end
-
-    end
-
-  end
-
-  require 'test/unit'
-  require 'rubygems'
-  require 'stubba'
-
-  class OrderTest < Test::Unit::TestCase
-
-    # illustrates stubbing instance method
-    def test_should_calculate_shipping_cost_based_on_total_weight
-      order = Order.new
-      order.stubs(:total_weight).returns(10)
-      assert_equal 60, order.shipping_cost
-    end
-
-    # illustrates stubbing class method
-    def test_should_count_number_of_orders_shipped_after_specified_date
-      now = Time.now; week_in_secs = 7 * 24 * 60 * 60
-      order_1 = Order.new; order_1.shipped_on = now - 1 * week_in_secs
-      order_2 = Order.new; order_2.shipped_on = now - 3 * week_in_secs
-      Order.stubs(:find_all).returns([order_1, order_2])
-      assert_equal 1, Order.number_shipped_since(now - 2 * week_in_secs)
-    end
-
-    # illustrates stubbing instance method for all instances of a class
-    def test_should_calculate_value_of_unshipped_orders
-      Order.stubs(:find_all).returns([Order.new, Order.new, Order.new])
-      Order.any_instance.stubs(:shipped_on).returns(nil)
-      Order.any_instance.stubs(:total_cost).returns(10)
-      assert_equal 30, Order.unshipped_value
-    end
-
-  end
-
-=== AutoMocha Example
-  
-  class Article
-  
-    attr_reader :id
-
-    def accepted_comments
-      Comment.find_all_by_article_id(self.id).select { |comment| comment.accepted? }
-    end
-
-  end
-
-  require 'rubygems'
-  require 'auto_mocha'
-  require 'test/unit'
-
-  class OrderTest < Test::Unit::TestCase
-
-    # illustrates stubbing of previously undefined class Comment
-    def test_should_return_accepted_comments_for_this_article
-      unaccepted_comment = stub(:accepted? => false)
-      accepted_comment = stub(:accepted? => true)
-      comments = [unaccepted_comment, accepted_comment]
-      Comment.stubs(:find_all_by_article_id).returns(comments)
-      article = Article.new
-      assert_equal [accepted_comment], article.accepted_comments
-    end
-
-  end
-
+You may use, copy and redistribute this library under the same terms as {Ruby itself}[http://www.ruby-lang.org/en/LICENSE.txt] or under the {MIT license}[http://mocha.rubyforge.org/files/MIT-LICENSE.html].

@@ -11,7 +11,7 @@ class StubbaIntegrationTest < Test::Unit::TestCase
       :original_return_value
     end
   end
-
+  
   def test_should_stub_class_method_within_test
     test_class = Class.new(Test::Unit::TestCase) do
       include MultipleSetupAndTeardown
