@@ -34,4 +34,14 @@ class MockTest < Test::Unit::TestCase
     assert_equal true, mock.stub_everything
   end
   
+  def test_should_use_default_inspect_message
+    mock = Mock.new
+    assert_equal mock.mocha_inspect_before_hijacked_by_named_mocks, mock.mocha_inspect
+  end
+  
+  def test_should_give_name_in_inspect_message
+    mock = Mock.new(false, 'named_mock')
+    assert_equal "#<Mock: 'named_mock'>", mock.mocha_inspect
+  end
+  
 end

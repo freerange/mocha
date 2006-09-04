@@ -138,7 +138,7 @@ class MockMethodsTest < Test::Unit::TestCase
     mock = Object.new.extend(MockMethods)
     mock.expects(:meth).with(1)
     exception = assert_raise(Test::Unit::AssertionFailedError) { mock.meth(2) }
-    assert_equal "Unexpected message :meth(2)\nSimilar expectations :meth(1)", exception.message
+    assert_equal "Unexpected message :meth(2) sent to #{mock.mocha_inspect}\nSimilar expectations :meth(1)", exception.message
   end
   
   def test_should_pass_block_through_to_expectations_verify_method

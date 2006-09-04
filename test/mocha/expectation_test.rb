@@ -252,28 +252,30 @@ class ExpectationSimilarExpectationsTest < Test::Unit::TestCase
   attr_reader :expectation
   def setup
     @expectation = Expectation.new(:meth).with(2)
+    @mock = Object.new
   end
   
   def test_should_find_expectations_to_the_same_method
-    failed_expectation = MissingExpectation.new(:meth, [expectation]).with(1)
+    failed_expectation = MissingExpectation.new(:meth, @mock, [expectation]).with(1)
     assert_equal [expectation], failed_expectation.similar_expectations
   end
   
   def test_should_report_similar_expectations
-    missing_expectation = MissingExpectation.new(:meth, [expectation]).with(1)
+    missing_expectation = MissingExpectation.new(:meth, @mock, [expectation]).with(1)
     exception = assert_raise(Test::Unit::AssertionFailedError) { missing_expectation.verify }
-    assert_equal "Unexpected message :meth(1)\nSimilar expectations :meth(2)", exception.message
+    assert_equal "Unexpected message :meth(1) sent to #{@mock.mocha_inspect}\nSimilar expectations :meth(2)", exception.message
   end
   
   def test_should_ignore_expectations_to_different_methods
-    failed_expectation = MissingExpectation.new(:other_meth, [expectation]).with(1)
+    failed_expectation = MissingExpectation.new(:other_meth, @mock, [expectation]).with(1)
     assert failed_expectation.similar_expectations.empty?
   end
   
   def test_should_not_report_similar_expectations
-    missing_expectation = MissingExpectation.new(:other_meth, [expectation]).with(1)
+    missing_expectation = MissingExpectation.new(:other_meth, @mock, [expectation]).with(1)
     exception = assert_raise(Test::Unit::AssertionFailedError) { missing_expectation.verify }
-    assert_equal "Unexpected message :other_meth(1)", exception.message
+    assert_equal "Unexpected message :other_meth(1) sent to #{@mock.mocha_inspect}", exception.message
+    p exception.message
   end
   
 end

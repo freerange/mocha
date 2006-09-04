@@ -2,7 +2,7 @@ require 'rubygems'
 require 'rake/rdoctask'
 require 'rake/gempackagetask'
 require 'rake/contrib/sshpublisher'
-require 'coderay'
+require 'coderay' if ENV['CODERAY']
 
 desc "Default task is currently to run all tests"
 task :default => :test_all
