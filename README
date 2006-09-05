@@ -6,7 +6,7 @@ One of its main advantages is that it allows you to mock and stub methods on _re
 
 Mocha provides a unified, simple and readable syntax for both traditional mocking and for mocking with non-mock objects.
 
-Mocha has been harvested from projects at Reevoo[http://www.reevoo.com] by me (James[http:blog.floehopper.org]) and my colleagues Ben[http://www.reevoo.com/blogs/bengriffiths/], Chris[http://blog.seagul.co.uk] and Paul[http://po-ru.com]. Mocha is in use on real-world Rails[http://www.rubyonrails.org] projects.
+Mocha has been harvested from projects at Reevoo[http://www.reevoo.com] by me (James[http://blog.floehopper.org]) and my colleagues Ben[http://www.reevoo.com/blogs/bengriffiths/], Chris[http://blog.seagul.co.uk] and Paul[http://po-ru.com]. Mocha is in use on real-world Rails[http://www.rubyonrails.org] projects.
 
 == Download and Installation
 
