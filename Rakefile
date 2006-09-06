@@ -2,7 +2,10 @@ require 'rubygems'
 require 'rake/rdoctask'
 require 'rake/gempackagetask'
 require 'rake/contrib/sshpublisher'
-require 'coderay' if ENV['CODERAY']
+
+module Mocha
+  VERSION = "0.3.2"
+end
 
 desc "Default task is currently to run all tests"
 task :default => :test_all
@@ -22,6 +25,7 @@ Rake::RDocTask.new do |task|
   task.options << "--line-numbers" << "--inline-source"
   task.rdoc_files.include('README', 'RELEASE', 'COPYING', 'MIT-LICENSE', 'agiledox.txt', 'lib/mocha/auto_verify.rb', 'lib/mocha/mock_methods.rb', 'lib/mocha/expectation.rb', 'lib/stubba/object.rb')
 end
+task :rdoc => :examples
 
 desc "Upload RDoc to RubyForge"
 task :publish_rdoc => [:rdoc, :examples] do
@@ -46,6 +50,7 @@ end
 
 desc "Convert example ruby files to syntax-highlighted html"
 task :examples do
+  require 'coderay'
   mkdir_p 'doc/examples'
   File.open('doc/examples/coderay.css', 'w') do |output|
     output << CodeRay::Encoders[:html]::CSS.new.stylesheet
@@ -69,7 +74,7 @@ Gem::manage_gems
 specification = Gem::Specification.new do |s|
 	s.name   = "mocha"
   s.summary = "Mocking and stubbing library"
-	s.version = "0.3.1"
+	s.version = Mocha::VERSION
 	s.author = 'James Mead'
 	s.description = <<-EOF
     Mocking and stubbing library with JMock/SchMock syntax, which allows mocking and stubbing of methods on real (non-mock) classes.
@@ -83,11 +88,39 @@ specification = Gem::Specification.new do |s|
   s.rdoc_options << '--title' << 'Mocha' << '--main' << 'README' << '--line-numbers'
                          
   s.autorequire = 'mocha'
-  s.files = FileList['{lib,test}/**/*.rb', '[A-Z]*'].to_a
+  s.files = FileList['{lib,test}/**/*.rb', '[A-Z]*'].exclude('TODO').to_a
 	s.test_file = "test/all_tests.rb"
 end
 
 Rake::GemPackageTask.new(specification) do |package|
 	 package.need_zip = true
 	 package.need_tar = true
+end
+
+task :verify_user do
+  raise "RUBYFORGE_USER environment variable not set!" unless ENV['RUBYFORGE_USER']
+end
+
+task :verify_password do
+  raise "RUBYFORGE_PASSWORD environment variable not set!" unless ENV['RUBYFORGE_PASSWORD']
+end
+
+desc "Publish package files on RubyForge."
+task :publish_packages => [:verify_user, :verify_password, :package] do
+  require 'meta_project'
+  require 'rake/contrib/xforge'
+  release_files = FileList[
+    "pkg/mocha-#{Mocha::VERSION}.gem",
+    "pkg/mocha-#{Mocha::VERSION}.tgz",
+    "pkg/mocha-#{Mocha::VERSION}.zip"
+  ]
+
+  Rake::XForge::Release.new(MetaProject::Project::XForge::RubyForge.new('mocha')) do |release|
+    release.user_name = ENV['RUBYFORGE_USER']
+    release.password = ENV['RUBYFORGE_PASSWORD']
+    release.files = release_files.to_a
+    release.release_name = "Mocha #{Mocha::VERSION}"
+    release.release_changes = ''
+    release.release_notes = ''
+  end
 end

@@ -1,3 +1,4 @@
+- use real activerecord as svn external to for testing instead of active_record_test_case
 - accept string method names as well as symbols?
 - provide some means to un-stubba an object - ideally should restore any methods with same names as stubba methods c.f. dealing with expectations for methods called :expects, :stubs, etc.
 - automate releases cf rspec
