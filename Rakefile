@@ -73,7 +73,6 @@ specification = Gem::Specification.new do |s|
 	s.author = 'James Mead'
 	s.description = <<-EOF
     Mocking and stubbing library with JMock/SchMock syntax, which allows mocking and stubbing of methods on real (non-mock) classes.
-    Includes auto-mocking which magically provides mocks for undefined classes, facilitating unit tests with no external dependencies.
   EOF
 	s.email = 'mocha-developer@rubyforge.org'
   s.homepage = 'http://mocha.rubyforge.org'
