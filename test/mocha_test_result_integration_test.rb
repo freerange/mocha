@@ -94,7 +94,7 @@ class MochaTestResultIntegrationTest < Test::Unit::TestCase
   
   def run_test(test_result = Test::Unit::TestResult.new, &block)
     test_class = Class.new(Test::Unit::TestCase) do
-      include MultipleSetupAndTeardown
+      include SmartTestCase::MultipleSetupAndTeardown
       include Mocha::AutoVerify
       define_method(:test_me, &block)
     end

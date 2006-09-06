@@ -4,5 +4,5 @@ require 'stubba/setup_and_teardown'
 require 'shared/backtracefilter'
 
 class Test::Unit::TestCase
-  include SetupAndTeardown unless ancestors.include?(SetupAndTeardown)
+  include Stubba::SetupAndTeardown unless ancestors.include?(Stubba::SetupAndTeardown)
 end
