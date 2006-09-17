@@ -13,15 +13,12 @@ module Mocha
       def ==(other)
         true
       end
-      def to_s
-        "** any **"
-      end
     end
   
     attr_reader :method_name, :backtrace
 
-    def initialize(method_name, backtrace = nil)
-      @method_name = method_name
+    def initialize(mock, method_name, backtrace = nil)
+      @mock, @method_name = mock, method_name
       @count = 1
       @parameters, @parameter_block = AlwaysEqual.new, nil
       @invoked, @return_value = 0, nil
@@ -79,11 +76,12 @@ module Mocha
     #   object.expected_method # => verify succeeds
     def never
       times(0)
+      self
     end
   
-    # :call-seq: at_least(minimum) -> expectation
+    # :call-seq: at_least(minimum_number_of_times) -> expectation
     #
-    # Modifies expectation so that the expected method must be called at least a +minimum+ number of times.
+    # Modifies expectation so that the expected method must be called at least a +minimum_number_of_times+.
     #   object = mock()
     #   object.expects(:expected_method).at_least(2)
     #   3.times { object.expected_method } # => verify succeeds
@@ -91,8 +89,8 @@ module Mocha
     #   object = mock()
     #   object.expects(:expected_method).at_least(2)
     #   object.expected_method # => verify fails
-    def at_least(minimum)
-      times(Range.at_least(minimum))
+    def at_least(minimum_number_of_times)
+      times(Range.at_least(minimum_number_of_times))
       self
     end
   
@@ -108,6 +106,36 @@ module Mocha
     #   # => verify fails
     def at_least_once()
       at_least(1)
+      self
+    end
+  
+    # :call-seq: at_most(maximum_number_of_times) -> expectation
+    #
+    # Modifies expectation so that the expected method must be called at most a +maximum_number_of_times+.
+    #   object = mock()
+    #   object.expects(:expected_method).at_most(2)
+    #   2.times { object.expected_method } # => verify succeeds
+    #
+    #   object = mock()
+    #   object.expects(:expected_method).at_most(2)
+    #   3.times { object.expected_method } # => verify fails
+    def at_most(maximum_number_of_times)
+      times(Range.at_most(maximum_number_of_times))
+      self
+    end
+  
+    # :call-seq: at_most_once() -> expectation
+    #
+    # Modifies expectation so that the expected method must be called at most once.
+    #   object = mock()
+    #   object.expects(:expected_method).at_most_once
+    #   object.expected_method # => verify succeeds
+    #
+    #   object = mock()
+    #   object.expects(:expected_method).at_most_once
+    #   2.times { object.expected_method } # => verify fails
+    def at_most_once()
+      at_most(1)
       self
     end
   
@@ -151,19 +179,25 @@ module Mocha
     end
 
     # :call-seq: returns(value) -> expectation
+    # :call-seq: returns(*values) -> expectation
     #
     # Modifies expectation so that when the expected method is called, it returns the specified +value+.
     #   object = mock()
-    #   object.expects(:expected_method).returns('result')
-    #   object.expected_method # => 'result'
+    #   object.stubs(:stubbed_method).returns('result')
+    #   object.stubbed_method # => 'result'
+    #   object.stubbed_method # => 'result'
+    # If multiple +values+ are given, these are returned in turn on consecutive calls to the method.
+    #   object = mock()
+    #   object.stubs(:stubbed_method).returns(1, 2)
+    #   object.stubbed_method # => 1
+    #   object.stubbed_method # => 2
     # If +value+ is a Proc, then expected method will return result of calling Proc.
     #   object = mock()
-    #   results = [111, 222]
-    #   object.stubs(:expected_method).returns(lambda { results.shift })
-    #   object.expected_method # => 111
-    #   object.expected_method # => 222
-    def returns(value)
-      @return_value = value
+    #   object.stubs(:stubbed_method).returns(lambda { rand(100) })
+    #   object.stubbed_method # => 41
+    #   object.stubbed_method # => 77
+    def returns(*values)
+      @return_value = (values.size > 1) ? lambda { values.shift } : @return_value = values.first
       self
     end
   
@@ -174,7 +208,7 @@ module Mocha
     #   object.expects(:expected_method).raises(Exception, 'message')
     #   object.expected_method # => raises exception of class Exception and with message 'message'
     def raises(exception = RuntimeError, message = nil)
-      @return_value = lambda{ raise exception, message }
+      @return_value = lambda { raise exception, message }
       self
     end
 
@@ -189,16 +223,19 @@ module Mocha
     def verify
       yield(self) if block_given?
       unless (@count === @invoked) then
-        failure = Test::Unit::AssertionFailedError.new("#{message}: expected calls: #{@count}, actual calls: #{@invoked}")
+        failure = Test::Unit::AssertionFailedError.new(error_message(@count, @invoked))
         failure.set_backtrace(backtrace)
         raise failure
       end
     end
   
-    def message
-      params = @parameters.is_a?(Array) ? @parameters : [@parameters.to_s]
-      params = PrettyParameters.new(params)
-      ":#{@method_name}(#{params.pretty})"
+    def method_signature
+      return "#{method_name}" if @parameters.is_a?(AlwaysEqual)
+      "#{@method_name}(#{PrettyParameters.new(@parameters).pretty})"
+    end
+    
+    def error_message(expected_count, actual_count)
+      "#{@mock.mocha_inspect}.#{method_signature} - expected calls: #{expected_count}, actual calls: #{actual_count}"
     end
   
     # :startdoc:
@@ -217,20 +254,20 @@ module Mocha
 
   class MissingExpectation < Expectation
   
-    def initialize(method_name, mock, expectations = [])
-      super(method_name)
-      @mock, @expectations = mock, expectations
+    def initialize(mock, method_name)
+      super
       @invoked = true
     end
   
     def verify
-      msg = "Unexpected message #{message} sent to #{@mock.mocha_inspect}"
-      msg << "\nSimilar expectations #{similar_expectations.collect { |expectation| expectation.message }.join("\n") }" unless similar_expectations.empty?
+      msg = error_message(0, 1)
+      similar_expectations_list = similar_expectations.collect { |expectation| expectation.method_signature }.join("\n")
+      msg << "\nSimilar expectations:\n#{similar_expectations_list}" unless similar_expectations.empty?
       raise Test::Unit::AssertionFailedError, msg if @invoked
     end
   
     def similar_expectations
-      @expectations.select { |expectation| expectation.method_name == self.method_name }
+      @mock.expectations.select { |expectation| expectation.method_name == self.method_name }
     end
   
   end

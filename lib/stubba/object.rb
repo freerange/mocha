@@ -48,9 +48,7 @@ class Object
     mocha.stubs(symbol, caller)
   end
   
-  # Asserts that all expectations have been fulfilled.
-  # Called automatically at the end of a test for all objects with expectations.
-  def verify
+  def verify # :nodoc:
     mocha.verify
   end
   

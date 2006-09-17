@@ -1,18 +1,23 @@
+- read and improve tutorial emailed by user
+- provide test::unit agnostic api - mockery/context type objects on which the user must call setup/teardown?
+- reduce number of methods added to Object, Class etc to bare minimum
+- reduce number of methods excluded from undef in mock_methods (maybe use blank_slate as mocha parent class to allow mocking of standard object methods?)
+- should we get two errors when unexpected method is called and similar expectation is not fulfilled? i.e. should we raise error in teardown if one has already been raised in test?
+- default mock names to mock1, mock2, etc or something similar
+- stubba mocks should named according to parent stubbee
+- allow specification of class to be mocked so we can check for existence of methods
+- oomatron type ideas
+- allow stubbing of private/protected methods? - force_stub?
+- allow hash parameter for stubs and expects methods particularly for stubba
 - use real activerecord as svn external to for testing instead of active_record_test_case
-- accept string method names as well as symbols?
 - provide some means to un-stubba an object - ideally should restore any methods with same names as stubba methods c.f. dealing with expectations for methods called :expects, :stubs, etc.
 - automate releases cf rspec
-- on_consecutive_calls functionality
 - think about behaviour when more than one expectation/stubbed method match
 - make verify method private (makes this unnecessary - fail if attempt to verify stub)
-- allow hash parameter for stubs and expects methods particularly for stubba
 - test for setting expectations on class methods (and instance methods?) from within TestCase#setup
-- use Object#inspect(:mocha) instead of Object#mocha_inspect?
-- allow stubbing of private/protected methods?
+- use Object#inspect(:mocha) or Object#__inspect__ instead of Object#mocha_inspect?
 - should all instances share expectations for any_instance or should each instance have their own - in which case how do we provide access to the instances
 - detect existing or added definition of mocha methods e.g. expects and alias to __expects?
-- allow switch off of auto-verify?
-- maybe use blank_slate as mocha parent class to allow mocking of standard object methods?
-- more jmock style stuff - e.g. return values on consecutive calls, labels/required order, more sophisticated param matching?
+- more jmock style stuff - e.g. labels/required order, more sophisticated param matching?
 - stubs should only return a fixed value - no blocks allowed for return values and no parameter expectations allowed?
 - maybe allow unstubbing of a specific method from within a test...?

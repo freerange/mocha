@@ -2,6 +2,9 @@ require 'mocha/mock_methods'
 
 module Mocha
   class Mock
+    
+    methods_to_keep = /^__.*__$|respond_to?|mocha_inspect|inspect|class|object_id|send|is_a\?|==|hash|nil\?/
+    instance_methods.each { |method_to_remove| eval("undef :#{method_to_remove}") unless method_to_remove =~ methods_to_keep }
   
     include MockMethods
     
@@ -13,8 +16,8 @@ module Mocha
     
     alias :mocha_inspect_before_hijacked_by_named_mocks :mocha_inspect
     def mocha_inspect
-      @__mock_name ? "#<Mock: '#{@__mock_name}'>" : mocha_inspect_before_hijacked_by_named_mocks
+      @__mock_name ? "#<Mock:#{@__mock_name}>" : mocha_inspect_before_hijacked_by_named_mocks
     end
-  
+    
   end
 end

@@ -41,7 +41,16 @@ class MockTest < Test::Unit::TestCase
   
   def test_should_give_name_in_inspect_message
     mock = Mock.new(false, 'named_mock')
-    assert_equal "#<Mock: 'named_mock'>", mock.mocha_inspect
+    assert_equal "#<Mock:named_mock>", mock.mocha_inspect
+  end
+  
+  def test_should_be_able_to_mock_some_standard_object_methods
+    mock = Mock.new
+    mock.expects(:type)
+    mock.expects(:kind_of?)
+    mock.type
+    mock.kind_of?
+    assert_nothing_raised(Test::Unit::AssertionFailedError) { mock.verify }
   end
   
 end
