@@ -53,4 +53,14 @@ class MockTest < Test::Unit::TestCase
     assert_nothing_raised(Test::Unit::AssertionFailedError) { mock.verify }
   end
   
+  def test_should_be_able_to_extend_mock_object_with_module
+    mock = Mock.new
+    assert_nothing_raised(Test::Unit::AssertionFailedError) { mock.extend(Module.new) }
+  end
+  
+  def test_should_be_equal_to_avoid_strange_breakage_of_published_review_list_test_in_revieworld
+    mock = Mock.new
+    assert_equal true, mock.eql?(mock)
+  end
+    
 end

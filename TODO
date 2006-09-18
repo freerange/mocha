@@ -1,3 +1,6 @@
+- object methods needed for mocha itself should be aliased to __xx__ versions
+- maybe introduce blank_mock() and blank_stub() methods or make Stub include Object methods and Mock not...?
+- tags for repos
 - read and improve tutorial emailed by user
 - provide test::unit agnostic api - mockery/context type objects on which the user must call setup/teardown?
 - reduce number of methods added to Object, Class etc to bare minimum
