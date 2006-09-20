@@ -44,8 +44,8 @@ class MockTest < Test::Unit::TestCase
     assert_equal "#<Mock:named_mock>", mock.mocha_inspect
   end
   
-  def test_should_be_able_to_mock_some_standard_object_methods
-    mock = Mock.new
+  def test_should_be_able_to_mock_some_standard_object_methods_on_blank_mock
+    mock = BlankMock.new
     mock.expects(:type)
     mock.expects(:kind_of?)
     mock.type

@@ -19,7 +19,7 @@ module Mocha
     def reset_mocks # :nodoc:
       @mocks = nil
     end
-  
+    
     # :call-seq: mock(name) -> mock object
     #            mock(expected_methods = {}) -> mock object
     #            mock(name, expected_methods = {}) -> mock object
