@@ -1,3 +1,4 @@
+- fail fast if expectation count exceeded during test...? c.f. JMock?
 - object methods needed for mocha itself should be aliased to __xx__ versions
 - maybe introduce blank_mock() and blank_stub() methods or make Stub include Object methods and Mock not...?
 - tags for repos
@@ -15,7 +16,7 @@
 - use real activerecord as svn external to for testing instead of active_record_test_case
 - provide some means to un-stubba an object - ideally should restore any methods with same names as stubba methods c.f. dealing with expectations for methods called :expects, :stubs, etc.
 - automate releases cf rspec
-- think about behaviour when more than one expectation/stubbed method match
+- think about behaviour when more than one expectation/stubbed method match c.f. JMock?
 - make verify method private (makes this unnecessary - fail if attempt to verify stub)
 - test for setting expectations on class methods (and instance methods?) from within TestCase#setup
 - use Object#inspect(:mocha) or Object#__inspect__ instead of Object#mocha_inspect?
