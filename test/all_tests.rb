@@ -10,7 +10,6 @@ require 'mocha/auto_verify_test'
 
 require 'stubba/central_test'
 require 'stubba/class_method_test'
-require 'stubba/instance_method_test'
 require 'stubba/any_instance_method_test'
 require 'stubba/setup_and_teardown_test'
 require 'stubba/object_test'
@@ -30,7 +29,6 @@ class UnitTests
     suite << AutoVerifyTest.suite
     suite << CentralTest.suite
     suite << ClassMethodTest.suite
-    suite << InstanceMethodTest.suite
     suite << AnyInstanceMethodTest.suite
     suite << SetupAndTeardownTest.suite
     suite << ObjectTest.suite
