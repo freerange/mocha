@@ -79,7 +79,7 @@ module Mocha
       if matching_expectation then
         matching_expectation.invoke(&block)
       elsif stub_everything then
-        return
+        return Mock.new(true)
       else
         begin
           super_method_missing(symbol, *arguments, &block)
