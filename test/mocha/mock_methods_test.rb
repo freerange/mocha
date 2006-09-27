@@ -62,6 +62,17 @@ class MockMethodsTest < Test::Unit::TestCase
     assert_equal :result, result
   end
   
+  def test_should_not_raise_error_if_stubbing_everything
+    mock = Class.new { def initialize; @stub_everything = true; end }.new
+    mock.extend(MockMethods)
+    
+    result = nil
+    assert_nothing_raised(Test::Unit::AssertionFailedError) do
+      result = mock.unexpected_method
+    end
+    assert_nil result
+  end
+  
   def test_should_raise_no_method_error
     mock = Object.new
     mock.extend(MockMethods)

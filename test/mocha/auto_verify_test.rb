@@ -161,9 +161,4 @@ class AutoVerifyTest < Test::Unit::TestCase
     assert_equal 'named_greedy_stub', greedy_stub.__mock_name
   end
   
-  def test_should_create_greedy_stubs_which_returns_greedy_stubs
-    greedy_stub = test_case.stub_everything()
-    assert_nothing_raised { greedy_stub.method1().method2().method3() }
-  end
-  
 end
