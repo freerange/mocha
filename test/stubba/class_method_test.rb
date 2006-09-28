@@ -23,6 +23,11 @@ class ClassMethodTest < Test::Unit::TestCase
     assert_equal '__stubba__original_method_name_exclamation_mark__stubba__', method.hidden_method
   end
   
+  def test_should_provide_hidden_version_of_method_name_with_equals_sign
+    method = ClassMethod.new(nil, :original_method_name=)
+    assert_equal '__stubba__original_method_name_equals_sign__stubba__', method.hidden_method
+  end
+  
   def test_should_hide_original_method
     klass = Class.new { def self.method_x; end }
     method = ClassMethod.new(klass, :method_x)
