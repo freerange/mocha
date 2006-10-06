@@ -1,4 +1,4 @@
-require 'stubba/class_method'
+require 'mocha/class_method'
 
 module Stubba
 

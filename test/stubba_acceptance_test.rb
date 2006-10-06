@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'stubba'
+require 'mocha'
 
 class Widget
   

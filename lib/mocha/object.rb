@@ -1,7 +1,7 @@
 require 'mocha/mock'
-require 'stubba/instance_method'
-require 'stubba/class_method'
-require 'stubba/any_instance_method'
+require 'mocha/instance_method'
+require 'mocha/class_method'
+require 'mocha/any_instance_method'
 
 # Methods added all Objects.
 class Object

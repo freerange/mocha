@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'method_definer'
 require 'mocha/mock'
 
-require 'stubba/class_method'
+require 'mocha/class_method'
 
 class ClassMethodTest < Test::Unit::TestCase
   

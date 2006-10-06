@@ -1,4 +1,4 @@
-require 'stubba/central'
+require 'mocha/central'
 
 module Stubba
   module SetupAndTeardown

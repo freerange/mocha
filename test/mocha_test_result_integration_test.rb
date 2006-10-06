@@ -1,7 +1,7 @@
 require 'test_helper'
-require 'smart_test_case/multiple_setup_and_teardown'
+require 'mocha/multiple_setup_and_teardown'
 require 'mocha/auto_verify'
-require 'shared/backtracefilter'
+require 'mocha/backtracefilter'
 require 'execution_point'
 
 class MochaTestResultIntegrationTest < Test::Unit::TestCase

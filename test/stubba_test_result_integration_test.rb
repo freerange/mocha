@@ -1,8 +1,8 @@
 require 'test_helper'
-require 'stubba/object'
-require 'smart_test_case/multiple_setup_and_teardown'
-require 'stubba/setup_and_teardown'
-require 'shared/backtracefilter'
+require 'mocha/object'
+require 'mocha/multiple_setup_and_teardown'
+require 'mocha/setup_and_teardown'
+require 'mocha/backtracefilter'
 require 'execution_point'
 
 class StubbaTestResultIntegrationTest < Test::Unit::TestCase

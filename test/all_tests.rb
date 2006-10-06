@@ -8,13 +8,13 @@ require 'mocha/mock_methods_test'
 require 'mocha/mock_test'
 require 'mocha/auto_verify_test'
 
-require 'stubba/central_test'
-require 'stubba/class_method_test'
-require 'stubba/any_instance_method_test'
-require 'stubba/setup_and_teardown_test'
-require 'stubba/object_test'
+require 'mocha/central_test'
+require 'mocha/class_method_test'
+require 'mocha/any_instance_method_test'
+require 'mocha/setup_and_teardown_test'
+require 'mocha/object_test'
 
-require 'smart_test_case/multiple_setup_and_teardown_test'
+require 'mocha/multiple_setup_and_teardown_test'
 
 class UnitTests
   

@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
 
-require 'stubba/central'
+require 'mocha/central'
 require 'mocha/mock'
 require 'method_definer'
 

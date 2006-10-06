@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'mocha/mock'
 
-require 'stubba/setup_and_teardown'
+require 'mocha/setup_and_teardown'
 
 class SetupAndTeardownTest < Test::Unit::TestCase
   
