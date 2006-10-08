@@ -5,7 +5,7 @@ require 'mocha/backtracefilter'
 require 'mocha/setup_and_teardown'
 
 class Test::Unit::TestCase
-  include SmartTestCase::MultipleSetupAndTeardown unless ancestors.include?(SmartTestCase::MultipleSetupAndTeardown)
+  include Mocha::MultipleSetupAndTeardown unless ancestors.include?(Mocha::MultipleSetupAndTeardown)
   include Mocha::AutoVerify unless ancestors.include?(Mocha::AutoVerify)
   include Mocha::SetupAndTeardown unless ancestors.include?(Mocha::SetupAndTeardown)
 end

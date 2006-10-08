@@ -1,4 +1,5 @@
-module SmartTestCase
+module Mocha
+  
   module MultipleSetupAndTeardown
   
     def self.included(base)

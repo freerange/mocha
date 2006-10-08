@@ -7,7 +7,7 @@ class MultipleSetupAndTeardownTest < Test::Unit::TestCase
   def test_should_call_added_setup
     test_case = Class.new(Test::Unit::TestCase) do
       define_method(:methods_called) { @methods_called ||= [] }
-      include SmartTestCase::MultipleSetupAndTeardown
+      include Mocha::MultipleSetupAndTeardown
       add_setup_method(:added_setup)
       define_method(:added_setup) { methods_called << :added_setup }
       define_method(:test_method) { methods_called << :test_method }
@@ -22,7 +22,7 @@ class MultipleSetupAndTeardownTest < Test::Unit::TestCase
   def test_should_call_added_teardown
     test_case = Class.new(Test::Unit::TestCase) do
       define_method(:methods_called) { @methods_called ||= [] }
-      include SmartTestCase::MultipleSetupAndTeardown
+      include Mocha::MultipleSetupAndTeardown
       add_teardown_method(:added_teardown)
       define_method(:added_teardown) { methods_called << :added_teardown }
       define_method(:test_method) { methods_called << :test_method }
@@ -37,7 +37,7 @@ class MultipleSetupAndTeardownTest < Test::Unit::TestCase
   def test_should_call_both_added_teardowns_even_if_one_raises_exception
     test_case = Class.new(Test::Unit::TestCase) do
       define_method(:methods_called) { @methods_called ||= [] }
-      include SmartTestCase::MultipleSetupAndTeardown
+      include Mocha::MultipleSetupAndTeardown
       add_teardown_method(:added_teardown_1)
       add_teardown_method(:added_teardown_2)
       define_method(:added_teardown_1) { methods_called << :added_teardown_1 }
@@ -55,7 +55,7 @@ class MultipleSetupAndTeardownTest < Test::Unit::TestCase
     test_case = Class.new(Test::Unit::TestCase) do
       define_method(:methods_called) { @methods_called ||= [] }
       define_method(:setup) { methods_called << :setup }
-      include SmartTestCase::MultipleSetupAndTeardown
+      include Mocha::MultipleSetupAndTeardown
       add_setup_method(:added_setup)
       define_method(:added_setup) { methods_called << :added_setup }
       define_method(:test_method) { methods_called << :test_method }
@@ -71,7 +71,7 @@ class MultipleSetupAndTeardownTest < Test::Unit::TestCase
     test_case = Class.new(Test::Unit::TestCase) do
       define_method(:methods_called) { @methods_called ||= [] }
       define_method(:teardown) { methods_called << :teardown }
-      include SmartTestCase::MultipleSetupAndTeardown
+      include Mocha::MultipleSetupAndTeardown
       add_teardown_method(:added_teardown)
       define_method(:added_teardown) { methods_called << :added_teardown }
       define_method(:test_method) { methods_called << :test_method }
@@ -86,7 +86,7 @@ class MultipleSetupAndTeardownTest < Test::Unit::TestCase
   def test_should_call_added_setup_and_setup_defined_after_module_included
     test_case = Class.new(Test::Unit::TestCase) do
       define_method(:methods_called) { @methods_called ||= [] }
-      include SmartTestCase::MultipleSetupAndTeardown
+      include Mocha::MultipleSetupAndTeardown
       define_method(:setup) { methods_called << :setup }
       add_setup_method(:added_setup)
       define_method(:added_setup) { methods_called << :added_setup }
@@ -102,7 +102,7 @@ class MultipleSetupAndTeardownTest < Test::Unit::TestCase
   def test_should_call_added_teardown_and_teardown_defined_after_module_included
     test_case = Class.new(Test::Unit::TestCase) do
       define_method(:methods_called) { @methods_called ||= [] }
-      include SmartTestCase::MultipleSetupAndTeardown
+      include Mocha::MultipleSetupAndTeardown
       define_method(:teardown) { methods_called << :teardown }
       add_teardown_method(:added_teardown)
       define_method(:added_teardown) { methods_called << :added_teardown }
@@ -118,7 +118,7 @@ class MultipleSetupAndTeardownTest < Test::Unit::TestCase
   def test_should_call_added_setup_and_setup_defined_in_derived_test_case
     test_case = Class.new(Test::Unit::TestCase) do
       define_method(:methods_called) { @methods_called ||= [] }
-      include SmartTestCase::MultipleSetupAndTeardown
+      include Mocha::MultipleSetupAndTeardown
       add_setup_method(:added_setup)
       define_method(:added_setup) { methods_called << :added_setup }
     end
@@ -136,7 +136,7 @@ class MultipleSetupAndTeardownTest < Test::Unit::TestCase
   def test_should_call_added_teardown_and_teardown_defined_in_derived_test_case
     test_case = Class.new(Test::Unit::TestCase) do
       define_method(:methods_called) { @methods_called ||= [] }
-      include SmartTestCase::MultipleSetupAndTeardown
+      include Mocha::MultipleSetupAndTeardown
       add_teardown_method(:added_teardown)
       define_method(:added_teardown) { methods_called << :added_teardown }
     end
@@ -155,7 +155,7 @@ class MultipleSetupAndTeardownTest < Test::Unit::TestCase
     test_case = Class.new(Test::Unit::TestCase) do
       define_method(:methods_called) { @methods_called ||= [] }
       include ActiveRecordTestCase
-      include SmartTestCase::MultipleSetupAndTeardown
+      include Mocha::MultipleSetupAndTeardown
       add_setup_method(:added_setup)
       define_method(:added_setup) { methods_called << :added_setup }
     end
@@ -174,7 +174,7 @@ class MultipleSetupAndTeardownTest < Test::Unit::TestCase
     test_case = Class.new(Test::Unit::TestCase) do
       define_method(:methods_called) { @methods_called ||= [] }
       include ActiveRecordTestCase
-      include SmartTestCase::MultipleSetupAndTeardown
+      include Mocha::MultipleSetupAndTeardown
       add_teardown_method(:added_teardown)
       define_method(:added_teardown) { methods_called << :added_teardown }
     end
