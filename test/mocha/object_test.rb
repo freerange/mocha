@@ -30,7 +30,7 @@ class ObjectTest < Test::Unit::TestCase
   def test_should_stub_instance_method
     instance = Object.new
     $stubba = Mock.new
-    $stubba.expects(:stub).with(Stubba::InstanceMethod.new(instance, :method1))
+    $stubba.expects(:stub).with(Mocha::InstanceMethod.new(instance, :method1))
     instance.expects(:method1)
     $stubba.verify
   end 
@@ -96,7 +96,7 @@ class ObjectTest < Test::Unit::TestCase
   def test_should_stub_class_method
     klass = Class.new
     $stubba = Mock.new
-    $stubba.expects(:stub).with(Stubba::ClassMethod.new(klass, :method1))
+    $stubba.expects(:stub).with(Mocha::ClassMethod.new(klass, :method1))
     klass.expects(:method1)
     $stubba.verify
   end 
@@ -112,7 +112,7 @@ class ObjectTest < Test::Unit::TestCase
   def test_should_stub_module_method
     mod = Module.new
     $stubba = Mock.new
-    $stubba.expects(:stub).with(Stubba::ClassMethod.new(mod, :method1))
+    $stubba.expects(:stub).with(Mocha::ClassMethod.new(mod, :method1))
     mod.expects(:method1)
     $stubba.verify
   end
@@ -126,19 +126,19 @@ class ObjectTest < Test::Unit::TestCase
   end
   
   def test_should_use_stubba_instance_method_for_object
-    assert_equal Stubba::InstanceMethod, Object.new.stubba_method
+    assert_equal Mocha::InstanceMethod, Object.new.stubba_method
   end
     
   def test_should_use_stubba_class_method_for_module
-    assert_equal Stubba::ClassMethod, Module.new.stubba_method
+    assert_equal Mocha::ClassMethod, Module.new.stubba_method
   end
     
   def test_should_use_stubba_class_method_for_class
-    assert_equal Stubba::ClassMethod, Class.new.stubba_method
+    assert_equal Mocha::ClassMethod, Class.new.stubba_method
   end
   
   def test_should_use_stubba_class_method_for_any_instance
-    assert_equal Stubba::AnyInstanceMethod, Class::AnyInstance.new(nil).stubba_method
+    assert_equal Mocha::AnyInstanceMethod, Class::AnyInstance.new(nil).stubba_method
   end
   
   def test_should_stub_self_for_object

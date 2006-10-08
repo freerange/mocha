@@ -6,7 +6,7 @@ require 'mocha/class_method'
 
 class ClassMethodTest < Test::Unit::TestCase
   
-  include Stubba
+  include Mocha
 
   def test_should_provide_hidden_version_of_method_name_starting_with_prefix
     method = ClassMethod.new(nil, :original_method_name)

@@ -14,7 +14,7 @@ class SetupAndTeardownTest < Test::Unit::TestCase
         define_method(:add_setup_method) { |symbol| @symbol = symbol }
         define_method(:add_teardown_method) {}
       end
-      include Stubba::SetupAndTeardown
+      include Mocha::SetupAndTeardown
     end
     
     assert_equal :setup_stubs, test_case_class.symbol
@@ -27,7 +27,7 @@ class SetupAndTeardownTest < Test::Unit::TestCase
         define_method(:add_setup_method) {}
         define_method(:add_teardown_method) { |symbol| @symbol = symbol }
       end
-      include Stubba::SetupAndTeardown
+      include Mocha::SetupAndTeardown
     end
     
     assert_equal :teardown_stubs, test_case_class.symbol
@@ -38,7 +38,7 @@ class SetupAndTeardownTest < Test::Unit::TestCase
     test_case.setup_stubs
     
     assert $stubba
-    assert $stubba.is_a?(Stubba::Central)
+    assert $stubba.is_a?(Mocha::Central)
   end
 
   def test_should_verify_all_expectations
@@ -126,7 +126,7 @@ class SetupAndTeardownTest < Test::Unit::TestCase
       end
       attr_accessor :add_assertion_called
       define_method(:add_assertion) { self.add_assertion_called = true }
-      include Stubba::SetupAndTeardown
+      include Mocha::SetupAndTeardown
     end
   end
 

@@ -1,6 +1,6 @@
 require 'mocha/class_method'
 
-module Stubba
+module Mocha
 
   class InstanceMethod < ClassMethod
   end

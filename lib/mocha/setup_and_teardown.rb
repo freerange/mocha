@@ -1,6 +1,7 @@
 require 'mocha/central'
 
-module Stubba
+module Mocha
+  
   module SetupAndTeardown
   
     def self.included(base)
@@ -9,7 +10,7 @@ module Stubba
     end
   
     def setup_stubs
-      $stubba = Stubba::Central.new
+      $stubba = Mocha::Central.new
     end
   
     def teardown_stubs

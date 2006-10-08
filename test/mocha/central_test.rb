@@ -7,7 +7,6 @@ require 'method_definer'
 class CentralTest < Test::Unit::TestCase
   
   include Mocha
-  include Stubba
   
   def test_should_start_with_empty_stubba_methods
     stubba = Central.new

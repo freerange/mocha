@@ -1,6 +1,6 @@
 require 'mocha/metaclass'
 
-module Stubba
+module Mocha
 
   class ClassMethod
   

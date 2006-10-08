@@ -1,4 +1,4 @@
-module Stubba
+module Mocha
   
   class Central
   

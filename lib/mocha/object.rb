@@ -15,7 +15,7 @@ class Object
   end
   
   def stubba_method # :nodoc:
-    Stubba::InstanceMethod
+    Mocha::InstanceMethod
   end
   
   def stubba_object # :nodoc:
@@ -57,7 +57,7 @@ end
 class Module # :nodoc:
   
   def stubba_method
-    Stubba::ClassMethod
+    Mocha::ClassMethod
   end
     
 end
@@ -65,7 +65,7 @@ end
 class Class
   
   def stubba_method # :nodoc:
-    Stubba::ClassMethod
+    Mocha::ClassMethod
   end
 
   class AnyInstance # :nodoc:
@@ -75,7 +75,7 @@ class Class
     end
     
     def stubba_method
-      Stubba::AnyInstanceMethod
+      Mocha::AnyInstanceMethod
     end
     
     def stubba_object

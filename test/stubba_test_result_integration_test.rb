@@ -75,7 +75,7 @@ class StubbaTestResultIntegrationTest < Test::Unit::TestCase
   def run_test(test_result = Test::Unit::TestResult.new, &block)
     test_class = Class.new(Test::Unit::TestCase) do
       include SmartTestCase::MultipleSetupAndTeardown
-      include Stubba::SetupAndTeardown
+      include Mocha::SetupAndTeardown
       define_method(:test_me, &block)
     end
     test = test_class.new(:test_me)

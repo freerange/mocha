@@ -5,7 +5,6 @@ require 'mocha/any_instance_method'
 
 class AnyInstanceMethodTest < Test::Unit::TestCase
   
-  include Stubba
   include Mocha
   
   def test_should_hide_original_method
