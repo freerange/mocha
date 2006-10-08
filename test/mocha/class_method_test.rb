@@ -8,24 +8,49 @@ class ClassMethodTest < Test::Unit::TestCase
   
   include Stubba
 
-  def test_should_provide_hidden_version_of_method_name
+  def test_should_provide_hidden_version_of_method_name_starting_with_prefix
     method = ClassMethod.new(nil, :original_method_name)
-    assert_equal '__stubba__original_method_name__stubba__', method.hidden_method
+    assert_match /^__stubba__/, method.hidden_method
   end
   
-  def test_should_provide_hidden_version_of_method_name_with_question_mark
-    method = ClassMethod.new(nil, :original_method_name?)
-    assert_equal '__stubba__original_method_name_question_mark__stubba__', method.hidden_method
+  def test_should_provide_hidden_version_of_method_name_ending_with_suffix
+    method = ClassMethod.new(nil, :original_method_name)
+    assert_match /__stubba__$/, method.hidden_method
   end
   
-  def test_should_provide_hidden_version_of_method_name_with_exclamation_mark
-    method = ClassMethod.new(nil, :original_method_name!)
-    assert_equal '__stubba__original_method_name_exclamation_mark__stubba__', method.hidden_method
+  def test_should_provide_hidden_version_of_method_name_including_original_method_name
+    method = ClassMethod.new(nil, :original_method_name)
+    assert_match /original_method_name/, method.hidden_method
   end
   
-  def test_should_provide_hidden_version_of_method_name_with_equals_sign
-    method = ClassMethod.new(nil, :original_method_name=)
-    assert_equal '__stubba__original_method_name_equals_sign__stubba__', method.hidden_method
+  def test_should_provide_hidden_version_of_method_name_substituting_question_mark
+    method = ClassMethod.new(nil, :question_mark?)
+    assert_no_match /\?/, method.hidden_method
+    assert_match /question_mark_substituted_character_63/, method.hidden_method
+  end
+  
+  def test_should_provide_hidden_version_of_method_name_substituting_exclamation_mark
+    method = ClassMethod.new(nil, :exclamation_mark!)
+    assert_no_match /!/, method.hidden_method
+    assert_match /exclamation_mark_substituted_character_33/, method.hidden_method
+  end
+
+  def test_should_provide_hidden_version_of_method_name_substituting_equals_sign
+    method = ClassMethod.new(nil, :equals_sign=)
+    assert_no_match /\=/, method.hidden_method
+    assert_match /equals_sign_substituted_character_61/, method.hidden_method
+  end
+
+  def test_should_provide_hidden_version_of_method_name_substituting_brackets
+    method = ClassMethod.new(nil, :[])
+    assert_no_match /\[\]/, method.hidden_method
+    assert_match /substituted_character_91__substituted_character_93/, method.hidden_method
+  end
+  
+  def test_should_provide_hidden_version_of_method_name_substituting_plus_sign
+    method = ClassMethod.new(nil, :+)
+    assert_no_match /\+/, method.hidden_method
+    assert_match /substituted_character_43/, method.hidden_method
   end
   
   def test_should_hide_original_method

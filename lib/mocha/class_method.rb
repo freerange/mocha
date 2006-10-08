@@ -42,11 +42,8 @@ module Stubba
     end
   
     def hidden_method
-      "__stubba__#{
-        method.to_s.sub('!', '_exclamation_mark').
-                    sub('?', '_question_mark').
-                    sub('=', '_equals_sign')
-      }__stubba__"
+      method_name = method.to_s.gsub(/\W/) {|s| "_substituted_character_#{s[0]}_" }
+      "__stubba__#{method_name}__stubba__"
     end  
   
     def cannot_replace_method_error
