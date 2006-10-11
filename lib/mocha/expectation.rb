@@ -1,5 +1,6 @@
 require 'mocha/infinite_range'
 require 'mocha/pretty_parameters'
+require 'mocha/expectation_error'
 
 module Mocha
   # Methods on expectations returned from Mocha::MockMethods#expects and Mocha::MockMethods#stubs
@@ -224,9 +225,9 @@ module Mocha
     def verify
       yield(self) if block_given?
       unless (@count === @invoked) then
-        failure = Test::Unit::AssertionFailedError.new(error_message(@count, @invoked))
-        failure.set_backtrace(backtrace)
-        raise failure
+        error = ExpectationError.new(error_message(@count, @invoked))
+        error.set_backtrace(backtrace)
+        raise error
       end
     end
   
@@ -264,7 +265,7 @@ module Mocha
       msg = error_message(0, 1)
       similar_expectations_list = similar_expectations.collect { |expectation| expectation.method_signature }.join("\n")
       msg << "\nSimilar expectations:\n#{similar_expectations_list}" unless similar_expectations.empty?
-      raise Test::Unit::AssertionFailedError, msg if @invoked
+      raise ExpectationError, msg if @invoked
     end
   
     def similar_expectations

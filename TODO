@@ -1,9 +1,12 @@
+- provide test::unit agnostic api - mockery/context type objects on which the user must call setup/teardown?
+- increment actual count for ANY expectation that matches - see email from Bryan Helmkamp
+- add multiyield - see email from Jay Fields
+- think about allowing a stubbing expectation to be converted to an asserting expectation and vice versa
 - fail fast if expectation count exceeded during test...? c.f. JMock?
 - object methods needed for mocha itself should be aliased to __xx__ versions
 - maybe introduce blank_mock() and blank_stub() methods or make Stub include Object methods and Mock not...?
 - tags for repos
 - read and improve tutorial emailed by user
-- provide test::unit agnostic api - mockery/context type objects on which the user must call setup/teardown?
 - reduce number of methods added to Object, Class etc to bare minimum
 - reduce number of methods excluded from undef in mock_methods (maybe use blank_slate as mocha parent class to allow mocking of standard object methods?)
 - should we get two errors when unexpected method is called and similar expectation is not fulfilled? i.e. should we raise error in teardown if one has already been raised in test?

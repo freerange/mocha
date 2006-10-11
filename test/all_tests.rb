@@ -14,8 +14,6 @@ require 'mocha/any_instance_method_test'
 require 'mocha/setup_and_teardown_test'
 require 'mocha/object_test'
 
-require 'mocha/multiple_setup_and_teardown_test'
-
 class UnitTests
   
   def self.suite
@@ -32,7 +30,6 @@ class UnitTests
     suite << AnyInstanceMethodTest.suite
     suite << SetupAndTeardownTest.suite
     suite << ObjectTest.suite
-    suite << MultipleSetupAndTeardownTest.suite
     suite
   end
   
@@ -59,6 +56,7 @@ Test::Unit::UI::Console::TestRunner.run(IntegrationTests)
 
 require 'mocha_acceptance_test'
 require 'stubba_acceptance_test'
+require 'standalone_acceptance_test'
 
 class AcceptanceTests
   
@@ -66,6 +64,7 @@ class AcceptanceTests
     suite = Test::Unit::TestSuite.new('AcceptanceTests')
     suite << MochaAcceptanceTest.suite
     suite << StubbaAcceptanceTest.suite
+    suite << StandaloneAcceptanceTest.suite
     suite
   end
   

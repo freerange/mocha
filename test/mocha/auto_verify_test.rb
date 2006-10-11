@@ -95,7 +95,7 @@ class AutoVerifyTest < Test::Unit::TestCase
     assert_equal expected, test_case.mocks
   end
   
-  def test_should_verify_each_mock_on_teardown
+  def test_should_verify_each_mock
     mocks = Array.new(3) do
       mock = Object.new
       mock.define_instance_accessor(:verify_called)
@@ -103,20 +103,19 @@ class AutoVerifyTest < Test::Unit::TestCase
       mock
     end
     test_case.replace_instance_method(:mocks)  { mocks }
-    test_case.teardown_mocks
+    test_case.verify_mocks
     assert mocks.all? { |mock| mock.verify_called }
   end
   
-  def test_should_provide_block_for_adding_assertion
+  def test_should_yield_to_block_for_each_assertion
     mock_class = Class.new do
       def verify(&block); yield; end
     end
     mock = mock_class.new
     test_case.replace_instance_method(:mocks)  { [mock] }
-    test_case.define_instance_accessor(:add_assertion_called)
-    test_case.define_instance_method(:add_assertion) { self.add_assertion_called = true }
-    test_case.teardown_mocks
-    assert test_case.add_assertion_called
+    yielded = false
+    test_case.verify_mocks { yielded = true }
+    assert yielded
   end
   
   def test_should_reset_mocks_on_teardown

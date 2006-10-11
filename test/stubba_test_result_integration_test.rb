@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'mocha/object'
-require 'mocha/multiple_setup_and_teardown'
-require 'mocha/setup_and_teardown'
+require 'mocha/standalone'
+require 'mocha/test_case_adapter'
 require 'mocha/backtracefilter'
 require 'execution_point'
 
@@ -74,8 +74,8 @@ class StubbaTestResultIntegrationTest < Test::Unit::TestCase
   
   def run_test(test_result = Test::Unit::TestResult.new, &block)
     test_class = Class.new(Test::Unit::TestCase) do
-      include Mocha::MultipleSetupAndTeardown
-      include Mocha::SetupAndTeardown
+      include Mocha::Standalone
+      include Mocha::TestCaseAdapter
       define_method(:test_me, &block)
     end
     test = test_class.new(:test_me)

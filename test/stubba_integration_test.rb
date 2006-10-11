@@ -1,8 +1,8 @@
 require 'test_helper'
 
 require 'mocha/object'
-require 'mocha/multiple_setup_and_teardown'
-require 'mocha/setup_and_teardown'
+require 'mocha/test_case_adapter'
+require 'mocha/standalone'
 
 class StubbaIntegrationTest < Test::Unit::TestCase
   
@@ -14,8 +14,8 @@ class StubbaIntegrationTest < Test::Unit::TestCase
   
   def test_should_stub_class_method_within_test
     test_class = Class.new(Test::Unit::TestCase) do
-      include Mocha::MultipleSetupAndTeardown
-      include Mocha::SetupAndTeardown
+      include Mocha::Standalone
+      include Mocha::TestCaseAdapter
       define_method(:test_me) do
         DontMessWithMe.expects(:method_x).returns(:new_return_value)
         assert_equal :new_return_value, DontMessWithMe.method_x
@@ -30,8 +30,8 @@ class StubbaIntegrationTest < Test::Unit::TestCase
 
   def test_should_leave_stubbed_class_unchanged_after_test
     test_class = Class.new(Test::Unit::TestCase) do
-      include Mocha::MultipleSetupAndTeardown
-      include Mocha::SetupAndTeardown
+      include Mocha::Standalone
+      include Mocha::TestCaseAdapter
       define_method(:test_me) do
         DontMessWithMe.expects(:method_x).returns(:new_return_value)
       end
@@ -44,8 +44,8 @@ class StubbaIntegrationTest < Test::Unit::TestCase
   
   def test_should_reset_expectations_after_test
     test_class = Class.new(Test::Unit::TestCase) do
-      include Mocha::MultipleSetupAndTeardown
-      include Mocha::SetupAndTeardown
+      include Mocha::Standalone
+      include Mocha::TestCaseAdapter
       define_method(:test_me) do
         DontMessWithMe.expects(:method_x)
       end

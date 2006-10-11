@@ -1,7 +1,7 @@
 require 'test_helper'
-require 'mocha/multiple_setup_and_teardown'
-require 'mocha/auto_verify'
+require 'mocha/standalone'
 require 'mocha/backtracefilter'
+require 'mocha/test_case_adapter'
 require 'execution_point'
 
 class MochaTestResultIntegrationTest < Test::Unit::TestCase
@@ -94,8 +94,8 @@ class MochaTestResultIntegrationTest < Test::Unit::TestCase
   
   def run_test(test_result = Test::Unit::TestResult.new, &block)
     test_class = Class.new(Test::Unit::TestCase) do
-      include Mocha::MultipleSetupAndTeardown
-      include Mocha::AutoVerify
+      include Mocha::Standalone
+      include Mocha::TestCaseAdapter
       define_method(:test_me, &block)
     end
     test = test_class.new(:test_me)

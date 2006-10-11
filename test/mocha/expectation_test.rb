@@ -159,7 +159,7 @@ class ExpectationTest < Test::Unit::TestCase
   def test_should_not_raise_error_on_verify_if_expected_call_was_made
     expectation = new_expectation
     expectation.invoke
-    assert_nothing_raised(Test::Unit::AssertionFailedError) {
+    assert_nothing_raised(ExpectationError) {
       expectation.verify
     }
   end
@@ -167,14 +167,14 @@ class ExpectationTest < Test::Unit::TestCase
   def test_should_not_raise_error_on_verify_if_expected_call_was_made_at_least_once
     expectation = new_expectation.at_least_once
     3.times {expectation.invoke}
-    assert_nothing_raised(Test::Unit::AssertionFailedError) {
+    assert_nothing_raised(ExpectationError) {
       expectation.verify
     }
   end
   
   def test_should_raise_error_on_verify_if_expected_call_was_not_made_at_least_once
     expectation = new_expectation.with(1, 2, 3).at_least_once
-    e = assert_raise(Test::Unit::AssertionFailedError) {
+    e = assert_raise(ExpectationError) {
       expectation.verify
     }
     assert_match(/expected calls: at least 1, actual calls: 0/i, e.message)
@@ -183,7 +183,7 @@ class ExpectationTest < Test::Unit::TestCase
   def test_should_not_raise_error_on_verify_if_expected_call_was_made_expected_number_of_times
     expectation = new_expectation.times(2)
     2.times {expectation.invoke}
-    assert_nothing_raised(Test::Unit::AssertionFailedError) {
+    assert_nothing_raised(ExpectationError) {
       expectation.verify
     }
   end
@@ -199,7 +199,7 @@ class ExpectationTest < Test::Unit::TestCase
   def test_should_raise_error_on_verify_if_expected_call_was_made_too_few_times
     expectation = new_expectation.times(2)
     1.times {expectation.invoke}
-    e = assert_raise(Test::Unit::AssertionFailedError) {
+    e = assert_raise(ExpectationError) {
       expectation.verify
     }
     assert_match(/expected calls: 2, actual calls: 1/i, e.message)
@@ -208,7 +208,7 @@ class ExpectationTest < Test::Unit::TestCase
   def test_should_raise_error_on_verify_if_expected_call_was_made_too_many_times
     expectation = new_expectation.times(2)
     3.times {expectation.invoke}
-    assert_raise(Test::Unit::AssertionFailedError) {
+    assert_raise(ExpectationError) {
       expectation.verify
     }
   end
@@ -223,7 +223,7 @@ class ExpectationTest < Test::Unit::TestCase
   
   def test_should_yield_to_block_before_raising_exception
     yielded = false
-    assert_raise(Test::Unit::AssertionFailedError) {
+    assert_raise(ExpectationError) {
       new_expectation.verify { |x| yielded = true }
     }
     assert yielded
@@ -236,7 +236,7 @@ class ExpectationTest < Test::Unit::TestCase
   
   def test_should_set_backtrace_on_assertion_failed_error_to_point_where_expectation_was_created
     execution_point = ExecutionPoint.current; expectation = Expectation.new(nil, :expected_method)
-    error = assert_raise(Test::Unit::AssertionFailedError) {  
+    error = assert_raise(ExpectationError) {  
       expectation.verify
     }
     assert_equal execution_point, ExecutionPoint.new(error.backtrace)
@@ -245,7 +245,7 @@ class ExpectationTest < Test::Unit::TestCase
   def test_should_display_expectation_message_in_exception_message
     options = [:a, :b, {:c => 1, :d => 2}]
     expectation = new_expectation.with(*options)
-    exception = assert_raise(Test::Unit::AssertionFailedError) {
+    exception = assert_raise(ExpectationError) {
       expectation.verify
     }
     assert exception.message.include?(expectation.method_signature)
@@ -271,7 +271,7 @@ class ExpectationTest < Test::Unit::TestCase
   def test_should_raise_error_with_message_indicating_which_method_was_expected_to_be_called_on_which_mock_object
     mock = Class.new { def mocha_inspect; 'mock'; end }.new
     expectation = Expectation.new(mock, :expected_method)
-    e = assert_raise(Test::Unit::AssertionFailedError) { expectation.verify }
+    e = assert_raise(ExpectationError) { expectation.verify }
     assert_match "mock.expected_method", e.message
   end
   
@@ -300,7 +300,7 @@ class ExpectationSimilarExpectationsTest < Test::Unit::TestCase
     mock = Object.new
     mock.define_instance_method(:expectations) { [expectation_1, expectation_2] }
     missing_expectation = MissingExpectation.new(mock, :expected_method).with(3)
-    exception = assert_raise(Test::Unit::AssertionFailedError) { missing_expectation.verify }
+    exception = assert_raise(ExpectationError) { missing_expectation.verify }
     assert_equal "#{mock.mocha_inspect}.expected_method(3) - expected calls: 0, actual calls: 1\nSimilar expectations:\nexpected_method(1)\nexpected_method(2)", exception.message
   end
   
@@ -318,7 +318,7 @@ class ExpectationSimilarExpectationsTest < Test::Unit::TestCase
     mock.define_instance_method(:expectations) { [expectation] }
     mock.define_instance_method(:mocha_inspect) { 'mocha_inspect' }
     missing_expectation = MissingExpectation.new(mock, :unexpected_method).with(1)
-    exception = assert_raise(Test::Unit::AssertionFailedError) { missing_expectation.verify }
+    exception = assert_raise(ExpectationError) { missing_expectation.verify }
     assert_equal "mocha_inspect.unexpected_method(1) - expected calls: 0, actual calls: 1", exception.message
   end
   

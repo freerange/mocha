@@ -67,7 +67,7 @@ class MockMethodsTest < Test::Unit::TestCase
     mock.extend(MockMethods)
     
     result = nil
-    assert_nothing_raised(Test::Unit::AssertionFailedError) do
+    assert_nothing_raised(ExpectationError) do
       result = mock.unexpected_method
     end
     assert_nil result
@@ -84,7 +84,7 @@ class MockMethodsTest < Test::Unit::TestCase
   def test_should_raise_assertion_error_for_unexpected_method_call
     mock = Object.new
     mock.extend(MockMethods)
-    error = assert_raise(Test::Unit::AssertionFailedError) do
+    error = assert_raise(ExpectationError) do
       mock.unexpected_method_called(:my_method, :argument1, :argument2)
     end
     assert_match /my_method/, error.message
@@ -129,7 +129,7 @@ class MockMethodsTest < Test::Unit::TestCase
     mock.expects(:method1)
     mock.expects(:method2)
     mock.method1
-    assert_raise(Test::Unit::AssertionFailedError) do
+    assert_raise(ExpectationError) do
       mock.verify
     end
   end
@@ -137,7 +137,7 @@ class MockMethodsTest < Test::Unit::TestCase
   def test_should_report_possible_expectations
     mock = Object.new.extend(MockMethods)
     mock.expects(:expected_method).with(1)
-    exception = assert_raise(Test::Unit::AssertionFailedError) { mock.expected_method(2) }
+    exception = assert_raise(ExpectationError) { mock.expected_method(2) }
     assert_equal "#{mock.mocha_inspect}.expected_method(2) - expected calls: 0, actual calls: 1\nSimilar expectations:\nexpected_method(1)", exception.message
   end
   

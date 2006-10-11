@@ -6,12 +6,9 @@ require 'mocha/mock'
 #
 # See Mocha::MockMethods for methods on mock objects.
 module Mocha
+  
   module AutoVerify
   
-    def self.included(base) # :nodoc:
-      base.add_teardown_method(:teardown_mocks)
-    end
-
     def mocks # :nodoc:
       @mocks ||= []
     end
@@ -83,9 +80,12 @@ module Mocha
       name, expectations = name_and_expectations_from_args(args)
       build_mock_with_expectations(:stub_everything, expectations, name)
     end
+    
+    def verify_mocks # :nodoc:
+      mocks.each { |mock| mock.verify { yield if block_given? } }
+    end
 
     def teardown_mocks # :nodoc:
-      mocks.each { |mock| mock.verify { add_assertion } }
       reset_mocks
     end
   

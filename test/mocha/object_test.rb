@@ -48,7 +48,7 @@ class ObjectTest < Test::Unit::TestCase
     $stubba = Mock.new
     $stubba.stubs(:stub)
     instance.expects(:method1).with(:value1, :value2)
-    assert_raise(Test::Unit::AssertionFailedError) { instance.verify }
+    assert_raise(ExpectationError) { instance.verify }
   end
   
   def test_should_pass_backtrace_into_expects
