@@ -1,4 +1,4 @@
-require 'mocha/standalone'
+require 'mocha_standalone'
 require 'mocha/test_case_adapter'
 
 require 'test/unit/testcase'
