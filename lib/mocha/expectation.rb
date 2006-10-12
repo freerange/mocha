@@ -226,9 +226,17 @@ module Mocha
       yield(self) if block_given?
       unless (@count === @invoked) then
         error = ExpectationError.new(error_message(@count, @invoked))
-        error.set_backtrace(backtrace)
+        error.set_backtrace(filtered_backtrace)
         raise error
       end
+    end
+    
+    def mocha_lib_directory
+      File.expand_path(File.join(File.dirname(__FILE__), "..")) + File::SEPARATOR
+    end
+    
+    def filtered_backtrace
+      backtrace.reject { |location| Regexp.new(mocha_lib_directory).match(File.expand_path(location)) }
     end
   
     def method_signature
@@ -265,7 +273,9 @@ module Mocha
       msg = error_message(0, 1)
       similar_expectations_list = similar_expectations.collect { |expectation| expectation.method_signature }.join("\n")
       msg << "\nSimilar expectations:\n#{similar_expectations_list}" unless similar_expectations.empty?
-      raise ExpectationError, msg if @invoked
+      error = ExpectationError.new(msg)
+      error.set_backtrace(filtered_backtrace)
+      raise error if @invoked
     end
   
     def similar_expectations

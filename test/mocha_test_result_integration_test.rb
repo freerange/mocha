@@ -1,11 +1,10 @@
 require 'test_helper'
 require 'mocha/standalone'
-require 'mocha/backtracefilter'
 require 'mocha/test_case_adapter'
 require 'execution_point'
 
 class MochaTestResultIntegrationTest < Test::Unit::TestCase
-
+  
   def test_should_include_expectation_verification_in_assertion_count
     test_result = run_test do
       object = mock()

@@ -1,6 +1,5 @@
 require 'mocha/standalone'
 require 'mocha/test_case_adapter'
-require 'mocha/backtracefilter'
 
 require 'test/unit/testcase'
 

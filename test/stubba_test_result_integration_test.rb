@@ -2,7 +2,6 @@ require 'test_helper'
 require 'mocha/object'
 require 'mocha/standalone'
 require 'mocha/test_case_adapter'
-require 'mocha/backtracefilter'
 require 'execution_point'
 
 class StubbaTestResultIntegrationTest < Test::Unit::TestCase
