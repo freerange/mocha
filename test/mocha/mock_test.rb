@@ -1,5 +1,6 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'mocha/mock'
+require 'mocha/expectation_error'
 
 class MockTest < Test::Unit::TestCase
   
@@ -12,7 +13,7 @@ class MockTest < Test::Unit::TestCase
   def test_should_set_single_expectation
    mock = Mock.new
    mock.expects(:method1).returns(1)
-   assert_nothing_raised(Test::Unit::AssertionFailedError) do
+   assert_nothing_raised(ExpectationError) do
      assert_equal 1, mock.method1
    end
   end 
@@ -50,12 +51,12 @@ class MockTest < Test::Unit::TestCase
     mock.expects(:kind_of?)
     mock.type
     mock.kind_of?
-    assert_nothing_raised(Test::Unit::AssertionFailedError) { mock.verify }
+    assert_nothing_raised(ExpectationError) { mock.verify }
   end
   
   def test_should_be_able_to_extend_mock_object_with_module
     mock = Mock.new
-    assert_nothing_raised(Test::Unit::AssertionFailedError) { mock.extend(Module.new) }
+    assert_nothing_raised(ExpectationError) { mock.extend(Module.new) }
   end
   
   def test_should_be_equal_to_avoid_strange_breakage_of_published_review_list_test_in_revieworld

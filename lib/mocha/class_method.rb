@@ -46,10 +46,6 @@ module Mocha
       "__stubba__#{method_name}__stubba__"
     end  
   
-    def cannot_replace_method_error
-      Test::Unit::AssertionFailedError.new("Cannot replace #{method} because it is not defined in #{stubbee}.")
-    end
-  
     def eql?(other)
       return false unless (other.class == self.class)
       (stubbee == other.stubbee) and (method == other.method)
