@@ -143,6 +143,14 @@ class ExpectationTest < Test::Unit::TestCase
     assert_raise(exception) { expectation.invoke }
   end
   
+  def test_should_raise_same_instance_of_custom_exception
+    exception_klass = Class.new(StandardError)
+    expected_exception = exception_klass.new
+    expectation = new_expectation.raises(expected_exception)
+    actual_exception = assert_raise(exception_klass) { expectation.invoke }
+    assert_same expected_exception, actual_exception
+  end
+  
   def test_should_use_the_default_exception_message
     expectation = new_expectation.raises(Exception)
     exception = assert_raise(Exception) { expectation.invoke }

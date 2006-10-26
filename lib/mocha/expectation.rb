@@ -210,7 +210,7 @@ module Mocha
     #   object.expects(:expected_method).raises(Exception, 'message')
     #   object.expected_method # => raises exception of class Exception and with message 'message'
     def raises(exception = RuntimeError, message = nil)
-      @return_value = lambda { raise exception, message }
+      @return_value = message ? lambda { raise exception, message } : lambda { raise exception }
       self
     end
 
