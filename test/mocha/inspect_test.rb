@@ -17,7 +17,7 @@ class ObjectInspectTest < Test::Unit::TestCase
   
   def test_should_provide_custom_representation_of_object
     object = Object.new
-    assert_equal "#<#{object.class}: #{object.object_id}>", object.mocha_inspect
+    assert_equal "#<#{object.class}:#{"0x%x" % object.object_id}>", object.mocha_inspect
   end
   
 end
