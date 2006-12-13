@@ -88,7 +88,7 @@ specification = Gem::Specification.new do |s|
   s.rdoc_options << '--title' << 'Mocha' << '--main' << 'README' << '--line-numbers'
                          
   s.autorequire = 'mocha'
-  s.files = FileList['{lib,test}/**/*.rb', '[A-Z]*'].exclude('TODO').to_a
+  s.files = FileList['{lib,test,examples}/**/*.rb', '[A-Z]*'].exclude('TODO').to_a
 	s.test_file = "test/all_tests.rb"
 end
 
