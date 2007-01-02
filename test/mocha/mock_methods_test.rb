@@ -49,7 +49,17 @@ class MockMethodsTest < Test::Unit::TestCase
     expectation1 = mock.expects(:my_method).with(:argument1, :argument2)
     expectation2 = mock.expects(:my_method).with(:argument3, :argument4)
     
-    assert_equal expectation2, mock.matching_expectation(:my_method, :argument3, :argument4)
+    assert_same expectation2, mock.matching_expectation(:my_method, :argument3, :argument4)
+  end
+  
+  def test_should_find_most_recent_matching_expectation
+    mock = Object.new
+    mock.extend(MockMethods)
+
+    expectation1 = mock.expects(:my_method).with(:argument1, :argument2)
+    expectation2 = mock.expects(:my_method).with(:argument1, :argument2)
+    
+    assert_same expectation2, mock.matching_expectation(:my_method, :argument1, :argument2)
   end
   
   def test_should_invoke_expectation_and_return_result
@@ -190,4 +200,36 @@ class MockMethodsTest < Test::Unit::TestCase
     assert_equal :result2, mock.method2
   end
   
+  def test_should_match_most_recent_call_to_expects
+    mock = Object.new
+    mock.extend(MockMethods)
+    mock.expects(:method1).returns(0)
+    mock.expects(:method1).returns(1)
+    assert_equal 1, mock.method1
+  end
+
+  def test_should_match_most_recent_call_to_stubs
+    mock = Object.new
+    mock.extend(MockMethods)
+    mock.stubs(:method1).returns(0)
+    mock.stubs(:method1).returns(1)
+    assert_equal 1, mock.method1
+  end
+
+  def test_should_match_call_to_expects_with_previous_call_to_stubs
+    mock = Object.new
+    mock.extend(MockMethods)
+    mock.stubs(:method1).returns(0)
+    mock.expects(:method1).returns(1)
+    assert_equal 1, mock.method1
+  end
+
+  def test_should_match_call_to_stubs_with_previous_call_to_expects
+    mock = Object.new
+    mock.extend(MockMethods)
+    mock.expects(:method1).returns(0)
+    mock.stubs(:method1).returns(1)
+    assert_equal 1, mock.method1
+  end
+
 end

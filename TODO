@@ -1,3 +1,4 @@
+- investigate where/why check for existence of stubbed method has gone.
 - provide test::unit agnostic api - mockery/context type objects on which the user must call setup/teardown?
 - increment actual count for ANY expectation that matches - see email from Bryan Helmkamp
 - add multiyield - see email from Jay Fields
