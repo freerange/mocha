@@ -147,17 +147,17 @@ class AutoVerifyTest < Test::Unit::TestCase
   
   def test_should_create_mock_with_name
     mock = test_case.mock('named_mock')
-    assert_equal 'named_mock', mock.__mock_name
+    assert_equal '#<Mock:named_mock>', mock.mocha_inspect
   end
   
   def test_should_create_stub_with_name
     stub = test_case.stub('named_stub')
-    assert_equal 'named_stub', stub.__mock_name
+    assert_equal '#<Mock:named_stub>', stub.mocha_inspect
   end
   
   def test_should_create_greedy_stub_with_name
     greedy_stub = test_case.stub_everything('named_greedy_stub')
-    assert_equal 'named_greedy_stub', greedy_stub.__mock_name
+    assert_equal '#<Mock:named_greedy_stub>', greedy_stub.mocha_inspect
   end
   
 end

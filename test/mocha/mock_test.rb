@@ -35,23 +35,19 @@ class MockTest < Test::Unit::TestCase
     assert_equal true, mock.stub_everything
   end
   
-  def test_should_use_default_inspect_message
+  def test_should_display_object_id_for_inspect_if_mock_has_no_name
     mock = Mock.new
-    assert_equal mock.mocha_inspect_before_hijacked_by_named_mocks, mock.mocha_inspect
+    assert_match Regexp.new("#<Mock:0x[0-9A-Fa-f]{6}>"), mock.mocha_inspect
   end
   
-  def test_should_give_name_in_inspect_message
+  def test_should_display_name_for_inspect_if_mock_has_name
     mock = Mock.new(false, 'named_mock')
     assert_equal "#<Mock:named_mock>", mock.mocha_inspect
   end
-  
-  def test_should_be_able_to_mock_some_standard_object_methods_on_blank_mock
-    mock = BlankMock.new
-    mock.expects(:type)
-    mock.expects(:kind_of?)
-    mock.type
-    mock.kind_of?
-    assert_nothing_raised(ExpectationError) { mock.verify }
+
+  def test_should_give_name_in_inspect_message
+    mock = Mock.new(false, 'named_mock')
+    assert_equal "#<Mock:named_mock>", mock.mocha_inspect
   end
   
   def test_should_be_able_to_extend_mock_object_with_module
