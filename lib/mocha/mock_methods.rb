@@ -45,8 +45,8 @@ module Mocha
       expectations.last
     end
 
-    # :call-seq: expects(method_name) -> expectation
-    #            expects(method_names) -> last expectation
+    # :call-seq: stubs(method_name) -> expectation
+    #            stubs(method_names) -> last expectation
     #
     # Adds an expectation that a method identified by +method_name+ symbol may be called any number of times with any parameters.
     # Returns the new expectation which can be further modified by methods on Mocha::Expectation.
