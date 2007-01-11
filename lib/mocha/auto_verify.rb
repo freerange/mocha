@@ -94,7 +94,7 @@ module Mocha
       expectation_type = :stubs if expectation_type == :stub_everything
       mock = Mocha::Mock.new(stub_everything, name)
       expectations.each do |method, result|
-        mock.send(expectation_type, method).returns(result)
+        mock.__send__(expectation_type, method).returns(result)
       end
       mocks << mock
       mock
