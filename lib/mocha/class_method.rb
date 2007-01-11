@@ -26,19 +26,19 @@ module Mocha
     end
   
     def hide_original_method
-      stubbee.metaclass.class_eval "alias_method :#{hidden_method}, :#{method}" if stubbee.metaclass.method_defined?(method)
+      stubbee.__metaclass__.class_eval "alias_method :#{hidden_method}, :#{method}" if stubbee.__metaclass__.method_defined?(method)
     end
   
     def define_new_method
-      stubbee.metaclass.class_eval "def #{method}(*args, &block); mocha.method_missing(:#{method}, *args, &block); end"
+      stubbee.__metaclass__.class_eval "def #{method}(*args, &block); mocha.method_missing(:#{method}, *args, &block); end"
     end
   
     def remove_new_method
-      stubbee.metaclass.class_eval "remove_method :#{method}"
+      stubbee.__metaclass__.class_eval "remove_method :#{method}"
     end
   
     def restore_original_method
-      stubbee.metaclass.class_eval "alias_method :#{method}, :#{hidden_method}; remove_method :#{hidden_method}" if stubbee.metaclass.method_defined?(hidden_method)
+      stubbee.__metaclass__.class_eval "alias_method :#{method}, :#{hidden_method}; remove_method :#{hidden_method}" if stubbee.__metaclass__.method_defined?(hidden_method)
     end
   
     def hidden_method
