@@ -2,6 +2,12 @@ require 'mocha/infinite_range'
 require 'mocha/pretty_parameters'
 require 'mocha/expectation_error'
 
+class Object
+
+  alias_method :__is_a__, :is_a?
+
+end
+
 module Mocha
   # Methods on expectations returned from Mocha::MockMethods#expects and Mocha::MockMethods#stubs
   class Expectation
@@ -219,7 +225,7 @@ module Mocha
     def invoke
       @invoked += 1
       yield(*@parameters_to_yield) if yield? and block_given?
-      @return_value.is_a?(Proc) ? @return_value.call : @return_value
+      @return_value.__is_a__(Proc) ? @return_value.call : @return_value
     end
 
     def verify
@@ -240,7 +246,7 @@ module Mocha
     end
   
     def method_signature
-      return "#{method_name}" if @parameters.is_a?(AlwaysEqual)
+      return "#{method_name}" if @parameters.__is_a__(AlwaysEqual)
       "#{@method_name}(#{PrettyParameters.new(@parameters).pretty})"
     end
     

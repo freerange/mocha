@@ -128,8 +128,19 @@ class ExpectationTest < Test::Unit::TestCase
   end
   
   def test_should_return_evaluated_proc
-    expectation = new_expectation.returns(lambda { 99 })
+    proc = lambda { 99 }
+    expectation = new_expectation.returns(proc)
     assert_equal 99, expectation.invoke
+  end
+  
+  def test_should_return_evaluated_proc_without_using_is_a_method
+    proc = lambda { 99 }
+    proc.define_instance_accessor(:called)
+    proc.called = false
+    proc.replace_instance_method(:is_a?) { self.called = true; true}
+    expectation = new_expectation.returns(proc)
+    expectation.invoke
+    assert_equal false, proc.called
   end
   
   def test_should_raise_runtime_exception
