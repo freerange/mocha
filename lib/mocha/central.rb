@@ -20,7 +20,7 @@ module Mocha
     end
     
     def unique_mocks
-      stubba_methods.collect { |method| method.mock }.uniq
+      stubba_methods.inject({}) { |mocks, method| mocks[method.mock.__id__] = method.mock; mocks }.values
     end
   
     def unstub_all

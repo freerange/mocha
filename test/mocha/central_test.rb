@@ -62,7 +62,7 @@ class CentralTest < Test::Unit::TestCase
     method_2.verify
   end
   
-  def test_should_collect_mock_from_all_methods
+  def test_should_collect_mocks_from_all_methods
     method_1 = Mock.new
     method_1.stubs(:mock).returns(:mock_1)
 
@@ -72,7 +72,9 @@ class CentralTest < Test::Unit::TestCase
     stubba = Central.new
     stubba.stubba_methods = [method_1, method_2]
     
-    assert_equal [:mock_1, :mock_2], stubba.unique_mocks
+    assert_equal 2, stubba.unique_mocks.size
+    assert stubba.unique_mocks.include?(:mock_1)
+    assert stubba.unique_mocks.include?(:mock_2)
   end
 
   def test_should_return_unique_mochas
