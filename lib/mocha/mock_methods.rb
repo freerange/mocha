@@ -1,4 +1,5 @@
 require 'mocha/expectation'
+require 'mocha/metaclass'
 
 module Mocha
   # Methods added to mock objects.
@@ -41,9 +42,12 @@ module Mocha
       method_names = method_names.is_a?(Hash) ? method_names : { method_names => nil }
       method_names.each do |method_name, return_value|
         expectations << Expectation.new(self, method_name, backtrace).returns(return_value)
+        self.__metaclass__.send(:undef_method, method_name) if self.__metaclass__.method_defined?(method_name)
       end
       expectations.last
     end
+
+    alias_method :__expects__, :expects
 
     # :call-seq: stubs(method_name) -> expectation
     #            stubs(method_names) -> last expectation
@@ -68,10 +72,13 @@ module Mocha
       method_names = method_names.is_a?(Hash) ? method_names : { method_names => nil }
       method_names.each do |method_name, return_value|
         expectations << Stub.new(self, method_name, backtrace).returns(return_value)
+        self.__metaclass__.send(:undef_method, method_name) if self.__metaclass__.method_defined?(method_name)
       end
       expectations.last
     end
     
+    alias_method :__stubs__, :stubs
+
     # :stopdoc:
 
     def method_missing(symbol, *arguments, &block)

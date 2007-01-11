@@ -55,9 +55,30 @@ class MockTest < Test::Unit::TestCase
     assert_nothing_raised(ExpectationError) { mock.extend(Module.new) }
   end
   
-  def test_should_be_equal_to_avoid_strange_breakage_of_published_review_list_test_in_revieworld
+  def test_should_be_equal
     mock = Mock.new
     assert_equal true, mock.eql?(mock)
   end
     
+  def test_should_be_able_to_mock_standard_object_methods
+    mock = Mock.new
+    object_methods = Object.public_instance_methods.reject { |m| m =~ /^__.*__$/ }.sort
+    object_methods.each { |method| mock.__expects__(method.to_sym).returns(method) }
+    object_methods.each { |method| assert_equal method, mock.__send__(method.to_sym) }
+    assert_nothing_raised(ExpectationError) { mock.verify }
+  end
+
+  def test_should_be_able_to_stub_standard_object_methods
+    mock = Mock.new
+    object_methods = Object.public_instance_methods.reject { |m| m =~ /^__.*__$/ }.sort
+    object_methods.each { |method| mock.__stubs__(method.to_sym).returns(method) }
+    object_methods.each { |method| assert_equal method, mock.__send__(method.to_sym) }
+  end
+  
+  def test_should_respond_to_expected_methods
+    mock = Mock.new
+    mock.expects(:method1)
+    assert_equal true, mock.respond_to?(:method1)
+  end
+  
 end
