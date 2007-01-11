@@ -1,5 +1,6 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'mocha/inspect'
+require 'method_definer'
 
 class InspectTest
   def self.suite
@@ -17,7 +18,17 @@ class ObjectInspectTest < Test::Unit::TestCase
   
   def test_should_provide_custom_representation_of_object
     object = Object.new
-    assert_equal "#<#{object.class}:#{"0x%x" % object.object_id}>", object.mocha_inspect
+    assert_equal "#<#{object.class}:#{"0x%x" % object.__id__}>", object.mocha_inspect
+  end
+  
+  def test_should_use_underscored_id_instead_of_object_id_or_id_so_that_they_can_be_stubbed
+    object = Object.new
+    object.define_instance_accessor(:called)
+    object.called = false
+    object.replace_instance_method(:object_id) { self.called = true; 1 }
+    object.replace_instance_method(:id) { self.called = true; 1 }
+    object.mocha_inspect
+    assert_equal false, object.called
   end
   
 end
