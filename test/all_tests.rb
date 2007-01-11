@@ -13,6 +13,7 @@ require 'mocha/class_method_test'
 require 'mocha/any_instance_method_test'
 require 'mocha/setup_and_teardown_test'
 require 'mocha/object_test'
+require 'mocha/metaclass_test'
 
 class UnitTests
   
@@ -30,6 +31,7 @@ class UnitTests
     suite << AnyInstanceMethodTest.suite
     suite << SetupAndTeardownTest.suite
     suite << ObjectTest.suite
+    suite << MetaclassTest.suite
     suite
   end
   

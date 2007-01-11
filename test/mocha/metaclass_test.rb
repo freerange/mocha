@@ -8,7 +8,8 @@ class MetaclassTest < Test::Unit::TestCase
     assert_raises(NoMethodError) { object.success? }
 
     object = Object.new
-    assert_equal [Object, Kernel], object.__metaclass__.ancestors
+    assert object.__metaclass__.ancestors.include?(Object)
+    assert object.__metaclass__.ancestors.include?(Kernel)
     assert object.__metaclass__.is_a?(Class)
 
     object.__metaclass__.class_eval { def success?; true; end }
