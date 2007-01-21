@@ -31,15 +31,6 @@ end
 
 class StubbaAcceptanceTest < Test::Unit::TestCase
   
-  def test_should_allow_object_instance_pointed_to_from_constant_to_be_unstubbed
-    self.class.const_set(:Foo, [:array, :of, :things])
-    Foo.stubs(:size).returns(6)
-    assert_equal 6, Foo.size
-    $stubba.unstub_all
-    assert_equal 3, Foo.size
-    self.class.__send__(:remove_const, :Foo)
-  end
-  
   def test_should_stub_instance_method
     widget = Widget.new
     widget.expects(:model).returns('different_model')
