@@ -1,3 +1,11 @@
+=> release management
+- update RELEASE file for all releases after 0.3.0
+- why does gem rdoc include all source files?
+- tags for repos
+- automate releases cf rspec
+- continuous integration build
+- trac?
+
 => restrict partial mocks to existing public methods?
 - allow specification of class to be mocked, so we can check for existence of methods
 - investigate where/why check for existence of stubbed method has gone.
@@ -23,11 +31,6 @@
 - use builder object c.f. JMock
 - possibly simplify by making mock the same as a partial mock of Object
 - provide test::unit agnostic api - mockery/context type objects on which the user must call setup/teardown?
-
-=> release management
-- why does gem rdoc include all source files?
-- tags for repos
-- automate releases cf rspec
 
 => documentation
 - read and improve tutorial emailed by user
