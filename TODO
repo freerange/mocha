@@ -25,6 +25,7 @@
 - provide test::unit agnostic api - mockery/context type objects on which the user must call setup/teardown?
 
 => release management
+- why does gem rdoc include all source files?
 - tags for repos
 - automate releases cf rspec
 

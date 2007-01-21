@@ -4,7 +4,7 @@ require 'rake/gempackagetask'
 require 'rake/contrib/sshpublisher'
 
 module Mocha
-  VERSION = "0.3.2"
+  VERSION = "0.4.0"
 end
 
 desc "Default task is currently to run all tests"
