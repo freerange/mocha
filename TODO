@@ -1,6 +1,7 @@
 => release management
 - update RELEASE file for all releases after 0.3.0
-- why does gem rdoc include all source files?
+- why does gem rdoc include all source files? what about other package types?
+- why does zip include Rakefile? what about other package types?
 - tags for repos
 - automate releases cf rspec
 - continuous integration build

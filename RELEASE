@@ -1,3 +1,35 @@
+= 0.4.0
+
+- Allow naming of mocks (patch from Chris Roos).
+- Specify multiple return values for consecutive calls.
+- Improved consistency of expectation error messages.
+- Allow mocking of Object instance methods e.g. kind_of?, type.
+- Provide aliased versions of #expects and #stubs to allow mocking of these methods.
+- Added at_least, at_most, at_most_once methods to expectation.
+- Allow expects and stubs to take a hash of method and return values.
+- Eliminate warning: "instance variable @yield not initialized" (patch from Xavier Shay).
+- Restore instance methods on partial mocks (patch from Chris Roos).
+- Allow stubbing of a method with non-word characters in its name (patch from Paul Battley).
+- Removed coupling to Test::Unit.
+- Allow specified exception instance to be raised (patch from Chris Roos).
+- Make mock object_id appear in hex like normal Ruby inspect (patch from Paul Battley).
+- Fix path to object.rb in rdoc rake task (patch from Tomas Pospisek).
+- Reverse order in which expectations are matched, so that last expectation is matched first. This allows e.g. a call to #stubs to be effectively overridden by a call to #expects (patch from Tobias Lutke).
+- Stubba & SmartTestCase modules incorporated into Mocha module so only need to require 'mocha' - no longer need to require 'stubba'.
+- AutoMocha removed.
+
+= 0.3.3
+
+- Quick bug fix to restore instance methods on partial mocks (for Kevin Clark).
+
+= 0.3.2
+
+- Examples added.
+
+= 0.3.1
+
+- Dual licensing with MIT license added.
+
 = 0.3.0
 
 * Rails plugin.
