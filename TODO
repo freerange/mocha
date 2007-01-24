@@ -35,6 +35,7 @@
 - use builder object c.f. JMock
 - possibly simplify by making mock the same as a partial mock of Object
 - provide test::unit agnostic api - mockery/context type objects on which the user must call setup/teardown?
+- allow stubs/expects methods to accept method names as strings and symbols to retain similarity to define_method() et al
 
 => documentation
 - read and improve tutorial emailed by user
