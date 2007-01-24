@@ -1,3 +1,6 @@
+=> plugin
+- maybe remove redundant require 'test_help' from init.rb - see mocha mailing list thread with subject "SslRequirements plugin and mocha"
+
 => release management
 - update RELEASE file for all releases after 0.3.0
 - why does gem rdoc include all source files? what about other package types?
