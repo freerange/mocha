@@ -35,6 +35,11 @@ class ExpectationTest < Test::Unit::TestCase
     assert expectation.match?(:expected_method, 1, 2, 3)
   end
   
+  def test_should_not_match_calls_to_different_method_with_parameters_constrained_as_expected
+    expectation = new_expectation.with() {|x, y, z| x + y == z}
+    assert !expectation.match?(:different_method, 1, 2, 3)
+  end
+  
   def test_should_not_match_calls_to_different_methods_with_no_parameters
     assert !new_expectation.match?(:unexpected_method)
   end
