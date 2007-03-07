@@ -23,7 +23,7 @@ Rake::RDocTask.new do |task|
   task.rdoc_dir = 'doc'
   task.template = "html_with_google_analytics"
   task.options << "--line-numbers" << "--inline-source"
-  task.rdoc_files.include('README', 'RELEASE', 'COPYING', 'MIT-LICENSE', 'agiledox.txt', 'lib/mocha/auto_verify.rb', 'lib/mocha/mock_methods.rb', 'lib/mocha/expectation.rb', 'lib/mocha/object.rb')
+  task.rdoc_files.include('README', 'RELEASE', 'COPYING', 'MIT-LICENSE', 'agiledox.txt', 'lib/mocha/auto_verify.rb', 'lib/mocha/mock.rb', 'lib/mocha/expectation.rb', 'lib/mocha/object.rb')
 end
 task :rdoc => :examples
 

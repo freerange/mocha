@@ -4,7 +4,6 @@ require 'mocha/inspect_test'
 require 'mocha/pretty_parameters_test'
 require 'mocha/expectation_test'
 require 'mocha/infinite_range_test'
-require 'mocha/mock_methods_test'
 require 'mocha/mock_test'
 require 'mocha/auto_verify_test'
 
@@ -23,7 +22,6 @@ class UnitTests
     suite << PrettyParametersTest.suite
     suite << ExpectationTest.suite
     suite << InfiniteRangeTest.suite
-    suite << MockMethodsTest.suite
     suite << MockTest.suite
     suite << AutoVerifyTest.suite
     suite << CentralTest.suite

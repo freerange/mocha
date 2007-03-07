@@ -9,7 +9,8 @@ class Object
 end
 
 module Mocha
-  # Methods on expectations returned from Mocha::MockMethods#expects and Mocha::MockMethods#stubs
+  
+  # Methods on expectations returned from Mocha::Mock#expects and Mocha::Mock#stubs
   class Expectation
   
     # :stopdoc:
