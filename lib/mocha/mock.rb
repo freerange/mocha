@@ -1,11 +1,11 @@
 require 'mocha/expectation'
 require 'mocha/metaclass'
 
-module Mocha
+module Mocha # :nodoc:
 
   # Traditional mock object.
   #
-  # Methods return a Mocha::Expectation which can be further modified by methods on Mocha::Expectation.
+  # Methods return an Expectation which can be further modified by methods on Expectation.
   class Mock
     
     # :stopdoc:
@@ -27,7 +27,7 @@ module Mocha
     #            expects(method_names) -> last expectation
     #
     # Adds an expectation that a method identified by +method_name+ symbol must be called exactly once with any parameters.
-    # Returns the new expectation which can be further modified by methods on Mocha::Expectation.
+    # Returns the new expectation which can be further modified by methods on Expectation.
     #   object = mock()
     #   object.expects(:method1)
     #   object.method1
@@ -60,7 +60,7 @@ module Mocha
     #            stubs(method_names) -> last expectation
     #
     # Adds an expectation that a method identified by +method_name+ symbol may be called any number of times with any parameters.
-    # Returns the new expectation which can be further modified by methods on Mocha::Expectation.
+    # Returns the new expectation which can be further modified by methods on Expectation.
     #   object = mock()
     #   object.stubs(:method1)
     #   object.method1
