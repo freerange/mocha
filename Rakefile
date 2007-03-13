@@ -1,19 +1,37 @@
 require 'rubygems'
 require 'rake/rdoctask'
 require 'rake/gempackagetask'
+require 'rake/testtask'
 require 'rake/contrib/sshpublisher'
 
 module Mocha
   VERSION = "0.4.0"
 end
 
-desc "Default task is currently to run all tests"
+desc "Run all tests"
 task :default => :test_all
 
-desc "Run all tests"
-task :test_all do
-  $: << "#{File.dirname(__FILE__)}/test"
-  require 'test/all_tests'
+task :test_all => [:test_unit, :test_integration, :test_acceptance]
+
+desc "Run unit tests"
+Rake::TestTask.new(:test_unit) do |t|
+  t.libs << 'test'
+  t.test_files = FileList['test/mocha/*_test.rb']
+  t.verbose = true
+end
+
+desc "Run integration tests"
+Rake::TestTask.new(:test_integration) do |t|
+  t.libs << 'test'
+  t.test_files = FileList['test/*_integration_test.rb']
+  t.verbose = true
+end
+
+desc "Run acceptance tests"
+Rake::TestTask.new(:test_acceptance) do |t|
+  t.libs << 'test'
+  t.test_files = FileList['test/*_acceptance_test.rb']
+  t.verbose = true
 end
 
 desc 'Generate RDoc'
