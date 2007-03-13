@@ -23,7 +23,7 @@ end
 desc "Run integration tests"
 Rake::TestTask.new(:test_integration) do |t|
   t.libs << 'test'
-  t.test_files = FileList['test/*_integration_test.rb']
+  t.test_files = FileList['test/integration/*_test.rb']
   t.verbose = true
 end
 
