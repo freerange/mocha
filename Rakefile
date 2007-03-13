@@ -30,7 +30,7 @@ end
 desc "Run acceptance tests"
 Rake::TestTask.new(:test_acceptance) do |t|
   t.libs << 'test'
-  t.test_files = FileList['test/*_acceptance_test.rb']
+  t.test_files = FileList['test/acceptance/*_test.rb']
   t.verbose = true
 end
 
