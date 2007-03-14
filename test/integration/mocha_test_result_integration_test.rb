@@ -1,4 +1,4 @@
-require 'test_helper'
+require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'mocha/standalone'
 require 'mocha/test_case_adapter'
 require 'execution_point'

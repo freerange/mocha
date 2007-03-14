@@ -1,4 +1,4 @@
-require 'test_helper'
+require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'mocha'
 
 class MochaAcceptanceTest < Test::Unit::TestCase
