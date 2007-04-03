@@ -188,6 +188,30 @@ class ExpectationTest < Test::Unit::TestCase
     }
   end
   
+  def test_should_raise_error_on_verify_if_call_expected_once_but_invoked_twice
+    expectation = new_expectation.once
+    expectation.invoke
+    expectation.invoke
+    assert_raises(ExpectationError) {
+      expectation.verify
+    }
+  end
+
+  def test_should_raise_error_on_verify_if_call_expected_once_but_not_invoked
+    expectation = new_expectation.once
+    assert_raises(ExpectationError) {
+      expectation.verify
+    }
+  end
+
+  def test_should_not_raise_error_on_verify_if_call_expected_once_and_invoked_once
+    expectation = new_expectation.once
+    expectation.invoke
+    assert_nothing_raised(ExpectationError) {
+      expectation.verify
+    }
+  end
+
   def test_should_not_raise_error_on_verify_if_expected_call_was_made_at_least_once
     expectation = new_expectation.at_least_once
     3.times {expectation.invoke}

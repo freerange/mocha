@@ -55,21 +55,48 @@ module Mocha # :nodoc:
     # +range+ can be specified as an exact integer or as a range of integers
     #   object = mock()
     #   object.expects(:expected_method).times(3)
-    #   3.times { object.expected_method } # => verify succeeds
+    #   3.times { object.expected_method }
+    #   # => verify succeeds
     #
     #   object = mock()
     #   object.expects(:expected_method).times(3)
-    #   2.times { object.expected_method } # => verify fails
+    #   2.times { object.expected_method }
+    #   # => verify fails
     #
     #   object = mock()
     #   object.expects(:expected_method).times(2..4)
-    #   3.times { object.expected_method } # => verify succeeds
+    #   3.times { object.expected_method }
+    #   # => verify succeeds
     #
     #   object = mock()
     #   object.expects(:expected_method).times(2..4)
-    #   object.expected_method # => verify fails
+    #   object.expected_method
+    #   # => verify fails
     def times(range)
       @count = range
+      self
+    end
+  
+    # :call-seq: once() -> expectation
+    #
+    # Modifies expectation so that the expected method must be called exactly once.
+    # Note that this is the default behaviour for an expectation, but you may wish to use it for clarity/emphasis.
+    #   object = mock()
+    #   object.expects(:expected_method).once
+    #   object.expected_method
+    #   # => verify succeeds
+    #
+    #   object = mock()
+    #   object.expects(:expected_method).once
+    #   object.expected_method
+    #   object.expected_method
+    #   # => verify fails
+    #
+    #   object = mock()
+    #   object.expects(:expected_method).once
+    #   # => verify fails
+    def once()
+      times(1)
       self
     end
   
@@ -78,11 +105,13 @@ module Mocha # :nodoc:
     # Modifies expectation so that the expected method must never be called.
     #   object = mock()
     #   object.expects(:expected_method).never
-    #   object.expected_method # => verify fails
+    #   object.expected_method
+    #   # => verify fails
     #
     #   object = mock()
     #   object.expects(:expected_method).never
-    #   object.expected_method # => verify succeeds
+    #   object.expected_method
+    #   # => verify succeeds
     def never
       times(0)
       self
@@ -93,11 +122,13 @@ module Mocha # :nodoc:
     # Modifies expectation so that the expected method must be called at least a +minimum_number_of_times+.
     #   object = mock()
     #   object.expects(:expected_method).at_least(2)
-    #   3.times { object.expected_method } # => verify succeeds
+    #   3.times { object.expected_method }
+    #   # => verify succeeds
     #
     #   object = mock()
     #   object.expects(:expected_method).at_least(2)
-    #   object.expected_method # => verify fails
+    #   object.expected_method
+    #   # => verify fails
     def at_least(minimum_number_of_times)
       times(Range.at_least(minimum_number_of_times))
       self
@@ -108,7 +139,8 @@ module Mocha # :nodoc:
     # Modifies expectation so that the expected method must be called at least once.
     #   object = mock()
     #   object.expects(:expected_method).at_least_once
-    #   object.expected_method # => verify succeeds
+    #   object.expected_method
+    #   # => verify succeeds
     #
     #   object = mock()
     #   object.expects(:expected_method).at_least_once
@@ -123,11 +155,13 @@ module Mocha # :nodoc:
     # Modifies expectation so that the expected method must be called at most a +maximum_number_of_times+.
     #   object = mock()
     #   object.expects(:expected_method).at_most(2)
-    #   2.times { object.expected_method } # => verify succeeds
+    #   2.times { object.expected_method }
+    #   # => verify succeeds
     #
     #   object = mock()
     #   object.expects(:expected_method).at_most(2)
-    #   3.times { object.expected_method } # => verify fails
+    #   3.times { object.expected_method }
+    #   # => verify fails
     def at_most(maximum_number_of_times)
       times(Range.at_most(maximum_number_of_times))
       self
@@ -138,11 +172,13 @@ module Mocha # :nodoc:
     # Modifies expectation so that the expected method must be called at most once.
     #   object = mock()
     #   object.expects(:expected_method).at_most_once
-    #   object.expected_method # => verify succeeds
+    #   object.expected_method
+    #   # => verify succeeds
     #
     #   object = mock()
     #   object.expects(:expected_method).at_most_once
-    #   2.times { object.expected_method } # => verify fails
+    #   2.times { object.expected_method }
+    #   # => verify fails
     def at_most_once()
       at_most(1)
       self
@@ -153,20 +189,24 @@ module Mocha # :nodoc:
     # Modifies expectation so that the expected method must be called with specified +arguments+.
     #   object = mock()
     #   object.expects(:expected_method).with(:param1, :param2)
-    #   object.expected_method(:param1, :param2) # => verify succeeds
+    #   object.expected_method(:param1, :param2)
+    #   # => verify succeeds
     #
     #   object = mock()
     #   object.expects(:expected_method).with(:param1, :param2)
-    #   object.expected_method(:param3) # => verify fails
+    #   object.expected_method(:param3)
+    #   # => verify fails
     # If a +parameter_block+ is given, the block is called with the parameters passed to the expected method.
     # The expectation is matched if the block evaluates to +true+.
     #   object = mock()
     #   object.expects(:expected_method).with() { |value| value % 4 == 0 }
-    #   object.expected_method(16) # => verify succeeds
+    #   object.expected_method(16)
+    #   # => verify succeeds
     #
     #   object = mock()
     #   object.expects(:expected_method).with() { |value| value % 4 == 0 }
-    #   object.expected_method(17) # => verify fails
+    #   object.expected_method(17)
+    #   # => verify fails
     def with(*arguments, &parameter_block)
       @parameters, @parameter_block = arguments, parameter_block
       class << @parameters; def to_s; join(', '); end; end
