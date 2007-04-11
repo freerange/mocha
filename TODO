@@ -8,16 +8,12 @@
 - trac?
 
 => restrict partial mocks to existing public methods?
-- allow specification of class to be mocked, so we can check for existence of methods
 - investigate where/why check for existence of stubbed method has gone.
 - allow stubbing of private/protected methods? - force_stub?
+- allow specification of class to be mocked, so we can check for existence of methods
 
 => multiple expectations for same method
-- look at JMock for examples of when multiple expectations match
-- increment actual count for ANY expectation that matches - see email from Bryan Helmkamp
-- think about allowing a stubbing expectation to be converted to an asserting expectation and vice versa
 - fail fast if expectation count exceeded during test...? c.f. JMock?
-- think about behaviour when more than one expectation/stubbed method match c.f. JMock?
 
 => reduce footprint of mocha in terms of visible methods
 - do away with __is_a__ method if possible - Proc param may no longer be needed
