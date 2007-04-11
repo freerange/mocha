@@ -31,9 +31,9 @@ module Mocha # :nodoc:
 
     def initialize(mock, method_name, backtrace = nil)
       @mock, @method_name = mock, method_name
-      @count = 1
+      @expected_count = 1
       @parameters, @parameter_block = AlwaysEqual.new, nil
-      @invoked, @return_value = 0, nil
+      @invoked_count, @return_value = 0, nil
       @backtrace = backtrace || caller
       @yield = nil
     end
@@ -73,7 +73,7 @@ module Mocha # :nodoc:
     #   object.expected_method
     #   # => verify fails
     def times(range)
-      @count = range
+      @expected_count = range
       self
     end
   
@@ -264,15 +264,15 @@ module Mocha # :nodoc:
     # :stopdoc:
     
     def invoke
-      @invoked += 1
+      @invoked_count += 1
       yield(*@parameters_to_yield) if yield? and block_given?
       @return_value.__is_a__(Proc) ? @return_value.call : @return_value
     end
 
     def verify
       yield(self) if block_given?
-      unless (@count === @invoked) then
-        error = ExpectationError.new(error_message(@count, @invoked))
+      unless (@expected_count === @invoked_count) then
+        error = ExpectationError.new(error_message(@expected_count, @invoked_count))
         error.set_backtrace(filtered_backtrace)
         raise error
       end
@@ -313,7 +313,7 @@ module Mocha # :nodoc:
   
     def initialize(mock, method_name)
       super
-      @invoked = true
+      @invoked_count = true
     end
   
     def verify
@@ -322,7 +322,7 @@ module Mocha # :nodoc:
       msg << "\nSimilar expectations:\n#{similar_expectations_list}" unless similar_expectations.empty?
       error = ExpectationError.new(msg)
       error.set_backtrace(filtered_backtrace)
-      raise error if @invoked
+      raise error if @invoked_count
     end
   
     def similar_expectations
