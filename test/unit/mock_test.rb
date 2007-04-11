@@ -59,7 +59,7 @@ class MockTest < Test::Unit::TestCase
     
   def test_should_be_able_to_mock_standard_object_methods
     mock = Mock.new
-    object_methods = Object.public_instance_methods.reject { |m| m =~ /^__.*__$/ }.sort
+    object_methods = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ }.sort
     object_methods.each { |method| mock.__expects__(method.to_sym).returns(method) }
     object_methods.each { |method| assert_equal method, mock.__send__(method.to_sym) }
     assert_nothing_raised(ExpectationError) { mock.verify }
@@ -67,7 +67,7 @@ class MockTest < Test::Unit::TestCase
 
   def test_should_be_able_to_stub_standard_object_methods
     mock = Mock.new
-    object_methods = Object.public_instance_methods.reject { |m| m =~ /^__.*__$/ }.sort
+    object_methods = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ }.sort
     object_methods.each { |method| mock.__stubs__(method.to_sym).returns(method) }
     object_methods.each { |method| assert_equal method, mock.__send__(method.to_sym) }
   end
