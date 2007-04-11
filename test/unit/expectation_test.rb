@@ -64,6 +64,33 @@ class ExpectationTest < Test::Unit::TestCase
     assert !expectation.match?(:expected_method, 1, 0, 3)
   end
   
+  def test_should_not_match_when_expected_invocation_count_is_one_and_actual_invocation_count_would_be_two
+    expectation = new_expectation.times(1)
+    assert expectation.match?(:expected_method)
+    expectation.invoke
+    assert !expectation.match?(:expected_method)
+  end
+  
+  def test_should_not_match_when_expected_invocation_count_is_two_and_actual_invocation_count_would_be_three
+    expectation = new_expectation.times(2)
+    assert expectation.match?(:expected_method)
+    expectation.invoke
+    assert expectation.match?(:expected_method)
+    expectation.invoke
+    assert !expectation.match?(:expected_method)
+  end
+  
+  def test_should_not_match_when_expected_invocation_count_is_a_range_from_two_to_three_and_actual_invocation_count_would_be_four
+    expectation = new_expectation.times(2..3)
+    assert expectation.match?(:expected_method)
+    expectation.invoke
+    assert expectation.match?(:expected_method)
+    expectation.invoke
+    assert expectation.match?(:expected_method)
+    expectation.invoke
+    assert !expectation.match?(:expected_method)
+  end
+  
   def test_should_store_provided_backtrace
     backtrace = Object.new
     expectation = Expectation.new(nil, :expected_method, backtrace)
