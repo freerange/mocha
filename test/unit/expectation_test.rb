@@ -309,13 +309,6 @@ class ExpectationTest < Test::Unit::TestCase
     assert_equal "expected_method", new_expectation.method_signature
   end
   
-  def test_should_always_verify_successfully
-    stub = Stub.new(nil, :expected_method)
-    assert stub.verify
-    stub.invoke
-    assert stub.verify
-  end
-  
   def test_should_raise_error_with_message_indicating_which_method_was_expected_to_be_called_on_which_mock_object
     mock = Class.new { def mocha_inspect; 'mock'; end }.new
     expectation = Expectation.new(mock, :expected_method)
@@ -334,53 +327,6 @@ class ExpectationTest < Test::Unit::TestCase
   def test_should_determine_path_for_mocha_lib_directory
     expectation = new_expectation()
     assert_match Regexp.new("/lib/$"), expectation.mocha_lib_directory
-  end
-  
-end
-
-class ExpectationSimilarExpectationsTest < Test::Unit::TestCase
-  
-  include Mocha
-  
-  def new_expectation
-    Expectation.new(nil, :expected_method)
-  end
-    
-  def test_should_find_expectations_to_the_same_method
-    expectation = new_expectation.with(1)
-    mock = Object.new
-    mock.define_instance_method(:expectations) { [expectation] }
-    failed_expectation = MissingExpectation.new(mock, :expected_method).with(2)
-    assert_equal [expectation], failed_expectation.similar_expectations
-  end
-  
-  def test_should_report_similar_expectations
-    mock = Object.new
-    expectation_1 = new_expectation.with(1)
-    expectation_2 = new_expectation.with(2)
-    mock = Object.new
-    mock.define_instance_method(:expectations) { [expectation_1, expectation_2] }
-    missing_expectation = MissingExpectation.new(mock, :expected_method).with(3)
-    exception = assert_raise(ExpectationError) { missing_expectation.verify }
-    assert_equal "#{mock.mocha_inspect}.expected_method(3) - expected calls: 0, actual calls: 1\nSimilar expectations:\nexpected_method(1)\nexpected_method(2)", exception.message
-  end
-  
-  def test_should_ignore_expectations_to_different_methods
-    expectation = new_expectation.with(1)
-    mock = Object.new
-    mock.define_instance_method(:expectations) { [expectation] }
-    failed_expectation = MissingExpectation.new(mock, :other_method).with(1)
-    assert failed_expectation.similar_expectations.empty?
-  end
-  
-  def test_should_not_report_similar_expectations
-    expectation = new_expectation.with(1)
-    mock = Object.new
-    mock.define_instance_method(:expectations) { [expectation] }
-    mock.define_instance_method(:mocha_inspect) { 'mocha_inspect' }
-    missing_expectation = MissingExpectation.new(mock, :unexpected_method).with(1)
-    exception = assert_raise(ExpectationError) { missing_expectation.verify }
-    assert_equal "mocha_inspect.unexpected_method(1) - expected calls: 0, actual calls: 1", exception.message
   end
   
 end

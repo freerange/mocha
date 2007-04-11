@@ -1,4 +1,6 @@
 require 'mocha/expectation'
+require 'mocha/stub'
+require 'mocha/missing_expectation'
 require 'mocha/metaclass'
 
 module Mocha # :nodoc:
