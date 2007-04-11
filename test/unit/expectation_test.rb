@@ -323,6 +323,19 @@ class ExpectationTest < Test::Unit::TestCase
     assert_match "mock.expected_method", e.message
   end
   
+  def test_should_exclude_mocha_locations_from_backtrace
+    mocha_lib = "/username/workspace/mocha_wibble/lib/"
+    backtrace = [ mocha_lib + 'exclude/me/1', mocha_lib + 'exclude/me/2', '/keep/me', mocha_lib + 'exclude/me/3']
+    expectation = Expectation.new(nil, :expected_method, backtrace)
+    expectation.define_instance_method(:mocha_lib_directory) { mocha_lib }
+    assert_equal ['/keep/me'], expectation.filtered_backtrace
+  end
+  
+  def test_should_determine_path_for_mocha_lib_directory
+    expectation = new_expectation()
+    assert_match Regexp.new("/lib/$"), expectation.mocha_lib_directory
+  end
+  
 end
 
 class ExpectationSimilarExpectationsTest < Test::Unit::TestCase
@@ -368,19 +381,6 @@ class ExpectationSimilarExpectationsTest < Test::Unit::TestCase
     missing_expectation = MissingExpectation.new(mock, :unexpected_method).with(1)
     exception = assert_raise(ExpectationError) { missing_expectation.verify }
     assert_equal "mocha_inspect.unexpected_method(1) - expected calls: 0, actual calls: 1", exception.message
-  end
-  
-  def test_should_exclude_mocha_locations_from_backtrace
-    mocha_lib = "/username/workspace/mocha_wibble/lib/"
-    backtrace = [ mocha_lib + 'exclude/me/1', mocha_lib + 'exclude/me/2', '/keep/me', mocha_lib + 'exclude/me/3']
-    expectation = Expectation.new(nil, :expected_method, backtrace)
-    expectation.define_instance_method(:mocha_lib_directory) { mocha_lib }
-    assert_equal ['/keep/me'], expectation.filtered_backtrace
-  end
-  
-  def test_should_determine_path_for_mocha_lib_directory
-    expectation = new_expectation()
-    assert_match Regexp.new("/lib/$"), expectation.mocha_lib_directory
   end
   
 end
