@@ -12,6 +12,9 @@
 - allow stubbing of private/protected methods? - force_stub?
 - allow specification of class to be mocked, so we can check for existence of methods
 
+=> bugs
+- assertion count is not incremented for missing expectation errors
+
 => multiple expectations for same method
 - fail fast if expectation count exceeded during test...? c.f. JMock?
 
