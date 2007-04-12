@@ -222,15 +222,39 @@ module Mocha # :nodoc:
     #   yielded_value = nil
     #   object.expected_method { |value| yielded_value = value }
     #   yielded_value # => 'result'
-    # May be called multiple times on the same expectation. Also see Expectation#then.
+    # May be called multiple times on the same expectation for consecutive invocations. Also see Expectation#then.
     #   object = mock()
-    #   object.stubs(:expected_method).yields('result_1').then.yields('result_2')
-    #   yielded_values = []
-    #   object.expected_method { |value| yielded_values << value }
-    #   object.expected_method { |value| yielded_values << value }
-    #   yielded_values # => ['result_1', 'result_2']
+    #   object.stubs(:expected_method).yields(1).then.yields(2)
+    #   yielded_values_from_first_invocation = []
+    #   yielded_values_from_second_invocation = []
+    #   object.expected_method { |value| yielded_values_from_first_invocation << value } # first invocation
+    #   object.expected_method { |value| yielded_values_from_second_invocation << value } # second invocation
+    #   yielded_values_from_first_invocation # => [1]
+    #   yielded_values_from_second_invocation # => [2]
     def yields(*parameters)
       @yield_parameters.add(*parameters)
+      self
+    end
+    
+    # :call-seq: multiple_yields(*parameter_groups) -> expectation
+    #
+    # Modifies expectation so that when the expected method is called, it yields multiple times per invocation with the specified +parameter_groups+.
+    #   object = mock()
+    #   object.expects(:expected_method).multiple_yields(['result_1', 'result_2'], ['result_3'])
+    #   yielded_values = []
+    #   object.expected_method { |*values| yielded_values << values }
+    #   yielded_values # => [['result_1', 'result_2'], ['result_3]]
+    # May be called multiple times on the same expectation for consecutive invocations. Also see Expectation#then.
+    #   object = mock()
+    #   object.stubs(:expected_method).multiple_yields([1, 2], [3]).then.multiple_yields([4], [5, 6])
+    #   yielded_values_from_first_invocation = []
+    #   yielded_values_from_second_invocation = []
+    #   object.expected_method { |*values| yielded_values_from_first_invocation << values } # first invocation
+    #   object.expected_method { |*values| yielded_values_from_second_invocation << values } # second invocation
+    #   yielded_values_from_first_invocation # => [[1, 2], [3]]
+    #   yielded_values_from_second_invocation # => [[4], [5, 6]]
+    def multiple_yields(*parameter_groups)
+      @yield_parameters.multiple_add(*parameter_groups)
       self
     end
     
@@ -309,8 +333,9 @@ module Mocha # :nodoc:
     def invoke
       @invoked_count += 1
       if block_given? then
-        next_yield_parameters = @yield_parameters.next
-        yield(*next_yield_parameters) if next_yield_parameters
+        @yield_parameters.next_invocation.each do |yield_parameters|
+          yield(*yield_parameters)
+        end
       end
       @return_values.next
     end

@@ -129,6 +129,21 @@ class ExpectationTest < Test::Unit::TestCase
     expectation.invoke() { |*parameters| yielded_parameters << parameters }
     assert_equal [[1, 2, 3], [4, 5]], yielded_parameters
   end
+  
+  def test_should_yield_multiple_times_for_single_invocation
+    expectation = new_expectation().multiple_yields([1, 2, 3], [4, 5])
+    yielded_parameters = []
+    expectation.invoke() { |*parameters| yielded_parameters << parameters }
+    assert_equal [[1, 2, 3], [4, 5]], yielded_parameters
+  end
+
+  def test_should_yield_multiple_times_for_first_invocation_and_once_for_second_invocation
+    expectation = new_expectation().multiple_yields([1, 2, 3], [4, 5]).then.yields(6, 7)
+    yielded_parameters = []
+    expectation.invoke() { |*parameters| yielded_parameters << parameters }
+    expectation.invoke() { |*parameters| yielded_parameters << parameters }
+    assert_equal [[1, 2, 3], [4, 5], [6, 7]], yielded_parameters
+  end
 
   def test_should_return_specified_value
     expectation = new_expectation.returns(99)
