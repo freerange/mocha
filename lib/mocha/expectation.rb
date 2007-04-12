@@ -1,16 +1,9 @@
 require 'mocha/infinite_range'
 require 'mocha/pretty_parameters'
 require 'mocha/expectation_error'
-
-class Object
-
-  # :stopdoc:
-
-  alias_method :__is_a__, :is_a?
-
-  # :startdoc:
-  
-end
+require 'mocha/return_values'
+require 'mocha/exception_raiser'
+require 'mocha/is_a'
 
 module Mocha # :nodoc:
   
@@ -33,7 +26,7 @@ module Mocha # :nodoc:
       @mock, @method_name = mock, method_name
       @expected_count = 1
       @parameters, @parameter_block = AlwaysEqual.new, nil
-      @invoked_count, @return_value = 0, nil
+      @invoked_count, @return_values = 0, ReturnValues.new
       @backtrace = backtrace || caller
       @yield = nil
     end
@@ -257,7 +250,7 @@ module Mocha # :nodoc:
     #   object.stubbed_method # => 41
     #   object.stubbed_method # => 77
     def returns(*values)
-      @return_value = (values.size > 1) ? lambda { values.shift } : @return_value = values.first
+      @return_values += ReturnValues.build(*values)
       self
     end
   
@@ -268,16 +261,20 @@ module Mocha # :nodoc:
     #   object.expects(:expected_method).raises(Exception, 'message')
     #   object.expected_method # => raises exception of class Exception and with message 'message'
     def raises(exception = RuntimeError, message = nil)
-      @return_value = message ? lambda { raise exception, message } : lambda { raise exception }
+      @return_values += ReturnValues.new(ExceptionRaiser.new(exception, message))
       self
     end
 
     # :stopdoc:
     
+    def then
+      self
+    end
+    
     def invoke
       @invoked_count += 1
       yield(*@parameters_to_yield) if yield? and block_given?
-      @return_value.__is_a__(Proc) ? @return_value.call : @return_value
+      @return_values.next
     end
 
     def verify

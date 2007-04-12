@@ -239,6 +239,20 @@ class MockTest < Test::Unit::TestCase
     assert_equal :result2, mock.method2
   end
   
+  def test_should_keep_returning_specified_value_for_stubs
+    mock = Mock.new
+    mock.stubs(:method1).returns(1)
+    assert_equal 1, mock.method1
+    assert_equal 1, mock.method1
+  end
+  
+  def test_should_keep_returning_specified_value_for_expects
+    mock = Mock.new
+    mock.expects(:method1).times(2).returns(1)
+    assert_equal 1, mock.method1
+    assert_equal 1, mock.method1
+  end
+  
   def test_should_match_most_recent_call_to_expects
     mock = Mock.new
     mock.expects(:method1).returns(0)
@@ -253,18 +267,18 @@ class MockTest < Test::Unit::TestCase
     assert_equal 1, mock.method1
   end
 
-  def test_should_match_call_to_expects_with_previous_call_to_stubs
+  def test_should_match_most_recent_call_to_stubs_or_expects
     mock = Mock.new
     mock.stubs(:method1).returns(0)
     mock.expects(:method1).returns(1)
     assert_equal 1, mock.method1
   end
 
-  def test_should_match_call_to_stubs_with_previous_call_to_expects
+  def test_should_match_most_recent_call_to_expects_or_stubs
     mock = Mock.new
     mock.expects(:method1).returns(0)
     mock.stubs(:method1).returns(1)
     assert_equal 1, mock.method1
   end
-
+  
 end

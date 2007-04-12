@@ -49,15 +49,16 @@ module Mocha # :nodoc:
     #   object.expects(:method2).returns(:result2)
     #
     # Aliased by <tt>\_\_expects\_\_</tt>
-    def expects(method_names, backtrace = nil)
-      method_names = method_names.is_a?(Hash) ? method_names : { method_names => nil }
-      method_names.each do |method_name, return_value|
-        expectations << Expectation.new(self, method_name, backtrace).returns(return_value)
-        self.__metaclass__.send(:undef_method, method_name) if self.__metaclass__.method_defined?(method_name)
+    def expects(method_name_or_hash, backtrace = nil)
+      if method_name_or_hash.is_a?(Hash) then
+        method_name_or_hash.each do |method_name, return_value|
+          add_expectation(Expectation.new(self, method_name, backtrace).returns(return_value))
+        end
+      else
+        add_expectation(Expectation.new(self, method_name_or_hash, backtrace))
       end
-      expectations.last
     end
-
+    
     # :call-seq: stubs(method_name) -> expectation
     #            stubs(method_names) -> last expectation
     #
@@ -79,13 +80,14 @@ module Mocha # :nodoc:
     #   object.stubs(:method2).returns(:result2)
     #
     # Aliased by <tt>\_\_stubs\_\_</tt>
-    def stubs(method_names, backtrace = nil)
-      method_names = method_names.is_a?(Hash) ? method_names : { method_names => nil }
-      method_names.each do |method_name, return_value|
-        expectations << Stub.new(self, method_name, backtrace).returns(return_value)
-        self.__metaclass__.send(:undef_method, method_name) if self.__metaclass__.method_defined?(method_name)
+    def stubs(method_name_or_hash, backtrace = nil)
+      if method_name_or_hash.is_a?(Hash) then
+        method_name_or_hash.each do |method_name, return_value|
+          add_expectation(Stub.new(self, method_name, backtrace).returns(return_value))
+        end
+      else
+        add_expectation(Stub.new(self, method_name_or_hash, backtrace))
       end
-      expectations.last
     end
     
     # :stopdoc:
@@ -93,6 +95,13 @@ module Mocha # :nodoc:
     alias_method :__expects__, :expects
 
     alias_method :__stubs__, :stubs
+
+    def add_expectation(expectation)
+      expectations << expectation
+      method_name = expectation.method_name
+      self.__metaclass__.send(:undef_method, method_name) if self.__metaclass__.method_defined?(method_name)
+      expectation
+    end
 
     def method_missing(symbol, *arguments, &block)
       matching_expectation = matching_expectation(symbol, *arguments)

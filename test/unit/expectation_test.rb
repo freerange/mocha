@@ -64,14 +64,14 @@ class ExpectationTest < Test::Unit::TestCase
     assert !expectation.match?(:expected_method, 1, 0, 3)
   end
   
-  def test_should_not_match_when_expected_invocation_count_is_one_and_actual_invocation_count_would_be_two
+  def test_should_match_until_expected_invocation_count_is_one_and_actual_invocation_count_would_be_two
     expectation = new_expectation.times(1)
     assert expectation.match?(:expected_method)
     expectation.invoke
     assert !expectation.match?(:expected_method)
   end
   
-  def test_should_not_match_when_expected_invocation_count_is_two_and_actual_invocation_count_would_be_three
+  def test_should_match_until_expected_invocation_count_is_two_and_actual_invocation_count_would_be_three
     expectation = new_expectation.times(2)
     assert expectation.match?(:expected_method)
     expectation.invoke
@@ -80,7 +80,7 @@ class ExpectationTest < Test::Unit::TestCase
     assert !expectation.match?(:expected_method)
   end
   
-  def test_should_not_match_when_expected_invocation_count_is_a_range_from_two_to_three_and_actual_invocation_count_would_be_four
+  def test_should_match_until_expected_invocation_count_is_a_range_from_two_to_three_and_actual_invocation_count_would_be_four
     expectation = new_expectation.times(2..3)
     assert expectation.match?(:expected_method)
     expectation.invoke
@@ -205,6 +205,20 @@ class ExpectationTest < Test::Unit::TestCase
     expectation = new_expectation.raises(Exception, exception_msg)
     exception = assert_raise(Exception) { expectation.invoke }
     assert_equal exception_msg, exception.message
+  end
+  
+  def test_should_return_values_then_raise_exception
+    expectation = new_expectation.returns(1, 2).then.raises()
+    assert_equal 1, expectation.invoke
+    assert_equal 2, expectation.invoke
+    assert_raise(RuntimeError) { expectation.invoke }
+  end
+  
+  def test_should_raise_exception_then_return_values
+    expectation = new_expectation.raises().then.returns(1, 2)
+    assert_raise(RuntimeError) { expectation.invoke }
+    assert_equal 1, expectation.invoke
+    assert_equal 2, expectation.invoke
   end
   
   def test_should_not_raise_error_on_verify_if_expected_call_was_made
