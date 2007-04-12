@@ -197,6 +197,8 @@ module Mocha # :nodoc:
     #   object.expects(:expected_method).with(:param1, :param2)
     #   object.expected_method(:param3)
     #   # => verify fails
+    # May be used with parameter matchers in Mocha::ParameterMatchers.
+    #
     # If a +parameter_block+ is given, the block is called with the parameters passed to the expected method.
     # The expectation is matched if the block evaluates to +true+.
     #   object = mock()

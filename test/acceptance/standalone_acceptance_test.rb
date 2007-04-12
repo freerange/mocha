@@ -70,6 +70,18 @@ class SampleTest < NotATestUnitTestCase
     stubbee.expects(:blah)
   end
   
+  def mocha_with_matching_parameter
+    mockee = mock()
+    mockee.expects(:blah).with(has_key(:wibble))
+    mockee.blah(:wibble => 1)
+  end
+  
+  def mocha_with_non_matching_parameter
+    mockee = mock()
+    mockee.expects(:blah).with(has_key(:wibble))
+    mockee.blah(:wobble => 2)
+  end
+  
 end
 
 require 'test/unit'
@@ -105,6 +117,15 @@ class StandaloneAcceptanceTest < Test::Unit::TestCase
   def test_should_fail_stubba_test
     assert_raises(NotATestUnitAssertionFailedError) { sample_test.run(:stubba_with_unfulfilled_expectation) }
     assert_equal 1, sample_test.assertion_count
+  end
+
+  def test_should_pass_mocha_test_with_matching_parameter
+    assert_nothing_raised { sample_test.run(:mocha_with_matching_parameter) }
+    assert_equal 1, sample_test.assertion_count
+  end
+
+  def test_should_fail_mocha_test_with_non_matching_parameter
+    assert_raises(NotATestUnitAssertionFailedError) { sample_test.run(:mocha_with_non_matching_parameter) }
   end
 
 end

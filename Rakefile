@@ -16,7 +16,7 @@ task :test_all => [:test_unit, :test_integration, :test_acceptance]
 desc "Run unit tests"
 Rake::TestTask.new(:test_unit) do |t|
   t.libs << 'test'
-  t.test_files = FileList['test/unit/*_test.rb']
+  t.test_files = FileList['test/unit/**/*_test.rb']
   t.verbose = true
 end
 
@@ -40,7 +40,7 @@ Rake::RDocTask.new do |task|
   task.title = 'Mocha'
   task.rdoc_dir = 'doc'
   task.template = "html_with_google_analytics"
-  task.rdoc_files.include('README', 'RELEASE', 'COPYING', 'MIT-LICENSE', 'agiledox.txt', 'lib/mocha/auto_verify.rb', 'lib/mocha/mock.rb', 'lib/mocha/expectation.rb', 'lib/mocha/object.rb')
+  task.rdoc_files.include('README', 'RELEASE', 'COPYING', 'MIT-LICENSE', 'agiledox.txt', 'lib/mocha/auto_verify.rb', 'lib/mocha/mock.rb', 'lib/mocha/expectation.rb', 'lib/mocha/object.rb', 'lib/mocha/parameter_matchers.rb', 'lib/mocha/parameter_matchers')
 end
 task :rdoc => :examples
 
