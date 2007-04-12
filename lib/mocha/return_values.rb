@@ -5,7 +5,7 @@ module Mocha # :nodoc:
   class ReturnValues # :nodoc:
     
     def self.build(*values)
-      ReturnValues.new(*values.map { |value| SingleReturnValue.new(value) })
+      new(*values.map { |value| SingleReturnValue.new(value) })
     end
     
     attr_accessor :values
