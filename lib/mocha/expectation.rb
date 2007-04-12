@@ -222,7 +222,6 @@ module Mocha # :nodoc:
     #   object.expected_method { |value| yielded_value = value }
     #   yielded_value # => 'result'
     def yields(*parameters)
-      @yield = true
       @yield_parameters = parameters
       self
     end
