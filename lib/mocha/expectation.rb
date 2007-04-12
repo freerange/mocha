@@ -101,7 +101,7 @@ module Mocha # :nodoc:
       self
     end
   
-    # :call-seq: never -> expectation
+    # :call-seq: never() -> expectation
     #
     # Modifies expectation so that the expected method must never be called.
     #   object = mock()
