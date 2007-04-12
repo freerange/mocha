@@ -28,13 +28,9 @@ module Mocha # :nodoc:
       @parameters, @parameter_block = AlwaysEqual.new, nil
       @invoked_count, @return_values = 0, ReturnValues.new
       @backtrace = backtrace || caller
-      @yield = nil
+      @yield_parameters = nil
     end
     
-    def yield?
-      @yield
-    end
-
     def match?(method_name, *arguments)
       return false unless @method_name == method_name
       if @parameter_block then
@@ -227,7 +223,7 @@ module Mocha # :nodoc:
     #   yielded_value # => 'result'
     def yields(*parameters)
       @yield = true
-      @parameters_to_yield = parameters
+      @yield_parameters = parameters
       self
     end
 
@@ -305,7 +301,7 @@ module Mocha # :nodoc:
     
     def invoke
       @invoked_count += 1
-      yield(*@parameters_to_yield) if yield? and block_given?
+      yield(*@yield_parameters) if @yield_parameters and block_given?
       @return_values.next
     end
 
