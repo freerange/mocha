@@ -109,18 +109,25 @@ class ExpectationTest < Test::Unit::TestCase
   end
 
   def test_should_yield_no_parameters
-    expectation = new_expectation.yields
+    expectation = new_expectation().yields()
     yielded_parameters = nil
-    expectation.invoke() { |*parameters| yielded_parameters  = parameters }
+    expectation.invoke() { |*parameters| yielded_parameters = parameters }
     assert_equal Array.new, yielded_parameters
   end
 
   def test_should_yield_with_specified_parameters
-    parameters_for_yield = [1, 2, 3]
-    expectation = new_expectation.yields(*parameters_for_yield)
+    expectation = new_expectation().yields(1, 2, 3)
     yielded_parameters = nil
-    expectation.invoke() { |*parameters| yielded_parameters  = parameters }
-    assert_equal parameters_for_yield, yielded_parameters
+    expectation.invoke() { |*parameters| yielded_parameters = parameters }
+    assert_equal [1, 2, 3], yielded_parameters
+  end
+
+  def test_should_yield_different_parameters_on_consecutive_invocations
+    expectation = new_expectation().yields(1, 2, 3).yields(4, 5)
+    yielded_parameters = []
+    expectation.invoke() { |*parameters| yielded_parameters << parameters }
+    expectation.invoke() { |*parameters| yielded_parameters << parameters }
+    assert_equal [[1, 2, 3], [4, 5]], yielded_parameters
   end
 
   def test_should_return_specified_value

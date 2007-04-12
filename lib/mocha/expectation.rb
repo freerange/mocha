@@ -3,6 +3,7 @@ require 'mocha/pretty_parameters'
 require 'mocha/expectation_error'
 require 'mocha/return_values'
 require 'mocha/exception_raiser'
+require 'mocha/yield_parameters'
 require 'mocha/is_a'
 
 module Mocha # :nodoc:
@@ -28,7 +29,7 @@ module Mocha # :nodoc:
       @parameters, @parameter_block = AlwaysEqual.new, nil
       @invoked_count, @return_values = 0, ReturnValues.new
       @backtrace = backtrace || caller
-      @yield_parameters = nil
+      @yield_parameters = YieldParameters.new
     end
     
     def match?(method_name, *arguments)
@@ -221,11 +222,18 @@ module Mocha # :nodoc:
     #   yielded_value = nil
     #   object.expected_method { |value| yielded_value = value }
     #   yielded_value # => 'result'
+    # May be called multiple times on the same expectation. Also see Expectation#then.
+    #   object = mock()
+    #   object.stubs(:expected_method).yields('result_1').then.yields('result_2')
+    #   yielded_values = []
+    #   object.expected_method { |value| yielded_values << value }
+    #   object.expected_method { |value| yielded_values << value }
+    #   yielded_values # => ['result_1', 'result_2']
     def yields(*parameters)
-      @yield_parameters = parameters
+      @yield_parameters.add(*parameters)
       self
     end
-
+    
     # :call-seq: returns(value) -> expectation
     # :call-seq: returns(*values) -> expectation
     #
@@ -300,7 +308,10 @@ module Mocha # :nodoc:
     
     def invoke
       @invoked_count += 1
-      yield(*@yield_parameters) if @yield_parameters and block_given?
+      if block_given? then
+        next_yield_parameters = @yield_parameters.next
+        yield(*next_yield_parameters) if next_yield_parameters
+      end
       @return_values.next
     end
 
