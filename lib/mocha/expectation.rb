@@ -249,6 +249,18 @@ module Mocha # :nodoc:
     #   object.stubs(:stubbed_method).returns(lambda { rand(100) })
     #   object.stubbed_method # => 41
     #   object.stubbed_method # => 77
+    # May be called multiple times on the same expectation. Also see Expectation#then.
+    #   object = mock()
+    #   object.stubs(:expected_method).returns(1, 2).then.returns(3)
+    #   object.expected_method # => 1
+    #   object.expected_method # => 2
+    #   object.expected_method # => 3
+    # May be called in conjunction with Expectation#raises on the same expectation.
+    #   object = mock()
+    #   object.stubs(:expected_method).returns(1, 2).then.raises(Exception)
+    #   object.expected_method # => 1
+    #   object.expected_method # => 2
+    #   object.expected_method # => raises exception of class Exception1
     def returns(*values)
       @return_values += ReturnValues.build(*values)
       self
@@ -260,16 +272,36 @@ module Mocha # :nodoc:
     #   object = mock()
     #   object.expects(:expected_method).raises(Exception, 'message')
     #   object.expected_method # => raises exception of class Exception and with message 'message'
+    # May be called multiple times on the same expectation. Also see Expectation#then.
+    #   object = mock()
+    #   object.stubs(:expected_method).raises(Exception1).then.raises(Exception2)
+    #   object.expected_method # => raises exception of class Exception1
+    #   object.expected_method # => raises exception of class Exception2
+    # May be called in conjunction with Expectation#returns on the same expectation.
+    #   object = mock()
+    #   object.stubs(:expected_method).raises(Exception).then.returns(2, 3)
+    #   object.expected_method # => raises exception of class Exception1
+    #   object.expected_method # => 2
+    #   object.expected_method # => 3
     def raises(exception = RuntimeError, message = nil)
       @return_values += ReturnValues.new(ExceptionRaiser.new(exception, message))
       self
     end
 
-    # :stopdoc:
-    
+    # :call-seq: then() -> expectation
+    #
+    # Syntactic sugar to improve readability. Has no effect on state of the expectation.
+    #   object = mock()
+    #   object.stubs(:expected_method).returns(1, 2).then.raises(Exception).then.returns(4)
+    #   object.expected_method # => 1
+    #   object.expected_method # => 2
+    #   object.expected_method # => raises exception of class Exception
+    #   object.expected_method # => 4
     def then
       self
     end
+    
+    # :stopdoc:
     
     def invoke
       @invoked_count += 1
