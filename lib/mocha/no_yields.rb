@@ -1,6 +1,6 @@
 module Mocha # :nodoc:
   
-  class NullYieldParameterGroup # :nodoc:
+  class NoYields # :nodoc:
     
     def each
     end

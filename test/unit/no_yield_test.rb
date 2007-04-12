@@ -1,13 +1,13 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
 
-require 'mocha/null_yield_parameter_group'
+require 'mocha/no_yields'
 
-class NullYieldParameterGroupTest < Test::Unit::TestCase
+class NoYieldsTest < Test::Unit::TestCase
   
   include Mocha
 
   def test_should_provide_parameters_for_no_yields_in_single_invocation
-    parameter_group = NullYieldParameterGroup.new
+    parameter_group = NoYields.new
     parameter_groups = []
     parameter_group.each do |parameters|
       parameter_groups << parameters

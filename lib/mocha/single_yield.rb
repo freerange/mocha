@@ -1,6 +1,6 @@
 module Mocha # :nodoc:
   
-  class SingleYieldParameterGroup # :nodoc:
+  class SingleYield # :nodoc:
     
     attr_reader :parameters
     

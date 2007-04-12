@@ -1,6 +1,6 @@
 module Mocha # :nodoc:
   
-  class MultipleYieldParameterGroup # :nodoc:
+  class MultipleYields # :nodoc:
     
     attr_reader :parameter_groups
     
