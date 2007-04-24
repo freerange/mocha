@@ -32,21 +32,26 @@ class MockTest < Test::Unit::TestCase
     assert_equal true, mock.stub_everything
   end
   
-  def test_should_display_object_id_for_inspect_if_mock_has_no_name
+  def test_should_display_object_id_for_mocha_inspect_if_mock_has_no_name
     mock = Mock.new
     assert_match Regexp.new("^#<Mock:0x[0-9A-Fa-f]{1,8}>$"), mock.mocha_inspect
   end
   
-  def test_should_display_name_for_inspect_if_mock_has_name
+  def test_should_display_name_for_mocha_inspect_if_mock_has_name
     mock = Mock.new(false, 'named_mock')
     assert_equal "#<Mock:named_mock>", mock.mocha_inspect
   end
 
-  def test_should_give_name_in_inspect_message
-    mock = Mock.new(false, 'named_mock')
-    assert_equal "#<Mock:named_mock>", mock.mocha_inspect
+  def test_should_display_object_id_for_inspect_if_mock_has_no_name
+    mock = Mock.new
+    assert_match Regexp.new("^#<Mock:0x[0-9A-Fa-f]{1,8}>$"), mock.inspect
   end
   
+  def test_should_display_name_for_inspect_if_mock_has_name
+    mock = Mock.new(false, 'named_mock')
+    assert_equal "#<Mock:named_mock>", mock.inspect
+  end
+
   def test_should_be_able_to_extend_mock_object_with_module
     mock = Mock.new
     assert_nothing_raised(ExpectationError) { mock.extend(Module.new) }
