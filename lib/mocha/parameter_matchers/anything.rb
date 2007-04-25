@@ -1,4 +1,5 @@
 module Mocha
+  
   module ParameterMatchers
 
     # :call-seq: anything -> parameter_matcher
@@ -12,7 +13,7 @@ module Mocha
       Anything.new
     end
     
-    class Anything
+    class Anything # :nodoc:
     
       def ==(parameter)
         return true
@@ -25,4 +26,5 @@ module Mocha
     end
     
   end
+  
 end

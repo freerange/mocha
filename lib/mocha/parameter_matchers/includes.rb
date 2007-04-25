@@ -1,4 +1,5 @@
 module Mocha
+  
   module ParameterMatchers
 
     # :call-seq: includes(item) -> parameter_matcher
@@ -15,7 +16,7 @@ module Mocha
       Includes.new(item)
     end
 
-    class Includes
+    class Includes # :nodoc:
 
       def initialize(item)
         @item = item
@@ -32,4 +33,5 @@ module Mocha
     end
 
   end
+  
 end
