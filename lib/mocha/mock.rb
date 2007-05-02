@@ -15,14 +15,11 @@ module Mocha # :nodoc:
     def initialize(stub_everything = false, name = nil)
       @stub_everything = stub_everything
       @mock_name = name
+      @expectations = []
     end
 
-    attr_reader :stub_everything
+    attr_reader :stub_everything, :expectations
   
-    def expectations
-      @expectations ||= []
-    end
-
     # :startdoc:
 
     # :call-seq: expects(method_name) -> expectation
@@ -90,20 +87,70 @@ module Mocha # :nodoc:
       end
     end
     
+    # :call-seq: responds_like(responder) -> mock
+    #
+    # Constrains the +mock+ so that it can only expect or stub methods to which +responder+ responds. The constraint is only applied at method invocation time.
+    #
+    # A +NoMethodError+ will be raised if the +responder+ does not <tt>respond_to?</tt> a method invocation (even if the method has been expected or stubbed).
+    #
+    # The +mock+ will delegate its <tt>respond_to?</tt> method to the +responder+.
+    #   class Sheep
+    #     def chew(grass); end
+    #     def self.number_of_legs; end
+    #   end
+    #
+    #   sheep = mock('sheep')
+    #   sheep.expects(:chew)
+    #   sheep.expects(:foo)
+    #   sheep.respond_to?(:chew) # => true
+    #   sheep.respond_to?(:foo) # => true
+    #   sheep.chew
+    #   sheep.foo
+    #   # no error raised
+    #
+    #   sheep = mock('sheep')
+    #   sheep.responds_like(Sheep.new)
+    #   sheep.expects(:chew)
+    #   sheep.expects(:foo)
+    #   sheep.respond_to?(:chew) # => true
+    #   sheep.respond_to?(:foo) # => false
+    #   sheep.chew
+    #   sheep.foo # => raises NoMethodError exception
+    #
+    #   sheep_class = mock('sheep_class')
+    #   sheep_class.responds_like(Sheep)
+    #   sheep_class.stubs(:number_of_legs).returns(4)
+    #   sheep_class.expects(:foo)
+    #   sheep_class.respond_to?(:number_of_legs) # => true
+    #   sheep_class.respond_to?(:foo) # => false
+    #   assert_equal 4, sheep_class.number_of_legs
+    #   sheep_class.foo # => raises NoMethodError exception
+    #
+    # Aliased by +quacks_like+
+    def responds_like(object)
+      @responder = object
+      self
+    end
+    
     # :stopdoc:
 
     alias_method :__expects__, :expects
 
     alias_method :__stubs__, :stubs
+    
+    alias_method :quacks_like, :responds_like
 
     def add_expectation(expectation)
-      expectations << expectation
+      @expectations << expectation
       method_name = expectation.method_name
       self.__metaclass__.send(:undef_method, method_name) if self.__metaclass__.method_defined?(method_name)
       expectation
     end
 
     def method_missing(symbol, *arguments, &block)
+      if @responder and not @responder.respond_to?(symbol)
+        raise NoMethodError, "undefined method `#{symbol}' for #{self.mocha_inspect} which responds like #{@responder.mocha_inspect}"
+      end
       matching_expectation = matching_expectation(symbol, *arguments)
       if matching_expectation then
         matching_expectation.invoke(&block)
@@ -119,7 +166,11 @@ module Mocha # :nodoc:
   	end
   	
   	def respond_to?(symbol)
-  	  expectations.any? { |expectation| expectation.method_name == symbol }
+	    if @responder then
+	      @responder.respond_to?(symbol)
+      else
+    	  @expectations.any? { |expectation| expectation.method_name == symbol }
+  	  end
 	  end
 	
   	def super_method_missing(symbol, *arguments, &block)
@@ -131,11 +182,11 @@ module Mocha # :nodoc:
     end
 	
   	def matching_expectation(symbol, *arguments)
-      expectations.reverse.detect { |expectation| expectation.match?(symbol, *arguments) }
+      @expectations.reverse.detect { |expectation| expectation.match?(symbol, *arguments) }
     end
   
     def verify(&block)
-      expectations.each { |expectation| expectation.verify(&block) }
+      @expectations.each { |expectation| expectation.verify(&block) }
     end
   
     def mocha_inspect

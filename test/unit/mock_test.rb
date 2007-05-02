@@ -77,12 +77,6 @@ class MockTest < Test::Unit::TestCase
     object_methods.each { |method| assert_equal method, mock.__send__(method.to_sym) }
   end
   
-  def test_should_respond_to_expected_methods
-    mock = Mock.new
-    mock.expects(:method1)
-    assert_equal true, mock.respond_to?(:method1)
-  end
-  
   def test_should_create_and_add_expectations
     mock = Mock.new
     expectation1 = mock.expects(:method1)
@@ -219,17 +213,6 @@ class MockTest < Test::Unit::TestCase
     assert_equal parameters_for_yield, yielded_parameters
   end
   
-  def test_should_respond_to_expected_method
-    mock = Mock.new
-    mock.expects(:method1)
-    assert_equal true, mock.respond_to?(:method1)
-  end
-  
-  def test_should_not_respond_to_unexpected_method
-    mock = Mock.new
-    assert_equal false, mock.respond_to?(:method1)
-  end
-  
   def test_should_set_up_multiple_expectations_with_return_values
     mock = Mock.new
     mock.expects(:method1 => :result1, :method2 => :result2)
@@ -284,6 +267,85 @@ class MockTest < Test::Unit::TestCase
     mock.expects(:method1).returns(0)
     mock.stubs(:method1).returns(1)
     assert_equal 1, mock.method1
+  end
+  
+  def test_should_respond_to_expected_method
+    mock = Mock.new
+    mock.expects(:method1)
+    assert_equal true, mock.respond_to?(:method1)
+  end
+  
+  def test_should_not_respond_to_unexpected_method
+    mock = Mock.new
+    assert_equal false, mock.respond_to?(:method1)
+  end
+  
+  def test_should_respond_to_methods_which_the_responder_does_responds_to
+    instance = Class.new do
+      define_method(:respond_to?) { true }
+    end.new
+    mock = Mock.new
+    mock.responds_like(instance)
+    assert_equal true, mock.respond_to?(:invoked_method)
+  end
+  
+  def test_should_not_respond_to_methods_which_the_responder_does_not_responds_to
+    instance = Class.new do
+      define_method(:respond_to?) { false }
+    end.new
+    mock = Mock.new
+    mock.responds_like(instance)
+    assert_equal false, mock.respond_to?(:invoked_method)
+  end
+  
+  def test_should_return_itself_to_allow_method_chaining
+    mock = Mock.new
+    assert_same mock.responds_like(Object.new), mock
+  end
+  
+  def test_should_not_raise_no_method_error_if_mock_is_not_restricted_to_respond_like_a_responder
+    instance = Class.new do
+      define_method(:respond_to?) { true }
+    end.new
+    mock = Mock.new
+    mock.stubs(:invoked_method)
+    assert_nothing_raised(NoMethodError) { mock.invoked_method }
+  end
+  
+  def test_should_not_raise_no_method_error_if_responder_does_respond_to_invoked_method
+    instance = Class.new do
+      define_method(:respond_to?) { true }
+    end.new
+    mock = Mock.new
+    mock.responds_like(instance)
+    mock.stubs(:invoked_method)
+    assert_nothing_raised(NoMethodError) { mock.invoked_method }
+  end
+  
+  def test_should_raise_no_method_error_if_responder_does_not_respond_to_invoked_method
+    instance = Class.new do
+      define_method(:respond_to?) { false }
+      define_method(:mocha_inspect) { 'mocha_inspect' }
+    end.new
+    mock = Mock.new
+    mock.responds_like(instance)
+    mock.stubs(:invoked_method)
+    assert_raises(NoMethodError) { mock.invoked_method }
+  end
+  
+  def test_should_raise_no_method_error_with_message_indicating_that_mock_is_constrained_to_respond_like_responder
+    instance = Class.new do
+      define_method(:respond_to?) { false }
+      define_method(:mocha_inspect) { 'mocha_inspect' }
+    end.new
+    mock = Mock.new
+    mock.responds_like(instance)
+    mock.stubs(:invoked_method)
+    begin
+      mock.invoked_method
+    rescue NoMethodError => e
+      assert_match /which responds like mocha_inspect/, e.message
+    end
   end
   
 end
