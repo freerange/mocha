@@ -13,8 +13,6 @@ module Mocha # :nodoc:
   
     # :stopdoc:
     
-    class InvalidExpectation < Exception; end
-    
     class AlwaysEqual
       def ==(other)
         true
