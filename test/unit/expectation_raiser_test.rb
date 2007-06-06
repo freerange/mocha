@@ -19,5 +19,10 @@ class ExceptionRaiserTest < Test::Unit::TestCase
     exception = assert_raises(exception_class) { raiser.evaluate }
     assert_equal 'message', exception.message
   end
+  
+  def test_should_raise_interrupt_exception_with_default_message_so_it_works_in_ruby_1_8_6
+    raiser = ExceptionRaiser.new(Interrupt, nil)
+    assert_raises(Interrupt) { raiser.evaluate }
+  end
 
 end
