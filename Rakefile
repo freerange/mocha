@@ -67,7 +67,8 @@ end
 
 desc "Convert example ruby files to syntax-highlighted html"
 task :examples do
-  require 'vendor/coderay-0.7.4.215/lib/coderay.rb'
+  $:.unshift File.expand_path(File.join(File.dirname(__FILE__), "vendor", "coderay-0.7.4.215", "lib"))
+  require 'coderay'
   mkdir_p 'doc/examples'
   File.open('doc/examples/coderay.css', 'w') do |output|
     output << CodeRay::Encoders[:html]::CSS.new.stylesheet
