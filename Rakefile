@@ -39,7 +39,7 @@ Rake::RDocTask.new do |task|
   task.main = 'README'
   task.title = 'Mocha'
   task.rdoc_dir = 'doc'
-  task.template = "html_with_google_analytics"
+  task.template = File.expand_path(File.join(File.dirname(__FILE__), "templates", "html_with_google_analytics"))
   task.rdoc_files.include('README', 'RELEASE', 'COPYING', 'MIT-LICENSE', 'agiledox.txt', 'lib/mocha/auto_verify.rb', 'lib/mocha/mock.rb', 'lib/mocha/expectation.rb', 'lib/mocha/object.rb', 'lib/mocha/parameter_matchers.rb', 'lib/mocha/parameter_matchers')
 end
 task :rdoc => :examples
