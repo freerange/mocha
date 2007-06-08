@@ -107,7 +107,6 @@ specification = Gem::Specification.new do |s|
                          
   s.autorequire = 'mocha'
   s.files = FileList['{lib,test,examples}/**/*.rb', '[A-Z]*'].exclude('TODO').to_a
-	s.test_file = "test/all_tests.rb"
 end
 
 Rake::GemPackageTask.new(specification) do |package|
