@@ -34,7 +34,7 @@ end
 
 require 'test/unit'
 require 'rubygems'
-require 'stubba'
+require 'mocha'
 
 class OrderTest < Test::Unit::TestCase
 
