@@ -1,0 +1,295 @@
+= MetaProject Changelog
+
+== Version 0.4.15
+
+Bugfix release
+
+* Nothing really new from 0.14 except that this time the code is committed to CVS (forgot that last time)
+
+== Version 0.4.14
+
+Bugfix release
+
+* Fixed [#2889] RubyForge login seems broken [Emmanuel Charpentier] (http://rubyurl.com/cfu)
+
+== Version 0.4.13
+
+Bugfix release
+
+* Removed some irritating debugging
+
+== Version 0.4.12
+
+This release improves the issue tracking API
+
+* Removed reference to nonexistant e in JiraTracker.
+* Add support for creation of RubyForge issues.
+* Add support for closing of RubyForge issues.
+
+== Version 0.4.11
+
+This release fixes several bugs in the XForge release code and improves documentation.
+
+* Fixed #2398: Rake::XForge::Release doesn't allow manual setting of release_notes or release_changes
+* Fixed #2399: Net::HTTPRequestURITooLong 414 readbody=true
+* Fixed #2400: Project release always selects the *first* package
+
+== Version 0.4.10
+
+This version fixes some bugs in the JIRA and SourceForge APIs.
+
+* Made error reporting better for JIRA exceptions.
+* Avoid exception rippling through when login credentials are not specified.
+* Made SourceForge tracker API more robust.
+
+== Version 0.4.9
+
+This release makes the validation of Browser objects more robust.
+
+* Moved Browser spec attributes to validating setters.
+
+== Version 0.4.8
+
+This release fixes some bugs with XForge (RubyForge) Rake tasks.
+
+* Documented how to avoid parsing of CHANGES.
+* Fixed a bug in interactive modus for user name and password prompts.
+* Fixed a bug in retrieval of package_id when releasing to RubyForge.
+* Fixed bug in open-uri extension that clobbered HTTP request headers failing login.
+* Fixed a bug in the determination of Trac version.
+
+== Version 0.4.7
+
+This release makes HTTP access more robust and improves the Pathname API.
+
+* More robust HTTP GET with retries and better error messages.
+* Added Pathname.basename and Pathname.parent
+* Small improvements to ScmWeb API.
+* More robust detection of XForge package_id.
+
+== Version 0.4.6
+
+This release updates documentaion, adds iteration support to Pathname and fixes some minor bugs.
+
+* Updated README.
+* Added PathnameIterator mixin that can be used to iterate over Pathname and MetaProject::ScmWeb::Pathname to
+  do e.g. egrep or other operations.
+* Fixed a bug in Project::RubyForge that prevented group_id from being recognised for some projects.
+* Made the scm_web test for rubyforge be less fragile by storing the compared local file locally.
+
+== Version 0.4.5
+
+This version improves the MetaProject::ScmWeb::Pathname support, allowing online contents in scm web interfaces to be navigated and read in a similar fashion to the standard library's Pathname class.
+
+* Better support for Pathname. children, directory? and open now supported.
+* Fixed some bugs for JIRA support.
+* Improved Pathname settings for Codehaus, SourceForge, Trac and RubyForge.
+* Pathname now takes a revision argument in the constructor.
+* Moved ScmWeb to ScmWeb::Browser.
+* Added a subset of the Ruby stlib Pathname API to ScmWeb.
+* Added a String extension for dealing with trailing slashes in URLs.
+
+== Version 0.4.4
+
+This release introduces a new Domain Specific Language (DSL) for SCM commit messages similar to Trac's post-commit hook for updating tickets.
+Patois is supported in a tracker-agnostic way (although it's only half implemented for JIRA only ATM).
+There is also initial support for FreshMeat and RAA thanks to Thomas Leitner.
+
+* Added support for Patois parsing (See RubyDoc).
+* Gave the Patois DSL its name.
+* Improved the Tracker::Issue API to be more OO and uniform across trackers.
+* Adds support for FreshMeat and RAA (Fixes #2323). This is not aligned with the rest of the MetaProject API yet.
+
+== Version 0.4.3
+
+This release fixes some bugs and implements some new issue tracker features.
+
+* Aligned properties between TracTracker and JiraTracker with ProjectAnalyzer.
+* Stripping leading and trailing whitespace from issue summaries (SF seems to have changed).
+* Added name to XForge projects.
+* Added create_issue to JiraTracker.
+
+== Version 0.4.2
+
+This is a minor release that accommodates fos some changes needed by DamageControl.
+
+* Made tracker constructors empty so they can be used from DamageControl.
+* Made ScmWeb constructor empty so it can be used from DamageControl.
+* Made JiraTracker look for user/password in environment variables and log error if not defined.
+
+== Version 0.4.1
+
+This version renames xforge to meta_project. This is because the scope of this project
+has grown beyond SourceForge clones.
+
+* renamed gem
+
+== Version 0.4.0
+
+This release of XForge completely reorganises classes and modules into a more
+coherent API for accessing projects' issue trackers, scms and scm browsers. The toplevel
+namespace is now MetaProject.
+
+The new ScmWeb class now supports *any* scm browser through its flexible
+configuration options.
+
+In order to easily gather information from various hosting services, XForge comes with a ProjectAnalyzer
+class, which given an scm browser URL will discover the associated issue tracker, preconfigured scm_web,
+project home page and of course, an RSCM object.
+
+Supported project sources:
+- RubyForge.org
+- SourceForge.org
+- Codehaus.org
+- Trac projects
+
+Supported issue trackers:
+- RubyForge.org
+- SourceForge.org
+- JIRA
+- Trac projects
+
+Supported SCM browsers:
+- *Any* scm browser through its flexible configuration options.
+
+Supported SCMs:
+- Any SCM implemented in the <a href="http://rscm.rubyforge.org/">RSCM</a> project.
+
+The QRS Rake tasks for releasing files and news on RubyForge has changed slightly. Please refer to XForge's
+own Rakefile for details.
+
+== Version 0.3.5
+
+This is a bugfix release that fixes some bugs in ViewCvs.
+
+* Changed the way the server path of RSCM::Cvs objects are initialised from ViewCvs to fix a subtle bug.
+* Factored out generic file_uri to ScmWeb::FileUri.
+* Fixed bug in RubyForge's recognition of modules in ViewCvs.
+
+== Version 0.3.4
+
+This release simplifies ViewCvs configuration
+
+* Removed project_unix_name from ViewCvs' uri_specs
+* Tuned how XForge::Project is YAMLed, to avoid backreferences
+* Renamed some Tracker classes to be prefixed with the module name. This was to ease DamageControl integration.
+
+== Version 0.3.3
+
+This is a minor refactoring release
+
+* Decoupled Trac::Project from RSCM::Subversion
+* Made Tracker::ViewCvs use Strings as values instead of symbols (to make it easier to post from a web form)
+
+== Version 0.3.2
+
+This release adds more support for other issue trackers ans scm browsers.
+
+* Fixed #2242
+* Added a lot of tracker and scm_web classes (factored out from DamageControl)
+* Decoupled view_cvs from rubyforge/sourceforge
+
+== Version 0.3.1
+
+This XForge release adds initial support for Trac and JIRA.
+
+* Added support for formatting of text containing issue identifiers
+* Refactored trackers into other modules
+* Added support for JIRA issue tracker
+* Added support for Trac's issue tracker
+* Added support for diff URLs on SourceForge and RubyForge
+
+== Version 0.2.1
+
+This XForge release adds support for tracker meta info
+
+* Added Project.tracker method
+* Require Rake tasks from toplevel xforge.rb
+
+== Version 0.2.0
+
+First stable release of the XForge QRS.
+
+* Renamed Project.name to Project.unix_name
+* Wrote better documentation
+* Included CVS tagging in the Rakefile
+
+== Version 0.1.9
+
+This release adds more functionality for news publishing
+
+* Added Session.publish_news
+
+== Version 0.1.8
+
+This release adds more functionality for RubyForge projects' home page
+
+* Added Project.home_page_uri and Project.project_uri
+
+== Version 0.1.7
+
+Updated README
+
+== Version 0.1.6
+
+This release of XForge improves scm browser capabilities.
+
+* Added ViewCvs.uri(path, options) method to get an URI to a file on the web
+* Added an rspec suite
+* Added logic for parsing top-level CVS modules
+* Made Rake Release task use RubyForge by default
+
+== Version 0.1.5
+
+This release of XForge adds functionality to access scm browsers (ViewCvs) and RSCM objects.
+
+* Refactored classes into separate files
+* Added Project.scm_web to access a ViewCvs object 
+* Added ViewCvs.scms to access an array of RSCM::Cvs
+
+== Version 0.1.4
+
+This is the first functional release of XForge, a Ruby library and Rake task to automate release of
+files on RubyForge and other SourceForge clones.
+
+It's as simple as this:
+
+require 'xforge'
+
+desc "Create a new release on RubyForge"
+task :publish_files => [:gem] do
+  release_files = FileList[
+    "pkg/#{PKG_FILE_NAME}.gem"
+  ]
+
+  Rake::XForge::Release.new(PKG_NAME) do |release|
+    # Never hardcode user name and password in the Rakefile!
+    release.user_name = ENV['RUBYFORGE_USER']
+    release.password = ENV['RUBYFORGE_PASSWORD']
+    release.files = release_files.to_a
+    release.release_name = "XForge #{PKG_VERSION}"
+    # The rest of the options are defaults (among others, release_notes and release_changes, parsed from CHANGES)
+  end
+end
+
+* Added logic for parsing of CHANGES files and include it in the release notes when publishing.
+* Wrote some proper release notes for once.
+
+== Version 0.1.3
+
+* Added logic for parsing of CHANGES files and include it in the release notes when publishing.
+
+== Version 0.1.2
+
+This release is a minor release with fixes in the Rake script.
+
+* Fixed RDoc for gem
+* Cleaned up documentation
+
+== Version 0.1.1
+
+* Rakefile: Don't include old gems in release.
+
+== Version 0.1
+
+* Added support for file releases

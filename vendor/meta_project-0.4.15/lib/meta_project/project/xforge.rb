@@ -1,0 +1,5 @@
+require 'meta_project/project/xforge/xforge_base'
+require 'meta_project/project/xforge/session'
+require 'meta_project/project/xforge/xfile'
+require 'meta_project/project/xforge/ruby_forge'
+require 'meta_project/project/xforge/source_forge'

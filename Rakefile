@@ -124,6 +124,7 @@ end
 
 desc "Publish package files on RubyForge."
 task :publish_packages => [:verify_user, :verify_password, :package] do
+  $:.unshift File.expand_path(File.join(File.dirname(__FILE__), "vendor", "meta_project-0.4.15", "lib"))
   require 'meta_project'
   require 'rake/contrib/xforge'
   release_files = FileList[

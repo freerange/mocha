@@ -1,0 +1,6 @@
+require 'meta_project/tracker/base'
+require 'meta_project/tracker/digit_issues'
+require 'meta_project/tracker/issue'
+require 'meta_project/tracker/trac'
+require 'meta_project/tracker/xforge'
+require 'meta_project/tracker/jira'
