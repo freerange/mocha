@@ -2,10 +2,12 @@ require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'method_definer'
 require 'mocha/expectation'
 require 'execution_point'
+require 'deprecation_disabler'
 
 class ExpectationTest < Test::Unit::TestCase
   
   include Mocha
+  include DeprecationDisabler
   
   def new_expectation
     Expectation.new(nil, :expected_method)
@@ -184,7 +186,9 @@ class ExpectationTest < Test::Unit::TestCase
   def test_should_return_evaluated_proc
     proc = lambda { 99 }
     expectation = new_expectation.returns(proc)
-    assert_equal 99, expectation.invoke
+    result = nil
+    disable_deprecations { result = expectation.invoke }
+    assert_equal 99, result
   end
   
   def test_should_return_evaluated_proc_without_using_is_a_method
@@ -193,7 +197,7 @@ class ExpectationTest < Test::Unit::TestCase
     proc.called = false
     proc.replace_instance_method(:is_a?) { self.called = true; true}
     expectation = new_expectation.returns(proc)
-    expectation.invoke
+    disable_deprecations { expectation.invoke }
     assert_equal false, proc.called
   end
   
