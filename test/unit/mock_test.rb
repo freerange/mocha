@@ -147,9 +147,9 @@ class MockTest < Test::Unit::TestCase
     error = assert_raise(ExpectationError) do
       mock.unexpected_method_called(:my_method, :argument1, :argument2)
     end
-    assert_match /my_method/, error.message
-    assert_match /argument1/, error.message
-    assert_match /argument2/, error.message
+    assert_match(/my_method/, error.message)
+    assert_match(/argument1/, error.message)
+    assert_match(/argument2/, error.message)
   end
   
   def test_should_indicate_unexpected_method_called
@@ -344,7 +344,7 @@ class MockTest < Test::Unit::TestCase
     begin
       mock.invoked_method
     rescue NoMethodError => e
-      assert_match /which responds like mocha_inspect/, e.message
+      assert_match(/which responds like mocha_inspect/, e.message)
     end
   end
   

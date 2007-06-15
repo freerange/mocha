@@ -18,6 +18,7 @@ Rake::TestTask.new(:test_unit) do |t|
   t.libs << 'test'
   t.test_files = FileList['test/unit/**/*_test.rb']
   t.verbose = true
+  t.warning = true
 end
 
 desc "Run integration tests"
@@ -25,6 +26,7 @@ Rake::TestTask.new(:test_integration) do |t|
   t.libs << 'test'
   t.test_files = FileList['test/integration/*_test.rb']
   t.verbose = true
+  t.warning = true
 end
 
 desc "Run acceptance tests"
@@ -32,6 +34,7 @@ Rake::TestTask.new(:test_acceptance) do |t|
   t.libs << 'test'
   t.test_files = FileList['test/acceptance/*_test.rb']
   t.verbose = true
+  t.warning = true
 end
 
 desc 'Generate RDoc'

@@ -40,8 +40,8 @@ class InfiniteRangeTest < Test::Unit::TestCase
   end
   
   def test_should_be_same_as_standard_to_string
-    assert_equal (1..10).to_s, (1..10).mocha_inspect
-    assert_equal (1...10).to_s, (1...10).mocha_inspect
+    assert_equal((1..10).to_s, (1..10).mocha_inspect)
+    assert_equal((1...10).to_s, (1...10).mocha_inspect)
     date_range = Range.new(Date.parse('2006-01-01'), Date.parse('2007-01-01'))
     assert_equal date_range.to_s, date_range.mocha_inspect
   end

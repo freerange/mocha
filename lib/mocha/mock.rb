@@ -16,6 +16,7 @@ module Mocha # :nodoc:
       @stub_everything = stub_everything
       @mock_name = name
       @expectations = []
+      @responder = nil
     end
 
     attr_reader :stub_everything, :expectations
