@@ -4,6 +4,8 @@ require 'mocha/missing_expectation'
 require 'mocha/metaclass'
 
 module Mocha # :nodoc:
+  
+  class ExpectationSequenceError < RuntimeError; end
 
   # Traditional mock object.
   #
@@ -17,6 +19,7 @@ module Mocha # :nodoc:
       @mock_name = name
       @expectations = []
       @responder = nil
+      @final_expectation_called = false
     end
 
     attr_reader :stub_everything, :expectations
@@ -153,7 +156,9 @@ module Mocha # :nodoc:
         raise NoMethodError, "undefined method `#{symbol}' for #{self.mocha_inspect} which responds like #{@responder.mocha_inspect}"
       end
       matching_expectation = matching_expectation(symbol, *arguments)
+      raise ExpectationSequenceError if final_expectation_called?
       if matching_expectation then
+        @final_expectation_called = matching_expectation.final?
         matching_expectation.invoke(&block)
       elsif stub_everything then
         return
@@ -165,6 +170,10 @@ module Mocha # :nodoc:
     		end
   		end
   	end
+  	
+    def final_expectation_called?
+     @final_expectation_called
+    end
   	
   	def respond_to?(symbol)
 	    if @responder then

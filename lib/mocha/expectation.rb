@@ -28,6 +28,7 @@ module Mocha # :nodoc:
       @invoked_count, @return_values = 0, ReturnValues.new
       @backtrace = backtrace || caller
       @yield_parameters = YieldParameters.new
+      @final_expectation = false
     end
     
     def match?(method_name, *arguments)
@@ -333,7 +334,25 @@ module Mocha # :nodoc:
       self
     end
     
+    # :call-seq: last() -> expectation
+    #
+    # Flags expectation so that an exception will be raised if any other methods are called after the expected method has been called.
+    #   object = mock()
+    #   object.expects(:method_1)
+    #   object.expects(:method_2).last
+    #   object.method_2
+    #   object.method_1 # => raises ExpectationSequenceError
+    #
+    def last
+      @final_expectation = true
+      self
+    end
+    
     # :stopdoc:
+    
+    def final?
+      @final_expectation
+    end
     
     def invoke
       @invoked_count += 1
