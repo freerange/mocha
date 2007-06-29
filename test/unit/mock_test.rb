@@ -135,13 +135,6 @@ class MockTest < Test::Unit::TestCase
     assert_nil result
   end
   
-  def test_should_raise_no_method_error
-    mock = Mock.new
-    assert_raise(NoMethodError) do
-      mock.super_method_missing(nil)
-    end
-  end
-  
   def test_should_raise_assertion_error_for_unexpected_method_call
     mock = Mock.new
     error = assert_raise(ExpectationError) do
@@ -157,19 +150,6 @@ class MockTest < Test::Unit::TestCase
     class << mock
       attr_accessor :symbol, :arguments
       def unexpected_method_called(symbol, *arguments)
-        self.symbol, self.arguments = symbol, arguments
-      end
-    end
-    mock.my_method(:argument1, :argument2)
-    assert_equal :my_method, mock.symbol
-    assert_equal [:argument1, :argument2], mock.arguments
-  end
-  
-  def test_should_call_method_missing_for_parent
-    mock = Mock.new
-    class << mock
-      attr_accessor :symbol, :arguments
-      def super_method_missing(symbol, *arguments, &block)
         self.symbol, self.arguments = symbol, arguments
       end
     end
