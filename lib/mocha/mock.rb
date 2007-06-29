@@ -164,26 +164,26 @@ module Mocha # :nodoc:
         return
       else
         unexpected_method_called(symbol, *arguments)
-  		end
-  	end
-  	
+      end
+    end
+    
     def final_expectation_called?
      @final_expectation_called
     end
-  	
-  	def respond_to?(symbol)
-	    if @responder then
-	      @responder.respond_to?(symbol)
+    
+    def respond_to?(symbol)
+      if @responder then
+        @responder.respond_to?(symbol)
       else
-    	  @expectations.any? { |expectation| expectation.method_name == symbol }
-  	  end
-	  end
-	
-  	def unexpected_method_called(symbol, *arguments)
+        @expectations.any? { |expectation| expectation.method_name == symbol }
+      end
+    end
+  
+    def unexpected_method_called(symbol, *arguments)
       MissingExpectation.new(self, symbol).with(*arguments).verify
     end
-	
-  	def matching_expectation(symbol, *arguments)
+  
+    def matching_expectation(symbol, *arguments)
       @expectations.reverse.detect { |expectation| expectation.match?(symbol, *arguments) }
     end
   

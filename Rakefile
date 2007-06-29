@@ -93,14 +93,14 @@ end
 Gem::manage_gems
 
 specification = Gem::Specification.new do |s|
-	s.name   = "mocha"
+  s.name   = "mocha"
   s.summary = "Mocking and stubbing library"
-	s.version = Mocha::VERSION
-	s.author = 'James Mead'
-	s.description = <<-EOF
+  s.version = Mocha::VERSION
+  s.author = 'James Mead'
+  s.description = <<-EOF
     Mocking and stubbing library with JMock/SchMock syntax, which allows mocking and stubbing of methods on real (non-mock) classes.
   EOF
-	s.email = 'mocha-developer@rubyforge.org'
+  s.email = 'mocha-developer@rubyforge.org'
   s.homepage = 'http://mocha.rubyforge.org'
   s.rubyforge_project = 'mocha'
 
@@ -113,8 +113,8 @@ specification = Gem::Specification.new do |s|
 end
 
 Rake::GemPackageTask.new(specification) do |package|
-	 package.need_zip = true
-	 package.need_tar = true
+   package.need_zip = true
+   package.need_tar = true
 end
 
 task :verify_user do
