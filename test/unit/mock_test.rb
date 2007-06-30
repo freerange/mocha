@@ -313,15 +313,4 @@ class MockTest < Test::Unit::TestCase
       assert_match(/which responds like mocha_inspect/, e.message)
     end
   end
-  
-  def test_should_raise_final_expectation_error_if_message_is_received_after_satisfying_the_final_expectation
-    mock = Mock.new
-    mock.expects(:method1)
-    mock.expects(:method2).last
-    mock.method2
-    assert_raises(ExpectationSequenceError){
-      mock.method1
-    }
-  end
-  
 end

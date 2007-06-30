@@ -395,17 +395,5 @@ class ExpectationTest < Test::Unit::TestCase
     expectation = new_expectation()
     assert_match Regexp.new("/lib/$"), expectation.mocha_lib_directory
   end
-  
-  def test_should_be_final_after_calling_last
-    expectation = new_expectation
-    expectation.last
-    assert expectation.final?
-  end
-  
-  def test_should_not_be_final_by_default
-    expectation = new_expectation
-    assert !expectation.final?
-  end
-  
-  
+
 end
