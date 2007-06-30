@@ -38,12 +38,15 @@ module Mocha # :nodoc:
       else
         return false unless (@parameters == arguments)
       end
-      if @expected_count.is_a?(Range) then
-        return false unless @invoked_count < @expected_count.last
-      else
-        return false unless @invoked_count < @expected_count
-      end
       return true
+    end
+    
+    def invocations_allowed?
+      if @expected_count.is_a?(Range) then
+        @invoked_count < @expected_count.last
+      else
+        @invoked_count < @expected_count
+      end
     end
 
     # :startdoc:
