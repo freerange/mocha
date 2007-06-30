@@ -36,7 +36,10 @@ module Mocha # :nodoc:
     #   end 
     def mock(*args)
       name, expectations = name_and_expectations_from_args(args)
-      build_mock_with_expectations(:expects, expectations, name)
+      mock = Mock.new(false, name)
+      mock.expects(expectations)
+      mocks << mock
+      mock
     end
   
     # :call-seq: stub(name) -> mock object
@@ -58,7 +61,10 @@ module Mocha # :nodoc:
     #   end
     def stub(*args)
       name, expectations = name_and_expectations_from_args(args)
-      build_mock_with_expectations(:stubs, expectations, name)
+      mock = Mock.new(false, name)
+      mock.stubs(expectations)
+      mocks << mock
+      mock
     end
   
     # :call-seq: stub_everything(name) -> mock object
@@ -78,7 +84,10 @@ module Mocha # :nodoc:
     #   end
     def stub_everything(*args)
       name, expectations = name_and_expectations_from_args(args)
-      build_mock_with_expectations(:stub_everything, expectations, name)
+      mock = Mock.new(true, name)
+      mock.stubs(expectations)
+      mocks << mock
+      mock
     end
     
     def verify_mocks # :nodoc:
@@ -89,17 +98,6 @@ module Mocha # :nodoc:
       reset_mocks
     end
   
-    def build_mock_with_expectations(expectation_type = :expects, expectations = {}, name = nil) # :nodoc:
-      stub_everything = (expectation_type == :stub_everything)
-      expectation_type = :stubs if expectation_type == :stub_everything
-      mock = Mock.new(stub_everything, name)
-      expectations.each do |method, result|
-        mock.__send__(expectation_type, method).returns(result)
-      end
-      mocks << mock
-      mock
-    end
-    
   private
 
     def name_and_expectations_from_args(args) # :nodoc:

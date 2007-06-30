@@ -14,84 +14,63 @@ class AutoVerifyTest < Test::Unit::TestCase
     end
   end
   
-  def test_should_add_mock_type_expectations
-    test_case.define_instance_accessor(:expectation_type, :expectations)
-    test_case.define_instance_method(:build_mock_with_expectations) do |expectation_type, expectations|
-      self.expectation_type = expectation_type
-      self.expectations = expectations
-    end
-    expectations = { :method1 => :value1, :method2 => :value2 }
-    
-    test_case.mock(expectations)
-    
-    assert_equal :expects, test_case.expectation_type
-    assert_equal expectations, test_case.expectations
-  end
-  
-  def test_should_add_stub_type_expectations
-    test_case.define_instance_accessor(:expectation_type, :expectations)
-    test_case.define_instance_method(:build_mock_with_expectations) do |expectation_type, expectations|
-      self.expectation_type = expectation_type
-      self.expectations = expectations
-    end
-    expectations = { :method1 => :value1, :method2 => :value2 }
-    
-    test_case.stub(expectations)
-    
-    assert_equal :stubs, test_case.expectation_type
-    assert_equal expectations, test_case.expectations
-  end
-  
-  def test_should_add_greedy_stub_type_expectations
-    test_case.define_instance_accessor(:expectation_type, :expectations)
-    test_case.define_instance_method(:build_mock_with_expectations) do |expectation_type, expectations|
-      self.expectation_type = expectation_type
-      self.expectations = expectations
-    end
-    expectations = { :method1 => :value1, :method2 => :value2 }
-    
-    test_case.stub_everything(expectations)
-    
-    assert_equal :stub_everything, test_case.expectation_type
-    assert_equal expectations, test_case.expectations
-  end
-  
   def test_should_build_mock
-    mock = test_case.build_mock_with_expectations
+    mock = test_case.mock
     assert mock.is_a?(Mocha::Mock)
   end
   
-  def test_should_add_expectation_to_mock
-    mock = test_case.build_mock_with_expectations(:expects, :expected_method => 'return_value')
-    assert_equal 'return_value', mock.expected_method
+  def test_should_add_expectations_to_mock
+    mock = test_case.mock(:method_1 => 'result_1', :method_2 => 'result_2')
+    assert_equal 'result_1', mock.method_1
+    assert_equal 'result_2', mock.method_2
   end
   
   def test_should_build_stub
-    stub = test_case.build_mock_with_expectations(:stubs)
+    stub = test_case.stub
     assert stub.is_a?(Mocha::Mock)
   end
   
   def test_should_add_expectation_to_stub
-    stub = test_case.build_mock_with_expectations(:stubs, :stubbed_method => 'return_value')
-    assert_equal 'return_value', stub.stubbed_method
+    stub = test_case.stub(:method_1 => 'result_1', :method_2 => 'result_2')
+    assert_equal 'result_1', stub.method_1
+    assert_equal 'result_2', stub.method_2
   end
   
-  def test_should_build_greedy_stub
-    greedy_stub = test_case.build_mock_with_expectations(:stub_everything)
-    assert greedy_stub.stub_everything
+  def test_should_build_stub_that_stubs_all_methods
+    stub = test_case.stub_everything
+    assert stub.stub_everything
   end
   
-  def test_should_add_expectations_to_greedy_stub
-    greedy_mock = test_case.build_mock_with_expectations(:stub_everything, :stubbed_method => 'return_value')
-    assert_equal 'return_value', greedy_mock.stubbed_method
+  def test_should_add_expectations_to_stub_that_stubs_all_methods
+    stub = test_case.stub_everything(:method_1 => 'result_1', :method_2 => 'result_2')
+    assert_equal 'result_1', stub.method_1
+    assert_equal 'result_2', stub.method_2
   end
   
-  def test_should_build_new_mock_each_time
-    assert_not_equal test_case.build_mock_with_expectations, test_case.build_mock_with_expectations
+  def test_should_always_new_mock
+    assert_not_equal test_case.mock, test_case.mock
+  end
+  
+  def test_should_always_build_new_stub
+    assert_not_equal test_case.stub, test_case.stub
+  end
+  
+  def test_should_always_build_new_stub_that_stubs_all_methods
+    assert_not_equal test_case.stub, test_case.stub
   end
   
   def test_should_store_each_new_mock
-    expected = Array.new(3) { test_case.build_mock_with_expectations }
+    expected = Array.new(3) { test_case.mock }
+    assert_equal expected, test_case.mocks
+  end
+  
+  def test_should_store_each_new_stub
+    expected = Array.new(3) { test_case.stub }
+    assert_equal expected, test_case.mocks
+  end
+  
+  def test_should_store_each_new_stub_that_stubs_all_methods
+    expected = Array.new(3) { test_case.stub_everything }
     assert_equal expected, test_case.mocks
   end
   
@@ -125,39 +104,19 @@ class AutoVerifyTest < Test::Unit::TestCase
     assert test_case.mocks.empty?
   end
   
-  def test_should_stub_everything
-    mock = test_case.stub_everything
-    assert_equal true, mock.stub_everything
-  end
-  
-  def test_should_add_mock_to_mocks
-    mock = test_case.mock
-    assert_equal [mock], test_case.mocks
-  end
-  
-  def test_should_add_stub_to_mocks
-    stub = test_case.stub
-    assert_equal [stub], test_case.mocks
-  end
-  
-  def test_should_add_greedy_stub_to_mocks
-    greedy_stub = test_case.stub_everything
-    assert_equal [greedy_stub], test_case.mocks
-  end
-  
-  def test_should_create_mock_with_name
+  def test_should_create_named_mock
     mock = test_case.mock('named_mock')
     assert_equal '#<Mock:named_mock>', mock.mocha_inspect
   end
   
-  def test_should_create_stub_with_name
+  def test_should_create_named_stub
     stub = test_case.stub('named_stub')
     assert_equal '#<Mock:named_stub>', stub.mocha_inspect
   end
   
-  def test_should_create_greedy_stub_with_name
-    greedy_stub = test_case.stub_everything('named_greedy_stub')
-    assert_equal '#<Mock:named_greedy_stub>', greedy_stub.mocha_inspect
+  def test_should_create_named_stub_that_stubs_all_methods
+    stub = test_case.stub_everything('named_stub')
+    assert_equal '#<Mock:named_stub>', stub.mocha_inspect
   end
   
 end
