@@ -54,8 +54,7 @@ class MockedMethodDispatchAcceptanceTest < Test::Unit::TestCase
     assert_passed(test_result)
   end
 
-  def test_should
-    # flunk
+  def test_should_find_latest_expectation_with_range_of_expected_invocation_count_which_has_not_stopped_matching
     test_result = run_test do
       mock = mock()
       mock.stubs(:method).returns(1)
