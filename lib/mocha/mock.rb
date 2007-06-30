@@ -1,4 +1,5 @@
 require 'mocha/expectation'
+require 'mocha/expectation_list'
 require 'mocha/stub'
 require 'mocha/missing_expectation'
 require 'mocha/metaclass'
@@ -17,7 +18,7 @@ module Mocha # :nodoc:
     def initialize(stub_everything = false, name = nil)
       @stub_everything = stub_everything
       @mock_name = name
-      @expectations = []
+      @expectations = ExpectationList.new
       @responder = nil
       @final_expectation_called = false
     end
@@ -145,7 +146,7 @@ module Mocha # :nodoc:
     alias_method :quacks_like, :responds_like
 
     def add_expectation(expectation)
-      @expectations << expectation
+      @expectations.add(expectation)
       method_name = expectation.method_name
       self.__metaclass__.send(:undef_method, method_name) if self.__metaclass__.method_defined?(method_name)
       expectation
@@ -155,7 +156,7 @@ module Mocha # :nodoc:
       if @responder and not @responder.respond_to?(symbol)
         raise NoMethodError, "undefined method `#{symbol}' for #{self.mocha_inspect} which responds like #{@responder.mocha_inspect}"
       end
-      matching_expectation = matching_expectation(symbol, *arguments)
+      matching_expectation = @expectations.detect(symbol, *arguments)
       raise ExpectationSequenceError if final_expectation_called?
       if matching_expectation then
         @final_expectation_called = matching_expectation.final?
@@ -175,7 +176,7 @@ module Mocha # :nodoc:
       if @responder then
         @responder.respond_to?(symbol)
       else
-        @expectations.any? { |expectation| expectation.method_name == symbol }
+        @expectations.respond_to?(symbol)
       end
     end
   
@@ -183,12 +184,8 @@ module Mocha # :nodoc:
       MissingExpectation.new(self, symbol).with(*arguments).verify
     end
   
-    def matching_expectation(symbol, *arguments)
-      @expectations.reverse.detect { |expectation| expectation.match?(symbol, *arguments) }
-    end
-  
     def verify(&block)
-      @expectations.each { |expectation| expectation.verify(&block) }
+      @expectations.verify(&block)
     end
   
     def mocha_inspect
@@ -199,6 +196,10 @@ module Mocha # :nodoc:
     
     def inspect
       mocha_inspect
+    end
+
+    def similar_expectations(method_name)
+      @expectations.similar(method_name)
     end
 
     # :startdoc:

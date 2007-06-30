@@ -40,7 +40,7 @@ class ObjectTest < Test::Unit::TestCase
     $stubba = Mock.new
     $stubba.stubs(:stub)
     expectation = instance.expects(:method1)
-    assert_equal [expectation], instance.mocha.expectations
+    assert_equal [expectation], instance.mocha.expectations.to_a
   end
   
   def test_should_verify_expectations
@@ -106,7 +106,7 @@ class ObjectTest < Test::Unit::TestCase
     $stubba = Mock.new
     $stubba.stubs(:stub)
     expectation = klass.expects(:method1)
-    assert_equal [expectation], klass.mocha.expectations
+    assert_equal [expectation], klass.mocha.expectations.to_a
   end
   
   def test_should_stub_module_method
@@ -122,7 +122,7 @@ class ObjectTest < Test::Unit::TestCase
     $stubba = Mock.new
     $stubba.stubs(:stub)
     expectation = mod.expects(:method1)
-    assert_equal [expectation], mod.mocha.expectations
+    assert_equal [expectation], mod.mocha.expectations.to_a
   end
   
   def test_should_use_stubba_instance_method_for_object

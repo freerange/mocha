@@ -19,7 +19,7 @@ class MockTest < Test::Unit::TestCase
    mock = Mock.new
    expectation = mock.expects(:method1)
    assert_not_nil expectation
-   assert_equal [expectation], mock.expectations
+   assert_equal [expectation], mock.expectations.to_a
   end
   
   def test_should_not_stub_everything_by_default
@@ -103,20 +103,6 @@ class MockTest < Test::Unit::TestCase
     stub1 = mock.stubs(:method1)
     stub2 = mock.stubs(:method2)
     assert_equal [stub1, stub2].to_set, mock.expectations.to_set
-  end
-  
-  def test_should_find_matching_expectation
-    mock = Mock.new
-    expectation1 = mock.expects(:my_method).with(:argument1, :argument2)
-    expectation2 = mock.expects(:my_method).with(:argument3, :argument4)
-    assert_same expectation2, mock.matching_expectation(:my_method, :argument3, :argument4)
-  end
-  
-  def test_should_find_most_recent_matching_expectation
-    mock = Mock.new
-    expectation1 = mock.expects(:my_method).with(:argument1, :argument2)
-    expectation2 = mock.expects(:my_method).with(:argument1, :argument2)
-    assert_same expectation2, mock.matching_expectation(:my_method, :argument1, :argument2)
   end
   
   def test_should_invoke_expectation_and_return_result
