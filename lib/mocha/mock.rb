@@ -6,8 +6,6 @@ require 'mocha/metaclass'
 
 module Mocha # :nodoc:
   
-  class ExpectationSequenceError < RuntimeError; end
-
   # Traditional mock object.
   #
   # Methods return an Expectation which can be further modified by methods on Expectation.
