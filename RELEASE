@@ -1,4 +1,77 @@
-= 0.4.0
+= 0.5.2 (r159)
+
+- Fix bug 11885 - "never doesn't work with stub_everything" submitted by Alexander Lang. In fixing this bug, also fixed undiscoverd bug where expected & actual invocation counts were being incorrectly reported which seems to have been introduced when fixes were added for invocation dispatch (see MockedMethodDispatchAcceptanceTest).
+- Previously when an expectation did not allow more invocations, it was treated as not matching. Now we prefer matching expectations which allow more invocations, but still match expectations which cannot allow more invocations. I think this may be overcomplicating things, but let's see how it goes.
+
+= 0.5.1 (r149)
+
+- Fixed bug #11583 "Mocha 0.5.0 throwing unexpected warnings". Also switched on ruby warning for all rake test tasks. Fixed majority of warnings, but some left to fix.
+
+= 0.5.0 (r147)
+
+- Parameter Matchers - I’ve added a few Hamcrest-style parameter matchers which are designed to be used inside Expectation#with. The following matchers are currently available: anything(), includes(), has_key(), has_value(), has_entry(), all_of() & any_of(). More to follow soon. The idea is eventually to get rid of the nasty parameter_block option on Expectation#with.
+
+  object = mock()
+  object.expects(:method).with(has_key('key_1'))
+  object.method('key_1' => 1, 'key_2' => 2)
+  # no verification error raised
+
+  object = mock()
+  object.expects(:method).with(has_key('key_1'))
+  object.method('key_2' => 2)
+  # verification error raised, because method was not called with Hash containing key: 'key_1'
+
+- Values Returned and Exceptions Raised on Consecutive Invocations - Allow multiple calls to Expectation#returns and Expectation#raises to build up a sequence of responses to invocations on the mock. Added syntactic sugar method Expectation#then to allow more readable expectations.
+
+  object = mock()
+  object.stubs(:method).returns(1, 2).then.raises(Exception).then.returns(4)
+  object.method # => 1
+  object.method # => 2
+  object.method # => raises exception of class Exception
+  object.method # => 4
+
+- Yields on Consecutive Invocations - Allow multiple calls to yields on single expectation to allow yield parameters to be specified for consecutive invocations.
+
+  object = mock()
+  object.stubs(:method).yields(1, 2).then.yields(3)
+  object.method { |*values| p values } # => [1, 2]
+  object.method { |*values| p values } # => [3]
+
+- Multiple Yields on Single Invocation - Added Expectation#multiple_yields to allow a mocked or stubbed method to yield multiple times for a single invocation.
+
+  object = mock()
+  object.stubs(:method).multiple_yields([1, 2], [3])
+  object.method { |*values| p values } # => [1, 2] # => [3]
+
+- Invocation Dispatch - Expectations were already being matched in reverse order i.e. the most recently defined one was being found first. This is still the case, but we now stop matching an expectation when its maximum number of expected invocations is reached. c.f. JMock v1. A stub will never stop matching by default. Hopefully this means we can soon get rid of the need to pass a Proc to Expectation#returns.
+
+  object = mock()
+  object.stubs(:method).returns(2)
+  object.expects(:method).once.returns(1)
+  object.method # => 1
+  object.method # => 2
+  object.method # => 2
+  # no verification error raised
+
+  # The following should still work...
+
+  Time.stubs(:now).returns(Time.parse('Mon Jan 01 00:00:00 UTC 2007'))
+  Time.now # => Mon Jan 01 00:00:00 UTC 2007
+  Time.stubs(:now).returns(Time.parse('Thu Feb 01 00:00:00 UTC 2007'))
+  Time.now # => Thu Feb 01 00:00:00 UTC 2007
+  
+- Deprecate passing an instance of Proc to Expectation#returns.
+- Explicitly include all Rakefile dependencies in project.
+- Fixed old Stubba example.
+- Fix so that it is possible for a stubbed method to raise an Interrupt exception without a message in Ruby 1.8.6
+- Added responds_like and quacks_like.
+- Capture standard object methods before Mocha adds any.
+- Added Expectation#once method to make interface less surprising.
+- Use Rake::TestTask to run tests. Created three separate tasks to run unit, integration & acceptance tests. Split inspect_test into one file per TestCase. Deleted superfluous all_tests file.
+- Fiddled with mocha_inspect and tests to give more sensible results on x86 platform.
+- Fixed bug #7834 "infinite_range.rb makes incorrect assumption about to_f" logged by James Moore.
+
+= 0.4.0 (r92)
 
 - Allow naming of mocks (patch from Chris Roos).
 - Specify multiple return values for consecutive calls.

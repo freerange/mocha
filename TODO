@@ -1,10 +1,7 @@
 => release management
-- update RELEASE file for all releases after 0.3.0
 - why does gem rdoc include all source files? what about other package types?
 - why does zip include Rakefile? what about other package types?
-- tags for repos
-- automate releases cf rspec
-- continuous integration build
+- tag releases in repos
 - trac?
 
 => restrict partial mocks to existing public methods?
@@ -45,8 +42,6 @@
 - test for setting expectations on class methods (and instance methods?) from within TestCase#setup
 
 => possible extra functionality
-- add multiyield - see email from Jay Fields
-- allow hash parameter for stubs and expects methods particularly for stubba
 - more jmock style stuff - e.g. labels/required order, more sophisticated param matching?
 - maybe allow unstubbing of a specific method from within a test...?
 - oomatron type ideas
