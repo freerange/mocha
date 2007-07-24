@@ -251,6 +251,7 @@ HEADER = XHTML_PREAMBLE + %{
   <title>%title%</title>
   <meta http-equiv="Content-Type" content="text/html; charset=%charset%" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta name="verify-v1" content="ygk9o+WGbEifJyRMG2pUfK9suVwr/ofRayiGD3SNYVM=" />
   <link rel="stylesheet" href="%style_url%" type="text/css" media="screen" />
   <script type="text/javascript">
   // <![CDATA[
