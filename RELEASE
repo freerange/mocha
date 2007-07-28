@@ -1,3 +1,11 @@
+= 0.5.3 (r165)
+
+- Attempt to fix packaging problems by switching to newer version (1.15.1) of gnutar and setting COPY_EXTENDED_ATTRIBUTES_DISABLE environment variable.
+- Removed unused ExpectationSequenceError exception.
+- Added instance_of and kind_of parameter matchers.
+- Added Google Webmaster meta tag to rdoc template header.
+- Put Google Webmaster meta tag in the right header i.e. the one for the index page.
+
 = 0.5.2 (r159)
 
 - Fix bug 11885 - "never doesn't work with stub_everything" submitted by Alexander Lang. In fixing this bug, also fixed undiscoverd bug where expected & actual invocation counts were being incorrectly reported which seems to have been introduced when fixes were added for invocation dispatch (see MockedMethodDispatchAcceptanceTest).
