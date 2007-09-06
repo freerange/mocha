@@ -5,7 +5,7 @@ require 'rake/testtask'
 require 'rake/contrib/sshpublisher'
 
 module Mocha
-  VERSION = "0.5.3"
+  VERSION = "0.5.5"
 end
 
 desc "Run all tests"
@@ -40,7 +40,7 @@ end
 desc 'Generate RDoc'
 Rake::RDocTask.new do |task|
   task.main = 'README'
-  task.title = 'Mocha'
+  task.title = "Mocha #{Mocha::VERSION}"
   task.rdoc_dir = 'doc'
   task.template = File.expand_path(File.join(File.dirname(__FILE__), "templates", "html_with_google_analytics"))
   task.rdoc_files.include('README', 'RELEASE', 'COPYING', 'MIT-LICENSE', 'agiledox.txt', 'lib/mocha/auto_verify.rb', 'lib/mocha/mock.rb', 'lib/mocha/expectation.rb', 'lib/mocha/object.rb', 'lib/mocha/parameter_matchers.rb', 'lib/mocha/parameter_matchers')

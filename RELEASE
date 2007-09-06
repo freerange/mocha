@@ -1,3 +1,12 @@
+= 0.5.5 (r167)
+
+- Renamed Matches parameter matcher to RegexpMatches for clarity.
+- Added noframes tag to rdoc index to assist Google.
+
+= 0.5.4 (r166)
+
+- Added matches parameter matcher for matching regular expressions.
+
 = 0.5.3 (r165)
 
 - Attempt to fix packaging problems by switching to newer version (1.15.1) of gnutar and setting COPY_EXTENDED_ATTRIBUTES_DISABLE environment variable.

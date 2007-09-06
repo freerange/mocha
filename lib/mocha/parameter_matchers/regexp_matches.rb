@@ -2,24 +2,24 @@ module Mocha
   
   module ParameterMatchers
 
-    # :call-seq: regexp_match(regexp) -> parameter_matcher
+    # :call-seq: regexp_matches(regexp) -> parameter_matcher
     #
-    # Matches any object that matches the regular expression
+    # Matches any object that matches the regular expression, +regexp+.
     #   object = mock()
-    #   object.expects(:method_1).with(regexp_match(/e/))
+    #   object.expects(:method_1).with(regexp_matches(/e/))
     #   object.method_1('hello')
     #   # no error raised
     #
     #   object = mock()
-    #   object.expects(:method_1).with(regexp_match(/a/))
+    #   object.expects(:method_1).with(regexp_matches(/a/))
     #   object.method_1('hello')
     #   # error raised, because method_1 was not called with a parameter that matched the 
     #   # regular expression
-    def regexp_match(regexp)
-      RegexpMatcher.new(regexp)
+    def regexp_matches(regexp)
+      RegexpMatches.new(regexp)
     end
 
-    class RegexpMatcher # :nodoc:
+    class RegexpMatches # :nodoc:
   
       def initialize(regexp)
         @regexp = regexp
@@ -30,7 +30,7 @@ module Mocha
       end
   
       def mocha_inspect
-        "regexp_match(#{@regexp.mocha_inspect})"
+        "regexp_matches(#{@regexp.mocha_inspect})"
       end
   
     end

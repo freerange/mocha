@@ -717,6 +717,9 @@ INDEX = %{<?xml version="1.0" encoding="%charset%"?>
   <meta name="verify-v1" content="ygk9o+WGbEifJyRMG2pUfK9suVwr/ofRayiGD3SNYVM=" />
 </head>
 <frameset rows="20%, 80%">
+    <noframes>
+      <body bgcolor="#BBBBBB"> Click <a href="%initial_page%">here</a> for a non-frames version of this page.</body>
+    </noframes>
     <frameset cols="25%,35%,45%">
         <frame src="fr_file_index.html"   title="Files" name="Files" />
         <frame src="fr_class_index.html"  name="Classes" />

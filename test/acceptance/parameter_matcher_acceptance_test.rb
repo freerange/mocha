@@ -63,7 +63,7 @@ class ParameterMatcherAcceptanceTest < Test::Unit::TestCase
   def test_should_match_parameter_that_matches_regular_expression
     test_result = run_test do
       mock = mock()
-      mock.expects(:method).with(regexp_match(/meter/))
+      mock.expects(:method).with(regexp_matches(/meter/))
       mock.method('this parameter should match')
     end
     assert_passed(test_result)
@@ -72,7 +72,7 @@ class ParameterMatcherAcceptanceTest < Test::Unit::TestCase
   def test_should_not_match_parameter_that_does_not_match_regular_expression
     test_result = run_test do
       mock = mock()
-      mock.expects(:method).with(regexp_match(/something different/))
+      mock.expects(:method).with(regexp_matches(/something different/))
       mock.method('this parameter should not match')
     end
     assert_failed(test_result)
