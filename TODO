@@ -1,3 +1,6 @@
+=> update vendor libraries
+- does updating meta_project have any effect on broken tarball issue?
+
 => release management
 - why does gem rdoc include all source files? what about other package types?
 - why does zip include Rakefile? what about other package types?
@@ -26,6 +29,7 @@
 
 => improve design
 - use builder object c.f. JMock
+- use expectation builder object to allow partial mocks to accept a hash in expects or stubs methods
 - possibly simplify by making mock the same as a partial mock of Object
 - provide test::unit agnostic api - mockery/context type objects on which the user must call setup/teardown?
 - allow stubs/expects methods to accept method names as strings and symbols to retain similarity to define_method() et al
@@ -42,6 +46,7 @@
 - test for setting expectations on class methods (and instance methods?) from within TestCase#setup
 
 => possible extra functionality
+- concise stubbing on partial mock e.g. object.stubs(:m1 => 1, :m2 => 2) as requested by Rob Sanheim on mocha-developer list
 - more jmock style stuff - e.g. labels/required order, more sophisticated param matching?
 - maybe allow unstubbing of a specific method from within a test...?
 - oomatron type ideas
