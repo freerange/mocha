@@ -263,7 +263,7 @@ module Mocha # :nodoc:
     end
     
     # :call-seq: returns(value) -> expectation
-    # :call-seq: returns(*values) -> expectation
+    #            returns(*values) -> expectation
     #
     # Modifies expectation so that when the expected method is called, it returns the specified +value+.
     #   object = mock()
