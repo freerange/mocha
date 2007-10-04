@@ -18,7 +18,7 @@ module Mocha # :nodoc:
     def initialize(mock, method_name, backtrace = nil)
       @mock, @method_name = mock, method_name
       @expected_count = 1
-      @parameters, @parameter_block = AnyParameters.new, nil
+      @parameters = AnyParameters.new
       @invoked_count, @return_values = 0, ReturnValues.new
       @backtrace = backtrace || caller
       @yield_parameters = YieldParameters.new
@@ -26,12 +26,7 @@ module Mocha # :nodoc:
     
     def match?(method_name, *arguments)
       return false unless @method_name == method_name
-      if @parameter_block then
-        return false unless @parameter_block.call(*arguments)
-      else
-        return false unless (@parameters == arguments)
-      end
-      return true
+      return @parameters.match?(arguments)
     end
     
     def invocations_allowed?
@@ -180,7 +175,7 @@ module Mocha # :nodoc:
       self
     end
   
-    # :call-seq: with(*arguments, &parameter_block) -> expectation
+    # :call-seq: with(*arguments, &block) -> expectation
     #
     # Modifies expectation so that the expected method must be called with specified +arguments+.
     #   object = mock()
@@ -194,7 +189,7 @@ module Mocha # :nodoc:
     #   # => verify fails
     # May be used with parameter matchers in Mocha::ParameterMatchers.
     #
-    # If a +parameter_block+ is given, the block is called with the parameters passed to the expected method.
+    # If a +block+ is given, the block is called with the parameters passed to the expected method.
     # The expectation is matched if the block evaluates to +true+.
     #   object = mock()
     #   object.expects(:expected_method).with() { |value| value % 4 == 0 }
@@ -205,8 +200,8 @@ module Mocha # :nodoc:
     #   object.expects(:expected_method).with() { |value| value % 4 == 0 }
     #   object.expected_method(17)
     #   # => verify fails
-    def with(*arguments, &parameter_block)
-      @parameters, @parameter_block = Parameters.new(arguments), parameter_block
+    def with(*arguments, &block)
+      @parameters = Parameters.new(arguments, &block)
       self
     end
   

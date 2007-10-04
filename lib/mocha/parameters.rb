@@ -4,12 +4,17 @@ module Mocha
   
   class Parameters
     
-    def initialize(parameters)
-      @parameters = parameters
+    def initialize(parameters, &block)
+      @parameters, @block = parameters, block
     end
     
-    def ==(parameters)
-      (@parameters == parameters)
+    def match?(parameters)
+      if @block then
+        return false unless @block.call(*parameters)
+      else
+        return false unless (@parameters == parameters)
+      end
+      return true
     end
     
     def to_s
@@ -23,7 +28,7 @@ module Mocha
 
   class AnyParameters
     
-    def ==(parameters)
+    def match?(parameters)
       true
     end
     
