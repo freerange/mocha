@@ -22,7 +22,6 @@ module Mocha # :nodoc:
       @invoked_count, @return_values = 0, ReturnValues.new
       @backtrace = backtrace || caller
       @yield_parameters = YieldParameters.new
-      @final_expectation = false
     end
     
     def match?(method_name, *arguments)
