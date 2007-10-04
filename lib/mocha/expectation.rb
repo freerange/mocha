@@ -13,21 +13,24 @@ module Mocha # :nodoc:
   
     # :stopdoc:
     
-    class AlwaysEqual
-      def ==(other)
-        true
-      end
-    end
-    
     class Parameters
       def initialize(parameters)
         @parameters = parameters
       end
       def ==(parameters)
-        @parameters == parameters
+        (@parameters == parameters)
       end
-      def to_a
-        @parameters
+      def to_s
+        "(#{PrettyParameters.new(@parameters).pretty})"
+      end
+    end
+    
+    class AnyParameters
+      def ==(parameters)
+        true
+      end
+      def to_s
+        ""
       end
     end
   
@@ -36,7 +39,7 @@ module Mocha # :nodoc:
     def initialize(mock, method_name, backtrace = nil)
       @mock, @method_name = mock, method_name
       @expected_count = 1
-      @parameters, @parameter_block = AlwaysEqual.new, nil
+      @parameters, @parameter_block = AnyParameters.new, nil
       @invoked_count, @return_values = 0, ReturnValues.new
       @backtrace = backtrace || caller
       @yield_parameters = YieldParameters.new
@@ -369,8 +372,7 @@ module Mocha # :nodoc:
     end
     
     def method_signature
-      return "#{method_name}" if @parameters.__is_a__(AlwaysEqual)
-      "#{@method_name}(#{PrettyParameters.new(@parameters.to_a).pretty})"
+      "#{@method_name}#{@parameters}"
     end
     
     def error_message(expected_count, actual_count)
