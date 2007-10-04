@@ -1,5 +1,5 @@
 require 'mocha/infinite_range'
-require 'mocha/pretty_parameters'
+require 'mocha/parameters'
 require 'mocha/expectation_error'
 require 'mocha/return_values'
 require 'mocha/exception_raiser'
@@ -13,27 +13,6 @@ module Mocha # :nodoc:
   
     # :stopdoc:
     
-    class Parameters
-      def initialize(parameters)
-        @parameters = parameters
-      end
-      def ==(parameters)
-        (@parameters == parameters)
-      end
-      def to_s
-        "(#{PrettyParameters.new(@parameters).pretty})"
-      end
-    end
-    
-    class AnyParameters
-      def ==(parameters)
-        true
-      end
-      def to_s
-        ""
-      end
-    end
-  
     attr_reader :method_name, :backtrace
 
     def initialize(mock, method_name, backtrace = nil)
