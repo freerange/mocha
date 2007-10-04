@@ -1,5 +1,5 @@
 require 'mocha/infinite_range'
-require 'mocha/parameters'
+require 'mocha/method_signature'
 require 'mocha/expectation_error'
 require 'mocha/return_values'
 require 'mocha/exception_raiser'
@@ -13,11 +13,11 @@ module Mocha # :nodoc:
   
     # :stopdoc:
     
-    attr_reader :method_name, :backtrace
+    attr_reader :backtrace
 
     def initialize(mock, method_name, backtrace = nil)
-      @mock, @method_name = mock, method_name
-      @parameters = Parameters.new
+      @mock = mock
+      @method_signature = MethodSignature.new(method_name)
       @expected_count, @invoked_count = 1, 0
       @return_values = ReturnValues.new
       @yield_parameters = YieldParameters.new
@@ -25,7 +25,7 @@ module Mocha # :nodoc:
     end
     
     def match?(method_name, *arguments)
-      (@method_name == method_name) && @parameters.match?(arguments)
+      @method_signature.match?(method_name, arguments)
     end
     
     def invocations_allowed?
@@ -200,7 +200,7 @@ module Mocha # :nodoc:
     #   object.expected_method(17)
     #   # => verify fails
     def with(*arguments, &block)
-      @parameters = Parameters.new(arguments, &block)
+      @method_signature.modify(arguments, &block)
       self
     end
   
@@ -343,8 +343,12 @@ module Mocha # :nodoc:
       end
     end
     
+    def method_name
+      @method_signature.method_name
+    end
+    
     def method_signature
-      "#{@method_name}#{@parameters}"
+      "#{@method_signature}"
     end
     
     def error_message(expected_count, actual_count)
