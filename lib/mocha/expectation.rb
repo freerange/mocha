@@ -18,6 +18,21 @@ module Mocha # :nodoc:
         true
       end
     end
+    
+    class Parameters
+      def initialize(parameters)
+        @parameters = parameters
+      end
+      def to_s
+        @parameters.join(', ')
+      end
+      def ==(parameters)
+        @parameters == parameters
+      end
+      def to_a
+        @parameters
+      end
+    end
   
     attr_reader :method_name, :backtrace
 
@@ -213,8 +228,7 @@ module Mocha # :nodoc:
     #   object.expected_method(17)
     #   # => verify fails
     def with(*arguments, &parameter_block)
-      @parameters, @parameter_block = arguments, parameter_block
-      class << @parameters; def to_s; join(', '); end; end
+      @parameters, @parameter_block = Parameters.new(arguments), parameter_block
       self
     end
   
@@ -359,7 +373,7 @@ module Mocha # :nodoc:
     
     def method_signature
       return "#{method_name}" if @parameters.__is_a__(AlwaysEqual)
-      "#{@method_name}(#{PrettyParameters.new(@parameters).pretty})"
+      "#{@method_name}(#{PrettyParameters.new(@parameters.to_a).pretty})"
     end
     
     def error_message(expected_count, actual_count)
