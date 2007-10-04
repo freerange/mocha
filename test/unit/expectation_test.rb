@@ -366,10 +366,10 @@ class ExpectationTest < Test::Unit::TestCase
     assert exception.message.include?(expectation.method_signature)
   end
   
-  def test_should_combine_method_name_and_pretty_parameters
+  def test_should_combine_method_name_and_prettified_parameters
     arguments = 1, 2, {'a' => true, :b => false}, [1, 2, 3]
     expectation = new_expectation.with(*arguments)
-    assert_equal "expected_method(#{PrettyParameters.new(arguments).pretty})", expectation.method_signature
+    assert_equal "expected_method(1, 2, {'a' => true, :b => false}, [1, 2, 3])", expectation.method_signature
   end
   
   def test_should_not_include_parameters_in_message
