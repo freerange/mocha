@@ -23,9 +23,6 @@ module Mocha # :nodoc:
       def initialize(parameters)
         @parameters = parameters
       end
-      def to_s
-        @parameters.join(', ')
-      end
       def ==(parameters)
         @parameters == parameters
       end
