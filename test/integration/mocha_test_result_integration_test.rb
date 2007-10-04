@@ -62,7 +62,7 @@ class MochaTestResultIntegrationTest < Test::Unit::TestCase
       object = mock()
       execution_point = ExecutionPoint.current; object.expects(:message)
     end
-    assert_equal 1, faults.size
+    assert_equal 1, faults.length
     assert_equal execution_point, ExecutionPoint.new(faults.first.location)
   end
   
@@ -75,7 +75,7 @@ class MochaTestResultIntegrationTest < Test::Unit::TestCase
       object = mock()
       execution_point = ExecutionPoint.current; object.message 
     end
-    assert_equal 1, faults.size
+    assert_equal 1, faults.length
     assert_equal execution_point, ExecutionPoint.new(faults.first.location)
   end
   
@@ -87,7 +87,7 @@ class MochaTestResultIntegrationTest < Test::Unit::TestCase
     run_test(test_result) do
       execution_point = ExecutionPoint.current; flunk
     end
-    assert_equal 1, faults.size
+    assert_equal 1, faults.length
     assert_equal execution_point, ExecutionPoint.new(faults.first.location)
   end
   

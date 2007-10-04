@@ -41,7 +41,7 @@ class StubbaIntegrationTest < Test::Unit::TestCase
     end
     
     test.run(Test::Unit::TestResult.new) {}
-    assert_equal 0, DontMessWithMe.mocha.expectations.size
+    assert_equal 0, DontMessWithMe.mocha.expectations.length
   end  
 
   def test_should_stub_instance_method_within_test
@@ -72,7 +72,7 @@ class StubbaIntegrationTest < Test::Unit::TestCase
     end
     
     test.run(Test::Unit::TestResult.new) {}
-    assert_equal 0, instance.mocha.expectations.size
+    assert_equal 0, instance.mocha.expectations.length
   end  
 
   private

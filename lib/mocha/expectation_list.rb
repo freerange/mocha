@@ -36,8 +36,8 @@ module Mocha # :nodoc:
       @expectations.to_set
     end
 
-    def size
-      @expectations.size
+    def length
+      @expectations.length
     end
 
   end

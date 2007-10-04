@@ -15,7 +15,7 @@ module Mocha # :nodoc:
     end
     
     def next
-      case @values.size
+      case @values.length
       when 0: nil
       when 1: @values.first.evaluate
       else @values.shift.evaluate

@@ -72,7 +72,7 @@ class CentralTest < Test::Unit::TestCase
     stubba = Central.new
     stubba.stubba_methods = [method_1, method_2]
     
-    assert_equal 2, stubba.unique_mocks.size
+    assert_equal 2, stubba.unique_mocks.length
     assert stubba.unique_mocks.include?(:mock_1)
     assert stubba.unique_mocks.include?(:mock_2)
   end
