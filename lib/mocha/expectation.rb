@@ -352,20 +352,11 @@ module Mocha # :nodoc:
     def verify
       yield(self) if block_given?
       unless (@expected_count === @invoked_count) then
-        error = ExpectationError.new(error_message(@expected_count, @invoked_count))
-        error.set_backtrace(filtered_backtrace)
+        error = ExpectationError.new(error_message(@expected_count, @invoked_count), backtrace)
         raise error
       end
     end
     
-    def mocha_lib_directory
-      File.expand_path(File.join(File.dirname(__FILE__), "..")) + File::SEPARATOR
-    end
-    
-    def filtered_backtrace
-      backtrace.reject { |location| Regexp.new(mocha_lib_directory).match(File.expand_path(location)) }
-    end
-  
     def method_signature
       return "#{method_name}" if @parameters.__is_a__(AlwaysEqual)
       "#{@method_name}(#{PrettyParameters.new(@parameters).pretty})"
