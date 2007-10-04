@@ -11,7 +11,7 @@ class ObjectInspectTest < Test::Unit::TestCase
     end
     object.attribute = 'instance_variable'
     assert_match Regexp.new("^#<Object:0x[0-9A-Fa-f]{1,8}.*>$"), object.mocha_inspect
-    assert_no_match /instance_variable/, object.mocha_inspect
+    assert_no_match(/instance_variable/, object.mocha_inspect)
   end
   
   def test_should_return_customized_string_representation_of_object

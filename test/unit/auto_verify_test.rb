@@ -78,7 +78,11 @@ class AutoVerifyTest < Test::Unit::TestCase
     mocks = Array.new(3) do
       mock = Object.new
       mock.define_instance_accessor(:verify_called)
-      mock.define_instance_method(:verify) { self.verify_called = true }
+      class << mock
+        def verify(&block)
+          self.verify_called = true
+        end
+      end
       mock
     end
     test_case.replace_instance_method(:mocks)  { mocks }

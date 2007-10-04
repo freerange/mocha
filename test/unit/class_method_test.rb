@@ -90,6 +90,7 @@ class ClassMethodTest < Test::Unit::TestCase
     mocha.expects(:method_x).with(:param1, :param2).returns(:result)
     method = ClassMethod.new(klass, :method_x)
     
+    method.hide_original_method
     method.define_new_method
     result = klass.method_x(:param1, :param2)
     
@@ -112,6 +113,7 @@ class ClassMethodTest < Test::Unit::TestCase
     hidden_method_x = method.hidden_method.to_sym
     klass.define_instance_method(hidden_method_x) { :original_result }
 
+    method.remove_new_method
     method.restore_original_method
     
     assert_equal :original_result, klass.method_x 
@@ -130,6 +132,7 @@ class ClassMethodTest < Test::Unit::TestCase
   def test_should_call_hide_original_method
     klass = Class.new { def self.method_x; end }
     method = ClassMethod.new(klass, :method_x)
+    method.hide_original_method
     method.define_instance_accessor(:hide_called)
     method.replace_instance_method(:hide_original_method) { self.hide_called = true }
     

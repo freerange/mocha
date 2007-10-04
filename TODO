@@ -1,3 +1,5 @@
+- think about making class_method_test & any_instance_method_test more blackbox to avoid ruby warnings
+
 => update vendor libraries
 - does updating meta_project have any effect on broken tarball issue?
 

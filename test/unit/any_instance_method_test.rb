@@ -36,6 +36,7 @@ class AnyInstanceMethodTest < Test::Unit::TestCase
     any_instance.define_instance_method(:mocha) { mocha }
     klass.define_instance_method(:any_instance) { any_instance }
     
+    method.hide_original_method
     method.define_new_method
 
     instance = klass.new
@@ -51,6 +52,7 @@ class AnyInstanceMethodTest < Test::Unit::TestCase
     hidden_method_x = method.hidden_method.to_sym
     klass.send(:define_method, hidden_method_x, Proc.new { :original_result }) 
     
+    method.remove_new_method
     method.restore_original_method
     
     instance = klass.new
