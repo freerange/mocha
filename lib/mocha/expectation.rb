@@ -11,33 +11,6 @@ module Mocha # :nodoc:
   # Methods on expectations returned from Mock#expects, Mock#stubs, Object#expects and Object#stubs.
   class Expectation
   
-    # :stopdoc:
-    
-    attr_reader :backtrace
-
-    def initialize(mock, method_name, backtrace = nil)
-      @mock = mock
-      @method_signature = MethodSignature.new(method_name)
-      @expected_count, @invoked_count = 1, 0
-      @return_values = ReturnValues.new
-      @yield_parameters = YieldParameters.new
-      @backtrace = backtrace || caller
-    end
-    
-    def match?(method_name, *arguments)
-      @method_signature.match?(method_name, arguments)
-    end
-    
-    def invocations_allowed?
-      if @expected_count.is_a?(Range) then
-        @invoked_count < @expected_count.last
-      else
-        @invoked_count < @expected_count
-      end
-    end
-
-    # :startdoc:
-    
     # :call-seq: times(range) -> expectation
     #
     # Modifies expectation so that the number of calls to the expected method must be within a specific +range+.
@@ -325,6 +298,28 @@ module Mocha # :nodoc:
     
     # :stopdoc:
     
+    attr_reader :backtrace, :method_signature
+
+    def initialize(mock, method_name, backtrace = nil)
+      @method_signature = MethodSignature.new(mock, method_name)
+      @expected_count, @invoked_count = 1, 0
+      @return_values = ReturnValues.new
+      @yield_parameters = YieldParameters.new
+      @backtrace = backtrace || caller
+    end
+    
+    def match?(method_name, *arguments)
+      @method_signature.match?(method_name, arguments)
+    end
+    
+    def invocations_allowed?
+      if @expected_count.is_a?(Range) then
+        @invoked_count < @expected_count.last
+      else
+        @invoked_count < @expected_count
+      end
+    end
+
     def invoke
       @invoked_count += 1
       if block_given? then
@@ -347,12 +342,8 @@ module Mocha # :nodoc:
       @method_signature.method_name
     end
     
-    def method_signature
-      "#{@method_signature}"
-    end
-    
     def error_message(expected_count, actual_count)
-      "#{@mock.mocha_inspect}.#{method_signature} - expected calls: #{expected_count.mocha_inspect}, actual calls: #{actual_count}"
+      "#{method_signature} - expected calls: #{expected_count.mocha_inspect}, actual calls: #{actual_count}"
     end
   
     # :startdoc:

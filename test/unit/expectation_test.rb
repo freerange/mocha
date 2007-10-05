@@ -363,17 +363,17 @@ class ExpectationTest < Test::Unit::TestCase
     exception = assert_raise(ExpectationError) {
       expectation.verify
     }
-    assert exception.message.include?(expectation.method_signature)
+    assert exception.message.include?(expectation.method_signature.to_s)
   end
   
   def test_should_combine_method_name_and_prettified_parameters
     arguments = 1, 2, {'a' => true, :b => false}, [1, 2, 3]
     expectation = new_expectation.with(*arguments)
-    assert_equal "expected_method(1, 2, {'a' => true, :b => false}, [1, 2, 3])", expectation.method_signature
+    assert_equal "(1, 2, {'a' => true, :b => false}, [1, 2, 3])", expectation.method_signature.parameter_signature
   end
   
   def test_should_not_include_parameters_in_message
-    assert_equal "expected_method", new_expectation.method_signature
+    assert_equal "", new_expectation.method_signature.parameter_signature
   end
   
   def test_should_raise_error_with_message_indicating_which_method_was_expected_to_be_called_on_which_mock_object

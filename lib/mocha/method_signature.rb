@@ -6,8 +6,8 @@ module Mocha
     
     attr_reader :method_name
     
-    def initialize(method_name, parameters = nil, &block)
-      @method_name, @parameters, @block = method_name, parameters, block
+    def initialize(mock, method_name, parameters = nil, &block)
+      @mock, @method_name, @parameters, @block = mock, method_name, parameters, block
     end
     
     def modify(parameters = nil, &block)
@@ -18,15 +18,20 @@ module Mocha
       (@method_name == method_name) && (@parameters.nil? || (@block && @block.call(*parameters)) || (@parameters == parameters))
     end
     
+    def similar_method_signatures
+      @mock.similar_expectations(@method_name).collect { |expectation| expectation.method_signature }
+    end
+    
+    def parameter_signature
+      return "" unless @parameters
+      signature = @parameters.mocha_inspect
+      signature = signature.gsub(/^\[|\]$/, '')
+      signature = signature.gsub(/^\{|\}$/, '') if @parameters.length == 1
+      "(#{signature})"
+    end
+    
     def to_s
-      if @parameters then
-        text = @parameters.mocha_inspect
-        text = text.gsub(/^\[|\]$/, '')
-        text = text.gsub(/^\{|\}$/, '') if @parameters.length == 1
-        "#{@method_name}(#{text})"
-      else
-        "#{@method_name}"
-      end
+      "#{@mock.mocha_inspect}.#{@method_name}#{parameter_signature}"
     end
     
   end

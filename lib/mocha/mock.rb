@@ -11,19 +11,6 @@ module Mocha # :nodoc:
   # Methods return an Expectation which can be further modified by methods on Expectation.
   class Mock
     
-    # :stopdoc:
-    
-    def initialize(stub_everything = false, name = nil)
-      @stub_everything = stub_everything
-      @mock_name = name
-      @expectations = ExpectationList.new
-      @responder = nil
-    end
-
-    attr_reader :stub_everything, :expectations
-  
-    # :startdoc:
-
     # :call-seq: expects(method_name) -> expectation
     #            expects(method_names) -> last expectation
     #
@@ -135,7 +122,16 @@ module Mocha # :nodoc:
     end
     
     # :stopdoc:
+    
+    def initialize(stub_everything = false, name = nil)
+      @stub_everything = stub_everything
+      @mock_name = name
+      @expectations = ExpectationList.new
+      @responder = nil
+    end
 
+    attr_reader :stub_everything, :expectations
+  
     alias_method :__expects__, :expects
 
     alias_method :__stubs__, :stubs
