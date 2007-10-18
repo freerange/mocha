@@ -6,16 +6,16 @@ module Mocha
     
     attr_reader :method_name
     
-    def initialize(mock, method_name, parameters = nil, &block)
-      @mock, @method_name, @parameters, @block = mock, method_name, parameters, block
+    def initialize(mock, method_name, parameters = nil, &matching_block)
+      @mock, @method_name, @parameters, @matching_block = mock, method_name, parameters, matching_block
     end
     
-    def modify(parameters = nil, &block)
-      @parameters, @block = parameters, block
+    def modify(parameters = nil, &matching_block)
+      @parameters, @matching_block = parameters, matching_block
     end
     
-    def match?(method_name, parameters)
-      (@method_name == method_name) && (@parameters.nil? || (@block && @block.call(*parameters)) || (@parameters == parameters))
+    def match?(actual_method_name, actual_parameters = nil)
+      (@method_name == actual_method_name) && ((@matching_block.nil? && @parameters.nil?) || (@matching_block && @matching_block.call(*actual_parameters)) || (@parameters == actual_parameters))
     end
     
     def similar_method_signatures

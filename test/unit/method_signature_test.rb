@@ -5,6 +5,51 @@ class MethodSignatureTest < Test::Unit::TestCase
   
   include Mocha
 
+  def test_should_match_if_actual_method_name_is_same_as_expected_method_name
+    method_signature = MethodSignature.new(mock = nil, :method_name)
+    assert method_signature.match?(:method_name)
+  end
+
+  def test_should_not_match_if_actual_method_name_is_not_same_as_expected_method_name
+    method_signature = MethodSignature.new(mock = nil, :method_name)
+    assert !method_signature.match?(:different_method_name)
+  end
+  
+  def test_should_match_any_actual_parameters_if_no_expected_parameters_specified
+    method_signature = MethodSignature.new(mock = nil, :method_name)
+    assert method_signature.match?(:method_name, actual_parameters = [1, 2, 3])
+  end
+
+  def test_should_match_if_actual_parameters_are_same_as_expected_parameters
+    method_signature = MethodSignature.new(mock = nil, :method_name, expected_parameters = [4, 5, 6])
+    assert method_signature.match?(:method_name, actual_parameters = [4, 5, 6])
+  end
+  
+  def test_should_not_match_if_actual_parameters_are_different_from_expected_parameters
+    method_signature = MethodSignature.new(mock = nil, :method_name, expected_parameters = [4, 5, 6])
+    assert !method_signature.match?(:method_name, actual_parameters = [1, 2, 3])
+  end
+  
+  def test_should_not_match_if_there_are_less_actual_parameters_than_expected_parameters
+    method_signature = MethodSignature.new(mock = nil, :method_name, expected_parameters = [4, 5, 6])
+    assert !method_signature.match?(:method_name, actual_parameters = [4, 5])
+  end
+  
+  def test_should_not_match_if_there_are_more_actual_parameters_than_expected_parameters
+    method_signature = MethodSignature.new(mock = nil, :method_name, expected_parameters = [4, 5])
+    assert !method_signature.match?(:method_name, actual_parameters = [4, 5, 6])
+  end
+  
+  def test_should_match_if_actual_parameters_satisfy_matching_block
+    method_signature = MethodSignature.new(mock = nil, :method_name) { |x, y| x + y == 3 }
+    assert method_signature.match?(:method_name, actual_parameters = [1, 2])
+  end
+
+  def test_should_not_match_if_actual_parameters_do_not_satisfy_matching_block
+    method_signature = MethodSignature.new(mock = nil, :method_name) { |x, y| x + y == 3 }
+    assert !method_signature.match?(:method_name, actual_parameters = [2, 3])
+  end
+
   def test_should_remove_outer_array_braces
     params = [1, 2, [3, 4]]
     method_signature = MethodSignature.new(nil, nil, params)
@@ -29,5 +74,5 @@ class MethodSignatureTest < Test::Unit::TestCase
     method_signature = MethodSignature.new(nil, nil, params)
     assert_equal '(1, {:a => 1})', method_signature.parameter_signature
   end
-
+  
 end
