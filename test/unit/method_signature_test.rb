@@ -1,5 +1,6 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'mocha/method_signature'
+require 'method_definer'
 
 class MethodSignatureTest < Test::Unit::TestCase
   
@@ -48,6 +49,34 @@ class MethodSignatureTest < Test::Unit::TestCase
   def test_should_not_match_if_actual_parameters_do_not_satisfy_matching_block
     method_signature = MethodSignature.new(mock = nil, :method_name) { |x, y| x + y == 3 }
     assert !method_signature.match?(:method_name, actual_parameters = [2, 3])
+  end
+  
+  def test_should_match_if_actual_parameters_are_same_as_modified_expected_parameters
+    method_signature = MethodSignature.new(mock = nil, :method_name, expected_parameters = [1, 2])
+    method_signature.modify(expected_parameters = [2, 3])
+    assert method_signature.match?(:method_name, actual_parameters = [2, 3])
+  end
+
+  def test_should_match_if_actual_parameters_satisfy_modified_matching_block
+    method_signature = MethodSignature.new(mock = nil, :method_name) { |x, y| x + y == 3 }
+    method_signature.modify(expected_parameters = nil) { |x, y| x + y == 5 }
+    assert method_signature.match?(:method_name, actual_parameters = [2, 3])
+  end
+  
+  def test_should_return_similar_method_signatures
+    similar_expectation_1 = Object.new
+    similar_expectation_1.define_instance_method(:method_signature) { 'similar_expectation_1' }
+    similar_expectation_2 = Object.new
+    similar_expectation_2.define_instance_method(:method_signature) { 'similar_expectation_2' }
+    similar_expectations = [similar_expectation_1, similar_expectation_2]
+    mock = Object.new
+    mock.define_instance_accessor :requested_method_name
+    mock.define_instance_method(:similar_expectations) { |method_name| self.requested_method_name = method_name; similar_expectations }
+    
+    method_signature = MethodSignature.new(mock, :method_name)
+    
+    assert_equal ['similar_expectation_1', 'similar_expectation_2'], method_signature.similar_method_signatures
+    assert_equal :method_name, mock.requested_method_name
   end
 
   def test_should_remove_outer_array_braces
