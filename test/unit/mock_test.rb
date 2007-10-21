@@ -34,7 +34,7 @@ class MockTest < Test::Unit::TestCase
   
   def test_should_display_object_id_for_mocha_inspect_if_mock_has_no_name
     mock = Mock.new
-    assert_match Regexp.new("^#<Mock:0x[0-9A-Fa-f]{1,8}>$"), mock.mocha_inspect
+    assert_match Regexp.new("^#<Mock:0x[0-9A-Fa-f]{1,12}>$"), mock.mocha_inspect
   end
   
   def test_should_display_name_for_mocha_inspect_if_mock_has_name
@@ -44,7 +44,7 @@ class MockTest < Test::Unit::TestCase
 
   def test_should_display_object_id_for_inspect_if_mock_has_no_name
     mock = Mock.new
-    assert_match Regexp.new("^#<Mock:0x[0-9A-Fa-f]{1,8}>$"), mock.inspect
+    assert_match Regexp.new("^#<Mock:0x[0-9A-Fa-f]{1,12}>$"), mock.inspect
   end
   
   def test_should_display_name_for_inspect_if_mock_has_name
