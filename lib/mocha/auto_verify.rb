@@ -17,15 +17,17 @@ module Mocha # :nodoc:
       @mocks = nil
     end
     
-    # :call-seq: mock(name) -> mock object
-    #            mock(expected_methods = {}) -> mock object
-    #            mock(name, expected_methods = {}) -> mock object
+    # :call-seq: mock(name, &block) -> mock object
+    #            mock(expected_methods = {}, &block) -> mock object
+    #            mock(name, expected_methods = {}, &block) -> mock object
     #
     # Creates a mock object.
     #
     # +name+ is a +String+ identifier for the mock object.
     #
     # +expected_methods+ is a +Hash+ with expected method name symbols as keys and corresponding return values as values.
+    #
+    # +block+ is a block to be evaluated against the mock object instance, giving an alernative way to set up expectations & stubs.
     #
     # Note that (contrary to expectations set up by #stub) these expectations <b>must</b> be fulfilled during the test.
     #   def test_product
@@ -34,23 +36,26 @@ module Mocha # :nodoc:
     #     assert_equal 100, product.price
     #     # an error will be raised unless both Product#manufacturer and Product#price have been called
     #   end 
-    def mock(*args)
-      name, expectations = name_and_expectations_from_args(args)
-      mock = Mock.new(name)
+    def mock(*arguments, &block)
+      name = arguments.shift if arguments.first.is_a?(String)
+      expectations = arguments.shift || {}
+      mock = Mock.new(name, &block)
       mock.expects(expectations)
       mocks << mock
       mock
     end
   
-    # :call-seq: stub(name) -> mock object
-    #            stub(stubbed_methods = {}) -> mock object
-    #            stub(name, stubbed_methods = {}) -> mock object
+    # :call-seq: stub(name, &block) -> mock object
+    #            stub(stubbed_methods = {}, &block) -> mock object
+    #            stub(name, stubbed_methods = {}, &block) -> mock object
     #
     # Creates a mock object.
     #
     # +name+ is a +String+ identifier for the mock object.
     #
     # +stubbed_methods+ is a +Hash+ with stubbed method name symbols as keys and corresponding return values as values.
+    #
+    # +block+ is a block to be evaluated against the mock object instance, giving an alernative way to set up expectations & stubs.
     #
     # Note that (contrary to expectations set up by #mock) these expectations <b>need not</b> be fulfilled during the test.
     #   def test_product
@@ -59,21 +64,24 @@ module Mocha # :nodoc:
     #     assert_equal 100, product.price
     #     # an error will not be raised even if Product#manufacturer and Product#price have not been called
     #   end
-    def stub(*args)
-      name, expectations = name_and_expectations_from_args(args)
-      mock = Mock.new(name)
-      mock.stubs(expectations)
-      mocks << mock
-      mock
+    def stub(*arguments, &block)
+      name = arguments.shift if arguments.first.is_a?(String)
+      expectations = arguments.shift || {}
+      stub = Mock.new(name, &block)
+      stub.stubs(expectations)
+      mocks << stub
+      stub
     end
   
-    # :call-seq: stub_everything(name) -> mock object
-    #            stub_everything(stubbed_methods = {}) -> mock object
-    #            stub_everything(name, stubbed_methods = {}) -> mock object
+    # :call-seq: stub_everything(name, &block) -> mock object
+    #            stub_everything(stubbed_methods = {}, &block) -> mock object
+    #            stub_everything(name, stubbed_methods = {}, &block) -> mock object
     #
     # Creates a mock object that accepts calls to any method.
     #
     # By default it will return +nil+ for any method call.
+    #
+    # +block+ is a block to be evaluated against the mock object instance, giving an alernative way to set up expectations & stubs.
     #
     # +name+ and +stubbed_methods+ work in the same way as for #stub.
     #   def test_product
@@ -82,9 +90,10 @@ module Mocha # :nodoc:
     #     assert_nil product.any_old_method
     #     assert_equal 100, product.price
     #   end
-    def stub_everything(*args)
-      name, expectations = name_and_expectations_from_args(args)
-      stub = Mock.new(name)
+    def stub_everything(*arguments, &block)
+      name = arguments.shift if arguments.first.is_a?(String)
+      expectations = arguments.shift || {}
+      stub = Mock.new(name, &block)
       stub.stub_everything
       stub.stubs(expectations)
       mocks << stub
@@ -97,14 +106,6 @@ module Mocha # :nodoc:
 
     def teardown_mocks # :nodoc:
       reset_mocks
-    end
-  
-  private
-
-    def name_and_expectations_from_args(args) # :nodoc:
-      name = args.first.is_a?(String) ? args.delete_at(0) : nil
-      expectations = args.first || {}
-      [name, expectations]
     end
   
   end
