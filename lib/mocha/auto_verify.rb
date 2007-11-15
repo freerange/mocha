@@ -36,7 +36,7 @@ module Mocha # :nodoc:
     #   end 
     def mock(*args)
       name, expectations = name_and_expectations_from_args(args)
-      mock = Mock.new(false, name)
+      mock = Mock.new(name)
       mock.expects(expectations)
       mocks << mock
       mock
@@ -61,7 +61,7 @@ module Mocha # :nodoc:
     #   end
     def stub(*args)
       name, expectations = name_and_expectations_from_args(args)
-      mock = Mock.new(false, name)
+      mock = Mock.new(name)
       mock.stubs(expectations)
       mocks << mock
       mock
@@ -84,10 +84,11 @@ module Mocha # :nodoc:
     #   end
     def stub_everything(*args)
       name, expectations = name_and_expectations_from_args(args)
-      mock = Mock.new(true, name)
-      mock.stubs(expectations)
-      mocks << mock
-      mock
+      stub = Mock.new(name)
+      stub.stub_everything
+      stub.stubs(expectations)
+      mocks << stub
+      stub
     end
     
     def verify_mocks # :nodoc:

@@ -24,12 +24,13 @@ class MockTest < Test::Unit::TestCase
   
   def test_should_not_stub_everything_by_default
     mock = Mock.new
-    assert_equal false, mock.stub_everything
+    assert_equal false, mock.everything_stubbed
   end
   
   def test_should_stub_everything
-    mock = Mock.new(stub_everything = true)
-    assert_equal true, mock.stub_everything
+    mock = Mock.new
+    mock.stub_everything
+    assert_equal true, mock.everything_stubbed
   end
   
   def test_should_display_object_id_for_mocha_inspect_if_mock_has_no_name
@@ -38,7 +39,7 @@ class MockTest < Test::Unit::TestCase
   end
   
   def test_should_display_name_for_mocha_inspect_if_mock_has_name
-    mock = Mock.new(false, 'named_mock')
+    mock = Mock.new('named_mock')
     assert_equal "#<Mock:named_mock>", mock.mocha_inspect
   end
 
@@ -48,7 +49,7 @@ class MockTest < Test::Unit::TestCase
   end
   
   def test_should_display_name_for_inspect_if_mock_has_name
-    mock = Mock.new(false, 'named_mock')
+    mock = Mock.new('named_mock')
     assert_equal "#<Mock:named_mock>", mock.inspect
   end
 
@@ -113,7 +114,8 @@ class MockTest < Test::Unit::TestCase
   end
   
   def test_should_not_raise_error_if_stubbing_everything
-    mock = Mock.new(stub_everything = true)
+    mock = Mock.new
+    mock.stub_everything
     result = nil
     assert_nothing_raised(ExpectationError) do
       result = mock.unexpected_method
@@ -313,4 +315,5 @@ class MockTest < Test::Unit::TestCase
       assert_match(/which responds like mocha_inspect/, e.message)
     end
   end
+  
 end

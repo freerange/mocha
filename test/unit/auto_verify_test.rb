@@ -38,7 +38,7 @@ class AutoVerifyTest < Test::Unit::TestCase
   
   def test_should_build_stub_that_stubs_all_methods
     stub = test_case.stub_everything
-    assert stub.stub_everything
+    assert stub.everything_stubbed
   end
   
   def test_should_add_expectations_to_stub_that_stubs_all_methods

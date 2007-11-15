@@ -123,15 +123,15 @@ module Mocha # :nodoc:
     
     # :stopdoc:
     
-    def initialize(stub_everything = false, name = nil)
-      @stub_everything = stub_everything
+    def initialize(name = nil)
       @mock_name = name
       @expectations = ExpectationList.new
+      @everything_stubbed = false
       @responder = nil
     end
 
-    attr_reader :stub_everything, :expectations
-  
+    attr_reader :everything_stubbed, :expectations
+
     alias_method :__expects__, :expects
 
     alias_method :__stubs__, :stubs
@@ -144,7 +144,11 @@ module Mocha # :nodoc:
       self.__metaclass__.send(:undef_method, method_name) if self.__metaclass__.method_defined?(method_name)
       expectation
     end
-
+    
+    def stub_everything
+      @everything_stubbed = true
+    end
+    
     def method_missing(symbol, *arguments, &block)
       if @responder and not @responder.respond_to?(symbol)
         raise NoMethodError, "undefined method `#{symbol}' for #{self.mocha_inspect} which responds like #{@responder.mocha_inspect}"
@@ -152,7 +156,7 @@ module Mocha # :nodoc:
       matching_expectation = @expectations.detect(symbol, *arguments)
       if matching_expectation then
         matching_expectation.invoke(&block)
-      elsif stub_everything then
+      elsif @everything_stubbed then
         return
       else
         unexpected_method_called(symbol, *arguments)
