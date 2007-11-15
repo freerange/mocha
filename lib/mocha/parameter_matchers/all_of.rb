@@ -28,7 +28,7 @@ module Mocha
     
       def matches?(available_parameters)
         parameter = available_parameters.shift
-        @matchers.all? { |matcher| matcher == parameter }
+        @matchers.all? { |matcher| matcher.matches?([parameter]) }
       end
       
       def mocha_inspect

@@ -8,7 +8,8 @@ module Stub
       @matches = matches
     end
 
-    def ==(value)
+    def matches?(available_parameters)
+      value = available_parameters.shift
       @value = value
       @matches
     end

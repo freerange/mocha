@@ -33,7 +33,7 @@ module Mocha
     
       def matches?(available_parameters)
         parameter = available_parameters.shift
-        @matchers.any? { |matcher| matcher == parameter }
+        @matchers.any? { |matcher| matcher.matches?([parameter]) }
       end
       
       def mocha_inspect
