@@ -23,7 +23,7 @@ class ExpectedInvocationCountAcceptanceTest < Test::Unit::TestCase
     end
     assert_failed(test_result)
     failure_messages = test_result.failures.map { |failure| failure.message }
-    assert_equal ['#<Mock:mock>.method - expected calls: 0, actual calls: 1'], failure_messages
+    assert_equal ['#<Mock:mock>.method(any_parameters) - expected calls: 0, actual calls: 1'], failure_messages
   end
   
   def test_should_pass_if_method_is_expected_twice_and_is_called_twice
@@ -43,7 +43,7 @@ class ExpectedInvocationCountAcceptanceTest < Test::Unit::TestCase
     end
     assert_failed(test_result)
     failure_messages = test_result.failures.map { |failure| failure.message }
-    assert_equal ['#<Mock:mock>.method - expected calls: 2, actual calls: 1'], failure_messages
+    assert_equal ['#<Mock:mock>.method(any_parameters) - expected calls: 2, actual calls: 1'], failure_messages
   end
   
   def test_should_fail_if_method_is_expected_twice_but_is_called_three_times
@@ -54,7 +54,7 @@ class ExpectedInvocationCountAcceptanceTest < Test::Unit::TestCase
     end
     assert_failed(test_result)
     failure_messages = test_result.failures.map { |failure| failure.message }
-    assert_equal ['#<Mock:mock>.method - expected calls: 2, actual calls: 3'], failure_messages
+    assert_equal ['#<Mock:mock>.method(any_parameters) - expected calls: 2, actual calls: 3'], failure_messages
   end
   
   def test_should_pass_if_method_is_expected_between_two_and_four_times_and_is_called_twice
@@ -92,7 +92,7 @@ class ExpectedInvocationCountAcceptanceTest < Test::Unit::TestCase
     end
     assert_failed(test_result)
     failure_messages = test_result.failures.map { |failure| failure.message }
-    assert_equal ['#<Mock:mock>.method - expected calls: 2..4, actual calls: 1'], failure_messages
+    assert_equal ['#<Mock:mock>.method(any_parameters) - expected calls: 2..4, actual calls: 1'], failure_messages
   end
 
   def test_should_fail_if_method_is_expected_between_two_and_four_times_and_is_called_five_times
@@ -103,7 +103,7 @@ class ExpectedInvocationCountAcceptanceTest < Test::Unit::TestCase
     end
     assert_failed(test_result)
     failure_messages = test_result.failures.map { |failure| failure.message }
-    assert_equal ['#<Mock:mock>.method - expected calls: 2..4, actual calls: 5'], failure_messages
+    assert_equal ['#<Mock:mock>.method(any_parameters) - expected calls: 2..4, actual calls: 5'], failure_messages
   end
   
   def test_should_pass_if_method_is_expected_at_least_once_and_is_called_once
@@ -132,7 +132,7 @@ class ExpectedInvocationCountAcceptanceTest < Test::Unit::TestCase
     end
     assert_failed(test_result)
     failure_messages = test_result.failures.map { |failure| failure.message }
-    assert_equal ['#<Mock:mock>.method - expected calls: at least 1, actual calls: 0'], failure_messages
+    assert_equal ['#<Mock:mock>.method(any_parameters) - expected calls: at least 1, actual calls: 0'], failure_messages
   end
   
   def test_should_pass_if_method_is_expected_at_most_once_and_is_never_called
@@ -161,7 +161,7 @@ class ExpectedInvocationCountAcceptanceTest < Test::Unit::TestCase
     end
     assert_failed(test_result)
     failure_messages = test_result.failures.map { |failure| failure.message }
-    assert_equal ['#<Mock:mock>.method - expected calls: at most 1, actual calls: 2'], failure_messages
+    assert_equal ['#<Mock:mock>.method(any_parameters) - expected calls: at most 1, actual calls: 2'], failure_messages
   end
   
   def test_should_pass_if_method_is_never_expected_and_is_never_called_even_if_everything_is_stubbed
@@ -181,7 +181,7 @@ class ExpectedInvocationCountAcceptanceTest < Test::Unit::TestCase
     end
     assert_failed(test_result)
     failure_messages = test_result.failures.map { |failure| failure.message }
-    assert_equal ['#<Mock:stub>.method - expected calls: 0, actual calls: 1'], failure_messages
+    assert_equal ['#<Mock:stub>.method(any_parameters) - expected calls: 0, actual calls: 1'], failure_messages
   end
   
 end

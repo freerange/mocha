@@ -1,3 +1,5 @@
+require 'mocha/parameter_matchers/base'
+
 module Mocha
   
   module ParameterMatchers
@@ -18,13 +20,14 @@ module Mocha
       HasEntry.new(key, value)
     end
 
-    class HasEntry # :nodoc:
+    class HasEntry < Base # :nodoc:
       
       def initialize(key, value)
         @key, @value = key, value
       end
       
-      def ==(parameter)
+      def matches?(available_parameters)
+        parameter = available_parameters.shift
         parameter[@key] == @value
       end
       

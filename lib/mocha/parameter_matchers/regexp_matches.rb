@@ -1,3 +1,5 @@
+require 'mocha/parameter_matchers/base'
+
 module Mocha
   
   module ParameterMatchers
@@ -19,13 +21,14 @@ module Mocha
       RegexpMatches.new(regexp)
     end
 
-    class RegexpMatches # :nodoc:
+    class RegexpMatches < Base # :nodoc:
   
       def initialize(regexp)
         @regexp = regexp
       end
   
-      def ==(parameter)
+      def matches?(available_parameters)
+        parameter = available_parameters.shift
         parameter =~ @regexp
       end
   

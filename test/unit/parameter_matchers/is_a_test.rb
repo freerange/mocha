@@ -9,12 +9,12 @@ class IsATest < Test::Unit::TestCase
 
   def test_should_match_object_that_is_a_specified_class
     matcher = is_a(Integer)
-    assert matcher == 99
+    assert matcher.matches?([99])
   end
 
   def test_should_not_match_object_that_is_not_a_specified_class
     matcher = is_a(Integer)
-    assert matcher != 'string'
+    assert !matcher.matches?(['string'])
   end
 
   def test_should_describe_matcher

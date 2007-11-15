@@ -1,3 +1,5 @@
+require 'mocha/parameter_matchers/base'
+
 module Mocha
   
   module ParameterMatchers
@@ -16,13 +18,14 @@ module Mocha
       Includes.new(item)
     end
 
-    class Includes # :nodoc:
+    class Includes < Base # :nodoc:
 
       def initialize(item)
         @item = item
       end
 
-      def ==(parameter)
+      def matches?(available_parameters)
+        parameter = available_parameters.shift
         return parameter.include?(@item)
       end
 

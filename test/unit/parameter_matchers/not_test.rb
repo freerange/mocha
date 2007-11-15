@@ -10,12 +10,12 @@ class NotTest < Test::Unit::TestCase
   
   def test_should_match_if_matcher_does_not_match
     matcher = Not(Stub::Matcher.new(false))
-    assert matcher == 'any_old_value'
+    assert matcher.matches?(['any_old_value'])
   end
   
   def test_should_not_match_if_matcher_does_match
     matcher = Not(Stub::Matcher.new(true))
-    assert matcher != 'any_old_value'
+    assert !matcher.matches?(['any_old_value'])
   end
   
   def test_should_describe_matcher

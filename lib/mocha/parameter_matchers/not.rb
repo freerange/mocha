@@ -1,3 +1,5 @@
+require 'mocha/parameter_matchers/base'
+
 module Mocha
   
   module ParameterMatchers
@@ -18,13 +20,14 @@ module Mocha
       Not.new(matcher)
     end
     
-    class Not # :nodoc:
+    class Not < Base # :nodoc:
       
       def initialize(matcher)
         @matcher = matcher
       end
     
-      def ==(parameter)
+      def matches?(available_parameters)
+        parameter = available_parameters.shift
         @matcher != parameter
       end
       

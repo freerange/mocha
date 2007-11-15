@@ -1,4 +1,5 @@
 require 'mocha/inspect'
+require 'mocha/parameter_matchers'
 
 module Mocha
   
@@ -6,16 +7,25 @@ module Mocha
     
     attr_reader :method_name
     
-    def initialize(mock, method_name, parameters = nil, &matching_block)
+    def initialize(mock, method_name, parameters = [ParameterMatchers::AnyParameters.new], &matching_block)
       @mock, @method_name, @parameters, @matching_block = mock, method_name, parameters, matching_block
     end
     
-    def modify(parameters = nil, &matching_block)
+    def modify(parameters = [ParameterMatchers::AnyParameters.new], &matching_block)
       @parameters, @matching_block = parameters, matching_block
     end
     
-    def match?(actual_method_name, actual_parameters = nil)
-      (@method_name == actual_method_name) && ((@matching_block.nil? && @parameters.nil?) || (@matching_block && @matching_block.call(*actual_parameters)) || (@parameters == actual_parameters))
+    def match?(actual_method_name, actual_parameters = [])
+      return false unless (@method_name == actual_method_name)
+      if @matching_block
+        return @matching_block.call(*actual_parameters)
+      else
+        return parameters_match?(actual_parameters)
+      end
+    end
+    
+    def parameters_match?(actual_parameters)
+      matchers.all? { |matcher| matcher.matches?(actual_parameters) } && (actual_parameters.length == 0)
     end
     
     def similar_method_signatures
@@ -23,15 +33,18 @@ module Mocha
     end
     
     def parameter_signature
-      return "" unless @parameters
-      signature = @parameters.mocha_inspect
+      signature = matchers.mocha_inspect
       signature = signature.gsub(/^\[|\]$/, '')
-      signature = signature.gsub(/^\{|\}$/, '') if @parameters.length == 1
+      signature = signature.gsub(/^\{|\}$/, '') if matchers.length == 1
       "(#{signature})"
     end
     
     def to_s
       "#{@mock.mocha_inspect}.#{@method_name}#{parameter_signature}"
+    end
+    
+    def matchers
+      @parameters.map { |parameter| parameter.to_matcher }
     end
     
   end

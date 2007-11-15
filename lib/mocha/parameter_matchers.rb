@@ -5,5 +5,20 @@ module Mocha
   
 end
 
+require 'mocha/parameter_matchers/object'
 
-Dir[File.expand_path(File.join(File.dirname(__FILE__), 'parameter_matchers', "*.rb"))].each { |lib| require lib }
+require 'mocha/parameter_matchers/all_of'
+require 'mocha/parameter_matchers/any_of'
+require 'mocha/parameter_matchers/any_parameters'
+require 'mocha/parameter_matchers/anything'
+require 'mocha/parameter_matchers/equals'
+require 'mocha/parameter_matchers/has_entry'
+require 'mocha/parameter_matchers/has_key'
+require 'mocha/parameter_matchers/has_value'
+require 'mocha/parameter_matchers/includes'
+require 'mocha/parameter_matchers/instance_of'
+require 'mocha/parameter_matchers/is_a'
+require 'mocha/parameter_matchers/kind_of'
+require 'mocha/parameter_matchers/not'
+require 'mocha/parameter_matchers/optionally'
+require 'mocha/parameter_matchers/regexp_matches'

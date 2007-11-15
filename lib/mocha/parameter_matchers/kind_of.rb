@@ -1,3 +1,5 @@
+require 'mocha/parameter_matchers/base'
+
 module Mocha
   
   module ParameterMatchers
@@ -18,13 +20,14 @@ module Mocha
       KindOf.new(klass)
     end
     
-    class KindOf # :nodoc:
+    class KindOf < Base # :nodoc:
       
       def initialize(klass)
         @klass = klass
       end
     
-      def ==(parameter)
+      def matches?(available_parameters)
+        parameter = available_parameters.shift
         parameter.kind_of?(@klass)
       end
       

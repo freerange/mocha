@@ -1,5 +1,6 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'mocha/method_signature'
+require 'mocha/parameter_matchers'
 require 'method_definer'
 
 class MethodSignatureTest < Test::Unit::TestCase
@@ -41,6 +42,54 @@ class MethodSignatureTest < Test::Unit::TestCase
     assert !method_signature.match?(:method_name, actual_parameters = [4, 5, 6])
   end
   
+  def test_should_not_match_if_not_all_required_parameters_are_supplied
+    optionals = ParameterMatchers::Optionally.new(6, 7)
+    method_signature = MethodSignature.new(mock = nil, :method_name, expected_parameters = [4, 5, optionals])
+    assert !method_signature.match?(:method_name, actual_parameters = [4])
+  end
+  
+  def test_should_match_if_all_required_parameters_match_and_no_optional_parameters_are_supplied
+    optionals = ParameterMatchers::Optionally.new(6, 7)
+    method_signature = MethodSignature.new(mock = nil, :method_name, expected_parameters = [4, 5, optionals])
+    assert method_signature.match?(:method_name, actual_parameters = [4, 5])
+  end
+  
+  def test_should_match_if_all_required_and_optional_parameters_match_and_some_optional_parameters_are_supplied
+    optionals = ParameterMatchers::Optionally.new(6, 7)
+    method_signature = MethodSignature.new(mock = nil, :method_name, expected_parameters = [4, 5, optionals])
+    assert method_signature.match?(:method_name, actual_parameters = [4, 5, 6])
+  end
+  
+  def test_should_match_if_all_required_and_optional_parameters_match_and_all_optional_parameters_are_supplied
+    optionals = ParameterMatchers::Optionally.new(6, 7)
+    method_signature = MethodSignature.new(mock = nil, :method_name, expected_parameters = [4, 5, optionals])
+    assert method_signature.match?(:method_name, actual_parameters = [4, 5, 6, 7])
+  end
+  
+  def test_should_not_match_if_all_required_and_optional_parameters_match_but_too_many_optional_parameters_are_supplied
+    optionals = ParameterMatchers::Optionally.new(6, 7)
+    method_signature = MethodSignature.new(mock = nil, :method_name, expected_parameters = [4, 5, optionals])
+    assert !method_signature.match?(:method_name, actual_parameters = [4, 5, 6, 7, 8])
+  end
+  
+  def test_should_not_match_if_all_required_parameters_match_but_some_optional_parameters_do_not_match
+    optionals = ParameterMatchers::Optionally.new(6, 7)
+    method_signature = MethodSignature.new(mock = nil, :method_name, expected_parameters = [4, 5, optionals])
+    assert !method_signature.match?(:method_name, actual_parameters = [4, 5, 6, 0])
+  end
+
+  def test_should_not_match_if_some_required_parameters_do_not_match_although_all_optional_parameters_do_match
+    optionals = ParameterMatchers::Optionally.new(6, 7)
+    method_signature = MethodSignature.new(mock = nil, :method_name, expected_parameters = [4, 5, optionals])
+    assert !method_signature.match?(:method_name, actual_parameters = [4, 0, 6])
+  end
+
+  def test_should_not_match_if_all_required_parameters_match_but_no_optional_parameters_match
+    optionals = ParameterMatchers::Optionally.new(6, 7)
+    method_signature = MethodSignature.new(mock = nil, :method_name, expected_parameters = [4, 5, optionals])
+    assert !method_signature.match?(:method_name, actual_parameters = [4, 5, 0, 0])
+  end
+
   def test_should_match_if_actual_parameters_satisfy_matching_block
     method_signature = MethodSignature.new(mock = nil, :method_name) { |x, y| x + y == 3 }
     assert method_signature.match?(:method_name, actual_parameters = [1, 2])

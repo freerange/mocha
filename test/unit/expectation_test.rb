@@ -373,7 +373,7 @@ class ExpectationTest < Test::Unit::TestCase
   end
   
   def test_should_not_include_parameters_in_message
-    assert_equal "", new_expectation.method_signature.parameter_signature
+    assert_equal "(any_parameters)", new_expectation.method_signature.parameter_signature
   end
   
   def test_should_raise_error_with_message_indicating_which_method_was_expected_to_be_called_on_which_mock_object

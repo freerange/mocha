@@ -9,12 +9,12 @@ class HasValueTest < Test::Unit::TestCase
   
   def test_should_match_hash_including_specified_value
     matcher = has_value('value_1')
-    assert matcher == { :key_1 => 'value_1', :key_2 => 'value_2' }
+    assert matcher.matches?([{ :key_1 => 'value_1', :key_2 => 'value_2' }])
   end
   
   def test_should_not_match_hash_not_including_specified_value
     matcher = has_value('value_1')
-    assert matcher != { :key_2 => 'value_2' }
+    assert !matcher.matches?([{ :key_2 => 'value_2' }])
   end
   
   def test_should_describe_matcher

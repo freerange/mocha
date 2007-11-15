@@ -9,12 +9,12 @@ class InstanceOfTest < Test::Unit::TestCase
 
   def test_should_match_object_that_is_an_instance_of_specified_class
     matcher = instance_of(String)
-    assert matcher == 'string'
+    assert matcher.matches?(['string'])
   end
 
   def test_should_not_match_object_that_is_not_an_instance_of_specified_class
     matcher = instance_of(String)
-    assert matcher != 99
+    assert !matcher.matches?([99])
   end
 
   def test_should_describe_matcher
