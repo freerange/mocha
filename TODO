@@ -1,3 +1,7 @@
+=> interesting links
+- http://www.jmock.org/match-object-or-method.html
+- http://rspec.lighthouseapp.com/projects/5645-rspec/tickets/106-12985-with_block_which_returns-val
+
 - think about making class_method_test & any_instance_method_test more blackbox to avoid ruby warnings
 - improve error messages especially for similar expectations
 
