@@ -42,7 +42,7 @@ class ParameterMatcherAcceptanceTest < Test::Unit::TestCase
     assert_failed(test_result)
   end
   
-  def test_should_match_hash_parameter_with_specified_entry
+  def test_should_match_hash_parameter_with_specified_key_value_pair
     test_result = run_test do
       mock = mock()
       mock.expects(:method).with(has_entry(:key_1, 'value_1'))
@@ -51,11 +51,47 @@ class ParameterMatcherAcceptanceTest < Test::Unit::TestCase
     assert_passed(test_result)
   end
 
-  def test_should_not_match_hash_parameter_with_specified_entry
+  def test_should_not_match_hash_parameter_with_specified_key_value_pair
     test_result = run_test do
       mock = mock()
       mock.expects(:method).with(has_entry(:key_1, 'value_2'))
       mock.method(:key_1 => 'value_1', :key_2 => 'value_2')
+    end
+    assert_failed(test_result)
+  end
+  
+  def test_should_match_hash_parameter_with_specified_hash_entry
+    test_result = run_test do
+      mock = mock()
+      mock.expects(:method).with(has_entry(:key_1 => 'value_1'))
+      mock.method(:key_1 => 'value_1', :key_2 => 'value_2')
+    end
+    assert_passed(test_result)
+  end
+
+  def test_should_not_match_hash_parameter_with_specified_hash_entry
+    test_result = run_test do
+      mock = mock()
+      mock.expects(:method).with(has_entry(:key_1 => 'value_2'))
+      mock.method(:key_1 => 'value_1', :key_2 => 'value_2')
+    end
+    assert_failed(test_result)
+  end
+  
+  def test_should_match_hash_parameter_with_specified_entries
+    test_result = run_test do
+      mock = mock()
+      mock.expects(:method).with(has_entries(:key_1 => 'value_1', :key_2 => 'value_2'))
+      mock.method(:key_1 => 'value_1', :key_2 => 'value_2', :key_3 => 'value_3')
+    end
+    assert_passed(test_result)
+  end
+
+  def test_should_not_match_hash_parameter_with_specified_entries
+    test_result = run_test do
+      mock = mock()
+      mock.expects(:method).with(has_entries(:key_1 => 'value_1', :key_2 => 'value_2'))
+      mock.method(:key_1 => 'value_1', :key_2 => 'value_3')
     end
     assert_failed(test_result)
   end
