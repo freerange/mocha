@@ -299,16 +299,30 @@ module Mocha # :nodoc:
     
     # :stopdoc:
     
+    def in_sequence(*sequences)
+      sequences.each { |sequence| sequence.constrain_as_next_in_sequence(self) }
+      self
+    end
+    
     attr_reader :backtrace
 
     def initialize(mock, expected_method_name, backtrace = nil)
       @mock = mock
       @method_matcher = MethodMatcher.new(expected_method_name)
       @parameters_matcher = ParametersMatcher.new
+      @ordering_constraints = []
       @expected_count, @invoked_count = 1, 0
       @return_values = ReturnValues.new
       @yield_parameters = YieldParameters.new
       @backtrace = backtrace || caller
+    end
+    
+    def add_ordering_constraint(ordering_constraint)
+      @ordering_constraints << ordering_constraint
+    end
+    
+    def in_correct_order?
+      @ordering_constraints.all? { |ordering_constraint| ordering_constraint.allows_invocation_now? }
     end
     
     def matches_method?(method_name)
@@ -316,7 +330,7 @@ module Mocha # :nodoc:
     end
     
     def match?(actual_method_name, *actual_parameters)
-      @method_matcher.match?(actual_method_name) && @parameters_matcher.match?(actual_parameters)
+      @method_matcher.match?(actual_method_name) && @parameters_matcher.match?(actual_parameters) && in_correct_order?
     end
     
     def invocations_allowed?
@@ -327,6 +341,14 @@ module Mocha # :nodoc:
       end
     end
 
+    def satisfied?
+      if @expected_count.is_a?(Range) then
+        @invoked_count >= @expected_count.first
+      else
+        @invoked_count >= @expected_count
+      end
+    end
+  
     def invoke
       @invoked_count += 1
       if block_given? then
@@ -346,7 +368,9 @@ module Mocha # :nodoc:
     end
     
     def method_signature
-      "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}#{@parameters_matcher.mocha_inspect}"
+      signature = "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}#{@parameters_matcher.mocha_inspect}"
+      signature << "; #{@ordering_constraints.map { |oc| oc.mocha_inspect }.join("; ")}" unless @ordering_constraints.empty?
+      signature
     end
     
     def error_message(expected_count, actual_count)

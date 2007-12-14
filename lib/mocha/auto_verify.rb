@@ -1,4 +1,5 @@
 require 'mocha/mock'
+require 'mocha/sequence'
 
 module Mocha # :nodoc:
   
@@ -106,6 +107,10 @@ module Mocha # :nodoc:
 
     def teardown_mocks # :nodoc:
       reset_mocks
+    end
+    
+    def sequence(name) # :nodoc:
+      Sequence.new(name)
     end
   
   end

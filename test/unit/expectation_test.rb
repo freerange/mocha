@@ -1,6 +1,7 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'method_definer'
 require 'mocha/expectation'
+require 'mocha/sequence'
 require 'execution_point'
 require 'deprecation_disabler'
 
@@ -360,17 +361,123 @@ class ExpectationTest < Test::Unit::TestCase
   def test_should_display_expectation_in_exception_message
     options = [:a, :b, {:c => 1, :d => 2}]
     expectation = new_expectation.with(*options)
-    exception = assert_raise(ExpectationError) {
-      expectation.verify
-    }
+    exception = assert_raise(ExpectationError) { expectation.verify }
     assert exception.message.include?(expectation.method_signature)
   end
   
-  def test_should_raise_error_with_message_indicating_which_method_was_expected_to_be_called_on_which_mock_object_with_which_parameters
-    mock = Class.new { def mocha_inspect; 'mock'; end }.new
-    expectation = Expectation.new(mock, :expected_method).with(1, 2, {'a' => true, :b => false}, [1, 2, 3])
-    e = assert_raise(ExpectationError) { expectation.verify }
-    assert_match "mock.expected_method(1, 2, {'a' => true, :b => false}, [1, 2, 3])", e.message
+  class FakeMock
+    
+    def initialize(name)
+      @name = name
+    end
+
+    def mocha_inspect
+      @name
+    end
+    
   end
   
+  def test_should_raise_error_with_message_indicating_which_method_was_expected_to_be_called_on_which_mock_object_with_which_parameters_and_in_what_sequences
+    mock = FakeMock.new('mock')
+    sequence_one = Sequence.new('one')
+    sequence_two = Sequence.new('two')
+    expectation = Expectation.new(mock, :expected_method).with(1, 2, {'a' => true, :b => false}, [1, 2, 3]).in_sequence(sequence_one, sequence_two)
+    e = assert_raise(ExpectationError) { expectation.verify }
+    assert_match "mock.expected_method(1, 2, {'a' => true, :b => false}, [1, 2, 3]); in sequence 'one'; in sequence 'two'", e.message
+  end
+  
+  class FakeConstraint
+    
+    def initialize(allows_invocation_now)
+      @allows_invocation_now = allows_invocation_now
+    end
+    
+    def allows_invocation_now?
+      @allows_invocation_now
+    end
+    
+  end
+  
+  def test_should_be_in_correct_order_if_all_ordering_constraints_allow_invocation_now
+    constraint_one = FakeConstraint.new(allows_invocation_now = true)
+    constraint_two = FakeConstraint.new(allows_invocation_now = true)
+    expectation = Expectation.new(nil, :method_one)
+    expectation.add_ordering_constraint(constraint_one)
+    expectation.add_ordering_constraint(constraint_two)
+    assert expectation.in_correct_order?
+  end
+  
+  def test_should_not_be_in_correct_order_if_one_ordering_constraint_does_not_allow_invocation_now
+    constraint_one = FakeConstraint.new(allows_invocation_now = true)
+    constraint_two = FakeConstraint.new(allows_invocation_now = false)
+    expectation = Expectation.new(nil, :method_one)
+    expectation.add_ordering_constraint(constraint_one)
+    expectation.add_ordering_constraint(constraint_two)
+    assert !expectation.in_correct_order?
+  end
+  
+  def test_should_match_if_all_ordering_constraints_allow_invocation_now
+    constraint_one = FakeConstraint.new(allows_invocation_now = true)
+    constraint_two = FakeConstraint.new(allows_invocation_now = true)
+    expectation = Expectation.new(nil, :method_one)
+    expectation.add_ordering_constraint(constraint_one)
+    expectation.add_ordering_constraint(constraint_two)
+    assert expectation.match?(:method_one)
+  end
+
+  def test_should_not_match_if_one_ordering_constraints_does_not_allow_invocation_now
+    constraint_one = FakeConstraint.new(allows_invocation_now = true)
+    constraint_two = FakeConstraint.new(allows_invocation_now = false)
+    expectation = Expectation.new(nil, :method_one)
+    expectation.add_ordering_constraint(constraint_one)
+    expectation.add_ordering_constraint(constraint_two)
+    assert !expectation.match?(:method_one)
+  end
+
+  def test_should_not_be_satisfied_when_required_invocation_has_not_been_made
+    expectation = Expectation.new(nil, :method_one).times(1)
+    assert !expectation.satisfied?
+  end
+
+  def test_should_be_satisfied_when_required_invocation_has_been_made
+    expectation = Expectation.new(nil, :method_one).times(1)
+    expectation.invoke
+    assert expectation.satisfied?
+  end
+
+  def test_should_not_be_satisfied_when_minimum_number_of_invocations_has_not_been_made
+    expectation = Expectation.new(nil, :method_one).at_least(2)
+    expectation.invoke
+    assert !expectation.satisfied?
+  end
+
+  def test_should_be_satisfied_when_minimum_number_of_invocations_has_been_made
+    expectation = Expectation.new(nil, :method_one).at_least(2)
+    2.times { expectation.invoke }
+    assert expectation.satisfied?
+  end
+  
+  class FakeSequence
+    
+    attr_reader :expectations
+    
+    def initialize
+      @expectations = []
+    end
+    
+    def constrain_as_next_in_sequence(expectation)
+      @expectations << expectation
+    end
+    
+  end
+  
+  def test_should_tell_sequences_to_constrain_expectation_as_next_in_sequence
+    sequence_one = FakeSequence.new
+    sequence_two = FakeSequence.new
+    expectation = Expectation.new(nil, :method_one)
+    assert_equal expectation, expectation.in_sequence(sequence_one, sequence_two)
+    assert_equal [expectation], sequence_one.expectations
+    assert_equal [expectation], sequence_two.expectations
+  end
+
 end

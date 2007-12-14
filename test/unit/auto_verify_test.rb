@@ -123,4 +123,8 @@ class AutoVerifyTest < Test::Unit::TestCase
     assert_equal '#<Mock:named_stub>', stub.mocha_inspect
   end
   
+  def test_should_build_sequence
+    assert_not_nil test_case.sequence('name')
+  end
+  
 end
