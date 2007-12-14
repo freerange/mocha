@@ -1,5 +1,6 @@
 require 'mocha/infinite_range'
-require 'mocha/method_signature'
+require 'mocha/method_matcher'
+require 'mocha/parameters_matcher'
 require 'mocha/expectation_error'
 require 'mocha/return_values'
 require 'mocha/exception_raiser'
@@ -147,9 +148,9 @@ module Mocha # :nodoc:
       self
     end
   
-    # :call-seq: with(*arguments, &block) -> expectation
+    # :call-seq: with(*expected_parameters, &matching_block) -> expectation
     #
-    # Modifies expectation so that the expected method must be called with specified +arguments+.
+    # Modifies expectation so that the expected method must be called with +expected_parameters+.
     #   object = mock()
     #   object.expects(:expected_method).with(:param1, :param2)
     #   object.expected_method(:param1, :param2)
@@ -161,7 +162,7 @@ module Mocha # :nodoc:
     #   # => verify fails
     # May be used with parameter matchers in Mocha::ParameterMatchers.
     #
-    # If a +block+ is given, the block is called with the parameters passed to the expected method.
+    # If a +matching_block+ is given, the block is called with the parameters passed to the expected method.
     # The expectation is matched if the block evaluates to +true+.
     #   object = mock()
     #   object.expects(:expected_method).with() { |value| value % 4 == 0 }
@@ -172,8 +173,8 @@ module Mocha # :nodoc:
     #   object.expects(:expected_method).with() { |value| value % 4 == 0 }
     #   object.expected_method(17)
     #   # => verify fails
-    def with(*arguments, &block)
-      @method_signature.modify(arguments, &block)
+    def with(*expected_parameters, &matching_block)
+      @parameters_matcher = ParametersMatcher.new(expected_parameters, &matching_block)
       self
     end
   
@@ -298,18 +299,24 @@ module Mocha # :nodoc:
     
     # :stopdoc:
     
-    attr_reader :backtrace, :method_signature
+    attr_reader :backtrace
 
-    def initialize(mock, method_name, backtrace = nil)
-      @method_signature = MethodSignature.new(mock, method_name)
+    def initialize(mock, expected_method_name, backtrace = nil)
+      @mock = mock
+      @method_matcher = MethodMatcher.new(expected_method_name)
+      @parameters_matcher = ParametersMatcher.new
       @expected_count, @invoked_count = 1, 0
       @return_values = ReturnValues.new
       @yield_parameters = YieldParameters.new
       @backtrace = backtrace || caller
     end
     
-    def match?(method_name, *arguments)
-      @method_signature.match?(method_name, arguments)
+    def matches_method?(method_name)
+      @method_matcher.match?(method_name)
+    end
+    
+    def match?(actual_method_name, *actual_parameters)
+      @method_matcher.match?(actual_method_name) && @parameters_matcher.match?(actual_parameters)
     end
     
     def invocations_allowed?
@@ -338,8 +345,8 @@ module Mocha # :nodoc:
       end
     end
     
-    def method_name
-      @method_signature.method_name
+    def method_signature
+      "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}#{@parameters_matcher.mocha_inspect}"
     end
     
     def error_message(expected_count, actual_count)

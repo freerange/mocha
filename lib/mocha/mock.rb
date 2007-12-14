@@ -38,10 +38,12 @@ module Mocha # :nodoc:
     def expects(method_name_or_hash, backtrace = nil)
       if method_name_or_hash.is_a?(Hash) then
         method_name_or_hash.each do |method_name, return_value|
-          add_expectation(Expectation.new(self, method_name, backtrace).returns(return_value))
+          ensure_method_not_already_defined(method_name)
+          @expectations.add(Expectation.new(self, method_name, backtrace).returns(return_value))
         end
       else
-        add_expectation(Expectation.new(self, method_name_or_hash, backtrace))
+        ensure_method_not_already_defined(method_name_or_hash)
+        @expectations.add(Expectation.new(self, method_name_or_hash, backtrace))
       end
     end
     
@@ -69,10 +71,12 @@ module Mocha # :nodoc:
     def stubs(method_name_or_hash, backtrace = nil)
       if method_name_or_hash.is_a?(Hash) then
         method_name_or_hash.each do |method_name, return_value|
-          add_expectation(Stub.new(self, method_name, backtrace).returns(return_value))
+          ensure_method_not_already_defined(method_name)
+          @expectations.add(Stub.new(self, method_name, backtrace).returns(return_value))
         end
       else
-        add_expectation(Stub.new(self, method_name_or_hash, backtrace))
+        ensure_method_not_already_defined(method_name_or_hash)
+        @expectations.add(Stub.new(self, method_name_or_hash, backtrace))
       end
     end
     
@@ -141,9 +145,6 @@ module Mocha # :nodoc:
 
     def add_expectation(expectation)
       @expectations.add(expectation)
-      method_name = expectation.method_name
-      self.__metaclass__.send(:undef_method, method_name) if self.__metaclass__.method_defined?(method_name)
-      expectation
     end
     
     def stub_everything
@@ -168,7 +169,7 @@ module Mocha # :nodoc:
       if @responder then
         @responder.respond_to?(symbol)
       else
-        @expectations.respond_to?(symbol)
+        @expectations.matches_method?(symbol)
       end
     end
   
@@ -189,9 +190,9 @@ module Mocha # :nodoc:
     def inspect
       mocha_inspect
     end
-
-    def similar_expectations(method_name)
-      @expectations.similar(method_name)
+    
+    def ensure_method_not_already_defined(method_name)
+      self.__metaclass__.send(:undef_method, method_name) if self.__metaclass__.method_defined?(method_name)
     end
 
     # :startdoc:

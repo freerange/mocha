@@ -8,6 +8,12 @@ class ExpectationListTest < Test::Unit::TestCase
   
   include Mocha
   
+  def test_should_return_added_expectation
+    expectation_list = ExpectationList.new
+    expectation = Expectation.new(nil, :my_method)
+    assert_same expectation, expectation_list.add(expectation)
+  end
+
   def test_should_find_matching_expectation
     expectation_list = ExpectationList.new
     expectation1 = Expectation.new(nil, :my_method).with(:argument1, :argument2)

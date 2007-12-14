@@ -366,21 +366,11 @@ class ExpectationTest < Test::Unit::TestCase
     assert exception.message.include?(expectation.method_signature.to_s)
   end
   
-  def test_should_combine_method_name_and_prettified_parameters
-    arguments = 1, 2, {'a' => true, :b => false}, [1, 2, 3]
-    expectation = new_expectation.with(*arguments)
-    assert_equal "(1, 2, {'a' => true, :b => false}, [1, 2, 3])", expectation.method_signature.parameter_signature
-  end
-  
-  def test_should_not_include_parameters_in_message
-    assert_equal "(any_parameters)", new_expectation.method_signature.parameter_signature
-  end
-  
-  def test_should_raise_error_with_message_indicating_which_method_was_expected_to_be_called_on_which_mock_object
+  def test_should_raise_error_with_message_indicating_which_method_was_expected_to_be_called_on_which_mock_object_with_which_parameters
     mock = Class.new { def mocha_inspect; 'mock'; end }.new
-    expectation = Expectation.new(mock, :expected_method)
+    expectation = Expectation.new(mock, :expected_method).with(1, 2, {'a' => true, :b => false}, [1, 2, 3])
     e = assert_raise(ExpectationError) { expectation.verify }
-    assert_match "mock.expected_method", e.message
+    assert_match "mock.expected_method(1, 2, {'a' => true, :b => false}, [1, 2, 3])", e.message
   end
   
 end

@@ -19,7 +19,12 @@ class HasEntriesTest < Test::Unit::TestCase
   
   def test_should_describe_matcher
     matcher = has_entries(:key_1 => 'value_1', :key_2 => 'value_2')
-    assert_equal "has_entries({:key_1 => 'value_1', :key_2 => 'value_2'})", matcher.mocha_inspect
+    description = matcher.mocha_inspect
+    matches = /has_entries\((.*)\)/.match(description)
+    assert_not_nil matches[0]
+    entries = eval(matches[1])
+    assert_equal 'value_1', entries[:key_1]
+    assert_equal 'value_2', entries[:key_2]
   end
   
 end
