@@ -357,13 +357,13 @@ class ExpectationTest < Test::Unit::TestCase
     assert_equal execution_point, ExecutionPoint.new(error.backtrace)
   end
   
-  def test_should_display_expectation_message_in_exception_message
+  def test_should_display_expectation_in_exception_message
     options = [:a, :b, {:c => 1, :d => 2}]
     expectation = new_expectation.with(*options)
     exception = assert_raise(ExpectationError) {
       expectation.verify
     }
-    assert exception.message.include?(expectation.method_signature.to_s)
+    assert exception.message.include?(expectation.method_signature)
   end
   
   def test_should_raise_error_with_message_indicating_which_method_was_expected_to_be_called_on_which_mock_object_with_which_parameters
