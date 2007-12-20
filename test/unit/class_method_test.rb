@@ -192,6 +192,7 @@ class ClassMethodTest < Test::Unit::TestCase
     mocha = Object.new
     stubbee = Object.new
     stubbee.define_instance_accessor(:mocha) { mocha }
+    stubbee.mocha = nil
     method = ClassMethod.new(stubbee, :method_name)
     assert_equal stubbee.mocha, method.mock
   end

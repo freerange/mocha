@@ -65,7 +65,7 @@ class MockTest < Test::Unit::TestCase
     
   def test_should_be_able_to_mock_standard_object_methods
     mock = Mock.new
-    object_methods = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ }.sort
+    object_methods = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ || m == :object_id }.sort
     object_methods.each { |method| mock.__expects__(method.to_sym).returns(method) }
     object_methods.each { |method| assert_equal method, mock.__send__(method.to_sym) }
     assert_nothing_raised(ExpectationError) { mock.verify }
@@ -73,7 +73,7 @@ class MockTest < Test::Unit::TestCase
 
   def test_should_be_able_to_stub_standard_object_methods
     mock = Mock.new
-    object_methods = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ }.sort
+    object_methods = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ || m == :object_id }.sort
     object_methods.each { |method| mock.__stubs__(method.to_sym).returns(method) }
     object_methods.each { |method| assert_equal method, mock.__send__(method.to_sym) }
   end
@@ -250,7 +250,7 @@ class MockTest < Test::Unit::TestCase
   
   def test_should_respond_to_methods_which_the_responder_does_responds_to
     instance = Class.new do
-      define_method(:respond_to?) { true }
+      define_method(:respond_to?) { |symbol| true }
     end.new
     mock = Mock.new
     mock.responds_like(instance)
@@ -259,7 +259,7 @@ class MockTest < Test::Unit::TestCase
   
   def test_should_not_respond_to_methods_which_the_responder_does_not_responds_to
     instance = Class.new do
-      define_method(:respond_to?) { false }
+      define_method(:respond_to?) { |symbol| false }
     end.new
     mock = Mock.new
     mock.responds_like(instance)
@@ -282,7 +282,7 @@ class MockTest < Test::Unit::TestCase
   
   def test_should_not_raise_no_method_error_if_responder_does_respond_to_invoked_method
     instance = Class.new do
-      define_method(:respond_to?) { true }
+      define_method(:respond_to?) { |symbol| true }
     end.new
     mock = Mock.new
     mock.responds_like(instance)
@@ -292,7 +292,7 @@ class MockTest < Test::Unit::TestCase
   
   def test_should_raise_no_method_error_if_responder_does_not_respond_to_invoked_method
     instance = Class.new do
-      define_method(:respond_to?) { false }
+      define_method(:respond_to?) { |symbol| false }
       define_method(:mocha_inspect) { 'mocha_inspect' }
     end.new
     mock = Mock.new
@@ -303,7 +303,7 @@ class MockTest < Test::Unit::TestCase
   
   def test_should_raise_no_method_error_with_message_indicating_that_mock_is_constrained_to_respond_like_responder
     instance = Class.new do
-      define_method(:respond_to?) { false }
+      define_method(:respond_to?) { |symbol| false }
       define_method(:mocha_inspect) { 'mocha_inspect' }
     end.new
     mock = Mock.new
