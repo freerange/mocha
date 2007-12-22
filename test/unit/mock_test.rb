@@ -62,20 +62,24 @@ class MockTest < Test::Unit::TestCase
     mock = Mock.new
     assert_equal true, mock.eql?(mock)
   end
-    
+  
+  if RUBY_VERSION < '1.9'
+    OBJECT_METHODS = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ }
+  else
+    OBJECT_METHODS = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ || m == :object_id }
+  end
+  
   def test_should_be_able_to_mock_standard_object_methods
     mock = Mock.new
-    object_methods = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ || m == :object_id }.sort
-    object_methods.each { |method| mock.__expects__(method.to_sym).returns(method) }
-    object_methods.each { |method| assert_equal method, mock.__send__(method.to_sym) }
+    OBJECT_METHODS.each { |method| mock.__expects__(method.to_sym).returns(method) }
+    OBJECT_METHODS.each { |method| assert_equal method, mock.__send__(method.to_sym) }
     assert_nothing_raised(ExpectationError) { mock.verify }
   end
-
+  
   def test_should_be_able_to_stub_standard_object_methods
     mock = Mock.new
-    object_methods = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ || m == :object_id }.sort
-    object_methods.each { |method| mock.__stubs__(method.to_sym).returns(method) }
-    object_methods.each { |method| assert_equal method, mock.__send__(method.to_sym) }
+    OBJECT_METHODS.each { |method| mock.__stubs__(method.to_sym).returns(method) }
+    OBJECT_METHODS.each { |method| assert_equal method, mock.__send__(method.to_sym) }
   end
   
   def test_should_create_and_add_expectations

@@ -27,7 +27,9 @@ class ObjectInspectTest < Test::Unit::TestCase
     object.define_instance_accessor(:called)
     object.called = false
     object.replace_instance_method(:object_id) { self.called = true; 1 }
-    object.replace_instance_method(:id) { self.called = true; 1 } if object.respond_to?(:id)
+    if RUBY_VERSION < '1.9'
+      object.replace_instance_method(:id) { self.called = true; 1 }
+    end
     object.mocha_inspect
     assert_equal false, object.called
   end
