@@ -11,7 +11,7 @@ end
 desc "Run all tests"
 task :default => :test_all
 
-task :test_all => [:test_unit, :test_integration, :test_acceptance]
+task :test => [:test_unit, :test_integration, :test_acceptance]
 
 desc "Run unit tests"
 Rake::TestTask.new(:test_unit) do |t|
