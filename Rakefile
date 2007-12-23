@@ -9,7 +9,7 @@ module Mocha
 end
 
 desc "Run all tests"
-task :default => :test_all
+task :default => :test
 
 task :test => [:test_unit, :test_integration, :test_acceptance]
 
