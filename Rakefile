@@ -5,7 +5,7 @@ require 'rake/testtask'
 require 'rake/contrib/sshpublisher'
 
 module Mocha
-  VERSION = "0.5.5"
+  VERSION = "0.5.6"
 end
 
 desc "Run all tests"
@@ -110,6 +110,7 @@ specification = Gem::Specification.new do |s|
   s.rdoc_options << '--title' << 'Mocha' << '--main' << 'README' << '--line-numbers'
                          
   s.autorequire = 'mocha'
+  s.add_dependency('rake')
   s.files = FileList['{lib,test,examples}/**/*.rb', '[A-Z]*'].exclude('TODO').to_a
 end
 
