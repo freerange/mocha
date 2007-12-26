@@ -8,9 +8,10 @@ module Mocha
   VERSION = "0.5.6"
 end
 
-desc "Run all tests"
+desc "Run default task"
 task :default => :test
 
+desc "Run all tests"
 task :test => [:test_unit, :test_integration, :test_acceptance]
 
 desc "Run unit tests"
