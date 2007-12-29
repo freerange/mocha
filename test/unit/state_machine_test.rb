@@ -10,6 +10,7 @@ class StateMachineTest < Test::Unit::TestCase
     state_machine = StateMachine.new('name')
     any_state.each do |state|
       assert !state_machine.is(state).active?
+      assert state_machine.is_not(state).active?
     end
   end
   
@@ -21,8 +22,10 @@ class StateMachineTest < Test::Unit::TestCase
     state_machine.is(state).activate
     
     assert state_machine.is(state).active?
+    assert !state_machine.is_not(state).active?
     other_states.each do |state|
       assert !state_machine.is(state).active?
+      assert state_machine.is_not(state).active?
     end
   end
   
@@ -35,8 +38,10 @@ class StateMachineTest < Test::Unit::TestCase
     state_machine.is(state).activate
     
     assert state_machine.is(state).active?
+    assert !state_machine.is_not(state).active?
     other_states.each do |state|
       assert !state_machine.is(state).active?
+      assert state_machine.is_not(state).active?
     end
   end
   
@@ -48,8 +53,10 @@ class StateMachineTest < Test::Unit::TestCase
     state_machine.starts_as(initial_state)
     
     assert state_machine.is(initial_state).active?
+    assert !state_machine.is_not(initial_state).active?
     other_states.each do |state|
       assert !state_machine.is(state).active?
+      assert state_machine.is_not(state).active?
     end
   end
   
@@ -65,6 +72,7 @@ class StateMachineTest < Test::Unit::TestCase
     state_machine = StateMachine.new('state_machine_name')
     inspectable_state = Class.new { define_method(:mocha_inspect) { "'inspectable_state'" } }.new
     assert_equal "state_machine_name is 'inspectable_state'", state_machine.is(inspectable_state).mocha_inspect
+    assert_equal "state_machine_name is not 'inspectable_state'", state_machine.is_not(inspectable_state).mocha_inspect
   end
   
   def any_state
