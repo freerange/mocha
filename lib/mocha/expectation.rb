@@ -287,14 +287,27 @@ module Mocha # :nodoc:
     end
 
     # :call-seq: then() -> expectation
+    #            then(state_machine.is(state)) -> expectation
     #
-    # Syntactic sugar to improve readability. Has no effect on state of the expectation.
+    # <tt>then()</tt> is used as syntactic sugar to improve readability. It has no effect on state of the expectation.
     #   object = mock()
     #   object.stubs(:expected_method).returns(1, 2).then.raises(Exception).then.returns(4)
     #   object.expected_method # => 1
     #   object.expected_method # => 2
     #   object.expected_method # => raises exception of class Exception
     #   object.expected_method # => 4
+    #
+    # <tt>then(state_machine.is(state))</tt> is used to change the +state_machine+ to the specified +state+ when the invocation occurs.
+    #
+    # See also AutoVerify#states, StateMachine#starts_as and Expectation#when.
+    #   pen = states('pen').starts_as('up')
+    #
+    #   turtle = mock('turtle')
+    #   turtle.expects(:pen_down).then(pen.is('down'))
+    #   turtle.expects(:forward).with(10).when(pen.is('down'))
+    #   turtle.expects(:turn).with(90).when(pen.is('down'));
+    #   turtle.expects(:forward).with(10).when(pen.is('down'));
+    #   turtle.expects(:pen_up).then(pen.is('up'));
     def then(*parameters)
       if parameters.length == 1
         state = parameters.first
@@ -303,17 +316,47 @@ module Mocha # :nodoc:
       self
     end
     
-    # :stopdoc:
+    # :call-seq: when(state_machine.is(state)) -> exception
+    #
+    # Constrains the expectation to occur only when the +state_machine+ is in the named +state+.
+    #
+    # See also AutoVerify#states, StateMachine#starts_as and Expectation#then.
+    #   pen = states('pen').starts_as('up')
+    #
+    #   turtle = mock('turtle')
+    #   turtle.expects(:pen_down).then(pen.is('down'))
+    #   turtle.expects(:forward).with(10).when(pen.is('down'))
+    #   turtle.expects(:turn).with(90).when(pen.is('down'));
+    #   turtle.expects(:forward).with(10).when(pen.is('down'));
+    #   turtle.expects(:pen_up).then(pen.is('up'));
+    def when(state_predicate)
+      add_ordering_constraint(InStateOrderingConstraint.new(state_predicate))
+      self
+    end
     
+    # :call-seq: in_sequence(*sequences) -> expectation
+    #
+    # Constrains this expectation so that it must be invoked at the current point in the sequence.
+    #
+    # To expect a sequence of invocations, write the expectations in order and add the in_sequence(sequence) clause to each one.
+    #
+    # Expectations in a sequence can have any invocation count.
+    #
+    # If an expectation in a sequence is stubbed, rather than expected, it can be skipped in the sequence.
+    #
+    # See also AutoVerify#sequence.
+    #   drawing = sequence('drawing')
+    #
+    #   turtle = mock('turtle')
+    #   turtle.expects(:forward).with(10).in_sequence(drawing)
+    #   turtle.expects(:turn).with(45).in_sequence(drawing)
+    #   turtle.expects(:forward).with(10).in_sequence(drawing)
     def in_sequence(*sequences)
       sequences.each { |sequence| add_in_sequence_ordering_constraint(sequence) }
       self
     end
     
-    def when(state_predicate)
-      add_ordering_constraint(InStateOrderingConstraint.new(state_predicate))
-      self
-    end
+    # :stopdoc:
     
     attr_reader :backtrace
 
