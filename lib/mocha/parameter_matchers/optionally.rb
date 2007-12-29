@@ -2,6 +2,28 @@ module Mocha
   
   module ParameterMatchers
 
+    # :call-seq: optionally(*matchers) -> parameter_matcher
+    #
+    # Matches optional parameters if available.
+    #   object = mock()
+    #   object.expects(:method_1).with(1, 2, optionally(3, 4))
+    #   object.method_1(1, 2)
+    #   # no error raised
+    #
+    #   object = mock()
+    #   object.expects(:method_1).with(1, 2, optionally(3, 4))
+    #   object.method_1(1, 2, 3)
+    #   # no error raised
+    #
+    #   object = mock()
+    #   object.expects(:method_1).with(1, 2, optionally(3, 4))
+    #   object.method_1(1, 2, 3, 4)
+    #   # no error raised
+    #
+    #   object = mock()
+    #   object.expects(:method_1).with(1, 2, optionally(3, 4))
+    #   object.method_1(1, 2, 3, 5)
+    #   # error raised, because optional parameters did not match
     def optionally(*matchers)
       Optionally.new(*matchers)
     end
