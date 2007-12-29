@@ -29,11 +29,20 @@ module Mocha # :nodoc:
     #
     # +expected_methods+ is a +Hash+ with expected method name symbols as keys and corresponding return values as values.
     #
-    # +block+ is a block to be evaluated against the mock object instance, giving an alernative way to set up expectations & stubs.
-    #
     # Note that (contrary to expectations set up by #stub) these expectations <b>must</b> be fulfilled during the test.
     #   def test_product
     #     product = mock('ipod_product', :manufacturer => 'ipod', :price => 100)
+    #     assert_equal 'ipod', product.manufacturer
+    #     assert_equal 100, product.price
+    #     # an error will be raised unless both Product#manufacturer and Product#price have been called
+    #   end 
+    #
+    # +block+ is an optional block to be evaluated against the mock object instance, giving an alernative way to set up expectations & stubs.
+    #   def test_product
+    #     product = mock('ipod_product') do
+    #       expects(:manufacturer).returns('ipod')
+    #       expects(:price).returns(100)
+    #     end
     #     assert_equal 'ipod', product.manufacturer
     #     assert_equal 100, product.price
     #     # an error will be raised unless both Product#manufacturer and Product#price have been called
@@ -56,12 +65,20 @@ module Mocha # :nodoc:
     # +name+ is a +String+ identifier for the mock object.
     #
     # +stubbed_methods+ is a +Hash+ with stubbed method name symbols as keys and corresponding return values as values.
-    #
-    # +block+ is a block to be evaluated against the mock object instance, giving an alernative way to set up expectations & stubs.
-    #
     # Note that (contrary to expectations set up by #mock) these expectations <b>need not</b> be fulfilled during the test.
     #   def test_product
     #     product = stub('ipod_product', :manufacturer => 'ipod', :price => 100)
+    #     assert_equal 'ipod', product.manufacturer
+    #     assert_equal 100, product.price
+    #     # an error will not be raised even if Product#manufacturer and Product#price have not been called
+    #   end
+    #
+    # +block+ is an optional block to be evaluated against the mock object instance, giving an alernative way to set up expectations & stubs.
+    #   def test_product
+    #     product = stub('ipod_product') do
+    #       stubs(:manufacturer).returns('ipod')
+    #       stubs(:price).returns(100)
+    #     end
     #     assert_equal 'ipod', product.manufacturer
     #     assert_equal 100, product.price
     #     # an error will not be raised even if Product#manufacturer and Product#price have not been called
@@ -102,6 +119,38 @@ module Mocha # :nodoc:
       stub
     end
     
+    # :call-seq: sequence(name) -> sequence
+    #
+    # Returns a new sequence that is used to constrain the order in which expectations can occur.
+    #
+    # See also Expectation#in_sequence.
+    #   drawing = sequence('drawing')
+    #
+    #   turtle = mock('turtle')
+    #   turtle.expects(:forward).with(10).in_sequence(drawing)
+    #   turtle.expects(:turn).with(45).in_sequence(drawing)
+    #   turtle.expects(:forward).with(10).in_sequence(drawing)
+    def sequence(name)
+      Sequence.new(name)
+    end
+    
+    # :call-seq: states(name) -> state_machine
+    #
+    # Returns a new state machine that is used to constrain the order in which expectations can occur.
+    #
+    # See also Expectation#then, Expectation#when and StateMachine#starts_as.
+    #   pen = states('pen').starts_as('up')
+    #
+    #   turtle = mock('turtle')
+    #   turtle.expects(:pen_down).then(pen.is('down'))
+    #   turtle.expects(:forward).with(10).when(pen.is('down'))
+    #   turtle.expects(:turn).with(90).when(pen.is('down'));
+    #   turtle.expects(:forward).with(10).when(pen.is('down'));
+    #   turtle.expects(:pen_up).then(pen.is('up'));
+    def states(name)
+      StateMachine.new(name)
+    end
+  
     def verify_mocks # :nodoc:
       mocks.each { |mock| mock.verify { yield if block_given? } }
     end
@@ -110,14 +159,6 @@ module Mocha # :nodoc:
       reset_mocks
     end
     
-    def sequence(name) # :nodoc:
-      Sequence.new(name)
-    end
-    
-    def states(name)
-      StateMachine.new(name)
-    end
-  
   end
   
 end
