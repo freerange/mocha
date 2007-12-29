@@ -123,7 +123,11 @@ class AutoVerifyTest < Test::Unit::TestCase
   end
   
   def test_should_build_sequence
-    assert_not_nil test_case.sequence('name')
+    assert_kind_of Mocha::Sequence, test_case.sequence('name')
+  end
+  
+  def test_should_build_state_machine
+    assert_kind_of Mocha::StateMachine, test_case.states('name')
   end
   
 end

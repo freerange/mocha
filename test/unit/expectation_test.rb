@@ -479,5 +479,42 @@ class ExpectationTest < Test::Unit::TestCase
     assert_equal [expectation], sequence_one.expectations
     assert_equal [expectation], sequence_two.expectations
   end
+  
+  class FakeState
+    
+    def initialize
+      @active = false
+    end
+    
+    def activate
+      @active = true
+    end
+    
+    def active?
+      @active
+    end
+    
+  end
+  
+  def test_should_change_state_when_expectation_is_invoked
+    state = FakeState.new
+    expectation = Expectation.new(nil, :method_one)
+
+    expectation.then(state)
+
+    expectation.invoke
+    assert state.active?
+  end
+  
+  def test_should_match_when_state_is_active
+    state = FakeState.new
+    expectation = Expectation.new(nil, :method_one)
+
+    expectation.when(state)
+    assert !expectation.match?(:method_one)
+    
+    state.activate
+    assert expectation.match?(:method_one)
+  end
 
 end

@@ -6,6 +6,8 @@ require 'mocha/return_values'
 require 'mocha/exception_raiser'
 require 'mocha/yield_parameters'
 require 'mocha/is_a'
+require 'mocha/in_state_ordering_constraint'
+require 'mocha/change_state_side_effect'
 
 module Mocha # :nodoc:
   
@@ -293,14 +295,23 @@ module Mocha # :nodoc:
     #   object.expected_method # => 2
     #   object.expected_method # => raises exception of class Exception
     #   object.expected_method # => 4
-    def then
+    def then(*parameters)
+      if parameters.length == 1
+        state = parameters.first
+        add_side_effect(ChangeStateSideEffect.new(state))
+      end
       self
     end
     
     # :stopdoc:
     
     def in_sequence(*sequences)
-      sequences.each { |sequence| sequence.constrain_as_next_in_sequence(self) }
+      sequences.each { |sequence| add_in_sequence_ordering_constraint(sequence) }
+      self
+    end
+    
+    def when(state_predicate)
+      add_ordering_constraint(InStateOrderingConstraint.new(state_predicate))
       self
     end
     
@@ -311,6 +322,7 @@ module Mocha # :nodoc:
       @method_matcher = MethodMatcher.new(expected_method_name)
       @parameters_matcher = ParametersMatcher.new
       @ordering_constraints = []
+      @side_effects = []
       @expected_count, @invoked_count = 1, 0
       @return_values = ReturnValues.new
       @yield_parameters = YieldParameters.new
@@ -319,6 +331,18 @@ module Mocha # :nodoc:
     
     def add_ordering_constraint(ordering_constraint)
       @ordering_constraints << ordering_constraint
+    end
+    
+    def add_in_sequence_ordering_constraint(sequence)
+      sequence.constrain_as_next_in_sequence(self)
+    end
+    
+    def add_side_effect(side_effect)
+      @side_effects << side_effect
+    end
+    
+    def perform_side_effects
+      @side_effects.each { |side_effect| side_effect.perform }
     end
     
     def in_correct_order?
@@ -351,6 +375,7 @@ module Mocha # :nodoc:
   
     def invoke
       @invoked_count += 1
+      perform_side_effects()
       if block_given? then
         @yield_parameters.next_invocation.each do |yield_parameters|
           yield(*yield_parameters)

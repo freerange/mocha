@@ -1,5 +1,6 @@
 require 'mocha/mock'
 require 'mocha/sequence'
+require 'mocha/state_machine'
 
 module Mocha # :nodoc:
   
@@ -111,6 +112,10 @@ module Mocha # :nodoc:
     
     def sequence(name) # :nodoc:
       Sequence.new(name)
+    end
+    
+    def states(name)
+      StateMachine.new(name)
     end
   
   end
