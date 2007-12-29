@@ -97,7 +97,7 @@ class SequenceAcceptanceTest < Test::Unit::TestCase
       sequence = sequence('one')
       
       mock.expects(:first).in_sequence(sequence)
-      s = mock.stubs(:second).in_sequence(sequence)
+      mock.stubs(:second).in_sequence(sequence)
       mock.expects(:third).in_sequence(sequence)
       
       mock.first
