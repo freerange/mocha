@@ -43,14 +43,6 @@ class ObjectTest < Test::Unit::TestCase
     assert_equal [expectation], instance.mocha.expectations.to_a
   end
   
-  def test_should_verify_expectations
-    instance = Object.new
-    $stubba = Mock.new
-    $stubba.stubs(:stub)
-    instance.expects(:method1).with(:value1, :value2)
-    assert_raise(ExpectationError) { instance.verify }
-  end
-  
   def test_should_pass_backtrace_into_expects
     instance = Object.new
     $stubba = Mock.new

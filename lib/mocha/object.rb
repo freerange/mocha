@@ -58,10 +58,6 @@ class Object
     mocha.stubs(symbol, caller)
   end
   
-  def verify # :nodoc:
-    mocha.verify
-  end
-  
 end
 
 class Module # :nodoc:
