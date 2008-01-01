@@ -304,14 +304,6 @@ class ExpectationTest < Test::Unit::TestCase
     }
   end
   
-  def test_should_expect_call_not_to_be_made
-    expectation = new_expectation
-    expectation.define_instance_accessor(:how_many_times)
-    expectation.replace_instance_method(:times) { |how_many_times| self.how_many_times = how_many_times }
-    expectation.never
-    assert_equal 0, expectation.how_many_times
-  end
-  
   def test_should_raise_error_on_verify_if_expected_call_was_made_too_few_times
     expectation = new_expectation.times(2)
     1.times {expectation.invoke}

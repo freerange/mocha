@@ -1,4 +1,3 @@
-require 'mocha/infinite_range'
 require 'mocha/method_matcher'
 require 'mocha/parameters_matcher'
 require 'mocha/expectation_error'
@@ -8,6 +7,7 @@ require 'mocha/yield_parameters'
 require 'mocha/is_a'
 require 'mocha/in_state_ordering_constraint'
 require 'mocha/change_state_side_effect'
+require 'mocha/cardinality'
 
 module Mocha # :nodoc:
   
@@ -39,7 +39,7 @@ module Mocha # :nodoc:
     #   object.expected_method
     #   # => verify fails
     def times(range)
-      @expected_count = range
+      @cardinality = Cardinality.times(range)
       self
     end
   
@@ -61,8 +61,8 @@ module Mocha # :nodoc:
     #   object = mock()
     #   object.expects(:expected_method).once
     #   # => verify fails
-    def once()
-      times(1)
+    def once
+      @cardinality = Cardinality.exactly(1)
       self
     end
   
@@ -79,7 +79,7 @@ module Mocha # :nodoc:
     #   object.expected_method
     #   # => verify succeeds
     def never
-      times(0)
+      @cardinality = Cardinality.exactly(0)
       self
     end
   
@@ -96,7 +96,7 @@ module Mocha # :nodoc:
     #   object.expected_method
     #   # => verify fails
     def at_least(minimum_number_of_times)
-      times(Range.at_least(minimum_number_of_times))
+      @cardinality = Cardinality.at_least(minimum_number_of_times)
       self
     end
   
@@ -111,7 +111,7 @@ module Mocha # :nodoc:
     #   object = mock()
     #   object.expects(:expected_method).at_least_once
     #   # => verify fails
-    def at_least_once()
+    def at_least_once
       at_least(1)
       self
     end
@@ -129,7 +129,7 @@ module Mocha # :nodoc:
     #   3.times { object.expected_method }
     #   # => verify fails
     def at_most(maximum_number_of_times)
-      times(Range.at_most(maximum_number_of_times))
+      @cardinality = Cardinality.at_most(maximum_number_of_times)
       self
     end
   
@@ -366,7 +366,7 @@ module Mocha # :nodoc:
       @parameters_matcher = ParametersMatcher.new
       @ordering_constraints = []
       @side_effects = []
-      @expected_count, @invoked_count = 1, 0
+      @cardinality, @invocation_count = Cardinality.exactly(1), 0
       @return_values = ReturnValues.new
       @yield_parameters = YieldParameters.new
       @backtrace = backtrace || caller
@@ -401,23 +401,15 @@ module Mocha # :nodoc:
     end
     
     def invocations_allowed?
-      if @expected_count.is_a?(Range) then
-        @invoked_count < @expected_count.last
-      else
-        @invoked_count < @expected_count
-      end
+      @cardinality.invocations_allowed?(@invocation_count)
     end
 
     def satisfied?
-      if @expected_count.is_a?(Range) then
-        @invoked_count >= @expected_count.first
-      else
-        @invoked_count >= @expected_count
-      end
+      @cardinality.satisfied?(@invocation_count)
     end
   
     def invoke
-      @invoked_count += 1
+      @invocation_count += 1
       perform_side_effects()
       if block_given? then
         @yield_parameters.next_invocation.each do |yield_parameters|
@@ -429,8 +421,8 @@ module Mocha # :nodoc:
 
     def verify
       yield(self) if block_given?
-      unless (@expected_count === @invoked_count) then
-        error = ExpectationError.new(error_message(@expected_count, @invoked_count), backtrace)
+      unless @cardinality.verified?(@invocation_count) then
+        error = ExpectationError.new(error_message(@cardinality, @invocation_count), backtrace)
         raise error
       end
     end
@@ -441,8 +433,8 @@ module Mocha # :nodoc:
       signature
     end
     
-    def error_message(expected_count, actual_count)
-      "#{method_signature} - expected calls: #{expected_count.mocha_inspect}, actual calls: #{actual_count}"
+    def error_message(cardinality, invocation_count)
+      "#{method_signature} - expected calls: #{cardinality.mocha_inspect}, actual calls: #{invocation_count}"
     end
   
     # :startdoc:

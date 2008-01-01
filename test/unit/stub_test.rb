@@ -12,6 +12,13 @@ class StubTest < Test::Unit::TestCase
     assert stub.verify
   end
   
+  def test_should_not_yield_on_verify
+    stub = Stub.new(nil, :expected_method)
+    yielded = false
+    stub.verify { yielded = true }
+    assert !yielded
+  end
+  
   def test_should_match_successfully_for_any_number_of_invocations
     stub = Stub.new(nil, :expected_method)
     assert stub.match?(:expected_method)

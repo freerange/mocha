@@ -1,4 +1,5 @@
 require 'mocha/expectation'
+require 'mocha/cardinality'
 
 module Mocha # :nodoc:
 
@@ -6,7 +7,7 @@ module Mocha # :nodoc:
 
     def initialize(mock, method_name, backtrace = nil)
       super
-      @expected_count = Range.at_least(0)
+      @cardinality = Cardinality.at_least(0)
     end
     
     def verify
