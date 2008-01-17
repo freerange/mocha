@@ -60,6 +60,22 @@ class StateMachineTest < Test::Unit::TestCase
     end
   end
   
+  def test_should_be_put_into_a_new_state
+    next_state = 'B'
+    
+    other_states = any_state.reject { |s| s == next_state }
+    state_machine = StateMachine.new('name').starts_as('A')
+    
+    state_machine.become(next_state)
+    
+    assert state_machine.is(next_state).active?
+    assert !state_machine.is_not(next_state).active?
+    other_states.each do |state|
+      assert !state_machine.is(state).active?
+      assert state_machine.is_not(state).active?
+    end
+  end
+  
   def test_should_describe_itself_as_name_and_current_state
     state_machine = StateMachine.new('state_machine_name')
     assert_equal 'state_machine_name has no current state', state_machine.mocha_inspect

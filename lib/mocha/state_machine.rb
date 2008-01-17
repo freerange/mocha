@@ -53,8 +53,15 @@ module Mocha # :nodoc:
     #
     # Put the +state_machine+ into the +initial_state+.
     def starts_as(initial_state)
-      @current_state = initial_state
+      become(initial_state)
       self
+    end
+  
+    # :call-seq: become(next_state)
+    #
+    # Put the +state_machine+ into the +next_state+.
+    def become(next_state)
+      @current_state = next_state
     end
   
     def is(state) # :nodoc:
