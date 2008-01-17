@@ -305,9 +305,9 @@ module Mocha # :nodoc:
     #   turtle = mock('turtle')
     #   turtle.expects(:pen_down).then(pen.is('down'))
     #   turtle.expects(:forward).with(10).when(pen.is('down'))
-    #   turtle.expects(:turn).with(90).when(pen.is('down'));
-    #   turtle.expects(:forward).with(10).when(pen.is('down'));
-    #   turtle.expects(:pen_up).then(pen.is('up'));
+    #   turtle.expects(:turn).with(90).when(pen.is('down'))
+    #   turtle.expects(:forward).with(10).when(pen.is('down'))
+    #   turtle.expects(:pen_up).then(pen.is('up'))
     def then(*parameters)
       if parameters.length == 1
         state = parameters.first
@@ -326,9 +326,9 @@ module Mocha # :nodoc:
     #   turtle = mock('turtle')
     #   turtle.expects(:pen_down).then(pen.is('down'))
     #   turtle.expects(:forward).with(10).when(pen.is('down'))
-    #   turtle.expects(:turn).with(90).when(pen.is('down'));
-    #   turtle.expects(:forward).with(10).when(pen.is('down'));
-    #   turtle.expects(:pen_up).then(pen.is('up'));
+    #   turtle.expects(:turn).with(90).when(pen.is('down'))
+    #   turtle.expects(:forward).with(10).when(pen.is('down'))
+    #   turtle.expects(:pen_up).then(pen.is('up'))
     def when(state_predicate)
       add_ordering_constraint(InStateOrderingConstraint.new(state_predicate))
       self

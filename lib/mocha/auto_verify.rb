@@ -144,9 +144,9 @@ module Mocha # :nodoc:
     #   turtle = mock('turtle')
     #   turtle.expects(:pen_down).then(pen.is('down'))
     #   turtle.expects(:forward).with(10).when(pen.is('down'))
-    #   turtle.expects(:turn).with(90).when(pen.is('down'));
-    #   turtle.expects(:forward).with(10).when(pen.is('down'));
-    #   turtle.expects(:pen_up).then(pen.is('up'));
+    #   turtle.expects(:turn).with(90).when(pen.is('down'))
+    #   turtle.expects(:forward).with(10).when(pen.is('down'))
+    #   turtle.expects(:pen_up).then(pen.is('up'))
     def states(name)
       StateMachine.new(name)
     end
