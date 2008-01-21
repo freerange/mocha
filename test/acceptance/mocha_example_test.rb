@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'mocha'
 
-class MochaAcceptanceTest < Test::Unit::TestCase
+class MochaExampleTest < Test::Unit::TestCase
   
   class Rover
 
