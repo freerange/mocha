@@ -12,20 +12,12 @@ desc "Run default task"
 task :default => :test
 
 desc "Run all tests"
-task :test => [:test_unit, :test_integration, :test_acceptance]
+task :test => [:test_unit, :test_acceptance]
 
 desc "Run unit tests"
 Rake::TestTask.new(:test_unit) do |t|
   t.libs << 'test'
   t.test_files = FileList['test/unit/**/*_test.rb']
-  t.verbose = true
-  t.warning = true
-end
-
-desc "Run integration tests"
-Rake::TestTask.new(:test_integration) do |t|
-  t.libs << 'test'
-  t.test_files = FileList['test/integration/*_test.rb']
   t.verbose = true
   t.warning = true
 end

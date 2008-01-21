@@ -6,7 +6,6 @@ $:.unshift File.expand_path(File.join(File.dirname(__FILE__), "..", "lib"))
 $:.unshift File.expand_path(File.join(File.dirname(__FILE__)))
 $:.unshift File.expand_path(File.join(File.dirname(__FILE__), 'unit'))
 $:.unshift File.expand_path(File.join(File.dirname(__FILE__), 'unit', 'parameter_matchers'))
-$:.unshift File.expand_path(File.join(File.dirname(__FILE__), 'integration'))
 $:.unshift File.expand_path(File.join(File.dirname(__FILE__), 'acceptance'))
 
 require 'test/unit'
