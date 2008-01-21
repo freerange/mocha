@@ -3,7 +3,7 @@ require 'mocha'
 require 'test_runner'
 require 'execution_point'
 
-class MochaTestResultIntegrationTest < Test::Unit::TestCase
+class MochaTestResultAcceptanceTest < Test::Unit::TestCase
   
   include TestRunner
   
