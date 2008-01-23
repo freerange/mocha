@@ -33,24 +33,46 @@ class MockTest < Test::Unit::TestCase
     assert_equal true, mock.everything_stubbed
   end
   
-  def test_should_display_object_id_for_mocha_inspect_if_mock_has_no_name
+  def test_should_display_object_id_for_mocha_inspect_if_mock_has_no_reference
     mock = Mock.new
     assert_match Regexp.new("^#<Mock:0x[0-9A-Fa-f]{1,12}>$"), mock.mocha_inspect
   end
   
-  def test_should_display_name_for_mocha_inspect_if_mock_has_name
+  def test_should_display_name_for_mocha_inspect_if_mock_has_string_reference
     mock = Mock.new('named_mock')
     assert_equal "#<Mock:named_mock>", mock.mocha_inspect
   end
 
-  def test_should_display_object_id_for_inspect_if_mock_has_no_name
+  def test_should_display_name_for_mocha_inspect_if_mock_has_symbol_reference
+    mock = Mock.new(:named_mock)
+    assert_equal "#<Mock:named_mock>", mock.mocha_inspect
+  end
+
+  def test_should_display_result_of_calling_mocha_inspect_on_reference_for_mocha_inspect_if_reference_is_neither_string_or_symbol
+    instance = Object.new
+    mock = Mock.new(instance)
+    assert_equal "#{instance.mocha_inspect}", mock.mocha_inspect
+  end
+
+  def test_should_display_object_id_for_inspect_if_mock_has_no_reference
     mock = Mock.new
     assert_match Regexp.new("^#<Mock:0x[0-9A-Fa-f]{1,12}>$"), mock.inspect
   end
   
-  def test_should_display_name_for_inspect_if_mock_has_name
+  def test_should_display_name_for_inspect_if_mock_has_string_reference
     mock = Mock.new('named_mock')
     assert_equal "#<Mock:named_mock>", mock.inspect
+  end
+
+  def test_should_display_name_for_inspect_if_mock_has_string_reference
+    mock = Mock.new(:named_mock)
+    assert_equal "#<Mock:named_mock>", mock.inspect
+  end
+
+  def test_should_display_result_of_calling_mocha_inspect_on_reference_for_inspect_if_reference_is_neither_string_or_symbol
+    instance = Object.new
+    mock = Mock.new(instance)
+    assert_equal "#{instance.mocha_inspect}", mock.inspect
   end
 
   def test_should_be_able_to_extend_mock_object_with_module

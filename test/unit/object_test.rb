@@ -8,11 +8,12 @@ class ObjectTest < Test::Unit::TestCase
   
   include Mocha
     
-  def test_should_build_mocha
+  def test_should_build_mocha_referring_to_self
     instance = Object.new
     mocha = instance.mocha
     assert_not_nil mocha
     assert mocha.is_a?(Mock)
+    assert_equal instance.mocha_inspect, mocha.mocha_inspect
   end
   
   def test_should_reuse_existing_mocha

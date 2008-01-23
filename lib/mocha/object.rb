@@ -9,7 +9,7 @@ require 'mocha/any_instance_method'
 class Object
   
   def mocha # :nodoc:
-    @mocha ||= Mocha::Mock.new
+    @mocha ||= Mocha::Mock.new(self)
   end
   
   def reset_mocha # :nodoc:
