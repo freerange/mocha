@@ -127,8 +127,62 @@ module Mocha # :nodoc:
     
     # :stopdoc:
     
-    def initialize(reference = nil, &block)
-      @reference = reference
+    class ImpersonatingName
+      
+      def initialize(object)
+        @object = object
+      end
+      
+      def mocha_inspect
+        @object.mocha_inspect
+      end
+      
+    end
+    
+    class Name
+      
+      def initialize(name)
+        @name = name
+      end
+      
+      def mocha_inspect
+        "#<Mock:#{@name}>"
+      end
+      
+    end
+    
+    class DefaultName
+      
+      def initialize(mock)
+        @mock = mock
+      end
+      
+      def mocha_inspect
+        address = @mock.__id__ * 2
+        address += 0x100000000 if address < 0
+        "#<Mock:0x#{'%x' % address}>"
+      end
+      
+    end
+    
+    class << self
+      
+      def named(name, &block)
+        Mock.new(Name.new(name), &block)
+      end
+      
+      def unnamed(&block)
+        Mock.new(&block)
+      end
+      
+      def impersonating(object, &block)
+        Mock.new(ImpersonatingName.new(object), &block)
+      end
+      
+    end
+    
+    def initialize(name = nil, &block)
+      @name = name || DefaultName.new(self)
       @expectations = ExpectationList.new
       @everything_stubbed = false
       @responder = nil
@@ -182,17 +236,7 @@ module Mocha # :nodoc:
     end
   
     def mocha_inspect
-      if @reference
-        if [Symbol, String].any? { |klass| @reference.is_a?(klass) }
-          "#<Mock:#{@reference}>"
-        else
-          @reference.mocha_inspect
-        end
-      else
-        address = self.__id__ * 2
-        address += 0x100000000 if address < 0
-        "#<Mock:0x#{'%x' % address}>"
-      end
+      @name.mocha_inspect
     end
     
     def inspect

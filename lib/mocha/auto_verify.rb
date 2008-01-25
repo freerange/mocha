@@ -50,7 +50,7 @@ module Mocha # :nodoc:
     def mock(*arguments, &block)
       name = arguments.shift if arguments.first.is_a?(String)
       expectations = arguments.shift || {}
-      mock = Mock.new(name, &block)
+      mock = name ? Mock.named(name, &block) : Mock.unnamed(&block)
       mock.expects(expectations)
       mocks << mock
       mock
@@ -86,7 +86,7 @@ module Mocha # :nodoc:
     def stub(*arguments, &block)
       name = arguments.shift if arguments.first.is_a?(String)
       expectations = arguments.shift || {}
-      stub = Mock.new(name, &block)
+      stub = name ? Mock.named(name, &block) : Mock.unnamed(&block)
       stub.stubs(expectations)
       mocks << stub
       stub
@@ -112,7 +112,7 @@ module Mocha # :nodoc:
     def stub_everything(*arguments, &block)
       name = arguments.shift if arguments.first.is_a?(String)
       expectations = arguments.shift || {}
-      stub = Mock.new(name, &block)
+      stub = name ? Mock.named(name, &block) : Mock.unnamed(&block)
       stub.stub_everything
       stub.stubs(expectations)
       mocks << stub
