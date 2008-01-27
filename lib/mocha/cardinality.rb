@@ -41,6 +41,10 @@ module Mocha
       invocations_so_far >= @required
     end
     
+    def needs_verifying?
+      self != self.class.at_least(0)
+    end
+    
     def verified?(invocation_count)
       (invocation_count >= @required) && (invocation_count <= @maximum)
     end
@@ -56,7 +60,15 @@ module Mocha
         "#{@required}..#{@maximum}"
       end
     end
+    
+    def ==(object)
+      object.is_a?(Mocha::Cardinality) && (object.required == @required) && (object.maximum == @maximum)
+    end
+    
+    protected
 
+    attr_reader :required, :maximum
+    
   end
   
 end

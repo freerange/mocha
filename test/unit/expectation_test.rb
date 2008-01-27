@@ -4,6 +4,7 @@ require 'mocha/expectation'
 require 'mocha/sequence'
 require 'execution_point'
 require 'deprecation_disabler'
+require 'simple_counter'
 
 class ExpectationTest < Test::Unit::TestCase
   
@@ -321,20 +322,27 @@ class ExpectationTest < Test::Unit::TestCase
     }
   end
   
-  def test_should_yield_self_to_block
+  def test_should_increment_assertion_counter_for_expectation_because_it_does_need_verifyng
     expectation = new_expectation
     expectation.invoke
-    yielded_expectation = nil
-    expectation.verify { |x| yielded_expectation = x }
-    assert_equal expectation, yielded_expectation
+    assertion_counter = SimpleCounter.new
+    expectation.verify(assertion_counter)
+    assert_equal 1, assertion_counter.count
   end
   
-  def test_should_yield_to_block_before_raising_exception
-    yielded = false
+  def test_should_not_increment_assertion_counter_for_stub_because_it_does_not_need_verifying
+    stub = Expectation.new(nil, :expected_method).at_least(0)
+    assertion_counter = SimpleCounter.new
+    stub.verify(assertion_counter)
+    assert_equal 0, assertion_counter.count
+  end
+  
+  def test_should_increment_assertion_counter_before_raising_exception
+    assertion_counter = SimpleCounter.new
     assert_raise(ExpectationError) {
-      new_expectation.verify { |x| yielded = true }
+      new_expectation.verify(assertion_counter)
     }
-    assert yielded
+    assert_equal 1, assertion_counter.count
   end
   
   def test_should_store_backtrace_from_point_where_expectation_was_created
@@ -508,5 +516,5 @@ class ExpectationTest < Test::Unit::TestCase
     state.activate
     assert expectation.match?(:method_one)
   end
-
+  
 end

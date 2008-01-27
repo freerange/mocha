@@ -10,7 +10,7 @@ module Mocha # :nodoc:
       @cardinality = Cardinality.at_least(0)
     end
     
-    def verify
+    def verify(assertion_counter = nil)
       true
     end
 

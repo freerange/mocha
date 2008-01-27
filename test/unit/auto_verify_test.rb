@@ -1,6 +1,7 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'mocha/auto_verify'
 require 'method_definer'
+require 'simple_counter'
 
 class AutoVerifyTest < Test::Unit::TestCase
   
@@ -78,7 +79,7 @@ class AutoVerifyTest < Test::Unit::TestCase
       mock = Object.new
       mock.define_instance_accessor(:verify_called)
       class << mock
-        def verify(&block)
+        def verify(assertion_counter = nil)
           self.verify_called = true
         end
       end
@@ -89,15 +90,16 @@ class AutoVerifyTest < Test::Unit::TestCase
     assert mocks.all? { |mock| mock.verify_called }
   end
   
-  def test_should_yield_to_block_for_each_assertion
-    mock_class = Class.new do
-      def verify(&block); yield; end
-    end
-    mock = mock_class.new
+  def test_should_increment_assertion_counter_for_each_assertion
+    assertion_counter = SimpleCounter.new
+    mock = Class.new do
+      def verify(assertion_counter = nil)
+        assertion_counter.increment
+      end
+    end.new
     test_case.replace_instance_method(:mocks)  { [mock] }
-    yielded = false
-    test_case.verify_mocks { yielded = true }
-    assert yielded
+    test_case.verify_mocks(assertion_counter)
+    assert_equal 1, assertion_counter.count
   end
   
   def test_should_reset_mocks_on_teardown

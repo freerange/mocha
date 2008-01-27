@@ -29,4 +29,25 @@ class CardinalityTest < Test::Unit::TestCase
     assert_equal '2..4', Cardinality.times(2..4).mocha_inspect
   end
   
+  def test_should_be_equal
+    assert_equal Cardinality.exactly(2), Cardinality.exactly(2)
+    assert_equal Cardinality.at_least(3), Cardinality.at_least(3)
+    assert_equal Cardinality.at_most(2), Cardinality.at_most(2)
+    assert_equal Cardinality.times(4), Cardinality.times(4)
+    assert_equal Cardinality.times(2..4), Cardinality.times(2..4)
+    assert_equal Cardinality.at_least(0), Cardinality.at_least(0)
+  end
+  
+  def test_should_need_verifying
+    assert Cardinality.exactly(2).needs_verifying?
+    assert Cardinality.at_least(3).needs_verifying?
+    assert Cardinality.at_most(2).needs_verifying?
+    assert Cardinality.times(4).needs_verifying?
+    assert Cardinality.times(2..4).needs_verifying?
+  end
+  
+  def test_should_not_need_verifying
+    assert_equal false, Cardinality.at_least(0).needs_verifying?
+  end
+  
 end

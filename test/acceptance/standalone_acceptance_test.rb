@@ -1,5 +1,6 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'mocha_standalone'
+require 'simple_counter'
 
 class NotATestUnitAssertionFailedError < StandardError
 end
@@ -8,10 +9,10 @@ class NotATestUnitTestCase
   
   include Mocha::Standalone
   
-  attr_reader :assertion_count
+  attr_reader :assertion_counter
   
   def initialize
-    @assertion_count = 0
+    @assertion_counter = SimpleCounter.new
   end
   
   def run(test_method)
@@ -20,7 +21,7 @@ class NotATestUnitTestCase
       prepare
       begin
         send(test_method)
-        mocha_verify { @assertion_count += 1 }
+        mocha_verify(@assertion_counter)
       rescue Mocha::ExpectationError => e
         new_error = NotATestUnitAssertionFailedError.new(e.message)
         new_error.set_backtrace(e.backtrace)
@@ -96,32 +97,32 @@ class StandaloneAcceptanceTest < Test::Unit::TestCase
   
   def test_should_pass_mocha_test
     assert_nothing_raised { sample_test.run(:mocha_with_fulfilled_expectation) }
-    assert_equal 1, sample_test.assertion_count
+    assert_equal 1, sample_test.assertion_counter.count
   end
 
   def test_should_fail_mocha_test_due_to_unfulfilled_exception
     assert_raises(NotATestUnitAssertionFailedError) { sample_test.run(:mocha_with_unfulfilled_expectation) }
-    assert_equal 1, sample_test.assertion_count
+    assert_equal 1, sample_test.assertion_counter.count
   end
 
   def test_should_fail_mocha_test_due_to_unexpected_invocation
     assert_raises(NotATestUnitAssertionFailedError) { sample_test.run(:mocha_with_unexpected_invocation) }
-    assert_equal 0, sample_test.assertion_count
+    assert_equal 0, sample_test.assertion_counter.count
   end
 
   def test_should_pass_stubba_test
     assert_nothing_raised { sample_test.run(:stubba_with_fulfilled_expectation) }
-    assert_equal 1, sample_test.assertion_count
+    assert_equal 1, sample_test.assertion_counter.count
   end
 
   def test_should_fail_stubba_test
     assert_raises(NotATestUnitAssertionFailedError) { sample_test.run(:stubba_with_unfulfilled_expectation) }
-    assert_equal 1, sample_test.assertion_count
+    assert_equal 1, sample_test.assertion_counter.count
   end
 
   def test_should_pass_mocha_test_with_matching_parameter
     assert_nothing_raised { sample_test.run(:mocha_with_matching_parameter) }
-    assert_equal 1, sample_test.assertion_count
+    assert_equal 1, sample_test.assertion_counter.count
   end
 
   def test_should_fail_mocha_test_with_non_matching_parameter

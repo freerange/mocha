@@ -8,8 +8,8 @@ module Mocha
       $stubba = Mocha::Central.new
     end
     
-    def verify_stubs
-      $stubba.verify_all { yield if block_given? } if $stubba
+    def verify_stubs(assertion_counter = nil)
+      $stubba.verify_all(assertion_counter) if $stubba
     end
   
     def teardown_stubs

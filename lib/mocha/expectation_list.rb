@@ -25,8 +25,8 @@ module Mocha # :nodoc:
       expectation || expectations.first
     end
 
-    def verify(&block)
-      @expectations.each { |expectation| expectation.verify(&block) }
+    def verify(assertion_counter = nil)
+      @expectations.each { |expectation| expectation.verify(assertion_counter) }
     end
 
     def to_a

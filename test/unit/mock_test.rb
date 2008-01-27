@@ -2,6 +2,7 @@ require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'mocha/mock'
 require 'mocha/expectation_error'
 require 'set'
+require 'simple_counter'
 
 class MockTest < Test::Unit::TestCase
   
@@ -189,13 +190,20 @@ class MockTest < Test::Unit::TestCase
     assert_equal "#{mock.mocha_inspect}.expected_method(2) - expected calls: 0, actual calls: 1\nSimilar expectations:\n#{mock.mocha_inspect}.expected_method(1)", exception.message
   end
   
-  def test_should_pass_block_through_to_expectations_verify_method
+  def test_should_increment_assertion_counter_for_every_verified_expectation
     mock = Mock.new
-    expected_expectation = mock.expects(:method1)
+    
+    mock.expects(:method1)
     mock.method1
-    expectations = []
-    mock.verify() { |expectation| expectations << expectation }
-    assert_equal [expected_expectation], expectations
+    
+    mock.expects(:method2)
+    mock.method2
+    
+    assertion_counter = SimpleCounter.new
+    
+    mock.verify(assertion_counter)
+    
+    assert_equal 2, assertion_counter.count
   end
   
   def test_should_yield_supplied_parameters_to_block

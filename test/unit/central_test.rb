@@ -90,35 +90,20 @@ class CentralTest < Test::Unit::TestCase
     assert_equal [:mock_1], stubba.unique_mocks
   end
   
-  def test_should_call_verify_on_all_unique_mocks
+  def test_should_call_verify_on_all_unique_mocks_with_assertion_counter
     mock_class = Class.new do
-      attr_accessor :verify_called
-      def verify
-        self.verify_called = true
+      attr_reader :assertion_counter
+      def verify(assertion_counter = nil)
+        @assertion_counter = assertion_counter
       end
     end
     mocks = [mock_class.new, mock_class.new]
     stubba = Central.new
     stubba.replace_instance_method(:unique_mocks) { mocks }
     
-    stubba.verify_all
+    stubba.verify_all(:assertion_counter)
     
-    assert mocks.all? { |mock| mock.verify_called }
-  end
-
-  def test_should_call_verify_on_all_unique_mochas
-    mock_class = Class.new do
-      def verify(&block)
-        yield if block_given?
-      end
-    end
-    stubba = Central.new
-    stubba.replace_instance_method(:unique_mocks) { [mock_class.new] }
-    yielded = false
-    
-    stubba.verify_all { yielded = true }
-    
-    assert yielded
+    assert mocks.all? { |mock| mock.assertion_counter == :assertion_counter }
   end
 
 end

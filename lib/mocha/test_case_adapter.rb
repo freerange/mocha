@@ -3,6 +3,18 @@ require 'mocha/expectation_error'
 module Mocha
   
   module TestCaseAdapter
+    
+    class AssertionCounter
+      
+      def initialize(test_result)
+        @test_result = test_result
+      end
+      
+      def increment
+        @test_result.add_assertion
+      end
+      
+    end
 
     def self.included(base)
       base.class_eval do
@@ -10,6 +22,7 @@ module Mocha
         alias_method :run_before_mocha_test_case_adapter, :run
 
         def run(result)
+          assertion_counter = AssertionCounter.new(result)
           yield(Test::Unit::TestCase::STARTED, name)
           @_result = result
           begin
@@ -17,7 +30,7 @@ module Mocha
             begin
               setup
               __send__(@method_name)
-              mocha_verify { add_assertion }
+              mocha_verify(assertion_counter)
             rescue Mocha::ExpectationError => e
               add_failure(e.message, e.backtrace)
             rescue Test::Unit::AssertionFailedError => e
