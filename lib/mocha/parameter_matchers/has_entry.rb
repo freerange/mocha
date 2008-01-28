@@ -41,11 +41,12 @@ module Mocha
       
       def matches?(available_parameters)
         parameter = available_parameters.shift
-        parameter[@key] == @value
+        matching_keys = parameter.keys.select { |key| @key.to_matcher.matches?([key]) }
+        matching_keys.any? { |key| @value.to_matcher.matches?([parameter[key]]) }
       end
       
       def mocha_inspect
-        "has_entry(#{@key.mocha_inspect}, #{@value.mocha_inspect})"
+        "has_entry(#{@key.mocha_inspect} => #{@value.mocha_inspect})"
       end
       
     end

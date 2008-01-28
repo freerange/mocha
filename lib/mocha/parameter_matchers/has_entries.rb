@@ -1,4 +1,6 @@
 require 'mocha/parameter_matchers/base'
+require 'mocha/parameter_matchers/all_of'
+require 'mocha/parameter_matchers/has_entry'
 
 module Mocha
   
@@ -28,7 +30,8 @@ module Mocha
       
       def matches?(available_parameters)
         parameter = available_parameters.shift
-        @entries.all? { |key, value| parameter[key] == value }
+        has_entry_matchers = @entries.map { |key, value| HasEntry.new(key, value) }
+        AllOf.new(*has_entry_matchers).matches?([parameter])
       end
       
       def mocha_inspect
