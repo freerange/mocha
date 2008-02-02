@@ -138,6 +138,18 @@ module Mocha # :nodoc:
       
     end
     
+    class ImpersonatingAnyInstanceName
+      
+      def initialize(klass)
+        @klass = klass
+      end
+      
+      def mocha_inspect
+        "#<AnyInstance:#{@klass.mocha_inspect}>"
+      end
+      
+    end
+    
     class Name
       
       def initialize(name)
@@ -176,6 +188,10 @@ module Mocha # :nodoc:
       
       def impersonating(object, &block)
         Mock.new(ImpersonatingName.new(object), &block)
+      end
+      
+      def impersonating_any_instance_of(klass, &block)
+        Mock.new(ImpersonatingAnyInstanceName.new(klass), &block)
       end
       
     end

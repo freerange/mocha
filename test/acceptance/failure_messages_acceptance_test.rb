@@ -24,6 +24,13 @@ class FailureMessagesAcceptanceTest < Test::Unit::TestCase
     assert_match Regexp.new("^#<FailureMessagesAcceptanceTest::Foo:#{OBJECT_ADDRESS_PATTERN}>"), test_result.failures[0].message
   end
   
+  def test_should_display_class_name_and_any_instance_prefix_when_expectation_was_on_any_instance
+    test_result = run_test do
+      Foo.any_instance.expects(:bar)
+    end
+    assert_match Regexp.new('^#<AnyInstance:FailureMessagesAcceptanceTest::Foo>'), test_result.failures[0].message
+  end
+  
   def test_should_display_mock_name_when_expectation_was_on_named_mock
     test_result = run_test do
       foo = mock('foo')

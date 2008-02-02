@@ -80,6 +80,10 @@ class Class
       @stubba_object = klass
     end
     
+    def mocha
+      @mocha ||= Mocha::Mock.new(Mocha::Mock.impersonating_any_instance_of(@stubba_object))
+    end
+
     def stubba_method
       Mocha::AnyInstanceMethod
     end
