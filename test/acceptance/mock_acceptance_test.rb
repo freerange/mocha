@@ -49,7 +49,15 @@ class MockAcceptanceTest < Test::Unit::TestCase
     assert_passed(test_result)
   end
 
-  def test_should_build_mock_incorporating_two_expectations_which_are_not_satisifed
+  def test_should_build_mock_incorporating_two_expectations_the_first_of_which_is_not_satisifed
+    test_result = run_test do
+      foo = mock(:bar => 'bar', :baz => 'baz')
+      foo.baz
+    end
+    assert_failed(test_result)
+  end
+
+  def test_should_build_mock_incorporating_two_expectations_the_second_of_which_is_not_satisifed
     test_result = run_test do
       foo = mock(:bar => 'bar', :baz => 'baz')
       foo.bar
@@ -66,7 +74,15 @@ class MockAcceptanceTest < Test::Unit::TestCase
     assert_passed(test_result)
   end
 
-  def test_should_build_named_mock_incorporating_two_expectations_which_are_not_satisifed
+  def test_should_build_named_mock_incorporating_two_expectations_the_first_of_which_is_not_satisifed
+    test_result = run_test do
+      foo = mock('foo', :bar => 'bar', :baz => 'baz')
+      foo.baz
+    end
+    assert_failed(test_result)
+  end
+
+  def test_should_build_named_mock_incorporating_two_expectations_the_second_of_which_is_not_satisifed
     test_result = run_test do
       foo = mock('foo', :bar => 'bar', :baz => 'baz')
       foo.bar
