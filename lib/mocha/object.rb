@@ -9,7 +9,7 @@ require 'mocha/any_instance_method'
 class Object
   
   def mocha # :nodoc:
-    @mocha ||= Mocha::Mock.new(Mocha::Mock.impersonating(self))
+    @mocha ||= Mocha::Mock.impersonating(self)
   end
   
   def reset_mocha # :nodoc:
@@ -81,7 +81,7 @@ class Class
     end
     
     def mocha
-      @mocha ||= Mocha::Mock.new(Mocha::Mock.impersonating_any_instance_of(@stubba_object))
+      @mocha ||= Mocha::Mock.impersonating_any_instance_of(@stubba_object)
     end
 
     def stubba_method
