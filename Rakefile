@@ -42,7 +42,7 @@ Rake::RDocTask.new do |task|
     'COPYING',
     'MIT-LICENSE',
     'agiledox.txt',
-    'lib/mocha/auto_verify.rb',
+    'lib/mocha/standalone.rb',
     'lib/mocha/mock.rb',
     'lib/mocha/expectation.rb',
     'lib/mocha/object.rb',
