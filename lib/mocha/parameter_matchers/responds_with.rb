@@ -21,7 +21,7 @@ module Mocha
       RespondsWith.new(message, result)
     end
 
-    class RespondsWith < Base
+    class RespondsWith < Base # :nodoc:
 
       def initialize(message, result)
         @message, @result = message, result

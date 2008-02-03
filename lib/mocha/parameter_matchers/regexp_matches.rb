@@ -4,9 +4,9 @@ module Mocha
   
   module ParameterMatchers
 
-    # :call-seq: regexp_matches(regexp) -> parameter_matcher
+    # :call-seq: regexp_matches(regular_expression) -> parameter_matcher
     #
-    # Matches any object that matches the regular expression, +regexp+.
+    # Matches any object that matches +regular_expression+.
     #   object = mock()
     #   object.expects(:method_1).with(regexp_matches(/e/))
     #   object.method_1('hello')

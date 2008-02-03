@@ -4,7 +4,7 @@ module Mocha
   
   module ParameterMatchers
 
-    # :call-seq: anything -> parameter_matcher
+    # :call-seq: anything() -> parameter_matcher
     #
     # Matches any object.
     #   object = mock()

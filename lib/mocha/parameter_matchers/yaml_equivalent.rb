@@ -21,7 +21,7 @@ module Mocha
       YamlEquivalent.new(object)
     end
 
-    class YamlEquivalent < Base
+    class YamlEquivalent < Base # :nodoc:
 
       def initialize(object)
         @object = object

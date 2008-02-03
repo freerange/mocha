@@ -4,9 +4,9 @@ module Mocha
   
   module ParameterMatchers
 
-    # :call-seq: any_of -> parameter_matcher
+    # :call-seq: any_of(*parameter_matchers) -> parameter_matcher
     #
-    # Matches if any +matchers+ match.
+    # Matches if any +parameter_matchers+ match.
     #   object = mock()
     #   object.expects(:method_1).with(any_of(1, 3))
     #   object.method_1(1)

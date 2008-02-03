@@ -2,7 +2,7 @@ module Mocha
   
   module ParameterMatchers
 
-    # :call-seq: optionally(*matchers) -> parameter_matcher
+    # :call-seq: optionally(*parameter_matchers) -> parameter_matcher
     #
     # Matches optional parameters if available.
     #   object = mock()

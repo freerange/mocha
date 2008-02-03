@@ -4,9 +4,9 @@ module Mocha
   
   module ParameterMatchers
 
-    # :call-seq: Not(matcher) -> parameter_matcher
+    # :call-seq: Not(parameter_matcher) -> parameter_matcher
     #
-    # Matches if +matcher+ does not match.
+    # Matches if +parameter_matcher+ does not match.
     #   object = mock()
     #   object.expects(:method_1).with(Not(includes(1)))
     #   object.method_1([0, 2, 3])
