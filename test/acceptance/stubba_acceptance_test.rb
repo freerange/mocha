@@ -25,14 +25,14 @@ class StubbaAcceptanceTest < Test::Unit::TestCase
 
   def test_should_leave_stubbed_class_method_unchanged_after_test
     run_test do
-      DontMessWithMe.expects(:my_class_method).returns(:new_return_value)
+      DontMessWithMe.stubs(:my_class_method).returns(:new_return_value)
     end
     assert_equal :original_return_value, DontMessWithMe.my_class_method
   end
   
   def test_should_reset_class_expectations_after_test
     run_test do
-      DontMessWithMe.expects(:my_class_method)
+      DontMessWithMe.stubs(:my_class_method)
     end
     assert_equal 0, DontMessWithMe.mocha.expectations.length
   end  
@@ -49,7 +49,7 @@ class StubbaAcceptanceTest < Test::Unit::TestCase
   def test_should_leave_stubbed_instance_method_unchanged_after_test
     instance = DontMessWithMe.new
     run_test do
-      instance.expects(:my_instance_method).returns(:new_return_value)
+      instance.stubs(:my_instance_method).returns(:new_return_value)
     end
     assert_equal :original_return_value, instance.my_instance_method
   end
@@ -57,7 +57,7 @@ class StubbaAcceptanceTest < Test::Unit::TestCase
   def test_should_reset_instance_expectations_after_test
     instance = DontMessWithMe.new
     run_test do
-      instance.expects(:my_instance_method).returns(:new_return_value)
+      instance.stubs(:my_instance_method).returns(:new_return_value)
     end
     assert_equal 0, instance.mocha.expectations.length
   end  
