@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), "..", "..", "test_helper")
 require 'mocha/parameter_matchers/equals'
 require 'mocha/inspect'
 
-class IncludesTest < Test::Unit::TestCase
+class EqualsTest < Test::Unit::TestCase
 
   include Mocha::ParameterMatchers
 
