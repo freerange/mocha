@@ -35,14 +35,16 @@ module Mocha
               add_failure(e.message, e.backtrace)
             rescue Test::Unit::AssertionFailedError => e
               add_failure(e.message, e.backtrace)
-            rescue StandardError, ScriptError
+            rescue Exception
+              raise if Test::Unit::TestCase::PASSTHROUGH_EXCEPTIONS.include? $!.class
               add_error($!)
             ensure
               begin
                 teardown
               rescue Test::Unit::AssertionFailedError => e
                 add_failure(e.message, e.backtrace)
-              rescue StandardError, ScriptError
+              rescue Exception
+                raise if Test::Unit::TestCase::PASSTHROUGH_EXCEPTIONS.include? $!.class
                 add_error($!)
               end
             end
