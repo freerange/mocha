@@ -1,4 +1,4 @@
-require 'mocha/mock'
+require 'mocha/mockery'
 require 'mocha/instance_method'
 require 'mocha/class_method'
 require 'mocha/any_instance_method'
@@ -9,7 +9,7 @@ require 'mocha/any_instance_method'
 class Object
   
   def mocha # :nodoc:
-    @mocha ||= Mocha::Mock.impersonating(self)
+    @mocha ||= Mocha::Mockery.instance.mock_impersonating(self)
   end
   
   def reset_mocha # :nodoc:
@@ -37,7 +37,7 @@ class Object
   # The original implementation of <tt>Product#save</tt> is restored at the end of the test.
   def expects(symbol) 
     method = stubba_method.new(stubba_object, symbol)
-    $stubba.stub(method)
+    Mocha::Mockery.instance.stubba.stub(method)
     mocha.expects(symbol, caller)
   end
   
@@ -54,7 +54,7 @@ class Object
   # The original implementation of <tt>Product#save</tt> is restored at the end of the test.
   def stubs(symbol) 
     method = stubba_method.new(stubba_object, symbol)
-    $stubba.stub(method)
+    Mocha::Mockery.instance.stubba.stub(method)
     mocha.stubs(symbol, caller)
   end
   
@@ -81,7 +81,7 @@ class Class
     end
     
     def mocha
-      @mocha ||= Mocha::Mock.impersonating_any_instance_of(@stubba_object)
+      @mocha ||= Mocha::Mockery.instance.mock_impersonating_any_instance_of(@stubba_object)
     end
 
     def stubba_method

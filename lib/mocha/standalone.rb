@@ -41,7 +41,7 @@ module Mocha # :nodoc:
     def mock(*arguments, &block)
       name = arguments.shift if arguments.first.is_a?(String)
       expectations = arguments.shift || {}
-      mock = name ? @mockery.named_mock(name, &block) : @mockery.unnamed_mock(&block)
+      mock = name ? Mockery.instance.named_mock(name, &block) : Mockery.instance.unnamed_mock(&block)
       mock.expects(expectations)
       mock
     end
@@ -76,7 +76,7 @@ module Mocha # :nodoc:
     def stub(*arguments, &block)
       name = arguments.shift if arguments.first.is_a?(String)
       expectations = arguments.shift || {}
-      stub = name ? @mockery.named_mock(name, &block) : @mockery.unnamed_mock(&block)
+      stub = name ? Mockery.instance.named_mock(name, &block) : Mockery.instance.unnamed_mock(&block)
       stub.stubs(expectations)
       stub
     end
@@ -101,7 +101,7 @@ module Mocha # :nodoc:
     def stub_everything(*arguments, &block)
       name = arguments.shift if arguments.first.is_a?(String)
       expectations = arguments.shift || {}
-      stub = name ? @mockery.named_mock(name, &block) : @mockery.unnamed_mock(&block)
+      stub = name ? Mockery.instance.named_mock(name, &block) : Mockery.instance.unnamed_mock(&block)
       stub.stub_everything
       stub.stubs(expectations)
       stub
@@ -140,15 +140,15 @@ module Mocha # :nodoc:
     end
     
     def mocha_setup # :nodoc:
-      @mockery = Mockery.new
     end
     
     def mocha_verify(assertion_counter = nil) # :nodoc:
-      @mockery.verify(assertion_counter)
+      Mockery.instance.verify(assertion_counter)
     end
     
     def mocha_teardown # :nodoc:
-      @mockery.teardown
+      Mockery.instance.teardown
+      Mockery.reset_instance
     end
     
   end

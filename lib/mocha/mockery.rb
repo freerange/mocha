@@ -5,6 +5,20 @@ module Mocha
   
   class Mockery
     
+    class << self
+      
+      def instance
+        @instance ||= new
+      end
+      
+      def reset_instance
+        @instance = nil
+      end
+      
+    end
+    
+    attr_accessor :stubba
+    
     def named_mock(name, &block)
       mock = Mock.named(name, &block)
       @mocks << mock
@@ -16,22 +30,37 @@ module Mocha
       @mocks << mock
       mock
     end
-  
+    
+    def mock_impersonating(object, &block)
+      mock = Mock.impersonating(object, &block)
+      @mocks << mock
+      mock
+    end
+    
+    def mock_impersonating_any_instance_of(klass, &block)
+      mock = Mock.impersonating_any_instance_of(klass, &block)
+      @mocks << mock
+      mock
+    end
+    
     def initialize
-      @mocks = []
-      $stubba = Mocha::Central.new
+      reset
     end
     
     def verify(assertion_counter = nil)
       @mocks.each { |mock| mock.verify(assertion_counter) }
-      $stubba.verify_all(assertion_counter) if $stubba
     end
     
     def teardown
-      if $stubba then
-        $stubba.unstub_all
-        $stubba = nil
-      end
+      @stubba.unstub_all
+      reset
+    end
+    
+    private
+    
+    def reset
+      @mocks = []
+      @stubba = Central.new
     end
     
   end
