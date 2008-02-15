@@ -2,6 +2,7 @@ require 'mocha/expectation'
 require 'mocha/expectation_list'
 require 'mocha/missing_expectation'
 require 'mocha/metaclass'
+require 'mocha/names'
 
 module Mocha # :nodoc:
   
@@ -125,76 +126,6 @@ module Mocha # :nodoc:
     end
     
     # :stopdoc:
-    
-    class ImpersonatingName
-      
-      def initialize(object)
-        @object = object
-      end
-      
-      def mocha_inspect
-        @object.mocha_inspect
-      end
-      
-    end
-    
-    class ImpersonatingAnyInstanceName
-      
-      def initialize(klass)
-        @klass = klass
-      end
-      
-      def mocha_inspect
-        "#<AnyInstance:#{@klass.mocha_inspect}>"
-      end
-      
-    end
-    
-    class Name
-      
-      def initialize(name)
-        @name = name
-      end
-      
-      def mocha_inspect
-        "#<Mock:#{@name}>"
-      end
-      
-    end
-    
-    class DefaultName
-      
-      def initialize(mock)
-        @mock = mock
-      end
-      
-      def mocha_inspect
-        address = @mock.__id__ * 2
-        address += 0x100000000 if address < 0
-        "#<Mock:0x#{'%x' % address}>"
-      end
-      
-    end
-    
-    class << self
-      
-      def named(name, &block)
-        Mock.new(Name.new(name), &block)
-      end
-      
-      def unnamed(&block)
-        Mock.new(&block)
-      end
-      
-      def impersonating(object, &block)
-        Mock.new(ImpersonatingName.new(object), &block)
-      end
-      
-      def impersonating_any_instance_of(klass, &block)
-        Mock.new(ImpersonatingAnyInstanceName.new(klass), &block)
-      end
-      
-    end
     
     def initialize(name = nil, &block)
       @name = name || DefaultName.new(self)
