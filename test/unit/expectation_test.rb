@@ -294,7 +294,7 @@ class ExpectationTest < Test::Unit::TestCase
     e = assert_raise(ExpectationError) {
       expectation.verify
     }
-    assert_match(/expected calls: at least 1, actual calls: 0/i, e.message)
+    assert_match(/expected at least once, actual calls: 0/i, e.message)
   end
   
   def test_should_not_raise_error_on_verify_if_expected_call_was_made_expected_number_of_times
@@ -311,7 +311,7 @@ class ExpectationTest < Test::Unit::TestCase
     e = assert_raise(ExpectationError) {
       expectation.verify
     }
-    assert_match(/expected calls: 2, actual calls: 1/i, e.message)
+    assert_match(/expected exactly 2 times, actual calls: 1/i, e.message)
   end
   
   def test_should_raise_error_on_verify_if_expected_call_was_made_too_many_times

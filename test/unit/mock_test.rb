@@ -145,7 +145,7 @@ class MockTest < Test::Unit::TestCase
     mock = Mock.new
     mock.expects(:expected_method).with(1)
     exception = assert_raise(ExpectationError) { mock.expected_method(2) }
-    assert_equal "#{mock.mocha_inspect}.expected_method(2) - expected calls: 0, actual calls: 1\nSimilar expectations:\n#{mock.mocha_inspect}.expected_method(1)", exception.message
+    assert_equal "#{mock.mocha_inspect}.expected_method(2) - expected never, actual calls: 1\nSimilar expectations:\n#{mock.mocha_inspect}.expected_method(1)", exception.message
   end
   
   def test_should_increment_assertion_counter_for_every_verified_expectation

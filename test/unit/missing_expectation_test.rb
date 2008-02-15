@@ -2,6 +2,7 @@ require File.join(File.dirname(__FILE__), "..", "test_helper")
 
 require 'mocha/missing_expectation'
 require 'mocha/mock'
+require 'mocha/cardinality'
 
 class MissingExpectationTest < Test::Unit::TestCase
   
@@ -17,7 +18,7 @@ class MissingExpectationTest < Test::Unit::TestCase
     exception = assert_raise(ExpectationError) { missing_expectation.verify }
     
     expected_message = [
-      "#{missing_expectation.error_message(0, 1)}",
+      "#{missing_expectation.error_message(Cardinality.exactly(0), 1)}",
       "Similar expectations:",
       "#{expectation_1.method_signature}",
       "#{expectation_2.method_signature}"
@@ -34,7 +35,7 @@ class MissingExpectationTest < Test::Unit::TestCase
     missing_expectation = MissingExpectation.new(mock, :method_one)
     exception = assert_raise(ExpectationError) { missing_expectation.verify }
     
-    expected_message = "#{missing_expectation.error_message(0, 1)}"
+    expected_message = "#{missing_expectation.error_message(Cardinality.exactly(0), 1)}"
     
     assert_equal expected_message, exception.message
   end
