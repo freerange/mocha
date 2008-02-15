@@ -17,8 +17,6 @@ module Mocha
       
     end
     
-    attr_accessor :stubba
-    
     def named_mock(name, &block)
       add_mock(Mock.named(name, &block))
     end
@@ -35,18 +33,17 @@ module Mocha
       add_mock(Mock.impersonating_any_instance_of(klass, &block))
     end
     
-    def initialize
-      reset
-    end
-    
     def verify(assertion_counter = nil)
       mocks.each { |mock| mock.verify(assertion_counter) }
     end
     
     def teardown
-      @stubba.unstub_all
-      @mocks = nil
+      stubba.unstub_all
       reset
+    end
+    
+    def stubba
+      @stubba ||= Central.new
     end
     
     private
@@ -61,7 +58,8 @@ module Mocha
     end
     
     def reset
-      @stubba = Central.new
+      @mocks = nil
+      @stubba = nil
     end
     
   end
