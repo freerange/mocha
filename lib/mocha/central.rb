@@ -11,18 +11,10 @@ module Mocha
     def stub(method)
       unless stubba_methods.include?(method)
         method.stub 
-        stubba_methods.push method
+        stubba_methods.push(method)
       end
     end
     
-    def verify_all(assertion_counter = nil)
-      unique_mocks.each { |mock| mock.verify(assertion_counter) }
-    end
-    
-    def unique_mocks
-      stubba_methods.inject({}) { |mocks, method| mocks[method.mock.__id__] = method.mock; mocks }.values
-    end
-  
     def unstub_all
       while stubba_methods.length > 0
         method = stubba_methods.pop
