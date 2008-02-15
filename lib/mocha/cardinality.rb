@@ -42,15 +42,19 @@ module Mocha
     end
     
     def needs_verifying?
-      self != self.class.at_least(0)
+      !allowed_any_number_of_times?
     end
     
     def verified?(invocation_count)
       (invocation_count >= required) && (invocation_count <= maximum)
     end
     
+    def allowed_any_number_of_times?
+      required == 0 && infinite?(maximum)
+    end
+    
     def mocha_inspect
-      if required == 0 && infinite?(maximum)
+      if allowed_any_number_of_times?
         "allowed any number of times"
       else
         if required == 0 && maximum == 0
@@ -67,15 +71,9 @@ module Mocha
       end
     end
     
-    def ==(object)
-      object.is_a?(Mocha::Cardinality) && (object.required == required) && (object.maximum == maximum)
-    end
-    
-    protected
+    private
     
     attr_reader :required, :maximum
-    
-    private
     
     def times(number)
       number == 1 ? "once" : "#{number} times"
