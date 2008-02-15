@@ -26,7 +26,6 @@ module Mocha
           yield(Test::Unit::TestCase::STARTED, name)
           @_result = result
           begin
-            mocha_setup
             begin
               setup
               __send__(@method_name)
