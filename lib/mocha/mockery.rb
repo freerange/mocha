@@ -1,6 +1,7 @@
 require 'mocha/central'
 require 'mocha/mock'
 require 'mocha/names'
+require 'mocha/state_machine'
 
 module Mocha
   
@@ -34,6 +35,10 @@ module Mocha
       add_mock(Mock.new(ImpersonatingAnyInstanceName.new(klass), &block))
     end
     
+    def new_state_machine(name)
+      add_state_machine(StateMachine.new(name))
+    end
+    
     def verify(assertion_counter = nil)
       mocks.each { |mock| mock.verify(assertion_counter) }
     end
@@ -47,20 +52,30 @@ module Mocha
       @stubba ||= Central.new
     end
     
-    private
-    
     def mocks
       @mocks ||= []
     end
+    
+    def state_machines
+      @state_machines ||= []
+    end
+    
+    private
     
     def add_mock(mock)
       mocks << mock
       mock
     end
     
+    def add_state_machine(state_machine)
+      state_machines << state_machine
+      state_machine
+    end
+    
     def reset
-      @mocks = nil
       @stubba = nil
+      @mocks = nil
+      @state_machines = nil
     end
     
   end

@@ -1,5 +1,6 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'mocha/mockery'
+require 'mocha/state_machine'
 
 class MockeryTest < Test::Unit::TestCase
   
@@ -52,6 +53,20 @@ class MockeryTest < Test::Unit::TestCase
     mockery.teardown
     stubba_2 = mockery.stubba
     assert_not_same stubba_1, stubba_2
+  end
+  
+  def test_should_build_and_store_new_state_machine
+    mockery = Mockery.new
+    mockery.new_state_machine('state-machine-name')
+    assert_equal 1, mockery.state_machines.length
+    assert_kind_of StateMachine, mockery.state_machines[0]
+  end
+  
+  def test_should_reset_list_of_state_machines_on_teardown
+    mockery = Mockery.new
+    mockery.new_state_machine('state-machine-name')
+    mockery.teardown
+    assert_equal 0, mockery.state_machines.length
   end
   
   class FakeMethod

@@ -1,7 +1,6 @@
 require 'mocha/parameter_matchers'
 require 'mocha/mockery'
 require 'mocha/sequence'
-require 'mocha/state_machine'
 
 module Mocha # :nodoc:
   
@@ -136,7 +135,7 @@ module Mocha # :nodoc:
     #   turtle.expects(:forward).with(10).when(pen.is('down'))
     #   turtle.expects(:pen_up).then(pen.is('up'))
     def states(name)
-      StateMachine.new(name)
+      Mockery.instance.new_state_machine(name)
     end
     
     def mocha_setup # :nodoc:
