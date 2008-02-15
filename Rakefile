@@ -32,15 +32,15 @@ namespace 'test' do
     t.warning = true
   end
   
-  require 'rcov/rcovtask'
-  Rcov::RcovTask.new('coverage') do |t|
-    t.libs << 'test'
-    t.test_files = unit_tests + acceptance_tests
-    t.verbose = true
-    t.warning = true
-    t.rcov_opts << '--sort coverage'
-    t.rcov_opts << '--xref'
-  end
+  # require 'rcov/rcovtask'
+  # Rcov::RcovTask.new('coverage') do |t|
+  #   t.libs << 'test'
+  #   t.test_files = unit_tests + acceptance_tests
+  #   t.verbose = true
+  #   t.warning = true
+  #   t.rcov_opts << '--sort coverage'
+  #   t.rcov_opts << '--xref'
+  # end
 
 end
 
