@@ -20,27 +20,19 @@ module Mocha
     attr_accessor :stubba
     
     def named_mock(name, &block)
-      mock = Mock.named(name, &block)
-      @mocks << mock
-      mock
+      add_mock(Mock.named(name, &block))
     end
     
     def unnamed_mock(&block)
-      mock = Mock.unnamed(&block)
-      @mocks << mock
-      mock
+      add_mock(Mock.unnamed(&block))
     end
     
     def mock_impersonating(object, &block)
-      mock = Mock.impersonating(object, &block)
-      @mocks << mock
-      mock
+      add_mock(Mock.impersonating(object, &block))
     end
     
     def mock_impersonating_any_instance_of(klass, &block)
-      mock = Mock.impersonating_any_instance_of(klass, &block)
-      @mocks << mock
-      mock
+      add_mock(Mock.impersonating_any_instance_of(klass, &block))
     end
     
     def initialize
@@ -57,6 +49,11 @@ module Mocha
     end
     
     private
+    
+    def add_mock(mock)
+      @mocks << mock
+      mock
+    end
     
     def reset
       @mocks = []
