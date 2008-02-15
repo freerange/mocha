@@ -8,30 +8,44 @@ module Mocha
   VERSION = "0.5.6"
 end
 
-desc "Run default task"
-task :default => :test
-
 desc "Run all tests"
-task :test => [:test_unit, :test_acceptance]
+task 'default' => ['test:units', 'test:acceptance']
 
-desc "Run unit tests"
-Rake::TestTask.new(:test_unit) do |t|
-  t.libs << 'test'
-  t.test_files = FileList['test/unit/**/*_test.rb']
-  t.verbose = true
-  t.warning = true
-end
+namespace 'test' do
+  
+  unit_tests = FileList['test/unit/**/*_test.rb']
+  acceptance_tests = FileList['test/acceptance/*_test.rb']
 
-desc "Run acceptance tests"
-Rake::TestTask.new(:test_acceptance) do |t|
-  t.libs << 'test'
-  t.test_files = FileList['test/acceptance/*_test.rb']
-  t.verbose = true
-  t.warning = true
+  desc "Run unit tests"
+  Rake::TestTask.new('units') do |t|
+    t.libs << 'test'
+    t.test_files = unit_tests
+    t.verbose = true
+    t.warning = true
+  end
+
+  desc "Run acceptance tests"
+  Rake::TestTask.new('acceptance') do |t|
+    t.libs << 'test'
+    t.test_files = acceptance_tests
+    t.verbose = true
+    t.warning = true
+  end
+  
+  require 'rcov/rcovtask'
+  Rcov::RcovTask.new('coverage') do |t|
+    t.libs << 'test'
+    t.test_files = unit_tests + acceptance_tests
+    t.verbose = true
+    t.warning = true
+    t.rcov_opts << '--sort coverage'
+    t.rcov_opts << '--xref'
+  end
+
 end
 
 desc 'Generate RDoc'
-Rake::RDocTask.new do |task|
+Rake::RDocTask.new('rdoc') do |task|
   task.main = 'README'
   task.title = "Mocha #{Mocha::VERSION}"
   task.rdoc_dir = 'doc'
@@ -51,10 +65,10 @@ Rake::RDocTask.new do |task|
     'lib/mocha/state_machine.rb'
   )
 end
-task :rdoc => :examples
+task 'rdoc' => 'examples'
 
 desc "Upload RDoc to RubyForge"
-task :publish_rdoc => [:rdoc, :examples] do
+task 'publish_rdoc' => ['rdoc', 'examples'] do
   Rake::SshDirPublisher.new("jamesmead@rubyforge.org", "/var/www/gforge-projects/mocha", "doc").upload
 end
 
@@ -75,7 +89,7 @@ file 'agiledox.txt' do
 end
 
 desc "Convert example ruby files to syntax-highlighted html"
-task :examples do
+task 'examples' do
   $:.unshift File.expand_path(File.join(File.dirname(__FILE__), "vendor", "coderay-0.7.4.215", "lib"))
   require 'coderay'
   mkdir_p 'doc/examples'
@@ -125,16 +139,16 @@ Rake::GemPackageTask.new(specification) do |package|
    package.need_tar = true
 end
 
-task :verify_user do
+task 'verify_user' do
   raise "RUBYFORGE_USER environment variable not set!" unless ENV['RUBYFORGE_USER']
 end
 
-task :verify_password do
+task 'verify_password' do
   raise "RUBYFORGE_PASSWORD environment variable not set!" unless ENV['RUBYFORGE_PASSWORD']
 end
 
 desc "Publish package files on RubyForge."
-task :publish_packages => [:verify_user, :verify_password, :package] do
+task 'publish_packages' => ['verify_user', 'verify_password', 'package'] do
   $:.unshift File.expand_path(File.join(File.dirname(__FILE__), "vendor", "meta_project-0.4.15", "lib"))
   require 'meta_project'
   require 'rake/contrib/xforge'
