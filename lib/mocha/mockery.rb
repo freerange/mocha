@@ -40,23 +40,27 @@ module Mocha
     end
     
     def verify(assertion_counter = nil)
-      @mocks.each { |mock| mock.verify(assertion_counter) }
+      mocks.each { |mock| mock.verify(assertion_counter) }
     end
     
     def teardown
       @stubba.unstub_all
+      @mocks = nil
       reset
     end
     
     private
     
+    def mocks
+      @mocks ||= []
+    end
+    
     def add_mock(mock)
-      @mocks << mock
+      mocks << mock
       mock
     end
     
     def reset
-      @mocks = []
       @stubba = Central.new
     end
     
