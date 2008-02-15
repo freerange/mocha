@@ -423,21 +423,29 @@ module Mocha # :nodoc:
       if @cardinality.needs_verifying?
         assertion_counter.increment if assertion_counter 
         unless @cardinality.verified?(@invocation_count) then
-          raise ExpectationError.new(error_message(@cardinality, @invocation_count), backtrace)
+          raise ExpectationError.new(mocha_inspect, backtrace)
         end
       end
     end
     
-    def method_signature
-      signature = "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}#{@parameters_matcher.mocha_inspect}"
-      signature << "; #{@ordering_constraints.map { |oc| oc.mocha_inspect }.join("; ")}" unless @ordering_constraints.empty?
-      signature
+    def mocha_inspect
+      message = "#{@cardinality.mocha_inspect}, "
+      if @invocation_count > 0
+        message << "already invoked #{@invocation_count} time"
+        message << "s" if @invocation_count > 1
+      else
+        message << "never invoked"
+      end
+      message << ": "
+      message << method_signature
+      message << "; #{@ordering_constraints.map { |oc| oc.mocha_inspect }.join("; ")}" unless @ordering_constraints.empty?
+      message
     end
     
-    def error_message(cardinality, invocation_count)
-      "#{method_signature} - #{cardinality.mocha_inspect}, actual calls: #{invocation_count}"
+    def method_signature
+      "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}#{@parameters_matcher.mocha_inspect}"
     end
-  
+      
     # :startdoc:
     
   end

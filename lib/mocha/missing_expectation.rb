@@ -6,10 +6,10 @@ module Mocha # :nodoc:
   class MissingExpectation < Expectation # :nodoc:
 
     def verify
-      message = error_message(Cardinality.exactly(0), 1)
+      message = "unexpected invocation: #{method_signature}"
       similar_expectations = @mock.expectations.similar(@method_matcher.expected_method_name)
-      method_signatures = similar_expectations.map { |expectation| expectation.method_signature }
-      message << "\nSimilar expectations:\n#{method_signatures.join("\n")}" unless method_signatures.empty?
+      expectation_descriptions = similar_expectations.map { |expectation| expectation.mocha_inspect }
+      message << "\nSimilar expectations:\n#{expectation_descriptions.join("\n")}" unless expectation_descriptions.empty?
       raise ExpectationError.new(message, backtrace)
     end
 

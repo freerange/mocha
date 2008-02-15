@@ -142,10 +142,10 @@ class MockTest < Test::Unit::TestCase
   end
   
   def test_should_report_possible_expectations
-    mock = Mock.new
+    mock = Mock.new('mock')
     mock.expects(:expected_method).with(1)
     exception = assert_raise(ExpectationError) { mock.expected_method(2) }
-    assert_equal "#{mock.mocha_inspect}.expected_method(2) - expected never, actual calls: 1\nSimilar expectations:\n#{mock.mocha_inspect}.expected_method(1)", exception.message
+    assert_equal "unexpected invocation: 'mock'.expected_method(2)\nSimilar expectations:\nexpected exactly once, never invoked: 'mock'.expected_method(1)", exception.message
   end
   
   def test_should_increment_assertion_counter_for_every_verified_expectation
