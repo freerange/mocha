@@ -71,7 +71,7 @@ module Mocha
       end
     end
     
-    private
+    protected
     
     attr_reader :required, :maximum
     
