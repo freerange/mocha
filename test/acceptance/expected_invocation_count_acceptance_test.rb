@@ -22,8 +22,7 @@ class ExpectedInvocationCountAcceptanceTest < Test::Unit::TestCase
       1.times { mock.method }
     end
     assert_failed(test_result)
-    failure_messages = test_result.failures.map { |failure| failure.message }
-    assert_equal ["not all expectations were satisfied\nunsatisfied expectations:\n  expected never, already invoked 1 time: #<Mock:mock>.method(any_parameters)\n"], failure_messages
+    assert_equal ["not all expectations were satisfied\nunsatisfied expectations:\n  expected never, already invoked 1 time: #<Mock:mock>.method(any_parameters)\n"], test_result.failure_messages
   end
   
   def test_should_pass_if_method_is_expected_twice_and_is_called_twice
@@ -42,8 +41,7 @@ class ExpectedInvocationCountAcceptanceTest < Test::Unit::TestCase
       1.times { mock.method }
     end
     assert_failed(test_result)
-    failure_messages = test_result.failures.map { |failure| failure.message }
-    assert_equal ["not all expectations were satisfied\nunsatisfied expectations:\n  expected exactly 2 times, already invoked 1 time: #<Mock:mock>.method(any_parameters)\n"], failure_messages
+    assert_equal ["not all expectations were satisfied\nunsatisfied expectations:\n  expected exactly 2 times, already invoked 1 time: #<Mock:mock>.method(any_parameters)\n"], test_result.failure_messages
   end
   
   def test_should_fail_if_method_is_expected_twice_but_is_called_three_times
@@ -53,8 +51,7 @@ class ExpectedInvocationCountAcceptanceTest < Test::Unit::TestCase
       3.times { mock.method }
     end
     assert_failed(test_result)
-    failure_messages = test_result.failures.map { |failure| failure.message }
-    assert_equal ["not all expectations were satisfied\nunsatisfied expectations:\n  expected exactly 2 times, already invoked 3 times: #<Mock:mock>.method(any_parameters)\n"], failure_messages
+    assert_equal ["not all expectations were satisfied\nunsatisfied expectations:\n  expected exactly 2 times, already invoked 3 times: #<Mock:mock>.method(any_parameters)\n"], test_result.failure_messages
   end
   
   def test_should_pass_if_method_is_expected_between_two_and_four_times_and_is_called_twice
@@ -91,8 +88,7 @@ class ExpectedInvocationCountAcceptanceTest < Test::Unit::TestCase
       1.times { mock.method }
     end
     assert_failed(test_result)
-    failure_messages = test_result.failures.map { |failure| failure.message }
-    assert_equal ["not all expectations were satisfied\nunsatisfied expectations:\n  expected between 2 and 4 times, already invoked 1 time: #<Mock:mock>.method(any_parameters)\n"], failure_messages
+    assert_equal ["not all expectations were satisfied\nunsatisfied expectations:\n  expected between 2 and 4 times, already invoked 1 time: #<Mock:mock>.method(any_parameters)\n"], test_result.failure_messages
   end
 
   def test_should_fail_if_method_is_expected_between_two_and_four_times_and_is_called_five_times
@@ -102,8 +98,7 @@ class ExpectedInvocationCountAcceptanceTest < Test::Unit::TestCase
       5.times { mock.method }
     end
     assert_failed(test_result)
-    failure_messages = test_result.failures.map { |failure| failure.message }
-    assert_equal ["not all expectations were satisfied\nunsatisfied expectations:\n  expected between 2 and 4 times, already invoked 5 times: #<Mock:mock>.method(any_parameters)\n"], failure_messages
+    assert_equal ["not all expectations were satisfied\nunsatisfied expectations:\n  expected between 2 and 4 times, already invoked 5 times: #<Mock:mock>.method(any_parameters)\n"], test_result.failure_messages
   end
   
   def test_should_pass_if_method_is_expected_at_least_once_and_is_called_once
@@ -131,8 +126,7 @@ class ExpectedInvocationCountAcceptanceTest < Test::Unit::TestCase
       0.times { mock.method }
     end
     assert_failed(test_result)
-    failure_messages = test_result.failures.map { |failure| failure.message }
-    assert_equal ["not all expectations were satisfied\nunsatisfied expectations:\n  expected at least once, never invoked: #<Mock:mock>.method(any_parameters)\n"], failure_messages
+    assert_equal ["not all expectations were satisfied\nunsatisfied expectations:\n  expected at least once, never invoked: #<Mock:mock>.method(any_parameters)\n"], test_result.failure_messages
   end
   
   def test_should_pass_if_method_is_expected_at_most_once_and_is_never_called
@@ -160,8 +154,7 @@ class ExpectedInvocationCountAcceptanceTest < Test::Unit::TestCase
       2.times { mock.method }
     end
     assert_failed(test_result)
-    failure_messages = test_result.failures.map { |failure| failure.message }
-    assert_equal ["not all expectations were satisfied\nunsatisfied expectations:\n  expected at most once, already invoked 2 times: #<Mock:mock>.method(any_parameters)\n"], failure_messages
+    assert_equal ["not all expectations were satisfied\nunsatisfied expectations:\n  expected at most once, already invoked 2 times: #<Mock:mock>.method(any_parameters)\n"], test_result.failure_messages
   end
   
   def test_should_pass_if_method_is_never_expected_and_is_never_called_even_if_everything_is_stubbed
@@ -180,8 +173,7 @@ class ExpectedInvocationCountAcceptanceTest < Test::Unit::TestCase
       1.times { stub.method }
     end
     assert_failed(test_result)
-    failure_messages = test_result.failures.map { |failure| failure.message }
-    assert_equal ["not all expectations were satisfied\nunsatisfied expectations:\n  expected never, already invoked 1 time: #<Mock:stub>.method(any_parameters)\n"], failure_messages
+    assert_equal ["not all expectations were satisfied\nunsatisfied expectations:\n  expected never, already invoked 1 time: #<Mock:stub>.method(any_parameters)\n"], test_result.failure_messages
   end
   
   def test_should_fail_if_there_is_no_matching_expectation
@@ -191,8 +183,7 @@ class ExpectedInvocationCountAcceptanceTest < Test::Unit::TestCase
       1.times { mock.method }
     end
     assert_failed(test_result)
-    failure_messages = test_result.failures.map { |failure| failure.message }
-    assert_equal ["unexpected invocation: #<Mock:mock>.method()\nunsatisfied expectations:\n  expected exactly once, never invoked: #<Mock:mock>.method(1)\n"], failure_messages
+    assert_equal ["unexpected invocation: #<Mock:mock>.method()\nunsatisfied expectations:\n  expected exactly once, never invoked: #<Mock:mock>.method(1)\n"], test_result.failure_messages
   end
   
 end
