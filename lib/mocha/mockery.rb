@@ -48,14 +48,11 @@ module Mocha
         expectations = mocks.map { |mock| mock.expectations.to_a }.flatten
         unsatisfied = expectations.reject { |e| e.verified? }
         satisfied = expectations.select { |e| e.verified? }
-        message = ""
-        message << "unsatisfied expectations:\n  #{unsatisfied.map { |e| e.mocha_inspect }.join("\n  ")}\n" unless unsatisfied.empty?
-        message << "satisfied expectations:\n  #{satisfied.map { |e| e.mocha_inspect }.join("\n  ")}\n" unless satisfied.empty?
-        message << "states:\n  #{state_machines.map { |sm| sm.mocha_inspect }.join("\n  ")}" unless state_machines.empty?
-        if unsatisfied.empty?
+        message = "not all expectations were satisfied\n#{mocha_inspect}"
+        if unsatisfied_expectations.empty?
           backtrace = caller
         else
-          backtrace = unsatisfied[0].backtrace
+          backtrace = unsatisfied_expectations[0].backtrace
         end
         raise ExpectationError.new(message, backtrace)
       end
@@ -78,7 +75,27 @@ module Mocha
       @state_machines ||= []
     end
     
+    def mocha_inspect
+      message = ""
+      message << "unsatisfied expectations:\n  #{unsatisfied_expectations.map { |e| e.mocha_inspect }.join("\n  ")}\n" unless unsatisfied_expectations.empty?
+      message << "satisfied expectations:\n  #{satisfied_expectations.map { |e| e.mocha_inspect }.join("\n  ")}\n" unless satisfied_expectations.empty?
+      message << "states:\n  #{state_machines.map { |sm| sm.mocha_inspect }.join("\n  ")}" unless state_machines.empty?
+      message
+    end
+    
     private
+    
+    def expectations
+      mocks.map { |mock| mock.expectations.to_a }.flatten
+    end
+    
+    def unsatisfied_expectations
+      expectations.reject { |e| e.verified? }
+    end
+    
+    def satisfied_expectations
+      expectations.select { |e| e.verified? }
+    end
     
     def add_mock(mock)
       mocks << mock

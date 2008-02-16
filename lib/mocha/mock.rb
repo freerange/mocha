@@ -1,8 +1,10 @@
 require 'mocha/expectation'
 require 'mocha/expectation_list'
-require 'mocha/missing_expectation'
 require 'mocha/metaclass'
 require 'mocha/names'
+require 'mocha/mockery'
+require 'mocha/method_matcher'
+require 'mocha/parameters_matcher'
 
 module Mocha # :nodoc:
   
@@ -172,15 +174,20 @@ module Mocha # :nodoc:
         @expectations.matches_method?(symbol)
       end
     end
-  
+    
     def unexpected_method_called(symbol, *arguments)
-      MissingExpectation.new(self, symbol).with(*arguments).verify
+      method_matcher = MethodMatcher.new(symbol)
+      parameters_matcher = ParametersMatcher.new(arguments)
+      method_signature = "#{mocha_inspect}.#{method_matcher.mocha_inspect}#{parameters_matcher.mocha_inspect}"
+      message = "unexpected invocation: #{method_signature}\n"
+      message << Mockery.instance.mocha_inspect
+      raise ExpectationError.new(message, caller)
     end
-  
+    
     def verified?(assertion_counter = nil)
       @expectations.verified?(assertion_counter)
     end
-  
+    
     def mocha_inspect
       @name.mocha_inspect
     end
