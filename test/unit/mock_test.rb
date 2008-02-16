@@ -131,14 +131,12 @@ class MockTest < Test::Unit::TestCase
     assert_equal [:argument1, :argument2], mock.arguments
   end
   
-  def test_should_verify_that_all_expectations_have_been_fulfilled
+  def test_should_not_verify_successfully_because_not_all_expectations_have_been_satisfied
     mock = Mock.new
     mock.expects(:method1)
     mock.expects(:method2)
     mock.method1
-    assert_raise(ExpectationError) do
-      mock.verify
-    end
+    assert !mock.verified?
   end
   
   def test_should_increment_assertion_counter_for_every_verified_expectation
