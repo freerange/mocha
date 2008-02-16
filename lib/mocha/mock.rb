@@ -177,8 +177,8 @@ module Mocha # :nodoc:
       MissingExpectation.new(self, symbol).with(*arguments).verify
     end
   
-    def verify(assertion_counter = nil)
-      @expectations.verify(assertion_counter)
+    def verified?(assertion_counter = nil)
+      @expectations.verified?(assertion_counter)
     end
   
     def mocha_inspect

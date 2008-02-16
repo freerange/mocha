@@ -25,8 +25,8 @@ module Mocha # :nodoc:
       expectation || expectations.first
     end
 
-    def verify(assertion_counter = nil)
-      @expectations.each { |expectation| expectation.verify(assertion_counter) }
+    def verified?(assertion_counter = nil)
+      @expectations.all? { |expectation| expectation.verified?(assertion_counter) }
     end
 
     def to_a
@@ -40,7 +40,7 @@ module Mocha # :nodoc:
     def length
       @expectations.length
     end
-
+    
   end
 
 end

@@ -54,7 +54,7 @@ class MockTest < Test::Unit::TestCase
     mock = Mock.new
     OBJECT_METHODS.each { |method| mock.__expects__(method.to_sym).returns(method) }
     OBJECT_METHODS.each { |method| assert_equal method, mock.__send__(method.to_sym) }
-    assert_nothing_raised(ExpectationError) { mock.verify }
+    assert mock.verified?
   end
   
   def test_should_be_able_to_stub_standard_object_methods
@@ -141,13 +141,6 @@ class MockTest < Test::Unit::TestCase
     end
   end
   
-  def test_should_report_possible_expectations
-    mock = Mock.new('mock')
-    mock.expects(:expected_method).with(1)
-    exception = assert_raise(ExpectationError) { mock.expected_method(2) }
-    assert_equal "unexpected invocation: 'mock'.expected_method(2)\nSimilar expectations:\nexpected exactly once, never invoked: 'mock'.expected_method(1)", exception.message
-  end
-  
   def test_should_increment_assertion_counter_for_every_verified_expectation
     mock = Mock.new
     
@@ -159,7 +152,7 @@ class MockTest < Test::Unit::TestCase
     
     assertion_counter = SimpleCounter.new
     
-    mock.verify(assertion_counter)
+    mock.verified?(assertion_counter)
     
     assert_equal 2, assertion_counter.count
   end

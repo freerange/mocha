@@ -249,120 +249,79 @@ class ExpectationTest < Test::Unit::TestCase
     assert_equal 2, expectation.invoke
   end
   
-  def test_should_not_raise_error_on_verify_if_expected_call_was_made
+  def test_should_verify_successfully_if_expected_call_was_made
     expectation = new_expectation
     expectation.invoke
-    assert_nothing_raised(ExpectationError) {
-      expectation.verify
-    }
+    assert expectation.verified?
   end
   
-  def test_should_raise_error_on_verify_if_call_expected_once_but_invoked_twice
+  def test_should_not_verify_successfully_if_call_expected_once_but_invoked_twice
     expectation = new_expectation.once
     expectation.invoke
     expectation.invoke
-    assert_raises(ExpectationError) {
-      expectation.verify
-    }
+    assert !expectation.verified?
   end
 
-  def test_should_raise_error_on_verify_if_call_expected_once_but_not_invoked
+  def test_should_not_verify_successfully_if_call_expected_once_but_not_invoked
     expectation = new_expectation.once
-    assert_raises(ExpectationError) {
-      expectation.verify
-    }
+    assert !expectation.verified?
   end
 
-  def test_should_not_raise_error_on_verify_if_call_expected_once_and_invoked_once
+  def test_should_verify_successfully_if_call_expected_once_and_invoked_once
     expectation = new_expectation.once
     expectation.invoke
-    assert_nothing_raised(ExpectationError) {
-      expectation.verify
-    }
+    assert expectation.verified?
   end
 
-  def test_should_not_raise_error_on_verify_if_expected_call_was_made_at_least_once
+  def test_should_verify_successfully_if_expected_call_was_made_at_least_once
     expectation = new_expectation.at_least_once
     3.times {expectation.invoke}
-    assert_nothing_raised(ExpectationError) {
-      expectation.verify
-    }
+    assert expectation.verified?
   end
   
-  def test_should_raise_error_on_verify_if_expected_call_was_not_made_at_least_once
+  def test_should_not_verify_successfully_if_expected_call_was_not_made_at_least_once
     expectation = new_expectation.with(1, 2, 3).at_least_once
-    e = assert_raise(ExpectationError) {
-      expectation.verify
-    }
-    assert_match(/expected at least once, never invoked/i, e.message)
+    assert !expectation.verified?
+    assert_match(/expected at least once, never invoked/i, expectation.mocha_inspect)
   end
   
-  def test_should_not_raise_error_on_verify_if_expected_call_was_made_expected_number_of_times
+  def test_should_verify_successfully_if_expected_call_was_made_expected_number_of_times
     expectation = new_expectation.times(2)
     2.times {expectation.invoke}
-    assert_nothing_raised(ExpectationError) {
-      expectation.verify
-    }
+    assert expectation.verified?
   end
   
-  def test_should_raise_error_on_verify_if_expected_call_was_made_too_few_times
+  def test_should_not_verify_successfully_if_expected_call_was_made_too_few_times
     expectation = new_expectation.times(2)
     1.times {expectation.invoke}
-    e = assert_raise(ExpectationError) {
-      expectation.verify
-    }
-    assert_match(/expected exactly 2 times, already invoked 1 time/i, e.message)
+    assert !expectation.verified?
+    assert_match(/expected exactly 2 times, already invoked 1 time/i, expectation.mocha_inspect)
   end
   
-  def test_should_raise_error_on_verify_if_expected_call_was_made_too_many_times
+  def test_should_not_verify_successfully_if_expected_call_was_made_too_many_times
     expectation = new_expectation.times(2)
     3.times {expectation.invoke}
-    assert_raise(ExpectationError) {
-      expectation.verify
-    }
+    assert !expectation.verified?
   end
   
   def test_should_increment_assertion_counter_for_expectation_because_it_does_need_verifyng
     expectation = new_expectation
     expectation.invoke
     assertion_counter = SimpleCounter.new
-    expectation.verify(assertion_counter)
+    expectation.verified?(assertion_counter)
     assert_equal 1, assertion_counter.count
   end
   
   def test_should_not_increment_assertion_counter_for_stub_because_it_does_not_need_verifying
     stub = Expectation.new(nil, :expected_method).at_least(0)
     assertion_counter = SimpleCounter.new
-    stub.verify(assertion_counter)
+    stub.verified?(assertion_counter)
     assert_equal 0, assertion_counter.count
-  end
-  
-  def test_should_increment_assertion_counter_before_raising_exception
-    assertion_counter = SimpleCounter.new
-    assert_raise(ExpectationError) {
-      new_expectation.verify(assertion_counter)
-    }
-    assert_equal 1, assertion_counter.count
   end
   
   def test_should_store_backtrace_from_point_where_expectation_was_created
     execution_point = ExecutionPoint.current; expectation = Expectation.new(nil, :expected_method)
     assert_equal execution_point, ExecutionPoint.new(expectation.backtrace)
-  end
-  
-  def test_should_set_backtrace_on_assertion_failed_error_to_point_where_expectation_was_created
-    execution_point = ExecutionPoint.current; expectation = Expectation.new(nil, :expected_method)
-    error = assert_raise(ExpectationError) {  
-      expectation.verify
-    }
-    assert_equal execution_point, ExecutionPoint.new(error.backtrace)
-  end
-  
-  def test_should_display_expectation_in_exception_message
-    options = [:a, :b, {:c => 1, :d => 2}]
-    expectation = new_expectation.with(*options)
-    exception = assert_raise(ExpectationError) { expectation.verify }
-    assert exception.message.include?(expectation.method_signature)
   end
   
   class FakeMock
@@ -382,8 +341,8 @@ class ExpectationTest < Test::Unit::TestCase
     sequence_one = Sequence.new('one')
     sequence_two = Sequence.new('two')
     expectation = Expectation.new(mock, :expected_method).with(1, 2, {'a' => true}, {:b => false}, [1, 2, 3]).in_sequence(sequence_one, sequence_two)
-    e = assert_raise(ExpectationError) { expectation.verify }
-    assert_match "mock.expected_method(1, 2, {'a' => true}, {:b => false}, [1, 2, 3]); in sequence 'one'; in sequence 'two'", e.message
+    assert !expectation.verified?
+    assert_match "mock.expected_method(1, 2, {'a' => true}, {:b => false}, [1, 2, 3]); in sequence 'one'; in sequence 'two'", expectation.mocha_inspect
   end
   
   class FakeConstraint

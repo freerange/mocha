@@ -47,16 +47,6 @@ class StubbaTestResultAcceptanceTest < Test::Unit::TestCase
     assert_equal 1, test_result.failure_count
   end
   
-  def test_should_display_backtrace_indicating_line_number_where_expects_was_called
-    execution_point = nil
-    test_result = run_test do
-      object = Class.new { def message; end }.new
-      execution_point = ExecutionPoint.current; object.expects(:message)
-    end
-    assert_equal 1, test_result.failure_count
-    assert_equal execution_point, ExecutionPoint.new(test_result.failures[0].location)
-  end
-  
   def test_should_display_backtrace_indicating_line_number_where_failing_assertion_was_called
     execution_point = nil
     test_result = run_test do

@@ -4,17 +4,17 @@ require 'mocha'
 class MochaExampleTest < Test::Unit::TestCase
   
   class Rover
-
+    
     def initialize(left_track, right_track, steps_per_metre, steps_per_degree)
       @left_track, @right_track, @steps_per_metre, @steps_per_degree = left_track, right_track, steps_per_metre, steps_per_degree
     end
-
+    
     def forward(metres)
       @left_track.step(metres * @steps_per_metre)
       @right_track.step(metres * @steps_per_metre)
       wait
     end
-
+    
     def backward(metres)
       forward(-metres)
     end
@@ -32,7 +32,7 @@ class MochaExampleTest < Test::Unit::TestCase
     def wait
       while (@left_track.moving? or @right_track.moving?); end
     end
-
+    
   end
   
   def test_should_step_both_tracks_forward_ten_steps

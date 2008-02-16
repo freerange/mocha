@@ -419,13 +419,9 @@ module Mocha # :nodoc:
       @return_values.next
     end
 
-    def verify(assertion_counter = nil)
-      if @cardinality.needs_verifying?
-        assertion_counter.increment if assertion_counter 
-        unless @cardinality.verified?(@invocation_count) then
-          raise ExpectationError.new(mocha_inspect, backtrace)
-        end
-      end
+    def verified?(assertion_counter = nil)
+      assertion_counter.increment if assertion_counter && @cardinality.needs_verifying?
+      @cardinality.verified?(@invocation_count)
     end
     
     def mocha_inspect

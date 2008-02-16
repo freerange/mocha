@@ -43,7 +43,7 @@ class AnyInstanceMethodTest < Test::Unit::TestCase
     result = instance.method_x(:param1, :param2)
         
     assert_equal :result, result
-    mocha.verify
+    assert mocha.verified?
   end
 
   def test_should_restore_original_method
