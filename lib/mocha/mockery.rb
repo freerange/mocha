@@ -39,10 +39,6 @@ module Mocha
       add_state_machine(StateMachine.new(name))
     end
     
-    def new_state_machine(name)
-      add_state_machine(StateMachine.new(name))
-    end
-    
     def verify(assertion_counter = nil)
       unless mocks.all? { |mock| mock.verified?(assertion_counter) }
         expectations = mocks.map { |mock| mock.expectations.to_a }.flatten
