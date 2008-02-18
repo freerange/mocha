@@ -23,9 +23,9 @@ class StateMachineTest < Test::Unit::TestCase
     
     assert state_machine.is(state).active?
     assert !state_machine.is_not(state).active?
-    other_states.each do |state|
-      assert !state_machine.is(state).active?
-      assert state_machine.is_not(state).active?
+    other_states.each do |s|
+      assert !state_machine.is(s).active?
+      assert state_machine.is_not(s).active?
     end
   end
   
@@ -39,9 +39,9 @@ class StateMachineTest < Test::Unit::TestCase
     
     assert state_machine.is(state).active?
     assert !state_machine.is_not(state).active?
-    other_states.each do |state|
-      assert !state_machine.is(state).active?
-      assert state_machine.is_not(state).active?
+    other_states.each do |s|
+      assert !state_machine.is(s).active?
+      assert state_machine.is_not(s).active?
     end
   end
   
