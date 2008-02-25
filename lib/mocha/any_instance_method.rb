@@ -15,7 +15,7 @@ module Mocha
     end
    
     def hide_original_method
-      stubbee.class_eval("alias_method :#{hidden_method}, :#{method}", __FILE__, __LINE__) if stubbee.public_method_defined?(method) || stubbee.protected_method_defined?(method) || stubbee.private_method_defined?(method)
+      stubbee.class_eval("alias_method :#{hidden_method}, :#{method}", __FILE__, __LINE__) if stubbee.method_defined?(method)
     end
 
     def define_new_method
@@ -27,7 +27,7 @@ module Mocha
     end
 
     def restore_original_method
-      stubbee.class_eval("alias_method :#{method}, :#{hidden_method}; remove_method :#{hidden_method}", __FILE__, __LINE__) if stubbee.public_method_defined?(hidden_method) || stubbee.protected_method_defined?(hidden_method) || stubbee.private_method_defined?(hidden_method)
+      stubbee.class_eval("alias_method :#{method}, :#{hidden_method}; remove_method :#{hidden_method}", __FILE__, __LINE__) if stubbee.method_defined?(hidden_method)
     end
 
   end

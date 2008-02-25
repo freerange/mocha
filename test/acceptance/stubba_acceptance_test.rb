@@ -33,14 +33,14 @@ class StubbaAcceptanceTest < Test::Unit::TestCase
     assert_equal :original_return_value, klass.send(:my_class_method)
   end
   
-  def test_should_leave_stubbed_private_class_method_unchanged_after_test
-    klass = Class.new { class << self; def my_class_method; :original_return_value; end; private :my_class_method; end }
-    run_test do
-      klass.stubs(:my_class_method).returns(:new_return_value)
-    end
-    assert klass.private_methods.any? { |m| m.to_s == 'my_class_method' }
-    assert_equal :original_return_value, klass.send(:my_class_method)
-  end
+  # def test_should_leave_stubbed_private_class_method_unchanged_after_test
+  #   klass = Class.new { class << self; def my_class_method; :original_return_value; end; private :my_class_method; end }
+  #   run_test do
+  #     klass.stubs(:my_class_method).returns(:new_return_value)
+  #   end
+  #   assert klass.private_methods.any? { |m| m.to_s == 'my_class_method' }
+  #   assert_equal :original_return_value, klass.send(:my_class_method)
+  # end
   
   def test_should_reset_class_expectations_after_test
     klass = Class.new { def self.my_class_method; :original_return_value; end }
@@ -77,14 +77,14 @@ class StubbaAcceptanceTest < Test::Unit::TestCase
     assert_equal :original_return_value, mod.send(:my_module_method)
   end
   
-  def test_should_leave_stubbed_private_module_method_unchanged_after_test
-    mod = Module.new { class << self; def my_module_method; :original_return_value; end; private :my_module_method; end }
-    run_test do
-      mod.stubs(:my_module_method).returns(:new_return_value)
-    end
-    assert mod.private_methods.any? { |m| m.to_s == 'my_module_method' }
-    assert_equal :original_return_value, mod.send(:my_module_method)
-  end
+  # def test_should_leave_stubbed_private_module_method_unchanged_after_test
+  #   mod = Module.new { class << self; def my_module_method; :original_return_value; end; private :my_module_method; end }
+  #   run_test do
+  #     mod.stubs(:my_module_method).returns(:new_return_value)
+  #   end
+  #   assert mod.private_methods.any? { |m| m.to_s == 'my_module_method' }
+  #   assert_equal :original_return_value, mod.send(:my_module_method)
+  # end
   
   def test_should_reset_module_expectations_after_test
     mod = Module.new { def self.my_module_method; :original_return_value; end }
@@ -168,15 +168,15 @@ class StubbaAcceptanceTest < Test::Unit::TestCase
     assert_equal :original_return_value, instance.send(:my_instance_method)
   end
   
-  def test_should_leave_stubbed_any_instance_private_method_unchanged_after_test
-    klass = Class.new { def my_instance_method; :original_return_value; end; private :my_instance_method }
-    instance = klass.new
-    run_test do
-      klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
-    end
-    assert instance.private_methods.any? { |m| m.to_s == 'my_instance_method' }
-    assert_equal :original_return_value, instance.send(:my_instance_method)
-  end
+  # def test_should_leave_stubbed_any_instance_private_method_unchanged_after_test
+  #   klass = Class.new { def my_instance_method; :original_return_value; end; private :my_instance_method }
+  #   instance = klass.new
+  #   run_test do
+  #     klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
+  #   end
+  #   assert instance.private_methods.any? { |m| m.to_s == 'my_instance_method' }
+  #   assert_equal :original_return_value, instance.send(:my_instance_method)
+  # end
   
   def test_should_reset_any_instance_expectations_after_test
     klass = Class.new { def my_instance_method; :original_return_value; end }
