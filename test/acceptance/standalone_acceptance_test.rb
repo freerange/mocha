@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), "..", "test_helper")
+require File.join(File.dirname(__FILE__), "acceptance_test_helper")
 require 'mocha_standalone'
 require 'simple_counter'
 
@@ -91,8 +91,15 @@ class StandaloneAcceptanceTest < Test::Unit::TestCase
   
   attr_reader :sample_test
 
+  include AcceptanceTest
+  
   def setup
     @sample_test = SampleTest.new
+    setup_acceptance_test
+  end
+  
+  def teardown
+    teardown_acceptance_test
   end
   
   def test_should_pass_mocha_test

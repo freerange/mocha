@@ -1,10 +1,17 @@
-require File.join(File.dirname(__FILE__), "..", "test_helper")
+require File.join(File.dirname(__FILE__), "acceptance_test_helper")
 require 'mocha'
-require 'test_runner'
 
 class OptionalParameterMatcherAcceptanceTest < Test::Unit::TestCase
   
-  include TestRunner
+  include AcceptanceTest
+  
+  def setup
+    setup_acceptance_test
+  end
+  
+  def teardown
+    teardown_acceptance_test
+  end
   
   def test_should_pass_if_all_required_parameters_match_and_no_optional_parameters_are_supplied
     test_result = run_test do

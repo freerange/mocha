@@ -1,12 +1,19 @@
-require File.join(File.dirname(__FILE__), "..", "test_helper")
+require File.join(File.dirname(__FILE__), "acceptance_test_helper")
 require 'mocha'
-require 'test_runner'
 
 class FailureMessagesAcceptanceTest < Test::Unit::TestCase
   
   OBJECT_ADDRESS_PATTERN = '0x[0-9A-Fa-f]{1,12}'
   
-  include TestRunner
+  include AcceptanceTest
+  
+  def setup
+    setup_acceptance_test
+  end
+  
+  def teardown
+    teardown_acceptance_test
+  end
   
   class Foo; end
   

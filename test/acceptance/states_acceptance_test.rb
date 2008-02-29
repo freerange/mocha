@@ -1,11 +1,18 @@
-require File.join(File.dirname(__FILE__), "..", "test_helper")
+require File.join(File.dirname(__FILE__), "acceptance_test_helper")
 require 'mocha'
-require 'test_runner'
 
 class StatesAcceptanceTest < Test::Unit::TestCase
   
-  include TestRunner
-
+  include AcceptanceTest
+  
+  def setup
+    setup_acceptance_test
+  end
+  
+  def teardown
+    teardown_acceptance_test
+  end
+  
   def test_should_constrain_expectations_to_occur_within_a_given_state
     test_result = run_test do
       mock = mock()

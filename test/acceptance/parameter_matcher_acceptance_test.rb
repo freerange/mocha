@@ -1,11 +1,18 @@
-require File.join(File.dirname(__FILE__), "..", "test_helper")
+require File.join(File.dirname(__FILE__), "acceptance_test_helper")
 require 'mocha'
-require 'test_runner'
 
 class ParameterMatcherAcceptanceTest < Test::Unit::TestCase
   
-  include TestRunner
-
+  include AcceptanceTest
+  
+  def setup
+    setup_acceptance_test
+  end
+  
+  def teardown
+    teardown_acceptance_test
+  end
+  
   def test_should_match_hash_parameter_with_specified_key
     test_result = run_test do
       mock = mock()

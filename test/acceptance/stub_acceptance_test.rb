@@ -1,11 +1,18 @@
-require File.join(File.dirname(__FILE__), "..", "test_helper")
+require File.join(File.dirname(__FILE__), "acceptance_test_helper")
 require 'mocha'
-require 'test_runner'
 
 class StubAcceptanceTest < Test::Unit::TestCase
   
-  include TestRunner
-
+  include AcceptanceTest
+  
+  def setup
+    setup_acceptance_test
+  end
+  
+  def teardown
+    teardown_acceptance_test
+  end
+  
   def test_should_build_stub_and_explicitly_add_an_expectation
     test_result = run_test do
       foo = stub()
