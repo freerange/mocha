@@ -70,40 +70,76 @@ class StubModuleMethodAcceptanceTest < Test::Unit::TestCase
     assert_equal :original_return_value, supermod.my_superclass_method
   end
   
-  # def test_should_be_able_to_stub_method_if_public_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
-  #   ruby18_mod = Module.new { class << self; def public_methods; ['my_module_method']; end; end }
-  #   ruby19_mod = Module.new { class << self; def public_methods; [:my_module_method]; end; end }
-  #   test_result = run_test do
-  #     ruby18_mod.stubs(:my_module_method).returns(:new_return_value)
-  #     ruby19_mod.stubs(:my_module_method).returns(:new_return_value)
-  #     assert_equal :new_return_value, ruby18_mod.my_module_method
-  #     assert_equal :new_return_value, ruby19_mod.my_module_method
-  #   end
-  #   assert_passed(test_result)
-  # end
-  # 
-  # def test_should_be_able_to_stub_method_if_protected_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
-  #   ruby18_mod = Module.new { class << self; def protected_methods; ['my_module_method']; end; end }
-  #   ruby19_mod = Module.new { class << self; def protected_methods; [:my_module_method]; end; end }
-  #   test_result = run_test do
-  #     ruby18_mod.stubs(:my_module_method).returns(:new_return_value)
-  #     ruby19_mod.stubs(:my_module_method).returns(:new_return_value)
-  #     assert_equal :new_return_value, ruby18_mod.my_module_method
-  #     assert_equal :new_return_value, ruby19_mod.my_module_method
-  #   end
-  #   assert_passed(test_result)
-  # end
-  # 
-  # def test_should_be_able_to_stub_method_if_private_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
-  #   ruby18_mod = Module.new { class << self; def private_methods; ['my_module_method']; end; end }
-  #   ruby19_mod = Module.new { class << self; def private_methods; [:my_module_method]; end; end }
-  #   test_result = run_test do
-  #     ruby18_mod.stubs(:my_module_method).returns(:new_return_value)
-  #     ruby19_mod.stubs(:my_module_method).returns(:new_return_value)
-  #     assert_equal :new_return_value, ruby18_mod.my_module_method
-  #     assert_equal :new_return_value, ruby19_mod.my_module_method
-  #   end
-  #   assert_passed(test_result)
-  # end
+  def test_should_be_able_to_stub_method_if_public_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
+    ruby18_mod = Module.new do
+      class << self
+        def public_methods(include_superclass = true)
+          ['my_module_method']
+        end
+      end
+    end
+    ruby19_mod = Module.new do
+      class << self
+        def public_methods(include_superclass = true)
+          [:my_module_method]
+        end
+      end
+    end
+    test_result = run_test do
+      ruby18_mod.stubs(:my_module_method).returns(:new_return_value)
+      ruby19_mod.stubs(:my_module_method).returns(:new_return_value)
+      assert_equal :new_return_value, ruby18_mod.my_module_method
+      assert_equal :new_return_value, ruby19_mod.my_module_method
+    end
+    assert_passed(test_result)
+  end
+  
+  def test_should_be_able_to_stub_method_if_protected_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
+    ruby18_mod = Module.new do
+      class << self
+        def protected_methods(include_superclass = true)
+          ['my_module_method']
+        end
+      end
+    end
+    ruby19_mod = Module.new do
+      class << self
+        def protected_methods(include_superclass = true)
+          [:my_module_method]
+        end
+      end
+    end
+    test_result = run_test do
+      ruby18_mod.stubs(:my_module_method).returns(:new_return_value)
+      ruby19_mod.stubs(:my_module_method).returns(:new_return_value)
+      assert_equal :new_return_value, ruby18_mod.my_module_method
+      assert_equal :new_return_value, ruby19_mod.my_module_method
+    end
+    assert_passed(test_result)
+  end
+  
+  def test_should_be_able_to_stub_method_if_private_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
+    ruby18_mod = Module.new do
+      class << self
+        def private_methods(include_superclass = true)
+          ['my_module_method']
+        end
+      end
+    end
+    ruby19_mod = Module.new do
+      class << self
+        def private_methods(include_superclass = true)
+          [:my_module_method]
+        end
+      end
+    end
+    test_result = run_test do
+      ruby18_mod.stubs(:my_module_method).returns(:new_return_value)
+      ruby19_mod.stubs(:my_module_method).returns(:new_return_value)
+      assert_equal :new_return_value, ruby18_mod.my_module_method
+      assert_equal :new_return_value, ruby19_mod.my_module_method
+    end
+    assert_passed(test_result)
+  end
   
 end
