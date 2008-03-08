@@ -4,7 +4,6 @@ require 'mocha/mockery'
 require 'mocha/mock'
 require 'method_definer'
 
-
 class ObjectTest < Test::Unit::TestCase
   
   include Mocha
@@ -47,8 +46,8 @@ class ObjectTest < Test::Unit::TestCase
     assert_equal Mocha::InstanceMethod, Object.new.stubba_method
   end
     
-  def test_should_use_stubba_class_method_for_module
-    assert_equal Mocha::ClassMethod, Module.new.stubba_method
+  def test_should_use_stubba_module_method_for_module
+    assert_equal Mocha::ModuleMethod, Module.new.stubba_method
   end
     
   def test_should_use_stubba_class_method_for_class

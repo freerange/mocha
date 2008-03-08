@@ -15,7 +15,13 @@ module Mocha
     end
    
     def hide_original_method
-      stubbee.class_eval("alias_method :#{hidden_method}, :#{method}", __FILE__, __LINE__) if stubbee.method_defined?(method)
+      if method_exists?(method)
+        begin
+          stubbee.class_eval("alias_method :#{hidden_method}, :#{method}", __FILE__, __LINE__)
+        rescue NameError
+          # deal with nasties like ActiveRecord::Associations::AssociationProxy
+        end
+      end
     end
 
     def define_new_method
@@ -27,9 +33,23 @@ module Mocha
     end
 
     def restore_original_method
-      stubbee.class_eval("alias_method :#{method}, :#{hidden_method}; remove_method :#{hidden_method}", __FILE__, __LINE__) if stubbee.method_defined?(hidden_method)
+      if method_exists?(hidden_method)
+        begin
+          stubbee.class_eval("alias_method :#{method}, :#{hidden_method}; remove_method :#{hidden_method}", __FILE__, __LINE__)
+        rescue NameError
+          # deal with nasties like ActiveRecord::Associations::AssociationProxy
+        end
+      end
     end
 
+    def method_exists?(method)
+      existing_methods = []
+      existing_methods += stubbee.public_instance_methods(false)
+      existing_methods += stubbee.protected_instance_methods(false)
+      existing_methods += stubbee.private_instance_methods(false)
+      existing_methods.any? { |m| m.to_s == method.to_s }
+    end
+    
   end
   
 end

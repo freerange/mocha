@@ -1,6 +1,7 @@
 require 'mocha/mockery'
 require 'mocha/instance_method'
 require 'mocha/class_method'
+require 'mocha/module_method'
 require 'mocha/any_instance_method'
 
 # Methods added all objects to allow mocking and stubbing on real objects.
@@ -63,7 +64,7 @@ end
 class Module # :nodoc:
   
   def stubba_method
-    Mocha::ClassMethod
+    Mocha::ModuleMethod
   end
     
 end

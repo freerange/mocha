@@ -1,8 +1,8 @@
-require 'mocha/class_method'
+require 'mocha/module_method'
 
 module Mocha
 
-  class InstanceMethod < ClassMethod
+  class ModuleMethod < ClassMethod
 
     def method_exists?(method)
       existing_methods = []

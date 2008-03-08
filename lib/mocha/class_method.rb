@@ -26,7 +26,13 @@ module Mocha
     end
   
     def hide_original_method
-      stubbee.__metaclass__.class_eval("alias_method :#{hidden_method}, :#{method}", __FILE__, __LINE__) if stubbee.__metaclass__.method_defined?(method)
+      if method_exists?(method)
+        begin
+          stubbee.__metaclass__.class_eval("alias_method :#{hidden_method}, :#{method}", __FILE__, __LINE__)
+        rescue NameError
+          # deal with nasties like ActiveRecord::Associations::AssociationProxy
+        end
+      end
     end
   
     def define_new_method
@@ -38,7 +44,13 @@ module Mocha
     end
   
     def restore_original_method
-      stubbee.__metaclass__.class_eval("alias_method :#{method}, :#{hidden_method}; remove_method :#{hidden_method}", __FILE__, __LINE__) if stubbee.__metaclass__.method_defined?(hidden_method)
+      if method_exists?(hidden_method)
+        begin
+          stubbee.__metaclass__.class_eval("alias_method :#{method}, :#{hidden_method}; remove_method :#{hidden_method}", __FILE__, __LINE__)
+        rescue NameError
+          # deal with nasties like ActiveRecord::Associations::AssociationProxy
+        end
+      end
     end
   
     def hidden_method
@@ -59,6 +71,14 @@ module Mocha
   
     def to_s
       "#{stubbee}.#{method}"
+    end
+    
+    def method_exists?(method)
+      existing_methods = []
+      existing_methods += stubbee.public_methods(true) - stubbee.superclass.public_methods(true)
+      existing_methods += stubbee.protected_methods(true) - stubbee.superclass.protected_methods(true)
+      existing_methods += stubbee.private_methods(true) - stubbee.superclass.private_methods(true)
+      existing_methods.any? { |m| m.to_s == method.to_s }
     end
 
   end
