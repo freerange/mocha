@@ -105,14 +105,14 @@ class StubAnyInstanceMethodAcceptanceTest < Test::Unit::TestCase
   def test_should_be_able_to_stub_method_if_public_instance_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby18_klass = Class.new do
       class << self
-        def public_instance_methods(include_superclass)
+        def public_instance_methods(include_superclass = true)
           ['my_instance_method']
         end
       end
     end
     ruby19_klass = Class.new do
       class << self
-        def public_instance_methods(include_superclass)
+        def public_instance_methods(include_superclass = true)
           [:my_instance_method]
         end
       end
@@ -129,14 +129,14 @@ class StubAnyInstanceMethodAcceptanceTest < Test::Unit::TestCase
   def test_should_be_able_to_stub_method_if_protected_instance_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby18_klass = Class.new do
       class << self
-        def protected_instance_methods(include_superclass)
+        def protected_instance_methods(include_superclass = true)
           ['my_instance_method']
         end
       end
     end
     ruby19_klass = Class.new do
       class << self
-        def protected_instance_methods(include_superclass)
+        def protected_instance_methods(include_superclass = true)
           [:my_instance_method]
         end
       end
@@ -153,14 +153,14 @@ class StubAnyInstanceMethodAcceptanceTest < Test::Unit::TestCase
   def test_should_be_able_to_stub_method_if_private_instance_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby18_klass = Class.new do
       class << self
-        def private_instance_methods(include_superclass)
+        def private_instance_methods(include_superclass = true)
           ['my_instance_method']
         end
       end
     end
     ruby19_klass = Class.new do
       class << self
-        def private_instance_methods(include_superclass)
+        def private_instance_methods(include_superclass = true)
           [:my_instance_method]
         end
       end

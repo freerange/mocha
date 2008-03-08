@@ -86,12 +86,12 @@ class StubInstanceMethodAcceptanceTest < Test::Unit::TestCase
   
   def test_should_be_able_to_stub_method_if_public_methods_include_method_but_method_does_not_exist_like_active_record_association_proxy
     ruby18_instance = Class.new do
-      def public_methods(include_superclass)
+      def public_methods(include_superclass = true)
         ['my_instance_method']
       end
     end.new
     ruby19_instance = Class.new do
-      def public_methods(include_superclass)
+      def public_methods(include_superclass = true)
         [:my_instance_method]
       end
     end.new
@@ -106,12 +106,12 @@ class StubInstanceMethodAcceptanceTest < Test::Unit::TestCase
   
   def test_should_be_able_to_stub_method_if_protected_methods_include_method_but_method_does_not_exist_like_active_record_association_proxy
     ruby18_instance = Class.new do
-      def protected_methods(include_superclass)
+      def protected_methods(include_superclass = true)
         ['my_instance_method']
       end
     end.new
     ruby19_instance = Class.new do
-      def protected_methods(include_superclass)
+      def protected_methods(include_superclass = true)
         [:my_instance_method]
       end
     end.new
@@ -126,12 +126,12 @@ class StubInstanceMethodAcceptanceTest < Test::Unit::TestCase
   
   def test_should_be_able_to_stub_method_if_private_methods_include_method_but_method_does_not_exist_like_active_record_association_proxy
     ruby18_instance = Class.new do
-      def private_methods(include_superclass)
+      def private_methods(include_superclass = true)
         ['my_instance_method']
       end
     end.new
     ruby19_instance = Class.new do
-      def private_methods(include_superclass)
+      def private_methods(include_superclass = true)
         [:my_instance_method]
       end
     end.new
