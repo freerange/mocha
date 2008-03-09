@@ -2,13 +2,15 @@ module Mocha # :nodoc:
   
   # Configuration settings
   class Configuration
-  
+    
+    DEFAULTS = { :stubbing_method_unnecessarily => :allow, :stubbing_method_on_non_mock_object => :allow }
+    
     class << self
     
       # :call-seq: allow(action)
       #
       # Allow the specified <tt>action</tt> (as a symbol).
-      # The only <tt>action</tt> currently available is <tt>:stubbing_method_unnecessarily</tt>.
+      # The <tt>actions</tt> currently available are <tt>:stubbing_method_unnecessarily, :stubbing_method_on_non_mock_object</tt>.
       def allow(action)
         configuration[action] = :allow
       end
@@ -20,7 +22,7 @@ module Mocha # :nodoc:
       # :call-seq: warn_when(action)
       #
       # Warn if the specified <tt>action</tt> (as a symbol) is attempted.
-      # The only <tt>action</tt> currently available is <tt>:stubbing_method_unnecessarily</tt>.
+      # The <tt>actions</tt> currently available are <tt>:stubbing_method_unnecessarily, :stubbing_method_on_non_mock_object</tt>.
       def warn_when(action)
         configuration[action] = :warn
       end
@@ -32,7 +34,7 @@ module Mocha # :nodoc:
       # :call-seq: prevent(action)
       #
       # Raise a StubbingError if the specified <tt>action</tt> (as a symbol) is attempted.
-      # The only <tt>action</tt> currently available is <tt>:stubbing_method_unnecessarily</tt>.
+      # The <tt>actions</tt> currently available are <tt>:stubbing_method_unnecessarily, :stubbing_method_on_non_mock_object</tt>.
       def prevent(action)
         configuration[action] = :prevent
       end
@@ -48,9 +50,7 @@ module Mocha # :nodoc:
       private
     
       def configuration # :nodoc:
-        @configuration ||= {
-          :stubbing_method_unnecessarily      => :allow
-        }
+        @configuration ||= DEFAULTS.dup
       end
     
     end

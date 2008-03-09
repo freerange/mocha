@@ -82,6 +82,15 @@ module Mocha
       message
     end
     
+    def on_stubbing(object, symbol)
+      on_stubbing_method_on_non_mock_object(object, symbol)
+    end
+    
+    def on_stubbing_method_on_non_mock_object(object, symbol)
+      raise StubbingError, "stubbing method on non-mock object: #{object.mocha_inspect}.#{symbol}" if Mocha::Configuration.prevent?(:stubbing_method_on_non_mock_object)
+      logger.warn "stubbing method on non-mock object: #{object.mocha_inspect}.#{symbol}" if Mocha::Configuration.warn_when?(:stubbing_method_on_non_mock_object)
+    end
+    
     def on_stubbing_method_unnecessarily(expectation)
       raise StubbingError, "stubbing method unnecessarily: #{expectation.method_signature}" if Mocha::Configuration.prevent?(:stubbing_method_unnecessarily)
       logger.warn "stubbing method unnecessarily: #{expectation.method_signature}" if Mocha::Configuration.warn_when?(:stubbing_method_unnecessarily)
@@ -92,6 +101,7 @@ module Mocha
     def logger
       @logger ||= Logger.new($stderr)
     end
+    
     
     private
     

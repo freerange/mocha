@@ -36,9 +36,11 @@ class Object
   # The original implementation of <tt>Product#save</tt> is replaced temporarily.
   #
   # The original implementation of <tt>Product#save</tt> is restored at the end of the test.
-  def expects(symbol) 
+  def expects(symbol)
+    mockery = Mocha::Mockery.instance
+    mockery.on_stubbing(self, symbol)
     method = stubba_method.new(stubba_object, symbol)
-    Mocha::Mockery.instance.stubba.stub(method)
+    mockery.stubba.stub(method)
     mocha.expects(symbol, caller)
   end
   
@@ -53,9 +55,11 @@ class Object
   # The original implementation of <tt>Product#save</tt> is replaced temporarily.
   #
   # The original implementation of <tt>Product#save</tt> is restored at the end of the test.
-  def stubs(symbol) 
+  def stubs(symbol)
+    mockery = Mocha::Mockery.instance
+    mockery.on_stubbing(self, symbol)
     method = stubba_method.new(stubba_object, symbol)
-    Mocha::Mockery.instance.stubba.stub(method)
+    mockery.stubba.stub(method)
     mocha.stubs(symbol, caller)
   end
   
