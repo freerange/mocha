@@ -424,6 +424,10 @@ module Mocha # :nodoc:
       @cardinality.verified?(@invocation_count)
     end
     
+    def used?
+      @cardinality.used?(@invocation_count)
+    end
+    
     def mocha_inspect
       message = "#{@cardinality.mocha_inspect}, "
       if @invocation_count > 0

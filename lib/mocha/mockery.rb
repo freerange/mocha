@@ -2,6 +2,9 @@ require 'mocha/central'
 require 'mocha/mock'
 require 'mocha/names'
 require 'mocha/state_machine'
+require 'mocha/logger'
+require 'mocha/configuration'
+require 'mocha/stubbing_error'
 
 module Mocha
   
@@ -49,6 +52,9 @@ module Mocha
         end
         raise ExpectationError.new(message, backtrace)
       end
+      expectations.each do |e|
+        on_stubbing_method_unnecessarily(e) unless e.used?
+      end
     end
     
     def teardown
@@ -74,6 +80,17 @@ module Mocha
       message << "satisfied expectations:\n  #{satisfied_expectations.map { |e| e.mocha_inspect }.join("\n  ")}\n" unless satisfied_expectations.empty?
       message << "states:\n  #{state_machines.map { |sm| sm.mocha_inspect }.join("\n  ")}" unless state_machines.empty?
       message
+    end
+    
+    def on_stubbing_method_unnecessarily(expectation)
+      raise StubbingError, "stubbing method unnecessarily: #{expectation.method_signature}" if Mocha::Configuration.prevent?(:stubbing_method_unnecessarily)
+      logger.warn "stubbing method unnecessarily: #{expectation.method_signature}" if Mocha::Configuration.warn_when?(:stubbing_method_unnecessarily)
+    end
+    
+    attr_writer :logger
+    
+    def logger
+      @logger ||= Logger.new($stderr)
     end
     
     private

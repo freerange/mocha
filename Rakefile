@@ -62,7 +62,9 @@ Rake::RDocTask.new('rdoc') do |task|
     'lib/mocha/object.rb',
     'lib/mocha/parameter_matchers.rb',
     'lib/mocha/parameter_matchers',
-    'lib/mocha/state_machine.rb'
+    'lib/mocha/state_machine.rb',
+    'lib/mocha/configuration.rb',
+    'lib/mocha/stubbing_error.rb'
   )
 end
 task 'rdoc' => 'examples'

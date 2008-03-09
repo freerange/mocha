@@ -14,6 +14,9 @@ module TestRunner
       def failure_messages
         failures.map { |failure| failure.message }
       end
+      def error_messages
+        errors.map { |error| error.message }
+      end
     end
     test_result
   end

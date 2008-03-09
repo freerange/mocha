@@ -53,6 +53,10 @@ module Mocha
       required == 0 && infinite?(maximum)
     end
     
+    def used?(invocation_count)
+      (invocation_count > 0) || (maximum == 0)
+    end
+    
     def mocha_inspect
       if allowed_any_number_of_times?
         "allowed any number of times"
