@@ -129,7 +129,7 @@ class ParameterMatcherAcceptanceTest < Test::Unit::TestCase
     end
     assert_passed(test_result)
   end
-
+  
   def test_should_not_match_hash_parameter_with_specified_entries_using_nested_matchers
     test_result = run_test do
       mock = mock()
@@ -139,4 +139,41 @@ class ParameterMatcherAcceptanceTest < Test::Unit::TestCase
     assert_failed(test_result)
   end
   
+  def test_should_match_parameter_that_matches_any_value
+    test_result = run_test do
+      mock = mock()
+      mock.expects(:method).with(any_of('value_1', 'value_2')).times(2)
+      mock.method('value_1')
+      mock.method('value_2')
+    end
+    assert_passed(test_result)
+  end
+  
+  def test_should_not_match_parameter_that_does_not_match_any_value
+    test_result = run_test do
+      mock = mock()
+      mock.expects(:method).with(any_of('value_1', 'value_2'))
+      mock.method('value_3')
+    end
+    assert_failed(test_result)
+  end
+
+  def test_should_match_parameter_that_matches_all_values
+    test_result = run_test do
+      mock = mock()
+      mock.expects(:method).with(all_of('value_1', 'value_1'))
+      mock.method('value_1')
+    end
+    assert_passed(test_result)
+  end
+  
+  def test_should_not_match_parameter_that_does_not_match_all_values
+    test_result = run_test do
+      mock = mock()
+      mock.expects(:method).with(all_of('value_1', 'value_2'))
+      mock.method('value_1')
+    end
+    assert_failed(test_result)
+  end
+
 end

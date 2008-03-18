@@ -17,6 +17,10 @@ module Stub
     def mocha_inspect
       "matcher(#{@matches})"
     end
+    
+    def to_matcher
+      self
+    end
 
   end
   
