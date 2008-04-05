@@ -83,7 +83,13 @@ module Mocha
     end
     
     def on_stubbing(object, symbol)
+      on_stubbing_non_existent_method(object, symbol) unless object.method_exists?(symbol)
       on_stubbing_method_on_non_mock_object(object, symbol)
+    end
+    
+    def on_stubbing_non_existent_method(object, symbol)
+      raise StubbingError, "stubbing non-existent method: #{object.mocha_inspect}.#{symbol}" if Mocha::Configuration.prevent?(:stubbing_non_existent_method)
+      logger.warn "stubbing non-existent method: #{object.mocha_inspect}.#{symbol}" if Mocha::Configuration.warn_when?(:stubbing_non_existent_method)
     end
     
     def on_stubbing_method_on_non_mock_object(object, symbol)

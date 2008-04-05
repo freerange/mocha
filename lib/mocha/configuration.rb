@@ -3,7 +3,7 @@ module Mocha # :nodoc:
   # Configuration settings
   class Configuration
     
-    DEFAULTS = { :stubbing_method_unnecessarily => :allow, :stubbing_method_on_non_mock_object => :allow }
+    DEFAULTS = { :stubbing_method_unnecessarily => :allow, :stubbing_method_on_non_mock_object => :allow, :stubbing_non_existent_method => :allow }
     
     class << self
     

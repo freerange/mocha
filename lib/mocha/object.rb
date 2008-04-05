@@ -63,6 +63,10 @@ class Object
     mocha.stubs(symbol, caller)
   end
   
+  def method_exists?(symbol)
+    respond_to?(symbol, include_private_methods = true)
+  end
+
 end
 
 class Module # :nodoc:
@@ -95,6 +99,10 @@ class Class
     
     def stubba_object
       @stubba_object
+    end
+    
+    def method_exists?(symbol)
+      (@stubba_object.public_instance_methods + @stubba_object.protected_instance_methods + @stubba_object.private_instance_methods).detect { |m| m.to_s == symbol.to_s }
     end
     
   end
