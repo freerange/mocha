@@ -63,10 +63,12 @@ class Object
     mocha.stubs(symbol, caller)
   end
   
-  def method_exists?(symbol)
-    respond_to?(symbol, include_private_methods = true)
+  def method_exists?(symbol, include_public_methods = true)
+    existing_methods = private_methods(include_superclass_methods = true) + protected_methods(include_superclass_methods = true)
+    existing_methods += public_methods(include_superclass_methods = true) if include_public_methods
+    existing_methods.any? { |m| m.to_s == symbol.to_s }
   end
-
+  
 end
 
 class Module # :nodoc:
@@ -101,8 +103,10 @@ class Class
       @stubba_object
     end
     
-    def method_exists?(symbol)
-      (@stubba_object.public_instance_methods + @stubba_object.protected_instance_methods + @stubba_object.private_instance_methods).detect { |m| m.to_s == symbol.to_s }
+    def method_exists?(symbol, include_public_methods = true)
+      existing_methods = @stubba_object.private_instance_methods(include_superclass_methods = true) + @stubba_object.protected_instance_methods(include_superclass_methods = true)
+      existing_methods += @stubba_object.public_instance_methods(include_superclass_methods = true) if include_public_methods
+      existing_methods.any? { |m| m.to_s == symbol.to_s }
     end
     
   end
