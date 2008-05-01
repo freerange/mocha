@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), "acceptance_test_helper")
 require 'mocha'
 
-class MockWithInitializerBlockAcceptanceTest < Test::Unit::TestCase
+class MockWithInitializerBlockTest < Test::Unit::TestCase
   
   include AcceptanceTest
   

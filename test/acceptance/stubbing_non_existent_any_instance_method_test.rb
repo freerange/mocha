@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), "acceptance_test_helper")
 require 'mocha'
 
-class StubbingNonExistentAnyInstanceMethodAcceptanceTest < Test::Unit::TestCase
+class StubbingNonExistentAnyInstanceMethodTest < Test::Unit::TestCase
   
   include AcceptanceTest
   

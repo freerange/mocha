@@ -87,7 +87,7 @@ end
 
 require 'test/unit'
 
-class StandaloneAcceptanceTest < Test::Unit::TestCase
+class StandaloneTest < Test::Unit::TestCase
   
   attr_reader :sample_test
 
