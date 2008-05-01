@@ -84,61 +84,79 @@ class StubInstanceMethodAcceptanceTest < Test::Unit::TestCase
     assert_equal :original_return_value, instance.my_superclass_method
   end
   
-  def test_should_be_able_to_stub_method_if_public_methods_include_method_but_method_does_not_exist_like_active_record_association_proxy
+  def test_should_be_able_to_stub_method_if_ruby18_public_methods_include_method_but_method_does_not_exist_like_active_record_association_proxy
     ruby18_instance = Class.new do
       def public_methods(include_superclass = true)
         ['my_instance_method']
       end
     end.new
+    test_result = run_test do
+      ruby18_instance.stubs(:my_instance_method).returns(:new_return_value)
+      assert_equal :new_return_value, ruby18_instance.my_instance_method
+    end
+    assert_passed(test_result)
+  end
+  
+  def test_should_be_able_to_stub_method_if_ruby19_public_methods_include_method_but_method_does_not_exist_like_active_record_association_proxy
     ruby19_instance = Class.new do
       def public_methods(include_superclass = true)
         [:my_instance_method]
       end
     end.new
     test_result = run_test do
-      ruby18_instance.stubs(:my_instance_method).returns(:new_return_value)
       ruby19_instance.stubs(:my_instance_method).returns(:new_return_value)
-      assert_equal :new_return_value, ruby18_instance.my_instance_method
       assert_equal :new_return_value, ruby19_instance.my_instance_method
     end
     assert_passed(test_result)
   end
   
-  def test_should_be_able_to_stub_method_if_protected_methods_include_method_but_method_does_not_exist_like_active_record_association_proxy
+  def test_should_be_able_to_stub_method_if_ruby18_protected_methods_include_method_but_method_does_not_exist_like_active_record_association_proxy
     ruby18_instance = Class.new do
       def protected_methods(include_superclass = true)
         ['my_instance_method']
       end
     end.new
+    test_result = run_test do
+      ruby18_instance.stubs(:my_instance_method).returns(:new_return_value)
+      assert_equal :new_return_value, ruby18_instance.my_instance_method
+    end
+    assert_passed(test_result)
+  end
+  
+  def test_should_be_able_to_stub_method_if_ruby19_protected_methods_include_method_but_method_does_not_exist_like_active_record_association_proxy
     ruby19_instance = Class.new do
       def protected_methods(include_superclass = true)
         [:my_instance_method]
       end
     end.new
     test_result = run_test do
-      ruby18_instance.stubs(:my_instance_method).returns(:new_return_value)
       ruby19_instance.stubs(:my_instance_method).returns(:new_return_value)
-      assert_equal :new_return_value, ruby18_instance.my_instance_method
       assert_equal :new_return_value, ruby19_instance.my_instance_method
     end
     assert_passed(test_result)
   end
   
-  def test_should_be_able_to_stub_method_if_private_methods_include_method_but_method_does_not_exist_like_active_record_association_proxy
+  def test_should_be_able_to_stub_method_if_ruby18_private_methods_include_method_but_method_does_not_exist_like_active_record_association_proxy
     ruby18_instance = Class.new do
       def private_methods(include_superclass = true)
         ['my_instance_method']
       end
     end.new
+    test_result = run_test do
+      ruby18_instance.stubs(:my_instance_method).returns(:new_return_value)
+      assert_equal :new_return_value, ruby18_instance.my_instance_method
+    end
+    assert_passed(test_result)
+  end
+  
+  def test_should_be_able_to_stub_method_if_ruby19_private_methods_include_method_but_method_does_not_exist_like_active_record_association_proxy
     ruby19_instance = Class.new do
       def private_methods(include_superclass = true)
         [:my_instance_method]
       end
     end.new
     test_result = run_test do
-      ruby18_instance.stubs(:my_instance_method).returns(:new_return_value)
       ruby19_instance.stubs(:my_instance_method).returns(:new_return_value)
-      assert_equal :new_return_value, ruby18_instance.my_instance_method
       assert_equal :new_return_value, ruby19_instance.my_instance_method
     end
     assert_passed(test_result)
