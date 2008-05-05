@@ -17,14 +17,6 @@
 - tag releases in repos
 - trac?
 
-=> restrict partial mocks to existing public methods?
-- investigate where/why check for existence of stubbed method has gone.
-- allow stubbing of private/protected methods? - force_stub?
-- allow specification of class to be mocked, so we can check for existence of methods
-
-=> bugs
-- assertion count is not incremented for missing expectation errors
-
 => multiple expectations for same method
 - fail fast if expectation count exceeded during test...? c.f. JMock?
 
@@ -44,9 +36,6 @@
 - provide test::unit agnostic api - mockery/context type objects on which the user must call setup/teardown?
 - allow stubs/expects methods to accept method names as strings and symbols to retain similarity to define_method() et al
 
-=> documentation
-- read and improve tutorial emailed by user
-
 => naming
 - default mock names to mock1, mock2, etc or something similar
 - stubba mocks should named according to parent stubbee
@@ -56,8 +45,6 @@
 - test for setting expectations on class methods (and instance methods?) from within TestCase#setup
 
 => possible extra functionality
-- concise stubbing on partial mock e.g. object.stubs(:m1 => 1, :m2 => 2) as requested by Rob Sanheim on mocha-developer list
-- more jmock style stuff - e.g. labels/required order, more sophisticated param matching?
 - maybe allow unstubbing of a specific method from within a test...?
 - oomatron type ideas
 - should all instances share expectations for any_instance or should each instance have their own - in which case how do we provide access to the instances
