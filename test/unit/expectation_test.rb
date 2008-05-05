@@ -3,13 +3,11 @@ require 'method_definer'
 require 'mocha/expectation'
 require 'mocha/sequence'
 require 'execution_point'
-require 'deprecation_disabler'
 require 'simple_counter'
 
 class ExpectationTest < Test::Unit::TestCase
   
   include Mocha
-  include DeprecationDisabler
   
   def new_expectation
     Expectation.new(nil, :expected_method)
@@ -183,16 +181,6 @@ class ExpectationTest < Test::Unit::TestCase
   def test_should_return_nil_if_no_value_specified
     expectation = new_expectation.returns()
     assert_nil expectation.invoke
-  end
-  
-  def test_should_return_evaluated_proc_without_using_is_a_method
-    proc = lambda { 99 }
-    proc.define_instance_accessor(:called)
-    proc.called = false
-    proc.replace_instance_method(:is_a?) { self.called = true; true}
-    expectation = new_expectation.returns(proc)
-    disable_deprecations { expectation.invoke }
-    assert_equal false, proc.called
   end
   
   def test_should_raise_runtime_exception

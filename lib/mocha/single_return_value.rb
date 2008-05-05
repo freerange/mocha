@@ -1,5 +1,4 @@
 require 'mocha/is_a'
-require 'mocha/deprecation'
 
 module Mocha # :nodoc:
   
