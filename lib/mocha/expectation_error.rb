@@ -1,13 +1,13 @@
+require 'mocha/backtrace_filter'
+
 module Mocha
 
   class ExpectationError < StandardError
     
-    LIB_DIRECTORY = File.expand_path(File.join(File.dirname(__FILE__), "..")) + File::SEPARATOR
-    
-    def initialize(message = nil, backtrace = [], lib_directory = LIB_DIRECTORY)
+    def initialize(message = nil, backtrace = [])
       super(message)
-      filtered_backtrace = backtrace.reject { |location| Regexp.new(lib_directory).match(File.expand_path(location)) }
-      set_backtrace(filtered_backtrace)
+      filter = BacktraceFilter.new
+      set_backtrace(filter.filtered(backtrace))
     end
 
   end
