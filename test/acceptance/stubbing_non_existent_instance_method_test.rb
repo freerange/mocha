@@ -64,6 +64,18 @@ class StubbingNonExistentInstanceMethodTest < Test::Unit::TestCase
     end
     assert_passed(test_result)
   end
+
+  def test_should_allow_stubbing_method_to_which_instance_responds
+    Mocha::Configuration.prevent(:stubbing_non_existent_method)
+    klass = Class.new do
+      def respond_to?(method, include_private = false); true; end
+    end
+    instance = klass.new
+    test_result = run_test do
+      instance.stubs(:method_to_which_instance_responds)
+    end
+    assert_passed(test_result)
+  end
   
   def test_should_allow_stubbing_existing_protected_instance_method
     Mocha::Configuration.prevent(:stubbing_non_existent_method)

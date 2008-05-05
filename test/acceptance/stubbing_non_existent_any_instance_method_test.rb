@@ -63,7 +63,7 @@ class StubbingNonExistentAnyInstanceMethodTest < Test::Unit::TestCase
     end
     assert_passed(test_result)
   end
-  
+
   def test_should_allow_stubbing_existing_protected_any_instance_method
     Mocha::Configuration.prevent(:stubbing_non_existent_method)
     klass = Class.new do

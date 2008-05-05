@@ -127,4 +127,15 @@ class StubbingNonPublicInstanceMethodTest < Test::Unit::TestCase
     assert_passed(test_result)
   end
 
+  def test_should_allow_stubbing_method_to_which_instance_responds
+    Mocha::Configuration.prevent(:stubbing_non_public_method)
+    instance = Class.new do
+      def respond_to?(method, include_private_methods = false); true; end
+    end.new
+    test_result = run_test do
+      instance.stubs(:method_to_which_instance_responds)
+    end
+    assert_passed(test_result)
+  end
+
 end
