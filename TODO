@@ -2,20 +2,11 @@
 => Patch [#10412] Merge 'with' and the expected method
 => Bug [#8687] Block's return value is dropped on stubbed yielding methods
 
-=> changes for a more jmock2 style
-- raise ExpectationError as soon as there is no matching expectation which allows invocations (see ExpectationList#detect)
- - maybe an issue with stub_everything in combination with expects(:x).never
-- raise ExpectationError if any expectation is not satisfied
-- report state of all exceptions and state-machines (see InvocationDispatcher#describeTo, ExpectationError#describeTo, InvocationExpectation#describeTo)
-- how useful is it to distinguish Stub/Expectation? - main difference is to not include stubs in assertion count
-- need a central registry of all mocks or expectations
-
 => interesting links
 - http://www.jmock.org/match-object-or-method.html
 - http://rspec.lighthouseapp.com/projects/5645-rspec/tickets/106-12985-with_block_which_returns-val
 
 - think about making class_method_test & any_instance_method_test more blackbox to avoid ruby warnings
-- improve error messages especially for similar expectations
 
 => update vendor libraries
 - does updating meta_project have any effect on broken tarball issue?
