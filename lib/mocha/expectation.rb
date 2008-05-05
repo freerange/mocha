@@ -249,16 +249,6 @@ module Mocha # :nodoc:
     #   object.expected_method # => 1
     #   object.expected_method # => 2
     #   object.expected_method # => raises exception of class Exception1
-    # If +value+ is a +Proc+, then the expected method will return the result of calling <tt>Proc#call</tt>.
-    #
-    # This usage is _deprecated_.
-    # Use explicit multiple return values and/or multiple expectations instead.
-    #
-    # A +Proc+ instance will be treated the same as any other value in a future release.
-    #   object = mock()
-    #   object.stubs(:stubbed_method).returns(lambda { rand(100) })
-    #   object.stubbed_method # => 41
-    #   object.stubbed_method # => 77
     def returns(*values)
       @return_values += ReturnValues.build(*values)
       self

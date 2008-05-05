@@ -185,14 +185,6 @@ class ExpectationTest < Test::Unit::TestCase
     assert_nil expectation.invoke
   end
   
-  def test_should_return_evaluated_proc
-    proc = lambda { 99 }
-    expectation = new_expectation.returns(proc)
-    result = nil
-    disable_deprecations { result = expectation.invoke }
-    assert_equal 99, result
-  end
-  
   def test_should_return_evaluated_proc_without_using_is_a_method
     proc = lambda { 99 }
     proc.define_instance_accessor(:called)
