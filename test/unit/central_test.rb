@@ -21,7 +21,7 @@ class CentralTest < Test::Unit::TestCase
     
     stubba.stub(method)
     
-    method.verify
+    assert method.verified?
   end
   
   def test_should_not_stub_method_if_already_stubbed
@@ -34,7 +34,7 @@ class CentralTest < Test::Unit::TestCase
     
     stubba.stub(method)
     
-    method.verify
+    assert method.verified?
   end
   
   def test_should_record_method
@@ -58,67 +58,8 @@ class CentralTest < Test::Unit::TestCase
     stubba.unstub_all
     
     assert_equal [], stubba.stubba_methods
-    method_1.verify
-    method_2.verify
+    assert method_1.verified?
+    assert method_2.verified?
   end
   
-  def test_should_collect_mocks_from_all_methods
-    method_1 = Mock.new
-    method_1.stubs(:mock).returns(:mock_1)
-
-    method_2 = Mock.new
-    method_2.stubs(:mock).returns(:mock_2)
-
-    stubba = Central.new
-    stubba.stubba_methods = [method_1, method_2]
-    
-    assert_equal 2, stubba.unique_mocks.size
-    assert stubba.unique_mocks.include?(:mock_1)
-    assert stubba.unique_mocks.include?(:mock_2)
-  end
-
-  def test_should_return_unique_mochas
-    method_1 = Mock.new
-    method_1.stubs(:mock).returns(:mock_1)
-
-    method_2 = Mock.new
-    method_2.stubs(:mock).returns(:mock_1)
-
-    stubba = Central.new
-    stubba.stubba_methods = [method_1, method_2]
-    
-    assert_equal [:mock_1], stubba.unique_mocks
-  end
-  
-  def test_should_call_verify_on_all_unique_mocks
-    mock_class = Class.new do
-      attr_accessor :verify_called
-      def verify
-        self.verify_called = true
-      end
-    end
-    mocks = [mock_class.new, mock_class.new]
-    stubba = Central.new
-    stubba.replace_instance_method(:unique_mocks) { mocks }
-    
-    stubba.verify_all
-    
-    assert mocks.all? { |mock| mock.verify_called }
-  end
-
-  def test_should_call_verify_on_all_unique_mochas
-    mock_class = Class.new do
-      def verify(&block)
-        yield if block_given?
-      end
-    end
-    stubba = Central.new
-    stubba.replace_instance_method(:unique_mocks) { [mock_class.new] }
-    yielded = false
-    
-    stubba.verify_all { yielded = true }
-    
-    assert yielded
-  end
-
 end

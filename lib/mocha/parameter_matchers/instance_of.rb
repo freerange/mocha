@@ -1,3 +1,5 @@
+require 'mocha/parameter_matchers/base'
+
 module Mocha
   
   module ParameterMatchers
@@ -18,13 +20,14 @@ module Mocha
       InstanceOf.new(klass)
     end
     
-    class InstanceOf # :nodoc:
+    class InstanceOf < Base # :nodoc:
       
       def initialize(klass)
         @klass = klass
       end
     
-      def ==(parameter)
+      def matches?(available_parameters)
+        parameter = available_parameters.shift
         parameter.instance_of?(@klass)
       end
       

@@ -1,13 +1,13 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'method_definer'
 require 'mocha/expectation'
+require 'mocha/sequence'
 require 'execution_point'
-require 'deprecation_disabler'
+require 'simple_counter'
 
 class ExpectationTest < Test::Unit::TestCase
   
   include Mocha
-  include DeprecationDisabler
   
   def new_expectation
     Expectation.new(nil, :expected_method)
@@ -183,24 +183,6 @@ class ExpectationTest < Test::Unit::TestCase
     assert_nil expectation.invoke
   end
   
-  def test_should_return_evaluated_proc
-    proc = lambda { 99 }
-    expectation = new_expectation.returns(proc)
-    result = nil
-    disable_deprecations { result = expectation.invoke }
-    assert_equal 99, result
-  end
-  
-  def test_should_return_evaluated_proc_without_using_is_a_method
-    proc = lambda { 99 }
-    proc.define_instance_accessor(:called)
-    proc.called = false
-    proc.replace_instance_method(:is_a?) { self.called = true; true}
-    expectation = new_expectation.returns(proc)
-    disable_deprecations { expectation.invoke }
-    assert_equal false, proc.called
-  end
-  
   def test_should_raise_runtime_exception
     expectation = new_expectation.raises
     assert_raise(RuntimeError) { expectation.invoke }
@@ -247,101 +229,74 @@ class ExpectationTest < Test::Unit::TestCase
     assert_equal 2, expectation.invoke
   end
   
-  def test_should_not_raise_error_on_verify_if_expected_call_was_made
+  def test_should_verify_successfully_if_expected_call_was_made
     expectation = new_expectation
     expectation.invoke
-    assert_nothing_raised(ExpectationError) {
-      expectation.verify
-    }
+    assert expectation.verified?
   end
   
-  def test_should_raise_error_on_verify_if_call_expected_once_but_invoked_twice
+  def test_should_not_verify_successfully_if_call_expected_once_but_invoked_twice
     expectation = new_expectation.once
     expectation.invoke
     expectation.invoke
-    assert_raises(ExpectationError) {
-      expectation.verify
-    }
+    assert !expectation.verified?
   end
 
-  def test_should_raise_error_on_verify_if_call_expected_once_but_not_invoked
+  def test_should_not_verify_successfully_if_call_expected_once_but_not_invoked
     expectation = new_expectation.once
-    assert_raises(ExpectationError) {
-      expectation.verify
-    }
+    assert !expectation.verified?
   end
 
-  def test_should_not_raise_error_on_verify_if_call_expected_once_and_invoked_once
+  def test_should_verify_successfully_if_call_expected_once_and_invoked_once
     expectation = new_expectation.once
     expectation.invoke
-    assert_nothing_raised(ExpectationError) {
-      expectation.verify
-    }
+    assert expectation.verified?
   end
 
-  def test_should_not_raise_error_on_verify_if_expected_call_was_made_at_least_once
+  def test_should_verify_successfully_if_expected_call_was_made_at_least_once
     expectation = new_expectation.at_least_once
     3.times {expectation.invoke}
-    assert_nothing_raised(ExpectationError) {
-      expectation.verify
-    }
+    assert expectation.verified?
   end
   
-  def test_should_raise_error_on_verify_if_expected_call_was_not_made_at_least_once
+  def test_should_not_verify_successfully_if_expected_call_was_not_made_at_least_once
     expectation = new_expectation.with(1, 2, 3).at_least_once
-    e = assert_raise(ExpectationError) {
-      expectation.verify
-    }
-    assert_match(/expected calls: at least 1, actual calls: 0/i, e.message)
+    assert !expectation.verified?
+    assert_match(/expected at least once, never invoked/i, expectation.mocha_inspect)
   end
   
-  def test_should_not_raise_error_on_verify_if_expected_call_was_made_expected_number_of_times
+  def test_should_verify_successfully_if_expected_call_was_made_expected_number_of_times
     expectation = new_expectation.times(2)
     2.times {expectation.invoke}
-    assert_nothing_raised(ExpectationError) {
-      expectation.verify
-    }
+    assert expectation.verified?
   end
   
-  def test_should_expect_call_not_to_be_made
-    expectation = new_expectation
-    expectation.define_instance_accessor(:how_many_times)
-    expectation.replace_instance_method(:times) { |how_many_times| self.how_many_times = how_many_times }
-    expectation.never
-    assert_equal 0, expectation.how_many_times
-  end
-  
-  def test_should_raise_error_on_verify_if_expected_call_was_made_too_few_times
+  def test_should_not_verify_successfully_if_expected_call_was_made_too_few_times
     expectation = new_expectation.times(2)
     1.times {expectation.invoke}
-    e = assert_raise(ExpectationError) {
-      expectation.verify
-    }
-    assert_match(/expected calls: 2, actual calls: 1/i, e.message)
+    assert !expectation.verified?
+    assert_match(/expected exactly 2 times, already invoked 1 time/i, expectation.mocha_inspect)
   end
   
-  def test_should_raise_error_on_verify_if_expected_call_was_made_too_many_times
+  def test_should_not_verify_successfully_if_expected_call_was_made_too_many_times
     expectation = new_expectation.times(2)
     3.times {expectation.invoke}
-    assert_raise(ExpectationError) {
-      expectation.verify
-    }
+    assert !expectation.verified?
   end
   
-  def test_should_yield_self_to_block
+  def test_should_increment_assertion_counter_for_expectation_because_it_does_need_verifyng
     expectation = new_expectation
     expectation.invoke
-    yielded_expectation = nil
-    expectation.verify { |x| yielded_expectation = x }
-    assert_equal expectation, yielded_expectation
+    assertion_counter = SimpleCounter.new
+    expectation.verified?(assertion_counter)
+    assert_equal 1, assertion_counter.count
   end
   
-  def test_should_yield_to_block_before_raising_exception
-    yielded = false
-    assert_raise(ExpectationError) {
-      new_expectation.verify { |x| yielded = true }
-    }
-    assert yielded
+  def test_should_not_increment_assertion_counter_for_stub_because_it_does_not_need_verifying
+    stub = Expectation.new(nil, :expected_method).at_least(0)
+    assertion_counter = SimpleCounter.new
+    stub.verified?(assertion_counter)
+    assert_equal 0, assertion_counter.count
   end
   
   def test_should_store_backtrace_from_point_where_expectation_was_created
@@ -349,51 +304,156 @@ class ExpectationTest < Test::Unit::TestCase
     assert_equal execution_point, ExecutionPoint.new(expectation.backtrace)
   end
   
-  def test_should_set_backtrace_on_assertion_failed_error_to_point_where_expectation_was_created
-    execution_point = ExecutionPoint.current; expectation = Expectation.new(nil, :expected_method)
-    error = assert_raise(ExpectationError) {  
-      expectation.verify
-    }
-    assert_equal execution_point, ExecutionPoint.new(error.backtrace)
+  class FakeMock
+    
+    def initialize(name)
+      @name = name
+    end
+
+    def mocha_inspect
+      @name
+    end
+    
   end
   
-  def test_should_display_expectation_message_in_exception_message
-    options = [:a, :b, {:c => 1, :d => 2}]
-    expectation = new_expectation.with(*options)
-    exception = assert_raise(ExpectationError) {
-      expectation.verify
-    }
-    assert exception.message.include?(expectation.method_signature)
+  def test_should_raise_error_with_message_indicating_which_method_was_expected_to_be_called_on_which_mock_object_with_which_parameters_and_in_what_sequences
+    mock = FakeMock.new('mock')
+    sequence_one = Sequence.new('one')
+    sequence_two = Sequence.new('two')
+    expectation = Expectation.new(mock, :expected_method).with(1, 2, {'a' => true}, {:b => false}, [1, 2, 3]).in_sequence(sequence_one, sequence_two)
+    assert !expectation.verified?
+    assert_match "mock.expected_method(1, 2, {'a' => true}, {:b => false}, [1, 2, 3]); in sequence 'one'; in sequence 'two'", expectation.mocha_inspect
   end
   
-  def test_should_combine_method_name_and_pretty_parameters
-    arguments = 1, 2, {'a' => true, :b => false}, [1, 2, 3]
-    expectation = new_expectation.with(*arguments)
-    assert_equal "expected_method(#{PrettyParameters.new(arguments).pretty})", expectation.method_signature
+  class FakeConstraint
+    
+    def initialize(allows_invocation_now)
+      @allows_invocation_now = allows_invocation_now
+    end
+    
+    def allows_invocation_now?
+      @allows_invocation_now
+    end
+    
   end
   
-  def test_should_not_include_parameters_in_message
-    assert_equal "expected_method", new_expectation.method_signature
+  def test_should_be_in_correct_order_if_all_ordering_constraints_allow_invocation_now
+    constraint_one = FakeConstraint.new(allows_invocation_now = true)
+    constraint_two = FakeConstraint.new(allows_invocation_now = true)
+    expectation = Expectation.new(nil, :method_one)
+    expectation.add_ordering_constraint(constraint_one)
+    expectation.add_ordering_constraint(constraint_two)
+    assert expectation.in_correct_order?
   end
   
-  def test_should_raise_error_with_message_indicating_which_method_was_expected_to_be_called_on_which_mock_object
-    mock = Class.new { def mocha_inspect; 'mock'; end }.new
-    expectation = Expectation.new(mock, :expected_method)
-    e = assert_raise(ExpectationError) { expectation.verify }
-    assert_match "mock.expected_method", e.message
+  def test_should_not_be_in_correct_order_if_one_ordering_constraint_does_not_allow_invocation_now
+    constraint_one = FakeConstraint.new(allows_invocation_now = true)
+    constraint_two = FakeConstraint.new(allows_invocation_now = false)
+    expectation = Expectation.new(nil, :method_one)
+    expectation.add_ordering_constraint(constraint_one)
+    expectation.add_ordering_constraint(constraint_two)
+    assert !expectation.in_correct_order?
   end
   
-  def test_should_exclude_mocha_locations_from_backtrace
-    mocha_lib = "/username/workspace/mocha_wibble/lib/"
-    backtrace = [ mocha_lib + 'exclude/me/1', mocha_lib + 'exclude/me/2', '/keep/me', mocha_lib + 'exclude/me/3']
-    expectation = Expectation.new(nil, :expected_method, backtrace)
-    expectation.define_instance_method(:mocha_lib_directory) { mocha_lib }
-    assert_equal ['/keep/me'], expectation.filtered_backtrace
-  end
-  
-  def test_should_determine_path_for_mocha_lib_directory
-    expectation = new_expectation()
-    assert_match Regexp.new("/lib/$"), expectation.mocha_lib_directory
+  def test_should_match_if_all_ordering_constraints_allow_invocation_now
+    constraint_one = FakeConstraint.new(allows_invocation_now = true)
+    constraint_two = FakeConstraint.new(allows_invocation_now = true)
+    expectation = Expectation.new(nil, :method_one)
+    expectation.add_ordering_constraint(constraint_one)
+    expectation.add_ordering_constraint(constraint_two)
+    assert expectation.match?(:method_one)
   end
 
+  def test_should_not_match_if_one_ordering_constraints_does_not_allow_invocation_now
+    constraint_one = FakeConstraint.new(allows_invocation_now = true)
+    constraint_two = FakeConstraint.new(allows_invocation_now = false)
+    expectation = Expectation.new(nil, :method_one)
+    expectation.add_ordering_constraint(constraint_one)
+    expectation.add_ordering_constraint(constraint_two)
+    assert !expectation.match?(:method_one)
+  end
+
+  def test_should_not_be_satisfied_when_required_invocation_has_not_been_made
+    expectation = Expectation.new(nil, :method_one).times(1)
+    assert !expectation.satisfied?
+  end
+
+  def test_should_be_satisfied_when_required_invocation_has_been_made
+    expectation = Expectation.new(nil, :method_one).times(1)
+    expectation.invoke
+    assert expectation.satisfied?
+  end
+
+  def test_should_not_be_satisfied_when_minimum_number_of_invocations_has_not_been_made
+    expectation = Expectation.new(nil, :method_one).at_least(2)
+    expectation.invoke
+    assert !expectation.satisfied?
+  end
+
+  def test_should_be_satisfied_when_minimum_number_of_invocations_has_been_made
+    expectation = Expectation.new(nil, :method_one).at_least(2)
+    2.times { expectation.invoke }
+    assert expectation.satisfied?
+  end
+  
+  class FakeSequence
+    
+    attr_reader :expectations
+    
+    def initialize
+      @expectations = []
+    end
+    
+    def constrain_as_next_in_sequence(expectation)
+      @expectations << expectation
+    end
+    
+  end
+  
+  def test_should_tell_sequences_to_constrain_expectation_as_next_in_sequence
+    sequence_one = FakeSequence.new
+    sequence_two = FakeSequence.new
+    expectation = Expectation.new(nil, :method_one)
+    assert_equal expectation, expectation.in_sequence(sequence_one, sequence_two)
+    assert_equal [expectation], sequence_one.expectations
+    assert_equal [expectation], sequence_two.expectations
+  end
+  
+  class FakeState
+    
+    def initialize
+      @active = false
+    end
+    
+    def activate
+      @active = true
+    end
+    
+    def active?
+      @active
+    end
+    
+  end
+  
+  def test_should_change_state_when_expectation_is_invoked
+    state = FakeState.new
+    expectation = Expectation.new(nil, :method_one)
+
+    expectation.then(state)
+
+    expectation.invoke
+    assert state.active?
+  end
+  
+  def test_should_match_when_state_is_active
+    state = FakeState.new
+    expectation = Expectation.new(nil, :method_one)
+
+    expectation.when(state)
+    assert !expectation.match?(:method_one)
+    
+    state.activate
+    assert expectation.match?(:method_one)
+  end
+  
 end

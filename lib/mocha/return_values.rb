@@ -15,10 +15,13 @@ module Mocha # :nodoc:
     end
     
     def next
-      case @values.size
-      when 0: nil
-      when 1: @values.first.evaluate
-      else @values.shift.evaluate
+      case @values.length
+        when 0
+          nil
+        when 1
+          @values.first.evaluate
+        else
+          @values.shift.evaluate
       end
     end
     

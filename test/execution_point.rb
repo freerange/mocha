@@ -11,10 +11,12 @@ class ExecutionPoint
   end
   
   def file_name
+    return "unknown" unless @backtrace && @backtrace.first
     /\A(.*?):\d+/.match(@backtrace.first)[1]
   end
   
   def line_number
+    return "unknown" unless @backtrace && @backtrace.first
     Integer(/\A.*?:(\d+)/.match(@backtrace.first)[1])
   end
 
@@ -24,7 +26,7 @@ class ExecutionPoint
   end
   
   def to_s
-    "file: #{file_name} line: #{line_number}"
+    "file: #{file_name}; line: #{line_number}"
   end
   
   def inspect

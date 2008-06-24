@@ -1,10 +1,12 @@
+require 'mocha/parameter_matchers/base'
+
 module Mocha
   
   module ParameterMatchers
 
-    # :call-seq: any_of -> parameter_matcher
+    # :call-seq: any_of(*parameter_matchers) -> parameter_matcher
     #
-    # Matches if any +matchers+ match.
+    # Matches if any +parameter_matchers+ match.
     #   object = mock()
     #   object.expects(:method_1).with(any_of(1, 3))
     #   object.method_1(1)
@@ -23,14 +25,15 @@ module Mocha
       AnyOf.new(*matchers)
     end
     
-    class AnyOf # :nodoc:
+    class AnyOf < Base # :nodoc:
       
       def initialize(*matchers)
         @matchers = matchers
       end
     
-      def ==(parameter)
-        @matchers.any? { |matcher| matcher == parameter }
+      def matches?(available_parameters)
+        parameter = available_parameters.shift
+        @matchers.any? { |matcher| matcher.to_matcher.matches?([parameter]) }
       end
       
       def mocha_inspect

@@ -2,6 +2,7 @@ require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'mocha/mock'
 require 'mocha/expectation_error'
 require 'set'
+require 'simple_counter'
 
 class MockTest < Test::Unit::TestCase
   
@@ -24,34 +25,15 @@ class MockTest < Test::Unit::TestCase
   
   def test_should_not_stub_everything_by_default
     mock = Mock.new
-    assert_equal false, mock.stub_everything
+    assert_equal false, mock.everything_stubbed
   end
   
   def test_should_stub_everything
-    mock = Mock.new(stub_everything = true)
-    assert_equal true, mock.stub_everything
-  end
-  
-  def test_should_display_object_id_for_mocha_inspect_if_mock_has_no_name
     mock = Mock.new
-    assert_match Regexp.new("^#<Mock:0x[0-9A-Fa-f]{1,8}>$"), mock.mocha_inspect
+    mock.stub_everything
+    assert_equal true, mock.everything_stubbed
   end
   
-  def test_should_display_name_for_mocha_inspect_if_mock_has_name
-    mock = Mock.new(false, 'named_mock')
-    assert_equal "#<Mock:named_mock>", mock.mocha_inspect
-  end
-
-  def test_should_display_object_id_for_inspect_if_mock_has_no_name
-    mock = Mock.new
-    assert_match Regexp.new("^#<Mock:0x[0-9A-Fa-f]{1,8}>$"), mock.inspect
-  end
-  
-  def test_should_display_name_for_inspect_if_mock_has_name
-    mock = Mock.new(false, 'named_mock')
-    assert_equal "#<Mock:named_mock>", mock.inspect
-  end
-
   def test_should_be_able_to_extend_mock_object_with_module
     mock = Mock.new
     assert_nothing_raised(ExpectationError) { mock.extend(Module.new) }
@@ -61,20 +43,24 @@ class MockTest < Test::Unit::TestCase
     mock = Mock.new
     assert_equal true, mock.eql?(mock)
   end
-    
+  
+  if RUBY_VERSION < '1.9'
+    OBJECT_METHODS = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ }
+  else
+    OBJECT_METHODS = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ || m == :object_id }
+  end
+  
   def test_should_be_able_to_mock_standard_object_methods
     mock = Mock.new
-    object_methods = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ }.sort
-    object_methods.each { |method| mock.__expects__(method.to_sym).returns(method) }
-    object_methods.each { |method| assert_equal method, mock.__send__(method.to_sym) }
-    assert_nothing_raised(ExpectationError) { mock.verify }
+    OBJECT_METHODS.each { |method| mock.__expects__(method.to_sym).returns(method) }
+    OBJECT_METHODS.each { |method| assert_equal method, mock.__send__(method.to_sym) }
+    assert mock.verified?
   end
-
+  
   def test_should_be_able_to_stub_standard_object_methods
     mock = Mock.new
-    object_methods = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ }.sort
-    object_methods.each { |method| mock.__stubs__(method.to_sym).returns(method) }
-    object_methods.each { |method| assert_equal method, mock.__send__(method.to_sym) }
+    OBJECT_METHODS.each { |method| mock.__stubs__(method.to_sym).returns(method) }
+    OBJECT_METHODS.each { |method| assert_equal method, mock.__send__(method.to_sym) }
   end
   
   def test_should_create_and_add_expectations
@@ -113,7 +99,8 @@ class MockTest < Test::Unit::TestCase
   end
   
   def test_should_not_raise_error_if_stubbing_everything
-    mock = Mock.new(stub_everything = true)
+    mock = Mock.new
+    mock.stub_everything
     result = nil
     assert_nothing_raised(ExpectationError) do
       result = mock.unexpected_method
@@ -144,30 +131,28 @@ class MockTest < Test::Unit::TestCase
     assert_equal [:argument1, :argument2], mock.arguments
   end
   
-  def test_should_verify_that_all_expectations_have_been_fulfilled
+  def test_should_not_verify_successfully_because_not_all_expectations_have_been_satisfied
     mock = Mock.new
     mock.expects(:method1)
     mock.expects(:method2)
     mock.method1
-    assert_raise(ExpectationError) do
-      mock.verify
-    end
+    assert !mock.verified?
   end
   
-  def test_should_report_possible_expectations
+  def test_should_increment_assertion_counter_for_every_verified_expectation
     mock = Mock.new
-    mock.expects(:expected_method).with(1)
-    exception = assert_raise(ExpectationError) { mock.expected_method(2) }
-    assert_equal "#{mock.mocha_inspect}.expected_method(2) - expected calls: 0, actual calls: 1\nSimilar expectations:\nexpected_method(1)", exception.message
-  end
-  
-  def test_should_pass_block_through_to_expectations_verify_method
-    mock = Mock.new
-    expected_expectation = mock.expects(:method1)
+    
+    mock.expects(:method1)
     mock.method1
-    expectations = []
-    mock.verify() { |expectation| expectations << expectation }
-    assert_equal [expected_expectation], expectations
+    
+    mock.expects(:method2)
+    mock.method2
+    
+    assertion_counter = SimpleCounter.new
+    
+    mock.verified?(assertion_counter)
+    
+    assert_equal 2, assertion_counter.count
   end
   
   def test_should_yield_supplied_parameters_to_block
@@ -248,7 +233,7 @@ class MockTest < Test::Unit::TestCase
   
   def test_should_respond_to_methods_which_the_responder_does_responds_to
     instance = Class.new do
-      define_method(:respond_to?) { true }
+      define_method(:respond_to?) { |symbol| true }
     end.new
     mock = Mock.new
     mock.responds_like(instance)
@@ -257,7 +242,7 @@ class MockTest < Test::Unit::TestCase
   
   def test_should_not_respond_to_methods_which_the_responder_does_not_responds_to
     instance = Class.new do
-      define_method(:respond_to?) { false }
+      define_method(:respond_to?) { |symbol| false }
     end.new
     mock = Mock.new
     mock.responds_like(instance)
@@ -280,7 +265,7 @@ class MockTest < Test::Unit::TestCase
   
   def test_should_not_raise_no_method_error_if_responder_does_respond_to_invoked_method
     instance = Class.new do
-      define_method(:respond_to?) { true }
+      define_method(:respond_to?) { |symbol| true }
     end.new
     mock = Mock.new
     mock.responds_like(instance)
@@ -290,7 +275,7 @@ class MockTest < Test::Unit::TestCase
   
   def test_should_raise_no_method_error_if_responder_does_not_respond_to_invoked_method
     instance = Class.new do
-      define_method(:respond_to?) { false }
+      define_method(:respond_to?) { |symbol| false }
       define_method(:mocha_inspect) { 'mocha_inspect' }
     end.new
     mock = Mock.new
@@ -301,7 +286,7 @@ class MockTest < Test::Unit::TestCase
   
   def test_should_raise_no_method_error_with_message_indicating_that_mock_is_constrained_to_respond_like_responder
     instance = Class.new do
-      define_method(:respond_to?) { false }
+      define_method(:respond_to?) { |symbol| false }
       define_method(:mocha_inspect) { 'mocha_inspect' }
     end.new
     mock = Mock.new
@@ -313,4 +298,5 @@ class MockTest < Test::Unit::TestCase
       assert_match(/which responds like mocha_inspect/, e.message)
     end
   end
+  
 end

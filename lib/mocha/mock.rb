@@ -1,8 +1,10 @@
 require 'mocha/expectation'
 require 'mocha/expectation_list'
-require 'mocha/stub'
-require 'mocha/missing_expectation'
 require 'mocha/metaclass'
+require 'mocha/names'
+require 'mocha/mockery'
+require 'mocha/method_matcher'
+require 'mocha/parameters_matcher'
 
 module Mocha # :nodoc:
   
@@ -11,19 +13,6 @@ module Mocha # :nodoc:
   # Methods return an Expectation which can be further modified by methods on Expectation.
   class Mock
     
-    # :stopdoc:
-    
-    def initialize(stub_everything = false, name = nil)
-      @stub_everything = stub_everything
-      @mock_name = name
-      @expectations = ExpectationList.new
-      @responder = nil
-    end
-
-    attr_reader :stub_everything, :expectations
-  
-    # :startdoc:
-
     # :call-seq: expects(method_name) -> expectation
     #            expects(method_names) -> last expectation
     #
@@ -51,10 +40,12 @@ module Mocha # :nodoc:
     def expects(method_name_or_hash, backtrace = nil)
       if method_name_or_hash.is_a?(Hash) then
         method_name_or_hash.each do |method_name, return_value|
-          add_expectation(Expectation.new(self, method_name, backtrace).returns(return_value))
+          ensure_method_not_already_defined(method_name)
+          @expectations.add(Expectation.new(self, method_name, backtrace).returns(return_value))
         end
       else
-        add_expectation(Expectation.new(self, method_name_or_hash, backtrace))
+        ensure_method_not_already_defined(method_name_or_hash)
+        @expectations.add(Expectation.new(self, method_name_or_hash, backtrace))
       end
     end
     
@@ -82,10 +73,12 @@ module Mocha # :nodoc:
     def stubs(method_name_or_hash, backtrace = nil)
       if method_name_or_hash.is_a?(Hash) then
         method_name_or_hash.each do |method_name, return_value|
-          add_expectation(Stub.new(self, method_name, backtrace).returns(return_value))
+          ensure_method_not_already_defined(method_name)
+          @expectations.add(Expectation.new(self, method_name, backtrace).at_least(0).returns(return_value))
         end
       else
-        add_expectation(Stub.new(self, method_name_or_hash, backtrace))
+        ensure_method_not_already_defined(method_name_or_hash)
+        @expectations.add(Expectation.new(self, method_name_or_hash, backtrace).at_least(0))
       end
     end
     
@@ -135,6 +128,16 @@ module Mocha # :nodoc:
     end
     
     # :stopdoc:
+    
+    def initialize(name = nil, &block)
+      @name = name || DefaultName.new(self)
+      @expectations = ExpectationList.new
+      @everything_stubbed = false
+      @responder = nil
+      instance_eval(&block) if block
+    end
+
+    attr_reader :everything_stubbed, :expectations
 
     alias_method :__expects__, :expects
 
@@ -144,11 +147,12 @@ module Mocha # :nodoc:
 
     def add_expectation(expectation)
       @expectations.add(expectation)
-      method_name = expectation.method_name
-      self.__metaclass__.send(:undef_method, method_name) if self.__metaclass__.method_defined?(method_name)
-      expectation
     end
-
+    
+    def stub_everything
+      @everything_stubbed = true
+    end
+    
     def method_missing(symbol, *arguments, &block)
       if @responder and not @responder.respond_to?(symbol)
         raise NoMethodError, "undefined method `#{symbol}' for #{self.mocha_inspect} which responds like #{@responder.mocha_inspect}"
@@ -156,7 +160,7 @@ module Mocha # :nodoc:
       matching_expectation = @expectations.detect(symbol, *arguments)
       if matching_expectation then
         matching_expectation.invoke(&block)
-      elsif stub_everything then
+      elsif @everything_stubbed then
         return
       else
         unexpected_method_called(symbol, *arguments)
@@ -167,30 +171,33 @@ module Mocha # :nodoc:
       if @responder then
         @responder.respond_to?(symbol)
       else
-        @expectations.respond_to?(symbol)
+        @expectations.matches_method?(symbol)
       end
     end
-  
+    
     def unexpected_method_called(symbol, *arguments)
-      MissingExpectation.new(self, symbol).with(*arguments).verify
+      method_matcher = MethodMatcher.new(symbol)
+      parameters_matcher = ParametersMatcher.new(arguments)
+      method_signature = "#{mocha_inspect}.#{method_matcher.mocha_inspect}#{parameters_matcher.mocha_inspect}"
+      message = "unexpected invocation: #{method_signature}\n"
+      message << Mockery.instance.mocha_inspect
+      raise ExpectationError.new(message, caller)
     end
-  
-    def verify(&block)
-      @expectations.verify(&block)
+    
+    def verified?(assertion_counter = nil)
+      @expectations.verified?(assertion_counter)
     end
-  
+    
     def mocha_inspect
-      address = self.__id__ * 2
-      address += 0x100000000 if address < 0
-      @mock_name ? "#<Mock:#{@mock_name}>" : "#<Mock:0x#{'%x' % address}>"
+      @name.mocha_inspect
     end
     
     def inspect
       mocha_inspect
     end
-
-    def similar_expectations(method_name)
-      @expectations.similar(method_name)
+    
+    def ensure_method_not_already_defined(method_name)
+      self.__metaclass__.send(:undef_method, method_name) if self.__metaclass__.method_defined?(method_name)
     end
 
     # :startdoc:

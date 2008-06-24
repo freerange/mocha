@@ -1,56 +1,19 @@
-require 'mocha/infinite_range'
-require 'mocha/pretty_parameters'
+require 'mocha/method_matcher'
+require 'mocha/parameters_matcher'
 require 'mocha/expectation_error'
 require 'mocha/return_values'
 require 'mocha/exception_raiser'
 require 'mocha/yield_parameters'
 require 'mocha/is_a'
+require 'mocha/in_state_ordering_constraint'
+require 'mocha/change_state_side_effect'
+require 'mocha/cardinality'
 
 module Mocha # :nodoc:
   
   # Methods on expectations returned from Mock#expects, Mock#stubs, Object#expects and Object#stubs.
   class Expectation
   
-    # :stopdoc:
-    
-    class AlwaysEqual
-      def ==(other)
-        true
-      end
-    end
-  
-    attr_reader :method_name, :backtrace
-
-    def initialize(mock, method_name, backtrace = nil)
-      @mock, @method_name = mock, method_name
-      @expected_count = 1
-      @parameters, @parameter_block = AlwaysEqual.new, nil
-      @invoked_count, @return_values = 0, ReturnValues.new
-      @backtrace = backtrace || caller
-      @yield_parameters = YieldParameters.new
-      @final_expectation = false
-    end
-    
-    def match?(method_name, *arguments)
-      return false unless @method_name == method_name
-      if @parameter_block then
-        return false unless @parameter_block.call(*arguments)
-      else
-        return false unless (@parameters == arguments)
-      end
-      return true
-    end
-    
-    def invocations_allowed?
-      if @expected_count.is_a?(Range) then
-        @invoked_count < @expected_count.last
-      else
-        @invoked_count < @expected_count
-      end
-    end
-
-    # :startdoc:
-    
     # :call-seq: times(range) -> expectation
     #
     # Modifies expectation so that the number of calls to the expected method must be within a specific +range+.
@@ -76,7 +39,7 @@ module Mocha # :nodoc:
     #   object.expected_method
     #   # => verify fails
     def times(range)
-      @expected_count = range
+      @cardinality = Cardinality.times(range)
       self
     end
   
@@ -98,8 +61,8 @@ module Mocha # :nodoc:
     #   object = mock()
     #   object.expects(:expected_method).once
     #   # => verify fails
-    def once()
-      times(1)
+    def once
+      @cardinality = Cardinality.exactly(1)
       self
     end
   
@@ -116,7 +79,7 @@ module Mocha # :nodoc:
     #   object.expected_method
     #   # => verify succeeds
     def never
-      times(0)
+      @cardinality = Cardinality.exactly(0)
       self
     end
   
@@ -133,7 +96,7 @@ module Mocha # :nodoc:
     #   object.expected_method
     #   # => verify fails
     def at_least(minimum_number_of_times)
-      times(Range.at_least(minimum_number_of_times))
+      @cardinality = Cardinality.at_least(minimum_number_of_times)
       self
     end
   
@@ -148,7 +111,7 @@ module Mocha # :nodoc:
     #   object = mock()
     #   object.expects(:expected_method).at_least_once
     #   # => verify fails
-    def at_least_once()
+    def at_least_once
       at_least(1)
       self
     end
@@ -166,7 +129,7 @@ module Mocha # :nodoc:
     #   3.times { object.expected_method }
     #   # => verify fails
     def at_most(maximum_number_of_times)
-      times(Range.at_most(maximum_number_of_times))
+      @cardinality = Cardinality.at_most(maximum_number_of_times)
       self
     end
   
@@ -187,9 +150,9 @@ module Mocha # :nodoc:
       self
     end
   
-    # :call-seq: with(*arguments, &parameter_block) -> expectation
+    # :call-seq: with(*expected_parameters, &matching_block) -> expectation
     #
-    # Modifies expectation so that the expected method must be called with specified +arguments+.
+    # Modifies expectation so that the expected method must be called with +expected_parameters+.
     #   object = mock()
     #   object.expects(:expected_method).with(:param1, :param2)
     #   object.expected_method(:param1, :param2)
@@ -201,7 +164,7 @@ module Mocha # :nodoc:
     #   # => verify fails
     # May be used with parameter matchers in Mocha::ParameterMatchers.
     #
-    # If a +parameter_block+ is given, the block is called with the parameters passed to the expected method.
+    # If a +matching_block+ is given, the block is called with the parameters passed to the expected method.
     # The expectation is matched if the block evaluates to +true+.
     #   object = mock()
     #   object.expects(:expected_method).with() { |value| value % 4 == 0 }
@@ -212,9 +175,8 @@ module Mocha # :nodoc:
     #   object.expects(:expected_method).with() { |value| value % 4 == 0 }
     #   object.expected_method(17)
     #   # => verify fails
-    def with(*arguments, &parameter_block)
-      @parameters, @parameter_block = arguments, parameter_block
-      class << @parameters; def to_s; join(', '); end; end
+    def with(*expected_parameters, &matching_block)
+      @parameters_matcher = ParametersMatcher.new(expected_parameters, &matching_block)
       self
     end
   
@@ -263,7 +225,7 @@ module Mocha # :nodoc:
     end
     
     # :call-seq: returns(value) -> expectation
-    # :call-seq: returns(*values) -> expectation
+    #            returns(*values) -> expectation
     #
     # Modifies expectation so that when the expected method is called, it returns the specified +value+.
     #   object = mock()
@@ -287,16 +249,6 @@ module Mocha # :nodoc:
     #   object.expected_method # => 1
     #   object.expected_method # => 2
     #   object.expected_method # => raises exception of class Exception1
-    # If +value+ is a +Proc+, then the expected method will return the result of calling <tt>Proc#call</tt>.
-    #
-    # This usage is _deprecated_.
-    # Use explicit multiple return values and/or multiple expectations instead.
-    #
-    # A +Proc+ instance will be treated the same as any other value in a future release.
-    #   object = mock()
-    #   object.stubs(:stubbed_method).returns(lambda { rand(100) })
-    #   object.stubbed_method # => 41
-    #   object.stubbed_method # => 77
     def returns(*values)
       @return_values += ReturnValues.build(*values)
       self
@@ -325,22 +277,132 @@ module Mocha # :nodoc:
     end
 
     # :call-seq: then() -> expectation
+    #            then(state_machine.is(state)) -> expectation
     #
-    # Syntactic sugar to improve readability. Has no effect on state of the expectation.
+    # <tt>then()</tt> is used as syntactic sugar to improve readability. It has no effect on state of the expectation.
     #   object = mock()
     #   object.stubs(:expected_method).returns(1, 2).then.raises(Exception).then.returns(4)
     #   object.expected_method # => 1
     #   object.expected_method # => 2
     #   object.expected_method # => raises exception of class Exception
     #   object.expected_method # => 4
-    def then
+    #
+    # <tt>then(state_machine.is(state))</tt> is used to change the +state_machine+ to the specified +state+ when the invocation occurs.
+    #
+    # See also Standalone#states, StateMachine and Expectation#when.
+    #   power = states('power').starts_as('off')
+    #
+    #   radio = mock('radio')
+    #   radio.expects(:switch_on).then(power.is('on'))
+    #   radio.expects(:select_channel).with('BBC Radio 4').when(power.is('on'))
+    #   radio.expects(:adjust_volume).with(+5).when(power.is('on'))
+    #   radio.expects(:select_channel).with('BBC World Service').when(power.is('on'))
+    #   radio.expects(:adjust_volume).with(-5).when(power.is('on'))
+    #   radio.expects(:switch_off).then(power.is('off'))
+    def then(*parameters)
+      if parameters.length == 1
+        state = parameters.first
+        add_side_effect(ChangeStateSideEffect.new(state))
+      end
+      self
+    end
+    
+    # :call-seq: when(state_machine.is(state)) -> exception
+    #
+    # Constrains the expectation to occur only when the +state_machine+ is in the named +state+.
+    #
+    # See also Standalone#states, StateMachine#starts_as and Expectation#then.
+    #   power = states('power').starts_as('off')
+    #
+    #   radio = mock('radio')
+    #   radio.expects(:switch_on).then(power.is('on'))
+    #   radio.expects(:select_channel).with('BBC Radio 4').when(power.is('on'))
+    #   radio.expects(:adjust_volume).with(+5).when(power.is('on'))
+    #   radio.expects(:select_channel).with('BBC World Service').when(power.is('on'))
+    #   radio.expects(:adjust_volume).with(-5).when(power.is('on'))
+    #   radio.expects(:switch_off).then(power.is('off'))
+    def when(state_predicate)
+      add_ordering_constraint(InStateOrderingConstraint.new(state_predicate))
+      self
+    end
+    
+    # :call-seq: in_sequence(*sequences) -> expectation
+    #
+    # Constrains this expectation so that it must be invoked at the current point in the sequence.
+    #
+    # To expect a sequence of invocations, write the expectations in order and add the in_sequence(sequence) clause to each one.
+    #
+    # Expectations in a sequence can have any invocation count.
+    #
+    # If an expectation in a sequence is stubbed, rather than expected, it can be skipped in the sequence.
+    #
+    # See also Standalone#sequence.
+    #   breakfast = sequence('breakfast')
+    #
+    #   egg = mock('egg')
+    #   egg.expects(:crack).in_sequence(breakfast)
+    #   egg.expects(:fry).in_sequence(breakfast)
+    #   egg.expects(:eat).in_sequence(breakfast)
+    def in_sequence(*sequences)
+      sequences.each { |sequence| add_in_sequence_ordering_constraint(sequence) }
       self
     end
     
     # :stopdoc:
     
+    attr_reader :backtrace
+
+    def initialize(mock, expected_method_name, backtrace = nil)
+      @mock = mock
+      @method_matcher = MethodMatcher.new(expected_method_name)
+      @parameters_matcher = ParametersMatcher.new
+      @ordering_constraints = []
+      @side_effects = []
+      @cardinality, @invocation_count = Cardinality.exactly(1), 0
+      @return_values = ReturnValues.new
+      @yield_parameters = YieldParameters.new
+      @backtrace = backtrace || caller
+    end
+    
+    def add_ordering_constraint(ordering_constraint)
+      @ordering_constraints << ordering_constraint
+    end
+    
+    def add_in_sequence_ordering_constraint(sequence)
+      sequence.constrain_as_next_in_sequence(self)
+    end
+    
+    def add_side_effect(side_effect)
+      @side_effects << side_effect
+    end
+    
+    def perform_side_effects
+      @side_effects.each { |side_effect| side_effect.perform }
+    end
+    
+    def in_correct_order?
+      @ordering_constraints.all? { |ordering_constraint| ordering_constraint.allows_invocation_now? }
+    end
+    
+    def matches_method?(method_name)
+      @method_matcher.match?(method_name)
+    end
+    
+    def match?(actual_method_name, *actual_parameters)
+      @method_matcher.match?(actual_method_name) && @parameters_matcher.match?(actual_parameters) && in_correct_order?
+    end
+    
+    def invocations_allowed?
+      @cardinality.invocations_allowed?(@invocation_count)
+    end
+
+    def satisfied?
+      @cardinality.satisfied?(@invocation_count)
+    end
+  
     def invoke
-      @invoked_count += 1
+      @invocation_count += 1
+      perform_side_effects()
       if block_given? then
         @yield_parameters.next_invocation.each do |yield_parameters|
           yield(*yield_parameters)
@@ -349,32 +411,33 @@ module Mocha # :nodoc:
       @return_values.next
     end
 
-    def verify
-      yield(self) if block_given?
-      unless (@expected_count === @invoked_count) then
-        error = ExpectationError.new(error_message(@expected_count, @invoked_count))
-        error.set_backtrace(filtered_backtrace)
-        raise error
+    def verified?(assertion_counter = nil)
+      assertion_counter.increment if assertion_counter && @cardinality.needs_verifying?
+      @cardinality.verified?(@invocation_count)
+    end
+    
+    def used?
+      @cardinality.used?(@invocation_count)
+    end
+    
+    def mocha_inspect
+      message = "#{@cardinality.mocha_inspect}, "
+      if @invocation_count > 0
+        message << "already invoked #{@invocation_count} time"
+        message << "s" if @invocation_count > 1
+      else
+        message << "never invoked"
       end
+      message << ": "
+      message << method_signature
+      message << "; #{@ordering_constraints.map { |oc| oc.mocha_inspect }.join("; ")}" unless @ordering_constraints.empty?
+      message
     end
     
-    def mocha_lib_directory
-      File.expand_path(File.join(File.dirname(__FILE__), "..")) + File::SEPARATOR
-    end
-    
-    def filtered_backtrace
-      backtrace.reject { |location| Regexp.new(mocha_lib_directory).match(File.expand_path(location)) }
-    end
-  
     def method_signature
-      return "#{method_name}" if @parameters.__is_a__(AlwaysEqual)
-      "#{@method_name}(#{PrettyParameters.new(@parameters).pretty})"
+      "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}#{@parameters_matcher.mocha_inspect}"
     end
-    
-    def error_message(expected_count, actual_count)
-      "#{@mock.mocha_inspect}.#{method_signature} - expected calls: #{expected_count.mocha_inspect}, actual calls: #{actual_count}"
-    end
-  
+      
     # :startdoc:
     
   end

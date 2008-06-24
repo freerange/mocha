@@ -1,6 +1,7 @@
-require 'mocha/mock'
+require 'mocha/mockery'
 require 'mocha/instance_method'
 require 'mocha/class_method'
+require 'mocha/module_method'
 require 'mocha/any_instance_method'
 
 # Methods added all objects to allow mocking and stubbing on real objects.
@@ -9,7 +10,7 @@ require 'mocha/any_instance_method'
 class Object
   
   def mocha # :nodoc:
-    @mocha ||= Mocha::Mock.new
+    @mocha ||= Mocha::Mockery.instance.mock_impersonating(self)
   end
   
   def reset_mocha # :nodoc:
@@ -35,9 +36,11 @@ class Object
   # The original implementation of <tt>Product#save</tt> is replaced temporarily.
   #
   # The original implementation of <tt>Product#save</tt> is restored at the end of the test.
-  def expects(symbol) 
+  def expects(symbol)
+    mockery = Mocha::Mockery.instance
+    mockery.on_stubbing(self, symbol)
     method = stubba_method.new(stubba_object, symbol)
-    $stubba.stub(method)
+    mockery.stubba.stub(method)
     mocha.expects(symbol, caller)
   end
   
@@ -52,14 +55,18 @@ class Object
   # The original implementation of <tt>Product#save</tt> is replaced temporarily.
   #
   # The original implementation of <tt>Product#save</tt> is restored at the end of the test.
-  def stubs(symbol) 
+  def stubs(symbol)
+    mockery = Mocha::Mockery.instance
+    mockery.on_stubbing(self, symbol)
     method = stubba_method.new(stubba_object, symbol)
-    $stubba.stub(method)
+    mockery.stubba.stub(method)
     mocha.stubs(symbol, caller)
   end
   
-  def verify # :nodoc:
-    mocha.verify
+  def method_exists?(symbol, include_public_methods = true)
+    existing_methods = private_methods(include_superclass_methods = true) + protected_methods(include_superclass_methods = true)
+    existing_methods += public_methods(include_superclass_methods = true) if include_public_methods
+    existing_methods.any? { |m| m.to_s == symbol.to_s } || (respond_to?(symbol) && include_public_methods)
   end
   
 end
@@ -67,7 +74,7 @@ end
 class Module # :nodoc:
   
   def stubba_method
-    Mocha::ClassMethod
+    Mocha::ModuleMethod
   end
     
 end
@@ -84,12 +91,22 @@ class Class
       @stubba_object = klass
     end
     
+    def mocha
+      @mocha ||= Mocha::Mockery.instance.mock_impersonating_any_instance_of(@stubba_object)
+    end
+
     def stubba_method
       Mocha::AnyInstanceMethod
     end
     
     def stubba_object
       @stubba_object
+    end
+    
+    def method_exists?(symbol, include_public_methods = true)
+      existing_methods = @stubba_object.private_instance_methods(include_superclass_methods = true) + @stubba_object.protected_instance_methods(include_superclass_methods = true)
+      existing_methods += @stubba_object.public_instance_methods(include_superclass_methods = true) if include_public_methods
+      existing_methods.any? { |m| m.to_s == symbol.to_s }
     end
     
   end

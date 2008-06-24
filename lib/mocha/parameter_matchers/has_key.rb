@@ -1,3 +1,5 @@
+require 'mocha/parameter_matchers/base'
+
 module Mocha
   
   module ParameterMatchers
@@ -18,14 +20,15 @@ module Mocha
       HasKey.new(key)
     end
 
-    class HasKey # :nodoc:
+    class HasKey < Base # :nodoc:
       
       def initialize(key)
         @key = key
       end
       
-      def ==(parameter)
-        parameter.keys.include?(@key)
+      def matches?(available_parameters)
+        parameter = available_parameters.shift
+        parameter.keys.any? { |key| @key.to_matcher.matches?([key]) }
       end
       
       def mocha_inspect

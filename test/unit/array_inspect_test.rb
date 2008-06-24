@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'mocha/inspect'
 
-class ArrayInstanceTest < Test::Unit::TestCase
+class ArrayInspectTest < Test::Unit::TestCase
   
   def test_should_use_inspect
     array = [1, 2]

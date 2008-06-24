@@ -1,8 +1,10 @@
+require 'mocha/parameter_matchers/base'
+
 module Mocha
   
   module ParameterMatchers
 
-    # :call-seq: anything -> parameter_matcher
+    # :call-seq: anything() -> parameter_matcher
     #
     # Matches any object.
     #   object = mock()
@@ -13,9 +15,10 @@ module Mocha
       Anything.new
     end
     
-    class Anything # :nodoc:
+    class Anything < Base # :nodoc:
     
-      def ==(parameter)
+      def matches?(available_parameters)
+        available_parameters.shift
         return true
       end
       
