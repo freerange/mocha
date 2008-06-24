@@ -1,0 +1,129 @@
+= MetaProject 0.4.15
+
+MetaProject is a library that allows interaction with various project hosting servers, issue trackers, SCMs and SCM browsers through a common API.
+
+MetaProject also includes is a Quick Release System (QRS) for [RubyForge, SourceForge and other SourceForge clones] (commonly referred to as XForge throughout the documentation) as well as RAA and Freshmeat. QRS support for other hosts is in the pipe.
+
+== Feature overview
+
+=== QRS (Quick Release System) related
+
+* QRS: Create/Upload new releases (with multiple files if desired).
+
+* Rake integration (use the QRS from Rake scripts).
+
+* Publish news items for XForge project.
+
+* Publish on RAA (SOAP under the hood)
+
+* Publish on Freshmeat (XMLRPC under the hood)
+
+=== Issue tracker related
+
+* Close and comment on issues
+
+* Recognise issue ids and create links in e.g. SCM commit messages
+
+* Patois parsing, a DSL for issue and release management.
+
+=== XForge related
+
+* Look up XForge projects by unix name (no need to worry about group_id or package_id).
+
+* Also see QRS related
+
+* Query home page URLs for a project.
+
+=== RSCM related
+
+* Obtain preconfigured RSCM:http://rscm.rubyforge.org objects.
+
+=== SCM browser related
+
+* Obtain preconfigured SCM browser proxy objects that can generate various links with a simple API.
+
+* Treat files in the SCM browser just as stdlib Pathname object (only a subset of the Pathname API is provided)
+
+== Screen Scraping
+
+MetaProject uses <a href="http://www.catb.org/~esr/jargon/html/S/screen-scraping.html">screen scraping</a> heavily. This is a last-resort technique which is only used when there is no other approach (XML-RPC/SOAP/REST) to retrieve data more reliably. As a result, some of the functionality might break if the HTML of the hosts MetaProject scrapes data from changes. If you think MetaProject is misbehaving because of changed HTML on some external system that MetaProject interacts with, please file a bug report in MetaProject's bug tracker on RubyForge.
+
+== Download/Installation
+
+The latest version of MetaProject can be found at
+
+* http://rubyforge.org/project/showfiles.php?group_id=801
+
+Download and install MetaProject with the following.
+
+   gem install meta_project
+
+(You may need administrative privileges (sudo) for this).
+
+== Usage
+
+=== QRS
+
+MetaProject itself is released with MetaProject's QRS Rake tasks, so check out MetaProject's own Rakefile (http://tinyurl.com/a23u5) and CHANGES (http://tinyurl.com/9qxxf) files for the best examples on how to use it. 
+
+XForge can parse release summary and changes from CHANGES if you format it the way XForge's own CHANGES is formatted. Also make sure your Rakefile's PKG_VERSION is in sync with the latest version specified in the CHANGES file.
+
+=== Other parts of the API
+
+If you're writing an application that interacts with MetaProject, please refer to the RDoc API and the RSpec:http://rspec.rubyforge.org specifications in the CVS source tree (kinda like unit tests, just better.) 
+
+---
+
+== FAQ
+
+=== I don't have a CHANGES file that MetaProject's Rake tasks understands. How do I disable it?
+When using the Rake tasks Rake::XForge::Release and Rake::XForge::NewsPublisher, you can omit parsing
+of the CHANGES file by specifying +release_notes+ and +release_changes+ to the task. Example:
+
+  task :release_files => [:gem] do
+    release_files = FileList[
+      "pkg/#{PKG_FILE_NAME}.gem"
+    ]
+
+    Rake::XForge::Release.new(MetaProject::Project::XForge::RubyForge.new('xforge')) do |release|
+      # If you omit user_name and/or password, you'll be prompted at the command line.
+      release.user_name = ENV['RUBYFORGE_USER']
+      release.password = ENV['RUBYFORGE_PASSWORD']
+      release.files = release_files.to_a
+      release.release_name = "MetaProject #{PKG_VERSION}"
+      
+      # The code below is for disabling parsing of CHANGES
+      release.changes_file = nil
+      release.release_notes = "This is release notes. They will show up at the release summary"
+      release.release_changes = ["This is", "a list of String", "and will also show up", "under the release summary"]
+    end
+  end
+
+== Credits
+
+(In alphabetical order)
+
+[<b>Aslak Hellesoy</b>] Creator and main contributor of this project.
+
+[<b>Austin Ziegler</b>] Bugfixes and documentation improvements for XForge release code.
+
+[<b>David Heinemeier Hansson</b>] For the HTTP POST code and the idea to parse XForge ids from project pages.
+
+[<b>Jim Weirich</b>] For Rake and feedback on some problems with the Rake tasks.
+
+[<b>Thomas Leitner</b>] For Freshmeat and RAA support.
+
+== Support
+
+The MetaProject homepage is http://xforge.rubyforge.org.  You can find the MetaProject
+RubyForge page at http://rubyforge.org/projects/xforge.
+
+Feel free to submit patches, bug reports or feature requests via MetaProject's issue tracker on RubyForge.
+
+For discussions and questions, please use the mailing list: http://rubyforge.org/mail/?group_id=801
+
+== License
+
+MetaProject is available under an MIT-style license.
+
+:include: MIT-LICENSE
