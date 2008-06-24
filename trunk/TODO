@@ -1,0 +1,50 @@
+=> Patch [#15235] Provide a pseudo-call syntax for simplifying set-up of expectations and stubs
+=> Patch [#10412] Merge 'with' and the expected method
+=> Bug [#8687] Block's return value is dropped on stubbed yielding methods
+
+=> interesting links
+- http://www.jmock.org/match-object-or-method.html
+- http://rspec.lighthouseapp.com/projects/5645-rspec/tickets/106-12985-with_block_which_returns-val
+
+- think about making class_method_test & any_instance_method_test more blackbox to avoid ruby warnings
+
+=> update vendor libraries
+- does updating meta_project have any effect on broken tarball issue?
+
+=> release management
+- why does gem rdoc include all source files? what about other package types?
+- why does zip include Rakefile? what about other package types?
+- tag releases in repos
+- trac?
+
+=> multiple expectations for same method
+- fail fast if expectation count exceeded during test...? c.f. JMock?
+
+=> reduce footprint of mocha in terms of visible methods
+- do away with __is_a__ method if possible - Proc param may no longer be needed
+- add similar test to test_should_be_able_to_mock_standard_object_methods for partial mocks - rename non-public method with underscores e.g. mocha, reset_mocha, stubba_method, stubba_object, etc.
+- reduce number of methods added to Object, Class etc to bare minimum
+- reduce number of methods excluded from undef in Mock (maybe use BlankSlate as mocha parent class to allow mocking of standard object methods?)
+- perhaps only add methods to particular class at point where expects or stubs gets called
+- provide some means to un-stubba an object - ideally should restore any methods with same names as stubba methods c.f. dealing with expectations for methods called :expects, :stubs, etc.
+- use Object#inspect(:mocha) or Object#__inspect__ instead of Object#mocha_inspect?
+
+=> improve design
+- use builder object c.f. JMock
+- use expectation builder object to allow partial mocks to accept a hash in expects or stubs methods
+- possibly simplify by making mock the same as a partial mock of Object
+- provide test::unit agnostic api - mockery/context type objects on which the user must call setup/teardown?
+- allow stubs/expects methods to accept method names as strings and symbols to retain similarity to define_method() et al
+
+=> naming
+- default mock names to mock1, mock2, etc or something similar
+- stubba mocks should named according to parent stubbee
+
+=> improve tests
+- use real activerecord as svn external to for testing instead of active_record_test_case
+- test for setting expectations on class methods (and instance methods?) from within TestCase#setup
+
+=> possible extra functionality
+- maybe allow unstubbing of a specific method from within a test...?
+- oomatron type ideas
+- should all instances share expectations for any_instance or should each instance have their own - in which case how do we provide access to the instances
