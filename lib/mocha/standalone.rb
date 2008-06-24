@@ -111,12 +111,12 @@ module Mocha # :nodoc:
     # Returns a new sequence that is used to constrain the order in which expectations can occur.
     #
     # See also Expectation#in_sequence.
-    #   drawing = sequence('drawing')
+    #   breakfast = sequence('breakfast')
     #
-    #   turtle = mock('turtle')
-    #   turtle.expects(:forward).with(10).in_sequence(drawing)
-    #   turtle.expects(:turn).with(45).in_sequence(drawing)
-    #   turtle.expects(:forward).with(10).in_sequence(drawing)
+    #   egg = mock('egg')
+    #   egg.expects(:crack).in_sequence(breakfast)
+    #   egg.expects(:fry).in_sequence(breakfast)
+    #   egg.expects(:eat).in_sequence(breakfast)
     def sequence(name)
       Sequence.new(name)
     end

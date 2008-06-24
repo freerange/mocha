@@ -310,7 +310,7 @@ module Mocha # :nodoc:
     #
     # Constrains the expectation to occur only when the +state_machine+ is in the named +state+.
     #
-    # See also AutoVerify#states, StateMachine#starts_as and Expectation#then.
+    # See also Standalone#states, StateMachine#starts_as and Expectation#then.
     #   pen = states('pen').starts_as('up')
     #
     #   turtle = mock('turtle')
@@ -334,13 +334,13 @@ module Mocha # :nodoc:
     #
     # If an expectation in a sequence is stubbed, rather than expected, it can be skipped in the sequence.
     #
-    # See also AutoVerify#sequence.
-    #   drawing = sequence('drawing')
+    # See also Standalone#sequence.
+    #   breakfast = sequence('breakfast')
     #
-    #   turtle = mock('turtle')
-    #   turtle.expects(:forward).with(10).in_sequence(drawing)
-    #   turtle.expects(:turn).with(45).in_sequence(drawing)
-    #   turtle.expects(:forward).with(10).in_sequence(drawing)
+    #   egg = mock('egg')
+    #   egg.expects(:crack).in_sequence(breakfast)
+    #   egg.expects(:fry).in_sequence(breakfast)
+    #   egg.expects(:eat).in_sequence(breakfast)
     def in_sequence(*sequences)
       sequences.each { |sequence| add_in_sequence_ordering_constraint(sequence) }
       self
