@@ -1,4 +1,4 @@
-= 0.9.0
+= 0.9.0 (r316)
 
 * Configurable warnings or errors
   * when a method on a non-public method is stubbed
