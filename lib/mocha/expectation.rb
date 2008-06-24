@@ -289,15 +289,16 @@ module Mocha # :nodoc:
     #
     # <tt>then(state_machine.is(state))</tt> is used to change the +state_machine+ to the specified +state+ when the invocation occurs.
     #
-    # See also AutoVerify#states, StateMachine#starts_as and Expectation#when.
-    #   pen = states('pen').starts_as('up')
+    # See also Standalone#states, StateMachine and Expectation#when.
+    #   power = states('power').starts_as('off')
     #
-    #   turtle = mock('turtle')
-    #   turtle.expects(:pen_down).then(pen.is('down'))
-    #   turtle.expects(:forward).with(10).when(pen.is('down'))
-    #   turtle.expects(:turn).with(90).when(pen.is('down'))
-    #   turtle.expects(:forward).with(10).when(pen.is('down'))
-    #   turtle.expects(:pen_up).then(pen.is('up'))
+    #   radio = mock('radio')
+    #   radio.expects(:switch_on).then(power.is('on'))
+    #   radio.expects(:select_channel).with('BBC Radio 4').when(power.is('on'))
+    #   radio.expects(:adjust_volume).with(+5).when(power.is('on'))
+    #   radio.expects(:select_channel).with('BBC World Service').when(power.is('on'))
+    #   radio.expects(:adjust_volume).with(-5).when(power.is('on'))
+    #   radio.expects(:switch_off).then(power.is('off'))
     def then(*parameters)
       if parameters.length == 1
         state = parameters.first
@@ -311,14 +312,15 @@ module Mocha # :nodoc:
     # Constrains the expectation to occur only when the +state_machine+ is in the named +state+.
     #
     # See also Standalone#states, StateMachine#starts_as and Expectation#then.
-    #   pen = states('pen').starts_as('up')
+    #   power = states('power').starts_as('off')
     #
-    #   turtle = mock('turtle')
-    #   turtle.expects(:pen_down).then(pen.is('down'))
-    #   turtle.expects(:forward).with(10).when(pen.is('down'))
-    #   turtle.expects(:turn).with(90).when(pen.is('down'))
-    #   turtle.expects(:forward).with(10).when(pen.is('down'))
-    #   turtle.expects(:pen_up).then(pen.is('up'))
+    #   radio = mock('radio')
+    #   radio.expects(:switch_on).then(power.is('on'))
+    #   radio.expects(:select_channel).with('BBC Radio 4').when(power.is('on'))
+    #   radio.expects(:adjust_volume).with(+5).when(power.is('on'))
+    #   radio.expects(:select_channel).with('BBC World Service').when(power.is('on'))
+    #   radio.expects(:adjust_volume).with(-5).when(power.is('on'))
+    #   radio.expects(:switch_off).then(power.is('off'))
     def when(state_predicate)
       add_ordering_constraint(InStateOrderingConstraint.new(state_predicate))
       self

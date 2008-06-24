@@ -1,7 +1,7 @@
 module Mocha # :nodoc:
 
   # A state machine that is used to constrain the order of invocations.
-  # An invocation can be constrained to occur when a state is, or is not, active.
+  # An invocation can be constrained to occur when a state is, or is_not, active.
   class StateMachine
   
     class State # :nodoc:
@@ -64,11 +64,17 @@ module Mocha # :nodoc:
       @current_state = next_state
     end
   
-    def is(state) # :nodoc:
+    # :call-seq: is(state)
+    #
+    # Determines whether the +state_machine+ is in the specified +state+.
+    def is(state)
       State.new(self, state)
     end
   
-    def is_not(state) # :nodoc:
+    # :call-seq: is_not(state)
+    #
+    # Determines whether the +state_machine+ is not in the specified +state+.
+    def is_not(state)
       StatePredicate.new(self, state)
     end
   

@@ -110,6 +110,8 @@ module Mocha # :nodoc:
     #
     # Returns a new sequence that is used to constrain the order in which expectations can occur.
     #
+    # Specify that an expected invocation must occur in within a named +sequence+ by using Expectation#in_sequence.
+    #
     # See also Expectation#in_sequence.
     #   breakfast = sequence('breakfast')
     #
@@ -123,17 +125,26 @@ module Mocha # :nodoc:
     
     # :call-seq: states(name) -> state_machine
     #
-    # Returns a new state machine that is used to constrain the order in which expectations can occur.
+    # Returns a new +state_machine+ that is used to constrain the order in which expectations can occur.
+    #
+    # Specify the initial +state+ of the +state_machine+ by using StateMachine#starts_as.
+    #
+    # Specify that an expected invocation should change the +state+ of the +state_machine+ by using Expectation#then.
+    #
+    # Specify that an expected invocation should be constrained to occur within a particular +state+ by using Expectation#when.
+    #
+    # A test can contain multiple +state_machines+.
     #
     # See also Expectation#then, Expectation#when and StateMachine#starts_as.
-    #   pen = states('pen').starts_as('up')
+    #   power = states('power').starts_as('off')
     #
-    #   turtle = mock('turtle')
-    #   turtle.expects(:pen_down).then(pen.is('down'))
-    #   turtle.expects(:forward).with(10).when(pen.is('down'))
-    #   turtle.expects(:turn).with(90).when(pen.is('down'))
-    #   turtle.expects(:forward).with(10).when(pen.is('down'))
-    #   turtle.expects(:pen_up).then(pen.is('up'))
+    #   radio = mock('radio')
+    #   radio.expects(:switch_on).then(power.is('on'))
+    #   radio.expects(:select_channel).with('BBC Radio 4').when(power.is('on'))
+    #   radio.expects(:adjust_volume).with(+5).when(power.is('on'))
+    #   radio.expects(:select_channel).with('BBC World Service').when(power.is('on'))
+    #   radio.expects(:adjust_volume).with(-5).when(power.is('on'))
+    #   radio.expects(:switch_off).then(power.is('off'))
     def states(name)
       Mockery.instance.new_state_machine(name)
     end
