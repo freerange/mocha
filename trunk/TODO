@@ -1,0 +1,49 @@
+=> restrict partial mocks to existing public methods?
+- allow specification of class to be mocked, so we can check for existence of methods
+- investigate where/why check for existence of stubbed method has gone.
+- allow stubbing of private/protected methods? - force_stub?
+
+=> multiple expectations for same method
+- look at JMock for examples of when multiple expectations match
+- increment actual count for ANY expectation that matches - see email from Bryan Helmkamp
+- think about allowing a stubbing expectation to be converted to an asserting expectation and vice versa
+- fail fast if expectation count exceeded during test...? c.f. JMock?
+- think about behaviour when more than one expectation/stubbed method match c.f. JMock?
+
+=> reduce footprint of mocha in terms of visible methods
+- do away with __is_a__ method if possible - Proc param may no longer be needed
+- add similar test to test_should_be_able_to_mock_standard_object_methods for partial mocks - rename non-public method with underscores e.g. mocha, reset_mocha, stubba_method, stubba_object, etc.
+- reduce number of methods added to Object, Class etc to bare minimum
+- reduce number of methods excluded from undef in mock_methods (maybe use blank_slate as mocha parent class to allow mocking of standard object methods?)
+- perhaps only add methods to particular class at point where expects or stubs gets called
+- provide some means to un-stubba an object - ideally should restore any methods with same names as stubba methods c.f. dealing with expectations for methods called :expects, :stubs, etc.
+- use Object#inspect(:mocha) or Object#__inspect__ instead of Object#mocha_inspect?
+
+=> improve design
+- use builder object c.f. JMock
+- possibly simplify by making mock the same as a partial mock of Object
+- provide test::unit agnostic api - mockery/context type objects on which the user must call setup/teardown?
+
+=> release management
+- why does gem rdoc include all source files?
+- tags for repos
+- automate releases cf rspec
+
+=> documentation
+- read and improve tutorial emailed by user
+
+=> naming
+- default mock names to mock1, mock2, etc or something similar
+- stubba mocks should named according to parent stubbee
+
+=> improve tests
+- use real activerecord as svn external to for testing instead of active_record_test_case
+- test for setting expectations on class methods (and instance methods?) from within TestCase#setup
+
+=> possible extra functionality
+- add multiyield - see email from Jay Fields
+- allow hash parameter for stubs and expects methods particularly for stubba
+- more jmock style stuff - e.g. labels/required order, more sophisticated param matching?
+- maybe allow unstubbing of a specific method from within a test...?
+- oomatron type ideas
+- should all instances share expectations for any_instance or should each instance have their own - in which case how do we provide access to the instances

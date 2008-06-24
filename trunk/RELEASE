@@ -1,0 +1,66 @@
+= 0.3.0
+
+* Rails plugin.
+* Auto-verify for expectations on concrete classes.
+* Include each expectation verification in the test result assertion count.
+* Filter out noise from assertion backtraces.
+* Point assertion backtrace to line where failing expectation was created.
+* New yields method for expectations.
+* Create stubs which stub all method calls.
+* Mocks now respond_to? expected methods.
+
+= 0.2.1
+
+* Rename MochaAcceptanceTest::Rover#move method to avoid conflict with Rake (in Ruby 1.8.4 only?)
+
+= 0.2.0
+
+* Small change to SetupAndTeardown#teardown_stubs suggested by Luke Redpath (http://www.lukeredpath.co.uk) to allow use of Stubba with RSpec (http://rspec.rubyforge.org).
+* Reorganized directory structure and extracted addition of setup and teardown methods into SmartTestCase mini-library.
+* Addition of auto-verify for Mocha (but not Stubba). This means there is more significance in the choice of expects or stubs in that any expects on a mock will automatically get verified.
+
+So instead of...
+
+  wotsit = Mocha.new
+  wotsit.expects(:thingummy).with(5).returns(10)
+  doobrey = Doobrey.new(wotsit)
+  doobrey.hoojamaflip
+  wotsit.verify
+
+you need to do...
+
+  wotsit = mock()
+  wotsit.expects(:thingummy).with(5).returns(10)
+  doobrey = Doobrey.new(wotsit)
+  doobrey.hoojamaflip
+  # no need to verify
+
+There are also shortcuts as follows...
+
+instead of...
+
+  wotsit = Mocha.new
+  wotsit.expects(:thingummy).returns(10)
+  wotsit.expects(:summat).returns(25)
+
+you can have...
+
+  wotsit = mock(:thingummy => 5, :summat => 25)
+
+and instead of...
+
+  wotsit = Mocha.new
+  wotsit.stubs(:thingummy).returns(10)
+  wotsit.stubs(:summat).returns(25)
+
+you can have...
+
+  wotsit = stub(:thingummy => 5, :summat => 25)
+
+= 0.1.2
+
+* Minor tweaks
+
+= 0.1.1
+
+* Initial release.
