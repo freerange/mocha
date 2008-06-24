@@ -135,7 +135,7 @@ module Mocha # :nodoc:
     #
     # A test can contain multiple +state_machines+.
     #
-    # See also Expectation#then, Expectation#when and StateMachine#starts_as.
+    # See also Expectation#then, Expectation#when and StateMachine.
     #   power = states('power').starts_as('off')
     #
     #   radio = mock('radio')

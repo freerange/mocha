@@ -1,3 +1,48 @@
+= 0.9.0
+
+* Configurable warnings or errors
+  * when a method on a non-public method is stubbed
+  * when a method on a non-existent method is stubbed
+  * when a method on a non-mock object is stubbed
+  * when a method is stubbed unnecessarily (i.e. the stubbed method is not called during the test)
+  
+* Improved error messages
+  * User-friendly list of unsatisfied expectations, satisfied expectations and state machines.
+  * Improved readability of cardinality description.
+  * Display sensible failure message for any_instance expectations e.g. "#<AnyInstance:Foo>.bar - expected calls: 1, actual calls: 0"
+
+* Parameter matchers
+  * New to this release
+    * optionally (allows matching of optional parameters if available)
+    * yaml_equivalent (allows matching of YAML that represents the specified object)
+    * responds_with (tests the quack not the duck)
+  * Nesting of parameter matchers is now supported.
+
+* Optional block passed into mock initializer is evaluated in the context of the new mock instance and can be used as a shortcut to set up expectations.
+
+* Added JMock-style sequences for constraining the order of expected invocations. See Standalone#sequence and Expectation#in_sequence.
+
+* Added JMock-style states for constraining the order of expected invocations. See Standalone#states, Expectation#then, Expectation#when and StateMachine.
+
+* Compatibility with versions of Ruby
+  * Compatibility with Ruby v1.9. All test errors and warnings fixed.
+  * Nasty fix so that TestCaseAdaptor works consistently with earlier versions of Test::Unit as well as more recent versions.
+  * Added platform to gem specification to avoid bug in rubygems 0.9.5 - see http://www.dcmanges.com/blog/rubygems-0-9-5-platform-bug and http://rubygems.org/read/chapter/20#platform.
+  * Make ExpectationRaiser deal with subclasses of Interrupt which seem to need a message supplied in the raise statement in Ruby 1.8.6 (but not 1.8.4 or 1.9). Not sure this is really Mocha's responsibility.
+
+* Added deprecation warning in stubba.rb which is no longer needed and will be removed.
+
+* Supply positioning information to evals to improve any error messages. See http://ola-bini.blogspot.com/2008/01/ruby-antipattern-using-eval-without.html
+
+* Bug fixes
+  * 18914 in revision 296 - http://rubyforge.org/tracker/index.php?func=detail&aid=18914&group_id=1917&atid=7477
+  * 18917 in revision 295 - http://rubyforge.org/tracker/index.php?func=detail&aid=18917&group_id=1917&atid=7477
+  * 18336 in revision 287 - http://rubyforge.org/tracker/index.php?func=detail&aid=18336&group_id=1917&atid=7477
+  * 17835 in revision 255 - http://rubyforge.org/tracker/index.php?func=detail&aid=17835&group_id=1917&atid=7477
+  * 17412 in revision 242 - http://rubyforge.org/tracker/index.php?func=detail&aid=17412&group_id=1917&atid=7477
+  * 15977 in revision 198 - http://rubyforge.org/tracker/index.php?func=detail&aid=15977&group_id=1917&atid=7477
+  * 11885 in revision 156 - http://rubyforge.org/tracker/index.php?func=detail&aid=11885&group_id=1917&atid=7477
+
 = 0.5.5 (r167)
 
 - Renamed Matches parameter matcher to RegexpMatches for clarity.

@@ -5,7 +5,7 @@ require 'rake/testtask'
 require 'rake/contrib/sshpublisher'
 
 module Mocha
-  VERSION = "0.5.6"
+  VERSION = "0.9.0"
 end
 
 desc "Run all tests"

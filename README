@@ -1,12 +1,12 @@
 = Mocha
 
-Mocha is a library for mocking and stubbing using a syntax like that of JMock[http://www.jmock.org], and SchMock[http://rubyforge.org/projects/schmock]. Most commonly Mocha is used in conjunction with Test::Unit[http://www.ruby-doc.org/core/classes/Test/Unit.html], but it can be used in other contexts.
+Mocha is a library for mocking and stubbing using a syntax like that of JMock[http://www.jmock.org].
 
-One of its main advantages is that it allows you to mock and stub methods on _real_ (non-mock) classes and instances. You can for example stub ActiveRecord[http://api.rubyonrails.com/classes/ActiveRecord/Base.html] instance methods like +create+, +save+, +destroy+ and even class methods like +find+ to avoid hitting the database in unit tests.
+It can be used with many testing frameworks e.g. Test::Unit[http://www.ruby-doc.org/core/classes/Test/Unit.html], RSpec[http://rspec.info/], test/spec[http://chneukirchen.org/repos/testspec/README], expectations[http://expectations.rubyforge.org/], Dust[http://dust.rubyforge.org/] and even JtestR[http://jtestr.codehaus.org/].
 
-Mocha provides a unified, simple and readable syntax for both traditional mocking and for mocking with _real_ objects.
+Mocha provides a unified, simple and readable syntax for both traditional mocking and partial mocking.
 
-Mocha has been harvested from projects at Reevoo[http://www.reevoo.com] by me (James[http://blog.floehopper.org]) and my colleagues Ben[http://www.reevoo.com/blogs/bengriffiths], Chris[http://blog.seagul.co.uk] and Paul[http://po-ru.com]. Mocha is in use on real-world Rails[http://www.rubyonrails.org] projects.
+Mocha was harvested from projects at Reevoo[http://www.reevoo.com] by me (James[http://blog.floehopper.org]) and my colleagues Ben[http://www.techbelly.com/], Chris[http://blog.seagul.co.uk] and Paul[http://po-ru.com].
 
 == Download and Installation
 
