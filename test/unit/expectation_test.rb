@@ -262,7 +262,7 @@ class ExpectationTest < Test::Unit::TestCase
   def test_should_not_verify_successfully_if_expected_call_was_not_made_at_least_once
     expectation = new_expectation.with(1, 2, 3).at_least_once
     assert !expectation.verified?
-    assert_match(/expected at least once, never invoked/i, expectation.mocha_inspect)
+    assert_match(/expected at least once, not yet invoked/i, expectation.mocha_inspect)
   end
   
   def test_should_verify_successfully_if_expected_call_was_made_expected_number_of_times

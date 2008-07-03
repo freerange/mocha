@@ -157,13 +157,18 @@ module Mocha # :nodoc:
       if @responder and not @responder.respond_to?(symbol)
         raise NoMethodError, "undefined method `#{symbol}' for #{self.mocha_inspect} which responds like #{@responder.mocha_inspect}"
       end
-      matching_expectation = @expectations.detect(symbol, *arguments)
-      if matching_expectation then
-        matching_expectation.invoke(&block)
-      elsif @everything_stubbed then
-        return
+      if matching_expectation_allowing_invocation = @expectations.match_allowing_invocation(symbol, *arguments)
+        matching_expectation_allowing_invocation.invoke(&block)
       else
-        unexpected_method_called(symbol, *arguments)
+        if matching_expectation = @expectations.match(symbol, *arguments)
+          unexpected_method_called(symbol, *arguments)
+        else
+          if @everything_stubbed
+            return
+          else
+            unexpected_method_called(symbol, *arguments)
+          end
+        end
       end
     end
     

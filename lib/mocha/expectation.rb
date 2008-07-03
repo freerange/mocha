@@ -426,7 +426,7 @@ module Mocha # :nodoc:
         message << "already invoked #{@invocation_count} time"
         message << "s" if @invocation_count > 1
       else
-        message << "never invoked"
+        message << "not yet invoked"
       end
       message << ": "
       message << method_signature

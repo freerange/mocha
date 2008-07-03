@@ -7,7 +7,7 @@ module Mocha # :nodoc:
     end
     
     def add(expectation)
-      @expectations << expectation
+      @expectations.unshift(expectation)
       expectation
     end
     
@@ -15,10 +15,12 @@ module Mocha # :nodoc:
       @expectations.any? { |expectation| expectation.matches_method?(method_name) }
     end
     
-    def detect(method_name, *arguments)
-      expectations = @expectations.reverse.select { |e| e.match?(method_name, *arguments) }
-      expectation = expectations.detect { |e| e.invocations_allowed? }
-      expectation || expectations.first
+    def match(method_name, *arguments)
+      matching_expectations(method_name, *arguments).first
+    end
+    
+    def match_allowing_invocation(method_name, *arguments)
+      matching_expectations(method_name, *arguments).detect { |e| e.invocations_allowed? }
     end
     
     def verified?(assertion_counter = nil)
@@ -35,6 +37,12 @@ module Mocha # :nodoc:
     
     def length
       @expectations.length
+    end
+    
+    private
+    
+    def matching_expectations(method_name, *arguments)
+      @expectations.select { |e| e.match?(method_name, *arguments) }
     end
     
   end
