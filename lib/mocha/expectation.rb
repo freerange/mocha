@@ -422,11 +422,11 @@ module Mocha # :nodoc:
     
     def mocha_inspect
       message = "#{@cardinality.mocha_inspect}, "
-      if @invocation_count > 0
-        message << "already invoked #{@invocation_count} time"
-        message << "s" if @invocation_count > 1
-      else
-        message << "not yet invoked"
+      message << case @invocation_count
+        when 0: "not yet invoked"
+        when 1: "already invoked once"
+        when 2: "already invoked twice"
+        else "already invoked #{@invocation_count} times"
       end
       message << ": "
       message << method_signature

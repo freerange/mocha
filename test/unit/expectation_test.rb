@@ -275,7 +275,7 @@ class ExpectationTest < Test::Unit::TestCase
     expectation = new_expectation.times(2)
     1.times {expectation.invoke}
     assert !expectation.verified?
-    assert_match(/expected exactly 2 times, already invoked 1 time/i, expectation.mocha_inspect)
+    assert_match(/expected exactly twice, already invoked once/i, expectation.mocha_inspect)
   end
   
   def test_should_not_verify_successfully_if_expected_call_was_made_too_many_times
