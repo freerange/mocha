@@ -5,11 +5,10 @@ module Mocha
   class ModuleMethod < ClassMethod
 
     def method_exists?(method)
-      existing_methods = []
-      existing_methods += stubbee.public_methods(false)
-      existing_methods += stubbee.protected_methods(false)
-      existing_methods += stubbee.private_methods(false)
-      existing_methods.include?(method)
+      return true if stubbee.public_methods(false).include?(method)
+      return true if stubbee.protected_methods(false).include?(method)
+      return true if stubbee.private_methods(false).include?(method)
+      return false
     end
 
   end

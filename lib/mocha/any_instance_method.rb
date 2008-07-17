@@ -43,11 +43,10 @@ module Mocha
     end
 
     def method_exists?(method)
-      existing_methods = []
-      existing_methods += stubbee.public_instance_methods(false)
-      existing_methods += stubbee.protected_instance_methods(false)
-      existing_methods += stubbee.private_instance_methods(false)
-      existing_methods.include?(method)
+      return true if stubbee.public_instance_methods(false).include?(method)
+      return true if stubbee.protected_instance_methods(false).include?(method)
+      return true if stubbee.private_instance_methods(false).include?(method)
+      return false
     end
     
   end
