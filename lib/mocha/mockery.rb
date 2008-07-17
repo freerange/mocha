@@ -86,46 +86,47 @@ module Mocha
       message
     end
     
-    def on_stubbing(object, symbol)
+    def on_stubbing(object, method)
+      method = RUBY_VERSION < '1.9' ? method.to_s : method.to_sym
       unless Mocha::Configuration.allow?(:stubbing_non_existent_method)
-        unless object.method_exists?(symbol, include_public_methods = true)
-          on_stubbing_non_existent_method(object, symbol)
+        unless object.method_exists?(method, include_public_methods = true)
+          on_stubbing_non_existent_method(object, method)
         end
       end
       unless Mocha::Configuration.allow?(:stubbing_non_public_method)
-        if object.method_exists?(symbol, include_public_methods = false)
-          on_stubbing_non_public_method(object, symbol)
+        if object.method_exists?(method, include_public_methods = false)
+          on_stubbing_non_public_method(object, method)
         end
       end
       unless Mocha::Configuration.allow?(:stubbing_method_on_non_mock_object)
-        on_stubbing_method_on_non_mock_object(object, symbol)
+        on_stubbing_method_on_non_mock_object(object, method)
       end
     end
     
-    def on_stubbing_non_existent_method(object, symbol)
+    def on_stubbing_non_existent_method(object, method)
       if Mocha::Configuration.prevent?(:stubbing_non_existent_method)
-        raise StubbingError.new("stubbing non-existent method: #{object.mocha_inspect}.#{symbol}", caller)
+        raise StubbingError.new("stubbing non-existent method: #{object.mocha_inspect}.#{method}", caller)
       end
       if Mocha::Configuration.warn_when?(:stubbing_non_existent_method)
-        logger.warn "stubbing non-existent method: #{object.mocha_inspect}.#{symbol}"
+        logger.warn "stubbing non-existent method: #{object.mocha_inspect}.#{method}"
       end
     end
     
-    def on_stubbing_non_public_method(object, symbol)
+    def on_stubbing_non_public_method(object, method)
       if Mocha::Configuration.prevent?(:stubbing_non_public_method)
-        raise StubbingError.new("stubbing non-public method: #{object.mocha_inspect}.#{symbol}", caller)
+        raise StubbingError.new("stubbing non-public method: #{object.mocha_inspect}.#{method}", caller)
       end
       if Mocha::Configuration.warn_when?(:stubbing_non_public_method)
-        logger.warn "stubbing non-public method: #{object.mocha_inspect}.#{symbol}"
+        logger.warn "stubbing non-public method: #{object.mocha_inspect}.#{method}"
       end
     end
     
-    def on_stubbing_method_on_non_mock_object(object, symbol)
+    def on_stubbing_method_on_non_mock_object(object, method)
       if Mocha::Configuration.prevent?(:stubbing_method_on_non_mock_object)
-        raise StubbingError.new("stubbing method on non-mock object: #{object.mocha_inspect}.#{symbol}", caller)
+        raise StubbingError.new("stubbing method on non-mock object: #{object.mocha_inspect}.#{method}", caller)
       end
       if Mocha::Configuration.warn_when?(:stubbing_method_on_non_mock_object)
-        logger.warn "stubbing method on non-mock object: #{object.mocha_inspect}.#{symbol}"
+        logger.warn "stubbing method on non-mock object: #{object.mocha_inspect}.#{method}"
       end
     end
     
