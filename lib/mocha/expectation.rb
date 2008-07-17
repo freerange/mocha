@@ -423,9 +423,9 @@ module Mocha # :nodoc:
     def mocha_inspect
       message = "#{@cardinality.mocha_inspect}, "
       message << case @invocation_count
-        when 0: "not yet invoked"
-        when 1: "already invoked once"
-        when 2: "already invoked twice"
+        when 0 then "not yet invoked"
+        when 1 then "already invoked once"
+        when 2 then "already invoked twice"
         else "already invoked #{@invocation_count} times"
       end
       message << ": "
