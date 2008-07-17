@@ -7,7 +7,8 @@ module Mocha
     attr_reader :stubbee, :method
    
     def initialize(stubbee, method)
-      @stubbee, @method = stubbee, method
+      @stubbee = stubbee
+      @method = RUBY_VERSION < '1.9' ? method.to_s : method.to_sym
     end
   
     def stub
@@ -59,7 +60,8 @@ module Mocha
       else
         method_name = method.to_s.gsub(/\W/) { |s| "_substituted_character_#{s.ord}_" }
       end
-      "__stubba__#{method_name}__stubba__".to_sym
+      hidden_method = "__stubba__#{method_name}__stubba__"
+      RUBY_VERSION < '1.9' ? hidden_method.to_s : hidden_method.to_sym
     end  
   
     def eql?(other)
