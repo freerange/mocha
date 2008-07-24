@@ -76,10 +76,9 @@ module Mocha
     end
     
     def method_exists?(method)
-      return true if (stubbee.public_methods(true) - stubbee.superclass.public_methods(true)).include?(method)
-      return true if (stubbee.protected_methods(true) - stubbee.superclass.protected_methods(true)).include?(method)
-      return true if (stubbee.private_methods(true) - stubbee.superclass.private_methods(true)).include?(method)
-      return false
+      symbol = method.to_sym
+      metaclass = stubbee.__metaclass__
+      metaclass.public_method_defined?(symbol) || metaclass.protected_method_defined?(symbol) || metaclass.private_method_defined?(symbol)
     end
 
   end
