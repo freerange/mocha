@@ -95,7 +95,7 @@ class ClassMethodTest < Test::Unit::TestCase
     result = klass.method_x(:param1, :param2)
     
     assert_equal :result, result
-    assert mocha.verified?
+    assert mocha.__verified__?
   end
   
   def test_should_remove_new_method

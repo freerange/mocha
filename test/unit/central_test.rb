@@ -21,7 +21,7 @@ class CentralTest < Test::Unit::TestCase
     
     stubba.stub(method)
     
-    assert method.verified?
+    assert method.__verified__?
   end
   
   def test_should_not_stub_method_if_already_stubbed
@@ -34,7 +34,7 @@ class CentralTest < Test::Unit::TestCase
     
     stubba.stub(method)
     
-    assert method.verified?
+    assert method.__verified__?
   end
   
   def test_should_record_method
@@ -58,8 +58,8 @@ class CentralTest < Test::Unit::TestCase
     stubba.unstub_all
     
     assert_equal [], stubba.stubba_methods
-    assert method_1.verified?
-    assert method_2.verified?
+    assert method_1.__verified__?
+    assert method_2.__verified__?
   end
   
 end

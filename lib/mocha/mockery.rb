@@ -43,7 +43,7 @@ module Mocha
     end
     
     def verify(assertion_counter = nil)
-      unless mocks.all? { |mock| mock.verified?(assertion_counter) }
+      unless mocks.all? { |mock| mock.__verified__?(assertion_counter) }
         message = "not all expectations were satisfied\n#{mocha_inspect}"
         if unsatisfied_expectations.empty?
           backtrace = caller

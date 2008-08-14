@@ -54,7 +54,7 @@ class MockTest < Test::Unit::TestCase
     mock = Mock.new
     OBJECT_METHODS.each { |method| mock.__expects__(method.to_sym).returns(method) }
     OBJECT_METHODS.each { |method| assert_equal method, mock.__send__(method.to_sym) }
-    assert mock.verified?
+    assert mock.__verified__?
   end
   
   def test_should_be_able_to_stub_standard_object_methods
@@ -136,7 +136,7 @@ class MockTest < Test::Unit::TestCase
     mock.expects(:method1)
     mock.expects(:method2)
     mock.method1
-    assert !mock.verified?
+    assert !mock.__verified__?
   end
   
   def test_should_increment_assertion_counter_for_every_verified_expectation
@@ -150,7 +150,7 @@ class MockTest < Test::Unit::TestCase
     
     assertion_counter = SimpleCounter.new
     
-    mock.verified?(assertion_counter)
+    mock.__verified__?(assertion_counter)
     
     assert_equal 2, assertion_counter.count
   end
