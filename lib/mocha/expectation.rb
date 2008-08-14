@@ -354,7 +354,7 @@ module Mocha # :nodoc:
 
     def initialize(mock, expected_method_name, backtrace = nil)
       @mock = mock
-      @method_matcher = MethodMatcher.new(expected_method_name)
+      @method_matcher = MethodMatcher.new(expected_method_name.to_sym)
       @parameters_matcher = ParametersMatcher.new
       @ordering_constraints = []
       @side_effects = []
