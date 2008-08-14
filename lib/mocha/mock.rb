@@ -146,10 +146,6 @@ module Mocha # :nodoc:
     
     alias_method :quacks_like, :responds_like
 
-    def add_expectation(expectation)
-      @expectations.add(expectation)
-    end
-    
     def stub_everything
       @everything_stubbed = true
     end
