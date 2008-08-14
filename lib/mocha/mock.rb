@@ -5,6 +5,7 @@ require 'mocha/names'
 require 'mocha/mockery'
 require 'mocha/method_matcher'
 require 'mocha/parameters_matcher'
+require 'mocha/unexpected_invocation'
 
 module Mocha # :nodoc:
   
@@ -161,7 +162,9 @@ module Mocha # :nodoc:
         matching_expectation_allowing_invocation.invoke(&block)
       else
         if (matching_expectation = @expectations.match(symbol, *arguments)) || (!matching_expectation && !@everything_stubbed)
-          unexpected_method_called(symbol, *arguments)
+          message = UnexpectedInvocation.new(self, symbol, *arguments).to_s
+          message << Mockery.instance.mocha_inspect
+          raise ExpectationError.new(message, caller)
         end
       end
     end
@@ -172,15 +175,6 @@ module Mocha # :nodoc:
       else
         @expectations.matches_method?(symbol)
       end
-    end
-    
-    def unexpected_method_called(symbol, *arguments)
-      method_matcher = MethodMatcher.new(symbol)
-      parameters_matcher = ParametersMatcher.new(arguments)
-      method_signature = "#{mocha_inspect}.#{method_matcher.mocha_inspect}#{parameters_matcher.mocha_inspect}"
-      message = "unexpected invocation: #{method_signature}\n"
-      message << Mockery.instance.mocha_inspect
-      raise ExpectationError.new(message, caller)
     end
     
     def __verified__?(assertion_counter = nil)

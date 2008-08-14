@@ -113,22 +113,10 @@ class MockTest < Test::Unit::TestCase
     error = assert_raise(ExpectationError) do
       mock.unexpected_method_called(:my_method, :argument1, :argument2)
     end
+    assert_match(/unexpected invocation/, error.message)
     assert_match(/my_method/, error.message)
     assert_match(/argument1/, error.message)
     assert_match(/argument2/, error.message)
-  end
-  
-  def test_should_indicate_unexpected_method_called
-    mock = Mock.new
-    class << mock
-      attr_accessor :symbol, :arguments
-      def unexpected_method_called(symbol, *arguments)
-        self.symbol, self.arguments = symbol, arguments
-      end
-    end
-    mock.my_method(:argument1, :argument2)
-    assert_equal :my_method, mock.symbol
-    assert_equal [:argument1, :argument2], mock.arguments
   end
   
   def test_should_not_verify_successfully_because_not_all_expectations_have_been_satisfied
