@@ -160,14 +160,8 @@ module Mocha # :nodoc:
       if matching_expectation_allowing_invocation = @expectations.match_allowing_invocation(symbol, *arguments)
         matching_expectation_allowing_invocation.invoke(&block)
       else
-        if matching_expectation = @expectations.match(symbol, *arguments)
+        if (matching_expectation = @expectations.match(symbol, *arguments)) || (!matching_expectation && !@everything_stubbed)
           unexpected_method_called(symbol, *arguments)
-        else
-          if @everything_stubbed
-            return
-          else
-            unexpected_method_called(symbol, *arguments)
-          end
         end
       end
     end
