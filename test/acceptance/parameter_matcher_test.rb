@@ -176,4 +176,34 @@ class ParameterMatcherTest < Test::Unit::TestCase
     assert_failed(test_result)
   end
 
+  def test_should_match_parameter_that_responds_with_specified_value
+    klass = Class.new do
+      def quack
+        'quack'
+      end
+    end
+    duck = klass.new
+    test_result = run_test do
+      mock = mock()
+      mock.expects(:method).with(responds_with(:quack, 'quack'))
+      mock.method(duck)
+    end
+    assert_passed(test_result)
+  end
+
+  def test_should_not_match_parameter_that_does_not_respond_with_specified_value
+    klass = Class.new do
+      def quack
+        'woof'
+      end
+    end
+    duck = klass.new
+    test_result = run_test do
+      mock = mock()
+      mock.expects(:method).with(responds_with(:quack, 'quack'))
+      mock.method(duck)
+    end
+    assert_failed(test_result)
+  end
+
 end
