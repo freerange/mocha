@@ -249,6 +249,12 @@ module Mocha # :nodoc:
     #   object.expected_method # => 1
     #   object.expected_method # => 2
     #   object.expected_method # => raises exception of class Exception1
+    # Note that in Ruby a method returning multiple values is exactly equivalent to a method returning an Array of those values.
+    #   object = mock()
+    #   object.stubs(:expected_method).returns([1, 2])
+    #   x, y = object.expected_method
+    #   x # => 1
+    #   y # => 2
     def returns(*values)
       @return_values += ReturnValues.build(*values)
       self
