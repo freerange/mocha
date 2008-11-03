@@ -129,7 +129,7 @@ task 'examples' do
   end
 end
 
-Gem::manage_gems
+Gem.manage_gems if Gem::RubyGemsVersion < '1.2.0'
 
 specification = Gem::Specification.new do |s|
   s.name   = "mocha"
