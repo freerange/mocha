@@ -1,3 +1,8 @@
+= 0.9.2 (r354)
+* Improved documentation to address [#22530] 'Mock methods with multiple return values not possible?'
+* respond_with parameter matcher was not available in tests.
+* Patch [#22630] Fix for a bug in running Rails tests with Ruby 1.8.7. Array#flatten was being called which in turn was checking whether each element responded to #to_ary. This check was using the two parameter version of #respond_to?, but Mock was only defining a one parameter version.
+
 = 0.9.1 (r349)
 
 * Fixed bug #21465 - expects & stubs should support method names as strings (as well as symbols) or fail fast. Convert all expectation method names to a symbol in case they were supplied as a string.
