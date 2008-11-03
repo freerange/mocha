@@ -287,4 +287,9 @@ class MockTest < Test::Unit::TestCase
     end
   end
   
+  def test_should_handle_respond_to_with_private_methods_param_without_error
+    mock = Mock.new
+    assert_nothing_raised{ mock.respond_to?(:object_id, false) }
+  end
+  
 end

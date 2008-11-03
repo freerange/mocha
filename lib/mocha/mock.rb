@@ -165,9 +165,13 @@ module Mocha # :nodoc:
       end
     end
     
-    def respond_to?(symbol)
+    def respond_to?(symbol, include_private = false)
       if @responder then
-        @responder.respond_to?(symbol)
+        if @responder.method(:respond_to?).arity > 1
+          @responder.respond_to?(symbol, include_private)
+        else
+          @responder.respond_to?(symbol)
+        end
       else
         @expectations.matches_method?(symbol)
       end
