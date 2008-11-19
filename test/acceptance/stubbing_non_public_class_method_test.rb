@@ -149,7 +149,9 @@ class StubbingNonPublicClassMethodTest < Test::Unit::TestCase
     Mocha::Configuration.prevent(:stubbing_non_public_method)
     klass = Class.new do
       class << self
-        def respond_to?(method, include_private_methods = false); true; end
+        def respond_to?(method, include_private_methods = false)
+          (method == :method_to_which_class_responds)
+        end
       end
     end
     test_result = run_test do
