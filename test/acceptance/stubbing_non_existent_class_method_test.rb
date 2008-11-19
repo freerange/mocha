@@ -70,7 +70,9 @@ class StubbingNonExistentClassMethodTest < Test::Unit::TestCase
     Mocha::Configuration.prevent(:stubbing_non_existent_method)
     klass = Class.new do
       class << self
-        def respond_to?(method, include_private = false); true; end
+        def respond_to?(method, include_private = false)
+          (method == :method_to_which_class_responds)
+        end
       end
     end
     test_result = run_test do
