@@ -1,18 +1,16 @@
-require 'mocha/expectation_error'
-
 module Mocha
 
   module MiniTestCaseAdapter
 
     class AssertionCounter
-      def initialize(runner)
-        @runner = runner
+      def initialize(test_case)
+        @test_case = test_case
       end
 
       def increment
-        @runner.assertion_count += 1
+        @test_case._assertions += 1
       end
-    end #AssertionCounter
+    end
 
     def self.included(base)
       base.class_eval do
@@ -20,7 +18,7 @@ module Mocha
         alias_method :run_before_mocha_mini_test_adapter, :run
 
         def run runner
-          assertion_counter = AssertionCounter.new(runner)
+          assertion_counter = AssertionCounter.new(self)
           result = '.'
           begin
             begin
@@ -48,5 +46,5 @@ module Mocha
       end
     end
 
-  end #MiniTestCaseAdapter
+  end
 end
