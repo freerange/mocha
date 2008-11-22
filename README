@@ -26,7 +26,7 @@ Or download Mocha from here - http://rubyforge.org/projects/mocha
 * Traditional mocking - {Star Trek Example}[link:examples/mocha.html]
 * Setting expectations on real classes - {Order Example}[link:examples/stubba.html]
 * More examples on {Floehopper's Blog}[http://blog.floehopper.org]
-* {Mailing List Archives}[http://rubyforge.org/pipermail/mocha-developer/]
+* {Mailing List Archives}[http://groups.google.com/group/mocha-developer]
 
 == License
 
