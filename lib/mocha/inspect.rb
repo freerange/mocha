@@ -1,39 +1,67 @@
 require 'date'
 
-class Object
-  def mocha_inspect
-    address = self.__id__ * 2
-    address += 0x100000000 if address < 0
-    inspect =~ /#</ ? "#<#{self.class}:0x#{'%x' % address}>" : inspect
+module Mocha
+  
+  module ObjectMethods
+    def mocha_inspect
+      address = self.__id__ * 2
+      address += 0x100000000 if address < 0
+      inspect =~ /#</ ? "#<#{self.class}:0x#{'%x' % address}>" : inspect
+    end
   end
+  
+  module StringMethods
+    def mocha_inspect
+      inspect.gsub(/\"/, "'")
+    end
+  end
+  
+  module ArrayMethods
+    def mocha_inspect
+      "[#{collect { |member| member.mocha_inspect }.join(', ')}]"
+    end
+  end
+  
+  module HashMethods
+    def mocha_inspect
+      "{#{collect { |key, value| "#{key.mocha_inspect} => #{value.mocha_inspect}" }.join(', ')}}"
+    end
+  end
+  
+  module TimeMethods
+    def mocha_inspect
+      "#{inspect} (#{to_f} secs)"
+    end
+  end
+  
+  module DateMethods
+    def mocha_inspect
+      to_s
+    end
+  end
+  
+end
+
+class Object
+  include Mocha::ObjectMethods
 end
 
 class String
-  def mocha_inspect
-    inspect.gsub(/\"/, "'")
-  end
+  include Mocha::StringMethods
 end
 
 class Array
-  def mocha_inspect
-    "[#{collect { |member| member.mocha_inspect }.join(', ')}]"
-  end
+  include Mocha::ArrayMethods
 end
 
 class Hash
-  def mocha_inspect
-    "{#{collect { |key, value| "#{key.mocha_inspect} => #{value.mocha_inspect}" }.join(', ')}}"
-  end
+  include Mocha::HashMethods
 end
 
 class Time
-  def mocha_inspect
-    "#{inspect} (#{to_f} secs)"
-  end
+  include Mocha::TimeMethods
 end
 
 class Date
-  def mocha_inspect
-    to_s
-  end
+  include Mocha::DateMethods
 end
