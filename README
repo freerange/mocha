@@ -2,7 +2,7 @@
 
 Mocha is a library for mocking and stubbing using a syntax like that of JMock[http://www.jmock.org].
 
-It can be used with many testing frameworks e.g. Test::Unit[http://www.ruby-doc.org/core/classes/Test/Unit.html], RSpec[http://rspec.info/], test/spec[http://chneukirchen.org/repos/testspec/README], expectations[http://expectations.rubyforge.org/], Dust[http://dust.rubyforge.org/] and even JtestR[http://jtestr.codehaus.org/].
+It can be used with many testing frameworks e.g. Test::Unit[http://www.ruby-doc.org/core/classes/Test/Unit.html], RSpec[http://rspec.info/], test/spec[http://chneukirchen.org/repos/testspec/README], expectations[http://expectations.rubyforge.org/], Dust[http://dust.rubyforge.org/], MiniTest[http://rubyforge.org/projects/bfts] and even JtestR[http://jtestr.codehaus.org/].
 
 Mocha provides a unified, simple and readable syntax for both traditional mocking and partial mocking.
 
