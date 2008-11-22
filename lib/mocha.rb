@@ -1,17 +1,35 @@
 require 'mocha_standalone'
 require 'mocha/configuration'
 
-# todo - MiniTest is a gem in Ruby 1.8, but part of stdlib in Ruby 1.9
+if RUBY_VERSION < '1.9'
+  begin
+    require 'rubygems'
+    begin
+      gem 'minitest', '>=1.3'
+      require 'minitest/unit'
+    rescue Gem::LoadError
+      # Compatible version of MiniTest gem not available
+    end
+  rescue LoadError
+    # RubyGems not available
+  end
+else
+  begin
+    require 'minitest/unit'
+  rescue LoadError
+    # MiniTest not available
+  end
+end
 
-require 'mocha/mini_test_adapter'
-require 'rubygems'
-require 'minitest/unit'
+if defined?(MiniTest)
+  require 'mocha/mini_test_adapter'
 
-module MiniTest
-  class Unit
-    class TestCase
-      include Mocha::Standalone
-      include Mocha::MiniTestCaseAdapter
+  module MiniTest
+    class Unit
+      class TestCase
+        include Mocha::Standalone
+        include Mocha::MiniTestCaseAdapter
+      end
     end
   end
 end
