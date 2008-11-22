@@ -3,7 +3,7 @@ require 'rake'
 Gem::Specification.new do |s|
   s.name   = "mocha"
   s.summary = "Mocking and stubbing library"
-  s.version = "0.9.2"
+  s.version = "0.9.3"
   s.platform = Gem::Platform::RUBY
   s.author = 'James Mead'
   s.description = <<-EOF
