@@ -1,3 +1,6 @@
+=> the move to GitHub
+- need to add continuous integration for repos
+
 => Patch [#15235] Provide a pseudo-call syntax for simplifying set-up of expectations and stubs
 => Patch [#10412] Merge 'with' and the expected method
 => Bug [#8687] Block's return value is dropped on stubbed yielding methods
