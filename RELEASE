@@ -1,7 +1,8 @@
-= 0.9.3 (b286ee0f4a4581c1944260f20ba1bfd9b913397f)
+= 0.9.3 (8219bb2d2881c8529c93fc21e97a11d01203c759)
 * Added support for MiniTest thanks to sprsquish.
 * Fixed a possible bug with some of the non-default Configuration options relating to the argument to Object#respond_to?
 * As per Jay Fields recommendations [1] and with further impetus from a talk at Ruby Manor, any methods added to core classes are now added by including a module. This means that Mocha is a better citizen of the Ruby world and it's behaviour is more easily extended. [1] http://blog.jayfields.com/2008/07/ruby-underuse-of-modules.html & http://blog.jayfields.com/2008/07/ruby-redefine-method-behavior.html
+* Removed deprecated gem autorequire.
 
 = 0.9.2 (r355)
 * Improved documentation to address [#22530] 'Mock methods with multiple return values not possible?'

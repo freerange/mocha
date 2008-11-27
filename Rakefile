@@ -148,7 +148,6 @@ specification = Gem::Specification.new do |s|
   s.extra_rdoc_files = ['README', 'COPYING']
   s.rdoc_options << '--title' << 'Mocha' << '--main' << 'README' << '--line-numbers'
                          
-  s.autorequire = 'mocha'
   s.add_dependency('rake')
   s.files = FileList['{lib,test,examples}/**/*.rb', '[A-Z]*'].exclude('TODO').to_a
 end
