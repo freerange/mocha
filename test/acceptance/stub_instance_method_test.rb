@@ -162,4 +162,42 @@ class StubInstanceMethodTest < Test::Unit::TestCase
     assert_passed(test_result)
   end
   
+  def test_should_be_able_to_specify_expectations_on_multiple_methods_in_a_single_call_to_expects
+    instance = Class.new do
+      def my_instance_method_1
+        :original_return_value_1
+      end
+      def my_instance_method_2
+        :original_return_value_2
+      end
+    end.new
+    run_test do
+      instance.expects(
+        :my_instance_method_1 => :new_return_value_1,
+        :my_instance_method_2 => :new_return_value_2
+      )
+      assert_equal :new_return_value_1, instance.my_instance_method_1
+      assert_equal :new_return_value_2, instance.my_instance_method_2
+    end
+  end
+  
+  def test_should_be_able_to_specify_expectations_on_multiple_methods_in_a_single_call_to_stubs
+    instance = Class.new do
+      def my_instance_method_1
+        :original_return_value_1
+      end
+      def my_instance_method_2
+        :original_return_value_2
+      end
+    end.new
+    run_test do
+      instance.stubs(
+        :my_instance_method_1 => :new_return_value_1,
+        :my_instance_method_2 => :new_return_value_2
+      )
+      assert_equal :new_return_value_1, instance.my_instance_method_1
+      assert_equal :new_return_value_2, instance.my_instance_method_2
+    end
+  end
+
 end

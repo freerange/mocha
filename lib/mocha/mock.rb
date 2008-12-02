@@ -6,6 +6,7 @@ require 'mocha/mockery'
 require 'mocha/method_matcher'
 require 'mocha/parameters_matcher'
 require 'mocha/unexpected_invocation'
+require 'mocha/argument_iterator'
 
 module Mocha # :nodoc:
   
@@ -15,9 +16,9 @@ module Mocha # :nodoc:
   class Mock
     
     # :call-seq: expects(method_name) -> expectation
-    #            expects(method_names) -> last expectation
+    #            expects(method_names_vs_return_values) -> last expectation
     #
-    # Adds an expectation that a method identified by +method_name+ symbol must be called exactly once with any parameters.
+    # Adds an expectation that a method identified by +method_name+ Symbol/String must be called exactly once with any parameters.
     # Returns the new expectation which can be further modified by methods on Expectation.
     #   object = mock()
     #   object.expects(:method1)
@@ -27,7 +28,7 @@ module Mocha # :nodoc:
     #   object = mock()
     #   object.expects(:method1)
     #   # error raised, because method1 not called exactly once
-    # If +method_names+ is a +Hash+, an expectation will be set up for each entry using the key as +method_name+ and value as +return_value+.
+    # If +method_names_vs_return_values+ is a +Hash+, an expectation will be set up for each entry using the key as +method_name+ and value as +return_value+.
     #   object = mock()
     #   object.expects(:method1 => :result1, :method2 => :result2)
     #
@@ -39,28 +40,27 @@ module Mocha # :nodoc:
     #
     # Aliased by <tt>\_\_expects\_\_</tt>
     def expects(method_name_or_hash, backtrace = nil)
-      if method_name_or_hash.is_a?(Hash) then
-        method_name_or_hash.each do |method_name, return_value|
-          ensure_method_not_already_defined(method_name)
-          @expectations.add(Expectation.new(self, method_name, backtrace).returns(return_value))
-        end
-      else
-        ensure_method_not_already_defined(method_name_or_hash)
-        @expectations.add(Expectation.new(self, method_name_or_hash, backtrace))
-      end
+      iterator = ArgumentIterator.new(method_name_or_hash)
+      iterator.each { |*args|
+        method_name = args.shift
+        ensure_method_not_already_defined(method_name)
+        expectation = Expectation.new(self, method_name, backtrace)
+        expectation.returns(args.shift) if args.length > 0
+        @expectations.add(expectation)
+      }
     end
     
     # :call-seq: stubs(method_name) -> expectation
-    #            stubs(method_names) -> last expectation
+    #            stubs(method_names_vs_return_values) -> last expectation
     #
-    # Adds an expectation that a method identified by +method_name+ symbol may be called any number of times with any parameters.
+    # Adds an expectation that a method identified by +method_name+ Symbol/String may be called any number of times with any parameters.
     # Returns the new expectation which can be further modified by methods on Expectation.
     #   object = mock()
     #   object.stubs(:method1)
     #   object.method1
     #   object.method1
     #   # no error raised
-    # If +method_names+ is a +Hash+, an expectation will be set up for each entry using the key as +method_name+ and value as +return_value+.
+    # If +method_names_vs_return_values+ is a +Hash+, an expectation will be set up for each entry using the key as +method_name+ and value as +return_value+.
     #   object = mock()
     #   object.stubs(:method1 => :result1, :method2 => :result2)
     #
@@ -72,15 +72,15 @@ module Mocha # :nodoc:
     #
     # Aliased by <tt>\_\_stubs\_\_</tt>
     def stubs(method_name_or_hash, backtrace = nil)
-      if method_name_or_hash.is_a?(Hash) then
-        method_name_or_hash.each do |method_name, return_value|
-          ensure_method_not_already_defined(method_name)
-          @expectations.add(Expectation.new(self, method_name, backtrace).at_least(0).returns(return_value))
-        end
-      else
-        ensure_method_not_already_defined(method_name_or_hash)
-        @expectations.add(Expectation.new(self, method_name_or_hash, backtrace).at_least(0))
-      end
+      iterator = ArgumentIterator.new(method_name_or_hash)
+      iterator.each { |*args|
+        method_name = args.shift
+        ensure_method_not_already_defined(method_name)
+        expectation = Expectation.new(self, method_name, backtrace)
+        expectation.at_least(0)
+        expectation.returns(args.shift) if args.length > 0
+        @expectations.add(expectation)
+      }
     end
     
     # :call-seq: responds_like(responder) -> mock

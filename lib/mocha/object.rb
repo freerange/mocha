@@ -3,6 +3,7 @@ require 'mocha/instance_method'
 require 'mocha/class_method'
 require 'mocha/module_method'
 require 'mocha/any_instance_method'
+require 'mocha/argument_iterator'
 
 module Mocha
   
@@ -27,42 +28,78 @@ module Mocha
       self
     end
   
-    # :call-seq: expects(symbol) -> expectation
+    # :call-seq: expects(method_name) -> expectation
+    #            expects(method_names_vs_return_values) -> last expectation
     #
-    # Adds an expectation that a method identified by +symbol+ must be called exactly once with any parameters.
+    # Adds an expectation that a method identified by +method_name+ Symbol must be called exactly once with any parameters.
     # Returns the new expectation which can be further modified by methods on Mocha::Expectation.
     #   product = Product.new
     #   product.expects(:save).returns(true)
-    #   assert_equal false, product.save
+    #   assert_equal true, product.save
     #
     # The original implementation of <tt>Product#save</tt> is replaced temporarily.
     #
     # The original implementation of <tt>Product#save</tt> is restored at the end of the test.
-    def expects(symbol)
+    #
+    # If +method_names_vs_return_values+ is a +Hash+, an expectation will be set up for each entry using the key as +method_name+ and value as +return_value+.
+    #   product = Product.new
+    #   product.expects(:valid? => true, :save => true)
+    #
+    #   # exactly equivalent to
+    #
+    #   product = Product.new
+    #   product.expects(:valid?).returns(true)
+    #   product.expects(:save).returns(true)
+    def expects(method_name_or_hash)
+      expectation = nil
       mockery = Mocha::Mockery.instance
-      mockery.on_stubbing(self, symbol)
-      method = stubba_method.new(stubba_object, symbol)
-      mockery.stubba.stub(method)
-      mocha.expects(symbol, caller)
+      iterator = ArgumentIterator.new(method_name_or_hash)
+      iterator.each { |*args|
+        method_name = args.shift
+        mockery.on_stubbing(self, method_name)
+        method = stubba_method.new(stubba_object, method_name)
+        mockery.stubba.stub(method)
+        expectation = mocha.expects(method_name, caller)
+        expectation.returns(args.shift) if args.length > 0
+      }
+      expectation
     end
   
-    # :call-seq: stubs(symbol) -> expectation
+    # :call-seq: stubs(method_name) -> expectation
+    #            stubs(method_names_vs_return_values) -> last expectation
     #
-    # Adds an expectation that a method identified by +symbol+ may be called any number of times with any parameters.
+    # Adds an expectation that a method identified by +method_name+ Symbol may be called any number of times with any parameters.
     # Returns the new expectation which can be further modified by methods on Mocha::Expectation.
     #   product = Product.new
     #   product.stubs(:save).returns(true)
-    #   assert_equal false, product.save
+    #   assert_equal true, product.save
     #
     # The original implementation of <tt>Product#save</tt> is replaced temporarily.
     #
     # The original implementation of <tt>Product#save</tt> is restored at the end of the test.
-    def stubs(symbol)
+    #
+    # If +method_names_vs_return_values+ is a +Hash+, an expectation will be set up for each entry using the key as +method_name+ and value as +return_value+.
+    #   product = Product.new
+    #   product.stubs(:valid? => true, :save => true)
+    #
+    #   # exactly equivalent to
+    #
+    #   product = Product.new
+    #   product.stubs(:valid?).returns(true)
+    #   product.stubs(:save).returns(true)
+    def stubs(method_name_or_hash)
+      expectation = nil
       mockery = Mocha::Mockery.instance
-      mockery.on_stubbing(self, symbol)
-      method = stubba_method.new(stubba_object, symbol)
-      mockery.stubba.stub(method)
-      mocha.stubs(symbol, caller)
+      iterator = ArgumentIterator.new(method_name_or_hash)
+      iterator.each { |*args|
+        method_name = args.shift
+        mockery.on_stubbing(self, method_name)
+        method = stubba_method.new(stubba_object, method_name)
+        mockery.stubba.stub(method)
+        expectation = mocha.stubs(method_name, caller)
+        expectation.returns(args.shift) if args.length > 0
+      }
+      expectation
     end
   
     def method_exists?(method, include_public_methods = true) # :nodoc:
