@@ -131,31 +131,43 @@ end
 
 Gem.manage_gems if Gem::RubyGemsVersion < '1.2.0'
 
-specification = Gem::Specification.new do |s|
-  s.name   = "mocha"
-  s.summary = "Mocking and stubbing library"
-  s.version = Mocha::VERSION
-  s.platform = Gem::Platform::RUBY
-  s.author = 'James Mead'
-  s.description = <<-EOF
-    Mocking and stubbing library with JMock/SchMock syntax, which allows mocking and stubbing of methods on real (non-mock) classes.
-  EOF
-  s.email = 'mocha-developer@rubyforge.org'
-  s.homepage = 'http://mocha.rubyforge.org'
-  s.rubyforge_project = 'mocha'
+def build_specification(version = Mocha::VERSION)
+  Gem::Specification.new do |s|
+    s.name   = "mocha"
+    s.summary = "Mocking and stubbing library"
+    s.version = version
+    s.platform = Gem::Platform::RUBY
+      s.author = 'James Mead'
+    s.description = <<-EOF
+      Mocking and stubbing library with JMock/SchMock syntax, which allows mocking and stubbing of methods on real (non-mock) classes.
+    EOF
+    s.email = 'mocha-developer@rubyforge.org'
+    s.homepage = 'http://mocha.rubyforge.org'
+    s.rubyforge_project = 'mocha'
 
-  s.has_rdoc = true
-  s.extra_rdoc_files = ['README', 'COPYING']
-  s.rdoc_options << '--title' << 'Mocha' << '--main' << 'README' << '--line-numbers'
-                         
-  s.add_dependency('rake')
-  s.files = FileList['{lib,test,examples}/**/*.rb', '[A-Z]*'].exclude('TODO').to_a
+    s.has_rdoc = true
+    s.extra_rdoc_files = ['README', 'COPYING']
+    s.rdoc_options << '--title' << 'Mocha' << '--main' << 'README' << '--line-numbers'
+
+    s.add_dependency('rake')
+    s.files = FileList['{lib,test,examples}/**/*.rb', '[A-Z]*'].exclude('TODO').to_a
+  end
 end
+
+specification = build_specification
 
 Rake::GemPackageTask.new(specification) do |package|
    package.need_zip = true
    package.need_tar = true
 end
+
+desc 'Generate updated gemspec with unique version, which will cause gem to be auto-built on github.'
+task :update_gemspec do
+  File.open('mocha.gemspec', 'w') do |output|
+    output << build_specification(Mocha::VERSION + '.' + Time.now.strftime('%Y%m%d%H%M%S')).to_ruby
+  end
+end
+
 
 task 'verify_user' do
   raise "RUBYFORGE_USER environment variable not set!" unless ENV['RUBYFORGE_USER']
