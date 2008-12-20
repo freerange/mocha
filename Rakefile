@@ -141,7 +141,7 @@ def build_specification(version = Mocha::VERSION)
     s.description = <<-EOF
       Mocking and stubbing library with JMock/SchMock syntax, which allows mocking and stubbing of methods on real (non-mock) classes.
     EOF
-    s.email = 'mocha-developer@rubyforge.org'
+    s.email = 'mocha-developer@googlegroups.com'
     s.homepage = 'http://mocha.rubyforge.org'
     s.rubyforge_project = 'mocha'
 
