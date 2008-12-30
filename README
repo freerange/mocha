@@ -6,7 +6,7 @@ It can be used with many testing frameworks e.g. Test::Unit[http://www.ruby-doc.
 
 Mocha provides a unified, simple and readable syntax for both traditional mocking and partial mocking.
 
-Mocha was harvested from projects at Reevoo[http://www.reevoo.com] by me (James[http://blog.floehopper.org]) and my colleagues Ben[http://www.techbelly.com/], Chris[http://blog.seagul.co.uk] and Paul[http://po-ru.com].
+Mocha was harvested from projects at Reevoo[http://www.reevoo.com] by me (James[http://blog.floehopper.org]) and my (then) colleagues Ben[http://www.techbelly.com/], Chris[http://chrisroos.co.uk] and Paul[http://po-ru.com].
 
 == Download and Installation
 
@@ -16,9 +16,11 @@ Install the gem with the following command...
  
 Or install the Rails[http://www.rubyonrails.org] plugin...
 
-  $ script/plugin install svn://rubyforge.org/var/svn/mocha/trunk
+  $ script/plugin install git://github.com/floehopper/mocha.git
 
-Or download Mocha from here - http://rubyforge.org/projects/mocha
+Or download Mocha...
+
+  http://rubyforge.org/frs/?group_id=1917
 
 == Examples
 
