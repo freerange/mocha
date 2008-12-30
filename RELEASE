@@ -1,3 +1,9 @@
+= 0.9.4 (8a59c6ff0f99f34b02bd99f19536a7893be2b340)
+* Added mocha.gemspec file generated with Chad Woolley's new rake task, so that a floehopper-mocha gem will get built on GitHub.
+* Add rake task to update mocha.gemspec with unique version, which will cause gem to be auto-built on github
+* As Tobias Crawley correctly pointed out in feature request #23055 "stubs(with_hash) not working with existing object" [1], following the principle of least surprise, it should be possible to call ObjectMethods#expects & ObjectMethods#stubs with a Hash of method_names vs return_values like you can with Mock#expects & Mock#stubs. I've also updated & improved the docs to reflect the changes. [1] http://rubyforge.org/tracker/index.php?func=detail&aid=23055&group_id=1917&atid=7480
+* Removed deprecated gem autorequire.
+
 = 0.9.3 (8219bb2d2881c8529c93fc21e97a11d01203c759)
 * Added support for MiniTest thanks to sprsquish.
 * Fixed a possible bug with some of the non-default Configuration options relating to the argument to Object#respond_to?
