@@ -2,7 +2,6 @@ require 'rubygems'
 require 'rake/rdoctask'
 require 'rake/gempackagetask'
 require 'rake/testtask'
-require 'rake/contrib/sshpublisher'
 
 module Mocha
   VERSION = "0.9.4"
@@ -88,6 +87,7 @@ task 'rdoc' => 'examples'
 
 desc "Upload RDoc to RubyForge"
 task 'publish_rdoc' => ['rdoc', 'examples'] do
+  require 'rake/contrib/sshpublisher'
   Rake::SshDirPublisher.new("jamesmead@rubyforge.org", "/var/www/gforge-projects/mocha", "doc").upload
 end
 
