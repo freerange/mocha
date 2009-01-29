@@ -253,8 +253,8 @@ class ExpectationTest < Test::Unit::TestCase
     assert expectation.verified?
   end
 
-  def test_should_verify_successfully_if_call_expected_twice_and_invoked_three_times
-    expectation = new_expectation.once
+  def test_should_not_verify_successfully_if_call_expected_twice_and_invoked_three_times
+    expectation = new_expectation.twice
     expectation.invoke
     expectation.invoke
     expectation.invoke
@@ -264,11 +264,6 @@ class ExpectationTest < Test::Unit::TestCase
   def test_should_not_verify_successfully_if_call_expected_twice_but_invoked_once
     expectation = new_expectation.twice
     expectation.invoke
-    assert !expectation.verified?
-  end
-
-  def test_should_not_verify_successfully_if_call_expected_twice_but_not_invoked
-    expectation = new_expectation.twice
     assert !expectation.verified?
   end
 

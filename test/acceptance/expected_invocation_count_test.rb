@@ -35,7 +35,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
   def test_should_pass_if_method_is_expected_twice_and_is_called_twice
     test_result = run_test do
       mock = mock('mock')
-      mock.expects(:method).times(2)
+      mock.expects(:method).twice
       2.times { mock.method }
     end
     assert_passed(test_result)
@@ -44,7 +44,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
   def test_should_fail_if_method_is_expected_twice_but_is_called_once
     test_result = run_test do
       mock = mock('mock')
-      mock.expects(:method).times(2)
+      mock.expects(:method).twice
       1.times { mock.method }
     end
     assert_failed(test_result)
@@ -54,7 +54,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
   def test_should_fail_fast_if_method_is_expected_twice_but_is_called_three_times
     test_result = run_test do
       mock = mock('mock')
-      mock.expects(:method).times(2)
+      mock.expects(:method).twice
       3.times { mock.method }
     end
     assert_failed(test_result)
