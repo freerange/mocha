@@ -292,4 +292,11 @@ class MockTest < Test::Unit::TestCase
     assert_nothing_raised{ mock.respond_to?(:object_id, false) }
   end
   
+  def test_should_respond_to_any_method_if_stubbing_everything
+    mock = Mock.new
+    mock.stub_everything
+    assert mock.respond_to?(:abc)
+    assert mock.respond_to?(:xyz)
+  end
+  
 end
