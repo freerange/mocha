@@ -1,3 +1,9 @@
+= 0.9.5 (5615d965463451cf75d6f05616a514f46798f2ff)
+* Fixed Lighthouse bug #32 - stub_everything should mean mock responds to anything.
+* Added Expectation#twice to improve readability. Tthanks to pull request from Celestino Gomes.
+* In Ruby 1.9, requiring 'test/unit' loads a thin wrapper around MiniTest and Test::Unit::TestCase ends up inheriting from MiniTest::Unit::TestCase. So we need to avoid including the Mocha modules more than once to avoid nasty consequences. Thanks to Matthias Hennemeyer for help with this.
+* Ruby 1.9 includes rake, but not rake/contrib. For the moment I've moved the sshpublisher require into the only rake task that needs it, so that I can at least run the tests in Ruby 1.9. It looks like I will need to build a rake/contrib gem or similar to get this working properly - http://intertwingly.net/blog/2008/01/07/Rake-Contrib-for-1-9
+
 = 0.9.4 (8a59c6ff0f99f34b02bd99f19536a7893be2b340)
 * Added mocha.gemspec file generated with Chad Woolley's new rake task, so that a floehopper-mocha gem will get built on GitHub.
 * Add rake task to update mocha.gemspec with unique version, which will cause gem to be auto-built on github
@@ -5,7 +11,7 @@
 * Removed deprecated gem autorequire.
 
 = 0.9.3 (8219bb2d2881c8529c93fc21e97a11d01203c759)
-* Added support for MiniTest thanks to sprsquish.
+* Added support for MiniTest thanks to Jeff Smick.
 * Fixed a possible bug with some of the non-default Configuration options relating to the argument to Object#respond_to?
 * As per Jay Fields recommendations [1] and with further impetus from a talk at Ruby Manor, any methods added to core classes are now added by including a module. This means that Mocha is a better citizen of the Ruby world and it's behaviour is more easily extended. [1] http://blog.jayfields.com/2008/07/ruby-underuse-of-modules.html & http://blog.jayfields.com/2008/07/ruby-redefine-method-behavior.html
 * Removed deprecated gem autorequire.
