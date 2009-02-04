@@ -14,7 +14,7 @@ class PartialMockTest < Test::Unit::TestCase
   end
   
   def test_should_pass_if_all_expectations_are_satisfied
-    test_result = run_test do
+    test_result = run_as_test do
       partial_mock_one = "partial_mock_one"
       partial_mock_two = "partial_mock_two"
       
@@ -30,7 +30,7 @@ class PartialMockTest < Test::Unit::TestCase
   end
 
   def test_should_fail_if_all_expectations_are_not_satisfied
-    test_result = run_test do
+    test_result = run_as_test do
       partial_mock_one = "partial_mock_one"
       partial_mock_two = "partial_mock_two"
       

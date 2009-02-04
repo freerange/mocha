@@ -15,7 +15,7 @@ class StubModuleMethodTest < Test::Unit::TestCase
   
   def test_should_stub_method_within_test
     mod = Module.new { def self.my_module_method; :original_return_value; end }
-    test_result = run_test do
+    test_result = run_as_test do
       mod.stubs(:my_module_method).returns(:new_return_value)
       assert_equal :new_return_value, mod.my_module_method
     end
@@ -24,7 +24,7 @@ class StubModuleMethodTest < Test::Unit::TestCase
   
   def test_should_leave_stubbed_public_method_unchanged_after_test
     mod = Module.new { class << self; def my_module_method; :original_return_value; end; public :my_module_method; end }
-    run_test do
+    run_as_test do
       mod.stubs(:my_module_method).returns(:new_return_value)
     end
     assert mod.public_methods(false).any? { |m| m.to_s == 'my_module_method' }
@@ -33,7 +33,7 @@ class StubModuleMethodTest < Test::Unit::TestCase
   
   def test_should_leave_stubbed_protected_method_unchanged_after_test
     mod = Module.new { class << self; def my_module_method; :original_return_value; end; protected :my_module_method; end }
-    run_test do
+    run_as_test do
       mod.stubs(:my_module_method).returns(:new_return_value)
     end
     assert mod.protected_methods(false).any? { |m| m.to_s == 'my_module_method' }
@@ -42,7 +42,7 @@ class StubModuleMethodTest < Test::Unit::TestCase
   
   def test_should_leave_stubbed_private_method_unchanged_after_test
     mod = Module.new { class << self; def my_module_method; :original_return_value; end; private :my_module_method; end }
-    run_test do
+    run_as_test do
       mod.stubs(:my_module_method).returns(:new_return_value)
     end
     assert mod.private_methods(false).any? { |m| m.to_s == 'my_module_method' }
@@ -51,7 +51,7 @@ class StubModuleMethodTest < Test::Unit::TestCase
   
   def test_should_reset_expectations_after_test
     mod = Module.new { def self.my_module_method; :original_return_value; end }
-    run_test do
+    run_as_test do
       mod.stubs(:my_module_method)
     end
     assert_equal 0, mod.mocha.expectations.length
@@ -60,7 +60,7 @@ class StubModuleMethodTest < Test::Unit::TestCase
   def test_should_be_able_to_stub_a_superclass_method
     supermod = Module.new { def self.my_superclass_method; :original_return_value; end }
     mod = Module.new { include supermod }
-    test_result = run_test do
+    test_result = run_as_test do
       mod.stubs(:my_superclass_method).returns(:new_return_value)
       assert_equal :new_return_value, mod.my_superclass_method
     end
@@ -78,7 +78,7 @@ class StubModuleMethodTest < Test::Unit::TestCase
         end
       end
     end
-    test_result = run_test do
+    test_result = run_as_test do
       ruby18_mod.stubs(:my_module_method).returns(:new_return_value)
       assert_equal :new_return_value, ruby18_mod.my_module_method
     end
@@ -93,7 +93,7 @@ class StubModuleMethodTest < Test::Unit::TestCase
         end
       end
     end
-    test_result = run_test do
+    test_result = run_as_test do
       ruby19_mod.stubs(:my_module_method).returns(:new_return_value)
       assert_equal :new_return_value, ruby19_mod.my_module_method
     end
@@ -108,7 +108,7 @@ class StubModuleMethodTest < Test::Unit::TestCase
         end
       end
     end
-    test_result = run_test do
+    test_result = run_as_test do
       ruby18_mod.stubs(:my_module_method).returns(:new_return_value)
       assert_equal :new_return_value, ruby18_mod.my_module_method
     end
@@ -123,7 +123,7 @@ class StubModuleMethodTest < Test::Unit::TestCase
         end
       end
     end
-    test_result = run_test do
+    test_result = run_as_test do
       ruby19_mod.stubs(:my_module_method).returns(:new_return_value)
       assert_equal :new_return_value, ruby19_mod.my_module_method
     end
@@ -138,7 +138,7 @@ class StubModuleMethodTest < Test::Unit::TestCase
         end
       end
     end
-    test_result = run_test do
+    test_result = run_as_test do
       ruby18_mod.stubs(:my_module_method).returns(:new_return_value)
       assert_equal :new_return_value, ruby18_mod.my_module_method
     end
@@ -153,7 +153,7 @@ class StubModuleMethodTest < Test::Unit::TestCase
         end
       end
     end
-    test_result = run_test do
+    test_result = run_as_test do
       ruby19_mod.stubs(:my_module_method).returns(:new_return_value)
       assert_equal :new_return_value, ruby19_mod.my_module_method
     end

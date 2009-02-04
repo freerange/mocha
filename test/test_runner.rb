@@ -3,7 +3,7 @@ require 'test/unit/testcase'
 
 module TestRunner
   
-  def run_test(test_result = Test::Unit::TestResult.new, &block)
+  def run_as_test(test_result = Test::Unit::TestResult.new, &block)
     test_class = Class.new(Test::Unit::TestCase) do
       define_method(:test_me, &block)
     end

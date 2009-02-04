@@ -14,7 +14,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
   end
 
   def test_should_pass_if_method_is_never_expected_and_is_never_called
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock('mock')
       mock.expects(:method).never
       0.times { mock.method }
@@ -23,7 +23,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
   end
   
   def test_should_fail_fast_if_method_is_never_expected_but_is_called_once
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock('mock')
       mock.expects(:method).never
       1.times { mock.method }
@@ -33,7 +33,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
   end
   
   def test_should_pass_if_method_is_expected_twice_and_is_called_twice
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock('mock')
       mock.expects(:method).twice
       2.times { mock.method }
@@ -42,7 +42,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
   end
   
   def test_should_fail_if_method_is_expected_twice_but_is_called_once
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock('mock')
       mock.expects(:method).twice
       1.times { mock.method }
@@ -52,7 +52,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
   end
   
   def test_should_fail_fast_if_method_is_expected_twice_but_is_called_three_times
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock('mock')
       mock.expects(:method).twice
       3.times { mock.method }
@@ -62,7 +62,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
   end
   
   def test_should_pass_if_method_is_expected_between_two_and_four_times_and_is_called_twice
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock('mock')
       mock.expects(:method).times(2..4)
       2.times { mock.method }
@@ -71,7 +71,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
   end
 
   def test_should_pass_if_method_is_expected_between_two_and_four_times_and_is_called_three_times
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock('mock')
       mock.expects(:method).times(2..4)
       3.times { mock.method }
@@ -80,7 +80,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
   end
 
   def test_should_pass_if_method_is_expected_between_two_and_four_times_and_is_called_four_times
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock('mock')
       mock.expects(:method).times(2..4)
       4.times { mock.method }
@@ -89,7 +89,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
   end
 
   def test_should_fail_if_method_is_expected_between_two_and_four_times_and_is_called_once
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock('mock')
       mock.expects(:method).times(2..4)
       1.times { mock.method }
@@ -99,7 +99,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
   end
 
   def test_should_fail_fast_if_method_is_expected_between_two_and_four_times_and_is_called_five_times
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock('mock')
       mock.expects(:method).times(2..4)
       5.times { mock.method }
@@ -109,7 +109,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
   end
   
   def test_should_pass_if_method_is_expected_at_least_once_and_is_called_once
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock('mock')
       mock.expects(:method).at_least_once
       1.times { mock.method }
@@ -118,7 +118,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
   end
   
   def test_should_pass_if_method_is_expected_at_least_once_and_is_called_twice
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock('mock')
       mock.expects(:method).at_least_once
       2.times { mock.method }
@@ -127,7 +127,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
   end
   
   def test_should_fail_if_method_is_expected_at_least_once_but_is_never_called
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock('mock')
       mock.expects(:method).at_least_once
       0.times { mock.method }
@@ -137,7 +137,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
   end
   
   def test_should_pass_if_method_is_expected_at_most_once_and_is_never_called
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock('mock')
       mock.expects(:method).at_most_once
       0.times { mock.method }
@@ -146,7 +146,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
   end
   
   def test_should_pass_if_method_is_expected_at_most_once_and_called_once
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock('mock')
       mock.expects(:method).at_most_once
       1.times { mock.method }
@@ -155,7 +155,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
   end
   
   def test_should_fail_fast_if_method_is_expected_at_most_once_but_is_called_twice
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock('mock')
       mock.expects(:method).at_most_once
       2.times { mock.method }
@@ -165,7 +165,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
   end
   
   def test_should_pass_if_method_is_never_expected_and_is_never_called_even_if_everything_is_stubbed
-    test_result = run_test do
+    test_result = run_as_test do
       stub = stub_everything('stub')
       stub.expects(:method).never
       0.times { stub.method }
@@ -174,7 +174,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
   end
   
   def test_should_fail_fast_if_method_is_never_expected_but_is_called_once_even_if_everything_is_stubbed
-    test_result = run_test do
+    test_result = run_as_test do
       stub = stub_everything('stub')
       stub.expects(:method).never
       1.times { stub.method }
@@ -184,7 +184,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
   end
   
   def test_should_fail_fast_if_there_is_no_matching_expectation
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock('mock')
       mock.expects(:method).with(1)
       1.times { mock.method }

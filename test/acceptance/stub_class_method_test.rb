@@ -21,7 +21,7 @@ class StubClassMethodTest < Test::Unit::TestCase
         end
       end
     end
-    test_result = run_test do
+    test_result = run_as_test do
       klass.stubs(:my_class_method).returns(:new_return_value)
       assert_equal :new_return_value, klass.my_class_method
     end
@@ -36,7 +36,7 @@ class StubClassMethodTest < Test::Unit::TestCase
         end
       end
     end
-    run_test do
+    run_as_test do
       klass.stubs(:my_class_method).returns(:new_return_value)
     end
     assert klass.public_methods(false).any? { |m| m.to_s == 'my_class_method' }
@@ -52,7 +52,7 @@ class StubClassMethodTest < Test::Unit::TestCase
         protected :my_class_method
       end
     end
-    run_test do
+    run_as_test do
       klass.stubs(:my_class_method).returns(:new_return_value)
     end
     assert klass.protected_methods(false).any? { |m| m.to_s == 'my_class_method' }
@@ -68,7 +68,7 @@ class StubClassMethodTest < Test::Unit::TestCase
         private :my_class_method
       end
     end
-    run_test do
+    run_as_test do
       klass.stubs(:my_class_method).returns(:new_return_value)
     end
     assert klass.private_methods(false).any? { |m| m.to_s == 'my_class_method' }
@@ -83,7 +83,7 @@ class StubClassMethodTest < Test::Unit::TestCase
         end
       end
     end
-    run_test do
+    run_as_test do
       klass.stubs(:my_class_method)
     end
     assert_equal 0, klass.mocha.expectations.length
@@ -98,7 +98,7 @@ class StubClassMethodTest < Test::Unit::TestCase
       end
     end
     klass = Class.new(superklass)
-    test_result = run_test do
+    test_result = run_as_test do
       klass.stubs(:my_superclass_method).returns(:new_return_value)
       assert_equal :new_return_value, klass.my_superclass_method
     end
@@ -118,7 +118,7 @@ class StubClassMethodTest < Test::Unit::TestCase
         end
       end
     end
-    test_result = run_test do
+    test_result = run_as_test do
       ruby18_klass.stubs(:my_class_method).returns(:new_return_value)
       assert_equal :new_return_value, ruby18_klass.my_class_method
     end
@@ -133,7 +133,7 @@ class StubClassMethodTest < Test::Unit::TestCase
         end
       end
     end
-    test_result = run_test do
+    test_result = run_as_test do
       ruby19_klass.stubs(:my_class_method).returns(:new_return_value)
       assert_equal :new_return_value, ruby19_klass.my_class_method
     end
@@ -148,7 +148,7 @@ class StubClassMethodTest < Test::Unit::TestCase
         end
       end
     end
-    test_result = run_test do
+    test_result = run_as_test do
       ruby18_klass.stubs(:my_class_method).returns(:new_return_value)
       assert_equal :new_return_value, ruby18_klass.my_class_method
     end
@@ -163,7 +163,7 @@ class StubClassMethodTest < Test::Unit::TestCase
         end
       end
     end
-    test_result = run_test do
+    test_result = run_as_test do
       ruby19_klass.stubs(:my_class_method).returns(:new_return_value)
       assert_equal :new_return_value, ruby19_klass.my_class_method
     end
@@ -178,7 +178,7 @@ class StubClassMethodTest < Test::Unit::TestCase
         end
       end
     end
-    test_result = run_test do
+    test_result = run_as_test do
       ruby18_klass.stubs(:my_class_method).returns(:new_return_value)
       assert_equal :new_return_value, ruby18_klass.my_class_method
     end
@@ -193,7 +193,7 @@ class StubClassMethodTest < Test::Unit::TestCase
         end
       end
     end
-    test_result = run_test do
+    test_result = run_as_test do
       ruby19_klass.stubs(:my_class_method).returns(:new_return_value)
       assert_equal :new_return_value, ruby19_klass.my_class_method
     end

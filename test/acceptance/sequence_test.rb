@@ -14,7 +14,7 @@ class SequenceTest < Test::Unit::TestCase
   end
   
   def test_should_constrain_invocations_to_occur_in_expected_order
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       sequence = sequence('one')
       
@@ -27,7 +27,7 @@ class SequenceTest < Test::Unit::TestCase
   end
 
   def test_should_allow_invocations_in_sequence
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       sequence = sequence('one')
       
@@ -41,7 +41,7 @@ class SequenceTest < Test::Unit::TestCase
   end
 
   def test_should_constrain_invocations_to_occur_in_expected_order_even_if_expected_on_different_mocks
-    test_result = run_test do
+    test_result = run_as_test do
       mock_one = mock('1')
       mock_two = mock('2')
       sequence = sequence('one')
@@ -55,7 +55,7 @@ class SequenceTest < Test::Unit::TestCase
   end
 
   def test_should_allow_invocations_in_sequence_even_if_expected_on_different_mocks
-    test_result = run_test do
+    test_result = run_as_test do
       mock_one = mock('1')
       mock_two = mock('2')
       sequence = sequence('one')
@@ -70,7 +70,7 @@ class SequenceTest < Test::Unit::TestCase
   end
 
   def test_should_constrain_invocations_to_occur_in_expected_order_even_if_expected_on_partial_mocks
-    test_result = run_test do
+    test_result = run_as_test do
       partial_mock_one = "1"
       partial_mock_two = "2"
       sequence = sequence('one')
@@ -84,7 +84,7 @@ class SequenceTest < Test::Unit::TestCase
   end
 
   def test_should_allow_invocations_in_sequence_even_if_expected_on_partial_mocks
-    test_result = run_test do
+    test_result = run_as_test do
       partial_mock_one = "1"
       partial_mock_two = "2"
       sequence = sequence('one')
@@ -99,7 +99,7 @@ class SequenceTest < Test::Unit::TestCase
   end
 
   def test_should_allow_stub_expectations_to_be_skipped_in_sequence
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       sequence = sequence('one')
       
@@ -114,7 +114,7 @@ class SequenceTest < Test::Unit::TestCase
   end
 
   def test_should_regard_sequences_as_independent_of_each_other
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       sequence_one = sequence('one')
       sequence_two = sequence('two')
@@ -134,7 +134,7 @@ class SequenceTest < Test::Unit::TestCase
   end
   
   def test_should_include_sequence_in_failure_message
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       sequence = sequence('one')
       
@@ -148,7 +148,7 @@ class SequenceTest < Test::Unit::TestCase
   end
 
   def test_should_allow_expectations_to_be_in_more_than_one_sequence
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       sequence_one = sequence('one')
       sequence_two = sequence('two')
@@ -166,7 +166,7 @@ class SequenceTest < Test::Unit::TestCase
   end
 
   def test_should_have_shortcut_for_expectations_to_be_in_more_than_one_sequence
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       sequence_one = sequence('one')
       sequence_two = sequence('two')

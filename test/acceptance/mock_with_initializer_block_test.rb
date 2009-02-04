@@ -14,7 +14,7 @@ class MockWithInitializerBlockTest < Test::Unit::TestCase
   end
   
   def test_should_expect_two_method_invocations_and_receive_both_of_them
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock() do
         expects(:method_1)
         expects(:method_2)
@@ -26,7 +26,7 @@ class MockWithInitializerBlockTest < Test::Unit::TestCase
   end
 
   def test_should_expect_two_method_invocations_but_receive_only_one_of_them
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock() do
         expects(:method_1)
         expects(:method_2)
@@ -37,7 +37,7 @@ class MockWithInitializerBlockTest < Test::Unit::TestCase
   end
 
   def test_should_stub_methods
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock() do
         stubs(:method_1).returns(1)
         stubs(:method_2).returns(2)

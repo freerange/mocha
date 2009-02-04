@@ -14,7 +14,7 @@ class Bug21563Test < Test::Unit::TestCase
   end
   
   def test_should_allow_stubbing_of_verified_method
-    test_result = run_test do
+    test_result = run_as_test do
       object = Object.new
       object.stubs(:verified?).returns(false)
       assert !object.verified?

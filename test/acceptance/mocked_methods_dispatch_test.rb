@@ -14,7 +14,7 @@ class MockedMethodDispatchTest < Test::Unit::TestCase
   end
   
   def test_should_find_latest_matching_expectation
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       mock.stubs(:method).returns(1)
       mock.stubs(:method).returns(2)
@@ -26,7 +26,7 @@ class MockedMethodDispatchTest < Test::Unit::TestCase
   end
 
   def test_should_find_latest_expectation_which_has_not_stopped_matching
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       mock.stubs(:method).returns(1)
       mock.stubs(:method).once.returns(2)
@@ -38,7 +38,7 @@ class MockedMethodDispatchTest < Test::Unit::TestCase
   end
 
   def test_should_keep_finding_later_stub_and_so_never_satisfy_earlier_expectation
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       mock.expects(:method).returns(1)
       mock.stubs(:method).returns(2)
@@ -50,7 +50,7 @@ class MockedMethodDispatchTest < Test::Unit::TestCase
   end
 
   def test_should_find_later_expectation_until_it_stops_matching_then_find_earlier_stub
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       mock.stubs(:method).returns(1)
       mock.expects(:method).returns(2)
@@ -62,7 +62,7 @@ class MockedMethodDispatchTest < Test::Unit::TestCase
   end
 
   def test_should_find_latest_expectation_with_range_of_expected_invocation_count_which_has_not_stopped_matching
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       mock.stubs(:method).returns(1)
       mock.stubs(:method).times(2..3).returns(2)

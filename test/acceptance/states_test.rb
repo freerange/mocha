@@ -14,7 +14,7 @@ class StatesTest < Test::Unit::TestCase
   end
   
   def test_should_constrain_expectations_to_occur_within_a_given_state
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       readiness = states('readiness')
       
@@ -27,7 +27,7 @@ class StatesTest < Test::Unit::TestCase
   end
   
   def test_should_allow_expectations_to_occur_in_correct_state
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       readiness = states('readiness')
       
@@ -41,7 +41,7 @@ class StatesTest < Test::Unit::TestCase
   end
   
   def test_should_be_able_to_start_in_a_specific_state
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       readiness = states('readiness')
       
@@ -54,7 +54,7 @@ class StatesTest < Test::Unit::TestCase
   end
   
   def test_should_switch_state_when_method_raises_an_exception
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       readiness = states('readiness')
       

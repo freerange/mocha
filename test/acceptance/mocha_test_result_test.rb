@@ -15,7 +15,7 @@ class MochaTestResultTest < Test::Unit::TestCase
   end
 
   def test_should_include_expectation_verification_in_assertion_count
-    test_result = run_test do
+    test_result = run_as_test do
       object = mock()
       object.expects(:message)
       object.message
@@ -24,14 +24,14 @@ class MochaTestResultTest < Test::Unit::TestCase
   end
   
   def test_should_include_assertions_in_assertion_count
-    test_result = run_test do
+    test_result = run_as_test do
       assert true
     end
     assert_equal 1, test_result.assertion_count
   end
   
   def test_should_not_include_stubbing_expectation_verification_in_assertion_count
-    test_result = run_test do
+    test_result = run_as_test do
       object = mock()
       object.stubs(:message)
       object.message
@@ -40,7 +40,7 @@ class MochaTestResultTest < Test::Unit::TestCase
   end
   
   def test_should_include_expectation_verification_failure_in_failure_count
-    test_result = run_test do
+    test_result = run_as_test do
       object = mock()
       object.expects(:message)
     end
@@ -48,7 +48,7 @@ class MochaTestResultTest < Test::Unit::TestCase
   end
   
   def test_should_include_unexpected_verification_failure_in_failure_count
-    test_result = run_test do
+    test_result = run_as_test do
       object = mock()
       object.message
     end
@@ -56,7 +56,7 @@ class MochaTestResultTest < Test::Unit::TestCase
   end
   
   def test_should_include_assertion_failure_in_failure_count
-    test_result = run_test do
+    test_result = run_as_test do
       flunk
     end
     assert_equal 1, test_result.failure_count
@@ -64,7 +64,7 @@ class MochaTestResultTest < Test::Unit::TestCase
   
   def test_should_display_backtrace_indicating_line_number_where_unexpected_method_was_called
     execution_point = nil
-    test_result = run_test do
+    test_result = run_as_test do
       object = mock()
       execution_point = ExecutionPoint.current; object.message 
     end
@@ -74,7 +74,7 @@ class MochaTestResultTest < Test::Unit::TestCase
   
   def test_should_display_backtrace_indicating_line_number_where_failing_assertion_was_called
     execution_point = nil
-    test_result = run_test do
+    test_result = run_as_test do
       execution_point = ExecutionPoint.current; flunk
     end
     assert_equal 1, test_result.failure_count

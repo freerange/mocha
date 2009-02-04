@@ -14,7 +14,7 @@ class Bug21465Test < Test::Unit::TestCase
   end
   
   def test_should_allow_expected_method_name_to_be_a_string
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       mock.expects('wibble')
       mock.wibble
@@ -23,7 +23,7 @@ class Bug21465Test < Test::Unit::TestCase
   end
   
   def test_should_allow_stubbed_method_name_to_be_a_string
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       mock.stubs('wibble')
       mock.wibble

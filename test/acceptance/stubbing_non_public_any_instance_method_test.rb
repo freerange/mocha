@@ -19,7 +19,7 @@ class StubbingNonPublicAnyInstanceMethodTest < Test::Unit::TestCase
       def private_method; end
       private :private_method
     end
-    test_result = run_test do
+    test_result = run_as_test do
       klass.any_instance.stubs(:private_method)
     end
     assert_passed(test_result)
@@ -32,7 +32,7 @@ class StubbingNonPublicAnyInstanceMethodTest < Test::Unit::TestCase
       def protected_method; end
       protected :protected_method
     end
-    test_result = run_test do
+    test_result = run_as_test do
       klass.any_instance.stubs(:protected_method)
     end
     assert_passed(test_result)
@@ -45,7 +45,7 @@ class StubbingNonPublicAnyInstanceMethodTest < Test::Unit::TestCase
       def private_method; end
       private :private_method
     end
-    test_result = run_test do
+    test_result = run_as_test do
       klass.any_instance.stubs(:private_method)
     end
     assert_passed(test_result)
@@ -58,7 +58,7 @@ class StubbingNonPublicAnyInstanceMethodTest < Test::Unit::TestCase
       def protected_method; end
       protected :protected_method
     end
-    test_result = run_test do
+    test_result = run_as_test do
       klass.any_instance.stubs(:protected_method)
     end
     assert_passed(test_result)
@@ -71,7 +71,7 @@ class StubbingNonPublicAnyInstanceMethodTest < Test::Unit::TestCase
       def private_method; end
       private :private_method
     end
-    test_result = run_test do
+    test_result = run_as_test do
       klass.any_instance.stubs(:private_method)
     end
     assert_failed(test_result)
@@ -84,7 +84,7 @@ class StubbingNonPublicAnyInstanceMethodTest < Test::Unit::TestCase
       def protected_method; end
       protected :protected_method
     end
-    test_result = run_test do
+    test_result = run_as_test do
       klass.any_instance.stubs(:protected_method)
     end
     assert_failed(test_result)
@@ -96,7 +96,7 @@ class StubbingNonPublicAnyInstanceMethodTest < Test::Unit::TestCase
       def private_method; end
       private :private_method
     end
-    test_result = run_test do
+    test_result = run_as_test do
       klass.any_instance.stubs(:private_method)
     end
     assert_passed(test_result)
@@ -108,7 +108,7 @@ class StubbingNonPublicAnyInstanceMethodTest < Test::Unit::TestCase
       def protected_method; end
       protected :protected_method
     end
-    test_result = run_test do
+    test_result = run_as_test do
       klass.any_instance.stubs(:protected_method)
     end
     assert_passed(test_result)
@@ -121,7 +121,7 @@ class StubbingNonPublicAnyInstanceMethodTest < Test::Unit::TestCase
       def public_method; end
       public :public_method
     end
-    test_result = run_test do
+    test_result = run_as_test do
       klass.any_instance.stubs(:public_method)
     end
     assert_passed(test_result)

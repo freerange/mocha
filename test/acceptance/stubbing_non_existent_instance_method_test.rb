@@ -16,7 +16,7 @@ class StubbingNonExistentInstanceMethodTest < Test::Unit::TestCase
   def test_should_allow_stubbing_non_existent_instance_method
     Mocha::Configuration.allow(:stubbing_non_existent_method)
     instance = Class.new.new
-    test_result = run_test do
+    test_result = run_as_test do
       instance.stubs(:non_existent_method)
     end
     assert !@logger.warnings.include?("stubbing non-existent method: #{instance}.non_existent_method")
@@ -26,7 +26,7 @@ class StubbingNonExistentInstanceMethodTest < Test::Unit::TestCase
   def test_should_warn_when_stubbing_non_existent_instance_method
     Mocha::Configuration.warn_when(:stubbing_non_existent_method)
     instance = Class.new.new
-    test_result = run_test do
+    test_result = run_as_test do
       instance.stubs(:non_existent_method)
     end
     assert_passed(test_result)
@@ -36,7 +36,7 @@ class StubbingNonExistentInstanceMethodTest < Test::Unit::TestCase
   def test_should_prevent_stubbing_non_existent_instance_method
     Mocha::Configuration.prevent(:stubbing_non_existent_method)
     instance = Class.new.new
-    test_result = run_test do
+    test_result = run_as_test do
       instance.stubs(:non_existent_method)
     end
     assert_failed(test_result)
@@ -45,7 +45,7 @@ class StubbingNonExistentInstanceMethodTest < Test::Unit::TestCase
   
   def test_should_default_to_allow_stubbing_non_existent_instance_method
     instance = Class.new.new
-    test_result = run_test do
+    test_result = run_as_test do
       instance.stubs(:non_existent_method)
     end
     assert !@logger.warnings.include?("stubbing non-existent method: #{instance}.non_existent_method")
@@ -59,7 +59,7 @@ class StubbingNonExistentInstanceMethodTest < Test::Unit::TestCase
       public :existing_public_method
     end
     instance = klass.new
-    test_result = run_test do
+    test_result = run_as_test do
       instance.stubs(:existing_public_method)
     end
     assert_passed(test_result)
@@ -73,7 +73,7 @@ class StubbingNonExistentInstanceMethodTest < Test::Unit::TestCase
       end
     end
     instance = klass.new
-    test_result = run_test do
+    test_result = run_as_test do
       instance.stubs(:method_to_which_instance_responds)
     end
     assert_passed(test_result)
@@ -86,7 +86,7 @@ class StubbingNonExistentInstanceMethodTest < Test::Unit::TestCase
       protected :existing_protected_method
     end
     instance = klass.new
-    test_result = run_test do
+    test_result = run_as_test do
       instance.stubs(:existing_protected_method)
     end
     assert_passed(test_result)
@@ -99,7 +99,7 @@ class StubbingNonExistentInstanceMethodTest < Test::Unit::TestCase
       private :existing_private_method
     end
     instance = klass.new
-    test_result = run_test do
+    test_result = run_as_test do
       instance.stubs(:existing_private_method)
     end
     assert_passed(test_result)
@@ -112,7 +112,7 @@ class StubbingNonExistentInstanceMethodTest < Test::Unit::TestCase
       public :existing_public_method
     end
     instance = Class.new(superklass).new
-    test_result = run_test do
+    test_result = run_as_test do
       instance.stubs(:existing_public_method)
     end
     assert_passed(test_result)
@@ -125,7 +125,7 @@ class StubbingNonExistentInstanceMethodTest < Test::Unit::TestCase
       protected :existing_protected_method
     end
     instance = Class.new(superklass).new
-    test_result = run_test do
+    test_result = run_as_test do
       instance.stubs(:existing_protected_method)
     end
     assert_passed(test_result)
@@ -138,7 +138,7 @@ class StubbingNonExistentInstanceMethodTest < Test::Unit::TestCase
       private :existing_private_method
     end
     instance = Class.new(superklass).new
-    test_result = run_test do
+    test_result = run_as_test do
       instance.stubs(:existing_private_method)
     end
     assert_passed(test_result)

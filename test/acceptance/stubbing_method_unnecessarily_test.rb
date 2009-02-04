@@ -15,7 +15,7 @@ class StubbingMethodUnnecessarilyTest < Test::Unit::TestCase
   
   def test_should_allow_stubbing_method_unnecessarily
     Mocha::Configuration.allow(:stubbing_method_unnecessarily)
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock('mock')
       mock.stubs(:public_method)
     end
@@ -25,7 +25,7 @@ class StubbingMethodUnnecessarilyTest < Test::Unit::TestCase
   
   def test_should_warn_when_stubbing_method_unnecessarily
     Mocha::Configuration.warn_when(:stubbing_method_unnecessarily)
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock('mock')
       mock.stubs(:public_method)
     end
@@ -35,7 +35,7 @@ class StubbingMethodUnnecessarilyTest < Test::Unit::TestCase
   
   def test_should_prevent_stubbing_method_unnecessarily
     Mocha::Configuration.prevent(:stubbing_method_unnecessarily)
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock('mock')
       mock.stubs(:public_method)
     end
@@ -44,7 +44,7 @@ class StubbingMethodUnnecessarilyTest < Test::Unit::TestCase
   end
   
   def test_should_default_to_allow_stubbing_method_unnecessarily
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock('mock')
       mock.stubs(:public_method)
     end
@@ -54,7 +54,7 @@ class StubbingMethodUnnecessarilyTest < Test::Unit::TestCase
   
   def test_should_allow_stubbing_method_when_stubbed_method_is_invoked
     Mocha::Configuration.prevent(:stubbing_method_unnecessarily)
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock('mock')
       mock.stubs(:public_method)
       mock.public_method

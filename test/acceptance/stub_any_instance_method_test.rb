@@ -20,7 +20,7 @@ class StubAnyInstanceMethodTest < Test::Unit::TestCase
       end
     end
     instance = klass.new
-    test_result = run_test do
+    test_result = run_as_test do
       klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
       assert_equal :new_return_value, instance.my_instance_method
     end
@@ -34,7 +34,7 @@ class StubAnyInstanceMethodTest < Test::Unit::TestCase
       end
     end
     instance = klass.new
-    run_test do
+    run_as_test do
       klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
     end
     assert instance.public_methods(false).any? { |m| m.to_s == 'my_instance_method' }
@@ -49,7 +49,7 @@ class StubAnyInstanceMethodTest < Test::Unit::TestCase
       protected :my_instance_method
     end
     instance = klass.new
-    run_test do
+    run_as_test do
       klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
     end
     assert instance.protected_methods(false).any? { |m| m.to_s == 'my_instance_method' }
@@ -64,7 +64,7 @@ class StubAnyInstanceMethodTest < Test::Unit::TestCase
       private :my_instance_method
     end
     instance = klass.new
-    run_test do
+    run_as_test do
       klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
     end
     assert instance.private_methods(false).any? { |m| m.to_s == 'my_instance_method' }
@@ -78,7 +78,7 @@ class StubAnyInstanceMethodTest < Test::Unit::TestCase
       end
     end
     instance = klass.new
-    run_test do
+    run_as_test do
       klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
     end
     assert_equal 0, klass.any_instance.mocha.expectations.length
@@ -92,7 +92,7 @@ class StubAnyInstanceMethodTest < Test::Unit::TestCase
     end
     klass = Class.new(superklass)
     instance = klass.new
-    test_result = run_test do
+    test_result = run_as_test do
       klass.any_instance.stubs(:my_superclass_method).returns(:new_return_value)
       assert_equal :new_return_value, instance.my_superclass_method
     end
@@ -110,7 +110,7 @@ class StubAnyInstanceMethodTest < Test::Unit::TestCase
         end
       end
     end
-    test_result = run_test do
+    test_result = run_as_test do
       ruby18_klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
       assert_equal :new_return_value, ruby18_klass.new.my_instance_method
     end
@@ -125,7 +125,7 @@ class StubAnyInstanceMethodTest < Test::Unit::TestCase
         end
       end
     end
-    test_result = run_test do
+    test_result = run_as_test do
       ruby19_klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
       assert_equal :new_return_value, ruby19_klass.new.my_instance_method
     end
@@ -140,7 +140,7 @@ class StubAnyInstanceMethodTest < Test::Unit::TestCase
         end
       end
     end
-    test_result = run_test do
+    test_result = run_as_test do
       ruby18_klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
       assert_equal :new_return_value, ruby18_klass.new.my_instance_method
     end
@@ -155,7 +155,7 @@ class StubAnyInstanceMethodTest < Test::Unit::TestCase
         end
       end
     end
-    test_result = run_test do
+    test_result = run_as_test do
       ruby19_klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
       assert_equal :new_return_value, ruby19_klass.new.my_instance_method
     end
@@ -170,7 +170,7 @@ class StubAnyInstanceMethodTest < Test::Unit::TestCase
         end
       end
     end
-    test_result = run_test do
+    test_result = run_as_test do
       ruby18_klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
       assert_equal :new_return_value, ruby18_klass.new.my_instance_method
     end
@@ -185,7 +185,7 @@ class StubAnyInstanceMethodTest < Test::Unit::TestCase
         end
       end
     end
-    test_result = run_test do
+    test_result = run_as_test do
       ruby19_klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
       assert_equal :new_return_value, ruby19_klass.new.my_instance_method
     end

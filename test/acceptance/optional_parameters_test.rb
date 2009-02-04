@@ -14,7 +14,7 @@ class OptionalParameterMatcherTest < Test::Unit::TestCase
   end
   
   def test_should_pass_if_all_required_parameters_match_and_no_optional_parameters_are_supplied
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(1, 2, optionally(3, 4))
       mock.method(1, 2)
@@ -23,7 +23,7 @@ class OptionalParameterMatcherTest < Test::Unit::TestCase
   end
 
   def test_should_pass_if_all_required_and_optional_parameters_match_and_some_optional_parameters_are_supplied
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(1, 2, optionally(3, 4))
       mock.method(1, 2, 3)
@@ -32,7 +32,7 @@ class OptionalParameterMatcherTest < Test::Unit::TestCase
   end
 
   def test_should_pass_if_all_required_and_optional_parameters_match_and_all_optional_parameters_are_supplied
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(1, 2, optionally(3, 4))
       mock.method(1, 2, 3, 4)
@@ -41,7 +41,7 @@ class OptionalParameterMatcherTest < Test::Unit::TestCase
   end
 
   def test_should_fail_if_all_required_and_optional_parameters_match_but_too_many_optional_parameters_are_supplied
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(1, 2, optionally(3, 4))
       mock.method(1, 2, 3, 4, 5)
@@ -50,7 +50,7 @@ class OptionalParameterMatcherTest < Test::Unit::TestCase
   end
 
   def test_should_fail_if_all_required_parameters_match_but_some_optional_parameters_do_not_match
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(1, 2, optionally(3, 4))
       mock.method(1, 2, 4)
@@ -59,7 +59,7 @@ class OptionalParameterMatcherTest < Test::Unit::TestCase
   end
 
   def test_should_fail_if_all_required_parameters_match_but_no_optional_parameters_match
-    test_result = run_test do
+    test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(1, 2, optionally(3, 4))
       mock.method(1, 2, 4, 5)
