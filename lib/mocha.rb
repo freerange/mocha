@@ -1,24 +1,10 @@
 require 'mocha_standalone'
 require 'mocha/configuration'
 
-if RUBY_VERSION < '1.9'
-  begin
-    require 'rubygems'
-    begin
-      gem 'minitest', '>=1.3'
-      require 'minitest/unit'
-    rescue Gem::LoadError
-      # Compatible version of MiniTest gem not available
-    end
-  rescue LoadError
-    # RubyGems not available
-  end
-else
-  begin
-    require 'minitest/unit'
-  rescue LoadError
-    # MiniTest not available
-  end
+begin
+  require 'minitest/unit'
+rescue LoadError
+  # MiniTest not available
 end
 
 if defined?(MiniTest)
