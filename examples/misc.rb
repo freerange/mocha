@@ -1,5 +1,4 @@
 require 'test/unit'
-require 'rubygems'
 require 'mocha'
 
 class MiscExampleTest < Test::Unit::TestCase

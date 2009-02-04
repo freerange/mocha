@@ -11,7 +11,6 @@ class Enterprise
 end
 
 require 'test/unit'
-require 'rubygems'
 require 'mocha'
 
 class EnterpriseTest < Test::Unit::TestCase

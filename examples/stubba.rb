@@ -33,7 +33,6 @@ class Order
 end
 
 require 'test/unit'
-require 'rubygems'
 require 'mocha'
 
 class OrderTest < Test::Unit::TestCase
