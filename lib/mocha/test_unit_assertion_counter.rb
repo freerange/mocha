@@ -1,6 +1,6 @@
 module Mocha
   
-  module TestCaseAdapter
+  module TestUnit
     
     class AssertionCounter
       
