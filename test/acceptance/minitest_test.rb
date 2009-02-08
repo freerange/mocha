@@ -46,7 +46,7 @@ if defined?(MiniTest)
   
   end
 
-  class MiniTestAdapterTest < Test::Unit::TestCase
+  class MiniTestTest < Test::Unit::TestCase
   
     def setup
       @output = StringIO.new

@@ -1,15 +1,16 @@
-require 'mocha/test_unit_assertion_counter'
+require 'test/unit/testcase'
+require 'mocha/integration/test_unit/assertion_counter'
 require 'mocha/expectation_error'
 
 module Mocha
   
-  module TestUnitGem
+  module Integration
     
-    module Version201AndAbove
+    module TestUnit
       
-      module MonkeyPatch
+      module GemVersion201AndAbove
         def run(result)
-          assertion_counter = Mocha::TestUnit::AssertionCounter.new(result)
+          assertion_counter = AssertionCounter.new(result)
           begin
             @_result = result
             yield(Test::Unit::TestCase::STARTED, name)

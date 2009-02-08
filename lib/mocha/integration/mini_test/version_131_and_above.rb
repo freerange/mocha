@@ -1,22 +1,12 @@
+require 'mocha/integration/mini_test/assertion_counter'
+
 module Mocha
-
-  module MiniTestCaseAdapter
-
-    class AssertionCounter
-      def initialize(test_case)
-        @test_case = test_case
-      end
-
-      def increment
-        @test_case._assertions += 1
-      end
-    end
-
-    def self.included(base)
-      base.class_eval do
-
-        alias_method :run_before_mocha_mini_test_adapter, :run
-
+  
+  module Integration
+    
+    module MiniTest
+      
+      module Version131AndAbove
         def run runner
           assertion_counter = AssertionCounter.new(self)
           result = '.'
@@ -42,9 +32,10 @@ module Mocha
           end
           result
         end
-
       end
+      
     end
-
+    
   end
+  
 end

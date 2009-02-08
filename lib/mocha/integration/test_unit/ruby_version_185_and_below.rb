@@ -1,15 +1,16 @@
-require 'mocha/test_unit_assertion_counter'
+require 'test/unit/testcase'
+require 'mocha/integration/test_unit/assertion_counter'
 require 'mocha/expectation_error'
 
 module Mocha
   
-  module Ruby
+  module Integration
     
-    module Version186AndAbove
+    module TestUnit
       
-      module MonkeyPatch
+      module RubyVersion185AndBelow
         def run(result)
-          assertion_counter = Mocha::TestUnit::AssertionCounter.new(result)
+          assertion_counter = AssertionCounter.new(result)
           yield(Test::Unit::TestCase::STARTED, name)
           @_result = result
           begin
@@ -21,16 +22,14 @@ module Mocha
               add_failure(e.message, e.backtrace)
             rescue Test::Unit::AssertionFailedError => e
               add_failure(e.message, e.backtrace)
-            rescue Exception
-              raise if Test::Unit::TestCase::PASSTHROUGH_EXCEPTIONS.include? $!.class
+            rescue StandardError, ScriptError
               add_error($!)
             ensure
               begin
                 teardown
               rescue Test::Unit::AssertionFailedError => e
                 add_failure(e.message, e.backtrace)
-              rescue Exception
-                raise if Test::Unit::TestCase::PASSTHROUGH_EXCEPTIONS.include? $!.class
+              rescue StandardError, ScriptError
                 add_error($!)
               end
             end
