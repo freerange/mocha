@@ -77,7 +77,7 @@ Rake::RDocTask.new('rdoc') do |task|
     'COPYING',
     'MIT-LICENSE',
     'agiledox.txt',
-    'lib/mocha/standalone.rb',
+    'lib/mocha/api.rb',
     'lib/mocha/mock.rb',
     'lib/mocha/expectation.rb',
     'lib/mocha/object.rb',

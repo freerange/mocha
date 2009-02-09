@@ -7,7 +7,7 @@ end
 
 class NotATestUnitTestCase
   
-  include Mocha::Standalone
+  include Mocha::API
   
   attr_reader :assertion_counter
   
@@ -87,7 +87,7 @@ end
 
 require 'test/unit'
 
-class StandaloneTest < Test::Unit::TestCase
+class APITest < Test::Unit::TestCase
   
   attr_reader :sample_test
 

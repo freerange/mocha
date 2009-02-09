@@ -5,7 +5,7 @@ require 'mocha/sequence'
 module Mocha # :nodoc:
   
   # Methods added to Test::Unit::TestCase or equivalent.
-  module Standalone
+  module API
     
     include ParameterMatchers
     
@@ -161,6 +161,13 @@ module Mocha # :nodoc:
       Mockery.reset_instance
     end
     
+  end
+  
+  def self.const_missing(name)
+    return super unless name == :Standalone
+    require 'mocha/deprecation'
+    Deprecation.warning "Mocha::Standalone has been renamed to Mocha::API"
+    return API
   end
   
 end

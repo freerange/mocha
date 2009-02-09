@@ -14,7 +14,7 @@ if defined?(MiniTest)
     class Unit
       class TestCase
         
-        include Mocha::Standalone
+        include Mocha::API
         
         alias_method :run_before_mocha, :run
         remove_method :run
@@ -29,12 +29,12 @@ end
 require 'test/unit/testcase'
 require 'mocha/integration/test_unit'
 
-unless Test::Unit::TestCase.ancestors.include?(Mocha::Standalone)
+unless Test::Unit::TestCase.ancestors.include?(Mocha::API)
   module Test
     module Unit
       class TestCase
         
-        include Mocha::Standalone
+        include Mocha::API
         
         alias_method :run_before_mocha, :run
         remove_method :run

@@ -320,7 +320,7 @@ module Mocha # :nodoc:
     #
     # <tt>then(state_machine.is(state))</tt> is used to change the +state_machine+ to the specified +state+ when the invocation occurs.
     #
-    # See also Standalone#states, StateMachine and Expectation#when.
+    # See also API#states, StateMachine and Expectation#when.
     #   power = states('power').starts_as('off')
     #
     #   radio = mock('radio')
@@ -342,7 +342,7 @@ module Mocha # :nodoc:
     #
     # Constrains the expectation to occur only when the +state_machine+ is in the named +state+.
     #
-    # See also Standalone#states, StateMachine#starts_as and Expectation#then.
+    # See also API#states, StateMachine#starts_as and Expectation#then.
     #   power = states('power').starts_as('off')
     #
     #   radio = mock('radio')
@@ -367,7 +367,7 @@ module Mocha # :nodoc:
     #
     # If an expectation in a sequence is stubbed, rather than expected, it can be skipped in the sequence.
     #
-    # See also Standalone#sequence.
+    # See also API#sequence.
     #   breakfast = sequence('breakfast')
     #
     #   egg = mock('egg')

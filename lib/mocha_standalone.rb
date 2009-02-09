@@ -1,2 +1,2 @@
-require 'mocha/standalone'
+require 'mocha/api'
 require 'mocha/object'
