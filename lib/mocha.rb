@@ -1,6 +1,13 @@
 require 'mocha_standalone'
 require 'mocha/configuration'
 
+begin
+  require 'bacon'
+rescue LoadError
+  # Bacon not available
+end
+
+
 if defined?(MiniTest::Unit::TestCase)
   require 'mocha/integration/mini_test'
 
@@ -18,6 +25,19 @@ if defined?(MiniTest::Unit::TestCase)
       end
     end
   end
+end
+
+if defined?(Bacon) && Bacon::VERSION >= "1.1"
+
+  require 'mocha/integration/bacon'
+
+  module Bacon
+    class Context
+      include Mocha::API
+      include Mocha::Integration::Bacon::Version11AndAbove
+    end
+  end
+
 end
 
 require 'test/unit/testcase'
