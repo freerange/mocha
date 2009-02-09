@@ -9,7 +9,7 @@ class StubbaTest < Test::Unit::TestCase
     disable_deprecations do
       load 'stubba.rb'
     end
-    assert_equal ["require 'stubba' is no longer needed and stubba.rb will soon be removed"], Mocha::Deprecation.messages
+    assert Mocha::Deprecation.messages.include?("require 'stubba' is no longer needed and stubba.rb will soon be removed")
   end
 
 end
