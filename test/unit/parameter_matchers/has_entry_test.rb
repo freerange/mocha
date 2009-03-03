@@ -59,9 +59,24 @@ class HasEntryTest < Test::Unit::TestCase
     assert !matcher.matches?([{ :key_1 => 'value_1', :key_2 => 'value_2' }])
   end
   
-  def test_should_not_match_non_hash
+  def test_should_not_match_object_that_doesnt_respond_to_keys
     matcher = has_entry(:key_1 => equals('value_2'))
-    assert_nothing_raised { matcher.matches?(['foo']) }
-    assert !matcher.matches?(['foo'])
+    object = Class.new do
+      def [](key)
+        'value_2'
+      end
+    end.new
+    assert !matcher.matches?([object])
   end
+  
+  def test_should_not_match_object_that_doesnt_respond_to_square_bracket
+    matcher = has_entry(:key_1 => equals('value_2'))
+    object = Class.new do
+      def keys
+        [:key_1]
+      end
+    end.new
+    assert !matcher.matches?([object])
+  end
+  
 end
