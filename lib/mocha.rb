@@ -1,13 +1,7 @@
 require 'mocha_standalone'
 require 'mocha/configuration'
 
-begin
-  require 'minitest/unit'
-rescue LoadError
-  # MiniTest not available
-end
-
-if defined?(MiniTest)
+if defined?(MiniTest::Unit::TestCase)
   require 'mocha/integration/mini_test'
 
   module MiniTest

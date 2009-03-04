@@ -1,5 +1,13 @@
 require File.join(File.dirname(__FILE__), "acceptance_test_helper")
-require 'mocha'
+
+begin
+  require 'minitest/unit'
+rescue LoadError
+  # MiniTest not available
+end
+
+# force load so that MiniTest is suitably monkey-patched
+load 'mocha.rb'
 
 if defined?(MiniTest)
 
