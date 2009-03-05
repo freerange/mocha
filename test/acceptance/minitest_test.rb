@@ -99,7 +99,7 @@ if defined?(MiniTest)
     
       assert_equal 1, runner.errors
       assert_equal 1, runner.assertion_count
-      assert_match Regexp.new('not all expectations were satisfied'), output
+      assert_not_all_expectation_were_satisfied
     end
   
     def test_should_pass_mocha_test_with_matching_parameter
