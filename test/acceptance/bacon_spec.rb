@@ -1,5 +1,6 @@
 # This is not meant to be run by itself. It will be run by bacon_test.rb
 $:.unshift File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "lib"))
+require 'bacon'
 require 'mocha'
 
 module MetaTestOutput

@@ -6,9 +6,6 @@ rescue LoadError
   # Bacon not available
 end
 
-# force load so that MiniTest is suitably monkey-patched
-load 'mocha.rb'
-
 if defined?(Bacon) && Bacon::VERSION >= "1.1"
 
   class BaconRunner
