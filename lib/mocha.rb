@@ -1,7 +1,7 @@
 require 'mocha_standalone'
 require 'mocha/configuration'
 
-if defined?(MiniTest::Unit::TestCase)
+if defined?(MiniTest::Unit::TestCase) && !MiniTest::Unit::TestCase.ancestors.include?(Mocha::API)
   require 'mocha/integration/mini_test'
 
   module MiniTest
