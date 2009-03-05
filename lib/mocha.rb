@@ -20,7 +20,7 @@ if defined?(MiniTest::Unit::TestCase)
   end
 end
 
-if defined?(Bacon) && Bacon::VERSION >= "1.1"
+if defined?(Bacon) && Bacon::VERSION >= "1.1" && defined?(Bacon::Context)
 
   require 'mocha/integration/bacon'
 
