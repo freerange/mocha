@@ -20,19 +20,6 @@ if defined?(MiniTest::Unit::TestCase) && !MiniTest::Unit::TestCase.ancestors.inc
   end
 end
 
-if defined?(Bacon) && Bacon::VERSION >= "1.1" && defined?(Bacon::Context) && !Bacon::Context.ancestors.include?(Mocha::API)
-
-  require 'mocha/integration/bacon'
-
-  module Bacon
-    class Context
-      include Mocha::API
-      include Mocha::Integration::Bacon::Version11AndAbove
-    end
-  end
-
-end
-
 require 'test/unit/testcase'
 require 'mocha/integration/test_unit'
 
