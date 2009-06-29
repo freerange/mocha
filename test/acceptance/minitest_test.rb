@@ -1,15 +1,22 @@
 require File.join(File.dirname(__FILE__), "acceptance_test_helper")
 
 begin
+  require 'rubygems'
+  gem 'minitest'
+rescue Gem::LoadError
+  # MiniTest gem not available
+end
+
+begin
   require 'minitest/unit'
 rescue LoadError
   # MiniTest not available
 end
 
-# force load so that MiniTest is suitably monkey-patched
-load 'mocha.rb'
-
 if defined?(MiniTest)
+  
+  # monkey-patch MiniTest now that it has hopefully been loaded
+  require 'mocha/integration/mini_test'
 
   class MiniTestSampleTest < MiniTest::Unit::TestCase
   
