@@ -1,4 +1,4 @@
-= 0.9.6 ()
+= 0.9.6 (57f8f77d715b7f1d9efee2e1a9438f7905c0006b)
 * Version 2.0.1 of the test-unit gem introduced a private 'run_test' method on TestCase which clashed with the public TestRunner#run_test method. So this latter method has been renamed to 'run_as_test'.
 * Stop requiring rubygems - this should be an environmental choice for the user. http://gist.github.com/54177 - describes why requiring rubygems in your library code is a bad idea.
 * It seems like overkill to vendorize coderay and meta_project when they're only needed to generate the examples for documentation and for publishing files on RubyForge. So I'm removing them and installing them locally as gems when I need them.
