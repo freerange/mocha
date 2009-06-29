@@ -1,3 +1,18 @@
+= 0.9.6 ()
+* Version 2.0.1 of the test-unit gem introduced a private 'run_test' method on TestCase which clashed with the public TestRunner#run_test method. So this latter method has been renamed to 'run_as_test'.
+* Stop requiring rubygems - this should be an environmental choice for the user. http://gist.github.com/54177 - describes why requiring rubygems in your library code is a bad idea.
+* It seems like overkill to vendorize coderay and meta_project when they're only needed to generate the examples for documentation and for publishing files on RubyForge. So I'm removing them and installing them locally as gems when I need them.
+* Added support for 'test-unit' gem (version >= 2.0). Note that as with other versions of Test::Unit I'm completely replacing the TestCase#run method. Unfortunately in version 2.0.0 this method differs slightly from the same method in version 2.0.1 & 2.0.2, so we have to provide different implementations to ensure that the internal working of Test::Unit are not compromised by Mocha. Note also that unless the 'test-unit' gem is loaded, requiring 'test/unit' leads to a mixture of stdlib and gem classes being loaded causing errors. To avoid a dependency on rubygems, the gem is loaded only if MOCHA_OPTIONS is set to 'use_test_unit_gem' - this option is only intended for use in running Mocha's own tests. It might be worthwhile to create a shim gem like minitest_tu_shim to allow the test-unit gem to completely replace the stdlib, but that's a job for another day. The changes in the Rakefile are to make the default task run with the 'test-unit' gem (version >= 2.0).
+* Renamed Mocha::Standalone to Mocha::API to better reflect its purpose. Added a deprecation warning for those who are referencing Mocha::Standalone.
+* Fix exception raised by HasEntry#matches? if first param is not a Hash (thanks to Taylor Barstow).
+* Ken Collins reported [1] that Mocha is always loading MiniTest if it is available and loading it causes some Rails/ActionPack tests to break. I've removed the loading of MiniTest, but this now means the user has to ensure that if they want to use MiniTest in conjunction with Mocha, he must load MiniTest before loading Mocha. [1] http://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/2060
+* Implemented Bacon integration (thanks to Ubiratan Pires Alberton), but this was then removed after deciding only to maintain integration with Test::Unit and MiniTest which are both Ruby standard libraries. See mailing list for details.
+* Don't monkey-patch MiniTest if it's already been monkey-patched by Mocha.
+* Fixed bug: MiniTest integration was counting ExpectationErrors as errors not failures. http://floehopper.lighthouseapp.com/projects/22289-mocha/tickets/41.
+* Fixed bug: Some Bacon tests were failing in Ruby 1.9.1. http://floehopper.lighthouseapp.com/projects/22289-mocha/tickets/43.
+* Chad Humphries pointed out that in Ruby 1.9.1, if you are not using Test::Unit or MiniTest, Mocha will attempt to load and monkey-patch Test::Unit. Mocha will now only monkey-patch Test::Unit and/or MiniTest if they have already been loaded. MiniTest tests will now run in both Ruby 1.8.6 (with MiniTest gem) and in Ruby 1.9.1 (with MiniTest std lib). See Ligthouse ticket - http://floehopper.lighthouseapp.com/projects/22289/tickets/49.
+* Made Mocha compatible with minitest 1.4.0 and above (thanks to Denis Defreyne).
+
 = 0.9.5 (93cad010345ce5d68f31422cfc32ed9dd6de13ec)
 * Fixed Lighthouse bug #32 - stub_everything should mean mock responds to anything.
 * Added Expectation#twice to improve readability. Thanks to pull request from Celestino Gomes.
