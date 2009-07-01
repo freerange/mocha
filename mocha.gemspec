@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{mocha}
-  s.version = "0.9.6.20090701111305"
+  s.version = "0.9.7.20090701124354"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["James Mead"]
