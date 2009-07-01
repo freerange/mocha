@@ -1,4 +1,4 @@
-= 0.9.7 ()
+= 0.9.7 (80d816f250dc13aaf856f3f9cbd97ebe9c371839)
 * Although I had provided a deprecation warning for people using Mocha::Standalone, I had assumed people wouldn't be explicitly loading the mocha/standalone.rb file. It turns out this assumption was incorrect at least in the case of Rspec. This is now fixed.
 
 = 0.9.6 (57f8f77d715b7f1d9efee2e1a9438f7905c0006b)
