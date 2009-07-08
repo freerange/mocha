@@ -22,4 +22,23 @@ class RegexpMatchesTest < Test::Unit::TestCase
     assert_equal "regexp_matches(/oo/)", matcher.mocha_inspect
   end
   
+  def test_should_not_raise_error_on_empty_arguments
+    matcher = regexp_matches(/oo/)
+    assert_nothing_raised { matcher.matches?([]) }
+  end
+  
+  def test_should_not_match_on_empty_arguments
+    matcher = regexp_matches(/oo/)
+    assert !matcher.matches?([])
+  end
+  
+  def test_should_not_raise_error_on_argument_that_does_not_respond_to_equals_squiggle
+    matcher = regexp_matches(/oo/)
+    assert_nothing_raised { matcher.matches?([:foo]) }
+  end
+  
+  def test_should_not_match_on_argument_that_does_not_respond_to_equals_squiggle
+    matcher = regexp_matches(/oo/)
+    assert !matcher.matches?([:foo])
+  end
 end
