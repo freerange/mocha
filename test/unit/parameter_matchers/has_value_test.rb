@@ -34,4 +34,24 @@ class HasValueTest < Test::Unit::TestCase
     assert !matcher.matches?([{ :key_2 => 'value_2' }])
   end
   
+  def test_should_not_raise_error_on_empty_arguments
+    matcher = has_value('value_1')
+    assert_nothing_raised { matcher.matches?([]) }
+  end
+  
+  def test_should_not_match_empty_arguments
+    matcher = has_value('value_1')
+    assert !matcher.matches?([])
+  end
+  
+  def test_should_not_raise_error_on_argument_that_does_not_respond_to_values
+    matcher = has_value('value_1')
+    assert_nothing_raised { matcher.matches?(['value_1']) }
+  end
+  
+  def test_should_not_match_on_argument_that_does_not_respond_to_values
+    matcher = has_value('value_1')
+    assert !matcher.matches?(['value_1'])
+  end
+  
 end
