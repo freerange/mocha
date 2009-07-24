@@ -70,7 +70,11 @@ Rake::RDocTask.new('rdoc') do |task|
   task.main = 'README'
   task.title = "Mocha #{Mocha::VERSION}"
   task.rdoc_dir = 'doc'
-  task.template = File.expand_path(File.join(File.dirname(__FILE__), "templates", "html_with_google_analytics"))
+  template = File.expand_path(File.join(File.dirname(__FILE__), "templates", "html_with_google_analytics.rb"))
+  if File.exist?(template)
+    puts "*** Using RDoc template incorporating Google Analytics"
+    task.template = template
+  end
   task.rdoc_files.include(
     'README',
     'RELEASE',
