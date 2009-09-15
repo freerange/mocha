@@ -32,13 +32,15 @@ class RegexpMatchesTest < Test::Unit::TestCase
     assert !matcher.matches?([])
   end
   
-  def test_should_not_raise_error_on_argument_that_does_not_respond_to_equals_squiggle
+  def test_should_not_raise_error_on_argument_that_does_not_respond_to_equals_tilde
+    object_not_responding_to_equals_tilde = Class.new { undef =~ }.new
     matcher = regexp_matches(/oo/)
-    assert_nothing_raised { matcher.matches?([:foo]) }
+    assert_nothing_raised { matcher.matches?([object_not_responding_to_equals_tilde]) }
   end
   
-  def test_should_not_match_on_argument_that_does_not_respond_to_equals_squiggle
+  def test_should_not_match_on_argument_that_does_not_respond_to_equals_tilde
+    object_not_responding_to_equals_tilde = Class.new { undef =~ }.new
     matcher = regexp_matches(/oo/)
-    assert !matcher.matches?([:foo])
+    assert !matcher.matches?([object_not_responding_to_equals_tilde])
   end
 end
