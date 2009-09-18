@@ -1,4 +1,4 @@
-= 0.9.8 ()
+= 0.9.8 (645024765b2d92018efc511652e1174163844e39)
 * Fixed bug "NameError raised when using Mocha as a Rails plug-in" - http://floehopper.lighthouseapp.com/projects/22289/tickets/53. Since 0.9.6 the Rails plugin has been broken. See bug report for details. You will need to explicitly load Mocha *after* the test framework has been loaded, e.g. by adding "require 'mocha'" at the bottom of test/test_helper.rb.
 * Make Mocha::ParameterMatchers#regexp_matches, #includes, #has_value, #has_key more robust. Thanks to Sander Hartlage.
 * Allow passing a block to Mocha::Configuration methods to only change configuration for the duration of the block. Thanks to Dan Manges.
