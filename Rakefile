@@ -3,7 +3,7 @@ require 'rake/gempackagetask'
 require 'rake/testtask'
 
 module Mocha
-  VERSION = "0.9.7"
+  VERSION = "0.9.8"
 end
 
 desc "Run all tests"

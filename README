@@ -13,10 +13,12 @@ Mocha was harvested from projects at Reevoo[http://www.reevoo.com] by me (James[
 Install the gem with the following command...
 
   $ gem install mocha
- 
+
 Or install the Rails[http://www.rubyonrails.org] plugin...
 
   $ script/plugin install git://github.com/floehopper/mocha.git
+
+Note that versions 0.9.6 & 0.9.7 of the Rails plugin were broken. As of version 0.9.8, you need to explicitly load Mocha after the test framework e.g. by adding "require 'mocha'" at the bottom of test/test_helper.rb.
 
 Or download Mocha...
 

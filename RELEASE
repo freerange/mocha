@@ -1,3 +1,10 @@
+= 0.9.8 ()
+* Fixed bug "NameError raised when using Mocha as a Rails plug-in" - http://floehopper.lighthouseapp.com/projects/22289/tickets/53. Since 0.9.6 the Rails plugin has been broken. See bug report for details. You will need to explicitly load Mocha *after* the test framework has been loaded, e.g. by adding "require 'mocha'" at the bottom of test/test_helper.rb.
+* Make Mocha::ParameterMatchers#regexp_matches, #includes, #has_value, #has_key more robust. Thanks to Sander Hartlage.
+* Allow passing a block to Mocha::Configuration methods to only change configuration for the duration of the block. Thanks to Dan Manges.
+* Fixed bug "doc generation fails in 0.9.7 gem" - http://floehopper.lighthouseapp.com/projects/22289/tickets/51.
+* Remove rdoc template incorporating google analytics from source control. The file just needs to exist locally and be ignored by source control. This should stop the warning showing up on e.g. RunCodeRun build results.
+
 = 0.9.7 (80d816f250dc13aaf856f3f9cbd97ebe9c371839)
 * Although I had provided a deprecation warning for people using Mocha::Standalone, I had assumed people wouldn't be explicitly loading the mocha/standalone.rb file. It turns out this assumption was incorrect at least in the case of Rspec. This is now fixed.
 
