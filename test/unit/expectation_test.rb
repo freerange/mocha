@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), "..", "test_helper")
+require File.expand_path('../../test_helper', __FILE__)
 require 'method_definer'
 require 'mocha/expectation'
 require 'mocha/sequence'

@@ -1,4 +1,4 @@
-require 'mocha/module_method'
+require 'mocha/class_method'
 
 module Mocha
 

@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), "..", "test_helper")
+require File.expand_path('../../test_helper', __FILE__)
 
 require 'mocha/in_state_ordering_constraint'
 

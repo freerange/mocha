@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), "..", "test_helper")
+require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/parameters_matcher'
 
 class ParametersMatcherTest < Test::Unit::TestCase

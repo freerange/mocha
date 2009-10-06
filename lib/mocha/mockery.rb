@@ -1,5 +1,4 @@
 require 'mocha/central'
-require 'mocha/mock'
 require 'mocha/names'
 require 'mocha/state_machine'
 require 'mocha/logger'
