@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), "acceptance_test_helper")
+require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha'
 
 class StubbingNonExistentClassMethodTest < Test::Unit::TestCase
@@ -19,7 +19,7 @@ class StubbingNonExistentClassMethodTest < Test::Unit::TestCase
     test_result = run_as_test do
       klass.stubs(:non_existent_method)
     end
-    assert !@logger.warnings.include?("stubbing non-existent method: #{klass}.non_existent_method")
+    assert !@logger.warnings.include?("stubbing non-existent method: #{klass.mocha_inspect}.non_existent_method")
     assert_passed(test_result)
   end
   
@@ -30,7 +30,7 @@ class StubbingNonExistentClassMethodTest < Test::Unit::TestCase
       klass.stubs(:non_existent_method)
     end
     assert_passed(test_result)
-    assert @logger.warnings.include?("stubbing non-existent method: #{klass}.non_existent_method")
+    assert @logger.warnings.include?("stubbing non-existent method: #{klass.mocha_inspect}.non_existent_method")
   end
   
   def test_should_prevent_stubbing_non_existent_class_method
@@ -40,7 +40,7 @@ class StubbingNonExistentClassMethodTest < Test::Unit::TestCase
       klass.stubs(:non_existent_method)
     end
     assert_failed(test_result)
-    assert test_result.error_messages.include?("Mocha::StubbingError: stubbing non-existent method: #{klass}.non_existent_method")
+    assert test_result.error_messages.include?("Mocha::StubbingError: stubbing non-existent method: #{klass.mocha_inspect}.non_existent_method")
   end
   
   def test_should_default_to_allow_stubbing_non_existent_class_method
@@ -48,7 +48,7 @@ class StubbingNonExistentClassMethodTest < Test::Unit::TestCase
     test_result = run_as_test do
       klass.stubs(:non_existent_method)
     end
-    assert !@logger.warnings.include?("stubbing non-existent method: #{klass}.non_existent_method")
+    assert !@logger.warnings.include?("stubbing non-existent method: #{klass.mocha_inspect}.non_existent_method")
     assert_passed(test_result)
   end
   

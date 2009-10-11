@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), "acceptance_test_helper")
+require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha'
 
 class StatesTest < Test::Unit::TestCase

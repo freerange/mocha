@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), "acceptance_test_helper")
+require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha'
 
 class StubbingOnNonMockObjectTest < Test::Unit::TestCase
@@ -20,7 +20,7 @@ class StubbingOnNonMockObjectTest < Test::Unit::TestCase
       non_mock_object.stubs(:existing_method)
     end
     assert_passed(test_result)
-    assert !@logger.warnings.include?("stubbing method on non-mock object: #{non_mock_object}.existing_method")
+    assert !@logger.warnings.include?("stubbing method on non-mock object: #{non_mock_object.mocha_inspect}.existing_method")
   end
   
   def test_should_warn_on_stubbing_method_on_non_mock_object
@@ -30,7 +30,7 @@ class StubbingOnNonMockObjectTest < Test::Unit::TestCase
       non_mock_object.stubs(:existing_method)
     end
     assert_passed(test_result)
-    assert @logger.warnings.include?("stubbing method on non-mock object: #{non_mock_object}.existing_method")
+    assert @logger.warnings.include?("stubbing method on non-mock object: #{non_mock_object.mocha_inspect}.existing_method")
   end
   
   def test_should_prevent_stubbing_method_on_non_mock_object
@@ -40,7 +40,7 @@ class StubbingOnNonMockObjectTest < Test::Unit::TestCase
       non_mock_object.stubs(:existing_method)
     end
     assert_failed(test_result)
-    assert test_result.error_messages.include?("Mocha::StubbingError: stubbing method on non-mock object: #{non_mock_object}.existing_method")
+    assert test_result.error_messages.include?("Mocha::StubbingError: stubbing method on non-mock object: #{non_mock_object.mocha_inspect}.existing_method")
   end
   
   def test_should_default_to_allow_stubbing_method_on_non_mock_object
@@ -49,7 +49,7 @@ class StubbingOnNonMockObjectTest < Test::Unit::TestCase
       non_mock_object.stubs(:existing_method)
     end
     assert_passed(test_result)
-    assert !@logger.warnings.include?("stubbing method on non-mock object: #{non_mock_object}.existing_method")
+    assert !@logger.warnings.include?("stubbing method on non-mock object: #{non_mock_object.mocha_inspect}.existing_method")
   end
   
   def test_should_allow_stubbing_method_on_mock_object
