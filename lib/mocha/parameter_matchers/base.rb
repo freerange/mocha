@@ -44,6 +44,14 @@ module Mocha
       #   # with the shorthand
       #   object.expects(:run).with(has_key(:foo) | has_key(:bar))
       #   object.run(:foo => 'foovalue')
+      #
+      # This shorthand will not work with an implicit equals match. Instead,
+      # an explicit equals matcher should be used:
+      #
+      #   object.expects(:run).with(equals(1) | equals(2))
+      #   object.run(1) # passes
+      #   object.run(2) # passes
+      #   object.run(3) # fails
       def |(matcher)
         AnyOf.new(self, matcher)
       end
