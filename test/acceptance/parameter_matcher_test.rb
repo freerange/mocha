@@ -157,6 +157,25 @@ class ParameterMatcherTest < Test::Unit::TestCase
     end
     assert_failed(test_result)
   end
+  
+  def test_should_match_parameter_that_matches_any_of_the_given_matchers
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(has_key(:foo) | has_key(:bar)).times(2)
+      mock.method(:foo => 'fooval')
+      mock.method(:bar => 'barval')
+    end
+    assert_passed(test_result)
+  end
+  
+  def test_should_not_match_parameter_that_does_not_match_any_of_the_given_matchers
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(has_key(:foo) | has_key(:bar))
+      mock.method(:baz => 'bazval')
+    end
+    assert_failed(test_result)
+  end
 
   def test_should_match_parameter_that_matches_all_values
     test_result = run_as_test do
@@ -172,6 +191,24 @@ class ParameterMatcherTest < Test::Unit::TestCase
       mock = mock()
       mock.expects(:method).with(all_of('value_1', 'value_2'))
       mock.method('value_1')
+    end
+    assert_failed(test_result)
+  end
+  
+  def test_should_match_parameter_that_matches_all_matchers
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(has_key(:foo) & has_key(:bar))
+      mock.method(:foo => 'fooval', :bar => 'barval')
+    end
+    assert_passed(test_result)
+  end
+  
+  def test_should_not_match_parameter_that_does_not_match_all_matchers
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(has_key(:foo) & has_key(:bar))
+      mock.method(:foo => 'fooval', :baz => 'bazval')
     end
     assert_failed(test_result)
   end
