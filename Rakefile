@@ -42,8 +42,8 @@ namespace 'test' do
 
   desc "Run performance tests"
   task 'performance' do
-    require 'test/acceptance/stubba_example_test'
-    require 'test/acceptance/mocha_example_test'
+    require File.join(File.dirname(__FILE__), 'test', 'acceptance', 'stubba_example_test')
+    require File.join(File.dirname(__FILE__), 'test', 'acceptance', 'mocha_example_test')
     iterations = 1000
     puts "\nBenchmarking with #{iterations} iterations..."
     [MochaExampleTest, StubbaExampleTest].each do |test_case|
