@@ -32,12 +32,15 @@ class StubInstanceMethodTest < Test::Unit::TestCase
         :original_return_value
       end
       protected :my_instance_method
+      def my_unprotected_instance_method
+        my_instance_method
+      end
     end.new
     run_as_test do
       instance.stubs(:my_instance_method).returns(:new_return_value)
     end
     assert instance.protected_methods(false).any? { |m| m.to_s == 'my_instance_method' }
-    assert_equal :original_return_value, instance.send(:my_instance_method)
+    assert_equal :original_return_value, instance.my_unprotected_instance_method
   end
   
   def test_should_leave_stubbed_private_method_unchanged_after_test

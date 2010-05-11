@@ -32,12 +32,12 @@ class StubModuleMethodTest < Test::Unit::TestCase
   end
   
   def test_should_leave_stubbed_protected_method_unchanged_after_test
-    mod = Module.new { class << self; def my_module_method; :original_return_value; end; protected :my_module_method; end }
+    mod = Module.new { class << self; def my_module_method; :original_return_value; end; protected :my_module_method; def my_unprotected_module_method; my_module_method; end; end }
     run_as_test do
       mod.stubs(:my_module_method).returns(:new_return_value)
     end
     assert mod.protected_methods(false).any? { |m| m.to_s == 'my_module_method' }
-    assert_equal :original_return_value, mod.send(:my_module_method)
+    assert_equal :original_return_value, mod.my_unprotected_module_method
   end
   
   def test_should_leave_stubbed_private_method_unchanged_after_test
