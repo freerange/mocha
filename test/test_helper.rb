@@ -9,6 +9,7 @@ $:.unshift File.expand_path(File.join(File.dirname(__FILE__), 'unit', 'parameter
 $:.unshift File.expand_path(File.join(File.dirname(__FILE__), 'acceptance'))
 
 if ENV['MOCHA_OPTIONS'] == 'use_test_unit_gem'
+  require 'rubygems'
   gem 'test-unit'
 end
 
