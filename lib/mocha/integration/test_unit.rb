@@ -23,6 +23,9 @@ if !Test::Unit::TestCase.ancestors.include?(Mocha::API)
           '1.x'
         end
 
+        warn "Detected Ruby version: #{RUBY_VERSION}"
+        warn "Detected Test::Unit version: #{test_unit_version}"
+
         if test_unit_version == '2.0.0'
           include Mocha::Integration::TestUnit::GemVersion200
         elsif test_unit_version >= '2.0.1'

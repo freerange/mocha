@@ -9,6 +9,9 @@ module Mocha
     module TestUnit
       
       module GemVersion200
+        def self.included(mod)
+          warn "Monkey patching Test::Unit gem v2.0.0"
+        end
         def run(result)
           assertion_counter = AssertionCounter.new(result)
           begin
