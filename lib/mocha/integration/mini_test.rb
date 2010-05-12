@@ -31,10 +31,13 @@ if !MiniTest::Unit::TestCase.ancestors.include?(Mocha::API)
           include Mocha::Integration::MiniTest::Version140
         elsif (mini_test_version == '1.4.1')
           include Mocha::Integration::MiniTest::Version141
-        elsif (mini_test_version >= '1.4.2')
+        elsif (mini_test_version >= '1.4.2') && (mini_test_version <= '1.6.0')
+          include Mocha::Integration::MiniTest::Version142AndAbove
+        elsif (mini_test_version > '1.6.0')
+          warn "*** MiniTest integration has not been verified but patching anyway ***"
           include Mocha::Integration::MiniTest::Version142AndAbove
         else
-          warn "No Mocha integration for MiniTest version"
+          warn "*** No Mocha integration for MiniTest version ***"
         end
         
       end
