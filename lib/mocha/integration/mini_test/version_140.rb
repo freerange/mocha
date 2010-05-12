@@ -7,33 +7,28 @@ module Mocha
     
     module MiniTest
       
-      def self.translate(exception)
-        return exception unless exception.kind_of?(::Mocha::ExpectationError)
-        translated_exception = ::MiniTest::Assertion.new(exception.message)
-        translated_exception.set_backtrace(exception.backtrace)
-        translated_exception
-      end
-      
-      module Version131AndAbove
+      module Version140
+        def self.included(mod)
+          warn "Monkey patching MiniTest v1.4.0"
+        end
         def run runner
           assertion_counter = AssertionCounter.new(self)
           result = '.'
-          name = (self.respond_to?(:name) ? self.name : self.__name__)
           begin
             begin
               @passed = nil
               self.setup
-              self.__send__ name
+              self.__send__ self.__name__
               mocha_verify(assertion_counter)
               @passed = true
             rescue Exception => e
               @passed = false
-              result = runner.puke(self.class, name, Mocha::Integration::MiniTest.translate(e))
+              result = runner.puke(self.class, self.__name__, Mocha::Integration::MiniTest.translate(e))
             ensure
               begin
                 self.teardown
               rescue Exception => e
-                result = runner.puke(self.class, name, Mocha::Integration::MiniTest.translate(e))
+                result = runner.puke(self.class, self.__name__, Mocha::Integration::MiniTest.translate(e))
               end
             end
           ensure
