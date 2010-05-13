@@ -287,10 +287,14 @@ module Mocha # :nodoc:
   
     # :call-seq: raises(exception = RuntimeError, message = nil) -> expectation
     #
-    # Modifies expectation so that when the expected method is called, it raises the specified +exception+ with the specified +message+.
+    # Modifies expectation so that when the expected method is called, it raises the specified +exception+ with the specified +message+ i.e. calls Kernel#raise(exception, message).
     #   object = mock()
     #   object.expects(:expected_method).raises(Exception, 'message')
     #   object.expected_method # => raises exception of class Exception and with message 'message'
+    # Note that if you have a custom exception class with extra constructor parameters, you can pass in an instance of the exception (just as you can for Kernel#raise).
+    #   object = mock()
+    #   object.expects(:expected_method).raises(MyException.new('message', 1, 2, 3))
+    #   object.expected_method # => raises the specified instance of MyException
     # May be called multiple times on the same expectation. Also see Expectation#then.
     #   object = mock()
     #   object.stubs(:expected_method).raises(Exception1).then.raises(Exception2)
