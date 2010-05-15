@@ -23,15 +23,16 @@ class ObjectInspectTest < Test::Unit::TestCase
   end
   
   def test_should_use_underscored_id_instead_of_object_id_or_id_so_that_they_can_be_stubbed
+    calls = []
     object = Object.new
-    object.define_instance_accessor(:called)
-    object.called = false
-    object.replace_instance_method(:object_id) { self.called = true; 1 }
-    if RUBY_VERSION < '1.9'
-      object.replace_instance_method(:id) { self.called = true; 1 }
-    end
+    object.replace_instance_method(:id) { calls << :id; return 1 } if RUBY_VERSION < '1.9'
+    object.replace_instance_method(:object_id) { calls << :object_id; return 1 }
+    object.replace_instance_method(:__id__) { calls << :__id__; return 1 }
+    object.replace_instance_method(:inspect) { "object-description" }
+
     object.mocha_inspect
-    assert_equal false, object.called
+
+    assert_equal [:__id__], calls.uniq
   end
   
 end
