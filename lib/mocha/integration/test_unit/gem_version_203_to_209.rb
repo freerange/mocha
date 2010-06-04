@@ -8,9 +8,9 @@ module Mocha
     
     module TestUnit
       
-      module GemVersion203To207
+      module GemVersion203To209
         def self.included(mod)
-          warn "Monkey patching Test::Unit gem >= v2.0.3 and <= v2.0.7"
+          warn "Monkey patching Test::Unit gem >= v2.0.3 and <= v2.0.9"
         end
         def run(result)
           assertion_counter = AssertionCounter.new(result)
