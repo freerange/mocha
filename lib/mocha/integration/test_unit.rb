@@ -18,7 +18,7 @@ if !Test::Unit::TestCase.ancestors.include?(Mocha::API)
         remove_method :run
         
         test_unit_version = begin
-          require 'test/unit/version'
+          load 'test/unit/version.rb'
           Test::Unit::VERSION
         rescue LoadError
           '1.x'
