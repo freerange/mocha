@@ -24,8 +24,10 @@ if !Test::Unit::TestCase.ancestors.include?(Mocha::API)
           '1.x'
         end
 
-        warn "Detected Ruby version: #{RUBY_VERSION}"
-        warn "Detected Test::Unit version: #{test_unit_version}"
+        if $options['debug']
+          warn "Detected Ruby version: #{RUBY_VERSION}"
+          warn "Detected Test::Unit version: #{test_unit_version}"
+        end
 
         if (test_unit_version == '1.x') || (test_unit_version == '1.2.3')
           if RUBY_VERSION < '1.8.6'
@@ -40,10 +42,10 @@ if !Test::Unit::TestCase.ancestors.include?(Mocha::API)
         elsif (test_unit_version >= '2.0.3') && (test_unit_version <= '2.0.9')
           include Mocha::Integration::TestUnit::GemVersion203To209
         elsif (test_unit_version > '2.0.9')
-          warn "*** Test::Unit integration has not been verified but patching anyway ***"
+          warn "*** Test::Unit integration has not been verified but patching anyway ***" if $options['debug']
           include Mocha::Integration::TestUnit::GemVersion203To209
         else
-          warn "*** No Mocha integration for Test::Unit version ***"
+          warn "*** No Mocha integration for Test::Unit version ***" if $options['debug']
         end
         
       end

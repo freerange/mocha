@@ -10,7 +10,7 @@ module Mocha
       
       module RubyVersion185AndBelow
         def self.included(mod)
-          warn "Monkey patching Test::Unit for Ruby <= v1.8.5"
+          warn "Monkey patching Test::Unit for Ruby <= v1.8.5" if $options['debug']
         end
         def run(result)
           assertion_counter = AssertionCounter.new(result)
