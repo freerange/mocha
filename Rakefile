@@ -55,14 +55,16 @@ end
 
 def benchmark_test_case(klass, iterations)
   require 'benchmark'
-  require 'test/unit/ui/console/testrunner'
-  begin
-    require 'test/unit/ui/console/outputlevel'
-    silent_option = { :output_level => Test::Unit::UI::Console::OutputLevel::SILENT }
-  rescue LoadError
-    silent_option = Test::Unit::UI::SILENT
+  load 'test/unit/ui/console/testrunner.rb' unless defined?(Test::Unit::UI::Console::TestRunner)
+  unless $silent_option
+    begin
+      load 'test/unit/ui/console/outputlevel.rb' unless defined?(Test::Unit::UI::Console::OutputLevel::SILENT)
+      $silent_option = { :output_level => Test::Unit::UI::Console::OutputLevel::SILENT }
+    rescue LoadError
+      $silent_option = Test::Unit::UI::SILENT
+    end
   end
-  time = Benchmark.realtime { iterations.times { Test::Unit::UI::Console::TestRunner.run(klass, silent_option) } }
+  time = Benchmark.realtime { iterations.times { Test::Unit::UI::Console::TestRunner.run(klass, $silent_option) } }
 end
 
 desc 'Generate RDoc'
