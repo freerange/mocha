@@ -10,10 +10,10 @@ require 'mocha/change_state_side_effect'
 require 'mocha/cardinality'
 
 module Mocha # :nodoc:
-  
+
   # Methods on expectations returned from Mock#expects, Mock#stubs, Object#expects and Object#stubs.
   class Expectation
-  
+
     # :call-seq: times(range) -> expectation
     #
     # Modifies expectation so that the number of calls to the expected method must be within a specific +range+.
@@ -42,7 +42,7 @@ module Mocha # :nodoc:
       @cardinality = Cardinality.times(range)
       self
     end
-  
+
     # :call-seq: twice() -> expectation
     #
     # Modifies expectation so that the expected method must be called exactly twice.
@@ -67,7 +67,7 @@ module Mocha # :nodoc:
       @cardinality = Cardinality.exactly(2)
       self
     end
-  
+
     # :call-seq: once() -> expectation
     #
     # Modifies expectation so that the expected method must be called exactly once.
@@ -90,7 +90,7 @@ module Mocha # :nodoc:
       @cardinality = Cardinality.exactly(1)
       self
     end
-  
+
     # :call-seq: never() -> expectation
     #
     # Modifies expectation so that the expected method must never be called.
@@ -101,13 +101,12 @@ module Mocha # :nodoc:
     #
     #   object = mock()
     #   object.expects(:expected_method).never
-    #   object.expected_method
     #   # => verify succeeds
     def never
       @cardinality = Cardinality.exactly(0)
       self
     end
-  
+
     # :call-seq: at_least(minimum_number_of_times) -> expectation
     #
     # Modifies expectation so that the expected method must be called at least a +minimum_number_of_times+.
@@ -124,7 +123,7 @@ module Mocha # :nodoc:
       @cardinality = Cardinality.at_least(minimum_number_of_times)
       self
     end
-  
+
     # :call-seq: at_least_once() -> expectation
     #
     # Modifies expectation so that the expected method must be called at least once.
@@ -140,7 +139,7 @@ module Mocha # :nodoc:
       at_least(1)
       self
     end
-  
+
     # :call-seq: at_most(maximum_number_of_times) -> expectation
     #
     # Modifies expectation so that the expected method must be called at most a +maximum_number_of_times+.
@@ -157,7 +156,7 @@ module Mocha # :nodoc:
       @cardinality = Cardinality.at_most(maximum_number_of_times)
       self
     end
-  
+
     # :call-seq: at_most_once() -> expectation
     #
     # Modifies expectation so that the expected method must be called at most once.
@@ -174,7 +173,7 @@ module Mocha # :nodoc:
       at_most(1)
       self
     end
-  
+
     # :call-seq: with(*expected_parameters, &matching_block) -> expectation
     #
     # Modifies expectation so that the expected method must be called with +expected_parameters+.
@@ -204,7 +203,7 @@ module Mocha # :nodoc:
       @parameters_matcher = ParametersMatcher.new(expected_parameters, &matching_block)
       self
     end
-  
+
     # :call-seq: yields(*parameters) -> expectation
     #
     # Modifies expectation so that when the expected method is called, it yields with the specified +parameters+.
@@ -226,7 +225,7 @@ module Mocha # :nodoc:
       @yield_parameters.add(*parameters)
       self
     end
-    
+
     # :call-seq: multiple_yields(*parameter_groups) -> expectation
     #
     # Modifies expectation so that when the expected method is called, it yields multiple times per invocation with the specified +parameter_groups+.
@@ -248,7 +247,7 @@ module Mocha # :nodoc:
       @yield_parameters.multiple_add(*parameter_groups)
       self
     end
-    
+
     # :call-seq: returns(value) -> expectation
     #            returns(*values) -> expectation
     #
@@ -284,7 +283,7 @@ module Mocha # :nodoc:
       @return_values += ReturnValues.build(*values)
       self
     end
-  
+
     # :call-seq: raises(exception = RuntimeError, message = nil) -> expectation
     #
     # Modifies expectation so that when the expected method is called, it raises the specified +exception+ with the specified +message+ i.e. calls Kernel#raise(exception, message).
@@ -341,7 +340,7 @@ module Mocha # :nodoc:
       end
       self
     end
-    
+
     # :call-seq: when(state_machine.is(state)) -> exception
     #
     # Constrains the expectation to occur only when the +state_machine+ is in the named +state+.
@@ -360,7 +359,7 @@ module Mocha # :nodoc:
       add_ordering_constraint(InStateOrderingConstraint.new(state_predicate))
       self
     end
-    
+
     # :call-seq: in_sequence(*sequences) -> expectation
     #
     # Constrains this expectation so that it must be invoked at the current point in the sequence.
@@ -382,9 +381,9 @@ module Mocha # :nodoc:
       sequences.each { |sequence| add_in_sequence_ordering_constraint(sequence) }
       self
     end
-    
+
     # :stopdoc:
-    
+
     attr_reader :backtrace
 
     def initialize(mock, expected_method_name, backtrace = nil)
@@ -398,35 +397,35 @@ module Mocha # :nodoc:
       @yield_parameters = YieldParameters.new
       @backtrace = backtrace || caller
     end
-    
+
     def add_ordering_constraint(ordering_constraint)
       @ordering_constraints << ordering_constraint
     end
-    
+
     def add_in_sequence_ordering_constraint(sequence)
       sequence.constrain_as_next_in_sequence(self)
     end
-    
+
     def add_side_effect(side_effect)
       @side_effects << side_effect
     end
-    
+
     def perform_side_effects
       @side_effects.each { |side_effect| side_effect.perform }
     end
-    
+
     def in_correct_order?
       @ordering_constraints.all? { |ordering_constraint| ordering_constraint.allows_invocation_now? }
     end
-    
+
     def matches_method?(method_name)
       @method_matcher.match?(method_name)
     end
-    
+
     def match?(actual_method_name, *actual_parameters)
       @method_matcher.match?(actual_method_name) && @parameters_matcher.match?(actual_parameters) && in_correct_order?
     end
-    
+
     def invocations_allowed?
       @cardinality.invocations_allowed?(@invocation_count)
     end
@@ -434,7 +433,7 @@ module Mocha # :nodoc:
     def satisfied?
       @cardinality.satisfied?(@invocation_count)
     end
-  
+
     def invoke
       @invocation_count += 1
       perform_side_effects()
@@ -450,11 +449,11 @@ module Mocha # :nodoc:
       assertion_counter.increment if assertion_counter && @cardinality.needs_verifying?
       @cardinality.verified?(@invocation_count)
     end
-    
+
     def used?
       @cardinality.used?(@invocation_count)
     end
-    
+
     def mocha_inspect
       message = "#{@cardinality.mocha_inspect}, "
       message << case @invocation_count
@@ -468,13 +467,13 @@ module Mocha # :nodoc:
       message << "; #{@ordering_constraints.map { |oc| oc.mocha_inspect }.join("; ")}" unless @ordering_constraints.empty?
       message
     end
-    
+
     def method_signature
       "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}#{@parameters_matcher.mocha_inspect}"
     end
-      
+
     # :startdoc:
-    
+
   end
 
 end
