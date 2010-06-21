@@ -1,4 +1,4 @@
-== Mocha
+= Mocha
 
 Mocha is a library for mocking and stubbing using a syntax like that of {JMock}[http://www.jmock.org].
 
@@ -8,7 +8,7 @@ Mocha provides a unified, simple and readable syntax for both traditional mockin
 
 Mocha was harvested from projects at {Reevoo}[http://www.reevoo.com] by me ({James}[http://blog.floehopper.org]) and my (then) colleagues {Ben}[http://www.techbelly.com/], {Chris}[http://chrisroos.co.uk] and {Paul}[http://po-ru.com].
 
-=== Download and Installation
+== Download and Installation
 
 Install the gem with the following command...
 
@@ -24,7 +24,7 @@ Or download Mocha...
 
   http://rubyforge.org/frs/?group_id=1917
 
-=== Examples
+== Examples
 
 * Quick Start - {Usage Examples}[link:examples/misc.html]
 * Traditional mocking - {Star Trek Example}[link:examples/mocha.html]
@@ -32,7 +32,7 @@ Or download Mocha...
 * More examples on {Floehopper's Blog}[http://blog.floehopper.org]
 * {Mailing List Archives}[http://groups.google.com/group/mocha-developer]
 
-=== License
+== License
 
 Copyright Revieworld Ltd. 2006
 
