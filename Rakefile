@@ -69,7 +69,7 @@ end
 
 desc 'Generate RDoc'
 Rake::RDocTask.new('rdoc') do |task|
-  task.main = 'README'
+  task.main = 'README.rdoc'
   task.title = "Mocha #{Mocha::VERSION}"
   task.rdoc_dir = 'doc'
   template = File.expand_path(File.join(File.dirname(__FILE__), "templates", "html_with_google_analytics.rb"))
@@ -78,10 +78,10 @@ Rake::RDocTask.new('rdoc') do |task|
     task.template = template
   end
   task.rdoc_files.include(
-    'README',
-    'RELEASE',
-    'COPYING',
-    'MIT-LICENSE',
+    'README.rdoc',
+    'RELEASE.rdoc',
+    'COPYING.rdoc',
+    'MIT-LICENSE.rdoc',
     'agiledox.txt',
     'lib/mocha/api.rb',
     'lib/mocha/mock.rb',
@@ -158,8 +158,8 @@ def build_specification(version = Mocha::VERSION)
     s.rubyforge_project = 'mocha'
 
     s.has_rdoc = true
-    s.extra_rdoc_files = ['README', 'COPYING']
-    s.rdoc_options << '--title' << 'Mocha' << '--main' << 'README' << '--line-numbers'
+    s.extra_rdoc_files = ['README.rdoc', 'COPYING.rdoc']
+    s.rdoc_options << '--title' << 'Mocha' << '--main' << 'README.rdoc' << '--line-numbers'
 
     s.add_dependency('rake')
     s.files = FileList['{lib,test,examples}/**/*.rb', '[A-Z]*'].exclude('TODO').to_a
