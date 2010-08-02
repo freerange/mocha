@@ -250,12 +250,19 @@ module Mocha # :nodoc:
 
     # :call-seq: returns(value) -> expectation
     #            returns(*values) -> expectation
+    #            returns { |*args| ... } -> expectation
     #
-    # Modifies expectation so that when the expected method is called, it returns the specified +value+.
+    # Modifies expectation so that when the expected method is called, it returns the specified +value+
+    # or the value from invoking the given +block+.
     #   object = mock()
     #   object.stubs(:stubbed_method).returns('result')
     #   object.stubbed_method # => 'result'
     #   object.stubbed_method # => 'result'
+    # If a +block+ is provided, then it is invoked with the call arguments.
+    #   object = mock()
+    #   object.stubs(:stubbed_method).returns { |a,b,c| a+b+c }
+    #   object.stubbed_method(1,2,3) # => 6
+    #   object.stubbed_method(4,5,6) # => 15
     # If multiple +values+ are given, these are returned in turn on consecutive calls to the method.
     #   object = mock()
     #   object.stubs(:stubbed_method).returns(1, 2)
@@ -279,8 +286,8 @@ module Mocha # :nodoc:
     #   x, y = object.expected_method
     #   x # => 1
     #   y # => 2
-    def returns(*values)
-      @return_values += ReturnValues.build(*values)
+    def returns(*values,&blk)
+      @return_values += ReturnValues.build(*values,&blk)
       self
     end
 
@@ -434,7 +441,7 @@ module Mocha # :nodoc:
       @cardinality.satisfied?(@invocation_count)
     end
 
-    def invoke
+    def invoke(*arguments)
       @invocation_count += 1
       perform_side_effects()
       if block_given? then
@@ -442,7 +449,7 @@ module Mocha # :nodoc:
           yield(*yield_parameters)
         end
       end
-      @return_values.next
+      @return_values.next(*arguments)
     end
 
     def verified?(assertion_counter = nil)

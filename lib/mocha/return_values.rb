@@ -1,11 +1,14 @@
 require 'mocha/single_return_value'
+require 'mocha/single_return_block'
 
 module Mocha # :nodoc:
   
   class ReturnValues # :nodoc:
     
-    def self.build(*values)
-      new(*values.map { |value| SingleReturnValue.new(value) })
+    def self.build(*values,&blk)
+      values.map! { |value| SingleReturnValue.new(value) }
+      values << SingleReturnBlock.new(blk) if blk
+      new(*values)
     end
     
     attr_accessor :values
@@ -14,11 +17,11 @@ module Mocha # :nodoc:
       @values = values
     end
     
-    def next
+    def next(*arguments)
       case @values.length
         when 0 then nil
-        when 1 then @values.first.evaluate
-        else @values.shift.evaluate
+        when 1 then @values.first.evaluate(*arguments)
+        else @values.shift.evaluate(*arguments)
       end
     end
     

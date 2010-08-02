@@ -11,4 +11,9 @@ class SingleReturnValueTest < Test::Unit::TestCase
     assert_equal 'value', value.evaluate
   end
   
+  def test_should_return_value_ignore_arguments
+    value = SingleReturnValue.new('value')
+    assert_equal 'value', value.evaluate(4,5)
+  end
+  
 end

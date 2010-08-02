@@ -36,6 +36,14 @@ class ReturnValuesTest < Test::Unit::TestCase
     assert_equal 'value_2', values.next
   end
 
+  def test_should_return_values_then_invoke_block
+    values = ReturnValues.new(SingleReturnValue.new('value_1'), SingleReturnValue.new('value_2'), SingleReturnBlock.new(Proc.new { |a,b| a+b }))
+    assert_equal 'value_1', values.next(4,5)
+    assert_equal 'value_2', values.next(4,5)
+    assert_equal 9, values.next(4,5)
+    assert_equal 13, values.next(6,7)
+  end
+
   def test_should_keep_returning_last_of_consecutive_evaluated_single_return_values
     values = ReturnValues.new(SingleReturnValue.new('value_1'), SingleReturnValue.new('value_2'))
     values.next
