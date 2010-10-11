@@ -8,6 +8,8 @@ require 'mocha/is_a'
 require 'mocha/in_state_ordering_constraint'
 require 'mocha/change_state_side_effect'
 require 'mocha/cardinality'
+require 'mocha/side_effect'
+
 
 module Mocha # :nodoc:
 
@@ -245,6 +247,22 @@ module Mocha # :nodoc:
     #   yielded_values_from_second_invocation # => [[4], [5, 6]]
     def multiple_yields(*parameter_groups)
       @yield_parameters.multiple_add(*parameter_groups)
+      self
+    end
+
+    # :call-seq: runs{ @variable += 1 } -> expectation
+    #
+    # Modifies expectation so that when the expected method is called, it calls the specified block of code.
+    #   object = mock()
+    #   x = 0
+    #   object.expects(:expected_method).runs{ x += 1 }
+    #   object.expected_method
+    #   x # => 1
+    #   object.expected_method
+    #   x # => 2
+
+    def runs(&proc)
+      add_side_effect(SideEffect.new(&proc))
       self
     end
 
