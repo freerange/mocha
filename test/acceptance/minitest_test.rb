@@ -1,7 +1,7 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
 
 if defined?(MiniTest)
-  warn "TODO: Running suite with MiniTest, running the MiniTestAdapterTest results in an error so skipping it for now."
+  $stderr.puts "TODO: Running suite with MiniTest, running the MiniTestAdapterTest results in an error so skipping it for now."
 else
   begin
     require 'rubygems'
@@ -152,6 +152,6 @@ else
     end
   
   else
-    warn "MiniTest is not available, so MiniTestAdapterTest has not been run."
+    $stderr.puts "MiniTest is not available, so MiniTestAdapterTest has not been run."
   end
 end

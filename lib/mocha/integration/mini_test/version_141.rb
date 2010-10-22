@@ -9,7 +9,7 @@ module Mocha
             
       module Version141
         def self.included(mod)
-          warn "Monkey patching MiniTest v1.4.1"
+          $stderr.puts "Monkey patching MiniTest v1.4.1"
         end
         def run runner
           trap 'INFO' do

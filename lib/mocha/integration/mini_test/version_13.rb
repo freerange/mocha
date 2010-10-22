@@ -8,7 +8,7 @@ module Mocha
       
       module Version13
         def self.included(mod)
-          warn "Monkey patching MiniTest v1.3" if $options['debug']
+          $stderr.puts "Monkey patching MiniTest v1.3" if $options['debug']
         end
         def run runner
           assertion_counter = AssertionCounter.new(self)

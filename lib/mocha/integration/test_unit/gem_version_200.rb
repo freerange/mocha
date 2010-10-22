@@ -10,7 +10,7 @@ module Mocha
       
       module GemVersion200
         def self.included(mod)
-          warn "Monkey patching Test::Unit gem v2.0.0" if $options['debug']
+          $stderr.puts "Monkey patching Test::Unit gem v2.0.0" if $options['debug']
         end
         def run(result)
           assertion_counter = AssertionCounter.new(result)

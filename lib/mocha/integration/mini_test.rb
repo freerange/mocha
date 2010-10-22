@@ -23,7 +23,7 @@ if !MiniTest::Unit::TestCase.ancestors.include?(Mocha::API)
           'unknown'
         end
         
-        warn "Detected MiniTest version: #{mini_test_version}" if $options['debug']
+        $stderr.puts "Detected MiniTest version: #{mini_test_version}" if $options['debug']
         
         if (mini_test_version >= '1.3.0') && (mini_test_version <= '1.3.1')
           include Mocha::Integration::MiniTest::Version13
@@ -34,10 +34,10 @@ if !MiniTest::Unit::TestCase.ancestors.include?(Mocha::API)
         elsif (mini_test_version >= '1.4.2') && (mini_test_version <= '1.6.0')
           include Mocha::Integration::MiniTest::Version142AndAbove
         elsif (mini_test_version > '1.6.0')
-          warn "*** MiniTest integration has not been verified but patching anyway ***" if $options['debug']
+          $stderr.puts "*** MiniTest integration has not been verified but patching anyway ***" if $options['debug']
           include Mocha::Integration::MiniTest::Version142AndAbove
         else
-          warn "*** No Mocha integration for MiniTest version ***" if $options['debug']
+          $stderr.puts "*** No Mocha integration for MiniTest version ***" if $options['debug']
         end
         
       end
