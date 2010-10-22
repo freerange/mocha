@@ -1,3 +1,22 @@
+= 0.9.9 ()
+
+* Avoid loading bits of the test-unit gem by accident. This is an attempt at a fix for the problem that James Adam reported [1]. By using 'load' instead of 'require' to detect the version of Test::Unit, we can avoid rubygems trying to load bits of the test-unit gem when it's not wanted. [1] http://floehopper.lighthouseapp.com/projects/22289-mocha/tickets/50#ticket-50-13
+* Fix exception when running rake without test-unit gem. When test-unit gem >=v2.0.0 was installed but the "use_test_unit_gem" MOCHA_OPTIONS was not specified, a "comparison of Fixnum with Hash failed" exception was being raised when running the performance tests. This was because bits of the test-unit gem were being loaded accidentally and a Hash was being incorrectly supplied to the TestRunner.run method.
+* Explicitly require rubygems for running tests via rake using test-unit gem.
+* Handle newer versions of test-unit gem (v2.0.2 to v2.0.9)
+* Handle newer versions of minitest gem (v1.4.0 to v1.6.0)
+* Added warnings about monkey-patching test-unit and minitest to aid debugging. These are enabled by including "debug" in the MOCHA_OPTIONS environment variable. This is now a comma-separated list, so that we can specify multiple options e.g. MOCHA_OPTIONS=debug,use_test_unit_gem
+* Eloy Duran (alloy) made the unit tests run on 1.9.2dev r25249.
+* Eloy Duran (alloy) also improved some MiniTest TestResult code I'd written and got the acceptance tests running on Ruby 1.9 HEAD. There are still 4 failures because for some reason the backtrace line numbers are off by one. And the minitest_test test case does not run when the whole suite is run with MiniTest. These issues still need investigation.
+* Fixed some acceptance tests to run in Ruby 1.9.2 - it's no longer possible to subvert the protection of a method by calling it via Object#send.
+* Fixed "test:performance" rake task so it runs in Ruby 1.9.2.
+* Fix test incorrectly failing under Rubinius 1.0. This test imposed too many constraints. It appears that Object#inspect legitimately calls Object#object_id in Rubinius. But we're only interested in what 'id' methods Mocha::ObjectMethods#mocha_inspect calls. By stubbing Object#inspect we can relax the constraints imposed by the test.
+* Luke Redpath (lukeredpath) added new shorthand "any" and "all" composite parameter matchers using "&" and "|". This provides an alternative syntax for expecting any or all matchers to pass, e.g. foo.expects(:bar).with(equals(1) | equals(2)).
+* Improved documentation for Expectation#raises. A number of people have suggested an extension to the API to cope with custom exceptions that have extra constructor parameters. However, since the arguments supplied to Expectation#raises are just passed on to Kernel#raise, it's possible to pass in an instance of an exception. Thus no change to the API is required, but it does seem worthwhile pointing this out in the docs.
+* Corrected RDoc example for Expectation#never thanks to Red David (reddavis).
+* Improved RDoc including a change suggested by Rohit Arondekar (rohit).
+* Updated gemspec as requested by Sam Woodard (shwoodard).
+
 = 0.9.8 (645024765b2d92018efc511652e1174163844e39)
 * Fixed bug "NameError raised when using Mocha as a Rails plug-in" - http://floehopper.lighthouseapp.com/projects/22289/tickets/53. Since 0.9.6 the Rails plugin has been broken. See bug report for details. You will need to explicitly load Mocha *after* the test framework has been loaded, e.g. by adding "require 'mocha'" at the bottom of test/test_helper.rb.
 * Make Mocha::ParameterMatchers#regexp_matches, #includes, #has_value, #has_key more robust. Thanks to Sander Hartlage.
