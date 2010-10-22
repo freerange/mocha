@@ -1,5 +1,4 @@
-= 0.9.9 ()
-
+= 0.9.9 (ee3a79db4d52c3339e8acf07505e01236a2b4810)
 * Avoid loading bits of the test-unit gem by accident. This is an attempt at a fix for the problem that James Adam reported [1]. By using 'load' instead of 'require' to detect the version of Test::Unit, we can avoid rubygems trying to load bits of the test-unit gem when it's not wanted. [1] http://floehopper.lighthouseapp.com/projects/22289-mocha/tickets/50#ticket-50-13
 * Fix exception when running rake without test-unit gem. When test-unit gem >=v2.0.0 was installed but the "use_test_unit_gem" MOCHA_OPTIONS was not specified, a "comparison of Fixnum with Hash failed" exception was being raised when running the performance tests. This was because bits of the test-unit gem were being loaded accidentally and a Hash was being incorrectly supplied to the TestRunner.run method.
 * Explicitly require rubygems for running tests via rake using test-unit gem.
