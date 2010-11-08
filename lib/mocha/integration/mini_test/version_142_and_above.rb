@@ -35,7 +35,7 @@ module Mocha
             ensure
               begin
                 self.teardown
-              rescue *PASSTHROUGH_EXCEPTIONS
+              rescue *::MiniTest::Unit::TestCase::PASSTHROUGH_EXCEPTIONS
                 raise
               rescue Exception => e
                 result = runner.puke(self.class, self.__name__, Mocha::Integration::MiniTest.translate(e))
