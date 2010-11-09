@@ -2,7 +2,7 @@ require 'mocha/backtrace_filter'
 
 module Mocha
 
-  class ExpectationError < StandardError
+  class ExpectationError < Exception
     
     def initialize(message = nil, backtrace = [])
       super(message)
