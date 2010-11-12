@@ -6,6 +6,7 @@ require 'mocha/method_matcher'
 require 'mocha/parameters_matcher'
 require 'mocha/unexpected_invocation'
 require 'mocha/argument_iterator'
+require 'mocha/mockery'
 
 module Mocha # :nodoc:
   

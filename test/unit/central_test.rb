@@ -47,6 +47,32 @@ class CentralTest < Test::Unit::TestCase
     assert_equal [method], stubba.stubba_methods
   end
   
+  def test_should_unstub_specified_method
+    stubba = Central.new
+    method_1 = Mock.new
+    method_2 = Mock.new
+    method_2.expects(:unstub)
+    stubba.stubba_methods = [method_1, method_2]
+
+    stubba.unstub(method_2)
+    
+    assert_equal [method_1], stubba.stubba_methods
+    assert method_2.__verified__?
+  end
+  
+  def test_should_not_unstub_specified_method_if_not_already_stubbed
+    stubba = Central.new
+    method_1 = Mock.new
+    method_2 = Mock.new
+    method_2.expects(:unstub).never
+    stubba.stubba_methods = [method_1]
+
+    stubba.unstub(method_2)
+    
+    assert_equal [method_1], stubba.stubba_methods
+    assert method_2.__verified__?
+  end
+  
   def test_should_unstub_all_methods
     stubba = Central.new
     method_1 = Mock.new

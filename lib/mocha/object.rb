@@ -101,6 +101,39 @@ module Mocha
       }
       expectation
     end
+    
+    # :call-seq: unstub(*method_names)
+    #
+    # Removes the method stub added by calls to #expects or #stubs.
+    # Restores the original behaviour of the method before it was stubbed.
+    #   multiplier = Multiplier.new
+    #   multiplier.double(2) # => 4
+    #   multiplier.stubs(:double).raises
+    #   multiplier.double(2) # => raises exception
+    #   multiplier.unstubs(:double)
+    #   multiplier.double(2) # => 4
+    #
+    # The original implementation of <tt>Multiplier#double</tt> is replaced temporarily.
+    #
+    # The original implementation of <tt>Multiplier#double</tt> is restored when #unstub is called.
+    #
+    # WARNING: If you #unstub a method which still has unsatisfied expectations, you may be removing
+    # the only way those expectations can be satisfied. Use #unstub with care.
+    #
+    # If multiple +method_names+ are supplied, each method is unstubbed.
+    #   multiplier.unstub(:double, :triple)
+    #
+    #   # exactly equivalent to
+    #
+    #   multiplier.unstub(:double)
+    #   multiplier.unstub(:triple)
+    def unstub(*method_names)
+      mockery = Mocha::Mockery.instance
+      method_names.each do |method_name|
+        method = stubba_method.new(stubba_object, method_name)
+        mockery.stubba.unstub(method)
+      end
+    end
   
     def method_exists?(method, include_public_methods = true) # :nodoc:
       if include_public_methods
