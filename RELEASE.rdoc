@@ -1,4 +1,4 @@
-= 0.9.10 ()
+= 0.9.10 (31182ea8b38b79aa50702aa839f6a29ebcf7d684)
 * Added Mocha::ObjectMethods#unstub method - https://github.com/floehopper/mocha/issues#issue/6
 * Inherit Mocha::ExpectationError from Exception instead of StandardError to reduce the chances of a test passing by accident - thanks to James Sanders (jsanders) - https://github.com/floehopper/mocha/issues#issue/15
 * Fixed bug - GitHub README page to link correctly to code examples - https://github.com/floehopper/mocha/issues/closed#issue/11
