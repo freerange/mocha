@@ -1,3 +1,9 @@
+= 0.9.10 ()
+* Added Mocha::ObjectMethods#unstub method - https://github.com/floehopper/mocha/issues#issue/6
+* Inherit Mocha::ExpectationError from Exception instead of StandardError to reduce the chances of a test passing by accident - thanks to James Sanders (jsanders) - https://github.com/floehopper/mocha/issues#issue/15
+* Fixed bug - GitHub README page to link correctly to code examples - https://github.com/floehopper/mocha/issues/closed#issue/11
+* Fixed bug - PASSTHROUGH_EXCEPTIONS are defined on MiniTest::Unit::TestCase not in Mocha - thanks to Brian Troutwine (blt) - https://github.com/floehopper/mocha/issues/closed#issue/14
+
 = 0.9.9 (ee3a79db4d52c3339e8acf07505e01236a2b4810)
 * Avoid loading bits of the test-unit gem by accident. This is an attempt at a fix for the problem that James Adam reported [1]. By using 'load' instead of 'require' to detect the version of Test::Unit, we can avoid rubygems trying to load bits of the test-unit gem when it's not wanted. [1] http://floehopper.lighthouseapp.com/projects/22289-mocha/tickets/50#ticket-50-13
 * Fix exception when running rake without test-unit gem. When test-unit gem >=v2.0.0 was installed but the "use_test_unit_gem" MOCHA_OPTIONS was not specified, a "comparison of Fixnum with Hash failed" exception was being raised when running the performance tests. This was because bits of the test-unit gem were being loaded accidentally and a Hash was being incorrectly supplied to the TestRunner.run method.

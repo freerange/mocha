@@ -3,7 +3,7 @@ require 'rake/gempackagetask'
 require 'rake/testtask'
 
 module Mocha
-  VERSION = "0.9.9"
+  VERSION = "0.9.10"
 end
 
 desc "Run all tests"
@@ -174,7 +174,7 @@ Rake::GemPackageTask.new(specification) do |package|
 end
 
 desc 'Generate updated gemspec with unique version, which will cause gem to be auto-built on github.'
-task :update_gemspec do
+task :gemspec do
   File.open('mocha.gemspec', 'w') do |output|
     output << build_specification(Mocha::VERSION + '.' + Time.now.strftime('%Y%m%d%H%M%S')).to_ruby
   end
@@ -209,7 +209,7 @@ task 'publish_packages' => ['verify_user', 'verify_password', 'clobber_package',
 end
 
 desc "Do a full release."
-task 'release' => ['default', 'generate_docs', 'publish_packages', 'publish_docs', 'update_gemspec'] do
+task 'release' => ['default', 'generate_docs', 'publish_packages', 'publish_docs', 'gemspec'] do
   puts
   puts "*** Remember to commit newly generated gemspec after release ***"
   puts

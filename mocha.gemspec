@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{mocha}
-  s.version = "0.9.9.20101112144457"
+  s.version = "0.9.10.20101125155727"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["James Mead"]
-  s.date = %q{2010-11-12}
+  s.date = %q{2010-11-25}
   s.description = %q{      Mocking and stubbing library with JMock/SchMock syntax, which allows mocking and stubbing of methods on real (non-mock) classes.
 }
   s.email = %q{mocha-developer@googlegroups.com}
