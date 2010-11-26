@@ -5,11 +5,11 @@ module Mocha
     LIB_DIRECTORY = File.expand_path(File.join(File.dirname(__FILE__), "..")) + File::SEPARATOR
 
     def initialize(lib_directory = LIB_DIRECTORY)
-      @lib_directory = lib_directory
+      @path_pattern = Regexp.new(lib_directory)
     end
 
     def filtered(backtrace)
-      backtrace.reject { |location| Regexp.new(@lib_directory).match(File.expand_path(location)) }
+      backtrace.reject { |location| @path_pattern.match(File.expand_path(location)) }
     end
 
   end
