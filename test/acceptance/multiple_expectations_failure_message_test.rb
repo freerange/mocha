@@ -20,12 +20,11 @@ class FailureMessageTest < Test::Unit::TestCase
       2.times { mock.method_one }
     end
     assert_failed(test_result)
-    failure_message_lines = test_result.failure_messages.first.split("\n")
     assert_equal [
       "unexpected invocation: #<Mock:mock>.method_one()",
       "unsatisfied expectations:",
       "- expected exactly once, invoked twice: #<Mock:mock>.method_one(any_parameters)"
-     ], failure_message_lines
+     ], test_result.failure_message_lines
   end
 
   def test_should_report_satisfied_expectations_as_well_as_unsatisfied_expectations
@@ -37,14 +36,13 @@ class FailureMessageTest < Test::Unit::TestCase
       1.times { mock.method_two }
     end
     assert_failed(test_result)
-    failure_message_lines = test_result.failure_messages.first.split("\n")
     assert_equal [
       "not all expectations were satisfied",
        "unsatisfied expectations:",
        "- expected exactly twice, invoked once: #<Mock:mock>.method_two(any_parameters)",
        "satisfied expectations:",
        "- expected exactly once, invoked once: #<Mock:mock>.method_one(any_parameters)"
-    ], failure_message_lines
+    ], test_result.failure_message_lines
   end
 
   def test_should_report_multiple_satisfied_expectations
@@ -58,7 +56,6 @@ class FailureMessageTest < Test::Unit::TestCase
       2.times { mock.method_three }
     end
     assert_failed(test_result)
-    failure_message_lines = test_result.failure_messages.first.split("\n")
     assert_equal [
       "not all expectations were satisfied",
       "unsatisfied expectations:",
@@ -66,6 +63,6 @@ class FailureMessageTest < Test::Unit::TestCase
       "satisfied expectations:",
       "- expected exactly twice, invoked twice: #<Mock:mock>.method_two(any_parameters)",
       "- expected exactly once, invoked once: #<Mock:mock>.method_one(any_parameters)"
-     ], failure_message_lines
+     ], test_result.failure_message_lines
   end
 end

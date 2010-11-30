@@ -23,8 +23,7 @@ class ExceptionRescueTest < Test::Unit::TestCase
       end
     end
     assert_failed(test_result)
-    failure_message_lines = test_result.failure_messages.first.split("\n")
-    assert_equal "unexpected invocation: #<Mock:mock>.some_method()", failure_message_lines.first
+    assert_equal "unexpected invocation: #<Mock:mock>.some_method()", test_result.failure_message_lines[0]
   end
 
   def test_invocation_never_expected_exception_is_not_caught_by_standard_rescue
@@ -38,8 +37,7 @@ class ExceptionRescueTest < Test::Unit::TestCase
       end
     end
     assert_failed(test_result)
-    failure_message_lines = test_result.failure_messages.first.split("\n")
-    assert_equal "unexpected invocation: #<Mock:mock>.some_method()", failure_message_lines.first
+    assert_equal "unexpected invocation: #<Mock:mock>.some_method()", test_result.failure_message_lines[0]
   end
 
   def test_unsatisfied_expectation_exception_is_not_caught_by_standard_rescue
@@ -48,11 +46,10 @@ class ExceptionRescueTest < Test::Unit::TestCase
       mock.expects(:some_method)
     end
     assert_failed(test_result)
-    failure_message_lines = test_result.failure_messages.first.split("\n")
     assert_equal [
       "not all expectations were satisfied",
       "unsatisfied expectations:",
       "- expected exactly once, not yet invoked: #<Mock:mock>.some_method(any_parameters)"
-    ], failure_message_lines
+    ], test_result.failure_message_lines
   end
 end
