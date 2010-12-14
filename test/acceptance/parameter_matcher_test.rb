@@ -243,4 +243,58 @@ class ParameterMatcherTest < Test::Unit::TestCase
     assert_failed(test_result)
   end
 
+  def test_should_match_parameter_that_has_identical_query_string
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(has_equivalent_query_string('http://example.com/foo?a=1&b=2'))
+      mock.method('http://example.com/foo?a=1&b=2')
+    end
+    assert_passed(test_result)
+  end
+
+  def test_should_match_parameter_that_has_rearranged_query_string
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(has_equivalent_query_string('http://example.com/foo?b=2&a=1'))
+      mock.method('http://example.com/foo?a=1&b=2')
+    end
+    assert_passed(test_result)
+  end
+
+  def test_should_not_match_parameter_that_does_not_have_the_same_query_parameters
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(has_equivalent_query_string('http://example.com/foo?a=1'))
+      mock.method('http://example.com/foo?a=1&b=2')
+    end
+    assert_failed(test_result)
+  end
+
+  def test_should_not_match_parameter_that_has_no_query_parameters_when_they_are_expected
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(has_equivalent_query_string('http://example.com/foo'))
+      mock.method('http://example.com/foo?a=1&b=2')
+    end
+    assert_failed(test_result)
+  end
+
+  def test_should_not_match_parameter_that_has_the_same_query_string_bit_which_differs_otherwise
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(has_equivalent_query_string('http://a.example.com/foo?a=1&b=2'))
+      mock.method('http://b.example.com/foo?a=1&b=2')
+    end
+    assert_failed(test_result)
+  end
+
+  def test_should_match_parameter_with_no_domain_or_scheme
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(has_equivalent_query_string('/foo?a=1&b=2'))
+      mock.method('/foo?a=1&b=2')
+    end
+    assert_passed(test_result)
+  end
+
 end
