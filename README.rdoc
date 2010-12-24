@@ -6,7 +6,7 @@ It can be used with many testing frameworks e.g. {Test::Unit}[http://www.ruby-do
 
 Mocha provides a unified, simple and readable syntax for both traditional mocking and partial mocking.
 
-Mocha was harvested from projects at {Reevoo}[http://www.reevoo.com] by me ({James}[http://blog.floehopper.org]) and my (then) colleagues {Ben}[http://www.techbelly.com/], {Chris}[http://chrisroos.co.uk] and {Paul}[http://po-ru.com].
+Mocha was harvested from projects at {Reevoo}[http://www.reevoo.com/] by me ({James}[http://jamesmead.org/]) and my (then) colleagues {Ben}[http://www.techbelly.com/], {Chris}[http://chrisroos.co.uk/] and {Paul}[http://po-ru.com/].
 
 == Download and Installation
 
@@ -14,7 +14,7 @@ Install the gem with the following command...
 
   $ gem install mocha
 
-Or install the {Rails}[http://www.rubyonrails.org] plugin...
+Or install the {Rails}[http://www.rubyonrails.org/] plugin...
 
   $ script/plugin install git://github.com/floehopper/mocha.git
 
@@ -29,7 +29,7 @@ Or download Mocha...
 * Quick Start - {Usage Examples}[http://mocha.rubyforge.org/examples/misc.html]
 * Traditional mocking - {Star Trek Example}[http://mocha.rubyforge.org/examples/mocha.html]
 * Setting expectations on real classes - {Order Example}[http://mocha.rubyforge.org/examples/stubba.html]
-* More examples on {Floehopper's Blog}[http://blog.floehopper.org]
+* More examples on {James Mead's Blog}[http://jamesmead.org/blog/]
 * {Mailing List Archives}[http://groups.google.com/group/mocha-developer]
 
 == License
