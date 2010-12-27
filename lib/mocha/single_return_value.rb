@@ -9,7 +9,11 @@ module Mocha # :nodoc:
     end
     
     def evaluate
-      @value
+      if @value.is_a?(Proc)
+        @value.call
+      else
+        @value
+      end
     end
     
   end

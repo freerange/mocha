@@ -249,6 +249,7 @@ module Mocha # :nodoc:
     end
 
     # :call-seq: returns(value) -> expectation
+    #            returns(&block) -> expectation
     #            returns(*values) -> expectation
     #
     # Modifies expectation so that when the expected method is called, it returns the specified +value+.
@@ -256,6 +257,12 @@ module Mocha # :nodoc:
     #   object.stubs(:stubbed_method).returns('result')
     #   object.stubbed_method # => 'result'
     #   object.stubbed_method # => 'result'
+    # If a block or a Proc is passed, the Proc will be evaluated at runtime.
+    #   object = mock()
+    #   object.stubs(:stubbed_method).returns { Time.now }
+    #   object.stubbed_method # => 'Mon Dec 27 10:13:44 +0100 2010'
+    #   sleep(6)
+    #   object.stubbed_method # => 'Mon Dec 27 10:13:50 +0100 2010'
     # If multiple +values+ are given, these are returned in turn on consecutive calls to the method.
     #   object = mock()
     #   object.stubs(:stubbed_method).returns(1, 2)
@@ -279,8 +286,12 @@ module Mocha # :nodoc:
     #   x, y = object.expected_method
     #   x # => 1
     #   y # => 2
-    def returns(*values)
-      @return_values += ReturnValues.build(*values)
+    def returns(*values, &block)
+      @return_values += if block_given?
+        ReturnValues.build(block)
+      else
+        ReturnValues.build(*values)
+      end
       self
     end
 

@@ -45,10 +45,11 @@ class ReturnValuesTest < Test::Unit::TestCase
   end
   
   def test_should_build_single_return_values_for_each_values
-    values = ReturnValues.build('value_1', 'value_2', 'value_3').values
+    values = ReturnValues.build('value_1', 'value_2', 'value_3', proc { "value_#{4}" }).values
     assert_equal 'value_1', values[0].evaluate
     assert_equal 'value_2', values[1].evaluate
     assert_equal 'value_3', values[2].evaluate
+    assert_equal 'value_4', values[3].evaluate
   end
   
   def test_should_combine_two_sets_of_return_values
