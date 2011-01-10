@@ -8,10 +8,7 @@ else
 end
 
 module TestRunner
-  def run_as_test(test_result = nil, &block)
-    test_class = Class.new(Test::Unit::TestCase) do
-      define_method(:test_me, &block)
-    end
+  def run_test_case(test_class, test_result = nil)
     test = test_class.suite
     
     if defined?(Test::Unit::TestResult)
@@ -36,6 +33,13 @@ module TestRunner
     end
     
     test_result
+  end
+  
+  def run_as_test(test_result = nil, &block)
+    test_class = Class.new(Test::Unit::TestCase) do
+      define_method(:test_me, &block)
+    end
+    run_test_case(test_class)
   end
   
   def assert_passed(test_result)
