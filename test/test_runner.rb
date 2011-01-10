@@ -12,7 +12,7 @@ module TestRunner
     test_class = Class.new(Test::Unit::TestCase) do
       define_method(:test_me, &block)
     end
-    test = test_class.new(:test_me)
+    test = test_class.suite
     
     if defined?(Test::Unit::TestResult)
       test_result ||= Test::Unit::TestResult.new
