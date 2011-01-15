@@ -1,3 +1,5 @@
+- unstub should use the same code in ClassMethod/InstanceMethod/etc classes e.g. remove_new_method, restore_original_method, etc
+
 => Patch [#15235] Provide a pseudo-call syntax for simplifying set-up of expectations and stubs
 => Patch [#10412] Merge 'with' and the expected method
 => Bug [#8687] Block's return value is dropped on stubbed yielding methods
