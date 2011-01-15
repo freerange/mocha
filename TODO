@@ -1,3 +1,4 @@
+- figure out how different versions of minitest fit in with different versions of ruby 1.9 and make sure integration works for each
 - unstub should use the same code in ClassMethod/InstanceMethod/etc classes e.g. remove_new_method, restore_original_method, etc
 
 => Patch [#15235] Provide a pseudo-call syntax for simplifying set-up of expectations and stubs
