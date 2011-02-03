@@ -1,3 +1,5 @@
+- rake should not be a non-development dependency in gemspec
+- possibly move version constant into separate file and/or use version bumper gem?
 - figure out how different versions of minitest fit in with different versions of ruby 1.9 and make sure integration works for each
 - unstub should use the same code in ClassMethod/InstanceMethod/etc classes e.g. remove_new_method, restore_original_method, etc
 
