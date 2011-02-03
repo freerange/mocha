@@ -7,10 +7,13 @@ module Mocha
 end
 
 desc "Run all tests"
-task 'default' => ['test:units', 'test:acceptance', 'test:performance']
+task 'default' => ['test', 'test:performance']
+
+desc "Run unit & acceptance tests"
+task 'test' => ['test:units', 'test:acceptance']
 
 namespace 'test' do
-  
+
   unit_tests = FileList['test/unit/**/*_test.rb']
   acceptance_tests = FileList['test/acceptance/*_test.rb']
 
