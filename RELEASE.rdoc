@@ -1,4 +1,4 @@
-= 0.9.11 ()
+= 0.9.11 (1613ed2267fef5927ea06adfdbcf512b89eadaad)
 * Added explicit support for minitest v1.5.0 to v2.0.2.
 * Make testable by rubygems-test.
 * Update links to my blog and make other links consistent.
