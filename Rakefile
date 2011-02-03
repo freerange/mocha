@@ -165,7 +165,7 @@ def build_specification(version = Mocha::VERSION)
     s.rdoc_options << '--title' << 'Mocha' << '--main' << 'README.rdoc' << '--line-numbers'
 
     s.add_dependency('rake')
-    s.files = FileList['{lib,test,examples}/**/*.rb', '[A-Z]*'].exclude('TODO').to_a
+    s.files = FileList['{lib,test,examples}/**/*.rb', '[A-Z]*', '.gemtest'].exclude('TODO').to_a
   end
 end
 
