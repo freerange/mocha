@@ -1,3 +1,11 @@
+= 0.9.11 ()
+* Added explicit support for minitest v1.5.0 to v2.0.2.
+* Make testable by rubygems-test.
+* Update links to my blog and make other links consistent.
+* Added a URI parameter matcher that ignores the order of query parameters so that tests can be independent of undefined hash ordering (patch by Paul Battley).
+* Include unexpected invocation in failure message and change the language slightly to make the failure message less confusing. See http://floehopper.lighthouseapp.com/projects/22289/tickets/52.
+* No need to create regular expression every time the BacktraceFilter#filtered method is called. See http://floehopper.lighthouseapp.com/projects/22289-mocha/tickets/66.
+
 = 0.9.10 (31182ea8b38b79aa50702aa839f6a29ebcf7d684)
 * Added Mocha::ObjectMethods#unstub method - https://github.com/floehopper/mocha/issues#issue/6
 * Inherit Mocha::ExpectationError from Exception instead of StandardError to reduce the chances of a test passing by accident - thanks to James Sanders (jsanders) - https://github.com/floehopper/mocha/issues#issue/15
