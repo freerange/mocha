@@ -3,16 +3,21 @@ require 'test/unit/testcase'
 require 'minitest/unit'
 
 class MiniTestResult
+  
+  FAILURE_PATTERN = %r{(Failure)\:\n([^\(]+)\(([^\)]+)\) \[([^\]]+)\]\:\n(.*)\n}m
+  ERROR_PATTERN   = %r{(Error)\:\n([^\(]+)\(([^\)]+)\)\:\n(.+?)\n}m
+  
   def self.parse_failure(raw)
-    matches = %r{(Failure)\:\n([^\(]+)\(([^\)]+)\) \[([^\]]+)\]\:\n(.*)\n}m.match(raw)
+    matches = FAILURE_PATTERN.match(raw)
     return nil unless matches
     Failure.new(matches[2], matches[3], [matches[4]], matches[5])
   end
   
   def self.parse_error(raw)
-    matches = %r{(Error)\:\n([^\(]+)\(([^\)]+)\)\:\n(.+?)\n.+    (.*)\n}m.match(raw)
+    matches = ERROR_PATTERN.match(raw)
     return nil unless matches
-    Error.new(matches[2], matches[3], matches[4], [matches[5]])
+    backtrace = raw.gsub(ERROR_PATTERN, '').split("\n").map(&:strip)
+    Error.new(matches[2], matches[3], matches[4], backtrace)
   end
   
   class Failure
