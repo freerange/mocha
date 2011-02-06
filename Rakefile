@@ -152,7 +152,7 @@ def build_specification(version = Mocha::VERSION)
     s.summary = "Mocking and stubbing library"
     s.version = version
     s.platform = Gem::Platform::RUBY
-      s.author = 'James Mead'
+    s.author = 'James Mead'
     s.description = <<-EOF
       Mocking and stubbing library with JMock/SchMock syntax, which allows mocking and stubbing of methods on real (non-mock) classes.
     EOF
