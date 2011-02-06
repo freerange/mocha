@@ -164,7 +164,12 @@ def build_specification(version = Mocha::VERSION)
     s.extra_rdoc_files = ['README.rdoc', 'COPYING.rdoc']
     s.rdoc_options << '--title' << 'Mocha' << '--main' << 'README.rdoc' << '--line-numbers'
 
-    s.add_dependency('rake')
+    if Gem::RubyGemsVersion < '1.2.0'
+      s.add_dependency('rake')
+    else
+      s.add_development_dependency('rake')
+    end
+
     s.files = FileList['{lib,test,examples}/**/*.rb', '[A-Z]*', '.gemtest'].exclude('TODO').to_a
   end
 end
