@@ -203,19 +203,4 @@ class StubInstanceMethodTest < Test::Unit::TestCase
     end
   end
 
-  def test_should_not_obscure_changes_to_the_stubbed_method_in_the_class
-    instance = Class.new do
-      def my_instance_method
-        :original_return_value
-      end
-    end.new
-    run_as_test do
-      instance.stubs(:my_instance_method => :stubbed_return_value)
-    end
-    instance.class.send(:define_method, :my_instance_method) do
-      :changed_return_value
-    end
-    assert_equal :changed_return_value, instance.my_instance_method
-  end
-
 end
