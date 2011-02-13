@@ -1,3 +1,9 @@
+= 0.9.12 ()
+* Make Mocha's tests pass under Ruby 1.9.2 i.e. using MiniTest. One of the main issues was that we were not parsing stacktraces on MiniTest errors comprehensively enough.
+* Avoid 'circular require considered harmful' warning when running Mocha's tests in Ruby 1.9.2
+* Make performance tests work on Ruby 1.9.2 i.e. using MiniTest.
+* Declare rake as a *development* dependency with newer versions of Rubygems since it's only needed to carry out developer-related tasks.
+
 = 0.9.11 (1613ed2267fef5927ea06adfdbcf512b89eadaad)
 * Added explicit support for minitest v1.5.0 to v2.0.2.
 * Make testable by rubygems-test.
