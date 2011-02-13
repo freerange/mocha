@@ -1,4 +1,4 @@
-= 0.9.12 ()
+= 0.9.12 (8bb523e8467626c23b271eb529c33fb118e368fe)
 * Make Mocha's tests pass under Ruby 1.9.2 i.e. using MiniTest. One of the main issues was that we were not parsing stacktraces on MiniTest errors comprehensively enough.
 * Avoid 'circular require considered harmful' warning when running Mocha's tests in Ruby 1.9.2
 * Make performance tests work on Ruby 1.9.2 i.e. using MiniTest.
