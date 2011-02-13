@@ -1,3 +1,4 @@
+- performance tests run markedly slower in ruby 1.9.2 - needs investigation
 - method dispatch in jmock changed from version 1 to 2 - see http://www.jmock.org/jmock1-dispatch.html to http://www.jmock.org/dispatch.html - notably the order in which the matching happens is reversed - mocha currently resembles jmock 1.
 - rake should not be a non-development dependency in gemspec
 - possibly move version constant into separate file and/or use version bumper gem?
