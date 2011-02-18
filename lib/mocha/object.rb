@@ -110,7 +110,7 @@ module Mocha
     #   multiplier.double(2) # => 4
     #   multiplier.stubs(:double).raises
     #   multiplier.double(2) # => raises exception
-    #   multiplier.unstubs(:double)
+    #   multiplier.unstub(:double)
     #   multiplier.double(2) # => 4
     #
     # The original implementation of <tt>Multiplier#double</tt> is replaced temporarily.
