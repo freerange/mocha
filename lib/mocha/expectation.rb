@@ -284,6 +284,21 @@ module Mocha # :nodoc:
       self
     end
 
+    # :call-seq: returns_self -> expectation
+    #
+    # Modifies expectation so that when the expected method is called, it returns the mock. This is a convenience method.
+    # The following snippets are equivalent:
+    #   object_1 = mock()
+    #   object_1.stubs(:stubbed_method).returns(object_1)
+    #   object_1.stubbed_method # => object_1
+    #
+    #   object_2 = mock { stubs(:stubbed_method).returns_self }
+    #   object_2.stubbed_method # => object_2
+    def returns_self
+      @return_values += ReturnValues.build(@mock)
+      self
+    end
+
     # :call-seq: raises(exception = RuntimeError, message = nil) -> expectation
     #
     # Modifies expectation so that when the expected method is called, it raises the specified +exception+ with the specified +message+ i.e. calls Kernel#raise(exception, message).

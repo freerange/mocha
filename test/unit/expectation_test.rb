@@ -182,6 +182,14 @@ class ExpectationTest < Test::Unit::TestCase
     expectation = new_expectation.returns()
     assert_nil expectation.invoke
   end
+
+  def test_should_return_self
+    object = "foo"
+    expectation = Expectation.new(object, :expected_method)
+    result = expectation.returns_self
+    assert_equal expectation, result
+    assert_same object, expectation.invoke
+  end
   
   def test_should_raise_runtime_exception
     expectation = new_expectation.raises
