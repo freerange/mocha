@@ -37,11 +37,11 @@ if !MiniTest::Unit::TestCase.ancestors.include?(Mocha::API)
           include Mocha::Integration::MiniTest::Version142To172
         elsif (mini_test_version == '2.0.0')
           include Mocha::Integration::MiniTest::Version200
-        elsif (mini_test_version >= '2.0.1') && (mini_test_version <= '2.0.2')
-          include Mocha::Integration::MiniTest::Version201To202
-        elsif (mini_test_version > '2.0.2')
+        elsif (mini_test_version >= '2.0.1') && (mini_test_version <= '2.1.0')
+          include Mocha::Integration::MiniTest::Version201To210
+        elsif (mini_test_version > '2.1.0')
           $stderr.puts "*** MiniTest integration has not been verified but patching anyway ***" if $options['debug']
-          include Mocha::Integration::MiniTest::Version201To202
+          include Mocha::Integration::MiniTest::Version201To210
         else
           $stderr.puts "*** No Mocha integration for MiniTest version ***" if $options['debug']
         end
