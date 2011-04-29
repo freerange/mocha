@@ -8,7 +8,7 @@ if !MiniTest::Unit::TestCase.ancestors.include?(Mocha::API)
   require 'mocha/integration/mini_test/version_141'
   require 'mocha/integration/mini_test/version_142_to_172'
   require 'mocha/integration/mini_test/version_200'
-  require 'mocha/integration/mini_test/version_201_to_202'
+  require 'mocha/integration/mini_test/version_201_to_210'
   
   module MiniTest
     class Unit
