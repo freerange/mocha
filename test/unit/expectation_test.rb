@@ -151,7 +151,22 @@ class ExpectationTest < Test::Unit::TestCase
     expectation = new_expectation.returns(99)
     assert_equal 99, expectation.invoke
   end
-  
+
+  def test_should_return_evaluated_block
+    expectation = new_expectation.returns { 10 + 10 }
+    assert_equal 20, expectation.invoke
+  end
+
+  def test_should_return_evaluated_block_if_block_and_values_are_supplied
+    expectation = new_expectation.returns(30) { 10 + 10 }
+    assert_equal 20, expectation.invoke
+  end
+
+  def test_should_return_evaluated_lambda
+    expectation = new_expectation.returns(proc { 20 + 20 })
+    assert_equal 40, expectation.invoke
+  end
+
   def test_should_return_same_specified_value_multiple_times
     expectation = new_expectation.returns(99)
     assert_equal 99, expectation.invoke
