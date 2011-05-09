@@ -75,7 +75,7 @@ else
       attr_reader :runner
   
       def test_should_pass_mocha_test
-        runner.run(%w(-n test_mocha_with_fulfilled_expectation))
+        run_test :test_mocha_with_fulfilled_expectation
     
         assert_equal 0, runner.failures
         assert_equal 0, runner.errors
@@ -83,7 +83,7 @@ else
       end
 
       def test_should_fail_mocha_test_due_to_unfulfilled_expectation
-        runner.run(%w(-n test_mocha_with_unfulfilled_expectation))
+        run_test :test_mocha_with_unfulfilled_expectation
       
         assert_equal 1, runner.failures
         assert_equal 0, runner.errors
@@ -92,7 +92,7 @@ else
       end
   
       def test_should_fail_mocha_test_due_to_unexpected_invocation
-        runner.run(%w(-n test_mocha_with_unexpected_invocation))
+        run_test :test_mocha_with_unexpected_invocation
     
         assert_equal 1, runner.failures
         assert_equal 0, runner.errors
@@ -101,7 +101,7 @@ else
       end
   
       def test_should_pass_stubba_test
-        runner.run(%w(-n test_stubba_with_fulfilled_expectation))
+        run_test :test_stubba_with_fulfilled_expectation
     
         assert_equal 0, runner.failures
         assert_equal 0, runner.errors
@@ -109,7 +109,7 @@ else
       end
   
       def test_should_fail_stubba_test_due_to_unfulfilled_expectation
-        runner.run(%w(-n test_stubba_with_unfulfilled_expectation))
+        run_test :test_stubba_with_unfulfilled_expectation
     
         assert_equal 1, runner.failures
         assert_equal 0, runner.errors
@@ -118,7 +118,7 @@ else
       end
   
       def test_should_pass_mocha_test_with_matching_parameter
-        runner.run(%w(-n test_mocha_with_matching_parameter))
+        run_test :test_mocha_with_matching_parameter
     
         assert_equal 0, runner.failures
         assert_equal 0, runner.errors
@@ -126,7 +126,7 @@ else
       end
   
       def test_should_fail_mocha_test_with_non_matching_parameter
-        runner.run(%w(-n test_mocha_with_non_matching_parameter))
+        run_test :test_mocha_with_non_matching_parameter
       
         assert_equal 1, runner.failures
         assert_equal 0, runner.errors
@@ -135,6 +135,11 @@ else
       end
   
       private
+
+      def run_test(method_name)
+        run_method = (MiniTest::Unit::VERSION >= "2.1.0") ? :_run : :run
+        runner.send(run_method, ["-n", method_name.to_s])
+      end
   
       def output
         @output.rewind
