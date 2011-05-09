@@ -69,7 +69,7 @@ module Mocha
       RUBY_VERSION < '1.9' ? hidden_method.to_s : hidden_method.to_sym
     end  
   
-    def eql?(other)
+    def matches?(other)
       return false unless (other.class == self.class)
       (stubbee.object_id == other.stubbee.object_id) and (method == other.method)
     end

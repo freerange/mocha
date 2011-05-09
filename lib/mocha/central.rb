@@ -9,16 +9,16 @@ module Mocha
     end
    
     def stub(method)
-      unless stubba_methods.include?(method)
+      unless stubba_methods.detect { |m| m.matches?(method) }
         method.stub 
         stubba_methods.push(method)
       end
     end
     
     def unstub(method)
-      if stubba_methods.include?(method)
-        method.unstub
-        stubba_methods.delete(method)
+      if existing = stubba_methods.detect { |m| m.matches?(method) }
+        existing.unstub
+        stubba_methods.delete(existing)
       end
     end
     

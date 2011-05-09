@@ -197,41 +197,41 @@ class ClassMethodTest < Test::Unit::TestCase
     assert_equal stubbee.mocha, method.mock
   end
   
-  def test_should_not_be_equal_if_other_object_has_a_different_class
+  def test_should_not_match_if_other_object_has_a_different_class
     class_method = ClassMethod.new(Object.new, :method)
     other_object = Object.new
-    assert class_method != other_object
+    assert !class_method.matches?(other_object)
   end
 
-  def test_should_not_be_equal_if_other_class_method_has_different_stubbee
+  def test_should_not_match_if_other_class_method_has_different_stubbee
     stubbee_1 = Object.new
     stubbee_2 = Object.new
     class_method_1 = ClassMethod.new(stubbee_1, :method)
     class_method_2 = ClassMethod.new(stubbee_2, :method)
-    assert class_method_1 != class_method_2
+    assert !class_method_1.matches?(class_method_2)
   end
   
-  def test_should_not_be_equal_if_other_class_method_has_different_method
+  def test_should_not_match_if_other_class_method_has_different_method
     stubbee = Object.new
     class_method_1 = ClassMethod.new(stubbee, :method_1)
     class_method_2 = ClassMethod.new(stubbee, :method_2)
-    assert class_method_1 != class_method_2
+    assert !class_method_1.matches?(class_method_2)
   end
   
-  def test_should_be_equal_if_other_class_method_has_same_stubbee_and_same_method_so_no_attempt_is_made_to_stub_a_method_twice
+  def test_should_match_if_other_class_method_has_same_stubbee_and_same_method_so_no_attempt_is_made_to_stub_a_method_twice
     stubbee = Object.new
     class_method_1 = ClassMethod.new(stubbee, :method)
     class_method_2 = ClassMethod.new(stubbee, :method)
-    assert class_method_1 == class_method_2
+    assert class_method_1.matches?(class_method_2)
   end
   
-  def test_should_be_equal_if_other_class_method_has_same_stubbee_and_same_method_but_stubbee_equal_method_lies_like_active_record_association_proxy
+  def test_should_match_if_other_class_method_has_same_stubbee_and_same_method_but_stubbee_equal_method_lies_like_active_record_association_proxy
     stubbee = Class.new do
       def equal?(other); false; end
     end.new
     class_method_1 = ClassMethod.new(stubbee, :method)
     class_method_2 = ClassMethod.new(stubbee, :method)
-    assert class_method_1 == class_method_2
+    assert class_method_1.matches?(class_method_2)
   end
   
 end
