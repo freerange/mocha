@@ -5,11 +5,15 @@ module Mocha
   class InstanceMethod < ClassMethod
 
     def hide_original_method
-      # intentionally left blank
+      if stubbee.singleton_methods(false).include?(method)
+        super
+      end
     end
 
     def restore_original_method
-      # intentionally left blank
+      if stubbee.singleton_methods(false).include?(hidden_method)
+        super
+      end
     end
 
     def method_exists?(method)

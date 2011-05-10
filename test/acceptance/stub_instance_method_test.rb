@@ -215,4 +215,19 @@ class StubInstanceMethodTest < Test::Unit::TestCase
     assert instance.singleton_methods(false).none? { |m| m.to_s == 'my_instance_method' }
   end
 
+  def test_should_cope_with_stubbing_a_singleton_method_leaving_it_unchanged_after_test
+    instance = Class.new.new
+    class << instance
+      def my_singleton_method
+        :original_return_value
+      end
+    end
+    run_as_test do
+      instance.stubs(:my_singleton_method).returns(:stubbed_return_value)
+      assert_equal :stubbed_return_value, instance.my_singleton_method
+    end
+    assert_equal :original_return_value, instance.my_singleton_method
+    assert instance.singleton_methods(false).any? { |m| m.to_s == 'my_singleton_method' }
+  end
+
 end
