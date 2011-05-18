@@ -1,6 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'test_runner'
 require 'mocha/configuration'
+require 'introspection'
 
 module AcceptanceTest
   
@@ -34,5 +35,7 @@ module AcceptanceTest
     Mocha::Configuration.reset_configuration
     Mocha::Mockery.instance.logger = @original_logger
   end
+  
+  include Introspection::Assertions
   
 end
