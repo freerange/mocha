@@ -26,7 +26,7 @@ module Introspection
     attr_reader :methods
 
     def initialize(instance)
-      ancestors = [instance.__metaclass__] + instance.class.ancestors - [Object, Kernel]
+      ancestors = [instance.__metaclass__] + instance.class.ancestors
       @methods = Set.new(ancestors.map do |ancestor|
         ancestor.public_instance_methods(false).map { |method| Method.new(ancestor, method, :public) } +
         ancestor.protected_instance_methods(false).map { |method| Method.new(ancestor, method, :protected) } +
