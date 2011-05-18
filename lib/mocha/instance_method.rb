@@ -5,15 +5,11 @@ module Mocha
   class InstanceMethod < ClassMethod
 
     def hide_original_method
-      if stubbee.singleton_methods(false).include?(method)
-        super
-      end
+      super if singleton_method?(method)
     end
 
     def restore_original_method
-      if stubbee.singleton_methods(false).include?(hidden_method)
-        super
-      end
+      super if singleton_method?(hidden_method)
     end
 
     def method_exists?(method)
@@ -23,6 +19,14 @@ module Mocha
       return false
     end
 
+    def singleton_method?(method)
+      metaclass = stubbee.__metaclass__
+      return true if metaclass.public_instance_methods(false).include?(method)
+      return true if metaclass.protected_instance_methods(false).include?(method)
+      return true if metaclass.private_instance_methods(false).include?(method)
+      return false
+    end
+
   end
-  
+
 end
