@@ -20,7 +20,7 @@ class StubInstanceMethodDefinedOnClassTest < Test::Unit::TestCase
       end
       public :my_instance_method
     end.new
-    assert_snapshot_unchanged(instance) do
+    assert_instance_snapshot_unchanged(instance) do
       test_result = run_as_test do
         instance.stubs(:my_instance_method).returns(:new_return_value)
         assert_equal :new_return_value, instance.my_instance_method
@@ -37,7 +37,7 @@ class StubInstanceMethodDefinedOnClassTest < Test::Unit::TestCase
       end
       protected :my_instance_method
     end.new
-    assert_snapshot_unchanged(instance) do
+    assert_instance_snapshot_unchanged(instance) do
       test_result = run_as_test do
         instance.stubs(:my_instance_method).returns(:new_return_value)
         assert_equal :new_return_value, instance.send(:my_instance_method)
@@ -54,7 +54,7 @@ class StubInstanceMethodDefinedOnClassTest < Test::Unit::TestCase
       end
       private :my_instance_method
     end.new
-    assert_snapshot_unchanged(instance) do
+    assert_instance_snapshot_unchanged(instance) do
       test_result = run_as_test do
         instance.stubs(:my_instance_method).returns(:new_return_value)
         assert_equal :new_return_value, instance.send(:my_instance_method)
