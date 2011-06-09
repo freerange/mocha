@@ -3,6 +3,7 @@ require 'mocha/parameters_matcher'
 require 'mocha/expectation_error'
 require 'mocha/return_values'
 require 'mocha/exception_raiser'
+require 'mocha/thrower'
 require 'mocha/yield_parameters'
 require 'mocha/is_a'
 require 'mocha/in_state_ordering_constraint'
@@ -287,26 +288,52 @@ module Mocha # :nodoc:
     # :call-seq: raises(exception = RuntimeError, message = nil) -> expectation
     #
     # Modifies expectation so that when the expected method is called, it raises the specified +exception+ with the specified +message+ i.e. calls Kernel#raise(exception, message).
-    #   object = mock()
-    #   object.expects(:expected_method).raises(Exception, 'message')
+    #   object = stub()
+    #   object.stubs(:expected_method).raises(Exception, 'message')
     #   object.expected_method # => raises exception of class Exception and with message 'message'
     # Note that if you have a custom exception class with extra constructor parameters, you can pass in an instance of the exception (just as you can for Kernel#raise).
-    #   object = mock()
-    #   object.expects(:expected_method).raises(MyException.new('message', 1, 2, 3))
+    #   object = stub()
+    #   object.stubs(:expected_method).raises(MyException.new('message', 1, 2, 3))
     #   object.expected_method # => raises the specified instance of MyException
     # May be called multiple times on the same expectation. Also see Expectation#then.
-    #   object = mock()
+    #   object = stub()
     #   object.stubs(:expected_method).raises(Exception1).then.raises(Exception2)
     #   object.expected_method # => raises exception of class Exception1
     #   object.expected_method # => raises exception of class Exception2
     # May be called in conjunction with Expectation#returns on the same expectation.
-    #   object = mock()
+    #   object = stub()
     #   object.stubs(:expected_method).raises(Exception).then.returns(2, 3)
     #   object.expected_method # => raises exception of class Exception1
     #   object.expected_method # => 2
     #   object.expected_method # => 3
     def raises(exception = RuntimeError, message = nil)
       @return_values += ReturnValues.new(ExceptionRaiser.new(exception, message))
+      self
+    end
+
+    # :call-seq: throws(tag, object = nil) -> expectation
+    #
+    # Modifies expectation so that when the expected method is called, it throws the specified +tag+ with the specific return value +object+ i.e. calls Kernel#throw(tag, object).
+    #   object = stub()
+    #   object.stubs(:expected_method).throws(:done)
+    #   object.expected_method # => throws tag :done
+    # Note you can also pass in an optional return value +object+ (just as you can for Kernel#throw).
+    #   object = stub()
+    #   object.stubs(:expected_method).throws(:done, 'result')
+    #   object.expected_method # => throws tag :done and causes catch block to return 'result'
+    # May be called multiple times on the same expectation. Also see Expectation#then.
+    #   object = stub()
+    #   object.stubs(:expected_method).throws(:done).then.throws(:continue)
+    #   object.expected_method # => throws :done
+    #   object.expected_method # => throws :continue
+    # May be called in conjunction with Expectation#returns on the same expectation.
+    #   object = stub()
+    #   object.stubs(:expected_method).throws(:done).then.returns(2, 3)
+    #   object.expected_method # => throws :done
+    #   object.expected_method # => 2
+    #   object.expected_method # => 3
+    def throws(tag, object = nil)
+      @return_values += ReturnValues.new(Thrower.new(tag, object))
       self
     end
 
