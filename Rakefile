@@ -2,10 +2,6 @@ require 'rake/rdoctask'
 require 'rake/gempackagetask'
 require 'rake/testtask'
 
-module Mocha
-  VERSION = "0.9.12"
-end
-
 desc "Run all tests"
 task 'default' => ['test', 'test:performance']
 
@@ -32,7 +28,7 @@ namespace 'test' do
     t.verbose = true
     t.warning = true
   end
-  
+
   # require 'rcov/rcovtask'
   # Rcov::RcovTask.new('coverage') do |t|
   #   t.libs << 'test'
@@ -152,46 +148,11 @@ end
 
 Gem.manage_gems if Gem::RubyGemsVersion < '1.2.0'
 
-def build_specification(version = Mocha::VERSION)
-  Gem::Specification.new do |s|
-    s.name   = "mocha"
-    s.summary = "Mocking and stubbing library"
-    s.version = version
-    s.platform = Gem::Platform::RUBY
-    s.author = 'James Mead'
-    s.description = <<-EOF
-      Mocking and stubbing library with JMock/SchMock syntax, which allows mocking and stubbing of methods on real (non-mock) classes.
-    EOF
-    s.email = 'mocha-developer@googlegroups.com'
-    s.homepage = 'http://mocha.rubyforge.org'
-    s.rubyforge_project = 'mocha'
-
-    s.has_rdoc = true
-    s.extra_rdoc_files = ['README.rdoc', 'COPYING.rdoc']
-    s.rdoc_options << '--title' << 'Mocha' << '--main' << 'README.rdoc' << '--line-numbers'
-
-    if Gem::RubyGemsVersion < '1.2.0'
-      s.add_dependency('rake')
-    else
-      s.add_development_dependency('rake')
-    end
-
-    s.files = FileList['{lib,test,examples}/**/*.rb', '[A-Z]*', '.gemtest'].exclude('TODO').to_a
-  end
-end
-
-specification = build_specification
+specification = eval(File.read("mocha.gemspec"))
 
 Rake::GemPackageTask.new(specification) do |package|
    package.need_zip = true
    package.need_tar = true
-end
-
-desc 'Generate updated gemspec with unique version, which will cause gem to be auto-built on github.'
-task :gemspec do
-  File.open('mocha.gemspec', 'w') do |output|
-    output << build_specification(Mocha::VERSION + '.' + Time.now.strftime('%Y%m%d%H%M%S')).to_ruby
-  end
 end
 
 task 'verify_user' do
