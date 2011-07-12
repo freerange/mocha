@@ -1,5 +1,7 @@
+require "bundler"
+Bundler::GemHelper.install_tasks
+
 require 'rake/rdoctask'
-require 'rake/gempackagetask'
 require 'rake/testtask'
 
 desc "Run all tests"
@@ -146,15 +148,6 @@ task 'examples' do
   end
 end
 
-Gem.manage_gems if Gem::RubyGemsVersion < '1.2.0'
-
-specification = eval(File.read("mocha.gemspec"))
-
-Rake::GemPackageTask.new(specification) do |package|
-   package.need_zip = true
-   package.need_tar = true
-end
-
 task 'verify_user' do
   raise "RUBYFORGE_USER environment variable not set!" unless ENV['RUBYFORGE_USER']
 end
@@ -168,9 +161,7 @@ task 'publish_packages' => ['verify_user', 'verify_password', 'clobber_package',
   require 'meta_project'
   require 'rake/contrib/xforge'
   release_files = FileList[
-    "pkg/mocha-#{Mocha::VERSION}.gem",
-    "pkg/mocha-#{Mocha::VERSION}.tgz",
-    "pkg/mocha-#{Mocha::VERSION}.zip"
+    "pkg/mocha-#{Mocha::VERSION}.gem"
   ]
 
   Rake::XForge::Release.new(MetaProject::Project::XForge::RubyForge.new('mocha')) do |release|
