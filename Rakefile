@@ -102,11 +102,8 @@ Rake::RDocTask.new('rdoc') do |task|
   )
 end
 
-desc "Generate all documentation"
-task 'generate_docs' => ['clobber_rdoc', 'rdoc', 'examples', 'agiledox.txt']
-
 desc "Upload RDoc to RubyForge"
-task 'publish_docs' do
+task 'publish_docs' => ['clobber_rdoc', 'rdoc', 'examples', 'agiledox.txt'] do
   require 'rake/contrib/sshpublisher'
   Rake::SshDirPublisher.new("jamesmead@rubyforge.org", "/var/www/gforge-projects/mocha", "doc").upload
 end
@@ -148,35 +145,6 @@ task 'examples' do
   end
 end
 
-task 'verify_user' do
-  raise "RUBYFORGE_USER environment variable not set!" unless ENV['RUBYFORGE_USER']
-end
-
-task 'verify_password' do
-  raise "RUBYFORGE_PASSWORD environment variable not set!" unless ENV['RUBYFORGE_PASSWORD']
-end
-
-desc "Publish package files on RubyForge."
-task 'publish_packages' => ['verify_user', 'verify_password', 'clobber_package', 'package'] do
-  require 'meta_project'
-  require 'rake/contrib/xforge'
-  release_files = FileList[
-    "pkg/mocha-#{Mocha::VERSION}.gem"
-  ]
-
-  Rake::XForge::Release.new(MetaProject::Project::XForge::RubyForge.new('mocha')) do |release|
-    release.user_name = ENV['RUBYFORGE_USER']
-    release.password = ENV['RUBYFORGE_PASSWORD']
-    release.files = release_files.to_a
-    release.release_name = "Mocha #{Mocha::VERSION}"
-    release.release_changes = ''
-    release.release_notes = ''
-  end
-end
-
-desc "Do a full release."
-task 'release' => ['default', 'generate_docs', 'publish_packages', 'publish_docs', 'gemspec'] do
-  puts
-  puts "*** Remember to commit newly generated gemspec after release ***"
-  puts
+task 'release' => 'default' do
+  Rake::Task['publish_docs'].invoke
 end
