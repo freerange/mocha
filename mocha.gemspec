@@ -4,36 +4,33 @@ $LOAD_PATH.unshift lib unless $LOAD_PATH.include?(lib)
 require "mocha/version"
 
 Gem::Specification.new do |s|
-  s.name = %q{mocha}
+  s.name = "mocha"
   s.version = Mocha::VERSION
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["James Mead"]
-  s.date = %q{2011-02-13}
-  s.description = %q{      Mocking and stubbing library with JMock/SchMock syntax, which allows mocking and stubbing of methods on real (non-mock) classes.
-}
-  s.email = %q{mocha-developer@googlegroups.com}
+  s.description = "Mocking and stubbing library with JMock/SchMock syntax, which allows mocking and stubbing of methods on real (non-mock) classes."
+  s.email = "mocha-developer@googlegroups.com"
   s.extra_rdoc_files = ["README.rdoc", "COPYING.rdoc"]
 
   s.files = `git ls-files`.split("\n") - ["TODO", ".travis.yml", ".gitignore"]
 
-  s.homepage = %q{http://mocha.rubyforge.org}
+  s.homepage = "http://mocha.rubyforge.org"
   s.rdoc_options = ["--title", "Mocha", "--main", "README.rdoc", "--line-numbers"]
   s.require_paths = ["lib"]
-  s.rubyforge_project = %q{mocha}
-  s.rubygems_version = %q{1.3.7}
-  s.summary = %q{Mocking and stubbing library}
+  s.rubyforge_project = "mocha"
+  s.summary = "Mocking and stubbing library"
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<rake>, [">= 0"])
+      s.add_development_dependency("rake", ">= 0")
     else
-      s.add_dependency(%q<rake>, [">= 0"])
+      s.add_dependency("rake", ">= 0")
     end
   else
-    s.add_dependency(%q<rake>, [">= 0"])
+    s.add_dependency("rake", ">= 0")
   end
 end
