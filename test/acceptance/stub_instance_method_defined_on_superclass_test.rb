@@ -22,7 +22,7 @@ class StubInstanceMethodDefinedOnSuperclassTest < Test::Unit::TestCase
     end
     klass = Class.new(superklass)
     instance = klass.new
-    assert_instance_snapshot_unchanged(instance) do
+    assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
         instance.stubs(:my_superclass_method).returns(:new_return_value)
         assert_equal :new_return_value, instance.my_superclass_method
@@ -41,7 +41,7 @@ class StubInstanceMethodDefinedOnSuperclassTest < Test::Unit::TestCase
     end
     klass = Class.new(superklass)
     instance = klass.new
-    assert_instance_snapshot_unchanged(instance) do
+    assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
         instance.stubs(:my_superclass_method).returns(:new_return_value)
         assert_equal :new_return_value, instance.send(:my_superclass_method)
@@ -60,7 +60,7 @@ class StubInstanceMethodDefinedOnSuperclassTest < Test::Unit::TestCase
     end
     klass = Class.new(superklass)
     instance = klass.new
-    assert_instance_snapshot_unchanged(instance) do
+    assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
         instance.stubs(:my_superclass_method).returns(:new_return_value)
         assert_equal :new_return_value, instance.send(:my_superclass_method)

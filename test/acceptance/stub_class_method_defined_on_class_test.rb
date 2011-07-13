@@ -22,7 +22,7 @@ class StubClassMethodDefinedOnClassTest < Test::Unit::TestCase
         public :my_class_method
       end
     end
-    assert_class_snapshot_unchanged(klass) do
+    assert_snapshot_unchanged(klass) do
       test_result = run_as_test do
         klass.stubs(:my_class_method).returns(:new_return_value)
         assert_equal :new_return_value, klass.my_class_method
@@ -41,7 +41,7 @@ class StubClassMethodDefinedOnClassTest < Test::Unit::TestCase
         protected :my_class_method
       end
     end
-    assert_class_snapshot_unchanged(klass) do
+    assert_snapshot_unchanged(klass) do
       test_result = run_as_test do
         klass.stubs(:my_class_method).returns(:new_return_value)
         assert_equal :new_return_value, klass.send(:my_class_method)
@@ -60,7 +60,7 @@ class StubClassMethodDefinedOnClassTest < Test::Unit::TestCase
         private :my_class_method
       end
     end
-    assert_class_snapshot_unchanged(klass) do
+    assert_snapshot_unchanged(klass) do
       test_result = run_as_test do
         klass.stubs(:my_class_method).returns(:new_return_value)
         assert_equal :new_return_value, klass.send(:my_class_method)

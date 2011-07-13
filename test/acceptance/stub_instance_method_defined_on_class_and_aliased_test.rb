@@ -21,7 +21,7 @@ class StubInstanceMethodDefinedOnClassAndAliasedTest < Test::Unit::TestCase
       public :my_instance_method
       alias_method :my_aliased_method, :my_instance_method
     end.new
-    assert_instance_snapshot_unchanged(instance) do
+    assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
         instance.stubs(:my_aliased_method).returns(:new_return_value)
         assert_equal :new_return_value, instance.my_aliased_method
@@ -39,7 +39,7 @@ class StubInstanceMethodDefinedOnClassAndAliasedTest < Test::Unit::TestCase
       protected :my_instance_method
       alias_method :my_aliased_method, :my_instance_method
     end.new
-    assert_instance_snapshot_unchanged(instance) do
+    assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
         instance.stubs(:my_aliased_method).returns(:new_return_value)
         assert_equal :new_return_value, instance.send(:my_aliased_method)
@@ -57,7 +57,7 @@ class StubInstanceMethodDefinedOnClassAndAliasedTest < Test::Unit::TestCase
       private :my_instance_method
       alias_method :my_aliased_method, :my_instance_method
     end.new
-    assert_instance_snapshot_unchanged(instance) do
+    assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
         instance.stubs(:my_aliased_method).returns(:new_return_value)
         assert_equal :new_return_value, instance.send(:my_aliased_method)

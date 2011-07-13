@@ -21,7 +21,7 @@ class StubInstanceMethodDefinedOnSingletonClassTest < Test::Unit::TestCase
       end
       public :my_singleton_method
     end
-    assert_instance_snapshot_unchanged(instance) do
+    assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
         instance.stubs(:my_singleton_method).returns(:stubbed_return_value)
         assert_equal :stubbed_return_value, instance.my_singleton_method
@@ -39,7 +39,7 @@ class StubInstanceMethodDefinedOnSingletonClassTest < Test::Unit::TestCase
       end
       protected :my_singleton_method
     end
-    assert_instance_snapshot_unchanged(instance) do
+    assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
         instance.stubs(:my_singleton_method).returns(:stubbed_return_value)
         assert_equal :stubbed_return_value, instance.send(:my_singleton_method)
@@ -57,7 +57,7 @@ class StubInstanceMethodDefinedOnSingletonClassTest < Test::Unit::TestCase
       end
       private :my_singleton_method
     end
-    assert_instance_snapshot_unchanged(instance) do
+    assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
         instance.stubs(:my_singleton_method).returns(:stubbed_return_value)
         assert_equal :stubbed_return_value, instance.send(:my_singleton_method)

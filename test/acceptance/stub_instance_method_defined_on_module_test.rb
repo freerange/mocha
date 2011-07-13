@@ -23,7 +23,7 @@ class StubInstanceMethodDefinedOnModuleTest < Test::Unit::TestCase
     instance = Class.new do
       include mod
     end.new
-    assert_instance_snapshot_unchanged(instance) do
+    assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
         instance.stubs(:my_module_method).returns(:new_return_value)
         assert_equal :new_return_value, instance.my_module_method
@@ -43,7 +43,7 @@ class StubInstanceMethodDefinedOnModuleTest < Test::Unit::TestCase
     instance = Class.new do
       include mod
     end.new
-    assert_instance_snapshot_unchanged(instance) do
+    assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
         instance.stubs(:my_module_method).returns(:new_return_value)
         assert_equal :new_return_value, instance.send(:my_module_method)
@@ -63,7 +63,7 @@ class StubInstanceMethodDefinedOnModuleTest < Test::Unit::TestCase
     instance = Class.new do
       include mod
     end.new
-    assert_instance_snapshot_unchanged(instance) do
+    assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
         instance.stubs(:my_module_method).returns(:new_return_value)
         assert_equal :new_return_value, instance.send(:my_module_method)

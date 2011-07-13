@@ -21,7 +21,7 @@ class StubInstanceMethodDefinedOnKernelModuleTest < Test::Unit::TestCase
       public :my_instance_method
     end
     instance = Class.new.new
-    assert_instance_snapshot_unchanged(instance) do
+    assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
         instance.stubs(:my_instance_method).returns(:new_return_value)
         assert_equal :new_return_value, instance.my_instance_method
@@ -41,7 +41,7 @@ class StubInstanceMethodDefinedOnKernelModuleTest < Test::Unit::TestCase
       protected :my_instance_method
     end
     instance = Class.new.new
-    assert_instance_snapshot_unchanged(instance) do
+    assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
         instance.stubs(:my_instance_method).returns(:new_return_value)
         assert_equal :new_return_value, instance.send(:my_instance_method)
@@ -61,7 +61,7 @@ class StubInstanceMethodDefinedOnKernelModuleTest < Test::Unit::TestCase
       private :my_instance_method
     end
     instance = Class.new.new
-    assert_instance_snapshot_unchanged(instance) do
+    assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
         instance.stubs(:my_instance_method).returns(:new_return_value)
         assert_equal :new_return_value, instance.send(:my_instance_method)

@@ -23,7 +23,7 @@ class StubClassMethodDefinedOnModuleTest < Test::Unit::TestCase
     klass = Class.new do
       extend mod
     end
-    assert_class_snapshot_unchanged(klass) do
+    assert_snapshot_unchanged(klass) do
       test_result = run_as_test do
         klass.stubs(:my_class_method).returns(:new_return_value)
         assert_equal :new_return_value, klass.my_class_method
@@ -43,7 +43,7 @@ class StubClassMethodDefinedOnModuleTest < Test::Unit::TestCase
     klass = Class.new do
       extend mod
     end
-    assert_class_snapshot_unchanged(klass) do
+    assert_snapshot_unchanged(klass) do
       test_result = run_as_test do
         klass.stubs(:my_class_method).returns(:new_return_value)
         assert_equal :new_return_value, klass.send(:my_class_method)
@@ -63,7 +63,7 @@ class StubClassMethodDefinedOnModuleTest < Test::Unit::TestCase
     klass = Class.new do
       extend mod
     end
-    assert_class_snapshot_unchanged(klass) do
+    assert_snapshot_unchanged(klass) do
       test_result = run_as_test do
         klass.stubs(:my_class_method).returns(:new_return_value)
         assert_equal :new_return_value, klass.send(:my_class_method)
