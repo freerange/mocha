@@ -1,10 +1,10 @@
-require 'mocha/metaclass'
+require 'metaid'
 
 module Mocha
-  
+
   module ObjectMethods
     def define_instance_method(method_symbol, &block)
-      __metaclass__.send(:define_method, method_symbol, block)
+      metaclass.send(:define_method, method_symbol, block)
     end
 
     def replace_instance_method(method_symbol, &block)
@@ -13,10 +13,10 @@ module Mocha
     end
 
     def define_instance_accessor(*symbols)
-      symbols.each { |symbol| __metaclass__.send(:attr_accessor, symbol) }
+      symbols.each { |symbol| metaclass.send(:attr_accessor, symbol) }
     end
   end
-  
+
 end
 
 class Object
