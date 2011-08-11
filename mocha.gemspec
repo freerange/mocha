@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project = "mocha"
   s.summary = "Mocking and stubbing library"
 
-  s.add_dependency("metaid", "~> 1.0")
+  s.add_dependency("metaclass", "~> 0.0.1")
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3

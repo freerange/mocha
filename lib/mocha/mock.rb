@@ -1,4 +1,4 @@
-require 'metaid'
+require 'metaclass'
 require 'mocha/expectation'
 require 'mocha/expectation_list'
 require 'mocha/names'
@@ -191,7 +191,7 @@ module Mocha # :nodoc:
     end
 
     def ensure_method_not_already_defined(method_name)
-      self.metaclass.send(:undef_method, method_name) if self.metaclass.method_defined?(method_name)
+      self.__metaclass__.send(:undef_method, method_name) if self.__metaclass__.method_defined?(method_name)
     end
 
     # :startdoc:

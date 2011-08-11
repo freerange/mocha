@@ -1,4 +1,4 @@
-require 'metaid'
+require 'metaclass'
 
 module Mocha
 
@@ -29,7 +29,7 @@ module Mocha
     def hide_original_method
       if method_exists?(method)
         begin
-          stubbee.metaclass.send(:alias_method, hidden_method, method)
+          stubbee.__metaclass__.send(:alias_method, hidden_method, method)
         rescue NameError
           # deal with nasties like ActiveRecord::Associations::AssociationProxy
         end
@@ -37,7 +37,7 @@ module Mocha
     end
 
     def define_new_method
-      stubbee.metaclass.class_eval(%{
+      stubbee.__metaclass__.class_eval(%{
         def #{method}(*args, &block)
           mocha.method_missing(:#{method}, *args, &block)
         end
@@ -45,14 +45,14 @@ module Mocha
     end
 
     def remove_new_method
-      stubbee.metaclass.send(:remove_method, method)
+      stubbee.__metaclass__.send(:remove_method, method)
     end
 
     def restore_original_method
       if method_exists?(hidden_method)
         begin
-          stubbee.metaclass.send(:alias_method, method, hidden_method)
-          stubbee.metaclass.send(:remove_method, hidden_method)
+          stubbee.__metaclass__.send(:alias_method, method, hidden_method)
+          stubbee.__metaclass__.send(:remove_method, hidden_method)
         rescue NameError
           # deal with nasties like ActiveRecord::Associations::AssociationProxy
         end
@@ -82,8 +82,8 @@ module Mocha
 
     def method_exists?(method)
       symbol = method.to_sym
-      metaclass = stubbee.metaclass
-      metaclass.public_method_defined?(symbol) || metaclass.protected_method_defined?(symbol) || metaclass.private_method_defined?(symbol)
+      __metaclass__ = stubbee.__metaclass__
+      __metaclass__.public_method_defined?(symbol) || __metaclass__.protected_method_defined?(symbol) || __metaclass__.private_method_defined?(symbol)
     end
 
   end
