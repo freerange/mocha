@@ -5,3 +5,8 @@ notifications:
 rvm:
   - 1.8.6
   - 1.8.7
+env:
+  - TEST_UNIT_VERSION=
+  - TEST_UNIT_VERSION="2.3.1"
+  - MOCHA_OPTIONS=debug
+
