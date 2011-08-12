@@ -8,6 +8,5 @@ rvm:
 env:
   - TEST_UNIT_VERSION=
   - TEST_UNIT_VERSION="2.2.0"
-  - TEST_UNIT_VERSION="2.3.1"
   - TEST_UNIT_VERSION="latest"
 
