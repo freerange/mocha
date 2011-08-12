@@ -14,7 +14,9 @@ task 'test' => ['test:units', 'test:acceptance']
 namespace 'test' do
 
   unit_tests = FileList['test/unit/**/*_test.rb']
-  acceptance_tests = FileList['test/acceptance/*_test.rb']
+  all_acceptance_tests = FileList['test/acceptance/*_test.rb']
+  ruby186_incompatible_acceptance_tests = FileList['test/acceptance/stub_class_method_defined_on_*_test.rb'] + FileList['test/acceptance/stub_instance_method_defined_on_*_test.rb']
+  ruby186_compatible_acceptance_tests = all_acceptance_tests - ruby186_incompatible_acceptance_tests
 
   desc "Run unit tests"
   Rake::TestTask.new('units') do |t|
@@ -27,7 +29,11 @@ namespace 'test' do
   desc "Run acceptance tests"
   Rake::TestTask.new('acceptance') do |t|
     t.libs << 'test'
-    t.test_files = acceptance_tests
+    if defined?(RUBY_VERSION) && (RUBY_VERSION >= "1.8.7")
+      t.test_files = all_acceptance_tests
+    else
+      t.test_files = ruby186_compatible_acceptance_tests
+    end
     t.verbose = true
     t.warning = true
   end
