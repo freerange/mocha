@@ -8,7 +8,9 @@ rvm:
 gemfile:
   - Gemfile
   - Gemfile.test-unit.latest
-  - Gemfile.test-unit.2.2.0
+  - Gemfile.test-unit.2.0.3
+  - Gemfile.test-unit.2.0.1
+  - Gemfile.test-unit.2.0.0
 env:
   - MOCHA_OPTIONS=debug
 

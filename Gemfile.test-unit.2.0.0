@@ -1,0 +1,8 @@
+source :rubygems
+
+gemspec
+
+group :development do
+  gem "test-unit", "2.0.0"
+  gem "hoe", "2.8.0" # later versions of hoe depend on Rubygems >= 1.4 which in turn depends on Ruby >= 1.8.7
+end

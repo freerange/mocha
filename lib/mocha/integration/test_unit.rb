@@ -5,7 +5,7 @@ if !Test::Unit::TestCase.ancestors.include?(Mocha::API)
   require 'mocha/integration/test_unit/gem_version_200'
   require 'mocha/integration/test_unit/gem_version_201_to_202'
   require 'mocha/integration/test_unit/gem_version_203_to_220'
-  require 'mocha/integration/test_unit/gem_version_230_to_231'
+  require 'mocha/integration/test_unit/gem_version_230_to_233'
   require 'mocha/integration/test_unit/ruby_version_185_and_below'
   require 'mocha/integration/test_unit/ruby_version_186_and_above'
 
@@ -42,11 +42,11 @@ if !Test::Unit::TestCase.ancestors.include?(Mocha::API)
           include Mocha::Integration::TestUnit::GemVersion201To202
         elsif (test_unit_version >= '2.0.3') && (test_unit_version <= '2.2.0')
           include Mocha::Integration::TestUnit::GemVersion203To220
-        elsif (test_unit_version >= '2.3.0') && (test_unit_version <= '2.3.1')
-          include Mocha::Integration::TestUnit::GemVersion230To231
-        elsif (test_unit_version > '2.3.1')
+        elsif (test_unit_version >= '2.3.0') && (test_unit_version <= '2.3.3')
+          include Mocha::Integration::TestUnit::GemVersion230To233
+        elsif (test_unit_version > '2.3.3')
           $stderr.puts "*** Test::Unit integration has not been verified but patching anyway ***" if $options['debug']
-          include Mocha::Integration::TestUnit::GemVersion230To231
+          include Mocha::Integration::TestUnit::GemVersion230To233
         else
           $stderr.puts "*** No Mocha integration for Test::Unit version ***" if $options['debug']
         end
