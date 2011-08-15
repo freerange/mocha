@@ -5,8 +5,10 @@ notifications:
 rvm:
   - 1.8.6
   - 1.8.7
+gemfile:
+  - Gemfile
+  - Gemfile.test-unit.latest
+  - Gemfile.test-unit.2.2.0
 env:
-  - TEST_UNIT_VERSION=
-  - TEST_UNIT_VERSION="2.2.0"
-  - TEST_UNIT_VERSION="latest"
+  - MOCHA_OPTIONS=debug
 

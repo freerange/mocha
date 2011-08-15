@@ -1,0 +1,7 @@
+source :rubygems
+
+gemspec
+
+group :development do
+  gem "test-unit", "2.2.0"
+end
