@@ -2,14 +2,14 @@ require 'mocha/integration/mini_test/assertion_counter'
 require 'mocha/expectation_error'
 
 module Mocha
-  
+
   module Integration
-    
+
     module MiniTest
-      
-      module Version201To210
+
+      module Version230To240
         def self.included(mod)
-          $stderr.puts "Monkey patching MiniTest >= v2.0.1 <= v2.1.0" if $options['debug']
+          $stderr.puts "Monkey patching MiniTest >= v2.3.0 <= v2.4.0" if $options['debug']
         end
         def run runner
           trap 'INFO' do
@@ -17,13 +17,14 @@ module Mocha
             warn "%s#%s %.2fs" % [self.class, self.__name__, time]
             runner.status $stderr
           end if ::MiniTest::Unit::TestCase::SUPPORTS_INFO_SIGNAL
-          
+
           assertion_counter = AssertionCounter.new(self)
           result = ""
           begin
             begin
               @passed = nil
               self.setup
+              self.run_setup_hooks
               self.__send__ self.__name__
               mocha_verify(assertion_counter)
               result = "." unless io?
@@ -35,6 +36,7 @@ module Mocha
               result = runner.puke self.class, self.__name__, Mocha::Integration::MiniTest.translate(e)
             ensure
               begin
+                self.run_teardown_hooks
                 self.teardown
               rescue *::MiniTest::Unit::TestCase::PASSTHROUGH_EXCEPTIONS
                 raise
@@ -49,9 +51,9 @@ module Mocha
           result
         end
       end
-      
+
     end
-    
+
   end
-  
+
 end
