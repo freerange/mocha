@@ -10,7 +10,7 @@ Mocha was harvested from projects at {Reevoo}[http://www.reevoo.com/] by me ({Ja
 
 == Build Status
 
-http://travis-ci.org/floehopper/mocha.png
+https://secure.travis-ci.org/floehopper/mocha.png
 
 == Download and Installation
 
