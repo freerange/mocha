@@ -8,9 +8,9 @@ Mocha provides a unified, simple and readable syntax for both traditional mockin
 
 Mocha was harvested from projects at {Reevoo}[http://www.reevoo.com/] by me ({James}[http://jamesmead.org/]) and my (then) colleagues {Ben}[http://www.techbelly.com/], {Chris}[http://chrisroos.co.uk/] and {Paul}[http://po-ru.com/].
 
-== Build Status ==
+== Build Status
 
-Status[http://travis-ci.org/floehopper/mocha.png]
+http://travis-ci.org/floehopper/mocha.png
 
 == Download and Installation
 
