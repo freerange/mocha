@@ -16,7 +16,6 @@ gemfile:
   - Gemfile.minitest.2.0.1
   - Gemfile.minitest.2.0.0
   - Gemfile.minitest.1.4.2
-  - Gemfile.minitest.1.4.1
   - Gemfile.minitest.1.4.0
   - Gemfile.minitest.1.3.0
 env:
