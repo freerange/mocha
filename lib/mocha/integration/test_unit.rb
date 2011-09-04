@@ -1,4 +1,5 @@
 require 'mocha/api'
+require 'mocha/options'
 
 if !Test::Unit::TestCase.ancestors.include?(Mocha::API)
 
