@@ -45,7 +45,7 @@ if !MiniTest::Unit::TestCase.ancestors.include?(Mocha::API)
           include Mocha::Integration::MiniTest::Version230To240
         elsif (mini_test_version > '2.4.0')
           $stderr.puts "*** MiniTest integration has not been verified but patching anyway ***" if $options['debug']
-          include Mocha::Integration::MiniTest::Version201To210
+          include Mocha::Integration::MiniTest::Version230To240
         else
           $stderr.puts "*** No Mocha integration for MiniTest version ***" if $options['debug']
         end
