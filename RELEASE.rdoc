@@ -1,3 +1,22 @@
+= 0.10.0 ()
+* Add Expectation#throws to allow a stubbed method to use Kernel#throw.
+* Updates for versions of Test::Unit up to and including v2.3.3 (including patch by Jens Fahnenbruck).
+* Updates for versions of MiniTest up to and including v2.5.1.
+* Since the singleton method added by Mocha masks the underlying instance method, there's no need to move it out the way and then back again. This fixes Github issue #20, because the original method is left unchanged - https://github.com/floehopper/mocha/issues/20 (thanks to Nick Lewis).
+* Handle stubbing of a singleton method, leaving the original method unchanged after the test.
+* When stubbing an instance method that was originally defined as a singleton method, the original method should still exist after the test.
+* Fixed mis-print in Mocha::ObjectMethods#unstub documentation (patch by Gleb Pomykalov).
+* Improved test coverage around stubbing of methods defined in different ways - this makes use of the newly extracted introspection gem (although this means some tests are now failing in Ruby v1.9.2).
+* Added configuration for Travis continuous integration.
+* Make the gemspec the canonical reference and stop generating it from the Rakefile.
+* Use the built-in Bundler rake tasks for packaging the gem.
+* Use the "release" rake task provided by Bundler instead of using the Rake::XForge::Release functionality.
+* Extract Object#__metaclass__ into a new metaclass gem.
+* Run rake tasks without `bundle exec`.
+* Avoid deprecation warning for rdoc rake task.
+* Remove the `use_test_unit_gem` MOCHA_OPTION which hasn't worked since we switched to bundler - we can now run the tests specifying a different Gemfile instead.
+* Use multiple Gemfiles seems to run Travis CI builds against multiple version of test-unit & minitest.
+
 = 0.9.12 (8bb523e8467626c23b271eb529c33fb118e368fe)
 * Make Mocha's tests pass under Ruby 1.9.2 i.e. using MiniTest. One of the main issues was that we were not parsing stacktraces on MiniTest errors comprehensively enough.
 * Avoid 'circular require considered harmful' warning when running Mocha's tests in Ruby 1.9.2
@@ -104,7 +123,7 @@
   * when a method on a non-existent method is stubbed
   * when a method on a non-mock object is stubbed
   * when a method is stubbed unnecessarily (i.e. the stubbed method is not called during the test)
-  
+
 * Improved error messages
   * User-friendly list of unsatisfied expectations, satisfied expectations and state machines.
   * Improved readability of cardinality description.
@@ -220,7 +239,7 @@
   Time.now # => Mon Jan 01 00:00:00 UTC 2007
   Time.stubs(:now).returns(Time.parse('Thu Feb 01 00:00:00 UTC 2007'))
   Time.now # => Thu Feb 01 00:00:00 UTC 2007
-  
+
 - Deprecate passing an instance of Proc to Expectation#returns.
 - Explicitly include all Rakefile dependencies in project.
 - Fixed old Stubba example.
