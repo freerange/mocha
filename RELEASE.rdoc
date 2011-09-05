@@ -1,4 +1,4 @@
-= 0.10.0 ()
+= 0.10.0 (68a4a59e1af74baf3929af418f73f5627bba548d)
 * Add Expectation#throws to allow a stubbed method to use Kernel#throw.
 * Updates for versions of Test::Unit up to and including v2.3.3 (including patch by Jens Fahnenbruck).
 * Updates for versions of MiniTest up to and including v2.5.1.
