@@ -3,7 +3,6 @@ notifications:
   recipients:
     - james@floehopper.org
 rvm:
-  - 1.8.6
   - 1.8.7
 gemfile:
   - Gemfile
