@@ -10,7 +10,7 @@ if !MiniTest::Unit::TestCase.ancestors.include?(Mocha::API)
   require 'mocha/integration/mini_test/version_142_to_172'
   require 'mocha/integration/mini_test/version_200'
   require 'mocha/integration/mini_test/version_201_to_222'
-  require 'mocha/integration/mini_test/version_230_to_251'
+  require 'mocha/integration/mini_test/version_230_to_260'
 
   module MiniTest
     class Unit
@@ -41,11 +41,9 @@ if !MiniTest::Unit::TestCase.ancestors.include?(Mocha::API)
           include Mocha::Integration::MiniTest::Version200
         elsif (mini_test_version >= '2.0.1') && (mini_test_version <= '2.2.2')
           include Mocha::Integration::MiniTest::Version201To222
-        elsif (mini_test_version >= '2.3.0') && (mini_test_version <= '2.5.1')
-          include Mocha::Integration::MiniTest::Version230To251
-        elsif (mini_test_version > '2.5.1')
-          $stderr.puts "*** MiniTest integration has not been verified but patching anyway ***" if $options['debug']
-          include Mocha::Integration::MiniTest::Version230To251
+        elsif (mini_test_version >= '2.3.0')
+          $stderr.puts "*** MiniTest integration has not been verified but patching anyway ***" if (mini_test_version > '2.6.0') && $options['debug']
+          include Mocha::Integration::MiniTest::Version230To260
         else
           $stderr.puts "*** No Mocha integration for MiniTest version ***" if $options['debug']
         end
