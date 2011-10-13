@@ -29,18 +29,18 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency("rake", ">= 0")
       s.add_development_dependency("introspection", "~> 0.0.1")
-      s.add_development_dependency("rdoc", "~> 2.4.2")
+      s.add_development_dependency("rdoc", "~> 3.1")
       s.add_development_dependency("coderay", "~> 0.1")
     else
       s.add_dependency("rake", ">= 0")
       s.add_dependency("introspection", "~> 0.0.1")
-      s.add_dependency("rdoc", "~> 2.4.2")
+      s.add_dependency("rdoc", "~> 3.1")
       s.add_dependency("coderay", "~> 0.1")
     end
   else
     s.add_dependency("rake", ">= 0")
     s.add_dependency("introspection", "~> 0.0.1")
-    s.add_dependency("rdoc", "~> 2.4.2")
+    s.add_dependency("rdoc", "~> 3.1")
     s.add_dependency("coderay", "~> 0.1")
   end
 end
