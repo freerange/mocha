@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.summary = "Mocking and stubbing library"
 
   s.add_dependency("metaclass", "~> 0.0.1")
+  s.add_dependency("multi_json", "~> 1.0.1")
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
@@ -31,19 +32,16 @@ Gem::Specification.new do |s|
       s.add_development_dependency("introspection", "~> 0.0.1")
       s.add_development_dependency("rdoc", "~> 2.4.2")
       s.add_development_dependency("coderay", "~> 0.1")
-      s.add_development_dependency("json", ">= 0")
     else
       s.add_dependency("rake", ">= 0")
       s.add_dependency("introspection", "~> 0.0.1")
       s.add_dependency("rdoc", "~> 2.4.2")
       s.add_dependency("coderay", "~> 0.1")
-      s.add_dependency("json", ">= 0")
     end
   else
     s.add_dependency("rake", ">= 0")
     s.add_dependency("introspection", "~> 0.0.1")
     s.add_dependency("rdoc", "~> 2.4.2")
     s.add_dependency("coderay", "~> 0.1")
-    s.add_dependency("json", ">= 0")
   end
 end

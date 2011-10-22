@@ -1,5 +1,5 @@
 require 'mocha/parameter_matchers/base'
-require 'json'
+require 'multi_json'
 
 module Mocha
 
@@ -29,7 +29,7 @@ module Mocha
 
       def matches?(available_parameters)
         parameter = available_parameters.shift
-        JSON.parse(JSON.generate(@object)) == JSON.parse(parameter)
+        @object == MultiJson.decode(parameter)
       end
 
       def mocha_inspect
