@@ -230,6 +230,9 @@ module Mocha # :nodoc:
     # :call-seq: multiple_yields(*parameter_groups) -> expectation
     #
     # Modifies expectation so that when the expected method is called, it yields multiple times per invocation with the specified +parameter_groups+.
+    #
+    # Note that each +parameter_group+ should be an Array representing the parameters to be passed to the block for a single yield. In the following example when the expected_method is called, the stub will invoke the block twice, the first time it passes 'result_1', 'result_2' as the parameters, and the second time it passes 'result_3' as the parameters.
+    #
     #   object = mock()
     #   object.expects(:expected_method).multiple_yields(['result_1', 'result_2'], ['result_3'])
     #   yielded_values = []
