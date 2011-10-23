@@ -7,9 +7,9 @@ module Mocha
 
     module MiniTest
 
-      module Version230To260
+      module Version230To262
         def self.included(mod)
-          $stderr.puts "Monkey patching MiniTest >= v2.3.0 <= v2.6.0" if $options['debug']
+          $stderr.puts "Monkey patching MiniTest >= v2.3.0 <= v2.6.2" if $options['debug']
         end
         def run runner
           trap 'INFO' do
