@@ -78,5 +78,10 @@ class ObjectTest < Test::Unit::TestCase
     any_instance = Class::AnyInstance.new(klass)
     assert_equal klass, any_instance.stubba_object
   end
+
+  def test_nobody_expects_the_spanish_inquisition
+    object = Object.new
+    assert_raise(Mocha::ExpectationError) { object.expects(:the_spanish_inquisition) }
+  end
   
 end
