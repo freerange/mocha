@@ -52,7 +52,7 @@ module Mocha
     #   product.expects(:save).returns(true)
     def expects(method_name_or_hash)
       if method_name_or_hash.to_s =~ /the[^a-z]*spanish[^a-z]*inquisition/i
-        raise Mocha::ExpectationError.new('NOBODY EXPECTS THE SPANISH INQUISION')
+        raise Mocha::ExpectationError.new('NOBODY EXPECTS THE SPANISH INQUISITION!')
       end
       expectation = nil
       mockery = Mocha::Mockery.instance
