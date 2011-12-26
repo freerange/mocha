@@ -7,7 +7,7 @@ require 'mocha/argument_iterator'
 
 module Mocha
   
-  # Methods added all objects to allow mocking and stubbing on real objects.
+  # Methods added to all objects to allow mocking and stubbing on real objects.
   #
   # Methods return a Mocha::Expectation which can be further modified by methods on Mocha::Expectation.
   module ObjectMethods
