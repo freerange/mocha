@@ -22,27 +22,27 @@ if !MiniTest::Unit::TestCase.ancestors.include?(Mocha::API)
         remove_method :run
 
         mini_test_version = begin
-          MiniTest::Unit::VERSION
+          Gem::Version.new(MiniTest::Unit::VERSION)
         rescue LoadError
-          'unknown'
+          Gem::Version.new('0.0.0')
         end
 
         $stderr.puts "Detected MiniTest version: #{mini_test_version}" if $options['debug']
 
-        if (mini_test_version >= '1.3.0') && (mini_test_version <= '1.3.1')
+        if Gem::Requirement.new('>= 1.3.0', '<= 1.3.1') =~ mini_test_version
           include Mocha::Integration::MiniTest::Version13
-        elsif (mini_test_version == '1.4.0')
+        elsif Gem::Requirement.new('1.4.0') =~ mini_test_version
           include Mocha::Integration::MiniTest::Version140
-        elsif (mini_test_version == '1.4.1')
+        elsif Gem::Requirement.new('1.4.1') =~ mini_test_version
           include Mocha::Integration::MiniTest::Version141
-        elsif (mini_test_version >= '1.4.2') && (mini_test_version <= '1.7.2')
+        elsif Gem::Requirement.new('>= 1.4.2', '<= 1.7.2') =~ mini_test_version
           include Mocha::Integration::MiniTest::Version142To172
-        elsif (mini_test_version == '2.0.0')
+        elsif Gem::Requirement.new('2.0.0') =~ mini_test_version
           include Mocha::Integration::MiniTest::Version200
-        elsif (mini_test_version >= '2.0.1') && (mini_test_version <= '2.2.2')
+        elsif Gem::Requirement.new('>= 2.0.1', '<= 2.2.2') =~ mini_test_version
           include Mocha::Integration::MiniTest::Version201To222
-        elsif (mini_test_version >= '2.3.0')
-          $stderr.puts "*** MiniTest integration has not been verified but patching anyway ***" if (mini_test_version > '2.6.2') && $options['debug']
+        elsif Gem::Requirement.new('>= 2.3.0') =~ mini_test_version
+          $stderr.puts "*** MiniTest integration has not been verified but patching anyway ***" if (Gem::Requirement.new('> 2.6.2') =~ mini_test_version) && $options['debug']
           include Mocha::Integration::MiniTest::Version230To262
         else
           $stderr.puts "*** No Mocha integration for MiniTest version ***" if $options['debug']
