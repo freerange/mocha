@@ -12,11 +12,25 @@ Mocha was harvested from projects at {Reevoo}[http://www.reevoo.com/] by me ({Ja
 
 https://secure.travis-ci.org/floehopper/mocha.png
 
-== Download and Installation
+== Installation
 
-Install the gem with the following command...
+Install the latest version of the gem with the following command...
 
   $ gem install mocha
+
+Note that if you are intending to use Mocha with Test::Unit or MiniTest, you should only load Mocha *after* loading the relevant test library...
+
+  require "test/unit"
+  require "mocha"
+
+If you're using Bundler, ensure the correct load order by not auto-requiring Mocha in the Gemfile and then later load it once you know the test library has been loaded...
+
+  # Gemfile
+  gem "mocha", :require => false
+
+  # Elsewhere after Bundler has loaded gems
+  require "test/unit"
+  require "mocha"
 
 Or install the {Rails}[http://www.rubyonrails.org/] plugin...
 
