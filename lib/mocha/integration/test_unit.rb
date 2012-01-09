@@ -21,9 +21,9 @@ if !Test::Unit::TestCase.ancestors.include?(Mocha::API)
 
         test_unit_version = begin
           load 'test/unit/version.rb'
-          Test::Unit::VERSION
+          Gem::Version.new(Test::Unit::VERSION)
         rescue LoadError
-          '1.x'
+          Gem::Version.new('1.x')
         end
 
         if $options['debug']
@@ -31,19 +31,19 @@ if !Test::Unit::TestCase.ancestors.include?(Mocha::API)
           $stderr.puts "Detected Test::Unit version: #{test_unit_version}"
         end
 
-        if (test_unit_version == '1.x') || (test_unit_version == '1.2.3')
+        if (test_unit_version == Gem::Version.new('1.x') || (test_unit_version == Gem::Version.new('1.2.3'))
           if RUBY_VERSION < '1.8.6'
             include Mocha::Integration::TestUnit::RubyVersion185AndBelow
           else
             include Mocha::Integration::TestUnit::RubyVersion186AndAbove
           end
-        elsif (test_unit_version == '2.0.0')
+        elsif Gem::Requirement.new('2.0.0') =~ test_unit_version
           include Mocha::Integration::TestUnit::GemVersion200
-        elsif (test_unit_version >= '2.0.1') && (test_unit_version <= '2.0.2')
+        elsif Gem::Requirement.new('>= 2.0.1', '<= 2.0.2') =~ test_unit_version
           include Mocha::Integration::TestUnit::GemVersion201To202
-        elsif (test_unit_version >= '2.0.3') && (test_unit_version <= '2.2.0')
+        elsif Gem::Requirement.new('>= 2.0.3', '<= 2.2.0') =~ test_unit_version
           include Mocha::Integration::TestUnit::GemVersion203To220
-        elsif (test_unit_version >= '2.3.0')
+        elsif Gem::Requirement.new('>= 2.3.0') =~ test_unit_version
           $stderr.puts "*** Test::Unit integration has not been verified but patching anyway ***" if (test_unit_version > '2.4.0') && $options['debug']
           include Mocha::Integration::TestUnit::GemVersion230To240
         else
