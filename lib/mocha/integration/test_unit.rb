@@ -31,7 +31,7 @@ if !Test::Unit::TestCase.ancestors.include?(Mocha::API)
           $stderr.puts "Detected Test::Unit version: #{test_unit_version}"
         end
 
-        if (test_unit_version == Gem::Version.new('1.x') || (test_unit_version == Gem::Version.new('1.2.3'))
+        if (test_unit_version == Gem::Version.new('1.x')) || (test_unit_version == Gem::Version.new('1.2.3'))
           if RUBY_VERSION < '1.8.6'
             include Mocha::Integration::TestUnit::RubyVersion185AndBelow
           else
