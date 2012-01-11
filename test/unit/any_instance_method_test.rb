@@ -73,7 +73,8 @@ class AnyInstanceMethodTest < Test::Unit::TestCase
   def test_should_call_remove_new_method
     klass = Class.new { def method_x; end }
     any_instance = Mock.new
-    any_instance.stubs(:reset_mocha)
+    any_instance_mocha = Mock.new
+    any_instance.stubs(:mocha).returns(any_instance_mocha)
     klass.define_instance_method(:any_instance) { any_instance }
     method = AnyInstanceMethod.new(klass, :method_x)
     method.replace_instance_method(:restore_original_method) { }
@@ -88,7 +89,8 @@ class AnyInstanceMethodTest < Test::Unit::TestCase
   def test_should_call_restore_original_method
     klass = Class.new { def method_x; end }
     any_instance = Mock.new
-    any_instance.stubs(:reset_mocha)
+    any_instance_mocha = Mock.new
+    any_instance.stubs(:mocha).returns(any_instance_mocha)
     klass.define_instance_method(:any_instance) { any_instance }
     method = AnyInstanceMethod.new(klass, :method_x)
     method.replace_instance_method(:remove_new_method) { }
@@ -100,17 +102,19 @@ class AnyInstanceMethodTest < Test::Unit::TestCase
     assert method.restore_called
   end
 
-  def test_should_call_reset_mocha
+  def test_should_call_mock_unstub
     klass = Class.new { def method_x; end }
-    any_instance = Class.new { attr_accessor :mocha_was_reset; def reset_mocha; self.mocha_was_reset = true; end }.new
-    klass.define_instance_method(:any_instance) { any_instance }
+
     method = AnyInstanceMethod.new(klass, :method_x)
+
     method.replace_instance_method(:remove_new_method) { }
     method.replace_instance_method(:restore_original_method) { }
-    
+    mocha = Class.new { class << self; attr_accessor :unstub_method; end; def self.unstub(method); self.unstub_method = method; end; }
+    method.replace_instance_method(:mock) { mocha }
+
     method.unstub
 
-    assert any_instance.mocha_was_reset
+    assert_equal mocha.unstub_method, :method_x
   end
 
   def test_should_return_any_instance_mocha_for_stubbee

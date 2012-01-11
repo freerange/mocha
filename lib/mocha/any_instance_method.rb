@@ -4,12 +4,6 @@ module Mocha
 
   class AnyInstanceMethod < ClassMethod
   
-    def unstub
-      remove_new_method
-      restore_original_method
-      stubbee.any_instance.reset_mocha
-    end
-    
     def mock
       stubbee.any_instance.mocha
     end
