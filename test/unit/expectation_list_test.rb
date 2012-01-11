@@ -22,6 +22,17 @@ class ExpectationListTest < Test::Unit::TestCase
     expectation_list.add(expectation2)
     assert_same expectation1, expectation_list.match(:my_method, :argument1, :argument2)
   end
+
+  def test_should_remove_matching_expectation
+    expectation_list = ExpectationList.new
+    expectation1 = Expectation.new(nil, :my_method).with(:argument1, :argument2)
+    expectation2 = Expectation.new(nil, :my_method).with(:argument3, :argument4)
+    expectation_list.add(expectation1)
+    expectation_list.add(expectation2)
+    expectation_list.remove(expectation1)
+    assert_same expectation2, expectation_list.to_a.first
+    assert_equal 1, expectation_list.length
+  end
   
   def test_should_find_most_recent_matching_expectation
     expectation_list = ExpectationList.new
