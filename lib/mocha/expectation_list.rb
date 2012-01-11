@@ -10,6 +10,10 @@ module Mocha # :nodoc:
       @expectations.unshift(expectation)
       expectation
     end
+
+    def remove(expectation)
+      @expectations.delete(expectation)
+    end
     
     def matches_method?(method_name)
       @expectations.any? { |expectation| expectation.matches_method?(method_name) }

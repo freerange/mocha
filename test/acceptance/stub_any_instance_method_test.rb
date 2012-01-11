@@ -84,6 +84,7 @@ class StubAnyInstanceMethodTest < Test::Unit::TestCase
     run_as_test do
       klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
     end
+
     assert_equal 0, klass.any_instance.mocha.expectations.length
   end
   
