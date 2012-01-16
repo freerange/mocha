@@ -119,4 +119,21 @@ class UnstubbingTest < Test::Unit::TestCase
     assert_passed(test_result)
   end
 
+  def test_unstubbing_a_method_should_keep_other_stubbed_behavior_intact
+    klass = Class.new do
+      def my_first_instance_method; :first_return_value; end
+      def my_second_instance_method; :second_return_value; end
+    end
+
+    test_result = run_as_test do
+      object = klass.new
+      object.stubs(:my_first_instance_method).returns(:first_new_return_value)
+      object.stubs(:my_second_instance_method).returns(:second_new_return_value)
+      object.unstub(:my_first_instance_method)
+      assert_equal :first_return_value, object.my_first_instance_method
+      assert_equal :second_new_return_value, object.my_second_instance_method
+    end
+    assert_passed(test_result)
+  end
+
 end

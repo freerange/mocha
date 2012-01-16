@@ -82,6 +82,13 @@ module Mocha # :nodoc:
       }
     end
 
+    def unstub(method_name)
+      expectations = @expectations.to_a.select { |e| e.matches_method?(method_name) }
+      expectations.each { |e|
+        @expectations.remove(e)
+      }
+    end
+
     # :call-seq: responds_like(responder) -> mock
     #
     # Constrains the +mock+ so that it can only expect or stub methods to which +responder+ responds. The constraint is only applied at method invocation time.
