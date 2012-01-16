@@ -1,3 +1,13 @@
+= 0.10.1 ()
+* Merge pull request #51 from meineerde/issues/50-minitest-2.10.0. Use Gem::Requirement & Gem::Version for version comparison. Fixes issue #50. Thanks to meineerde.
+* Fixed typo in rdoc for Mocha::ObjectMethods.
+* Improve README as suggested in issue #46. Explain that Mocha must be loaded after test libraries and how to achieve this using Bundler.
+* Merge pull request #43 - nobody expects the spanish inquisition! Thanks to cairo140.
+* Fix for issue #39 - improve documentation for Expectation#multiple_yields.
+* Fix for issue #38 where a subtle change in test-unit v2.3.0 had been missed - only visible in verbose mode.
+* Support for MiniTest up to v2.6.2 has been verified.
+* Add explicit development dependency on coderay for generating syntax-highlighted code examples.
+
 = 0.10.0 (68a4a59e1af74baf3929af418f73f5627bba548d)
 * Add Expectation#throws to allow a stubbed method to use Kernel#throw.
 * Updates for versions of Test::Unit up to and including v2.3.3 (including patch by Jens Fahnenbruck).
