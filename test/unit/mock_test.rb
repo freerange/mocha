@@ -28,13 +28,6 @@ class MockTest < Test::Unit::TestCase
     assert_equal false, mock.everything_stubbed
   end
 
-  def test_should_remove_expectations_for_unstubbed_method
-    mock = Mock.new
-    expectation = mock.expects(:method1)
-    mock.unstub(:method1)
-    assert_equal [], mock.expectations.to_a
-  end
-
   def test_should_stub_everything
     mock = Mock.new
     mock.stub_everything
@@ -305,5 +298,12 @@ class MockTest < Test::Unit::TestCase
     assert mock.respond_to?(:abc)
     assert mock.respond_to?(:xyz)
   end
-  
+
+  def test_should_remove_expectation_for_unstubbed_method
+    mock = Mock.new
+    mock.expects(:method1)
+    mock.unstub(:method1)
+    e = assert_raises(ExpectationError) { mock.method1 }
+    assert_match(/unexpected invocation/, e.message)
+  end
 end

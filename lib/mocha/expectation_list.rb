@@ -11,8 +11,8 @@ module Mocha # :nodoc:
       expectation
     end
 
-    def remove(expectation)
-      @expectations.delete(expectation)
+    def remove_all_matching_method(method_name)
+      @expectations.reject! { |expectation| expectation.matches_method?(method_name) }
     end
     
     def matches_method?(method_name)
