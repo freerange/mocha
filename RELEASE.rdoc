@@ -1,4 +1,4 @@
-= 0.10.2 ()
+= 0.10.2 (e05d9a555f1cf97c5961900dab0d884e9753257b)
 * Merge pull request #53. Unstubbing a method should not remove expectations for other stubbed methods. Fixes #52. Thanks to saikat.
 
 = 0.10.1 (f631a4ba22c6ed4929c52b0520311a9a84034a20)
