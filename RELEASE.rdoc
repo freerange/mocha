@@ -1,5 +1,8 @@
+= 0.10.2 ()
+* Merge pull request #53. Unstubbing a method should not remove expectations for other stubbed methods. Fixes #52. Thanks to saikat.
+
 = 0.10.1 (f631a4ba22c6ed4929c52b0520311a9a84034a20)
-* Merge pull request #51 from meineerde/issues/50-minitest-2.10.0. Use Gem::Requirement & Gem::Version for version comparison. Fixes issue #50. Thanks to meineerde.
+* Merge pull request #51. Use Gem::Requirement & Gem::Version for version comparison. Fixes issue #50. Thanks to meineerde.
 * Fixed typo in rdoc for Mocha::ObjectMethods.
 * Improve README as suggested in issue #46. Explain that Mocha must be loaded after test libraries and how to achieve this using Bundler.
 * Merge pull request #43 - nobody expects the spanish inquisition! Thanks to cairo140.
