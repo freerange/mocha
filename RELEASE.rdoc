@@ -1,4 +1,4 @@
-= 0.10.3 ()
+= 0.10.3 (e7f88af8e7c3396bc85fe9f9cb9e5f5fef04bea2)
 * Fix for issue #57. Gem::Requirement#=~ was only added in rubygems v1.8.0, but Object#=~ means the result of various monkey-patching checks is always false/nil for earlier versions of rubygems. However, the method it aliases #satisfied_by? has existed since Gem::Dependency was extracted from Gem::Version in rubygems v0.9.4.4, so it's much safer to use that. Thanks to fguillen for reporting and helping with diagnosis.
 
 = 0.10.2 (e05d9a555f1cf97c5961900dab0d884e9753257b)
