@@ -37,14 +37,14 @@ if !Test::Unit::TestCase.ancestors.include?(Mocha::API)
           else
             include Mocha::Integration::TestUnit::RubyVersion186AndAbove
           end
-        elsif Gem::Requirement.new('2.0.0') =~ test_unit_version
+        elsif Gem::Requirement.new('2.0.0').satisfied_by?(test_unit_version)
           include Mocha::Integration::TestUnit::GemVersion200
-        elsif Gem::Requirement.new('>= 2.0.1', '<= 2.0.2') =~ test_unit_version
+        elsif Gem::Requirement.new('>= 2.0.1', '<= 2.0.2').satisfied_by?(test_unit_version)
           include Mocha::Integration::TestUnit::GemVersion201To202
-        elsif Gem::Requirement.new('>= 2.0.3', '<= 2.2.0') =~ test_unit_version
+        elsif Gem::Requirement.new('>= 2.0.3', '<= 2.2.0').satisfied_by?(test_unit_version)
           include Mocha::Integration::TestUnit::GemVersion203To220
-        elsif Gem::Requirement.new('>= 2.3.0') =~ test_unit_version
-          $stderr.puts "*** Test::Unit integration has not been verified but patching anyway ***" if (Gem::Requirement.new('> 2.4.0') =~ test_unit_version) && $options['debug']
+        elsif Gem::Requirement.new('>= 2.3.0').satisfied_by?(test_unit_version)
+          $stderr.puts "*** Test::Unit integration has not been verified but patching anyway ***" if (Gem::Requirement.new('> 2.4.0').satisfied_by?(test_unit_version)) && $options['debug']
           include Mocha::Integration::TestUnit::GemVersion230To240
         else
           $stderr.puts "*** No Mocha integration for Test::Unit version ***" if $options['debug']
