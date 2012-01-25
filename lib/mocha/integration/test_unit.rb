@@ -26,7 +26,7 @@ if !Test::Unit::TestCase.ancestors.include?(Mocha::API)
           Gem::Version.new('1.x')
         end
 
-        if $options['debug']
+        if $mocha_options['debug']
           $stderr.puts "Detected Ruby version: #{RUBY_VERSION}"
           $stderr.puts "Detected Test::Unit version: #{test_unit_version}"
         end
@@ -44,10 +44,10 @@ if !Test::Unit::TestCase.ancestors.include?(Mocha::API)
         elsif Gem::Requirement.new('>= 2.0.3', '<= 2.2.0').satisfied_by?(test_unit_version)
           include Mocha::Integration::TestUnit::GemVersion203To220
         elsif Gem::Requirement.new('>= 2.3.0').satisfied_by?(test_unit_version)
-          $stderr.puts "*** Test::Unit integration has not been verified but patching anyway ***" if (Gem::Requirement.new('> 2.4.0').satisfied_by?(test_unit_version)) && $options['debug']
+          $stderr.puts "*** Test::Unit integration has not been verified but patching anyway ***" if (Gem::Requirement.new('> 2.4.0').satisfied_by?(test_unit_version)) && $mocha_options['debug']
           include Mocha::Integration::TestUnit::GemVersion230To240
         else
-          $stderr.puts "*** No Mocha integration for Test::Unit version ***" if $options['debug']
+          $stderr.puts "*** No Mocha integration for Test::Unit version ***" if $mocha_options['debug']
         end
 
       end

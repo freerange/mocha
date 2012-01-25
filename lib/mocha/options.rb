@@ -1,1 +1,1 @@
-$options = (ENV['MOCHA_OPTIONS'] || '').split(',').inject({}) { |hash, key| hash[key] = true; hash }
+$mocha_options = (ENV['MOCHA_OPTIONS'] || '').split(',').inject({}) { |hash, key| hash[key] = true; hash }
