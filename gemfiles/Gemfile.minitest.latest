@@ -1,9 +1,7 @@
 source :rubygems
 
-gemspec
+gemspec :path=>"../"
 
 group :development do
   gem "minitest"
 end
-
-gemspec :path=>"../"
