@@ -5,3 +5,5 @@ gemspec
 group :development do
   gem "minitest"
 end
+
+gemspec :path=>"../"
