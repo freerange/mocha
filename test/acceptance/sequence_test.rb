@@ -22,6 +22,7 @@ class SequenceTest < Test::Unit::TestCase
       mock.expects(:second).in_sequence(sequence)
       
       mock.second
+      mock.first
     end
     assert_failed(test_result)
   end
@@ -50,6 +51,7 @@ class SequenceTest < Test::Unit::TestCase
       mock_two.expects(:second).in_sequence(sequence)
       
       mock_two.second
+      mock_one.first
     end
     assert_failed(test_result)
   end
@@ -79,6 +81,7 @@ class SequenceTest < Test::Unit::TestCase
       partial_mock_two.expects(:second).in_sequence(sequence)
       
       partial_mock_two.second
+      partial_mock_one.first
     end
     assert_failed(test_result)
   end
@@ -142,6 +145,7 @@ class SequenceTest < Test::Unit::TestCase
       mock.expects(:second).in_sequence(sequence)
       
       mock.second
+      mock.first
     end
     assert_failed(test_result)
     assert_match Regexp.new("in sequence 'one'"), test_result.failures.first.message
@@ -159,6 +163,7 @@ class SequenceTest < Test::Unit::TestCase
       
       mock.first
       mock.three
+      mock.second
     end
     assert_failed(test_result)
     assert_match Regexp.new("in sequence 'one'"), test_result.failures.first.message
@@ -177,6 +182,7 @@ class SequenceTest < Test::Unit::TestCase
       
       mock.first
       mock.three
+      mock.second
     end
     assert_failed(test_result)
     assert_match Regexp.new("in sequence 'one'"), test_result.failures.first.message
