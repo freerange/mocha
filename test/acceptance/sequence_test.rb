@@ -159,10 +159,10 @@ class SequenceTest < Test::Unit::TestCase
       
       mock.expects(:first).in_sequence(sequence_one)
       mock.expects(:second).in_sequence(sequence_two)
-      mock.expects(:three).in_sequence(sequence_one).in_sequence(sequence_two)
+      mock.expects(:third).in_sequence(sequence_one).in_sequence(sequence_two)
       
       mock.first
-      mock.three
+      mock.third
       mock.second
     end
     assert_failed(test_result)
@@ -178,10 +178,10 @@ class SequenceTest < Test::Unit::TestCase
       
       mock.expects(:first).in_sequence(sequence_one)
       mock.expects(:second).in_sequence(sequence_two)
-      mock.expects(:three).in_sequence(sequence_one, sequence_two)
+      mock.expects(:third).in_sequence(sequence_one, sequence_two)
       
       mock.first
-      mock.three
+      mock.third
       mock.second
     end
     assert_failed(test_result)
