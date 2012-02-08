@@ -20,10 +20,17 @@ module Mocha
       remove_new_method
       restore_original_method
       mock.unstub(method.to_sym)
+      unless mock.any_expectations?
+        reset_mocha
+      end
     end
 
     def mock
       stubbee.mocha
+    end
+
+    def reset_mocha
+      stubbee.reset_mocha
     end
 
     def hide_original_method

@@ -42,7 +42,11 @@ module Mocha # :nodoc:
     def length
       @expectations.length
     end
-    
+
+    def any?
+      @expectations.any?
+    end
+
     private
     
     def matching_expectations(method_name, *arguments)

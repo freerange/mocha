@@ -110,6 +110,7 @@ class AnyInstanceMethodTest < Test::Unit::TestCase
     method.replace_instance_method(:remove_new_method) { }
     method.replace_instance_method(:restore_original_method) { }
     mocha = Class.new { class << self; attr_accessor :unstub_method; end; def self.unstub(method); self.unstub_method = method; end; }
+    mocha.define_instance_method(:any_expectations?) { true }
     method.replace_instance_method(:mock) { mocha }
 
     method.unstub

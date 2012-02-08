@@ -183,12 +183,30 @@ class ClassMethodTest < Test::Unit::TestCase
     method = ClassMethod.new(klass, :method_x)
     method.replace_instance_method(:restore_original_method) { }
     mocha = Class.new { class << self; attr_accessor :unstub_method; end; def self.unstub(method); self.unstub_method = method; end; }
+    mocha.define_instance_method(:any_expectations?) { true }
     method.replace_instance_method(:mock) { mocha }
     
     method.unstub
     assert_equal mocha.unstub_method, :method_x
   end
-  
+
+  def test_should_call_stubbee_reset_mocha_if_no_expectations_remaining
+    klass = Class.new { def self.method_x; end }
+    method = ClassMethod.new(klass, :method_x)
+    method.replace_instance_method(:remove_new_method) { }
+    method.replace_instance_method(:restore_original_method) { }
+    mocha = Class.new
+    mocha.define_instance_method(:unstub) { }
+    mocha.define_instance_method(:any_expectations?) { false }
+    method.replace_instance_method(:mock) { mocha }
+    stubbee = Class.new { attr_accessor :reset_mocha_called; def reset_mocha; self.reset_mocha_called = true; end; }.new
+    method.replace_instance_method(:stubbee) { stubbee }
+
+    method.unstub
+
+    assert stubbee.reset_mocha_called
+  end
+
   def test_should_return_mock_for_stubbee
     mocha = Object.new
     stubbee = Object.new

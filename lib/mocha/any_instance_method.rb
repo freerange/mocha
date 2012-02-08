@@ -7,7 +7,11 @@ module Mocha
     def mock
       stubbee.any_instance.mocha
     end
-   
+
+    def reset_mocha
+      stubbee.any_instance.reset_mocha
+    end
+
     def hide_original_method
       if method_exists?(method)
         begin

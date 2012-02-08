@@ -198,6 +198,10 @@ module Mocha # :nodoc:
       self.__metaclass__.send(:undef_method, method_name) if self.__metaclass__.method_defined?(method_name)
     end
 
+    def any_expectations?
+      @expectations.any?
+    end
+
     # :startdoc:
 
   end
