@@ -1,3 +1,11 @@
+= 0.10.4 ()
+* Fix for issue #65 - expectations not being verified in subsequent tests
+* Fix for issue #63 - require Mocha::Mockery at Mocha::Mock class load time and not on invocation of Mock#method_missing.
+* Fix for issue #45 - raise ArgumentError if Mocha::ParameterMatchers#has_entry is given
+Hash with wrong number of entries.
+* Make global variable name more obscure to avoid clashes with other libraries.
+* Move travis-ci-related gemfiles into their own directory.
+
 = 0.10.3 (e7f88af8e7c3396bc85fe9f9cb9e5f5fef04bea2)
 * Fix for issue #57. Gem::Requirement#=~ was only added in rubygems v1.8.0, but Object#=~ means the result of various monkey-patching checks is always false/nil for earlier versions of rubygems. However, the method it aliases #satisfied_by? has existed since Gem::Dependency was extracted from Gem::Version in rubygems v0.9.4.4, so it's much safer to use that. Thanks to fguillen for reporting and helping with diagnosis.
 
