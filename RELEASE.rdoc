@@ -1,4 +1,4 @@
-= 0.10.4 ()
+= 0.10.4 (babdd656c361ac65f25948104adf612e59174a5e)
 * Fix for issue #65 - expectations not being verified in subsequent tests
 * Fix for issue #63 - require Mocha::Mockery at Mocha::Mock class load time and not on invocation of Mock#method_missing.
 * Fix for issue #45 - raise ArgumentError if Mocha::ParameterMatchers#has_entry is given
