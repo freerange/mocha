@@ -243,9 +243,6 @@ class MockTest < Test::Unit::TestCase
   end
   
   def test_should_not_raise_no_method_error_if_mock_is_not_restricted_to_respond_like_a_responder
-    instance = Class.new do
-      define_method(:respond_to?) { true }
-    end.new
     mock = build_mock
     mock.stubs(:invoked_method)
     assert_nothing_raised(NoMethodError) { mock.invoked_method }

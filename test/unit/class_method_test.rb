@@ -66,7 +66,6 @@ class ClassMethodTest < Test::Unit::TestCase
   def test_should_respond_to_original_method_name_after_original_method_has_been_hidden
     klass = Class.new { def self.original_method_name; end }
     method = ClassMethod.new(klass, :original_method_name)
-    hidden_method_x = method.hidden_method
     
     method.hide_original_method
 
@@ -196,7 +195,7 @@ class ClassMethodTest < Test::Unit::TestCase
     method.replace_instance_method(:remove_new_method) { }
     method.replace_instance_method(:restore_original_method) { }
     mocha = Class.new
-    mocha.define_instance_method(:unstub) { }
+    mocha.define_instance_method(:unstub) { |method_name| }
     mocha.define_instance_method(:any_expectations?) { false }
     method.replace_instance_method(:mock) { mocha }
     stubbee = Class.new { attr_accessor :reset_mocha_called; def reset_mocha; self.reset_mocha_called = true; end; }.new

@@ -80,7 +80,6 @@ class StubAnyInstanceMethodTest < Test::Unit::TestCase
         :original_return_value
       end
     end
-    instance = klass.new
     run_as_test do
       klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
     end

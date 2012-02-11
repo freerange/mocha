@@ -32,29 +32,29 @@ class SequenceTest < Test::Unit::TestCase
 
   def test_should_be_satisfied_if_one_unsatisfied_expectations_added_but_it_is_not_included_by_index
     sequence = Sequence.new('name')
-    expectation = FakeExpectation.new(satisfied = false)
+    expectation = FakeExpectation.new(false)
     sequence.constrain_as_next_in_sequence(expectation)
     assert sequence.satisfied_to_index?(0)
   end
 
   def test_should_not_be_satisfied_if_one_unsatisfied_expectations_added_and_it_is_included_by_index
     sequence = Sequence.new('name')
-    expectation = FakeExpectation.new(satisfied = false)
+    expectation = FakeExpectation.new(false)
     sequence.constrain_as_next_in_sequence(expectation)
     assert !sequence.satisfied_to_index?(1)
   end
 
   def test_should_be_satisfied_if_one_satisfied_expectations_added_and_it_is_included_by_index
     sequence = Sequence.new('name')
-    expectation = FakeExpectation.new(satisfied = true)
+    expectation = FakeExpectation.new(true)
     sequence.constrain_as_next_in_sequence(expectation)
     assert sequence.satisfied_to_index?(1)
   end
 
   def test_should_not_be_satisfied_if_one_satisfied_and_one_unsatisfied_expectation_added_and_both_are_included_by_index
     sequence = Sequence.new('name')
-    expectation_one = FakeExpectation.new(satisfied = true)
-    expectation_two = FakeExpectation.new(satisfied = false)
+    expectation_one = FakeExpectation.new(true)
+    expectation_two = FakeExpectation.new(false)
     sequence.constrain_as_next_in_sequence(expectation_one)
     sequence.constrain_as_next_in_sequence(expectation_two)
     assert !sequence.satisfied_to_index?(2)
@@ -62,8 +62,8 @@ class SequenceTest < Test::Unit::TestCase
 
   def test_should_be_satisfied_if_two_satisfied_expectations_added_and_both_are_included_by_index
     sequence = Sequence.new('name')
-    expectation_one = FakeExpectation.new(satisfied = true)
-    expectation_two = FakeExpectation.new(satisfied = true)
+    expectation_one = FakeExpectation.new(true)
+    expectation_two = FakeExpectation.new(true)
     sequence.constrain_as_next_in_sequence(expectation_one)
     sequence.constrain_as_next_in_sequence(expectation_two)
     assert sequence.satisfied_to_index?(2)
@@ -78,8 +78,8 @@ class SequenceTest < Test::Unit::TestCase
 
   def test_should_not_allow_invocation_of_second_method_when_first_n_sequence_has_not_been_invoked
     sequence = Sequence.new('name')
-    expectation_one = FakeExpectation.new(satisfied = false)
-    expectation_two = FakeExpectation.new(satisfied = false)
+    expectation_one = FakeExpectation.new(false)
+    expectation_two = FakeExpectation.new(false)
     sequence.constrain_as_next_in_sequence(expectation_one)
     sequence.constrain_as_next_in_sequence(expectation_two)
     assert !expectation_two.ordering_constraints[0].allows_invocation_now?
@@ -87,8 +87,8 @@ class SequenceTest < Test::Unit::TestCase
 
   def test_should_allow_invocation_of_second_method_when_first_in_sequence_has_been_invoked
     sequence = Sequence.new('name')
-    expectation_one = FakeExpectation.new(satisfied = true)
-    expectation_two = FakeExpectation.new(satisfied = false)
+    expectation_one = FakeExpectation.new(true)
+    expectation_two = FakeExpectation.new(false)
     sequence.constrain_as_next_in_sequence(expectation_one)
     sequence.constrain_as_next_in_sequence(expectation_two)
     assert expectation_two.ordering_constraints[0].allows_invocation_now?

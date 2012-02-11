@@ -36,7 +36,7 @@ class MockeryTest < Test::Unit::TestCase
   
   def test_should_reset_list_of_mocks_on_teardown
     mockery = Mockery.new
-    mock = mockery.unnamed_mock { expects(:my_method) }
+    mockery.unnamed_mock { expects(:my_method) }
     mockery.teardown
     assert_nothing_raised(ExpectationError) { mockery.verify }
   end
