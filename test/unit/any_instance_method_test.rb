@@ -30,7 +30,7 @@ class AnyInstanceMethodTest < Test::Unit::TestCase
   def test_should_define_a_new_method
     klass = Class.new { def method_x; end } 
     method = AnyInstanceMethod.new(klass, :method_x)
-    mocha = Mock.new
+    mocha = build_mock
     mocha.expects(:method_x).with(:param1, :param2).returns(:result)
     any_instance = Object.new
     any_instance.define_instance_method(:mocha) { mocha }
@@ -72,8 +72,8 @@ class AnyInstanceMethodTest < Test::Unit::TestCase
 
   def test_should_call_remove_new_method
     klass = Class.new { def method_x; end }
-    any_instance = Mock.new
-    any_instance_mocha = Mock.new
+    any_instance = build_mock
+    any_instance_mocha = build_mock
     any_instance.stubs(:mocha).returns(any_instance_mocha)
     klass.define_instance_method(:any_instance) { any_instance }
     method = AnyInstanceMethod.new(klass, :method_x)
@@ -88,8 +88,8 @@ class AnyInstanceMethodTest < Test::Unit::TestCase
 
   def test_should_call_restore_original_method
     klass = Class.new { def method_x; end }
-    any_instance = Mock.new
-    any_instance_mocha = Mock.new
+    any_instance = build_mock
+    any_instance_mocha = build_mock
     any_instance.stubs(:mocha).returns(any_instance_mocha)
     klass.define_instance_method(:any_instance) { any_instance }
     method = AnyInstanceMethod.new(klass, :method_x)
@@ -128,4 +128,9 @@ class AnyInstanceMethodTest < Test::Unit::TestCase
     assert_equal stubbee.any_instance.mocha, method.mock
   end
 
+  private
+
+  def build_mock
+    Mock.new(nil)
+  end
 end

@@ -23,19 +23,19 @@ module Mocha
     end
     
     def named_mock(name, &block)
-      add_mock(Mock.new(Name.new(name), &block))
+      add_mock(Mock.new(self, Name.new(name), &block))
     end
     
     def unnamed_mock(&block)
-      add_mock(Mock.new(&block))
+      add_mock(Mock.new(self, &block))
     end
     
     def mock_impersonating(object, &block)
-      add_mock(Mock.new(ImpersonatingName.new(object), &block))
+      add_mock(Mock.new(self, ImpersonatingName.new(object), &block))
     end
     
     def mock_impersonating_any_instance_of(klass, &block)
-      add_mock(Mock.new(ImpersonatingAnyInstanceName.new(klass), &block))
+      add_mock(Mock.new(self, ImpersonatingAnyInstanceName.new(klass), &block))
     end
     
     def new_state_machine(name)

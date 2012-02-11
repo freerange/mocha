@@ -85,7 +85,7 @@ class ClassMethodTest < Test::Unit::TestCase
   
   def test_should_define_a_new_method_which_should_call_mocha_method_missing
     klass = Class.new { def self.method_x; end }
-    mocha = Mocha::Mock.new
+    mocha = build_mock
     klass.define_instance_method(:mocha) { mocha }
     mocha.expects(:method_x).with(:param1, :param2).returns(:result)
     method = ClassMethod.new(klass, :method_x)
@@ -155,7 +155,7 @@ class ClassMethodTest < Test::Unit::TestCase
   def test_should_call_remove_new_method
     klass = Class.new { def self.method_x; end }
     method = ClassMethod.new(klass, :method_x)
-    mocha = Mock.new
+    mocha = build_mock
     klass.define_instance_method(:mocha) { mocha }
     method.define_instance_accessor(:remove_called)
     method.replace_instance_method(:remove_new_method) { self.remove_called = true }
@@ -167,7 +167,7 @@ class ClassMethodTest < Test::Unit::TestCase
 
   def test_should_call_restore_original_method
     klass = Class.new { def self.method_x; end }
-    mocha = Mock.new
+    mocha = build_mock
     klass.define_instance_method(:mocha) { mocha }
     method = ClassMethod.new(klass, :method_x)
     method.define_instance_accessor(:restore_called)
@@ -252,5 +252,10 @@ class ClassMethodTest < Test::Unit::TestCase
     class_method_2 = ClassMethod.new(stubbee, :method)
     assert class_method_1.matches?(class_method_2)
   end
-  
+
+  private
+
+  def build_mock
+    Mock.new(nil)
+  end
 end
