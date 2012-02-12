@@ -40,7 +40,7 @@ Note that versions 0.9.6 & 0.9.7 of the Rails plugin were broken. As of version 
 
 Or download Mocha...
 
-  {http://rubyforge.org/frs/?group_id=1917}[http://rubyforge.org/frs/?group_id=1917]
+  {Packaged files}[http://rubyforge.org/frs/?group_id=1917]
 
 == Examples
 
@@ -52,11 +52,11 @@ Or download Mocha...
 
 == Source Code
 
-  {http://github.com/floehopper/mocha}[http://github.com/floehopper/mocha]
+  {Github repository}[http://github.com/floehopper/mocha]
 
 == Bug Reports
 
-  {http://github.com/floehopper/mocha/issues}[http://github.com/floehopper/mocha/issues]
+  {Github issues}[http://github.com/floehopper/mocha/issues]
 
 == License
 
