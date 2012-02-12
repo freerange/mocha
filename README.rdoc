@@ -38,10 +38,6 @@ Or install the {Rails}[http://www.rubyonrails.org/] plugin...
 
 Note that versions 0.9.6 & 0.9.7 of the Rails plugin were broken. As of version 0.9.8, you need to explicitly load Mocha after the test framework e.g. by adding "require 'mocha'" at the bottom of test/test_helper.rb.
 
-Or download Mocha...
-
-  {Packaged files}[http://rubyforge.org/frs/?group_id=1917]
-
 == Examples
 
 * Quick Start - {Usage Examples}[http://mocha.rubyforge.org/examples/misc.html]
@@ -50,13 +46,10 @@ Or download Mocha...
 * More examples on {James Mead's Blog}[http://jamesmead.org/blog/]
 * {Mailing List Archives}[http://groups.google.com/group/mocha-developer]
 
-== Source Code
+== Links
 
-  {Github repository}[http://github.com/floehopper/mocha]
-
-== Bug Reports
-
-  {Github issues}[http://github.com/floehopper/mocha/issues]
+* {Source code}[http://github.com/floehopper/mocha]
+* {Bug reports}[http://github.com/floehopper/mocha/issues]
 
 == License
 
