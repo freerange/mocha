@@ -1,4 +1,4 @@
-= Mocha
+= Mocha {<img src="https://secure.travis-ci.org/floehopper/mocha.png" />}[http://travis-ci.org/floehopper/mocha]
 
 Mocha is a library for mocking and stubbing using a syntax like that of {JMock}[http://www.jmock.org].
 
@@ -7,10 +7,6 @@ It can be used with many testing frameworks e.g. {Test::Unit}[http://www.ruby-do
 Mocha provides a unified, simple and readable syntax for both traditional mocking and partial mocking.
 
 Mocha was harvested from projects at {Reevoo}[http://www.reevoo.com/] by me ({James}[http://jamesmead.org/]) and my (then) colleagues {Ben}[http://www.techbelly.com/], {Chris}[http://chrisroos.co.uk/] and {Paul}[http://po-ru.com/].
-
-== Build Status
-
-https://secure.travis-ci.org/floehopper/mocha.png
 
 == Installation
 
