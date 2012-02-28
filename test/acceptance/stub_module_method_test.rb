@@ -54,7 +54,7 @@ class StubModuleMethodTest < Test::Unit::TestCase
     run_as_test do
       mod.stubs(:my_module_method)
     end
-    assert_equal 0, mod.mocha.expectations.length
+    assert_equal 0, mod.mocha.__expectations__.length
   end  
   
   def test_should_be_able_to_stub_a_superclass_method
