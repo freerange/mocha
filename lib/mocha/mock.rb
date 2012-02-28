@@ -142,13 +142,17 @@ module Mocha # :nodoc:
       instance_eval(&block) if block
     end
 
-    attr_reader :everything_stubbed, :expectations
+    attr_reader :everything_stubbed
 
     alias_method :__expects__, :expects
 
     alias_method :__stubs__, :stubs
 
     alias_method :quacks_like, :responds_like
+
+    def __expectations__
+      @expectations
+    end
 
     def stub_everything
       @everything_stubbed = true

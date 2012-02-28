@@ -20,7 +20,7 @@ class MockTest < Test::Unit::TestCase
    mock = build_mock
    expectation = mock.expects(:method1)
    assert_not_nil expectation
-   assert_equal [expectation], mock.expectations.to_a
+   assert_equal [expectation], mock.__expectations__.to_a
   end
   
   def test_should_not_stub_everything_by_default
@@ -67,7 +67,7 @@ class MockTest < Test::Unit::TestCase
     mock = build_mock
     expectation1 = mock.expects(:method1)
     expectation2 = mock.expects(:method2)
-    assert_equal [expectation1, expectation2].to_set, mock.expectations.to_set
+    assert_equal [expectation1, expectation2].to_set, mock.__expectations__.to_set
   end
   
   def test_should_pass_backtrace_into_expectation
@@ -88,7 +88,7 @@ class MockTest < Test::Unit::TestCase
     mock = build_mock
     stub1 = mock.stubs(:method1)
     stub2 = mock.stubs(:method2)
-    assert_equal [stub1, stub2].to_set, mock.expectations.to_set
+    assert_equal [stub1, stub2].to_set, mock.__expectations__.to_set
   end
   
   def test_should_invoke_expectation_and_return_result

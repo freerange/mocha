@@ -84,7 +84,7 @@ class StubAnyInstanceMethodTest < Test::Unit::TestCase
       klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
     end
 
-    assert_equal 0, klass.any_instance.mocha.expectations.length
+    assert_equal 0, klass.any_instance.mocha.__expectations__.length
   end
   
   def test_should_be_able_to_stub_a_superclass_method
