@@ -1,5 +1,12 @@
+= 0.10.5 ()
+* Fix for issue #66 (hopefully without regressing on issue #63) - Mocha::Mock has Mocha::Mockery as a dependency. Stop trying to pretend otherwise. Thanks to @kennyj for reporting.
+* Fix a bunch of warnings in Ruby 1.9. There are still the 6 test failures mentioned in issue #41 which I suspect are due to the introspection gem not being Ruby 1.9-compatible.
+* Add links to README for source code & issue tracker.
+* Fix for issue #67 - Make the travis-ci badge visible in the README. Thanks to Diego Plentz for pull request.
+* Fix for issue #70 - Rename Mock#expectations to Mock#__expectations__ to avoid conflicts. Thanks to Jeremy Stephens for pull request.
+
 = 0.10.4 (babdd656c361ac65f25948104adf612e59174a5e)
-* Fix for issue #65 - expectations not being verified in subsequent tests
+* Fix for issue #65 - expectations not being verified in subsequent tests.
 * Fix for issue #63 - require Mocha::Mockery at Mocha::Mock class load time and not on invocation of Mock#method_missing.
 * Fix for issue #45 - raise ArgumentError if Mocha::ParameterMatchers#has_entry is given
 Hash with wrong number of entries.
