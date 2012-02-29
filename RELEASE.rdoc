@@ -1,4 +1,4 @@
-= 0.10.5 ()
+= 0.10.5 (a5a64cf9755b21d4a30e446232654d1c0fc6f151)
 * Fix for issue #66 (hopefully without regressing on issue #63) - Mocha::Mock has Mocha::Mockery as a dependency. Stop trying to pretend otherwise. Thanks to @kennyj for reporting.
 * Fix a bunch of warnings in Ruby 1.9. There are still the 6 test failures mentioned in issue #41 which I suspect are due to the introspection gem not being Ruby 1.9-compatible.
 * Add links to README for source code & issue tracker.
