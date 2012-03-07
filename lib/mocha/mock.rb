@@ -82,6 +82,14 @@ module Mocha # :nodoc:
       }
     end
 
+    # :call-seq: unstub(method_name)
+    #
+    # Removes all expectations for method identified by +method_name+.
+    #   object = mock()
+    #   object.stubs(:method1).returns(:result1)
+    #   object.method1 # => :result1
+    #   object.unstub(:method1)
+    #   object.method1 # => unexpected invocation: #<Mock:mock>.method1()
     def unstub(method_name)
       @expectations.remove_all_matching_method(method_name)
     end
