@@ -83,6 +83,7 @@ end
 
 desc 'Generate RDoc'
 Rake::RDocTask.new('rdoc') do |task|
+  task.generator = 'hanna'
   task.main = 'README.rdoc'
   task.title = "Mocha #{Mocha::VERSION}"
   task.rdoc_dir = 'doc'
