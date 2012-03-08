@@ -113,8 +113,8 @@ end
 desc "Generate documentation"
 task 'generate_docs' => ['clobber_rdoc', 'rdoc', 'examples', 'agiledox.txt']
 
-desc "Publish docs to Github"
-task 'publish_docs' => 'generate_docs' do
+desc "Publish docs to Github (relies on running 'generate_docs' task and committing changes to master branch)"
+task 'publish_docs' do
  sha = `git ls-tree -d HEAD doc | awk '{print $3}'`.strip
  commit = `echo "Publishing docs from master branch" | git commit-tree #{sha} -p refs/heads/gh-pages`.strip
  `git update-ref refs/heads/gh-pages #{commit}`
