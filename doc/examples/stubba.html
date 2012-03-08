@@ -1,0 +1,68 @@
+<html><head><link rel="stylesheet" media="screen" href="coderay.css" type="text/css"></head><body><div class="CodeRay">
+  <div class="code"><pre><span class="r">class</span> <span class="cl">Order</span>
+
+  attr_accessor <span class="sy">:shipped_on</span>
+
+  <span class="r">def</span> <span class="fu">total_cost</span>
+    line_items.inject(<span class="i">0</span>) { |total, line_item| total + line_item.price } + shipping_cost
+  <span class="r">end</span>
+
+  <span class="r">def</span> <span class="fu">total_weight</span>
+    line_items.inject(<span class="i">0</span>) { |total, line_item| total + line_item.weight }
+  <span class="r">end</span>
+
+  <span class="r">def</span> <span class="fu">shipping_cost</span>
+    total_weight * <span class="i">5</span> + <span class="i">10</span>
+  <span class="r">end</span>
+
+  <span class="r">class</span> &lt;&lt; <span class="cl">self</span>
+
+    <span class="r">def</span> <span class="fu">find_all</span>
+      <span class="c"># Database.connection.execute('select * from orders...</span>
+    <span class="r">end</span>
+  
+    <span class="r">def</span> <span class="fu">number_shipped_since</span>(date)
+      find_all.select { |order| order.shipped_on &gt; date }.length
+    <span class="r">end</span>
+
+    <span class="r">def</span> <span class="fu">unshipped_value</span>
+      find_all.inject(<span class="i">0</span>) { |total, order| order.shipped_on ? total : total + order.total_cost }
+    <span class="r">end</span>
+
+  <span class="r">end</span>
+
+<span class="r">end</span>
+
+require <span class="s"><span class="dl">'</span><span class="k">test/unit</span><span class="dl">'</span></span>
+require <span class="s"><span class="dl">'</span><span class="k">mocha</span><span class="dl">'</span></span>
+
+<span class="r">class</span> <span class="cl">OrderTest</span> &lt; <span class="co">Test</span>::<span class="co">Unit</span>::<span class="co">TestCase</span>
+
+  <span class="c"># illustrates stubbing instance method</span>
+  <span class="r">def</span> <span class="fu">test_should_calculate_shipping_cost_based_on_total_weight</span>
+    order = <span class="co">Order</span>.new
+    order.stubs(<span class="sy">:total_weight</span>).returns(<span class="i">10</span>)
+    assert_equal <span class="i">60</span>, order.shipping_cost
+  <span class="r">end</span>
+
+  <span class="c"># illustrates stubbing class method</span>
+  <span class="r">def</span> <span class="fu">test_should_count_number_of_orders_shipped_after_specified_date</span>
+    now = <span class="co">Time</span>.now; week_in_secs = <span class="i">7</span> * <span class="i">24</span> * <span class="i">60</span> * <span class="i">60</span>
+    order_1 = <span class="co">Order</span>.new; order_1.shipped_on = now - <span class="i">1</span> * week_in_secs
+    order_2 = <span class="co">Order</span>.new; order_2.shipped_on = now - <span class="i">3</span> * week_in_secs
+    <span class="co">Order</span>.stubs(<span class="sy">:find_all</span>).returns([order_1, order_2])
+    assert_equal <span class="i">1</span>, <span class="co">Order</span>.number_shipped_since(now - <span class="i">2</span> * week_in_secs)
+  <span class="r">end</span>
+
+  <span class="c"># illustrates stubbing instance method for all instances of a class</span>
+  <span class="r">def</span> <span class="fu">test_should_calculate_value_of_unshipped_orders</span>
+    <span class="co">Order</span>.stubs(<span class="sy">:find_all</span>).returns([<span class="co">Order</span>.new, <span class="co">Order</span>.new, <span class="co">Order</span>.new])
+    <span class="co">Order</span>.any_instance.stubs(<span class="sy">:shipped_on</span>).returns(<span class="pc">nil</span>)
+    <span class="co">Order</span>.any_instance.stubs(<span class="sy">:total_cost</span>).returns(<span class="i">10</span>)
+    assert_equal <span class="i">30</span>, <span class="co">Order</span>.unshipped_value
+  <span class="r">end</span>
+
+<span class="r">end</span>
+</pre></div>
+</div>
+</body></html>
