@@ -36,9 +36,9 @@ Note that versions 0.9.6 & 0.9.7 of the Rails plugin were broken. As of version 
 
 == Examples
 
-* Quick Start - {Usage Examples}[http://mocha.rubyforge.org/examples/misc.html]
-* Traditional mocking - {Star Trek Example}[http://mocha.rubyforge.org/examples/mocha.html]
-* Setting expectations on real classes - {Order Example}[http://mocha.rubyforge.org/examples/stubba.html]
+* Quick Start - {Usage Examples}[/examples/misc.html]
+* Traditional mocking - {Star Trek Example}[/examples/mocha.html]
+* Setting expectations on real classes - {Order Example}[/examples/stubba.html]
 * More examples on {James Mead's Blog}[http://jamesmead.org/blog/]
 * {Mailing List Archives}[http://groups.google.com/group/mocha-developer]
 
@@ -51,4 +51,4 @@ Note that versions 0.9.6 & 0.9.7 of the Rails plugin were broken. As of version 
 
 Copyright Revieworld Ltd. 2006
 
-You may use, copy and redistribute this library under the same terms as {Ruby itself}[http://www.ruby-lang.org/en/LICENSE.txt] or under the {MIT license}[http://mocha.rubyforge.org/files/MIT-LICENSE.html].
+You may use, copy and redistribute this library under the same terms as {Ruby itself}[http://www.ruby-lang.org/en/LICENSE.txt] or under the {MIT license}[/files/MIT-LICENSE.rdoc.html].
