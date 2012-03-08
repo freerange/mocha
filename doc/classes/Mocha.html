@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+  <head>
+    <title>Mocha</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <link href='../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+      //<![CDATA[
+        function popupCode(url) {
+          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+        }
+        
+        function toggleCode(id) {
+          var code = document.getElementById(id)
+        
+          code.style.display = code.style.display != 'block' ? 'block' : 'none'
+          return true
+        }
+        
+        // Make codeblocks hidden by default
+        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+      //]]>
+    </script>
+  </head>
+  <body class='page'>
+    <div class='class' id='wrapper'>
+      <div class='header'>
+        <h1 class='name'>
+          <span class='type'>module</span>
+          Mocha
+        </h1>
+        <ol class='paths'>
+          <li>
+            <a target="docwin" href="../files/lib/mocha/api_rb.html">lib/mocha/api.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/mock_rb.html">lib/mocha/mock.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/expectation_rb.html">lib/mocha/expectation.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/object_rb.html">lib/mocha/object.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/parameter_matchers_rb.html">lib/mocha/parameter_matchers.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/parameter_matchers/all_of_rb.html">lib/mocha/parameter_matchers/all_of.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/parameter_matchers/any_of_rb.html">lib/mocha/parameter_matchers/any_of.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/parameter_matchers/any_parameters_rb.html">lib/mocha/parameter_matchers/any_parameters.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/parameter_matchers/anything_rb.html">lib/mocha/parameter_matchers/anything.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/parameter_matchers/base_rb.html">lib/mocha/parameter_matchers/base.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/parameter_matchers/equals_rb.html">lib/mocha/parameter_matchers/equals.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/parameter_matchers/has_entries_rb.html">lib/mocha/parameter_matchers/has_entries.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/parameter_matchers/has_entry_rb.html">lib/mocha/parameter_matchers/has_entry.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/parameter_matchers/has_key_rb.html">lib/mocha/parameter_matchers/has_key.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/parameter_matchers/has_value_rb.html">lib/mocha/parameter_matchers/has_value.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/parameter_matchers/includes_rb.html">lib/mocha/parameter_matchers/includes.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/parameter_matchers/instance_of_rb.html">lib/mocha/parameter_matchers/instance_of.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/parameter_matchers/is_a_rb.html">lib/mocha/parameter_matchers/is_a.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/parameter_matchers/kind_of_rb.html">lib/mocha/parameter_matchers/kind_of.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/parameter_matchers/not_rb.html">lib/mocha/parameter_matchers/not.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/parameter_matchers/object_rb.html">lib/mocha/parameter_matchers/object.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/parameter_matchers/optionally_rb.html">lib/mocha/parameter_matchers/optionally.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/parameter_matchers/query_string_rb.html">lib/mocha/parameter_matchers/query_string.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/parameter_matchers/regexp_matches_rb.html">lib/mocha/parameter_matchers/regexp_matches.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/parameter_matchers/responds_with_rb.html">lib/mocha/parameter_matchers/responds_with.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/parameter_matchers/yaml_equivalent_rb.html">lib/mocha/parameter_matchers/yaml_equivalent.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/state_machine_rb.html">lib/mocha/state_machine.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/configuration_rb.html">lib/mocha/configuration.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/mocha/stubbing_error_rb.html">lib/mocha/stubbing_error.rb</a>
+          </li>
+          <li>
+            <a class='show' href='#' onclick='this.parentNode.parentNode.className += " expanded"; this.parentNode.removeChild(this); return false'>show all</a>
+          </li>
+        </ol>
+        <div class='parent'>
+          Parent:
+          <strong><a target="docwin" href="../files/lib/mocha/stubbing_error_rb.html">stubbing_error.rb</a></strong>
+        </div>
+      </div>
+      <div id='content'>
+        <div id='text'>
+          <div id='description'></div>
+          <div id='context'>
+          </div>
+          <div id='class-list'>
+            <h2>Classes and Modules</h2>
+            <ol>
+              <li><a target="docwin" href="Mocha/API.html">Mocha::API</a></li>
+              <li><a target="docwin" href="Mocha/ClassMethods.html">Mocha::ClassMethods</a></li>
+              <li><a target="docwin" href="Mocha/ObjectMethods.html">Mocha::ObjectMethods</a></li>
+              <li><a target="docwin" href="Mocha/ParameterMatchers.html">Mocha::ParameterMatchers</a></li>
+              <li><a target="docwin" href="Mocha/Configuration.html">Mocha::Configuration</a></li>
+              <li><a target="docwin" href="Mocha/Expectation.html">Mocha::Expectation</a></li>
+              <li><a target="docwin" href="Mocha/Mock.html">Mocha::Mock</a></li>
+              <li><a target="docwin" href="Mocha/StateMachine.html">Mocha::StateMachine</a></li>
+              <li><a target="docwin" href="Mocha/StubbingError.html">Mocha::StubbingError</a></li>
+            </ol>
+          </div>
+          <div id='section'>
+          </div>
+        </div>
+      </div>
+      <div id='footer-push'></div>
+    </div>
+    <div id='footer'>
+      <a target="docwin" href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+  <head>
+    <title>Mocha::ClassMethods</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <link href='../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+      //<![CDATA[
+        function popupCode(url) {
+          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+        }
+        
+        function toggleCode(id) {
+          var code = document.getElementById(id)
+        
+          code.style.display = code.style.display != 'block' ? 'block' : 'none'
+          return true
+        }
+        
+        // Make codeblocks hidden by default
+        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+      //]]>
+    </script>
+  </head>
+  <body class='page'>
+    <div class='class' id='wrapper'>
+      <div class='header'>
+        <h1 class='name'>
+          <span class='type'>module</span>
+          Mocha::ClassMethods
+        </h1>
+        <ol class='paths'>
+          <li>
+            <a target="docwin" href="../../files/lib/mocha/object_rb.html">lib/mocha/object.rb</a>
+          </li>
+        </ol>
+        <div class='parent'>
+          Parent:
+          <strong><a target="docwin" href="../Mocha.html">Mocha</a></strong>
+        </div>
+      </div>
+      <div id='content'>
+        <div id='text'>
+          <div id='description'>
+            
+            <p>Methods added all classes to allow mocking and stubbing on real objects.</p>
+          </div>
+          <div id='method-list'>
+            <h2>Methods</h2>
+            <h3>Public Instance</h3>
+            <ol>
+              <li><a target="docwin" href="#method-i-any_instance">any_instance</a></li>
+            </ol>
+          </div>
+          <div id='context'>
+          </div>
+          <div id='section'>
+            <div id='methods'>
+              <h2>Public Instance methods</h2>
+              <div class='method public-instance' id='method-method-i-any_instance'>
+                <a name='method-i-any_instance'></a>
+                <div class='synopsis'>
+                  <span class='name'>
+                    <div>any_instance -> mock object</div>
+                  </span>
+                </div>
+                <div class='description'>
+                  
+                  <p>Returns a mock object which will detect calls to any instance of this
+                  class.</p>
+                  
+                  <pre>Product.any_instance.stubs(:save).returns(false)&#x000A;product_1 = Product.new&#x000A;assert_equal false, product_1.save&#x000A;product_2 = Product.new&#x000A;assert_equal false, product_2.save</pre>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-any_instance-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-i-any_instance-source'><span class="ruby-comment"># File lib/mocha/object.rb, line 205</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">any_instance</span>&#x000A;  <span class="ruby-ivar">@any_instance</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AnyInstance</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id='footer-push'></div>
+    </div>
+    <div id='footer'>
+      <a target="docwin" href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+    </div>
+  </body>
+</html>

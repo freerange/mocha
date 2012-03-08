@@ -1,0 +1,910 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+  <head>
+    <title>RELEASE.rdoc</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <link href='../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+      //<![CDATA[
+        function popupCode(url) {
+          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+        }
+        
+        function toggleCode(id) {
+          var code = document.getElementById(id)
+        
+          code.style.display = code.style.display != 'block' ? 'block' : 'none'
+          return true
+        }
+        
+        // Make codeblocks hidden by default
+        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+      //]]>
+    </script>
+  </head>
+  <body class='page'>
+    <div class='file' id='wrapper'>
+      <div class='header'>
+        <h1 class='name'>RELEASE.rdoc</h1>
+        <div class='paths'>
+          RELEASE.rdoc
+        </div>
+        <div class='last-update'>
+          Last Update:
+          <span class='datetime'>Thu Mar 08 16:39:35 +0000 2012</span>
+        </div>
+      </div>
+      <div id='content'>
+        <div id='text'>
+          <div id='description'>
+            
+            <h1 id="label-0.10.5+%28a5a64cf9755b21d4a30e446232654d1c0fc6f151%29">0.10.5 (a5a64cf9755b21d4a30e446232654d1c0fc6f151)</h1>
+            <ul><li>
+            <p>Fix for issue #66 (hopefully without regressing on issue #63) - <a
+            href="../classes/Mocha/Mock.html">Mocha::Mock</a> has Mocha::Mockery as a
+            dependency. Stop trying to pretend otherwise. Thanks to @kennyj for
+            reporting.</p>
+            </li><li>
+            <p>Fix a bunch of warnings in Ruby 1.9. There are still the 6 test failures
+            mentioned in issue #41 which I suspect are due to the introspection gem not
+            being Ruby 1.9-compatible.</p>
+            </li><li>
+            <p>Add links to <a href="README_rdoc.html">README</a> for source code &amp;
+            issue tracker.</p>
+            </li><li>
+            <p>Fix for issue #67 - Make the travis-ci badge visible in the <a
+            href="README_rdoc.html">README</a>. Thanks to Diego Plentz for pull
+            request.</p>
+            </li><li>
+            <p>Fix for issue #70 - Rename Mock#expectations to Mock#__expectations__ to
+            avoid conflicts. Thanks to Jeremy Stephens for pull request.</p>
+            </li></ul>
+            
+            <h1 id="label-0.10.4+%28babdd656c361ac65f25948104adf612e59174a5e%29">0.10.4 (babdd656c361ac65f25948104adf612e59174a5e)</h1>
+            <ul><li>
+            <p>Fix for issue #65 - expectations not being verified in subsequent tests.</p>
+            </li><li>
+            <p>Fix for issue #63 - require Mocha::Mockery at <a
+            href="../classes/Mocha/Mock.html">Mocha::Mock</a> class load time and not
+            on invocation of Mock#method_missing.</p>
+            </li><li>
+            <p>Fix for issue #45 - raise ArgumentError if <a
+            href="../classes/Mocha/ParameterMatchers.html#method-i-has_entry">Mocha::ParameterMatchers#has_entry</a>
+            is given</p>
+            </li></ul>
+            
+            <p>Hash with wrong number of entries.</p>
+            <ul><li>
+            <p>Make global variable name more obscure to avoid clashes with other
+            libraries.</p>
+            </li><li>
+            <p>Move travis-ci-related gemfiles into their own directory.</p>
+            </li></ul>
+            
+            <h1 id="label-0.10.3+%28e7f88af8e7c3396bc85fe9f9cb9e5f5fef04bea2%29">0.10.3 (e7f88af8e7c3396bc85fe9f9cb9e5f5fef04bea2)</h1>
+            <ul><li>
+            <p>Fix for issue #57. Gem::Requirement#=~ was only added in rubygems v1.8.0,
+            but Object#=~ means the result of various monkey-patching checks is always
+            false/nil for earlier versions of rubygems. However, the method it aliases
+            satisfied_by? has existed since Gem::Dependency was extracted from
+            Gem::Version in rubygems v0.9.4.4, so it’s much safer to use that. Thanks
+            to fguillen for reporting and helping with diagnosis.</p>
+            </li></ul>
+            
+            <h1 id="label-0.10.2+%28e05d9a555f1cf97c5961900dab0d884e9753257b%29">0.10.2 (e05d9a555f1cf97c5961900dab0d884e9753257b)</h1>
+            <ul><li>
+            <p>Merge pull request #53. Unstubbing a method should not remove expectations
+            for other stubbed methods. Fixes #52. Thanks to saikat.</p>
+            </li></ul>
+            
+            <h1 id="label-0.10.1+%28f631a4ba22c6ed4929c52b0520311a9a84034a20%29">0.10.1 (f631a4ba22c6ed4929c52b0520311a9a84034a20)</h1>
+            <ul><li>
+            <p>Merge pull request #51. Use Gem::Requirement &amp; Gem::Version for version
+            comparison. Fixes issue #50. Thanks to meineerde.</p>
+            </li><li>
+            <p>Fixed typo in rdoc for <a
+            href="../classes/Mocha/ObjectMethods.html">Mocha::ObjectMethods</a>.</p>
+            </li><li>
+            <p>Improve <a href="README_rdoc.html">README</a> as suggested in issue #46.
+            Explain that <a href="../classes/Mocha.html">Mocha</a> must be loaded after
+            test libraries and how to achieve this using Bundler.</p>
+            </li><li>
+            <p>Merge pull request #43 - nobody expects the spanish inquisition! Thanks to
+            cairo140.</p>
+            </li><li>
+            <p>Fix for issue #39 - improve documentation for Expectation#multiple_yields.</p>
+            </li><li>
+            <p>Fix for issue #38 where a subtle change in test-unit v2.3.0 had been missed
+            - only visible in verbose mode.</p>
+            </li><li>
+            <p>Support for MiniTest up to v2.6.2 has been verified.</p>
+            </li><li>
+            <p>Add explicit development dependency on coderay for generating
+            syntax-highlighted code examples.</p>
+            </li></ul>
+            
+            <h1 id="label-0.10.0+%2868a4a59e1af74baf3929af418f73f5627bba548d%29">0.10.0 (68a4a59e1af74baf3929af418f73f5627bba548d)</h1>
+            <ul><li>
+            <p>Add Expectation#throws to allow a stubbed method to use Kernel#throw.</p>
+            </li><li>
+            <p>Updates for versions of Test::Unit up to and including v2.3.3 (including
+            patch by Jens Fahnenbruck).</p>
+            </li><li>
+            <p>Updates for versions of MiniTest up to and including v2.5.1.</p>
+            </li><li>
+            <p>Since the singleton method added by <a
+            href="../classes/Mocha.html">Mocha</a> masks the underlying instance
+            method, there’s no need to move it out the way and then back again. This
+            fixes Github issue #20, because the original method is left unchanged - <a
+            href="https://github.com/floehopper/mocha/issues/20">github.com/floehopper/mocha/issues/20</a>
+            (thanks to Nick Lewis).</p>
+            </li><li>
+            <p>Handle stubbing of a singleton method, leaving the original method
+            unchanged after the test.</p>
+            </li><li>
+            <p>When stubbing an instance method that was originally defined as a singleton
+            method, the original method should still exist after the test.</p>
+            </li><li>
+            <p>Fixed mis-print in <a
+            href="../classes/Mocha/ObjectMethods.html#method-i-unstub">Mocha::ObjectMethods#unstub</a>
+            documentation (patch by Gleb Pomykalov).</p>
+            </li><li>
+            <p>Improved test coverage around stubbing of methods defined in different ways
+            - this makes use of the newly extracted introspection gem (although this
+            means some tests are now failing in Ruby v1.9.2).</p>
+            </li><li>
+            <p>Added configuration for Travis continuous integration.</p>
+            </li><li>
+            <p>Make the gemspec the canonical reference and stop generating it from the
+            Rakefile.</p>
+            </li><li>
+            <p>Use the built-in Bundler rake tasks for packaging the gem.</p>
+            </li><li>
+            <p>Use the “release” rake task provided by Bundler instead of using the
+            Rake::XForge::Release functionality.</p>
+            </li><li>
+            <p>Extract Object#__metaclass__ into a new metaclass gem.</p>
+            </li><li>
+            <p>Run rake tasks without `bundle exec`.</p>
+            </li><li>
+            <p>Avoid deprecation warning for rdoc rake task.</p>
+            </li><li>
+            <p>Remove the `use_test_unit_gem` MOCHA_OPTION which hasn’t worked since we
+            switched to bundler - we can now run the tests specifying a different
+            Gemfile instead.</p>
+            </li><li>
+            <p>Use multiple Gemfiles seems to run Travis CI builds against multiple
+            version of test-unit &amp; minitest.</p>
+            </li></ul>
+            
+            <h1 id="label-0.9.12+%288bb523e8467626c23b271eb529c33fb118e368fe%29">0.9.12 (8bb523e8467626c23b271eb529c33fb118e368fe)</h1>
+            <ul><li>
+            <p>Make Mocha’s tests pass under Ruby 1.9.2 i.e. using MiniTest. One of the
+            main issues was that we were not parsing stacktraces on MiniTest errors
+            comprehensively enough.</p>
+            </li><li>
+            <p>Avoid ‘circular require considered harmful’ warning when running
+            Mocha’s tests in Ruby 1.9.2</p>
+            </li><li>
+            <p>Make performance tests work on Ruby 1.9.2 i.e. using MiniTest.</p>
+            </li><li>
+            <p>Declare rake as a <strong>development</strong> dependency with newer
+            versions of Rubygems since it’s only needed to carry out
+            developer-related tasks.</p>
+            </li></ul>
+            
+            <h1 id="label-0.9.11+%281613ed2267fef5927ea06adfdbcf512b89eadaad%29">0.9.11 (1613ed2267fef5927ea06adfdbcf512b89eadaad)</h1>
+            <ul><li>
+            <p>Added explicit support for minitest v1.5.0 to v2.0.2.</p>
+            </li><li>
+            <p>Make testable by rubygems-test.</p>
+            </li><li>
+            <p>Update links to my blog and make other links consistent.</p>
+            </li><li>
+            <p>Added a URI parameter matcher that ignores the order of query parameters so
+            that tests can be independent of undefined hash ordering (patch by Paul
+            Battley).</p>
+            </li><li>
+            <p>Include unexpected invocation in failure message and change the language
+            slightly to make the failure message less confusing. See <a
+            href="http://floehopper.lighthouseapp.com/projects/22289/tickets/52.">floehopper.lighthouseapp.com/projects/22289/tickets/52.</a></p>
+            </li><li>
+            <p>No need to create regular expression every time the
+            BacktraceFilter#filtered method is called. See <a
+            href="http://floehopper.lighthouseapp.com/projects/22289-mocha/tickets/66.">floehopper.lighthouseapp.com/projects/22289-mocha/tickets/66.</a></p>
+            </li></ul>
+            
+            <h1 id="label-0.9.10+%2831182ea8b38b79aa50702aa839f6a29ebcf7d684%29">0.9.10 (31182ea8b38b79aa50702aa839f6a29ebcf7d684)</h1>
+            <ul><li>
+            <p>Added <a
+            href="../classes/Mocha/ObjectMethods.html#method-i-unstub">Mocha::ObjectMethods#unstub</a>
+            method - <a
+            href="https://github.com/floehopper/mocha/issues#issue/6">github.com/floehopper/mocha/issues#issue/6</a></p>
+            </li><li>
+            <p>Inherit Mocha::ExpectationError from Exception instead of StandardError to
+            reduce the chances of a test passing by accident - thanks to James Sanders
+            (jsanders) - <a
+            href="https://github.com/floehopper/mocha/issues#issue/15">github.com/floehopper/mocha/issues#issue/15</a></p>
+            </li><li>
+            <p>Fixed bug - GitHub <a href="README_rdoc.html">README</a> page to link
+            correctly to code examples - <a
+            href="https://github.com/floehopper/mocha/issues/closed#issue/11">github.com/floehopper/mocha/issues/closed#issue/11</a></p>
+            </li><li>
+            <p>Fixed bug - PASSTHROUGH_EXCEPTIONS are defined on MiniTest::Unit::TestCase
+            not in <a href="../classes/Mocha.html">Mocha</a> - thanks to Brian
+            Troutwine (blt) - <a
+            href="https://github.com/floehopper/mocha/issues/closed#issue/14">github.com/floehopper/mocha/issues/closed#issue/14</a></p>
+            </li></ul>
+            
+            <h1 id="label-0.9.9+%28ee3a79db4d52c3339e8acf07505e01236a2b4810%29">0.9.9 (ee3a79db4d52c3339e8acf07505e01236a2b4810)</h1>
+            <ul><li>
+            <p>Avoid loading bits of the test-unit gem by accident. This is an attempt at
+            a fix for the problem that James Adam reported [1]. By using ‘load’
+            instead of ‘require’ to detect the version of Test::Unit, we can avoid
+            rubygems trying to load bits of the test-unit gem when it’s not wanted.
+            [1] <a
+            href="http://floehopper.lighthouseapp.com/projects/22289-mocha/tickets/50#ticket-50-13">floehopper.lighthouseapp.com/projects/22289-mocha/tickets/50#ticket-50-13</a></p>
+            </li><li>
+            <p>Fix exception when running rake without test-unit gem. When test-unit gem
+            &gt;=v2.0.0 was installed but the “use_test_unit_gem” MOCHA_OPTIONS was
+            not specified, a “comparison of Fixnum with Hash failed” exception was
+            being raised when running the performance tests. This was because bits of
+            the test-unit gem were being loaded accidentally and a Hash was being
+            incorrectly supplied to the TestRunner.run method.</p>
+            </li><li>
+            <p>Explicitly require rubygems for running tests via rake using test-unit gem.</p>
+            </li><li>
+            <p>Handle newer versions of test-unit gem (v2.0.2 to v2.0.9)</p>
+            </li><li>
+            <p>Handle newer versions of minitest gem (v1.4.0 to v1.6.0)</p>
+            </li><li>
+            <p>Added warnings about monkey-patching test-unit and minitest to aid
+            debugging. These are enabled by including “debug” in the MOCHA_OPTIONS
+            environment variable. This is now a comma-separated list, so that we can
+            specify multiple options e.g. MOCHA_OPTIONS=debug,use_test_unit_gem</p>
+            </li><li>
+            <p>Eloy Duran (alloy) made the unit tests run on 1.9.2dev r25249.</p>
+            </li><li>
+            <p>Eloy Duran (alloy) also improved some MiniTest TestResult code I’d
+            written and got the acceptance tests running on Ruby 1.9 HEAD. There are
+            still 4 failures because for some reason the backtrace line numbers are off
+            by one. And the minitest_test test case does not run when the whole suite
+            is run with MiniTest. These issues still need investigation.</p>
+            </li><li>
+            <p>Fixed some acceptance tests to run in Ruby 1.9.2 - it’s no longer
+            possible to subvert the protection of a method by calling it via
+            Object#send.</p>
+            </li><li>
+            <p>Fixed “test:performance” rake task so it runs in Ruby 1.9.2.</p>
+            </li><li>
+            <p>Fix test incorrectly failing under Rubinius 1.0. This test imposed too many
+            constraints. It appears that Object#inspect legitimately calls
+            Object#object_id in Rubinius. But we’re only interested in what ‘id’
+            methods Mocha::ObjectMethods#mocha_inspect calls. By stubbing
+            Object#inspect we can relax the constraints imposed by the test.</p>
+            </li><li>
+            <p>Luke Redpath (lukeredpath) added new shorthand “any” and “all”
+            composite parameter matchers using “&amp;” and “|”. This provides
+            an alternative syntax for expecting any or all matchers to pass, e.g.
+            foo.expects(:bar).with(equals(1) | equals(2)).</p>
+            </li><li>
+            <p>Improved documentation for Expectation#raises. A number of people have
+            suggested an extension to the API to cope with custom exceptions that have
+            extra constructor parameters. However, since the arguments supplied to
+            Expectation#raises are just passed on to Kernel#raise, it’s possible to
+            pass in an instance of an exception. Thus no change to the API is required,
+            but it does seem worthwhile pointing this out in the docs.</p>
+            </li><li>
+            <p>Corrected RDoc example for Expectation#never thanks to Red David
+            (reddavis).</p>
+            </li><li>
+            <p>Improved RDoc including a change suggested by Rohit Arondekar (rohit).</p>
+            </li><li>
+            <p>Updated gemspec as requested by Sam Woodard (shwoodard).</p>
+            </li></ul>
+            
+            <h1 id="label-0.9.8+%28645024765b2d92018efc511652e1174163844e39%29">0.9.8 (645024765b2d92018efc511652e1174163844e39)</h1>
+            <ul><li>
+            <p>Fixed bug “NameError raised when using <a
+            href="../classes/Mocha.html">Mocha</a> as a Rails plug-in” - <a
+            href="http://floehopper.lighthouseapp.com/projects/22289/tickets/53.">floehopper.lighthouseapp.com/projects/22289/tickets/53.</a>
+            Since 0.9.6 the Rails plugin has been broken. See bug report for details.
+            You will need to explicitly load <a href="../classes/Mocha.html">Mocha</a>
+            <strong>after</strong> the test framework has been loaded, e.g. by adding
+            “require ‘mocha’” at the bottom of test/test_helper.rb.</p>
+            </li><li>
+            <p>Make <a
+            href="../classes/Mocha/ParameterMatchers.html#method-i-regexp_matches">Mocha::ParameterMatchers#regexp_matches</a>,
+            includes, has_value, has_key more robust. Thanks to Sander Hartlage.</p>
+            </li><li>
+            <p>Allow passing a block to <a
+            href="../classes/Mocha/Configuration.html">Mocha::Configuration</a> methods
+            to only change configuration for the duration of the block. Thanks to Dan
+            Manges.</p>
+            </li><li>
+            <p>Fixed bug “doc generation fails in 0.9.7 gem” - <a
+            href="http://floehopper.lighthouseapp.com/projects/22289/tickets/51.">floehopper.lighthouseapp.com/projects/22289/tickets/51.</a></p>
+            </li><li>
+            <p>Remove rdoc template incorporating google analytics from source control.
+            The file just needs to exist locally and be ignored by source control. This
+            should stop the warning showing up on e.g. RunCodeRun build results.</p>
+            </li></ul>
+            
+            <h1 id="label-0.9.7+%2880d816f250dc13aaf856f3f9cbd97ebe9c371839%29">0.9.7 (80d816f250dc13aaf856f3f9cbd97ebe9c371839)</h1>
+            <ul><li>
+            <p>Although I had provided a deprecation warning for people using
+            Mocha::Standalone, I had assumed people wouldn’t be explicitly loading
+            the mocha/standalone.rb file. It turns out this assumption was incorrect at
+            least in the case of Rspec. This is now fixed.</p>
+            </li></ul>
+            
+            <h1 id="label-0.9.6+%2857f8f77d715b7f1d9efee2e1a9438f7905c0006b%29">0.9.6 (57f8f77d715b7f1d9efee2e1a9438f7905c0006b)</h1>
+            <ul><li>
+            <p>Version 2.0.1 of the test-unit gem introduced a private ‘run_test’
+            method on TestCase which clashed with the public TestRunner#run_test
+            method. So this latter method has been renamed to ‘run_as_test’.</p>
+            </li><li>
+            <p>Stop requiring rubygems - this should be an environmental choice for the
+            user. <a target="_top" href="http://gist.github.com/54177">gist.github.com/54177</a> -
+            describes why requiring rubygems in your library code is a bad idea.</p>
+            </li><li>
+            <p>It seems like overkill to vendorize coderay and meta_project when they’re
+            only needed to generate the examples for documentation and for publishing
+            files on RubyForge. So I’m removing them and installing them locally as
+            gems when I need them.</p>
+            </li><li>
+            <p>Added support for ‘test-unit’ gem (version &gt;= 2.0). Note that as
+            with other versions of Test::Unit I’m completely replacing the
+            TestCase#run method. Unfortunately in version 2.0.0 this method differs
+            slightly from the same method in version 2.0.1 &amp; 2.0.2, so we have to
+            provide different implementations to ensure that the internal working of
+            Test::Unit are not compromised by <a
+            href="../classes/Mocha.html">Mocha</a>. Note also that unless the
+            ‘test-unit’ gem is loaded, requiring ‘test/unit’ leads to a mixture
+            of stdlib and gem classes being loaded causing errors. To avoid a
+            dependency on rubygems, the gem is loaded only if MOCHA_OPTIONS is set to
+            ‘use_test_unit_gem’ - this option is only intended for use in running
+            Mocha’s own tests. It might be worthwhile to create a shim gem like
+            minitest_tu_shim to allow the test-unit gem to completely replace the
+            stdlib, but that’s a job for another day. The changes in the Rakefile are
+            to make the default task run with the ‘test-unit’ gem (version &gt;=
+            2.0).</p>
+            </li><li>
+            <p>Renamed Mocha::Standalone to <a
+            href="../classes/Mocha/API.html">Mocha::API</a> to better reflect its
+            purpose. Added a deprecation warning for those who are referencing
+            Mocha::Standalone.</p>
+            </li><li>
+            <p>Fix exception raised by HasEntry#matches? if first param is not a Hash
+            (thanks to Taylor Barstow).</p>
+            </li><li>
+            <p>Ken Collins reported [1] that <a href="../classes/Mocha.html">Mocha</a> is
+            always loading MiniTest if it is available and loading it causes some
+            Rails/ActionPack tests to break. I’ve removed the loading of MiniTest,
+            but this now means the user has to ensure that if they want to use MiniTest
+            in conjunction with <a href="../classes/Mocha.html">Mocha</a>, he must load
+            MiniTest before loading <a href="../classes/Mocha.html">Mocha</a>. [1] <a
+            href="http://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/2060">rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/2060</a></p>
+            </li><li>
+            <p>Implemented Bacon integration (thanks to Ubiratan Pires Alberton), but this
+            was then removed after deciding only to maintain integration with
+            Test::Unit and MiniTest which are both Ruby standard libraries. See mailing
+            list for details.</p>
+            </li><li>
+            <p>Don’t monkey-patch MiniTest if it’s already been monkey-patched by <a
+            href="../classes/Mocha.html">Mocha</a>.</p>
+            </li><li>
+            <p>Fixed bug: MiniTest integration was counting ExpectationErrors as errors
+            not failures. <a
+            href="http://floehopper.lighthouseapp.com/projects/22289-mocha/tickets/41.">floehopper.lighthouseapp.com/projects/22289-mocha/tickets/41.</a></p>
+            </li><li>
+            <p>Fixed bug: Some Bacon tests were failing in Ruby 1.9.1. <a
+            href="http://floehopper.lighthouseapp.com/projects/22289-mocha/tickets/43.">floehopper.lighthouseapp.com/projects/22289-mocha/tickets/43.</a></p>
+            </li><li>
+            <p>Chad Humphries pointed out that in Ruby 1.9.1, if you are not using
+            Test::Unit or MiniTest, <a href="../classes/Mocha.html">Mocha</a> will
+            attempt to load and monkey-patch Test::Unit. <a
+            href="../classes/Mocha.html">Mocha</a> will now only monkey-patch
+            Test::Unit and/or MiniTest if they have already been loaded. MiniTest tests
+            will now run in both Ruby 1.8.6 (with MiniTest gem) and in Ruby 1.9.1 (with
+            MiniTest std lib). See Ligthouse ticket - <a
+            href="http://floehopper.lighthouseapp.com/projects/22289/tickets/49.">floehopper.lighthouseapp.com/projects/22289/tickets/49.</a></p>
+            </li><li>
+            <p>Made <a href="../classes/Mocha.html">Mocha</a> compatible with minitest
+            1.4.0 and above (thanks to Denis Defreyne).</p>
+            </li></ul>
+            
+            <h1 id="label-0.9.5+%2893cad010345ce5d68f31422cfc32ed9dd6de13ec%29">0.9.5 (93cad010345ce5d68f31422cfc32ed9dd6de13ec)</h1>
+            <ul><li>
+            <p>Fixed Lighthouse bug #32 - stub_everything should mean mock responds to
+            anything.</p>
+            </li><li>
+            <p>Added Expectation#twice to improve readability. Thanks to pull request from
+            Celestino Gomes.</p>
+            </li><li>
+            <p>In Ruby 1.9.1, requiring ‘test/unit’ loads a thin wrapper around
+            MiniTest and Test::Unit::TestCase ends up inheriting from
+            MiniTest::Unit::TestCase. So we need to avoid including the <a
+            href="../classes/Mocha.html">Mocha</a> modules more than once to avoid
+            nasty consequences. Thanks to Matthias Hennemeyer for help with this.</p>
+            </li><li>
+            <p>Ruby 1.9 includes rake, but not rake/contrib. For the moment I’ve moved
+            the sshpublisher require into the only rake task that needs it, so that I
+            can at least run the tests in Ruby 1.9. It looks like I will need to build
+            a rake/contrib gem or similar to get this working properly - <a
+            href="http://intertwingly.net/blog/2008/01/07/Rake-Contrib-for-1-9">intertwingly.net/blog/2008/01/07/Rake-Contrib-for-1-9</a></p>
+            </li></ul>
+            
+            <h1 id="label-0.9.4+%288a59c6ff0f99f34b02bd99f19536a7893be2b340%29">0.9.4 (8a59c6ff0f99f34b02bd99f19536a7893be2b340)</h1>
+            <ul><li>
+            <p>Added mocha.gemspec file generated with Chad Woolley’s new rake task, so
+            that a floehopper-mocha gem will get built on GitHub.</p>
+            </li><li>
+            <p>Add rake task to update mocha.gemspec with unique version, which will cause
+            gem to be auto-built on github</p>
+            </li><li>
+            <p>As Tobias Crawley correctly pointed out in feature request #23055
+            “stubs(with_hash) not working with existing object” [1], following the
+            principle of least surprise, it should be possible to call
+            ObjectMethods#expects &amp; ObjectMethods#stubs with a Hash of method_names
+            vs return_values like you can with Mock#expects &amp; Mock#stubs. I’ve
+            also updated &amp; improved the docs to reflect the changes. [1] <a
+            href="http://rubyforge.org/tracker/index.php?func=detail&aid=23055&group_id=1917&atid=7480">rubyforge.org/tracker/index.php?func=detail&aid=23055&group_id=1917&atid=7480</a></p>
+            </li><li>
+            <p>Removed deprecated gem autorequire.</p>
+            </li></ul>
+            
+            <h1 id="label-0.9.3+%288219bb2d2881c8529c93fc21e97a11d01203c759%29">0.9.3 (8219bb2d2881c8529c93fc21e97a11d01203c759)</h1>
+            <ul><li>
+            <p>Added support for MiniTest thanks to Jeff Smick.</p>
+            </li><li>
+            <p>Fixed a possible bug with some of the non-default Configuration options
+            relating to the argument to Object#respond_to?</p>
+            </li><li>
+            <p>As per Jay Fields recommendations [1] and with further impetus from a talk
+            at Ruby Manor, any methods added to core classes are now added by including
+            a module. This means that <a href="../classes/Mocha.html">Mocha</a> is a
+            better citizen of the Ruby world and it’s behaviour is more easily
+            extended. [1] <a
+            href="http://blog.jayfields.com/2008/07/ruby-underuse-of-modules.html">blog.jayfields.com/2008/07/ruby-underuse-of-modules.html</a>
+            &amp; <a
+            href="http://blog.jayfields.com/2008/07/ruby-redefine-method-behavior.html">blog.jayfields.com/2008/07/ruby-redefine-method-behavior.html</a></p>
+            </li><li>
+            <p>Removed deprecated gem autorequire.</p>
+            </li></ul>
+            
+            <h1 id="label-0.9.2+%28r355%29">0.9.2 (r355)</h1>
+            <ul><li>
+            <p>Improved documentation to address [#22530] ‘Mock methods with multiple
+            return values not possible?’</p>
+            </li><li>
+            <p>respond_with parameter matcher was not available in tests.</p>
+            </li><li>
+            <p>Patch [#22630] Fix for a bug in running Rails tests with Ruby 1.8.7.
+            Array#flatten was being called which in turn was checking whether each
+            element responded to to_ary. This check was using the two parameter version
+            of respond_to?, but Mock was only defining a one parameter version.</p>
+            </li></ul>
+            
+            <h1 id="label-0.9.1+%28r349%29">0.9.1 (r349)</h1>
+            <ul><li>
+            <p>Fixed bug #21465 - expects &amp; stubs should support method names as
+            strings (as well as symbols) or fail fast. Convert all expectation method
+            names to a symbol in case they were supplied as a string.</p>
+            </li><li>
+            <p>By removing Mock#unexpected_method_called we reduce the number of methods
+            vulnerable to the problem that surfaced in bug #21563.</p>
+            </li><li>
+            <p>Fix bug #21563 - stubbing ‘verified?’ method is unsafe. Instance method
+            names on the Mock class should be more obscure.</p>
+            </li><li>
+            <p>Performance improvement. StubbaExampleTest goes twice as fast on my local
+            machine.</p>
+            </li><li>
+            <p>Added primitive performance test to default rake task.</p>
+            </li><li>
+            <p>Fix format of case statements which don’t work in Ruby 1.9 and make
+            others consistent.</p>
+            </li><li>
+            <p>There is no point in running (potentially expensive) checks if
+            configuration is set to allow such checks to fail. This is a relatively
+            quick fix in response to Chris McGrath’s performance problems.</p>
+            </li><li>
+            <p>Fix for bug #21161 - ‘uninitialized constant Deprecation in stubba.rb’.</p>
+            </li><li>
+            <p>It’s more readable to talk about ‘once’ and ‘twice’ rather than
+            ‘1 time’ and ‘2 times’.</p>
+            </li><li>
+            <p>Fix bug #20883 - never should raise when called to prevent follow up
+            errors. Fail fast when there are no matching invokable expectations and
+            handle the stub_everything case sensibly. This might not be entirely
+            backwards compatible, but I think the benefits outweigh the risks. The most
+            likely change is that a test that was already failing will now fail faster,
+            which doesn’t seem so awful.</p>
+            </li></ul>
+            
+            <h1 id="label-0.9.0+%28r316%29">0.9.0 (r316)</h1>
+            <ul><li>
+            <p>Configurable warnings or errors</p>
+            <ul><li>
+            <p>when a method on a non-public method is stubbed</p>
+            </li><li>
+            <p>when a method on a non-existent method is stubbed</p>
+            </li><li>
+            <p>when a method on a non-mock object is stubbed</p>
+            </li><li>
+            <p>when a method is stubbed unnecessarily (i.e. the stubbed method is not
+            called during the test)</p>
+            </li></ul>
+            </li><li>
+            <p>Improved error messages</p>
+            <ul><li>
+            <p>User-friendly list of unsatisfied expectations, satisfied expectations and
+            state machines.</p>
+            </li><li>
+            <p>Improved readability of cardinality description.</p>
+            </li><li>
+            <p>Display sensible failure message for any_instance expectations e.g.
+            “#&lt;AnyInstance:Foo&gt;.bar - expected calls: 1, actual calls: 0”</p>
+            </li></ul>
+            </li><li>
+            <p>Parameter matchers</p>
+            <ul><li>
+            <p>New to this release</p>
+            <ul><li>
+            <p>optionally (allows matching of optional parameters if available)</p>
+            </li><li>
+            <p>yaml_equivalent (allows matching of YAML that represents the specified
+            object)</p>
+            </li><li>
+            <p>responds_with (tests the quack not the duck)</p>
+            </li></ul>
+            </li><li>
+            <p>Nesting of parameter matchers is now supported.</p>
+            </li></ul>
+            </li><li>
+            <p>Optional block passed into mock initializer is evaluated in the context of
+            the new mock instance and can be used as a shortcut to set up expectations.</p>
+            </li><li>
+            <p>Added JMock-style sequences for constraining the order of expected
+            invocations. See Standalone#sequence and Expectation#in_sequence.</p>
+            </li><li>
+            <p>Added JMock-style states for constraining the order of expected
+            invocations. See Standalone#states, Expectation#then, Expectation#when and
+            StateMachine.</p>
+            </li><li>
+            <p>Compatibility with versions of Ruby</p>
+            <ul><li>
+            <p>Compatibility with Ruby v1.9. All test errors and warnings fixed.</p>
+            </li><li>
+            <p>Nasty fix so that TestCaseAdaptor works consistently with earlier versions
+            of Test::Unit as well as more recent versions.</p>
+            </li><li>
+            <p>Added platform to gem specification to avoid bug in rubygems 0.9.5 - see <a
+            href="http://www.dcmanges.com/blog/rubygems-0-9-5-platform-bug">www.dcmanges.com/blog/rubygems-0-9-5-platform-bug</a>
+            and <a
+            href="http://rubygems.org/read/chapter/20#platform">rubygems.org/read/chapter/20#platform</a>.</p>
+            </li><li>
+            <p>Make ExpectationRaiser deal with subclasses of Interrupt which seem to need
+            a message supplied in the raise statement in Ruby 1.8.6 (but not 1.8.4 or
+            1.9). Not sure this is really Mocha’s responsibility.</p>
+            </li></ul>
+            </li><li>
+            <p>Added deprecation warning in stubba.rb which is no longer needed and will
+            be removed.</p>
+            </li><li>
+            <p>Supply positioning information to evals to improve any error messages. See
+            <a
+            href="http://ola-bini.blogspot.com/2008/01/ruby-antipattern-using-eval-without.html">ola-bini.blogspot.com/2008/01/ruby-antipattern-using-eval-without.html</a></p>
+            </li><li>
+            <p>Bug fixes</p>
+            <ul><li>
+            <p>18914 in revision 296 - <a
+            href="http://rubyforge.org/tracker/index.php?func=detail&aid=18914&group_id=1917&atid=7477">rubyforge.org/tracker/index.php?func=detail&aid=18914&group_id=1917&atid=7477</a></p>
+            </li><li>
+            <p>18917 in revision 295 - <a
+            href="http://rubyforge.org/tracker/index.php?func=detail&aid=18917&group_id=1917&atid=7477">rubyforge.org/tracker/index.php?func=detail&aid=18917&group_id=1917&atid=7477</a></p>
+            </li><li>
+            <p>18336 in revision 287 - <a
+            href="http://rubyforge.org/tracker/index.php?func=detail&aid=18336&group_id=1917&atid=7477">rubyforge.org/tracker/index.php?func=detail&aid=18336&group_id=1917&atid=7477</a></p>
+            </li><li>
+            <p>17835 in revision 255 - <a
+            href="http://rubyforge.org/tracker/index.php?func=detail&aid=17835&group_id=1917&atid=7477">rubyforge.org/tracker/index.php?func=detail&aid=17835&group_id=1917&atid=7477</a></p>
+            </li><li>
+            <p>17412 in revision 242 - <a
+            href="http://rubyforge.org/tracker/index.php?func=detail&aid=17412&group_id=1917&atid=7477">rubyforge.org/tracker/index.php?func=detail&aid=17412&group_id=1917&atid=7477</a></p>
+            </li><li>
+            <p>15977 in revision 198 - <a
+            href="http://rubyforge.org/tracker/index.php?func=detail&aid=15977&group_id=1917&atid=7477">rubyforge.org/tracker/index.php?func=detail&aid=15977&group_id=1917&atid=7477</a></p>
+            </li><li>
+            <p>11885 in revision 156 - <a
+            href="http://rubyforge.org/tracker/index.php?func=detail&aid=11885&group_id=1917&atid=7477">rubyforge.org/tracker/index.php?func=detail&aid=11885&group_id=1917&atid=7477</a></p>
+            </li></ul>
+            </li></ul>
+            
+            <h1 id="label-0.5.5+%28r167%29">0.5.5 (r167)</h1>
+            <ul><li>
+            <p>Renamed Matches parameter matcher to RegexpMatches for clarity.</p>
+            </li><li>
+            <p>Added noframes tag to rdoc index to assist Google.</p>
+            </li></ul>
+            
+            <h1 id="label-0.5.4+%28r166%29">0.5.4 (r166)</h1>
+            <ul><li>
+            <p>Added matches parameter matcher for matching regular expressions.</p>
+            </li></ul>
+            
+            <h1 id="label-0.5.3+%28r165%29">0.5.3 (r165)</h1>
+            <ul><li>
+            <p>Attempt to fix packaging problems by switching to newer version (1.15.1) of
+            gnutar and setting COPY_EXTENDED_ATTRIBUTES_DISABLE environment variable.</p>
+            </li><li>
+            <p>Removed unused ExpectationSequenceError exception.</p>
+            </li><li>
+            <p>Added instance_of and kind_of parameter matchers.</p>
+            </li><li>
+            <p>Added Google Webmaster meta tag to rdoc template header.</p>
+            </li><li>
+            <p>Put Google Webmaster meta tag in the right header i.e. the one for the
+            index page.</p>
+            </li></ul>
+            
+            <h1 id="label-0.5.2+%28r159%29">0.5.2 (r159)</h1>
+            <ul><li>
+            <p>Fix bug 11885 - “never doesn’t work with stub_everything” submitted
+            by Alexander Lang. In fixing this bug, also fixed undiscoverd bug where
+            expected &amp; actual invocation counts were being incorrectly reported
+            which seems to have been introduced when fixes were added for invocation
+            dispatch (see MockedMethodDispatchAcceptanceTest).</p>
+            </li><li>
+            <p>Previously when an expectation did not allow more invocations, it was
+            treated as not matching. Now we prefer matching expectations which allow
+            more invocations, but still match expectations which cannot allow more
+            invocations. I think this may be overcomplicating things, but let’s see
+            how it goes.</p>
+            </li></ul>
+            
+            <h1 id="label-0.5.1+%28r149%29">0.5.1 (r149)</h1>
+            <ul><li>
+            <p>Fixed bug #11583 “<a href="../classes/Mocha.html">Mocha</a> 0.5.0
+            throwing unexpected warnings”. Also switched on ruby warning for all rake
+            test tasks. Fixed majority of warnings, but some left to fix.</p>
+            </li></ul>
+            
+            <h1 id="label-0.5.0+%28r147%29">0.5.0 (r147)</h1>
+            <ul><li>
+            <p>Parameter Matchers - I’ve added a few Hamcrest-style parameter matchers
+            which are designed to be used inside Expectation#with. The following
+            matchers are currently available: anything(), includes(), has_key(),
+            has_value(), has_entry(), all_of() &amp; any_of(). More to follow soon. The
+            idea is eventually to get rid of the nasty parameter_block option on
+            Expectation#with.</p>
+            
+            <p>object = mock() object.expects(:method).with(has_key(‘key_1’))
+            object.method(‘key_1’ =&gt; 1, ‘key_2’ =&gt; 2) # no verification
+            error raised</p>
+            
+            <p>object = mock() object.expects(:method).with(has_key(‘key_1’))
+            object.method(‘key_2’ =&gt; 2) # verification error raised, because
+            method was not called with Hash containing key: ‘key_1’</p>
+            </li><li>
+            <p>Values Returned and Exceptions Raised on Consecutive Invocations - Allow
+            multiple calls to Expectation#returns and Expectation#raises to build up a
+            sequence of responses to invocations on the mock. Added syntactic sugar
+            method Expectation#then to allow more readable expectations.</p>
+            
+            <p>object = mock() object.stubs(:method).returns(1,
+            2).then.raises(Exception).then.returns(4) object.method # =&gt; 1
+            object.method # =&gt; 2 object.method # =&gt; raises exception of class
+            Exception object.method # =&gt; 4</p>
+            </li><li>
+            <p>Yields on Consecutive Invocations - Allow multiple calls to yields on
+            single expectation to allow yield parameters to be specified for
+            consecutive invocations.</p>
+            
+            <p>object = mock() object.stubs(:method).yields(1, 2).then.yields(3)
+            object.method { |*values| p values } # =&gt; [1, 2] object.method {
+            |*values| p values } # =&gt; [3]</p>
+            </li><li>
+            <p>Multiple Yields on Single Invocation - Added Expectation#multiple_yields to
+            allow a mocked or stubbed method to yield multiple times for a single
+            invocation.</p>
+            
+            <p>object = mock() object.stubs(:method).multiple_yields([1, 2], [3])
+            object.method { |*values| p values } # =&gt; [1, 2] # =&gt; [3]</p>
+            </li><li>
+            <p>Invocation Dispatch - Expectations were already being matched in reverse
+            order i.e. the most recently defined one was being found first. This is
+            still the case, but we now stop matching an expectation when its maximum
+            number of expected invocations is reached. c.f. JMock v1. A stub will never
+            stop matching by default. Hopefully this means we can soon get rid of the
+            need to pass a Proc to Expectation#returns.</p>
+            
+            <p>object = mock() object.stubs(:method).returns(2)
+            object.expects(:method).once.returns(1) object.method # =&gt; 1
+            object.method # =&gt; 2 object.method # =&gt; 2 # no verification error
+            raised</p>
+            
+            <p># The following should still work…</p>
+            
+            <p>Time.stubs(:now).returns(Time.parse(‘Mon Jan 01 00:00:00 UTC 2007’))
+            Time.now # =&gt; Mon Jan 01 00:00:00 UTC 2007
+            Time.stubs(:now).returns(Time.parse(‘Thu Feb 01 00:00:00 UTC 2007’))
+            Time.now # =&gt; Thu Feb 01 00:00:00 UTC 2007</p>
+            </li><li>
+            <p>Deprecate passing an instance of Proc to Expectation#returns.</p>
+            </li><li>
+            <p>Explicitly include all Rakefile dependencies in project.</p>
+            </li><li>
+            <p>Fixed old Stubba example.</p>
+            </li><li>
+            <p>Fix so that it is possible for a stubbed method to raise an Interrupt
+            exception without a message in Ruby 1.8.6</p>
+            </li><li>
+            <p>Added responds_like and quacks_like.</p>
+            </li><li>
+            <p>Capture standard object methods before <a
+            href="../classes/Mocha.html">Mocha</a> adds any.</p>
+            </li><li>
+            <p>Added Expectation#once method to make interface less surprising.</p>
+            </li><li>
+            <p>Use Rake::TestTask to run tests. Created three separate tasks to run unit,
+            integration &amp; acceptance tests. Split inspect_test into one file per
+            TestCase. Deleted superfluous all_tests file.</p>
+            </li><li>
+            <p>Fiddled with mocha_inspect and tests to give more sensible results on x86
+            platform.</p>
+            </li><li>
+            <p>Fixed bug #7834 “infinite_range.rb makes incorrect assumption about
+            to_f” logged by James Moore.</p>
+            </li></ul>
+            
+            <h1 id="label-0.4.0+%28r92%29">0.4.0 (r92)</h1>
+            <ul><li>
+            <p>Allow naming of mocks (patch from Chris Roos).</p>
+            </li><li>
+            <p>Specify multiple return values for consecutive calls.</p>
+            </li><li>
+            <p>Improved consistency of expectation error messages.</p>
+            </li><li>
+            <p>Allow mocking of <a href="../classes/Object.html">Object</a> instance
+            methods e.g. kind_of?, type.</p>
+            </li><li>
+            <p>Provide aliased versions of expects and stubs to allow mocking of these
+            methods.</p>
+            </li><li>
+            <p>Added at_least, at_most, at_most_once methods to expectation.</p>
+            </li><li>
+            <p>Allow expects and stubs to take a hash of method and return values.</p>
+            </li><li>
+            <p>Eliminate warning: “instance variable @yield not initialized” (patch
+            from Xavier Shay).</p>
+            </li><li>
+            <p>Restore instance methods on partial mocks (patch from Chris Roos).</p>
+            </li><li>
+            <p>Allow stubbing of a method with non-word characters in its name (patch from
+            Paul Battley).</p>
+            </li><li>
+            <p>Removed coupling to Test::Unit.</p>
+            </li><li>
+            <p>Allow specified exception instance to be raised (patch from Chris Roos).</p>
+            </li><li>
+            <p>Make mock object_id appear in hex like normal Ruby inspect (patch from Paul
+            Battley).</p>
+            </li><li>
+            <p>Fix path to object.rb in rdoc rake task (patch from Tomas Pospisek).</p>
+            </li><li>
+            <p>Reverse order in which expectations are matched, so that last expectation
+            is matched first. This allows e.g. a call to stubs to be effectively
+            overridden by a call to expects (patch from Tobias Lutke).</p>
+            </li><li>
+            <p>Stubba &amp; SmartTestCase modules incorporated into <a
+            href="../classes/Mocha.html">Mocha</a> module so only need to require
+            ‘mocha’ - no longer need to require ‘stubba’.</p>
+            </li><li>
+            <p>AutoMocha removed.</p>
+            </li></ul>
+            
+            <h1 id="label-0.3.3">0.3.3</h1>
+            <ul><li>
+            <p>Quick bug fix to restore instance methods on partial mocks (for Kevin
+            Clark).</p>
+            </li></ul>
+            
+            <h1 id="label-0.3.2">0.3.2</h1>
+            <ul><li>
+            <p>Examples added.</p>
+            </li></ul>
+            
+            <h1 id="label-0.3.1">0.3.1</h1>
+            <ul><li>
+            <p>Dual licensing with MIT license added.</p>
+            </li></ul>
+            
+            <h1 id="label-0.3.0">0.3.0</h1>
+            <ul><li>
+            <p>Rails plugin.</p>
+            </li><li>
+            <p>Auto-verify for expectations on concrete classes.</p>
+            </li><li>
+            <p>Include each expectation verification in the test result assertion count.</p>
+            </li><li>
+            <p>Filter out noise from assertion backtraces.</p>
+            </li><li>
+            <p>Point assertion backtrace to line where failing expectation was created.</p>
+            </li><li>
+            <p>New yields method for expectations.</p>
+            </li><li>
+            <p>Create stubs which stub all method calls.</p>
+            </li><li>
+            <p>Mocks now respond_to? expected methods.</p>
+            </li></ul>
+            
+            <h1 id="label-0.2.1">0.2.1</h1>
+            <ul><li>
+            <p>Rename MochaAcceptanceTest::Rover#move method to avoid conflict with Rake
+            (in Ruby 1.8.4 only?)</p>
+            </li></ul>
+            
+            <h1 id="label-0.2.0">0.2.0</h1>
+            <ul><li>
+            <p>Small change to SetupAndTeardown#teardown_stubs suggested by Luke Redpath
+            (<a target="_top" href="http://www.lukeredpath.co.uk">www.lukeredpath.co.uk</a>) to allow
+            use of Stubba with RSpec (<a
+            href="http://rspec.rubyforge.org">rspec.rubyforge.org</a>).</p>
+            </li><li>
+            <p>Reorganized directory structure and extracted addition of setup and
+            teardown methods into SmartTestCase mini-library.</p>
+            </li><li>
+            <p>Addition of auto-verify for <a href="../classes/Mocha.html">Mocha</a> (but
+            not Stubba). This means there is more significance in the choice of expects
+            or stubs in that any expects on a mock will automatically get verified.</p>
+            </li></ul>
+            
+            <p>So instead of…</p>
+            
+            <pre>wotsit = Mocha.new&#x000A;wotsit.expects(:thingummy).with(5).returns(10)&#x000A;doobrey = Doobrey.new(wotsit)&#x000A;doobrey.hoojamaflip&#x000A;wotsit.verify</pre>
+            
+            <p>you need to do…</p>
+            
+            <pre>wotsit = mock()&#x000A;wotsit.expects(:thingummy).with(5).returns(10)&#x000A;doobrey = Doobrey.new(wotsit)&#x000A;doobrey.hoojamaflip&#x000A;# no need to verify</pre>
+            
+            <p>There are also shortcuts as follows…</p>
+            
+            <p>instead of…</p>
+            
+            <pre>wotsit = Mocha.new&#x000A;wotsit.expects(:thingummy).returns(10)&#x000A;wotsit.expects(:summat).returns(25)</pre>
+            
+            <p>you can have…</p>
+            
+            <pre class="ruby"><span class="ruby-identifier">wotsit</span> = <span class="ruby-identifier">mock</span>(:<span class="ruby-identifier">thingummy</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">5</span>, :<span class="ruby-identifier">summat</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">25</span>)</pre>
+            
+            <p>and instead of…</p>
+            
+            <pre>wotsit = Mocha.new&#x000A;wotsit.stubs(:thingummy).returns(10)&#x000A;wotsit.stubs(:summat).returns(25)</pre>
+            
+            <p>you can have…</p>
+            
+            <pre class="ruby"><span class="ruby-identifier">wotsit</span> = <span class="ruby-identifier">stub</span>(:<span class="ruby-identifier">thingummy</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">5</span>, :<span class="ruby-identifier">summat</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">25</span>)</pre>
+            
+            <h1 id="label-0.1.2">0.1.2</h1>
+            <ul><li>
+            <p>Minor tweaks</p>
+            </li></ul>
+            
+            <h1 id="label-0.1.1">0.1.1</h1>
+            <ul><li>
+            <p>Initial release.</p>
+            </li></ul>
+          </div>
+          <div id='context'>
+          </div>
+        </div>
+      </div>
+      <div id='footer-push'></div>
+    </div>
+    <div id='footer'>
+      <a target="docwin" href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+    </div>
+  </body>
+</html>

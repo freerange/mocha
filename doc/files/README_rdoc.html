@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+  <head>
+    <title>README.rdoc</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <link href='../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+      //<![CDATA[
+        function popupCode(url) {
+          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+        }
+        
+        function toggleCode(id) {
+          var code = document.getElementById(id)
+        
+          code.style.display = code.style.display != 'block' ? 'block' : 'none'
+          return true
+        }
+        
+        // Make codeblocks hidden by default
+        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+      //]]>
+    </script>
+  </head>
+  <body class='page'>
+    <div class='file' id='wrapper'>
+      <div class='header'>
+        <h1 class='name'>README.rdoc</h1>
+        <div class='paths'>
+          README.rdoc
+        </div>
+        <div class='last-update'>
+          Last Update:
+          <span class='datetime'>Thu Mar 08 16:39:35 +0000 2012</span>
+        </div>
+      </div>
+      <div id='content'>
+        <div id='text'>
+          <div id='description'>
+            
+            <h1 id="label-Mocha+%3Cimg+src%3D%22https%3A%2F%2Fsecure.travis-ci.org%2Ffloehopper%2Fmocha.png%22+%2F%3E"><a href="../classes/Mocha.html">Mocha</a> <a target="_top" href="http://travis-ci.org/floehopper/mocha"><img src="https://secure.travis-ci.org/floehopper/mocha.png" /></a></h1>
+            
+            <p><a href="../classes/Mocha.html">Mocha</a> is a library for mocking and
+            stubbing using a syntax like that of <a
+            href="http://www.jmock.org">JMock</a>.</p>
+            
+            <p>It can be used with many testing frameworks e.g. <a
+            href="http://www.ruby-doc.org/core/classes/Test/Unit.html">Test::Unit</a>,
+            <a target="_top" href="http://rspec.info/">RSpec</a>, <a
+            href="http://chneukirchen.org/repos/testspec/README">test/spec</a>, <a
+            href="http://expectations.rubyforge.org/">expectations</a>, <a
+            href="http://dust.rubyforge.org/">Dust</a>, <a
+            href="http://rubyforge.org/projects/bfts">MiniTest</a> and even <a
+            href="http://jtestr.codehaus.org/">JtestR</a>.</p>
+            
+            <p><a href="../classes/Mocha.html">Mocha</a> provides a unified, simple and
+            readable syntax for both traditional mocking and partial mocking.</p>
+            
+            <p><a href="../classes/Mocha.html">Mocha</a> was harvested from projects at <a
+            href="http://www.reevoo.com/">Reevoo</a> by me (<a
+            href="http://jamesmead.org/">James</a>) and my (then) colleagues <a
+            href="http://www.techbelly.com/">Ben</a>, <a
+            href="http://chrisroos.co.uk/">Chris</a> and <a
+            href="http://po-ru.com/">Paul</a>.</p>
+            
+            <h2 id="label-Installation">Installation</h2>
+            
+            <p>Install the latest version of the gem with the following command…</p>
+            
+            <pre>$ gem install mocha</pre>
+            
+            <p>Note that if you are intending to use <a
+            href="../classes/Mocha.html">Mocha</a> with Test::Unit or MiniTest, you
+            should only load <a href="../classes/Mocha.html">Mocha</a>
+            <strong>after</strong> loading the relevant test library…</p>
+            
+            <pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">&quot;test/unit&quot;</span>&#x000A;<span class="ruby-identifier">require</span> <span class="ruby-string">&quot;mocha&quot;</span></pre>
+            
+            <p>If you’re using Bundler, ensure the correct load order by not
+            auto-requiring <a href="../classes/Mocha.html">Mocha</a> in the Gemfile and
+            then later load it once you know the test library has been loaded…</p>
+            
+            <pre class="ruby"><span class="ruby-comment"># Gemfile</span>&#x000A;<span class="ruby-identifier">gem</span> <span class="ruby-string">&quot;mocha&quot;</span>, :<span class="ruby-identifier">require</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>&#x000A;&#x000A;<span class="ruby-comment"># Elsewhere after Bundler has loaded gems</span>&#x000A;<span class="ruby-identifier">require</span> <span class="ruby-string">&quot;test/unit&quot;</span>&#x000A;<span class="ruby-identifier">require</span> <span class="ruby-string">&quot;mocha&quot;</span></pre>
+            
+            <p>Or install the <a target="_top" href="http://www.rubyonrails.org/">Rails</a> plugin…</p>
+            
+            <pre>$ script/plugin install git://github.com/floehopper/mocha.git</pre>
+            
+            <p>Note that versions 0.9.6 &amp; 0.9.7 of the Rails plugin were broken. As of
+            version 0.9.8, you need to explicitly load <a
+            href="../classes/Mocha.html">Mocha</a> after the test framework e.g. by
+            adding “require ‘mocha’” at the bottom of test/test_helper.rb.</p>
+            
+            <h2 id="label-Examples">Examples</h2>
+            <ul><li>
+            <p>Quick Start - <a target="_top" href="http://mocha.rubyforge.org/examples/misc.html">Usage
+            Examples</a></p>
+            </li><li>
+            <p>Traditional mocking - <a
+            href="http://mocha.rubyforge.org/examples/mocha.html">Star Trek Example</a></p>
+            </li><li>
+            <p>Setting expectations on real classes - <a
+            href="http://mocha.rubyforge.org/examples/stubba.html">Order Example</a></p>
+            </li><li>
+            <p>More examples on <a target="_top" href="http://jamesmead.org/blog/">James Mead’s
+            Blog</a></p>
+            </li><li>
+            <p><a target="_top" href="http://groups.google.com/group/mocha-developer">Mailing List
+            Archives</a></p>
+            </li></ul>
+            
+            <h2 id="label-Links">Links</h2>
+            <ul><li>
+            <p><a target="_top" href="http://github.com/floehopper/mocha">Source code</a></p>
+            </li><li>
+            <p><a target="_top" href="http://github.com/floehopper/mocha/issues">Bug reports</a></p>
+            </li></ul>
+            
+            <h2 id="label-License">License</h2>
+            
+            <p>Copyright Revieworld Ltd. 2006</p>
+            
+            <p>You may use, copy and redistribute this library under the same terms as <a
+            href="http://www.ruby-lang.org/en/LICENSE.txt">Ruby itself</a> or under the
+            <a target="_top" href="http://mocha.rubyforge.org/files/MIT-LICENSE.html">MIT
+            license</a>.</p>
+          </div>
+          <div id='context'>
+          </div>
+        </div>
+      </div>
+      <div id='footer-push'></div>
+    </div>
+    <div id='footer'>
+      <a target="docwin" href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+    </div>
+  </body>
+</html>
