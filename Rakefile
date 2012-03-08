@@ -109,10 +109,11 @@ Rake::RDocTask.new('rdoc') do |task|
   )
 end
 
-desc "Upload RDoc to RubyForge"
+desc "Publish docs to Github"
 task 'publish_docs' => ['clobber_rdoc', 'rdoc', 'examples', 'agiledox.txt'] do
-  require 'rake/contrib/sshpublisher'
-  Rake::SshDirPublisher.new("jamesmead@rubyforge.org", "/var/www/gforge-projects/mocha", "doc").upload
+ sha = `git ls-tree -d HEAD doc | awk '{print $3}'`.strip
+ commit = `echo "Publishing docs from master branch" | git commit-tree #{sha} -p refs/heads/gh-pages`.strip
+ `git update-ref refs/heads/gh-pages #{commit}`
 end
 
 desc "Generate agiledox-like documentation for tests"

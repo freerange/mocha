@@ -1,5 +1,4 @@
 Gemfile*.lock
 pkg
-doc
 templates
 agiledox.txt
