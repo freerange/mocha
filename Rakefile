@@ -110,8 +110,11 @@ Rake::RDocTask.new('rdoc') do |task|
   )
 end
 
+desc "Generate documentation"
+task 'generate_docs' => ['clobber_rdoc', 'rdoc', 'examples', 'agiledox.txt']
+
 desc "Publish docs to Github"
-task 'publish_docs' => ['clobber_rdoc', 'rdoc', 'examples', 'agiledox.txt'] do
+task 'publish_docs' => 'generate_docs' do
  sha = `git ls-tree -d HEAD doc | awk '{print $3}'`.strip
  commit = `echo "Publishing docs from master branch" | git commit-tree #{sha} -p refs/heads/gh-pages`.strip
  `git update-ref refs/heads/gh-pages #{commit}`
