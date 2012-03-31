@@ -104,7 +104,6 @@ YARD::Rake::YardocTask.new('yardoc') do |task|
     'RELEASE.rdoc',
     'COPYING.rdoc',
     'MIT-LICENSE.rdoc',
-    'agiledox.txt',
     'examples/mocha.rb',
     'examples/stubba.rb',
     'examples/misc.rb',
@@ -112,29 +111,13 @@ YARD::Rake::YardocTask.new('yardoc') do |task|
 end
 
 desc "Generate documentation"
-task 'generate_docs' => ['clobber_yardoc', 'agiledox.txt', 'yardoc']
+task 'generate_docs' => ['clobber_yardoc', 'yardoc']
 
 desc "Publish docs to Github (relies on running 'generate_docs' task and committing changes to master branch)"
 task 'publish_docs' do
  sha = `git ls-tree -d HEAD doc | awk '{print $3}'`.strip
  commit = `echo "Publishing docs from master branch" | git commit-tree #{sha} -p refs/heads/gh-pages`.strip
  `git update-ref refs/heads/gh-pages #{commit}`
-end
-
-desc "Generate agiledox-like documentation for tests"
-file 'agiledox.txt' do
-  File.open('agiledox.txt', 'w') do |output|
-    tests = FileList['test/**/*_test.rb']
-    tests.each do |file|
-      m = %r".*/([^/].*)_test.rb".match(file)
-      output << m[1]+" should:\n"
-      test_definitions = File::readlines(file).select {|line| line =~ /.*def test.*/}
-      test_definitions.sort.each do |definition|
-        m = %r"test_(should_)?(.*)".match(definition)
-        output << " - "+m[2].gsub(/_/," ") << "\n"
-      end
-    end
-  end
 end
 
 task 'release' => 'default' do
