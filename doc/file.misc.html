@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>
+  File: misc
+  
+    &mdash; Mocha 0.10.5
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html" title="Index">Index</a> &raquo; 
+    <span class="title">File: misc</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><div id='filecontents'><pre class="code ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>test/unit</span><span class='tstring_end'>'</span></span>
+<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>mocha</span><span class='tstring_end'>'</span></span>
+
+<span class='kw'>class</span> <span class='const'>MiscExampleTest</span> <span class='op'>&lt;</span> <span class='const'>Test</span><span class='op'>::</span><span class='const'>Unit</span><span class='op'>::</span><span class='const'>TestCase</span>
+  
+  <span class='kw'>def</span> <span class='id identifier rubyid_test_mocking_a_class_method'>test_mocking_a_class_method</span>
+    <span class='id identifier rubyid_product'>product</span> <span class='op'>=</span> <span class='const'>Product</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+    <span class='const'>Product</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:find</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_with'>with</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='id identifier rubyid_product'>product</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_assert_equal'>assert_equal</span> <span class='id identifier rubyid_product'>product</span><span class='comma'>,</span> <span class='const'>Product</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>def</span> <span class='id identifier rubyid_test_mocking_an_instance_method_on_a_real_object'>test_mocking_an_instance_method_on_a_real_object</span>
+    <span class='id identifier rubyid_product'>product</span> <span class='op'>=</span> <span class='const'>Product</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+    <span class='id identifier rubyid_product'>product</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:save</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='kw'>true</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_assert'>assert</span> <span class='id identifier rubyid_product'>product</span><span class='period'>.</span><span class='id identifier rubyid_save'>save</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>def</span> <span class='id identifier rubyid_test_stubbing_instance_methods_on_real_objects'>test_stubbing_instance_methods_on_real_objects</span>
+    <span class='id identifier rubyid_prices'>prices</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_stub'>stub</span><span class='lparen'>(</span><span class='symbol'>:pence</span> <span class='op'>=&gt;</span> <span class='int'>1000</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_stub'>stub</span><span class='lparen'>(</span><span class='symbol'>:pence</span> <span class='op'>=&gt;</span> <span class='int'>2000</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_product'>product</span> <span class='op'>=</span> <span class='const'>Product</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+    <span class='id identifier rubyid_product'>product</span><span class='period'>.</span><span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='symbol'>:prices</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='id identifier rubyid_prices'>prices</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_assert_equal'>assert_equal</span> <span class='lbracket'>[</span><span class='int'>1000</span><span class='comma'>,</span> <span class='int'>2000</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_product'>product</span><span class='period'>.</span><span class='id identifier rubyid_prices'>prices</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_p'>p</span><span class='op'>|</span> <span class='id identifier rubyid_p'>p</span><span class='period'>.</span><span class='id identifier rubyid_pence'>pence</span><span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>def</span> <span class='id identifier rubyid_test_stubbing_an_instance_method_on_all_instances_of_a_class'>test_stubbing_an_instance_method_on_all_instances_of_a_class</span>
+    <span class='const'>Product</span><span class='period'>.</span><span class='id identifier rubyid_any_instance'>any_instance</span><span class='period'>.</span><span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='symbol'>:name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>stubbed_name</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_product'>product</span> <span class='op'>=</span> <span class='const'>Product</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+    <span class='id identifier rubyid_assert_equal'>assert_equal</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>stubbed_name</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='id identifier rubyid_product'>product</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>def</span> <span class='id identifier rubyid_test_traditional_mocking'>test_traditional_mocking</span>
+    <span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:expected_method</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_with'>with</span><span class='lparen'>(</span><span class='symbol'>:p1</span><span class='comma'>,</span> <span class='symbol'>:p2</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='symbol'>:result</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_assert_equal'>assert_equal</span> <span class='symbol'>:result</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expected_method'>expected_method</span><span class='lparen'>(</span><span class='symbol'>:p1</span><span class='comma'>,</span> <span class='symbol'>:p2</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>def</span> <span class='id identifier rubyid_test_shortcuts'>test_shortcuts</span>
+    <span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_stub'>stub</span><span class='lparen'>(</span><span class='symbol'>:method1</span> <span class='op'>=&gt;</span> <span class='symbol'>:result1</span><span class='comma'>,</span> <span class='symbol'>:method2</span> <span class='op'>=&gt;</span> <span class='symbol'>:result2</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_assert_equal'>assert_equal</span> <span class='symbol'>:result1</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_method1'>method1</span>
+    <span class='id identifier rubyid_assert_equal'>assert_equal</span> <span class='symbol'>:result2</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_method2'>method2</span>
+  <span class='kw'>end</span>
+  
+<span class='kw'>end</span></pre></div></div>
+    
+    <div id="footer">
+  Generated on Sat Mar 31 18:30:21 2012 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.7.5 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>
