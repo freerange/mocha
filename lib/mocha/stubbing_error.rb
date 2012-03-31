@@ -1,10 +1,11 @@
 require 'mocha/backtrace_filter'
 
-module Mocha # :nodoc:
-  
-  # Exception raised when an action prevented by Configuration#prevent is attempted.
+module Mocha
+
+  # Exception raised when an action prevented by {Configuration.prevent} is attempted.
   class StubbingError < StandardError
 
+    # @private
     def initialize(message = nil, backtrace = []) # :nodoc:
       super(message)
       filter = BacktraceFilter.new
@@ -12,5 +13,5 @@ module Mocha # :nodoc:
     end
 
   end
-  
+
 end

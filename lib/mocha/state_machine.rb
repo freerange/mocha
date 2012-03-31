@@ -1,91 +1,106 @@
-module Mocha # :nodoc:
+module Mocha
 
   # A state machine that is used to constrain the order of invocations.
-  # An invocation can be constrained to occur when a state is, or is_not, active.
+  # An invocation can be constrained to occur when a state {#is}, or {#is_not}, active.
   class StateMachine
-  
-    class State # :nodoc:
-    
+
+    # Provides a mechanism to change the state of a {StateMachine} at some point in the future.
+    class State
+
+      # @private
       def initialize(state_machine, state)
         @state_machine, @state = state_machine, state
       end
-    
+
+      # @private
       def activate
         @state_machine.current_state = @state
       end
-    
+
+      # @private
       def active?
         @state_machine.current_state == @state
       end
-    
+
+      # @private
       def mocha_inspect
         "#{@state_machine.name} is #{@state.mocha_inspect}"
       end
-    
+
     end
-    
-    class StatePredicate # :nodoc:
-      
+
+    # Provides the ability to determine whether a {StateMachine} is in a specified state at some point in the future.
+    class StatePredicate
+
+      # @private
       def initialize(state_machine, state)
         @state_machine, @state = state_machine, state
       end
-    
+
+      # @private
       def active?
         @state_machine.current_state != @state
       end
-    
+
+      # @private
       def mocha_inspect
         "#{@state_machine.name} is not #{@state.mocha_inspect}"
       end
-      
+
     end
-    
-    attr_reader :name # :nodoc:
-    
-    attr_accessor :current_state # :nodoc:
-    
-    def initialize(name) # :nodoc:
+
+    # @private
+    attr_reader :name
+
+    # @private
+    attr_accessor :current_state
+
+    # @private
+    def initialize(name)
       @name = name
       @current_state = nil
     end
-    
-    # :call-seq: starts_as(initial_state) -> state_machine
+
+    # Put the {StateMachine} into the state specified by +initial_state_name+.
     #
-    # Put the +state_machine+ into the +initial_state+.
-    def starts_as(initial_state)
-      become(initial_state)
+    # @param [String] initial_state_name name of initial state
+    # @return [StateMachine] state machine, thereby allowing invocations of other {StateMachine} methods to be chained.
+    def starts_as(initial_state_name)
+      become(initial_state_name)
       self
     end
-  
-    # :call-seq: become(next_state)
+
+    # Put the {StateMachine} into the +next_state_name+.
     #
-    # Put the +state_machine+ into the +next_state+.
-    def become(next_state)
-      @current_state = next_state
+    # @param [String] next_state_name name of new state
+    def become(next_state_name)
+      @current_state = next_state_name
     end
-  
-    # :call-seq: is(state)
+
+    # Provides a mechanism to change the {StateMachine} into the state specified by +state_name+ at some point in the future.
     #
-    # Determines whether the +state_machine+ is in the specified +state+.
-    def is(state)
-      State.new(self, state)
-    end
-  
-    # :call-seq: is_not(state)
+    # Or provides a mechanism to determine whether the {StateMachine} is in the state specified by +state_name+ at some point in the future.
     #
-    # Determines whether the +state_machine+ is not in the specified +state+.
-    def is_not(state)
-      StatePredicate.new(self, state)
+    # @param [String] state_name name of new state
+    # @return [State] state which, when activated, will change the {StateMachine} into the state with the specified +state_name+.
+    def is(state_name)
+      State.new(self, state_name)
     end
-  
-    def mocha_inspect # :nodoc:
+
+    # Provides a mechanism to determine whether the {StateMachine} is not in the state specified by +state_name+ at some point in the future.
+    def is_not(state_name)
+      StatePredicate.new(self, state_name)
+    end
+
+    # @private
+    def mocha_inspect
       if @current_state
         "#{@name} is #{@current_state.mocha_inspect}"
       else
         "#{@name} has no current state"
       end
     end
-  
+
   end
 
 end

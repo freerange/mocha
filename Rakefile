@@ -2,7 +2,7 @@ require "bundler"
 Bundler::GemHelper.install_tasks
 require "bundler/setup"
 
-require 'rdoc/task'
+require 'yard'
 require 'rake/testtask'
 
 desc "Run all tests"
@@ -81,23 +81,15 @@ def benchmark_test_case(klass, iterations)
   end
 end
 
-desc 'Generate RDoc'
-Rake::RDocTask.new('rdoc') do |task|
-  task.generator = 'hanna'
-  task.main = 'README.rdoc'
-  task.title = "Mocha #{Mocha::VERSION}"
-  task.rdoc_dir = 'doc'
-  template = File.expand_path(File.join(File.dirname(__FILE__), "templates", "html_with_google_analytics.rb"))
-  if File.exist?(template)
-    puts "*** Using RDoc template incorporating Google Analytics"
-    task.template = template
-  end
-  task.rdoc_files.include(
-    'README.rdoc',
-    'RELEASE.rdoc',
-    'COPYING.rdoc',
-    'MIT-LICENSE.rdoc',
-    'agiledox.txt',
+desc 'Remove generated documentation'
+task 'clobber_yardoc' do
+  `rm -rf ./doc`
+end
+
+desc 'Generate documentation'
+YARD::Rake::YardocTask.new('yardoc') do |task|
+  task.options = ["--title", "Mocha #{Mocha::VERSION}", "--no-private"]
+  task.files   = [
     'lib/mocha/api.rb',
     'lib/mocha/mock.rb',
     'lib/mocha/expectation.rb',
@@ -105,13 +97,22 @@ Rake::RDocTask.new('rdoc') do |task|
     'lib/mocha/parameter_matchers.rb',
     'lib/mocha/parameter_matchers',
     'lib/mocha/state_machine.rb',
+    'lib/mocha/sequence.rb',
     'lib/mocha/configuration.rb',
-    'lib/mocha/stubbing_error.rb'
-  )
+    'lib/mocha/stubbing_error.rb',
+    '-',
+    'RELEASE.rdoc',
+    'COPYING.rdoc',
+    'MIT-LICENSE.rdoc',
+    'agiledox.txt',
+    'examples/mocha.rb',
+    'examples/stubba.rb',
+    'examples/misc.rb',
+  ]
 end
 
 desc "Generate documentation"
-task 'generate_docs' => ['clobber_rdoc', 'rdoc', 'examples', 'agiledox.txt']
+task 'generate_docs' => ['clobber_yardoc', 'agiledox.txt', 'yardoc']
 
 desc "Publish docs to Github (relies on running 'generate_docs' task and committing changes to master branch)"
 task 'publish_docs' do

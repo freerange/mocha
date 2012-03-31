@@ -1,53 +1,61 @@
 module Mocha
-  
+
   module ParameterMatchers
-    
+
+    # @abstract Subclass and implement +#matches?+ and +#mocha_inspect+ to define a custom matcher. Also add a suitably named instance method to {ParameterMatchers} to build an instance of the new matcher c.f. {#equals}.
     class Base 
-      
-      def to_matcher # :nodoc:
+
+      # @private
+      def to_matcher
         self
       end
-      
-      # :call-seq: &(matcher) -> parameter_matcher
+
+      # A shorthand way of combining two matchers when both must match.
       #
-      # A short hand way of specifying multiple matchers that should
-      # all match.
+      # Returns a new {AllOf} parameter matcher combining two matchers using a logical AND.
       #
-      # Returns a new +AllOf+ parameter matcher combining the
-      # given matcher and the receiver.
+      # This shorthand will not work with an implicit equals match. Instead, an explicit {Equals} matcher should be used.
       #
-      # The following statements are equivalent:
+      # @param [Base] matcher parameter matcher.
+      # @return [AllOf] parameter matcher.
+      #
+      # @see Expectation#with
+      #
+      # @example Alternative ways to combine matchers with a logical AND.
       #   object = mock()
       #   object.expects(:run).with(all_of(has_key(:foo), has_key(:bar)))
       #   object.run(:foo => 'foovalue', :bar => 'barvalue')
       #
-      #   # with the shorthand
+      #   # is exactly equivalent to
+      #
       #   object.expects(:run).with(has_key(:foo) & has_key(:bar))
       #   object.run(:foo => 'foovalue', :bar => 'barvalue)
       def &(matcher)
         AllOf.new(self, matcher)
       end
-      
-      # :call-seq: |(matcher) -> parameter_matcher
+
+      # A shorthand way of combining two matchers when at least one must match.
       #
-      # A short hand way of specifying multiple matchers, only at least
-      # one of which should pass.
+      # Returns a new +AnyOf+ parameter matcher combining two matchers using a logical OR.
       #
-      # Returns a new +AnyOf+ parameter matcher combining the
-      # given matcher and the receiver.
+      # This shorthand will not work with an implicit equals match. Instead, an explicit {Equals} matcher should be used.
       #
-      # The following statements are equivalent:
+      # @param [Base] matcher parameter matcher.
+      # @return [AnyOf] parameter matcher.
+      #
+      # @see Expectation#with
+      #
+      # @example Alternative ways to combine matchers with a logical OR.
       #   object = mock()
       #   object.expects(:run).with(any_of(has_key(:foo), has_key(:bar)))
       #   object.run(:foo => 'foovalue')
       #
-      #   # with the shorthand
+      #   # is exactly equivalent to
+      #
       #   object.expects(:run).with(has_key(:foo) | has_key(:bar))
       #   object.run(:foo => 'foovalue')
       #
-      # This shorthand will not work with an implicit equals match. Instead,
-      # an explicit equals matcher should be used:
-      #
+      # @example Using an explicit {Equals} matcher in combination with {#|}.
       #   object.expects(:run).with(equals(1) | equals(2))
       #   object.run(1) # passes
       #   object.run(2) # passes
@@ -55,9 +63,9 @@ module Mocha
       def |(matcher)
         AnyOf.new(self, matcher)
       end
-      
+
     end
-    
+
   end
-  
+
 end

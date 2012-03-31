@@ -1,62 +1,70 @@
-module Mocha # :nodoc:
-  
-  # Configuration settings
+module Mocha
+
+  # Configuration settings.
   class Configuration
-    
-    DEFAULTS = { :stubbing_method_unnecessarily => :allow, :stubbing_method_on_non_mock_object => :allow, :stubbing_non_existent_method => :allow, :stubbing_non_public_method => :allow }
-    
+
+    DEFAULTS = {
+      :stubbing_method_unnecessarily => :allow,
+      :stubbing_method_on_non_mock_object => :allow,
+      :stubbing_non_existent_method => :allow,
+      :stubbing_non_public_method => :allow
+    }
+
     class << self
-    
-      # :call-seq: allow(action, &block)
+
+      # Allow the specified +action+.
       #
-      # Allow the specified <tt>action</tt> (as a symbol).
-      # The <tt>actions</tt> currently available are <tt>:stubbing_method_unnecessarily, :stubbing_method_on_non_mock_object, :stubbing_non_existent_method, :stubbing_non_public_method</tt>.
-      # If given a block, the configuration for the action will only be changed for the duration of the block, and will then be restored to the previous value.
+      # @param [Symbol] action one of +:stubbing_method_unnecessarily+, +:stubbing_method_on_non_mock_object+, +:stubbing_non_existent_method+, +:stubbing_non_public_method+.
+      # @yield optional block during which the configuration change will be changed before being returned to its original value at the end of the block.
       def allow(action, &block)
         change_config action, :allow, &block
       end
-    
-      def allow?(action) # :nodoc:
+
+      # @private
+      def allow?(action)
         configuration[action] == :allow
       end
-    
-      # :call-seq: warn_when(action, &block)
+
+      # Warn if the specified +action+ is attempted.
       #
-      # Warn if the specified <tt>action</tt> (as a symbol) is attempted.
-      # The <tt>actions</tt> currently available are <tt>:stubbing_method_unnecessarily, :stubbing_method_on_non_mock_object, :stubbing_non_existent_method, :stubbing_non_public_method</tt>.
-      # If given a block, the configuration for the action will only be changed for the duration of the block, and will then be restored to the previous value.
+      # @param [Symbol] action one of +:stubbing_method_unnecessarily+, +:stubbing_method_on_non_mock_object+, +:stubbing_non_existent_method+, +:stubbing_non_public_method+.
+      # @yield optional block during which the configuration change will be changed before being returned to its original value at the end of the block.
       def warn_when(action, &block)
         change_config action, :warn, &block
       end
-    
-      def warn_when?(action) # :nodoc:
+
+      # @private
+      def warn_when?(action)
         configuration[action] == :warn
       end
-    
-      # :call-seq: prevent(action, &block)
+
+      # Raise a {StubbingError} if if the specified +action+ is attempted.
       #
-      # Raise a StubbingError if the specified <tt>action</tt> (as a symbol) is attempted.
-      # The <tt>actions</tt> currently available are <tt>:stubbing_method_unnecessarily, :stubbing_method_on_non_mock_object, :stubbing_non_existent_method, :stubbing_non_public_method</tt>.
-      # If given a block, the configuration for the action will only be changed for the duration of the block, and will then be restored to the previous value.
+      # @param [Symbol] action one of +:stubbing_method_unnecessarily+, +:stubbing_method_on_non_mock_object+, +:stubbing_non_existent_method+, +:stubbing_non_public_method+.
+      # @yield optional block during which the configuration change will be changed before being returned to its original value at the end of the block.
       def prevent(action, &block)
         change_config action, :prevent, &block
       end
-    
-      def prevent?(action) # :nodoc:
+
+      # @private
+      def prevent?(action)
         configuration[action] == :prevent
       end
-    
-      def reset_configuration # :nodoc:
+
+      # @private
+      def reset_configuration
         @configuration = nil
       end
-    
+
       private
-    
-      def configuration # :nodoc:
+
+      # @private
+      def configuration
         @configuration ||= DEFAULTS.dup
       end
 
-      def change_config(action, new_value, &block) # :nodoc:
+      # @private
+      def change_config(action, new_value, &block)
         if block_given?
           temporarily_change_config action, new_value, &block
         else
@@ -64,16 +72,17 @@ module Mocha # :nodoc:
         end
       end
 
-      def temporarily_change_config(action, new_value, &block) # :nodoc:
+      # @private
+      def temporarily_change_config(action, new_value, &block)
         original_value = configuration[action]
         configuration[action] = new_value
         yield
       ensure
         configuration[action] = original_value
       end
-    
+
     end
-    
+
   end
-  
+
 end
