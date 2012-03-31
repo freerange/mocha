@@ -137,7 +137,7 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>Modifies expectation so that the expected method must be called at least a
-<code>minimum_number_of_times</code>.</p>
+<tt>minimum_number_of_times</tt>.</p>
 </div></span>
   
 </li>
@@ -185,7 +185,7 @@ once.</p>
   
     <span class="summary_desc"><div class='inline'>
 <p>Modifies expectation so that the expected method must be called at most a
-<code>maximum_number_of_times</code>.</p>
+<tt>maximum_number_of_times</tt>.</p>
 </div></span>
   
 </li>
@@ -233,7 +233,7 @@ once.</p>
   
     <span class="summary_desc"><div class='inline'>
 <p>Constrains the expectation so that it must be invoked at the current point
-in the <code>sequence</code>.</p>
+in the <tt>sequence</tt>.</p>
 </div></span>
   
 </li>
@@ -257,8 +257,7 @@ in the <code>sequence</code>.</p>
   
     <span class="summary_desc"><div class='inline'>
 <p>Modifies expectation so that when the expected method is called, it yields
-multiple times per invocation with the specified
-<code>parameter_groups</code>.</p>
+multiple times per invocation with the specified <tt>parameter_groups</tt>.</p>
 </div></span>
   
 </li>
@@ -329,8 +328,7 @@ once.</p>
   
     <span class="summary_desc"><div class='inline'>
 <p>Modifies expectation so that when the expected method is called, it raises
-the specified <code>exception</code> with the specified
-<code>message</code> i.e.</p>
+the specified <tt>exception</tt> with the specified <tt>message</tt> i.e.</p>
 </div></span>
   
 </li>
@@ -354,7 +352,7 @@ the specified <code>exception</code> with the specified
   
     <span class="summary_desc"><div class='inline'>
 <p>Modifies expectation so that when the expected method is called, it returns
-the specified <code>value</code>.</p>
+the specified <tt>value</tt>.</p>
 </div></span>
   
 </li>
@@ -402,8 +400,8 @@ methods to be chained.</p>
   
     <span class="summary_desc"><div class='inline'>
 <p>Modifies expectation so that when the expected method is called, it throws
-the specified <code>tag</code> with the specific return value
-<code>object</code> i.e.</p>
+the specified <tt>tag</tt> with the specific return value <tt>object</tt>
+i.e.</p>
 </div></span>
   
 </li>
@@ -427,7 +425,7 @@ the specified <code>tag</code> with the specific return value
   
     <span class="summary_desc"><div class='inline'>
 <p>Modifies expectation so that the number of calls to the expected method
-must be within a specific <code>range</code>.</p>
+must be within a specific <tt>range</tt>.</p>
 </div></span>
   
 </li>
@@ -474,9 +472,8 @@ twice.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Constrains the expectation to occur only when the
-<code>state_machine</code> is in the state specified by
-<code>state_name</code>.</p>
+<p>Constrains the expectation to occur only when the <tt>state_machine</tt> is
+in the state specified by <tt>state_name</tt>.</p>
 </div></span>
   
 </li>
@@ -500,7 +497,7 @@ twice.</p>
   
     <span class="summary_desc"><div class='inline'>
 <p>Modifies expectation so that the expected method must be called with
-<code>expected_parameters</code>.</p>
+<tt>expected_parameters</tt>.</p>
 </div></span>
   
 </li>
@@ -524,7 +521,7 @@ twice.</p>
   
     <span class="summary_desc"><div class='inline'>
 <p>Modifies expectation so that when the expected method is called, it yields
-with the specified <code>parameters</code>.</p>
+with the specified <tt>parameters</tt>.</p>
 </div></span>
   
 </li>
@@ -550,7 +547,7 @@ with the specified <code>parameters</code>.</p>
   <div class="discussion">
     
 <p>Modifies expectation so that the expected method must be called at least a
-<code>minimum_number_of_times</code>.</p>
+<tt>minimum_number_of_times</tt>.</p>
 
 
   </div>
@@ -727,7 +724,7 @@ methods to be chained.</p>
   <div class="discussion">
     
 <p>Modifies expectation so that the expected method must be called at most a
-<code>maximum_number_of_times</code>.</p>
+<tt>maximum_number_of_times</tt>.</p>
 
 
   </div>
@@ -903,15 +900,15 @@ methods to be chained.</p>
   <div class="discussion">
     
 <p>Constrains the expectation so that it must be invoked at the current point
-in the <code>sequence</code>.</p>
+in the <tt>sequence</tt>.</p>
 
 <p>To expect a sequence of invocations, write the expectations in order and
 add the <tt>in_sequence(sequence)</tt> clause to each one.</p>
 
-<p>Expectations in a <code>sequence</code> can have any invocation count.</p>
+<p>Expectations in a <tt>sequence</tt> can have any invocation count.</p>
 
 <p>If an expectation in a sequence is stubbed, rather than expected, it can be
-skipped in the <code>sequence</code>.</p>
+skipped in the <tt>sequence</tt>.</p>
 
 <p>An expected method can appear in multiple sequences.</p>
 
@@ -1016,8 +1013,7 @@ methods to be chained.</p>
   <div class="discussion">
     
 <p>Modifies expectation so that when the expected method is called, it yields
-multiple times per invocation with the specified
-<code>parameter_groups</code>.</p>
+multiple times per invocation with the specified <tt>parameter_groups</tt>.</p>
 
 
   </div>
@@ -1028,8 +1024,8 @@ multiple times per invocation with the specified
     <h3>Examples:</h3>
     
       <h4><div class='inline'>
-<p>When the <code>expected_method</code> is called, the stub will invoke the
-block twice, the first time it passes <tt>'result_1'</tt>, <tt>'result_2'</tt> as the
+<p>When the <tt>expected_method</tt> is called, the stub will invoke the block
+twice, the first time it passes <tt>'result_1'</tt>, <tt>'result_2'</tt> as the
 parameters, and the second time it passes 'result_3' as the parameters.</p>
 </div></h4>
       <pre class="example code"><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
@@ -1066,9 +1062,8 @@ expected method.</p>
       
         &mdash;
         <div class='inline'>
-<p>each element of <code>parameter_groups</code> should iself be an
-<code>Array</code> representing the parameters to be passed to the block
-for a single yield.</p>
+<p>each element of <tt>parameter_groups</tt> should iself be an <tt>Array</tt>
+representing the parameters to be passed to the block for a single yield.</p>
 </div>
       
     </li>
@@ -1304,8 +1299,8 @@ methods to be chained.</p>
   <div class="discussion">
     
 <p>Modifies expectation so that when the expected method is called, it raises
-the specified <code>exception</code> with the specified
-<code>message</code> i.e. calls <tt>Kernel#raise(exception, message)</tt>.</p>
+the specified <tt>exception</tt> with the specified <tt>message</tt> i.e.
+calls <tt>Kernel#raise(exception, message)</tt>.</p>
 
 
   </div>
@@ -1458,7 +1453,7 @@ methods to be chained.</p>
   <div class="discussion">
     
 <p>Modifies expectation so that when the expected method is called, it returns
-the specified <code>value</code>.</p>
+the specified <tt>value</tt>.</p>
 
 
   </div>
@@ -1504,7 +1499,7 @@ the specified <code>value</code>.</p>
     
       <h4><div class='inline'>
 <p>Note that in Ruby a method returning multiple values is exactly equivalent
-to a method returning an <code>Array</code> of those values.</p>
+to a method returning an <tt>Array</tt> of those values.</p>
 </div></h4>
       <pre class="example code"><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
 <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='symbol'>:expected_method</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='int'>1</span><span class='comma'>,</span> <span class='int'>2</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -1676,8 +1671,8 @@ exceptions to be raised on consecutive invocations of the expected method.</p>
 </span><span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expected_method'>expected_method</span> <span class='comment'># =&gt; 4</span></pre>
     
       <h4><div class='inline'>
-<p>Using <span class='object_link'><a href="#then-instance_method" title="Mocha::Expectation#then (method)">#then</a></span> to change the <code>state</code> of a
-<code>state_machine</code> on the invocation of an expected method.</p>
+<p>Using <span class='object_link'><a href="#then-instance_method" title="Mocha::Expectation#then (method)">#then</a></span> to change the <tt>state</tt> of a <tt>state_machine</tt> on
+the invocation of an expected method.</p>
 </div></h4>
       <pre class="example code"><span class='id identifier rubyid_power'>power</span> <span class='op'>=</span> <span class='id identifier rubyid_states'>states</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>power</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_starts_as'>starts_as</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>off</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
 
@@ -1718,8 +1713,8 @@ of the expectation.</p>
         <div class="docstring">
   <div class="discussion">
     
-<p>Used to change the <code>state_machine</code> to the state specified by
-<code>state_name</code> when the expected invocation occurs.</p>
+<p>Used to change the <tt>state_machine</tt> to the state specified by
+<tt>state_name</tt> when the expected invocation occurs.</p>
 
 
   </div>
@@ -1739,9 +1734,8 @@ of the expectation.</p>
       
         &mdash;
         <div class='inline'>
-<p>provides a mechanism to change the <code>state_machine</code> into the
-state specified by <code>state_name</code> when the expected method is
-invoked.</p>
+<p>provides a mechanism to change the <tt>state_machine</tt> into the state
+specified by <tt>state_name</tt> when the expected method is invoked.</p>
 </div>
       
     </li>
@@ -1829,8 +1823,8 @@ methods to be chained.</p>
   <div class="discussion">
     
 <p>Modifies expectation so that when the expected method is called, it throws
-the specified <code>tag</code> with the specific return value
-<code>object</code> i.e. calls <tt>Kernel#throw(tag, object)</tt>.</p>
+the specified <tt>tag</tt> with the specific return value <tt>object</tt>
+i.e. calls <tt>Kernel#throw(tag, object)</tt>.</p>
 
 
   </div>
@@ -1848,7 +1842,7 @@ the specified <code>tag</code> with the specific return value
 <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expected_method'>expected_method</span> <span class='comment'># =&gt; throws tag :done</span></pre>
     
       <h4><div class='inline'>
-<p>Throw tag with return value <code>object</code> c.f. <tt>Kernel#throw</tt>.</p>
+<p>Throw tag with return value <tt>object</tt> c.f. <tt>Kernel#throw</tt>.</p>
 </div></h4>
       <pre class="example code"><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_stub'>stub</span><span class='lparen'>(</span><span class='rparen'>)</span>
 <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='symbol'>:expected_method</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_throws'>throws</span><span class='lparen'>(</span><span class='symbol'>:done</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>result</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
@@ -1975,7 +1969,7 @@ methods to be chained.</p>
   <div class="discussion">
     
 <p>Modifies expectation so that the number of calls to the expected method
-must be within a specific <code>range</code>.</p>
+must be within a specific <tt>range</tt>.</p>
 
 
   </div>
@@ -2172,9 +2166,8 @@ methods to be chained.</p>
 </p><div class="docstring">
   <div class="discussion">
     
-<p>Constrains the expectation to occur only when the
-<code>state_machine</code> is in the state specified by
-<code>state_name</code>.</p>
+<p>Constrains the expectation to occur only when the <tt>state_machine</tt> is
+in the state specified by <tt>state_name</tt>.</p>
 
 
   </div>
@@ -2213,9 +2206,9 @@ machine is in the "on" state.</p>
       
         &mdash;
         <div class='inline'>
-<p>provides a mechanism to determine whether the <code>state_machine</code> is
-in the state specified by <code>state_name</code> when the expected method
-is invoked.</p>
+<p>provides a mechanism to determine whether the <tt>state_machine</tt> is in
+the state specified by <tt>state_name</tt> when the expected method is
+invoked.</p>
 </div>
       
     </li>
@@ -2287,7 +2280,7 @@ methods to be chained.</p>
   <div class="discussion">
     
 <p>Modifies expectation so that the expected method must be called with
-<code>expected_parameters</code>.</p>
+<tt>expected_parameters</tt>.</p>
 
 <p>May be used with parameter matchers in <span class='object_link'><a href="ParameterMatchers.html" title="Mocha::ParameterMatchers (module)">ParameterMatchers</a></span>.</p>
 
@@ -2397,7 +2390,7 @@ methods to be chained.</p>
       
         &mdash;
         <div class='inline'>
-<p><code>true</code> if <code>actual_parameters</code> are acceptable.</p>
+<p><tt>true</tt> if <tt>actual_parameters</tt> are acceptable.</p>
 </div>
       
     </li>
@@ -2457,7 +2450,7 @@ methods to be chained.</p>
   <div class="discussion">
     
 <p>Modifies expectation so that when the expected method is called, it yields
-with the specified <code>parameters</code>.</p>
+with the specified <tt>parameters</tt>.</p>
 
 <p>May be called multiple times on the same expectation for consecutive
 invocations.</p>
@@ -2568,7 +2561,7 @@ methods to be chained.</p>
 </div>
     
     <div id="footer">
-  Generated on Sat Mar 31 18:30:21 2012 by 
+  Generated on Sat Mar 31 22:58:23 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.9.3).
 </div>

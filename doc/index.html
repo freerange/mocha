@@ -55,7 +55,7 @@
     <iframe id="search_frame"></iframe>
     
     <div id="content"><div id='filecontents'>
-<h1 id="label-Mocha+%3Cimg+src%3D%22https%3A%2F%2Fsecure.travis-ci.org%2Ffloehopper%2Fmocha.png%22+%2F%3E">Mocha <a href="http://travis-ci.org/floehopper/mocha"><img src="https://secure.travis-ci.org/floehopper/mocha.png" /></a></h1>
+<h1>Mocha <a href="http://travis-ci.org/floehopper/mocha"><img src="https://secure.travis-ci.org/floehopper/mocha.png" /></a></h1>
 
 <p>Mocha is a library for mocking and stubbing using a syntax like that of <a
 href="http://www.jmock.org">JMock</a>.</p>
@@ -79,31 +79,28 @@ href="http://www.techbelly.com/">Ben</a>, <a
 href="http://chrisroos.co.uk/">Chris</a> and <a
 href="http://po-ru.com/">Paul</a>.</p>
 
-<h2 id="label-Installation">Installation</h2>
+<h2>Installation</h2>
 
 <p>Install the latest version of the gem with the following command…</p>
 
 <pre class="code ruby"><code>$ gem install mocha</code></pre>
 
 <p>Note that if you are intending to use Mocha with Test::Unit or MiniTest,
-you should only load Mocha <strong>after</strong> loading the relevant test
-library…</p>
+you should only load Mocha <b>after</b> loading the relevant test library…</p>
 
-<pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">&quot;test/unit&quot;</span>
-<span class="ruby-identifier">require</span> <span class="ruby-string">&quot;mocha&quot;</span>
-</pre>
+<pre class="code ruby"><code><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test/unit</span><span class='tstring_end'>&quot;</span></span>
+<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mocha</span><span class='tstring_end'>&quot;</span></span></code></pre>
 
 <p>If you’re using Bundler, ensure the correct load order by not
 auto-requiring Mocha in the Gemfile and then later load it once you know
 the test library has been loaded…</p>
 
-<pre class="ruby"><span class="ruby-comment"># Gemfile</span>
-<span class="ruby-identifier">gem</span> <span class="ruby-string">&quot;mocha&quot;</span>, :<span class="ruby-identifier">require</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>
+<pre class="code ruby"><code><span class='comment'># Gemfile
+</span><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mocha</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:require</span> <span class='op'>=&gt;</span> <span class='kw'>false</span>
 
-<span class="ruby-comment"># Elsewhere after Bundler has loaded gems</span>
-<span class="ruby-identifier">require</span> <span class="ruby-string">&quot;test/unit&quot;</span>
-<span class="ruby-identifier">require</span> <span class="ruby-string">&quot;mocha&quot;</span>
-</pre>
+<span class='comment'># Elsewhere after Bundler has loaded gems
+</span><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test/unit</span><span class='tstring_end'>&quot;</span></span>
+<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mocha</span><span class='tstring_end'>&quot;</span></span></code></pre>
 
 <p>Or install the <a href="http://www.rubyonrails.org/">Rails</a> plugin…</p>
 
@@ -113,7 +110,7 @@ the test library has been loaded…</p>
 version 0.9.8, you need to explicitly load Mocha after the test framework
 e.g. by adding “require ‘mocha’” at the bottom of test/test_helper.rb.</p>
 
-<h2 id="label-Examples">Examples</h2>
+<h2>Examples</h2>
 <ul><li>
 <p>Quick Start - <a href="file.misc.html" title="Usage Examples">Usage Examples</a></p>
 </li><li>
@@ -127,14 +124,14 @@ e.g. by adding “require ‘mocha’” at the bottom of test/test_helper.rb.</
 Archives</a></p>
 </li></ul>
 
-<h2 id="label-Links">Links</h2>
+<h2>Links</h2>
 <ul><li>
 <p><a href="http://github.com/floehopper/mocha">Source code</a></p>
 </li><li>
 <p><a href="http://github.com/floehopper/mocha/issues">Bug reports</a></p>
 </li></ul>
 
-<h2 id="label-License">License</h2>
+<h2>License</h2>
 
 <p>Copyright Revieworld Ltd. 2006</p>
 
@@ -144,7 +141,7 @@ href="http://www.ruby-lang.org/en/LICENSE.txt">Ruby itself</a> or under the
 </div></div>
     
     <div id="footer">
-  Generated on Sat Mar 31 18:30:21 2012 by 
+  Generated on Sat Mar 31 22:58:22 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.9.3).
 </div>

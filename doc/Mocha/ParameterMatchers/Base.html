@@ -97,10 +97,9 @@
     <div class="note abstract">
   <strong>This class is abstract.</strong> 
   <div class='inline'>
-<p>Subclass and implement <code>#matches?</code> and
-<code>#mocha_inspect</code> to define a custom matcher. Also add a suitably
-named instance method to <span class='object_link'><a href="../ParameterMatchers.html" title="Mocha::ParameterMatchers (module)">Mocha::ParameterMatchers</a></span> to build an instance of the
-new matcher c.f. <span class='object_link'><a href="../ParameterMatchers.html#equals-instance_method" title="Mocha::ParameterMatchers#equals (method)">#equals</a></span>.</p>
+<p>Subclass and implement <tt>#matches?</tt> and <tt>#mocha_inspect</tt> to
+define a custom matcher. Also add a suitably named instance method to
+<span class='object_link'><a href="../ParameterMatchers.html" title="Mocha::ParameterMatchers (module)">Mocha::ParameterMatchers</a></span> to build an instance of the new matcher c.f. <span class='object_link'><a href="../ParameterMatchers.html#equals-instance_method" title="Mocha::ParameterMatchers#equals (method)">#equals</a></span>.</p>
 </div>
 </div>
 
@@ -303,8 +302,8 @@ object.run(:foo =&gt; 'foovalue', :bar =&gt; 'barvalue)</pre>
     
 <p>A shorthand way of combining two matchers when at least one must match.</p>
 
-<p>Returns a new <code>AnyOf</code> parameter matcher combining two matchers
-using a logical OR.</p>
+<p>Returns a new <tt>AnyOf</tt> parameter matcher combining two matchers using
+a logical OR.</p>
 
 <p>This shorthand will not work with an implicit equals match. Instead, an
 explicit <span class='object_link'><a href="Equals.html" title="Mocha::ParameterMatchers::Equals (class)">Equals</a></span> matcher should be used.</p>
@@ -411,7 +410,7 @@ explicit <span class='object_link'><a href="Equals.html" title="Mocha::Parameter
 </div>
     
     <div id="footer">
-  Generated on Sat Mar 31 18:30:22 2012 by 
+  Generated on Sat Mar 31 22:58:23 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.9.3).
 </div>

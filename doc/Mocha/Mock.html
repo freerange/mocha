@@ -167,7 +167,7 @@ with any parameters.</p>
   
     <span class="summary_desc"><div class='inline'>
 <p>Constrains the <span class='object_link'><a href="" title="Mocha::Mock (class)">Mock</a></span> instance so that it can only expect or stub methods
-to which <code>responder</code> responds.</p>
+to which <tt>responder</tt> responds.</p>
 </div></span>
   
 </li>
@@ -345,7 +345,7 @@ with any parameters.</p>
     
       <h4><div class='inline'>
 <p>Setup multiple expectations using
-<code>expected_methods_vs_return_values</code>.</p>
+<tt>expected_methods_vs_return_values</tt>.</p>
 </div></h4>
       <pre class="example code"><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
 <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:expected_method_one</span> <span class='op'>=&gt;</span> <span class='symbol'>:result_one</span><span class='comma'>,</span> <span class='symbol'>:expected_method_two</span> <span class='op'>=&gt;</span> <span class='symbol'>:result_two</span><span class='rparen'>)</span>
@@ -466,15 +466,15 @@ times.</p>
   <div class="discussion">
     
 <p>Constrains the <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance so that it can only expect or stub methods
-to which <code>responder</code> responds. The constraint is only applied at
+to which <tt>responder</tt> responds. The constraint is only applied at
 method invocation time.</p>
 
-<p>A <code>NoMethodError</code> will be raised if the <code>responder</code>
-does not <code>#respond_to?</code> a method invocation (even if the method
-has been expected or stubbed).</p>
+<p>A <tt>NoMethodError</tt> will be raised if the <tt>responder</tt> does not
+<tt>#respond_to?</tt> a method invocation (even if the method has been
+expected or stubbed).</p>
 
-<p>The <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance will delegate its <code>#respond_to?</code> method to
-the <code>responder</code>.</p>
+<p>The <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance will delegate its <tt>#respond_to?</tt> method to the
+<tt>responder</tt>.</p>
 
 
   </div>
@@ -544,7 +544,7 @@ the <code>responder</code>.</p>
         &mdash;
         <div class='inline'>
 <p>an object used to determine whether <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance should
-<code>#respond_to?</code> to an invocation.</p>
+<tt>#respond_to?</tt> to an invocation.</p>
 </div>
       
     </li>
@@ -634,7 +634,7 @@ times with any parameters.</p>
     
       <h4><div class='inline'>
 <p>Setup multiple expectations using
-<code>stubbed_methods_vs_return_values</code>.</p>
+<tt>stubbed_methods_vs_return_values</tt>.</p>
 </div></h4>
       <pre class="example code"><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
 <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='symbol'>:stubbed_method_one</span> <span class='op'>=&gt;</span> <span class='symbol'>:result_one</span><span class='comma'>,</span> <span class='symbol'>:stubbed_method_two</span> <span class='op'>=&gt;</span> <span class='symbol'>:result_two</span><span class='rparen'>)</span>
@@ -821,7 +821,7 @@ object.stubbed_method # =&gt; unexpected invocation: #&lt;Mock:mock&gt;.stubbed_
 </div>
     
     <div id="footer">
-  Generated on Sat Mar 31 18:30:21 2012 by 
+  Generated on Sat Mar 31 22:58:23 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.9.3).
 </div>
