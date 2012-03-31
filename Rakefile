@@ -137,27 +137,6 @@ file 'agiledox.txt' do
   end
 end
 
-desc "Convert example ruby files to syntax-highlighted html"
-task 'examples' do
-  require 'coderay'
-  mkdir_p 'doc/examples'
-  File.open('doc/examples/coderay.css', 'w') do |output|
-    output << CodeRay::Encoders[:html]::CSS.new.stylesheet
-  end
-  ['mocha', 'stubba', 'misc'].each do |filename|
-    File.open("doc/examples/#{filename}.html", 'w') do |file|
-      file << "<html>"
-      file << "<head>"
-      file << %q(<link rel="stylesheet" media="screen" href="coderay.css" type="text/css">)
-      file << "</head>"
-      file << "<body>"
-      file << CodeRay.scan_file("examples/#{filename}.rb").html.div
-      file << "</body>"
-      file << "</html>"
-    end
-  end
-end
-
 task 'release' => 'default' do
   Rake::Task['publish_docs'].invoke
 end
