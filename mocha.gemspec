@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
 
   s.files = `git ls-files`.split("\n") - ["TODO", ".travis.yml", ".gitignore"]
 
-  s.homepage = "http://mocha.rubyforge.org"
+  s.homepage = "http://floehopper.github.com/mocha/"
   s.rdoc_options = ["--title", "Mocha", "--main", "README.rdoc", "--line-numbers"]
   s.require_paths = ["lib"]
   s.rubyforge_project = "mocha"
