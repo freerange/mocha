@@ -3,28 +3,28 @@ require 'mocha/sequence'
 require 'mocha/expectation'
 
 class SequenceTest < Test::Unit::TestCase
-  
+
   include Mocha
-  
+
   class FakeExpectation
-    
+
     attr_reader :ordering_constraints
-    
+
     def initialize(satisfied = false)
       @satisfied = satisfied
       @ordering_constraints = []
     end
-    
+
     def add_ordering_constraint(ordering_constraint)
       @ordering_constraints << ordering_constraint
     end
-    
+
     def satisfied?
       @satisfied
     end
-    
+
   end
-  
+
   def test_should_be_satisfied_if_no_expectations_added
     sequence = Sequence.new('name')
     assert sequence.satisfied_to_index?(0)
@@ -68,7 +68,7 @@ class SequenceTest < Test::Unit::TestCase
     sequence.constrain_as_next_in_sequence(expectation_two)
     assert sequence.satisfied_to_index?(2)
   end
-  
+
   def test_should_add_ordering_constraint_to_expectation
     sequence = Sequence.new('name')
     expectation = FakeExpectation.new

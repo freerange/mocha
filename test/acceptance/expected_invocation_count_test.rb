@@ -4,11 +4,11 @@ require 'mocha'
 class ExpectedInvocationCountTest < Test::Unit::TestCase
 
   include AcceptanceTest
-  
+
   def setup
     setup_acceptance_test
   end
-  
+
   def teardown
     teardown_acceptance_test
   end
@@ -21,7 +21,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
     end
     assert_passed(test_result)
   end
-  
+
   def test_should_fail_fast_if_method_is_never_expected_but_is_called_once
     test_result = run_as_test do
       mock = mock('mock')
@@ -35,7 +35,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
       "- expected never, invoked once: #<Mock:mock>.method(any_parameters)"
     ], test_result.failure_message_lines
   end
-  
+
   def test_should_pass_if_method_is_expected_twice_and_is_called_twice
     test_result = run_as_test do
       mock = mock('mock')
@@ -44,7 +44,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
     end
     assert_passed(test_result)
   end
-  
+
   def test_should_fail_if_method_is_expected_twice_but_is_called_once
     test_result = run_as_test do
       mock = mock('mock')
@@ -58,7 +58,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
       "- expected exactly twice, invoked once: #<Mock:mock>.method(any_parameters)"
     ], test_result.failure_message_lines
   end
-  
+
   def test_should_fail_fast_if_method_is_expected_twice_but_is_called_three_times
     test_result = run_as_test do
       mock = mock('mock')
@@ -72,7 +72,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
       "- expected exactly twice, invoked 3 times: #<Mock:mock>.method(any_parameters)"
     ], test_result.failure_message_lines
   end
-  
+
   def test_should_pass_if_method_is_expected_between_two_and_four_times_and_is_called_twice
     test_result = run_as_test do
       mock = mock('mock')
@@ -127,7 +127,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
       "- expected between 2 and 4 times, invoked 5 times: #<Mock:mock>.method(any_parameters)"
     ], test_result.failure_message_lines
   end
-  
+
   def test_should_pass_if_method_is_expected_at_least_once_and_is_called_once
     test_result = run_as_test do
       mock = mock('mock')
@@ -136,7 +136,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
     end
     assert_passed(test_result)
   end
-  
+
   def test_should_pass_if_method_is_expected_at_least_once_and_is_called_twice
     test_result = run_as_test do
       mock = mock('mock')
@@ -145,7 +145,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
     end
     assert_passed(test_result)
   end
-  
+
   def test_should_fail_if_method_is_expected_at_least_once_but_is_never_called
     test_result = run_as_test do
       mock = mock('mock')
@@ -159,7 +159,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
       "- expected at least once, not yet invoked: #<Mock:mock>.method(any_parameters)"
     ], test_result.failure_message_lines
   end
-  
+
   def test_should_pass_if_method_is_expected_at_most_once_and_is_never_called
     test_result = run_as_test do
       mock = mock('mock')
@@ -168,7 +168,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
     end
     assert_passed(test_result)
   end
-  
+
   def test_should_pass_if_method_is_expected_at_most_once_and_called_once
     test_result = run_as_test do
       mock = mock('mock')
@@ -177,7 +177,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
     end
     assert_passed(test_result)
   end
-  
+
   def test_should_fail_fast_if_method_is_expected_at_most_once_but_is_called_twice
     test_result = run_as_test do
       mock = mock('mock')
@@ -191,7 +191,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
       "- expected at most once, invoked twice: #<Mock:mock>.method(any_parameters)"
     ], test_result.failure_message_lines
   end
-  
+
   def test_should_pass_if_method_is_never_expected_and_is_never_called_even_if_everything_is_stubbed
     test_result = run_as_test do
       stub = stub_everything('stub')
@@ -200,7 +200,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
     end
     assert_passed(test_result)
   end
-  
+
   def test_should_fail_fast_if_method_is_never_expected_but_is_called_once_even_if_everything_is_stubbed
     test_result = run_as_test do
       stub = stub_everything('stub')
@@ -214,7 +214,7 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
       "- expected never, invoked once: #<Mock:stub>.method(any_parameters)"
     ], test_result.failure_message_lines
   end
-  
+
   def test_should_fail_fast_if_there_is_no_matching_expectation
     test_result = run_as_test do
       mock = mock('mock')
@@ -228,5 +228,5 @@ class ExpectedInvocationCountTest < Test::Unit::TestCase
       "- expected exactly once, not yet invoked: #<Mock:mock>.method(1)"
     ], test_result.failure_message_lines
   end
-  
+
 end

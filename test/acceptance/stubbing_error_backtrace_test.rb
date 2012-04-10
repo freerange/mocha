@@ -3,17 +3,17 @@ require 'mocha'
 require 'execution_point'
 
 class StubbingErrorBacktraceTest < Test::Unit::TestCase
-  
+
   include AcceptanceTest
-  
+
   def setup
     setup_acceptance_test
   end
-  
+
   def teardown
     teardown_acceptance_test
   end
-  
+
   def test_should_display_backtrace_indicating_line_number_where_attempt_to_stub_non_existent_method_was_made
     execution_point = nil
     object = Object.new
@@ -24,7 +24,7 @@ class StubbingErrorBacktraceTest < Test::Unit::TestCase
     assert_equal 1, test_result.error_count
     assert_equal execution_point, ExecutionPoint.new(test_result.errors[0].exception.backtrace)
   end
-  
+
   def test_should_display_backtrace_indicating_line_number_where_attempt_to_stub_non_public_method_was_made
     execution_point = nil
     object = Class.new do
@@ -60,5 +60,5 @@ class StubbingErrorBacktraceTest < Test::Unit::TestCase
     assert_equal 1, test_result.error_count
     assert_equal execution_point, ExecutionPoint.new(test_result.errors[0].exception.backtrace)
   end
-  
+
 end

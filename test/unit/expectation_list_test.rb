@@ -5,15 +5,15 @@ require 'set'
 require 'method_definer'
 
 class ExpectationListTest < Test::Unit::TestCase
-  
+
   include Mocha
-  
+
   def test_should_return_added_expectation
     expectation_list = ExpectationList.new
     expectation = Expectation.new(nil, :my_method)
     assert_same expectation, expectation_list.add(expectation)
   end
-  
+
   def test_should_find_matching_expectation
     expectation_list = ExpectationList.new
     expectation1 = Expectation.new(nil, :my_method).with(:argument1, :argument2)
@@ -36,7 +36,7 @@ class ExpectationListTest < Test::Unit::TestCase
     assert_nil expectation_list.match(:method_one, :argument3, :argument4)
     assert_same expectation3, expectation_list.match(:method_two)
   end
-  
+
   def test_should_find_most_recent_matching_expectation
     expectation_list = ExpectationList.new
     expectation1 = Expectation.new(nil, :my_method).with(:argument1, :argument2)
@@ -45,7 +45,7 @@ class ExpectationListTest < Test::Unit::TestCase
     expectation_list.add(expectation2)
     assert_same expectation2, expectation_list.match(:my_method, :argument1, :argument2)
   end
-  
+
   def test_should_find_matching_expectation_allowing_invocation
     expectation_list = ExpectationList.new
     expectation1 = Expectation.new(nil, :my_method).with(:argument1, :argument2)
@@ -56,7 +56,7 @@ class ExpectationListTest < Test::Unit::TestCase
     expectation_list.add(expectation2)
     assert_same expectation1, expectation_list.match_allowing_invocation(:my_method, :argument1, :argument2)
   end
-  
+
   def test_should_find_most_recent_matching_expectation_allowing_invocation
     expectation_list = ExpectationList.new
     expectation1 = Expectation.new(nil, :my_method)
@@ -67,5 +67,5 @@ class ExpectationListTest < Test::Unit::TestCase
     expectation_list.add(expectation2)
     assert_same expectation1, expectation_list.match_allowing_invocation(:my_method)
   end
-  
+
 end

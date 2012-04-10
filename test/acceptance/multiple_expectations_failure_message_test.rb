@@ -4,11 +4,11 @@ require 'mocha'
 class FailureMessageTest < Test::Unit::TestCase
 
   include AcceptanceTest
-  
+
   def setup
     setup_acceptance_test
   end
-  
+
   def teardown
     teardown_acceptance_test
   end

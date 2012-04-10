@@ -2,17 +2,17 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha'
 
 class StubEverythingTest < Test::Unit::TestCase
-  
+
   include AcceptanceTest
-  
+
   def setup
     setup_acceptance_test
   end
-  
+
   def teardown
     teardown_acceptance_test
   end
-  
+
   def test_should_build_stub_and_explicitly_add_an_expectation
     test_result = run_as_test do
       foo = stub_everything()

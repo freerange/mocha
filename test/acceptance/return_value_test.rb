@@ -2,17 +2,17 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha'
 
 class ReturnValueTest < Test::Unit::TestCase
-  
+
   include AcceptanceTest
-  
+
   def setup
     setup_acceptance_test
   end
-  
+
   def teardown
     teardown_acceptance_test
   end
-  
+
   def test_should_build_mock_and_explicitly_add_an_expectation_with_a_return_value
     test_result = run_as_test do
       foo = mock('foo')

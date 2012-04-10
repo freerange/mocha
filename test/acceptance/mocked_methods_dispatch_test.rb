@@ -4,15 +4,15 @@ require 'mocha'
 class MockedMethodDispatchTest < Test::Unit::TestCase
 
   include AcceptanceTest
-  
+
   def setup
     setup_acceptance_test
   end
-  
+
   def teardown
     teardown_acceptance_test
   end
-  
+
   def test_should_find_latest_matching_expectation
     test_result = run_as_test do
       mock = mock()

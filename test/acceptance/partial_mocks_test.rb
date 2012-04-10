@@ -2,26 +2,26 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha'
 
 class PartialMockTest < Test::Unit::TestCase
-  
+
   include AcceptanceTest
-  
+
   def setup
     setup_acceptance_test
   end
-  
+
   def teardown
     teardown_acceptance_test
   end
-  
+
   def test_should_pass_if_all_expectations_are_satisfied
     test_result = run_as_test do
       partial_mock_one = "partial_mock_one"
       partial_mock_two = "partial_mock_two"
-      
+
       partial_mock_one.expects(:first)
       partial_mock_one.expects(:second)
       partial_mock_two.expects(:third)
-      
+
       partial_mock_one.first
       partial_mock_one.second
       partial_mock_two.third
@@ -33,11 +33,11 @@ class PartialMockTest < Test::Unit::TestCase
     test_result = run_as_test do
       partial_mock_one = "partial_mock_one"
       partial_mock_two = "partial_mock_two"
-      
+
       partial_mock_one.expects(:first)
       partial_mock_one.expects(:second)
       partial_mock_two.expects(:third)
-      
+
       partial_mock_one.first
       partial_mock_two.third
     end

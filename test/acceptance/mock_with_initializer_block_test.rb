@@ -2,17 +2,17 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha'
 
 class MockWithInitializerBlockTest < Test::Unit::TestCase
-  
+
   include AcceptanceTest
-  
+
   def setup
     setup_acceptance_test
   end
-  
+
   def teardown
     teardown_acceptance_test
   end
-  
+
   def test_should_expect_two_method_invocations_and_receive_both_of_them
     test_result = run_as_test do
       mock = mock() do

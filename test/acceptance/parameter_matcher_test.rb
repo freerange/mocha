@@ -2,17 +2,17 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha'
 
 class ParameterMatcherTest < Test::Unit::TestCase
-  
+
   include AcceptanceTest
-  
+
   def setup
     setup_acceptance_test
   end
-  
+
   def teardown
     teardown_acceptance_test
   end
-  
+
   def test_should_match_hash_parameter_with_specified_key
     test_result = run_as_test do
       mock = mock()
@@ -30,7 +30,7 @@ class ParameterMatcherTest < Test::Unit::TestCase
     end
     assert_failed(test_result)
   end
-  
+
   def test_should_match_hash_parameter_with_specified_value
     test_result = run_as_test do
       mock = mock()
@@ -48,7 +48,7 @@ class ParameterMatcherTest < Test::Unit::TestCase
     end
     assert_failed(test_result)
   end
-  
+
   def test_should_match_hash_parameter_with_specified_key_value_pair
     test_result = run_as_test do
       mock = mock()
@@ -66,7 +66,7 @@ class ParameterMatcherTest < Test::Unit::TestCase
     end
     assert_failed(test_result)
   end
-  
+
   def test_should_match_hash_parameter_with_specified_hash_entry
     test_result = run_as_test do
       mock = mock()
@@ -84,7 +84,7 @@ class ParameterMatcherTest < Test::Unit::TestCase
     end
     assert_failed(test_result)
   end
-  
+
   def test_should_match_hash_parameter_with_specified_entries
     test_result = run_as_test do
       mock = mock()
@@ -102,7 +102,7 @@ class ParameterMatcherTest < Test::Unit::TestCase
     end
     assert_failed(test_result)
   end
-  
+
   def test_should_match_parameter_that_matches_regular_expression
     test_result = run_as_test do
       mock = mock()
@@ -120,7 +120,7 @@ class ParameterMatcherTest < Test::Unit::TestCase
     end
     assert_failed(test_result)
   end
-  
+
   def test_should_match_hash_parameter_with_specified_entries_using_nested_matchers
     test_result = run_as_test do
       mock = mock()
@@ -129,7 +129,7 @@ class ParameterMatcherTest < Test::Unit::TestCase
     end
     assert_passed(test_result)
   end
-  
+
   def test_should_not_match_hash_parameter_with_specified_entries_using_nested_matchers
     test_result = run_as_test do
       mock = mock()
@@ -138,7 +138,7 @@ class ParameterMatcherTest < Test::Unit::TestCase
     end
     assert_failed(test_result)
   end
-  
+
   def test_should_match_parameter_that_matches_any_value
     test_result = run_as_test do
       mock = mock()
@@ -148,7 +148,7 @@ class ParameterMatcherTest < Test::Unit::TestCase
     end
     assert_passed(test_result)
   end
-  
+
   def test_should_not_match_parameter_that_does_not_match_any_value
     test_result = run_as_test do
       mock = mock()
@@ -157,7 +157,7 @@ class ParameterMatcherTest < Test::Unit::TestCase
     end
     assert_failed(test_result)
   end
-  
+
   def test_should_match_parameter_that_matches_any_of_the_given_matchers
     test_result = run_as_test do
       mock = mock()
@@ -167,7 +167,7 @@ class ParameterMatcherTest < Test::Unit::TestCase
     end
     assert_passed(test_result)
   end
-  
+
   def test_should_not_match_parameter_that_does_not_match_any_of_the_given_matchers
     test_result = run_as_test do
       mock = mock()
@@ -185,7 +185,7 @@ class ParameterMatcherTest < Test::Unit::TestCase
     end
     assert_passed(test_result)
   end
-  
+
   def test_should_not_match_parameter_that_does_not_match_all_values
     test_result = run_as_test do
       mock = mock()
@@ -194,7 +194,7 @@ class ParameterMatcherTest < Test::Unit::TestCase
     end
     assert_failed(test_result)
   end
-  
+
   def test_should_match_parameter_that_matches_all_matchers
     test_result = run_as_test do
       mock = mock()
@@ -203,7 +203,7 @@ class ParameterMatcherTest < Test::Unit::TestCase
     end
     assert_passed(test_result)
   end
-  
+
   def test_should_not_match_parameter_that_does_not_match_all_matchers
     test_result = run_as_test do
       mock = mock()

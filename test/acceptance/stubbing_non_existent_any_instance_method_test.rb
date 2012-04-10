@@ -2,17 +2,17 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha'
 
 class StubbingNonExistentAnyInstanceMethodTest < Test::Unit::TestCase
-  
+
   include AcceptanceTest
-  
+
   def setup
     setup_acceptance_test
   end
-  
+
   def teardown
     teardown_acceptance_test
   end
-  
+
   def test_should_allow_stubbing_non_existent_any_instance_method
     Mocha::Configuration.allow(:stubbing_non_existent_method)
     klass = Class.new
@@ -22,7 +22,7 @@ class StubbingNonExistentAnyInstanceMethodTest < Test::Unit::TestCase
     assert !@logger.warnings.include?("stubbing non-existent method: #{klass.any_instance.mocha_inspect}.non_existent_method")
     assert_passed(test_result)
   end
-  
+
   def test_should_warn_when_stubbing_non_existent_any_instance_method
     Mocha::Configuration.warn_when(:stubbing_non_existent_method)
     klass = Class.new
@@ -32,7 +32,7 @@ class StubbingNonExistentAnyInstanceMethodTest < Test::Unit::TestCase
     assert_passed(test_result)
     assert @logger.warnings.include?("stubbing non-existent method: #{klass.any_instance.mocha_inspect}.non_existent_method")
   end
-  
+
   def test_should_prevent_stubbing_non_existent_any_instance_method
     Mocha::Configuration.prevent(:stubbing_non_existent_method)
     klass = Class.new
@@ -42,7 +42,7 @@ class StubbingNonExistentAnyInstanceMethodTest < Test::Unit::TestCase
     assert_failed(test_result)
     assert test_result.error_messages.include?("Mocha::StubbingError: stubbing non-existent method: #{klass.any_instance.mocha_inspect}.non_existent_method")
   end
-  
+
   def test_should_default_to_allow_stubbing_non_existent_any_instance_method
     klass = Class.new
     test_result = run_as_test do
@@ -51,7 +51,7 @@ class StubbingNonExistentAnyInstanceMethodTest < Test::Unit::TestCase
     assert !@logger.warnings.include?("stubbing non-existent method: #{klass.any_instance.mocha_inspect}.non_existent_method")
     assert_passed(test_result)
   end
-  
+
   def test_should_allow_stubbing_existing_public_any_instance_method
     Mocha::Configuration.prevent(:stubbing_non_existent_method)
     klass = Class.new do
@@ -75,7 +75,7 @@ class StubbingNonExistentAnyInstanceMethodTest < Test::Unit::TestCase
     end
     assert_passed(test_result)
   end
-  
+
   def test_should_allow_stubbing_existing_private_any_instance_method
     Mocha::Configuration.prevent(:stubbing_non_existent_method)
     klass = Class.new do
@@ -87,7 +87,7 @@ class StubbingNonExistentAnyInstanceMethodTest < Test::Unit::TestCase
     end
     assert_passed(test_result)
   end
-  
+
   def test_should_allow_stubbing_existing_public_any_instance_superclass_method
     Mocha::Configuration.prevent(:stubbing_non_existent_method)
     superklass = Class.new do
@@ -100,7 +100,7 @@ class StubbingNonExistentAnyInstanceMethodTest < Test::Unit::TestCase
     end
     assert_passed(test_result)
   end
-  
+
   def test_should_allow_stubbing_existing_protected_any_instance_superclass_method
     Mocha::Configuration.prevent(:stubbing_non_existent_method)
     superklass = Class.new do
@@ -113,7 +113,7 @@ class StubbingNonExistentAnyInstanceMethodTest < Test::Unit::TestCase
     end
     assert_passed(test_result)
   end
-  
+
   def test_should_allow_stubbing_existing_private_any_instance_superclass_method
     Mocha::Configuration.prevent(:stubbing_non_existent_method)
     superklass = Class.new do
@@ -126,5 +126,5 @@ class StubbingNonExistentAnyInstanceMethodTest < Test::Unit::TestCase
     end
     assert_passed(test_result)
   end
-  
+
 end

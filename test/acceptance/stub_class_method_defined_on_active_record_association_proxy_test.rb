@@ -27,7 +27,7 @@ class StubClassMethodDefinedOnActiveRecordAssociationProxyTest < Test::Unit::Tes
     end
     assert_passed(test_result)
   end
-  
+
   def test_should_be_able_to_stub_method_if_ruby19_public_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby19_klass = Class.new do
       class << self
@@ -42,7 +42,7 @@ class StubClassMethodDefinedOnActiveRecordAssociationProxyTest < Test::Unit::Tes
     end
     assert_passed(test_result)
   end
-  
+
   def test_should_be_able_to_stub_method_if_ruby18_protected_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby18_klass = Class.new do
       class << self
@@ -57,7 +57,7 @@ class StubClassMethodDefinedOnActiveRecordAssociationProxyTest < Test::Unit::Tes
     end
     assert_passed(test_result)
   end
-  
+
   def test_should_be_able_to_stub_method_if_ruby19_protected_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby19_klass = Class.new do
       class << self
@@ -72,7 +72,7 @@ class StubClassMethodDefinedOnActiveRecordAssociationProxyTest < Test::Unit::Tes
     end
     assert_passed(test_result)
   end
-  
+
   def test_should_be_able_to_stub_method_if_ruby18_private_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby18_klass = Class.new do
       class << self
@@ -87,7 +87,7 @@ class StubClassMethodDefinedOnActiveRecordAssociationProxyTest < Test::Unit::Tes
     end
     assert_passed(test_result)
   end
-  
+
   def test_should_be_able_to_stub_method_if_ruby19_private_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby19_klass = Class.new do
       class << self
@@ -102,5 +102,5 @@ class StubClassMethodDefinedOnActiveRecordAssociationProxyTest < Test::Unit::Tes
     end
     assert_passed(test_result)
   end
-  
+
 end
