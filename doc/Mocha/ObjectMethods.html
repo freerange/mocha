@@ -296,6 +296,24 @@ times.</p>
     </li>
   
 </ul>
+<h3>Raises:</h3>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="StubbingError.html" title="Mocha::StubbingError (class)">StubbingError</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if attempting to stub method which is not allowed.</p>
+</div>
+      
+    </li>
+  
+</ul>
 
   <h3>See Also:</h3>
   <ul class="see">
@@ -310,7 +328,6 @@ times.</p>
       <pre class="lines">
 
 
-62
 63
 64
 65
@@ -329,10 +346,11 @@ times.</p>
 78
 79
 80
-81</pre>
+81
+82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/object.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/object.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='id identifier rubyid_expected_methods_vs_return_values'>expected_methods_vs_return_values</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_expected_methods_vs_return_values'>expected_methods_vs_return_values</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>the[^a-z]*spanish[^a-z]*inquisition</span><span class='regexp_end'>/i</span></span>
@@ -462,6 +480,24 @@ multiple times.</p>
     </li>
   
 </ul>
+<h3>Raises:</h3>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="StubbingError.html" title="Mocha::StubbingError (class)">StubbingError</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if attempting to stub method which is not allowed.</p>
+</div>
+      
+    </li>
+  
+</ul>
 
   <h3>See Also:</h3>
   <ul class="see">
@@ -476,8 +512,6 @@ multiple times.</p>
       <pre class="lines">
 
 
-108
-109
 110
 111
 112
@@ -492,10 +526,12 @@ multiple times.</p>
 121
 122
 123
-124</pre>
+124
+125
+126</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/object.rb', line 108</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/object.rb', line 110</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='id identifier rubyid_stubbed_methods_vs_return_values'>stubbed_methods_vs_return_values</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_frozen?'>frozen?</span>
@@ -595,16 +631,16 @@ satisfied. Use <span class='object_link'><a href="#unstub-instance_method" title
       <pre class="lines">
 
 
-149
-150
 151
 152
 153
 154
-155</pre>
+155
+156
+157</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/object.rb', line 149</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/object.rb', line 151</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unstub'>unstub</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_method_names'>method_names</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_mockery'>mockery</span> <span class='op'>=</span> <span class='const'>Mocha</span><span class='op'>::</span><span class='const'>Mockery</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
@@ -623,7 +659,7 @@ satisfied. Use <span class='object_link'><a href="#unstub-instance_method" title
 </div>
     
     <div id="footer">
-  Generated on Tue Apr 10 15:30:33 2012 by 
+  Generated on Tue Apr 10 15:36:25 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.9.3).
 </div>

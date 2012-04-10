@@ -186,6 +186,24 @@ non-mock) objects.</p>
     </li>
   
 </ul>
+<h3>Raises:</h3>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="StubbingError.html" title="Mocha::StubbingError (class)">StubbingError</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if attempting to stub method which is not allowed.</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -193,15 +211,15 @@ non-mock) objects.</p>
       <pre class="lines">
 
 
-225
-226
-227
 228
 229
-230</pre>
+230
+231
+232
+233</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/object.rb', line 225</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/object.rb', line 228</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_any_instance'>any_instance</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_frozen?'>frozen?</span>
@@ -219,7 +237,7 @@ non-mock) objects.</p>
 </div>
     
     <div id="footer">
-  Generated on Tue Apr 10 15:30:33 2012 by 
+  Generated on Tue Apr 10 15:36:25 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.9.3).
 </div>
