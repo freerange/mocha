@@ -326,7 +326,10 @@ times.</p>
 75
 76
 77
-78</pre>
+78
+79
+80
+81</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/mocha/object.rb', line 62</span>
@@ -334,6 +337,9 @@ times.</p>
 <span class='kw'>def</span> <span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='id identifier rubyid_expected_methods_vs_return_values'>expected_methods_vs_return_values</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_expected_methods_vs_return_values'>expected_methods_vs_return_values</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>the[^a-z]*spanish[^a-z]*inquisition</span><span class='regexp_end'>/i</span></span>
     <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Mocha</span><span class='op'>::</span><span class='const'>ExpectationError</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>NOBODY EXPECTS THE SPANISH INQUISITION!</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_frozen?'>frozen?</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>StubbingError</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>can't stub method on frozen object: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_mocha_inspect'>mocha_inspect</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_caller'>caller</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_expectation'>expectation</span> <span class='op'>=</span> <span class='kw'>nil</span>
   <span class='id identifier rubyid_mockery'>mockery</span> <span class='op'>=</span> <span class='const'>Mocha</span><span class='op'>::</span><span class='const'>Mockery</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
@@ -470,9 +476,6 @@ multiple times.</p>
       <pre class="lines">
 
 
-105
-106
-107
 108
 109
 110
@@ -483,12 +486,21 @@ multiple times.</p>
 115
 116
 117
-118</pre>
+118
+119
+120
+121
+122
+123
+124</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/object.rb', line 105</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/object.rb', line 108</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='id identifier rubyid_stubbed_methods_vs_return_values'>stubbed_methods_vs_return_values</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_frozen?'>frozen?</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>StubbingError</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>can't stub method on frozen object: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_mocha_inspect'>mocha_inspect</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_caller'>caller</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
   <span class='id identifier rubyid_expectation'>expectation</span> <span class='op'>=</span> <span class='kw'>nil</span>
   <span class='id identifier rubyid_mockery'>mockery</span> <span class='op'>=</span> <span class='const'>Mocha</span><span class='op'>::</span><span class='const'>Mockery</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
   <span class='id identifier rubyid_iterator'>iterator</span> <span class='op'>=</span> <span class='const'>ArgumentIterator</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_stubbed_methods_vs_return_values'>stubbed_methods_vs_return_values</span><span class='rparen'>)</span>
@@ -583,16 +595,16 @@ satisfied. Use <span class='object_link'><a href="#unstub-instance_method" title
       <pre class="lines">
 
 
-143
-144
-145
-146
-147
-148
-149</pre>
+149
+150
+151
+152
+153
+154
+155</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/object.rb', line 143</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/object.rb', line 149</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unstub'>unstub</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_method_names'>method_names</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_mockery'>mockery</span> <span class='op'>=</span> <span class='const'>Mocha</span><span class='op'>::</span><span class='const'>Mockery</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
@@ -611,7 +623,7 @@ satisfied. Use <span class='object_link'><a href="#unstub-instance_method" title
 </div>
     
     <div id="footer">
-  Generated on Tue Apr 10 10:17:10 2012 by 
+  Generated on Tue Apr 10 15:30:33 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.9.3).
 </div>
