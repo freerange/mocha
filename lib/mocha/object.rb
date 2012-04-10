@@ -42,6 +42,7 @@ module Mocha
     # @overload def expects(method_name)
     # @overload def expects(expected_methods_vs_return_values)
     # @return [Expectation] last-built expectation which can be further modified by methods on {Expectation}.
+    # @raise [StubbingError] if attempting to stub method which is not allowed.
     #
     # @example Setting up an expectation on a non-mock object.
     #   product = Product.new
@@ -88,6 +89,7 @@ module Mocha
     # @overload def stubs(method_name)
     # @overload def stubs(stubbed_methods_vs_return_values)
     # @return [Expectation] last-built expectation which can be further modified by methods on {Expectation}.
+    # @raise [StubbingError] if attempting to stub method which is not allowed.
     #
     # @example Setting up a stubbed methods on a non-mock object.
     #   product = Product.new
@@ -215,6 +217,7 @@ module Mocha
     end
 
     # @return [Mock] a mock object which will detect calls to any instance of this class.
+    # @raise [StubbingError] if attempting to stub method which is not allowed.
     #
     # @example Return false to invocation of +Product#save+ for any instance of +Product+.
     #   Product.any_instance.stubs(:save).returns(false)
