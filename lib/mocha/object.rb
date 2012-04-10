@@ -63,6 +63,9 @@ module Mocha
       if expected_methods_vs_return_values.to_s =~ /the[^a-z]*spanish[^a-z]*inquisition/i
         raise Mocha::ExpectationError.new('NOBODY EXPECTS THE SPANISH INQUISITION!')
       end
+      if frozen?
+        raise StubbingError.new("can't stub method on frozen object: #{mocha_inspect}", caller)
+      end
       expectation = nil
       mockery = Mocha::Mockery.instance
       iterator = ArgumentIterator.new(expected_methods_vs_return_values)
@@ -103,6 +106,9 @@ module Mocha
     #
     # @see Mock#stubs
     def stubs(stubbed_methods_vs_return_values)
+      if frozen?
+        raise StubbingError.new("can't stub method on frozen object: #{mocha_inspect}", caller)
+      end
       expectation = nil
       mockery = Mocha::Mockery.instance
       iterator = ArgumentIterator.new(stubbed_methods_vs_return_values)
@@ -217,6 +223,9 @@ module Mocha
     #   product_2 = Product.new
     #   assert_equal false, product_2.save
     def any_instance
+      if frozen?
+        raise StubbingError.new("can't stub method on frozen object: #{mocha_inspect}.any_instance", caller)
+      end
       @any_instance ||= AnyInstance.new(self)
     end
 

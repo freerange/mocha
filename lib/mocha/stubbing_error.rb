@@ -2,7 +2,9 @@ require 'mocha/backtrace_filter'
 
 module Mocha
 
-  # Exception raised when an action prevented by {Configuration.prevent} is attempted.
+  # Exception raised when stubbing a particular method is not allowed.
+  #
+  # @see Configuration.prevent
   class StubbingError < StandardError
 
     # @private
