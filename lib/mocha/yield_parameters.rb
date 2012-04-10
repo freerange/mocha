@@ -2,9 +2,9 @@ require 'mocha/no_yields'
 require 'mocha/single_yield'
 require 'mocha/multiple_yields'
 
-module Mocha # :nodoc:
+module Mocha
   
-  class YieldParameters # :nodoc:
+  class YieldParameters
     
     def initialize
       @parameter_groups = []

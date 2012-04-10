@@ -1,6 +1,6 @@
-module Mocha # :nodoc:
+module Mocha
   
-  class ExceptionRaiser # :nodoc:
+  class ExceptionRaiser
     
     def initialize(exception, message)
       @exception, @message = exception, message

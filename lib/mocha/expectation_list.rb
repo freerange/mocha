@@ -1,4 +1,4 @@
-module Mocha # :nodoc:
+module Mocha
 
   class ExpectationList
 

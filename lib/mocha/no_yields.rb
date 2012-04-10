@@ -1,6 +1,6 @@
-module Mocha # :nodoc:
+module Mocha
   
-  class NoYields # :nodoc:
+  class NoYields
     
     def each
     end

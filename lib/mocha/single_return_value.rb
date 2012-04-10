@@ -1,8 +1,8 @@
 require 'mocha/is_a'
 
-module Mocha # :nodoc:
+module Mocha
   
-  class SingleReturnValue # :nodoc:
+  class SingleReturnValue
     
     def initialize(value)
       @value = value

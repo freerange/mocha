@@ -100,6 +100,7 @@ YARD::Rake::YardocTask.new('yardoc') do |task|
     'lib/mocha/sequence.rb',
     'lib/mocha/configuration.rb',
     'lib/mocha/stubbing_error.rb',
+    'lib/mocha/unexpected_invocation.rb',
     '-',
     'RELEASE.rdoc',
     'COPYING.rdoc',

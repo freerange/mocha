@@ -1,6 +1,6 @@
-module Mocha # :nodoc:
+module Mocha
 
-  class Thrower # :nodoc:
+  class Thrower
 
     def initialize(tag, object = nil)
       @tag, @object = tag, object
