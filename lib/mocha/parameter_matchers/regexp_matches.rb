@@ -21,7 +21,7 @@ module Mocha
     #   object = mock()
     #   object.expects(:method_1).with(regexp_matches(/a/))
     #   object.method_1('hello')
-    #   # error raised, because method_1 was not called with a parameter that matched the 
+    #   # error raised, because method_1 was not called with a parameter that matched the
     #   # regular expression
     def regexp_matches(regexp)
       RegexpMatches.new(regexp)

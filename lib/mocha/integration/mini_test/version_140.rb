@@ -2,11 +2,11 @@ require 'mocha/integration/mini_test/assertion_counter'
 require 'mocha/expectation_error'
 
 module Mocha
-  
+
   module Integration
-    
+
     module MiniTest
-      
+
       module Version140
         def self.included(mod)
           $stderr.puts "Monkey patching MiniTest v1.4.0" if $mocha_options['debug']
@@ -37,9 +37,9 @@ module Mocha
           result
         end
       end
-      
+
     end
-    
+
   end
-  
+
 end

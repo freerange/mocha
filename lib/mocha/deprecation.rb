@@ -1,11 +1,11 @@
 module Mocha
-  
+
   class Deprecation
-    
+
     class << self
-      
+
       attr_accessor :mode, :messages
-      
+
       def warning(message)
         @messages << message
         $stderr.puts "Mocha deprecation warning: #{message}" unless mode == :disabled
@@ -13,10 +13,10 @@ module Mocha
       end
 
     end
-  
+
     self.mode = :enabled
     self.messages = []
-    
+
   end
-   
+
 end

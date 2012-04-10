@@ -1,11 +1,11 @@
 require 'mocha/integration/mini_test/assertion_counter'
 
 module Mocha
-  
+
   module Integration
-    
+
     module MiniTest
-      
+
       module Version13
         def self.included(mod)
           $stderr.puts "Monkey patching MiniTest v1.3" if $mocha_options['debug']
@@ -36,9 +36,9 @@ module Mocha
           result
         end
       end
-      
+
     end
-    
+
   end
-  
+
 end

@@ -2,11 +2,11 @@ require 'mocha/integration/mini_test/assertion_counter'
 require 'mocha/expectation_error'
 
 module Mocha
-  
+
   module Integration
-    
+
     module MiniTest
-      
+
       module Version142To172
         def self.included(mod)
           $stderr.puts "Monkey patching MiniTest >= v1.4.2 and <= v1.7.2" if $mocha_options['debug']
@@ -17,7 +17,7 @@ module Mocha
               (Time.now - runner.start_time)]
             runner.status $stderr
           end if ::MiniTest::Unit::TestCase::SUPPORTS_INFO_SIGNAL
-          
+
           assertion_counter = AssertionCounter.new(self)
           result = '.'
           begin
@@ -48,9 +48,9 @@ module Mocha
           result
         end
       end
-      
+
     end
-    
+
   end
-  
+
 end

@@ -3,7 +3,7 @@ require 'mocha/backtrace_filter'
 module Mocha
 
   class ExpectationError < Exception
-    
+
     def initialize(message = nil, backtrace = [])
       super(message)
       filter = BacktraceFilter.new
@@ -11,5 +11,5 @@ module Mocha
     end
 
   end
-  
+
 end

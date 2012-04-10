@@ -36,7 +36,7 @@ module Mocha
     #     assert motor.start(100.rpm)
     #     assert motor.stop
     #     # an error will only be raised if Motor#start(100.rpm) has not been called
-    #   end 
+    #   end
     def mock(*arguments, &block)
       name = arguments.shift if arguments.first.is_a?(String)
       expectations = arguments.shift || {}
@@ -73,7 +73,7 @@ module Mocha
     #     assert motor.start(100.rpm)
     #     assert motor.stop
     #     # an error will only be raised if Motor#start(100.rpm) has not been called
-    #   end 
+    #   end
     def stub(*arguments, &block)
       name = arguments.shift if arguments.first.is_a?(String)
       expectations = arguments.shift || {}

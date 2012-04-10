@@ -3,7 +3,7 @@ module Mocha
   module ParameterMatchers
 
     # @abstract Subclass and implement +#matches?+ and +#mocha_inspect+ to define a custom matcher. Also add a suitably named instance method to {ParameterMatchers} to build an instance of the new matcher c.f. {#equals}.
-    class Base 
+    class Base
 
       # @private
       def to_matcher

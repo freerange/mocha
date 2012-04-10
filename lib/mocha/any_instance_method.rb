@@ -3,7 +3,7 @@ require 'mocha/class_method'
 module Mocha
 
   class AnyInstanceMethod < ClassMethod
-  
+
     def mock
       stubbee.any_instance.mocha
     end
@@ -51,7 +51,7 @@ module Mocha
       return true if stubbee.private_instance_methods(false).include?(method)
       return false
     end
-    
+
   end
-  
+
 end

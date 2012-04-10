@@ -3,11 +3,11 @@ require 'mocha/integration/test_unit/assertion_counter'
 require 'mocha/expectation_error'
 
 module Mocha
-  
+
   module Integration
-    
+
     module TestUnit
-      
+
       module GemVersion200
         def self.included(mod)
           $stderr.puts "Monkey patching Test::Unit gem v2.0.0" if $mocha_options['debug']
@@ -44,9 +44,9 @@ module Mocha
           end
         end
       end
-      
+
     end
-    
+
   end
-  
+
 end

@@ -3,11 +3,11 @@ require 'mocha/integration/test_unit/assertion_counter'
 require 'mocha/expectation_error'
 
 module Mocha
-  
+
   module Integration
-    
+
     module TestUnit
-      
+
       module RubyVersion186AndAbove
         def self.included(mod)
           $stderr.puts "Monkey patching Test::Unit for Ruby >= v1.8.6" if $mocha_options['debug']
@@ -45,9 +45,9 @@ module Mocha
           yield(Test::Unit::TestCase::FINISHED, name)
         end
       end
-      
+
     end
-    
+
   end
-  
+
 end
