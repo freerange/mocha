@@ -7,14 +7,15 @@ module Mocha
       :stubbing_method_unnecessarily => :allow,
       :stubbing_method_on_non_mock_object => :allow,
       :stubbing_non_existent_method => :allow,
-      :stubbing_non_public_method => :allow
+      :stubbing_non_public_method => :allow,
+      :stubbing_method_on_nil => :prevent,
     }
 
     class << self
 
       # Allow the specified +action+.
       #
-      # @param [Symbol] action one of +:stubbing_method_unnecessarily+, +:stubbing_method_on_non_mock_object+, +:stubbing_non_existent_method+, +:stubbing_non_public_method+.
+      # @param [Symbol] action one of +:stubbing_method_unnecessarily+, +:stubbing_method_on_non_mock_object+, +:stubbing_non_existent_method+, +:stubbing_non_public_method+, +:stubbing_method_on_nil+.
       # @yield optional block during which the configuration change will be changed before being returned to its original value at the end of the block.
       def allow(action, &block)
         change_config action, :allow, &block
@@ -27,7 +28,7 @@ module Mocha
 
       # Warn if the specified +action+ is attempted.
       #
-      # @param [Symbol] action one of +:stubbing_method_unnecessarily+, +:stubbing_method_on_non_mock_object+, +:stubbing_non_existent_method+, +:stubbing_non_public_method+.
+      # @param [Symbol] action one of +:stubbing_method_unnecessarily+, +:stubbing_method_on_non_mock_object+, +:stubbing_non_existent_method+, +:stubbing_non_public_method+, +:stubbing_method_on_nil+.
       # @yield optional block during which the configuration change will be changed before being returned to its original value at the end of the block.
       def warn_when(action, &block)
         change_config action, :warn, &block
@@ -40,7 +41,7 @@ module Mocha
 
       # Raise a {StubbingError} if if the specified +action+ is attempted.
       #
-      # @param [Symbol] action one of +:stubbing_method_unnecessarily+, +:stubbing_method_on_non_mock_object+, +:stubbing_non_existent_method+, +:stubbing_non_public_method+.
+      # @param [Symbol] action one of +:stubbing_method_unnecessarily+, +:stubbing_method_on_non_mock_object+, +:stubbing_non_existent_method+, +:stubbing_non_public_method+, +:stubbing_method_on_nil+.
       # @yield optional block during which the configuration change will be changed before being returned to its original value at the end of the block.
       def prevent(action, &block)
         change_config action, :prevent, &block

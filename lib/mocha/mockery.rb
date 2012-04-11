@@ -98,6 +98,11 @@ module Mocha
           on_stubbing_non_public_method(object, method)
         end
       end
+      unless Mocha::Configuration.allow?(:stubbing_method_on_nil)
+        if object.nil?
+          on_stubbing_method_on_nil(object, method)
+        end
+      end
       unless Mocha::Configuration.allow?(:stubbing_method_on_non_mock_object)
         on_stubbing_method_on_non_mock_object(object, method)
       end
@@ -118,6 +123,15 @@ module Mocha
       end
       if Mocha::Configuration.warn_when?(:stubbing_non_public_method)
         logger.warn "stubbing non-public method: #{object.mocha_inspect}.#{method}"
+      end
+    end
+
+    def on_stubbing_method_on_nil(object, method)
+      if Mocha::Configuration.prevent?(:stubbing_method_on_nil)
+        raise StubbingError.new("stubbing method on nil: #{object.mocha_inspect}.#{method}", caller)
+      end
+      if Mocha::Configuration.warn_when?(:stubbing_method_on_nil)
+        logger.warn "stubbing method on nil: #{object.mocha_inspect}.#{method}"
       end
     end
 
