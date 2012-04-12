@@ -57,8 +57,8 @@ class ClassMethodTest < Test::Unit::TestCase
     method.remove_new_method
     method.restore_original_method
 
-    assert_equal :original_result, klass.method_x
     assert klass.respond_to?(:method_x)
+    assert_equal :original_result, klass.method_x
   end
 
   def test_should_not_restore_original_method_if_hidden_method_is_not_defined
