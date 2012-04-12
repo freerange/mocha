@@ -56,7 +56,7 @@ class AnyInstanceMethodTest < Test::Unit::TestCase
     assert_equal :original_result, instance.method_x
   end
 
-  def test_should_not_restore_original_method_if_hidden_method_not_defined
+  def test_should_not_restore_original_method_if_none_was_defined_in_first_place
     klass = Class.new { def method_x; :new_result; end }
     method = AnyInstanceMethod.new(klass, :method_x)
 

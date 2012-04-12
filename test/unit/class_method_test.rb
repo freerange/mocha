@@ -61,7 +61,7 @@ class ClassMethodTest < Test::Unit::TestCase
     assert_equal :original_result, klass.method_x
   end
 
-  def test_should_not_restore_original_method_if_hidden_method_is_not_defined
+  def test_should_not_restore_original_method_if_none_was_defined_in_first_place
     klass = Class.new { def self.method_x; :new_result; end }
     method = ClassMethod.new(klass, :method_x)
 
