@@ -8,78 +8,20 @@ class ClassMethodTest < Test::Unit::TestCase
 
   include Mocha
 
-  def test_should_provide_hidden_version_of_method_name_starting_with_prefix
-    method = ClassMethod.new(nil, :original_method_name)
-    assert_match(/^__stubba__/, method.hidden_method.to_s)
-  end
-
-  def test_should_provide_hidden_version_of_method_name_ending_with_suffix
-    method = ClassMethod.new(nil, :original_method_name)
-    assert_match(/__stubba__$/, method.hidden_method.to_s)
-  end
-
-  def test_should_provide_hidden_version_of_method_name_including_original_method_name
-    method = ClassMethod.new(nil, :original_method_name)
-    assert_match(/original_method_name/, method.hidden_method.to_s)
-  end
-
-  def test_should_provide_hidden_version_of_method_name_substituting_question_mark
-    method = ClassMethod.new(nil, :question_mark?)
-    assert_no_match(/\?/, method.hidden_method.to_s)
-    assert_match(/question_mark_substituted_character_63/, method.hidden_method.to_s)
-  end
-
-  def test_should_provide_hidden_version_of_method_name_substituting_exclamation_mark
-    method = ClassMethod.new(nil, :exclamation_mark!)
-    assert_no_match(/!/, method.hidden_method.to_s)
-    assert_match(/exclamation_mark_substituted_character_33/, method.hidden_method.to_s)
-  end
-
-  def test_should_provide_hidden_version_of_method_name_substituting_equals_sign
-    method = ClassMethod.new(nil, :equals_sign=)
-    assert_no_match(/\=/, method.hidden_method.to_s)
-    assert_match(/equals_sign_substituted_character_61/, method.hidden_method.to_s)
-  end
-
-  def test_should_provide_hidden_version_of_method_name_substituting_brackets
-    method = ClassMethod.new(nil, :[])
-    assert_no_match(/\[\]/, method.hidden_method.to_s)
-    assert_match(/substituted_character_91__substituted_character_93/, method.hidden_method.to_s)
-  end
-
-  def test_should_provide_hidden_version_of_method_name_substituting_plus_sign
-    method = ClassMethod.new(nil, :+)
-    assert_no_match(/\+/, method.hidden_method.to_s)
-    assert_match(/substituted_character_43/, method.hidden_method.to_s)
-  end
-
   def test_should_hide_original_method
     klass = Class.new { def self.method_x; end }
     method = ClassMethod.new(klass, :method_x)
-    hidden_method_x = method.hidden_method
 
     method.hide_original_method
 
-    assert klass.respond_to?(hidden_method_x)
+    assert_equal false, klass.respond_to?(:method_x)
   end
 
-  def test_should_respond_to_original_method_name_after_original_method_has_been_hidden
-    klass = Class.new { def self.original_method_name; end }
-    method = ClassMethod.new(klass, :original_method_name)
-
-    method.hide_original_method
-
-    assert klass.respond_to?(:original_method_name)
-  end
-
-  def test_should_not_hide_original_method_if_method_not_defined
+  def test_should_not_raise_error_hiding_method_that_isnt_defined
     klass = Class.new
     method = ClassMethod.new(klass, :method_x)
-    hidden_method_x = method.hidden_method
 
-    method.hide_original_method
-
-    assert_equal false, klass.respond_to?(hidden_method_x)
+    assert_nothing_raised { method.hide_original_method }
   end
 
   def test_should_define_a_new_method_which_should_call_mocha_method_missing
@@ -107,16 +49,16 @@ class ClassMethodTest < Test::Unit::TestCase
   end
 
   def test_should_restore_original_method
-    klass = Class.new { def self.method_x; end }
+    klass = Class.new { def self.method_x; :original_result; end }
     method = ClassMethod.new(klass, :method_x)
-    hidden_method_x = method.hidden_method.to_sym
-    klass.define_instance_method(hidden_method_x) { :original_result }
 
+    method.hide_original_method
+    method.define_new_method
     method.remove_new_method
     method.restore_original_method
 
     assert_equal :original_result, klass.method_x
-    assert_equal false, klass.respond_to?(hidden_method_x)
+    assert klass.respond_to?(:method_x)
   end
 
   def test_should_not_restore_original_method_if_hidden_method_is_not_defined

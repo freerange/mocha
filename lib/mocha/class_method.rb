@@ -7,7 +7,7 @@ module Mocha
     attr_reader :stubbee, :method
 
     def initialize(stubbee, method)
-      @stubbee = stubbee
+      @stubbee, @original_method = stubbee, nil
       @method = RUBY_VERSION < '1.9' ? method.to_s : method.to_sym
     end
 
@@ -36,7 +36,16 @@ module Mocha
     def hide_original_method
       if method_exists?(method)
         begin
-          stubbee.__metaclass__.send(:alias_method, hidden_method, method)
+          @original_method = stubbee.method(method)
+          if @original_method && @original_method.owner == stubbee.__metaclass__
+            @original_visibility = :public
+            if stubbee.__metaclass__.protected_instance_methods.include?(method)
+              @original_visibility = :protected
+            elsif stubbee.__metaclass__.private_instance_methods.include?(method)
+              @original_visibility = :private
+            end
+            stubbee.__metaclass__.send(:remove_method, method)
+          end
         rescue NameError
           # deal with nasties like ActiveRecord::Associations::AssociationProxy
         end
@@ -56,13 +65,9 @@ module Mocha
     end
 
     def restore_original_method
-      if method_exists?(hidden_method)
-        begin
-          stubbee.__metaclass__.send(:alias_method, method, hidden_method)
-          stubbee.__metaclass__.send(:remove_method, hidden_method)
-        rescue NameError
-          # deal with nasties like ActiveRecord::Associations::AssociationProxy
-        end
+      if @original_method && @original_method.owner == stubbee.__metaclass__
+        stubbee.__metaclass__.send(:define_method, method, @original_method.to_proc)
+        stubbee.__metaclass__.send(@original_visibility, method)
       end
     end
 
