@@ -4,7 +4,7 @@ if defined?(MiniTest)
   require 'mocha/integration/mini_test'
   require File.expand_path('../mini_test_result', __FILE__)
 else
-  require 'test/unit/testresult'
+  require File.expand_path('../test_unit_result', __FILE__)
 end
 
 module TestRunner
@@ -15,20 +15,8 @@ module TestRunner
     test = test_class.new(:test_me)
 
     if defined?(Test::Unit::TestResult)
-      test_result = Test::Unit::TestResult.new
+      test_result = TestUnitResult.build_test_result
       test.run(test_result) {}
-      class << test_result
-        attr_reader :failures, :errors
-        def failure_messages
-          failures.map { |failure| failure.message }
-        end
-        def failure_message_lines
-          failure_messages.map { |message| message.split("\n") }.flatten
-        end
-        def error_messages
-          errors.map { |error| error.message }
-        end
-      end
     else
       runner = MiniTest::Unit.new
       test.run(runner)
