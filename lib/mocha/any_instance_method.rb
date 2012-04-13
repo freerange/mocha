@@ -15,7 +15,16 @@ module Mocha
     def hide_original_method
       if method_exists?(method)
         begin
-          stubbee.send(:alias_method, hidden_method, method)
+          @original_method = stubbee.instance_method(method)
+          if @original_method && @original_method.owner == stubbee
+            @original_visibility = :public
+            if stubbee.protected_instance_methods.include?(method)
+              @original_visibility = :protected
+            elsif stubbee.private_instance_methods.include?(method)
+              @original_visibility = :private
+            end
+            stubbee.send(:remove_method, method)
+          end
         rescue NameError
           # deal with nasties like ActiveRecord::Associations::AssociationProxy
         end
@@ -35,13 +44,9 @@ module Mocha
     end
 
     def restore_original_method
-      if method_exists?(hidden_method)
-        begin
-          stubbee.send(:alias_method, method, hidden_method)
-          stubbee.send(:remove_method, hidden_method)
-        rescue NameError
-          # deal with nasties like ActiveRecord::Associations::AssociationProxy
-        end
+      if @original_method && @original_method.owner == stubbee
+        stubbee.send(:define_method, method, @original_method)
+        stubbee.send(@original_visibility, method)
       end
     end
 
