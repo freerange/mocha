@@ -8,14 +8,14 @@ else
 end
 
 module TestRunner
-  def run_as_test(test_result = nil, &block)
+  def run_as_test(&block)
     test_class = Class.new(Test::Unit::TestCase) do
       define_method(:test_me, &block)
     end
     test = test_class.new(:test_me)
 
     if defined?(Test::Unit::TestResult)
-      test_result ||= Test::Unit::TestResult.new
+      test_result = Test::Unit::TestResult.new
       test.run(test_result) {}
       class << test_result
         attr_reader :failures, :errors
