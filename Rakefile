@@ -66,7 +66,7 @@ def benchmark_test_case(klass, iterations)
 
   if defined?(MiniTest)
     MiniTest::Unit.output = StringIO.new
-    Benchmark.realtime { iterations.times { |i| MiniTest::Unit.new.run(klass) } }
+    Benchmark.realtime { iterations.times { |i| MiniTest::Unit.new.run([klass]) } }
   else
     load 'test/unit/ui/console/testrunner.rb' unless defined?(Test::Unit::UI::Console::TestRunner)
     unless $silent_option
