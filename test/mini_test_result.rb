@@ -41,8 +41,8 @@ class MiniTestResult
     end
   end
 
-  def initialize(runner, test)
-    @runner, @test = runner, test
+  def initialize(runner, tests)
+    @runner, @tests = runner, tests
   end
 
   def failure_count
@@ -50,7 +50,7 @@ class MiniTestResult
   end
 
   def assertion_count
-    @test._assertions
+    @tests.inject(0) { |total, test| total + test._assertions }
   end
 
   def error_count
@@ -58,7 +58,7 @@ class MiniTestResult
   end
 
   def passed?
-    @test.passed?
+    @tests.all?(&:passed?)
   end
 
   def failures

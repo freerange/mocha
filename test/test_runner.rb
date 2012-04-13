@@ -9,18 +9,28 @@ end
 
 module TestRunner
   def run_as_test(&block)
-    test_class = Class.new(Test::Unit::TestCase) do
-      define_method(:test_me, &block)
+    run_as_tests(block)
+  end
+
+  def run_as_tests(*procs)
+    tests = procs.map do |proc|
+      test_class = Class.new(Test::Unit::TestCase) do
+        define_method(:test_me, proc)
+      end
+      test_class.new(:test_me)
     end
-    test = test_class.new(:test_me)
 
     if defined?(Test::Unit::TestResult)
       test_result = TestUnitResult.build_test_result
-      test.run(test_result) {}
+      tests.each do |test|
+        test.run(test_result) {}
+      end
     else
       runner = MiniTest::Unit.new
-      test.run(runner)
-      test_result = MiniTestResult.new(runner, test)
+      tests.each do |test|
+        test.run(runner)
+      end
+      test_result = MiniTestResult.new(runner, tests)
     end
 
     test_result
