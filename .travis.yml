@@ -20,4 +20,14 @@ gemfile:
   - gemfiles/Gemfile.minitest.1.3.0
 env:
   - MOCHA_OPTIONS=debug
-
+matrix:
+  exclude:
+    - rvm: 1.9.3
+      gemfile: gemfiles/Gemfile.minitest.1.3.0
+      env: MOCHA_OPTIONS=debug
+    - rvm: 1.9.3
+      gemfile: gemfiles/Gemfile.minitest.1.4.0
+      env: MOCHA_OPTIONS=debug
+    - rvm: 1.9.3
+      gemfile: gemfiles/Gemfile.minitest.1.4.2
+      env: MOCHA_OPTIONS=debug
