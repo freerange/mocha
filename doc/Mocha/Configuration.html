@@ -6,7 +6,7 @@
 <title>
   Class: Mocha::Configuration
   
-    &mdash; Mocha 0.10.5
+    &mdash; Mocha 0.11.0
   
 </title>
 
@@ -115,7 +115,8 @@
   <span class='symbol'>:stubbing_method_unnecessarily</span> <span class='op'>=&gt;</span> <span class='symbol'>:allow</span><span class='comma'>,</span>
   <span class='symbol'>:stubbing_method_on_non_mock_object</span> <span class='op'>=&gt;</span> <span class='symbol'>:allow</span><span class='comma'>,</span>
   <span class='symbol'>:stubbing_non_existent_method</span> <span class='op'>=&gt;</span> <span class='symbol'>:allow</span><span class='comma'>,</span>
-  <span class='symbol'>:stubbing_non_public_method</span> <span class='op'>=&gt;</span> <span class='symbol'>:allow</span>
+  <span class='symbol'>:stubbing_non_public_method</span> <span class='op'>=&gt;</span> <span class='symbol'>:allow</span><span class='comma'>,</span>
+  <span class='symbol'>:stubbing_method_on_nil</span> <span class='op'>=&gt;</span> <span class='symbol'>:prevent</span><span class='comma'>,</span>
 <span class='rbrace'>}</span></pre></dd>
       
     </dl>
@@ -246,7 +247,7 @@
 <p>one of <tt>:stubbing_method_unnecessarily</tt>,
 <tt>:stubbing_method_on_non_mock_object</tt>,
 <tt>:stubbing_non_existent_method</tt>,
-<tt>:stubbing_non_public_method</tt>.</p>
+<tt>:stubbing_non_public_method</tt>, <tt>:stubbing_method_on_nil</tt>.</p>
 </div>
       
     </li>
@@ -279,12 +280,12 @@ being returned to its original value at the end of the block.</p>
       <pre class="lines">
 
 
-19
 20
-21</pre>
+21
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_allow'>allow</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_change_config'>change_config</span> <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='symbol'>:allow</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
@@ -327,7 +328,7 @@ being returned to its original value at the end of the block.</p>
 <p>one of <tt>:stubbing_method_unnecessarily</tt>,
 <tt>:stubbing_method_on_non_mock_object</tt>,
 <tt>:stubbing_non_existent_method</tt>,
-<tt>:stubbing_non_public_method</tt>.</p>
+<tt>:stubbing_non_public_method</tt>, <tt>:stubbing_method_on_nil</tt>.</p>
 </div>
       
     </li>
@@ -360,12 +361,12 @@ being returned to its original value at the end of the block.</p>
       <pre class="lines">
 
 
-45
 46
-47</pre>
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_prevent'>prevent</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_change_config'>change_config</span> <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='symbol'>:prevent</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
@@ -408,7 +409,7 @@ being returned to its original value at the end of the block.</p>
 <p>one of <tt>:stubbing_method_unnecessarily</tt>,
 <tt>:stubbing_method_on_non_mock_object</tt>,
 <tt>:stubbing_non_existent_method</tt>,
-<tt>:stubbing_non_public_method</tt>.</p>
+<tt>:stubbing_non_public_method</tt>, <tt>:stubbing_method_on_nil</tt>.</p>
 </div>
       
     </li>
@@ -441,12 +442,12 @@ being returned to its original value at the end of the block.</p>
       <pre class="lines">
 
 
-32
 33
-34</pre>
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_warn_when'>warn_when</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_change_config'>change_config</span> <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='symbol'>:warn</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
@@ -461,7 +462,7 @@ being returned to its original value at the end of the block.</p>
 </div>
     
     <div id="footer">
-  Generated on Tue Apr 10 15:36:25 2012 by 
+  Generated on Thu Apr 19 10:54:34 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.9.3).
 </div>
