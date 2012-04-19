@@ -1,3 +1,15 @@
+= 0.11.0 ()
+* Store original method when stubbing rather than using alias_method. This fixes #41, #47, #74 and all tests now pass on both Ruby 1.8.7 and 1.9.3.
+* Attempting to stub a method on a frozen object should fail fast. See #68.
+* Prevent stubbing a method on nil by default. See #68.
+* Generate documentation using YARD instead of Rdoc - removes dependency on Coderay.
+* Publish documentation on Github pages instead of Rubyforge - uses rake task written by @tomafro.
+* Remove agiledox which has outlived it's usefulness.
+* Removed trailing whitespace throughout codebase.
+* Add documentation for Mock#unstub.
+* Improve documentation for ObjectMethods.
+* Provide a way to run multiple tests within a single acceptance test method.
+
 = 0.10.5 (a5a64cf9755b21d4a30e446232654d1c0fc6f151)
 * Fix for issue #66 (hopefully without regressing on issue #63) - Mocha::Mock has Mocha::Mockery as a dependency. Stop trying to pretend otherwise. Thanks to @kennyj for reporting.
 * Fix a bunch of warnings in Ruby 1.9. There are still the 6 test failures mentioned in issue #41 which I suspect are due to the introspection gem not being Ruby 1.9-compatible.
