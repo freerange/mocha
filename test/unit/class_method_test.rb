@@ -61,6 +61,20 @@ class ClassMethodTest < Test::Unit::TestCase
     assert_equal :original_result, klass.method_x
   end
 
+  def test_should_restore_original_method_accepting_a_block_parameter
+    klass = Class.new { def self.method_x(&block); block.call if block_given? ; end }
+    method = ClassMethod.new(klass, :method_x)
+
+    method.hide_original_method
+    method.define_new_method
+    method.remove_new_method
+    method.restore_original_method
+
+    block_called = false
+    klass.method_x { block_called = true }
+    assert block_called
+  end
+
   def test_should_not_restore_original_method_if_none_was_defined_in_first_place
     klass = Class.new { def self.method_x; :new_result; end }
     method = ClassMethod.new(klass, :method_x)
