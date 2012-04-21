@@ -28,7 +28,7 @@ If you're using Bundler, ensure the correct load order by not auto-requiring Moc
   require "test/unit"
   require "mocha"
 
-Note that versions 0.10.2 & 0.10.3 included a bug. Please do not use these versions.
+Note that versions 0.10.2, 0.10.3 & 0.11.0 included a bug. Please do not use these versions.
 
 Or install the {Rails}[http://www.rubyonrails.org/] plugin...
 
