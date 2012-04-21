@@ -1,4 +1,4 @@
-= 0.11.1 ()
+= 0.11.1 (d7d1674a536167d9d1b2870d2f08c4c6bf33372e)
 * In Ruby 1.8.7 methods accepting a block parameter were incorrectly restored without the block parameter after being stubbed. Fix for #76.
 
 = 0.11.0 (fa601c89a7f5314dc3d258391a99c6a9e25cefb3)
