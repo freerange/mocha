@@ -24,6 +24,13 @@ class ClassMethodTest < Test::Unit::TestCase
     assert_nothing_raised { method.hide_original_method }
   end
 
+  def test_should_not_raise_error_hiding_method_in_class_that_implement_method_method
+    klass = Class.new { def self.method; end }
+    method = ClassMethod.new(klass, :method)
+
+    assert_nothing_raised { method.hide_original_method }
+  end
+
   def test_should_define_a_new_method_which_should_call_mocha_method_missing
     klass = Class.new { def self.method_x; end }
     mocha = build_mock
