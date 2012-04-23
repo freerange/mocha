@@ -84,4 +84,9 @@ class ObjectTest < Test::Unit::TestCase
     assert_raise(Mocha::ExpectationError) { object.expects(:the_spanish_inquisition) }
   end
 
+  def test_should_alias_object_method
+    klass = Class.new { def self.method_x; end }
+    assert_equal klass._method(:method_x), klass.method(:method_x)
+  end
+
 end
