@@ -13,6 +13,9 @@ module Mocha
   module ObjectMethods
 
     # @private
+    alias_method :_method, :method
+
+    # @private
     def mocha
       @mocha ||= Mocha::Mockery.instance.mock_impersonating(self)
     end
