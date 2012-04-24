@@ -24,7 +24,7 @@ class ClassMethodTest < Test::Unit::TestCase
     assert_nothing_raised { method.hide_original_method }
   end
 
-  def test_should_not_raise_error_hiding_method_in_class_that_implement_method_method
+  def test_should_not_raise_error_hiding_method_in_class_that_implements_method_called_method
     klass = Class.new { def self.method; end }
     method = ClassMethod.new(klass, :method)
 
