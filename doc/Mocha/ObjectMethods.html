@@ -6,7 +6,7 @@
 <title>
   Module: Mocha::ObjectMethods
   
-    &mdash; Mocha 0.11.1
+    &mdash; Mocha 0.11.2
   
 </title>
 
@@ -328,9 +328,6 @@ times.</p>
       <pre class="lines">
 
 
-63
-64
-65
 66
 67
 68
@@ -347,10 +344,13 @@ times.</p>
 79
 80
 81
-82</pre>
+82
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/object.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/object.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='id identifier rubyid_expected_methods_vs_return_values'>expected_methods_vs_return_values</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_expected_methods_vs_return_values'>expected_methods_vs_return_values</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>the[^a-z]*spanish[^a-z]*inquisition</span><span class='regexp_end'>/i</span></span>
@@ -512,9 +512,6 @@ multiple times.</p>
       <pre class="lines">
 
 
-110
-111
-112
 113
 114
 115
@@ -528,10 +525,13 @@ multiple times.</p>
 123
 124
 125
-126</pre>
+126
+127
+128
+129</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/object.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/object.rb', line 113</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='id identifier rubyid_stubbed_methods_vs_return_values'>stubbed_methods_vs_return_values</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_frozen?'>frozen?</span>
@@ -631,16 +631,16 @@ satisfied. Use <span class='object_link'><a href="#unstub-instance_method" title
       <pre class="lines">
 
 
-151
-152
-153
 154
 155
 156
-157</pre>
+157
+158
+159
+160</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/object.rb', line 151</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/object.rb', line 154</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unstub'>unstub</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_method_names'>method_names</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_mockery'>mockery</span> <span class='op'>=</span> <span class='const'>Mocha</span><span class='op'>::</span><span class='const'>Mockery</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
@@ -659,7 +659,7 @@ satisfied. Use <span class='object_link'><a href="#unstub-instance_method" title
 </div>
     
     <div id="footer">
-  Generated on Sun Apr 22 12:09:24 2012 by 
+  Generated on Tue Apr 24 11:15:45 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.9.3).
 </div>

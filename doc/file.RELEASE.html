@@ -6,7 +6,7 @@
 <title>
   File: RELEASE
   
-    &mdash; Mocha 0.11.1
+    &mdash; Mocha 0.11.2
   
 </title>
 
@@ -55,13 +55,22 @@
     <iframe id="search_frame"></iframe>
     
     <div id="content"><div id='filecontents'>
+<h1>0.11.2</h1>
+<ul><li>
+<p>Rails has a Request class which defines its own #method method. This broke
+the new mechanism for stubbing a method. This release includes a slightly
+modified version of fix #77 provided by @sikachu. See <a
+href="https://github.com/rails/rails/pull/5907">github.com/rails/rails/pull/5907</a>
+for further info.</p>
+</li></ul>
+
 <h1>0.11.1</h1>
 <ul><li>
 <p>In Ruby 1.8.7 methods accepting a block parameter were incorrectly restored
 without the block parameter after being stubbed. Fix for #76.</p>
 </li></ul>
 
-<h1>0.11.0</h1>
+<h1>0.11.0 (this version was yanked from rubygems.org)</h1>
 <ul><li>
 <p>Store original method when stubbing rather than using alias_method. This
 fixes #41, #47, #74 and all tests now pass on both Ruby 1.8.7 and 1.9.3.</p>
@@ -930,7 +939,7 @@ a mock will automatically get verified.</p>
 </div></div>
     
     <div id="footer">
-  Generated on Sun Apr 22 12:09:24 2012 by 
+  Generated on Tue Apr 24 11:15:45 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.9.3).
 </div>
