@@ -1,3 +1,6 @@
+= 0.11.3
+* Fix for #78 i.e. alias Object#method as Object#_method, not Object#__method__ which already exists as another Ruby method.
+
 = 0.11.2
 * Rails has a Request class which defines its own #method method. This broke the new mechanism for stubbing a method. This release includes a slightly modified version of fix #77 provided by @sikachu. See https://github.com/rails/rails/pull/5907 for further info.
 
