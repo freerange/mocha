@@ -13,7 +13,7 @@ module Mocha
   module ObjectMethods
 
     # @private
-    alias_method :__method__, :method
+    alias_method :_method, :method
 
     # @private
     def mocha
