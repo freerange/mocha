@@ -311,6 +311,7 @@ module Mocha
 
     # @private
     def respond_to?(symbol, include_private = false)
+      return false if instance_variables.empty?
       if @responder then
         if @responder.method(:respond_to?).arity > 1
           @responder.respond_to?(symbol, include_private)
