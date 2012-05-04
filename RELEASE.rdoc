@@ -1,3 +1,6 @@
+= 0.11.4
+* Homepage has moved to http://gofreerange.com/mocha/docs.
+
 = 0.11.3
 * Fix for #78 i.e. alias Object#method as Object#_method, not Object#__method__ which already exists as another Ruby method.
 
@@ -54,7 +57,7 @@ Hash with wrong number of entries.
 * Add Expectation#throws to allow a stubbed method to use Kernel#throw.
 * Updates for versions of Test::Unit up to and including v2.3.3 (including patch by Jens Fahnenbruck).
 * Updates for versions of MiniTest up to and including v2.5.1.
-* Since the singleton method added by Mocha masks the underlying instance method, there's no need to move it out the way and then back again. This fixes Github issue #20, because the original method is left unchanged - See #20 (thanks to Nick Lewis).
+* Since the singleton method added by Mocha masks the underlying instance method, there's no need to move it out the way and then back again. This fixes Github issue #20, because the original method is left unchanged - https://github.com/floehopper/mocha/issues/20 (thanks to Nick Lewis).
 * Handle stubbing of a singleton method, leaving the original method unchanged after the test.
 * When stubbing an instance method that was originally defined as a singleton method, the original method should still exist after the test.
 * Fixed mis-print in Mocha::ObjectMethods#unstub documentation (patch by Gleb Pomykalov).
@@ -84,10 +87,10 @@ Hash with wrong number of entries.
 * No need to create regular expression every time the BacktraceFilter#filtered method is called. See http://floehopper.lighthouseapp.com/projects/22289-mocha/tickets/66.
 
 = 0.9.10
-* Added Mocha::ObjectMethods#unstub method - See #6.
-* Inherit Mocha::ExpectationError from Exception instead of StandardError to reduce the chances of a test passing by accident - thanks to James Sanders (jsanders) - See #15.
-* Fixed bug - GitHub README page to link correctly to code examples - See #11.
-* Fixed bug - PASSTHROUGH_EXCEPTIONS are defined on MiniTest::Unit::TestCase not in Mocha - thanks to Brian Troutwine (blt) - See #14.
+* Added Mocha::ObjectMethods#unstub method - https://github.com/floehopper/mocha/issues#issue/6
+* Inherit Mocha::ExpectationError from Exception instead of StandardError to reduce the chances of a test passing by accident - thanks to James Sanders (jsanders) - https://github.com/floehopper/mocha/issues#issue/15
+* Fixed bug - GitHub README page to link correctly to code examples - https://github.com/floehopper/mocha/issues/closed#issue/11
+* Fixed bug - PASSTHROUGH_EXCEPTIONS are defined on MiniTest::Unit::TestCase not in Mocha - thanks to Brian Troutwine (blt) - https://github.com/floehopper/mocha/issues/closed#issue/14
 
 = 0.9.9
 * Avoid loading bits of the test-unit gem by accident. This is an attempt at a fix for the problem that James Adam reported [1]. By using 'load' instead of 'require' to detect the version of Test::Unit, we can avoid rubygems trying to load bits of the test-unit gem when it's not wanted. [1] http://floehopper.lighthouseapp.com/projects/22289-mocha/tickets/50#ticket-50-13
