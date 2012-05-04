@@ -116,9 +116,7 @@ task 'generate_docs' => ['clobber_yardoc', 'yardoc']
 
 desc "Publish docs to Github (relies on running 'generate_docs' task and committing changes to master branch)"
 task 'publish_docs' do
- sha = `git ls-tree -d HEAD doc | awk '{print $3}'`.strip
- commit = `echo "Publishing docs from master branch" | git commit-tree #{sha} -p refs/heads/gh-pages`.strip
- `git update-ref refs/heads/gh-pages #{commit}`
+  `scp -r doc/* gofreerange.com:/home/freerange/docs/mocha && ssh gofreerange.com "sudo su - freerange -c 'sudo chmod -R g+w /home/freerange/docs/mocha'"`
 end
 
 task 'release' => 'default' do
