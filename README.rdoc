@@ -1,4 +1,4 @@
-= Mocha {<img src="https://secure.travis-ci.org/floehopper/mocha.png" />}[http://travis-ci.org/floehopper/mocha]
+= Mocha {<img src="https://secure.travis-ci.org/freerange/mocha.png" />}[http://travis-ci.org/freerange/mocha]
 
 Mocha is a library for mocking and stubbing using a syntax like that of {JMock}[http://www.jmock.org].
 
