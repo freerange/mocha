@@ -32,7 +32,7 @@ Note that versions 0.10.2, 0.10.3 & 0.11.0 included a bug. Please do not use the
 
 Or install the {Rails}[http://www.rubyonrails.org/] plugin...
 
-  $ script/plugin install git://github.com/floehopper/mocha.git
+  $ script/plugin install git://github.com/freerange/mocha.git
 
 Note that versions 0.9.6 & 0.9.7 of the Rails plugin were broken. As of version 0.9.8, you need to explicitly load Mocha after the test framework e.g. by adding "require 'mocha'" at the bottom of test/test_helper.rb.
 
@@ -46,8 +46,8 @@ Note that versions 0.9.6 & 0.9.7 of the Rails plugin were broken. As of version 
 
 == Links
 
-* {Source code}[http://github.com/floehopper/mocha]
-* {Bug reports}[http://github.com/floehopper/mocha/issues]
+* {Source code}[http://github.com/freerange/mocha]
+* {Bug reports}[http://github.com/freerange/mocha/issues]
 
 == License
 
