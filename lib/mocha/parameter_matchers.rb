@@ -6,6 +6,7 @@ module Mocha
 end
 
 require 'mocha/parameter_matchers/object'
+require 'mocha/parameter_matchers/proc'
 
 require 'mocha/parameter_matchers/all_of'
 require 'mocha/parameter_matchers/any_of'

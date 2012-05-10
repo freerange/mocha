@@ -297,4 +297,36 @@ class ParameterMatcherTest < Test::Unit::TestCase
     assert_passed(test_result)
   end
 
+  def test_should_match_with_proc_returning_truthy
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(proc { |parameter| parameter })
+      mock.method(true)
+    end
+    assert_passed(test_result)
+
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(proc { |parameter| parameter })
+      mock.method(1)
+    end
+    assert_passed(test_result)
+  end
+
+  def test_should_not_match_with_proc_returning_falsy
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(proc { |parameter| parameter })
+      mock.method(false)
+    end
+    assert_failed(test_result)
+
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(proc { |parameter| parameter })
+      mock.method(nil)
+    end
+    assert_failed(test_result)
+  end
+
 end
