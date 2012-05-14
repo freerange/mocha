@@ -297,7 +297,7 @@ class ParameterMatcherTest < Test::Unit::TestCase
     assert_passed(test_result)
   end
 
-  def test_should_match_parameter_when_block_returns_true
+  def test_should_match_parameter_when_value_is_divisible_by_four
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with { |actual_value| actual_value % 4 == 0 }
@@ -306,11 +306,29 @@ class ParameterMatcherTest < Test::Unit::TestCase
     assert_passed(test_result)
   end
 
-  def test_should_not_match_parameter_when_block_returns_false
+  def test_should_not_match_parameter_when_value_is_not_divisible_by_four
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with { |actual_value| actual_value % 4 == 0 }
       mock.method(9)
+    end
+    assert_failed(test_result)
+  end
+
+  def test_should_match_parameters_when_values_add_up_to_ten
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with { |*values| values.inject(0) { |sum, n| sum + n } == 10 }
+      mock.method(1, 2, 3, 4)
+    end
+    assert_passed(test_result)
+  end
+
+  def test_should_not_match_parameters_when_values_do_not_add_up_to_ten
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with { |*values| values.inject(0) { |sum, n| sum + n } == 10 }
+      mock.method(1, 2, 3, 4, 5)
     end
     assert_failed(test_result)
   end
