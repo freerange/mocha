@@ -297,4 +297,21 @@ class ParameterMatcherTest < Test::Unit::TestCase
     assert_passed(test_result)
   end
 
+  def test_should_match_parameter_when_block_returns_true
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with { |actual_value| actual_value % 4 == 0 }
+      mock.method(8)
+    end
+    assert_passed(test_result)
+  end
+
+  def test_should_not_match_parameter_when_block_returns_false
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with { |actual_value| actual_value % 4 == 0 }
+      mock.method(9)
+    end
+    assert_failed(test_result)
+  end
 end
