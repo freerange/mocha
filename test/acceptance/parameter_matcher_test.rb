@@ -318,7 +318,8 @@ class ParameterMatcherTest < Test::Unit::TestCase
   def test_should_match_parameters_when_values_add_up_to_ten
     test_result = run_as_test do
       mock = mock()
-      mock.expects(:method).with { |*values| values.inject(0) { |sum, n| sum + n } == 10 }
+      matcher = lambda { |*values| values.inject(0) { |sum, n| sum + n } == 10 }
+      mock.expects(:method).with(&matcher)
       mock.method(1, 2, 3, 4)
     end
     assert_passed(test_result)
@@ -327,7 +328,8 @@ class ParameterMatcherTest < Test::Unit::TestCase
   def test_should_not_match_parameters_when_values_do_not_add_up_to_ten
     test_result = run_as_test do
       mock = mock()
-      mock.expects(:method).with { |*values| values.inject(0) { |sum, n| sum + n } == 10 }
+      matcher = lambda { |*values| values.inject(0) { |sum, n| sum + n } == 10 }
+      mock.expects(:method).with(&matcher)
       mock.method(1, 2, 3, 4, 5)
     end
     assert_failed(test_result)
