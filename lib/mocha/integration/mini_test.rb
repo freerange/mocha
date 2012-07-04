@@ -10,7 +10,7 @@ if !MiniTest::Unit::TestCase.ancestors.include?(Mocha::API)
   require 'mocha/integration/mini_test/version_142_to_172'
   require 'mocha/integration/mini_test/version_200'
   require 'mocha/integration/mini_test/version_201_to_222'
-  require 'mocha/integration/mini_test/version_230_to_262'
+  require 'mocha/integration/mini_test/version_230_to_2101'
 
   module MiniTest
     class Unit
@@ -41,8 +41,8 @@ if !MiniTest::Unit::TestCase.ancestors.include?(Mocha::API)
           include Mocha::Integration::MiniTest::Version200
         elsif Gem::Requirement.new('>= 2.0.1', '<= 2.2.2').satisfied_by?(mini_test_version)
           include Mocha::Integration::MiniTest::Version201To222
-        elsif Gem::Requirement.new('>= 2.3.0', '<= 2.6.2').satisfied_by?(mini_test_version)
-          include Mocha::Integration::MiniTest::Version230To262
+        elsif Gem::Requirement.new('>= 2.3.0', '<= 2.10.1').satisfied_by?(mini_test_version)
+          include Mocha::Integration::MiniTest::Version230To2101
         else
           $stderr.puts "*** No Mocha integration for MiniTest version ***" if $mocha_options['debug']
         end
