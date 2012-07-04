@@ -114,8 +114,8 @@ end
 desc "Generate documentation"
 task 'generate_docs' => ['clobber_yardoc', 'yardoc']
 
-desc "Publish docs to Github (relies on running 'generate_docs' task and committing changes to master branch)"
-task 'publish_docs' do
+desc "Publish docs to gofreerange.com/docs/mocha"
+task 'publish_docs' => 'generate_docs' do
   path = "/home/freerange/docs/mocha"
   system %{ssh gofreerange.com "sudo rm -fr #{path} && mkdir -p #{path}" && scp -r doc/* gofreerange.com:#{path}}
 end
