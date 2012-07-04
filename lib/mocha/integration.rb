@@ -16,11 +16,11 @@ module Mocha
       end
 
       def test_unit_testcase_defined?
-        defined?(Test) && defined?(Test::Unit) && defined?(Test::Unit::TestCase)
+        defined?(Test::Unit::TestCase)
       end
 
       def mini_unit_testcase_defined?
-        defined?(MiniTest) && defined?(MiniTest::Unit) && defined?(MiniTest::Unit::TestCase)
+        defined?(MiniTest::Unit::TestCase)
       end
 
       def test_unit_testcase_inherits_from_miniunit_testcase?
