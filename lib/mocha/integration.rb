@@ -11,7 +11,7 @@ module Mocha
         if test_unit_testcase_defined? && !test_unit_testcase_inherits_from_miniunit_testcase?
           patches << 'mocha/integration/test_unit'
         end
-        if mini_unit_testcase_defined?
+        if mini_test_testcase_defined?
           patches << 'mocha/integration/mini_test'
         end
         patches
@@ -21,12 +21,12 @@ module Mocha
         defined?(Test::Unit::TestCase)
       end
 
-      def mini_unit_testcase_defined?
+      def mini_test_testcase_defined?
         defined?(MiniTest::Unit::TestCase)
       end
 
       def test_unit_testcase_inherits_from_miniunit_testcase?
-        test_unit_testcase_defined? && mini_unit_testcase_defined? && Test::Unit::TestCase.ancestors.include?(MiniTest::Unit::TestCase)
+        test_unit_testcase_defined? && mini_test_testcase_defined? && Test::Unit::TestCase.ancestors.include?(MiniTest::Unit::TestCase)
       end
 
     end
