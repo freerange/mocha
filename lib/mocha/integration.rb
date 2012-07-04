@@ -1,3 +1,5 @@
+require 'mocha/options'
+
 module Mocha
 
   module Integration
@@ -31,6 +33,10 @@ module Mocha
 
   end
 
+end
+
+unless Mocha::Integration.monkey_patches.any? || $mocha_options["skip_integration"]
+  raise "Test::Unit or MiniTest must be loaded *before* Mocha (use MOCHA_OPTIONS=skip_integration if you know what you are doing)."
 end
 
 Mocha::Integration.monkey_patches.each do |patch|
