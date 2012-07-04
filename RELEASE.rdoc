@@ -1,3 +1,11 @@
+= 0.12.0
+* Fail fast if neither Test::Unit nor MiniTest is loaded. Fixes #40.
+* Officially support MiniTest up to v3.2.0 (still monkey-patching).
+* Officially support test-unit v2.5.0 (still monkey-patching).
+* Do not monkey-patch Test::Unit or MiniTest unless we *know* it's ok.
+* Add acceptance tests to demonstrate using a block as a custom parameter matcher.
+* Update Travis CI build status image to use the new build under the freerange account.
+
 = 0.11.4
 * Homepage has moved to http://gofreerange.com/mocha/docs.
 
