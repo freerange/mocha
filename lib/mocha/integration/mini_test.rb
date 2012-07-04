@@ -41,8 +41,7 @@ if !MiniTest::Unit::TestCase.ancestors.include?(Mocha::API)
           include Mocha::Integration::MiniTest::Version200
         elsif Gem::Requirement.new('>= 2.0.1', '<= 2.2.2').satisfied_by?(mini_test_version)
           include Mocha::Integration::MiniTest::Version201To222
-        elsif Gem::Requirement.new('>= 2.3.0').satisfied_by?(mini_test_version)
-          $stderr.puts "*** MiniTest integration has not been verified but patching anyway ***" if (Gem::Requirement.new('> 2.6.2').satisfied_by?(mini_test_version)) && $mocha_options['debug']
+        elsif Gem::Requirement.new('>= 2.3.0', '<= 2.6.2').satisfied_by?(mini_test_version)
           include Mocha::Integration::MiniTest::Version230To262
         else
           $stderr.puts "*** No Mocha integration for MiniTest version ***" if $mocha_options['debug']
