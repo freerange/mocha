@@ -9,7 +9,6 @@ class MockTest < Test::Unit::TestCase
   include Mocha
 
   def test_should_set_single_expectation
-   flunk "intentional failure"
    mock = build_mock
    mock.expects(:method1).returns(1)
    assert_nothing_raised(ExpectationError) do
