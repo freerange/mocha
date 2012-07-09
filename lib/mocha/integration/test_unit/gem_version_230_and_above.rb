@@ -13,14 +13,12 @@ module Mocha
           mod.module_eval do
             alias_method :run, :run_before_mocha
 
+            exception_handler(:handle_mocha_expectation_error)
+
             cleanup :after => :append
             def cleanup_mocha
-              begin
-                assertion_counter = AssertionCounter.new(current_result)
-                mocha_verify(assertion_counter)
-              rescue Mocha::ExpectationError => e
-                add_failure(e.message, e.backtrace)
-              end
+              assertion_counter = AssertionCounter.new(current_result)
+              mocha_verify(assertion_counter)
             end
 
             teardown :after => :append
@@ -28,6 +26,14 @@ module Mocha
               mocha_teardown
             end
           end
+        end
+
+        private
+        def handle_mocha_expectation_error(exception)
+          return false unless exception.is_a?(Mocha::ExpectationError)
+          problem_occurred
+          add_failure(exception.message, exception.backtrace)
+          true
         end
       end
 
