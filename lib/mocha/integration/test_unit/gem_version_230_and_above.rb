@@ -15,20 +15,21 @@ module Mocha
 
             exception_handler(:handle_mocha_expectation_error)
 
-            cleanup :after => :append
-            def cleanup_mocha
-              assertion_counter = AssertionCounter.new(current_result)
-              mocha_verify(assertion_counter)
-            end
-
-            teardown :after => :append
-            def teardown_mocha
-              mocha_teardown
-            end
+            cleanup :cleanup_mocha, :after => :append
+            teardown :teardown_mocha, :after => :append
           end
         end
 
         private
+        def cleanup_mocha
+          assertion_counter = AssertionCounter.new(current_result)
+          mocha_verify(assertion_counter)
+        end
+
+        def teardown_mocha
+          mocha_teardown
+        end
+
         def handle_mocha_expectation_error(exception)
           return false unless exception.is_a?(Mocha::ExpectationError)
           problem_occurred
