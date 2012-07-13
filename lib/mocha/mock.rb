@@ -6,6 +6,7 @@ require 'mocha/method_matcher'
 require 'mocha/parameters_matcher'
 require 'mocha/unexpected_invocation'
 require 'mocha/argument_iterator'
+require 'mocha/expectation_error_factory'
 
 module Mocha
 
@@ -202,7 +203,7 @@ module Mocha
           matching_expectation.invoke(&block) if matching_expectation
           message = UnexpectedInvocation.new(self, symbol, *arguments).to_s
           message << @mockery.mocha_inspect
-          raise ExpectationError.new(message, caller)
+          raise ExpectationErrorFactory.build(message, caller)
         end
       end
     end

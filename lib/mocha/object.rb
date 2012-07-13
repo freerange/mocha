@@ -4,6 +4,7 @@ require 'mocha/class_method'
 require 'mocha/module_method'
 require 'mocha/any_instance_method'
 require 'mocha/argument_iterator'
+require 'mocha/expectation_error_factory'
 
 module Mocha
 
@@ -65,7 +66,7 @@ module Mocha
     # @see Mock#expects
     def expects(expected_methods_vs_return_values)
       if expected_methods_vs_return_values.to_s =~ /the[^a-z]*spanish[^a-z]*inquisition/i
-        raise Mocha::ExpectationError.new('NOBODY EXPECTS THE SPANISH INQUISITION!')
+        raise ExpectationErrorFactory.build('NOBODY EXPECTS THE SPANISH INQUISITION!')
       end
       if frozen?
         raise StubbingError.new("can't stub method on frozen object: #{mocha_inspect}", caller)

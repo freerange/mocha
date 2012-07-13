@@ -5,6 +5,7 @@ require 'mocha/state_machine'
 require 'mocha/logger'
 require 'mocha/configuration'
 require 'mocha/stubbing_error'
+require 'mocha/expectation_error_factory'
 
 module Mocha
 
@@ -50,7 +51,7 @@ module Mocha
         else
           backtrace = unsatisfied_expectations[0].backtrace
         end
-        raise ExpectationError.new(message, backtrace)
+        raise ExpectationErrorFactory.build(message, backtrace)
       end
       expectations.each do |e|
         unless Mocha::Configuration.allow?(:stubbing_method_unnecessarily)
