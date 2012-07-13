@@ -44,16 +44,11 @@ EXCLUDED_RUBY_193_GEMFILES = [
   "gemfiles/Gemfile.minitest.1.4.2"
 ]
 
-EXCLUDED_GEMFILES = [
-  "gemfiles/Gemfile.test-unit.latest"
-]
-
 ["1.8.7-p352", "1.9.3-p125-perf"].each do |ruby_version|
   execute("rbenv local #{ruby_version}")
   ["test-unit", "minitest"].each do |test_library|
     reset_bundle
     Dir["gemfiles/Gemfile.#{test_library}.*"].each do |gemfile|
-      next if EXCLUDED_GEMFILES.include?(gemfile)
       ruby_version_without_patch = ruby_version.split("-")[0]
       next if (ruby_version_without_patch == "1.9.3") && EXCLUDED_RUBY_193_GEMFILES.include?(gemfile)
       p [ruby_version_without_patch, test_library, gemfile]
