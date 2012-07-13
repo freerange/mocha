@@ -23,27 +23,42 @@ def reset_bundle
   )
 end
 
+def with_rbenv(command)
+  %{export PATH="$HOME/.rbenv/bin:$PATH"; eval "$(rbenv init -)"; #{command}}
+end
+
 def run(gemfile)
   ENV["BUNDLE_GEMFILE"] = gemfile
   ENV["MOCHA_OPTIONS"] = "debug"
   reset_bundle
   execute(
-    "bundle install --gemfile=#{gemfile}",
-    "bundle exec rake test"
+    with_rbenv("bundle install --gemfile=#{gemfile}"),
+    with_rbenv("bundle exec rake test")
   )
 end
 
-EXCLUDED_MINITEST_GEMFILES = [
+EXCLUDED_RUBY_193_GEMFILES = [
   "gemfiles/Gemfile.minitest.1.3.0",
   "gemfiles/Gemfile.minitest.1.4.0",
   "gemfiles/Gemfile.minitest.1.4.1",
-  "gemfiles/Gemfile.minitest.1.4.2",
-  "gemfiles/Gemfile.test-unit.latest",
+  "gemfiles/Gemfile.minitest.1.4.2"
 ]
 
-reset_bundle
-Dir["gemfiles/Gemfile.*"].each do |gemfile|
-  next if (RUBY_VERSION == "1.9.3") && EXCLUDED_MINITEST_GEMFILES.include?(gemfile)
-  p [RUBY_VERSION, gemfile]
-  run(gemfile)
+EXCLUDED_GEMFILES = [
+  "gemfiles/Gemfile.test-unit.latest"
+]
+
+["1.8.7-p352", "1.9.3-p125-perf"].each do |ruby_version|
+  execute("rbenv local #{ruby_version}")
+  ["test-unit", "minitest"].each do |test_library|
+    reset_bundle
+    Dir["gemfiles/Gemfile.#{test_library}.*"].each do |gemfile|
+      next if EXCLUDED_GEMFILES.include?(gemfile)
+      ruby_version_without_patch = ruby_version.split("-")[0]
+      next if (ruby_version_without_patch == "1.9.3") && EXCLUDED_RUBY_193_GEMFILES.include?(gemfile)
+      p [ruby_version_without_patch, test_library, gemfile]
+      run(gemfile)
+    end
+  end
+  execute("rbenv local --unset")
 end
