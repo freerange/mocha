@@ -1,4 +1,5 @@
 require 'mocha/options'
+require 'mocha/deprecation'
 
 module Mocha
 
@@ -35,8 +36,9 @@ module Mocha
 
 end
 
-unless Mocha::Integration.monkey_patches.any? || $mocha_options["skip_integration"]
-  raise "Test::Unit or MiniTest must be loaded *before* Mocha (use MOCHA_OPTIONS=skip_integration if you know what you are doing)."
+unless Mocha::Integration.monkey_patches.any?
+  Mocha::Deprecation.warning("Test::Unit or MiniTest must be loaded *before* Mocha.")
+  Mocha::Deprecation.warning("If you're integrating with another test library, you should probably require 'mocha_standalone' instead of 'mocha'")
 end
 
 Mocha::Integration.monkey_patches.each do |patch|
