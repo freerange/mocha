@@ -9,16 +9,16 @@ end
 
 module TestRunner
   def run_as_test(&block)
-    run_as_tests(block)
+    run_as_tests(:test_me => block)
   end
 
-  def run_as_tests(*procs)
-    tests = procs.map do |proc|
-      test_class = Class.new(Test::Unit::TestCase) do
-        define_method(:test_me, proc)
+  def run_as_tests(methods = {})
+    test_class = Class.new(Test::Unit::TestCase) do
+      methods.each do |(method_name, proc)|
+        define_method(method_name, proc)
       end
-      test_class.new(:test_me)
     end
+    tests = methods.keys.select { |m| m.to_s[/^test/] }.map { |m| test_class.new(m) }
 
     if defined?(Test::Unit::TestResult)
       test_result = TestUnitResult.build_test_result
