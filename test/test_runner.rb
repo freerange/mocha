@@ -1,7 +1,6 @@
 require 'test/unit/testcase'
 
 if defined?(MiniTest)
-  require 'mocha/monkey_patching/mini_test'
   require File.expand_path('../mini_test_result', __FILE__)
 else
   require File.expand_path('../test_unit_result', __FILE__)
