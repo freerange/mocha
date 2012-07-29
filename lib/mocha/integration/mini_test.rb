@@ -2,6 +2,16 @@ require 'mocha_standalone'
 require 'mocha/expectation_error'
 require 'minitest/unit'
 
+mini_test_version = begin
+  Gem::Version.new(MiniTest::Unit::VERSION)
+rescue LoadError
+  Gem::Version.new('0.0.0')
+end
+
+unless Gem::Requirement.new('>= 3.3.0').satisfied_by?(mini_test_version)
+  raise "Mocha::Integration::MiniTest requires MiniTest version 3.3.0 or higher."
+end
+
 module Mocha
   module Integration
     module MiniTest

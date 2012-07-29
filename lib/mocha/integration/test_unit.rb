@@ -2,6 +2,17 @@ require 'mocha_standalone'
 require 'mocha/expectation_error'
 require 'test/unit/assertionfailederror'
 
+test_unit_version = begin
+  load 'test/unit/version.rb'
+  Gem::Version.new(Test::Unit::VERSION)
+rescue LoadError
+  Gem::Version.new('1.x')
+end
+
+unless Gem::Requirement.new('>= 2.5.1').satisfied_by?(test_unit_version)
+  raise "Mocha::Integration::TestUnit requires Test::Unit version 2.5.1 or higher."
+end
+
 module Mocha
   module Integration
     module TestUnit
