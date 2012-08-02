@@ -1,3 +1,6 @@
+= 0.12.2
+* Officially support minitest v3.3.0 (still monkey-patching)
+
 = 0.12.1
 * Deprecation warning (instead of fail fast) if neither Test::Unit nor MiniTest is loaded. Fixes #88.
 * Remove deprecated access to `Mocha::Standalone`.
