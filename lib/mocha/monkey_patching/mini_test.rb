@@ -48,7 +48,7 @@ if !MiniTest::Unit::TestCase.ancestors.include?(Mocha::API)
           include Mocha::MonkeyPatching::MiniTest::Version230To2101
         elsif Gem::Requirement.new('>= 2.11.0', '<= 2.11.1').satisfied_by?(mini_test_version)
           include Mocha::MonkeyPatching::MiniTest::Version2110To2111
-        elsif Gem::Requirement.new('>= 2.11.2', '<= 3.3.0').satisfied_by?(mini_test_version)
+        elsif Gem::Requirement.new('>= 2.11.2', '<= 3.2.0').satisfied_by?(mini_test_version)
           include Mocha::MonkeyPatching::MiniTest::Version2112To320
         elsif Gem::Requirement.new('3.3.0').satisfied_by?(mini_test_version)
           include Mocha::MonkeyPatching::MiniTest::Version330
