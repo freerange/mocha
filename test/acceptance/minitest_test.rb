@@ -19,7 +19,7 @@ else
   if defined?(MiniTest)
 
     # monkey-patch MiniTest now that it has hopefully been loaded
-    require 'mocha/monkey_patching/mini_test'
+    require 'mocha/integration/mini_test'
 
     class MiniTestSampleTest < MiniTest::Unit::TestCase
 

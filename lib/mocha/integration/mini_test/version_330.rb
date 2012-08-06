@@ -1,15 +1,15 @@
-require 'mocha/monkey_patching/mini_test/assertion_counter'
+require 'mocha/integration/mini_test/assertion_counter'
 require 'mocha/expectation_error'
 
 module Mocha
 
-  module MonkeyPatching
+  module Integration
 
     module MiniTest
 
-      module Version2112To320
+      module Version330
         def self.included(mod)
-          $stderr.puts "Monkey patching MiniTest >= v2.11.2 <= v3.2.0" if $mocha_options['debug']
+          $stderr.puts "Monkey patching MiniTest v3.3.0" if $mocha_options['debug']
         end
         def run runner
           trap "INFO" do
@@ -37,7 +37,7 @@ module Mocha
               raise
             rescue Exception => e
               @passed = false
-              result = runner.puke self.class, self.__name__, Mocha::MonkeyPatching::MiniTest.translate(e)
+              result = runner.puke self.class, self.__name__, Mocha::Integration::MiniTest.translate(e)
             ensure
               %w{ before_teardown teardown after_teardown }.each do |hook|
                 begin
@@ -45,7 +45,8 @@ module Mocha
                 rescue *::MiniTest::Unit::TestCase::PASSTHROUGH_EXCEPTIONS
                   raise
                 rescue Exception => e
-                  result = runner.puke self.class, self.__name__, Mocha::MonkeyPatching::MiniTest.translate(e)
+                  @passed = false
+                  result = runner.puke self.class, self.__name__, Mocha::Integration::MiniTest.translate(e)
                 end
               end
               trap 'INFO', 'DEFAULT' if ::MiniTest::Unit::TestCase::SUPPORTS_INFO_SIGNAL

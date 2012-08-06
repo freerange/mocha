@@ -3,17 +3,17 @@ require 'mocha/deprecation'
 
 module Mocha
 
-  module MonkeyPatching
+  module Integration
 
     class << self
 
       def monkey_patches
         patches = []
         if test_unit_testcase_defined? && !test_unit_testcase_inherits_from_miniunit_testcase?
-          patches << 'mocha/monkey_patching/test_unit'
+          patches << 'mocha/integration/test_unit'
         end
         if mini_test_testcase_defined?
-          patches << 'mocha/monkey_patching/mini_test'
+          patches << 'mocha/integration/mini_test'
         end
         patches
       end
@@ -36,11 +36,11 @@ module Mocha
 
 end
 
-unless Mocha::MonkeyPatching.monkey_patches.any?
+unless Mocha::Integration.monkey_patches.any?
   Mocha::Deprecation.warning("Test::Unit or MiniTest must be loaded *before* Mocha.")
   Mocha::Deprecation.warning("If you're integrating with another test library, you should probably require 'mocha_standalone' instead of 'mocha'")
 end
 
-Mocha::MonkeyPatching.monkey_patches.each do |patch|
+Mocha::Integration.monkey_patches.each do |patch|
   require patch
 end
