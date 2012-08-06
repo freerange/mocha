@@ -2,7 +2,7 @@ require 'mocha/expectation_error'
 
 module Mocha
 
-  module Integration
+  module MonkeyPatching
 
     module MiniTest
 
