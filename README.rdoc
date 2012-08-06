@@ -51,10 +51,10 @@ Note that versions 0.9.6 & 0.9.7 of the Rails plugin were broken. As of version 
 
 == Developing Mocha
 
-* Fork
-* Develop in a branch
-* Ensure all the tests run against all supported versions of test/unit and minitest by running ./build-matrix.rb
-* Issue a pull request from your fork/branch
+* Fork the repository.
+* Make your changes in a branch (including tests).
+* Ensure all of the tests run against all supported versions of Test::Unit, MiniTest & Ruby by running ./build-matrix.rb (note that currently this makes a *lot* of assumptions about your local environment e.g. rbenv installed with specific Ruby versions).
+* Send us a pull request from your fork/branch.
 
 == License
 
