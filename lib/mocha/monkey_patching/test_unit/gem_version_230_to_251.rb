@@ -1,10 +1,10 @@
 require 'test/unit/testcase'
-require 'mocha/integration/test_unit/assertion_counter'
+require 'mocha/monkey_patching/test_unit/assertion_counter'
 require 'mocha/expectation_error'
 
 module Mocha
 
-  module Integration
+  module MonkeyPatching
 
     module TestUnit
 
