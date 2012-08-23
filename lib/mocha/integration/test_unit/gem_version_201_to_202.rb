@@ -1,16 +1,16 @@
 require 'test/unit/testcase'
-require 'mocha/monkey_patching/test_unit/assertion_counter'
+require 'mocha/integration/test_unit/assertion_counter'
 require 'mocha/expectation_error'
 
 module Mocha
 
-  module MonkeyPatching
+  module Integration
 
     module TestUnit
 
-      module GemVersion200
+      module GemVersion201To202
         def self.included(mod)
-          $stderr.puts "Monkey patching Test::Unit gem v2.0.0" if $mocha_options['debug']
+          $stderr.puts "Monkey patching Test::Unit gem >= v2.0.1 and <= v2.0.2" if $mocha_options['debug']
         end
         def run(result)
           assertion_counter = AssertionCounter.new(result)
@@ -20,7 +20,7 @@ module Mocha
             begin
               begin
                 run_setup
-                __send__(@method_name)
+                run_test
                 mocha_verify(assertion_counter)
               rescue Mocha::ExpectationError => e
                 add_failure(e.message, e.backtrace)

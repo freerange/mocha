@@ -1,6 +1,6 @@
 module Mocha
 
-  module MonkeyPatching
+  module Integration
 
     module TestUnit
 

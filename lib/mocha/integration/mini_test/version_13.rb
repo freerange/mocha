@@ -1,15 +1,14 @@
-require 'mocha/monkey_patching/mini_test/assertion_counter'
-require 'mocha/expectation_error'
+require 'mocha/integration/mini_test/assertion_counter'
 
 module Mocha
 
-  module MonkeyPatching
+  module Integration
 
     module MiniTest
 
-      module Version140
+      module Version13
         def self.included(mod)
-          $stderr.puts "Monkey patching MiniTest v1.4.0" if $mocha_options['debug']
+          $stderr.puts "Monkey patching MiniTest v1.3" if $mocha_options['debug']
         end
         def run runner
           assertion_counter = AssertionCounter.new(self)
@@ -18,17 +17,17 @@ module Mocha
             begin
               @passed = nil
               self.setup
-              self.__send__ self.__name__
+              self.__send__ self.name
               mocha_verify(assertion_counter)
               @passed = true
             rescue Exception => e
               @passed = false
-              result = runner.puke(self.class, self.__name__, Mocha::MonkeyPatching::MiniTest.translate(e))
+              result = runner.puke(self.class, self.name, Mocha::Integration::MiniTest.translate(e))
             ensure
               begin
                 self.teardown
               rescue Exception => e
-                result = runner.puke(self.class, self.__name__, Mocha::MonkeyPatching::MiniTest.translate(e))
+                result = runner.puke(self.class, self.name, Mocha::Integration::MiniTest.translate(e))
               end
             end
           ensure
