@@ -27,13 +27,13 @@ def with_rbenv(command)
   %{export PATH="$HOME/.rbenv/bin:$PATH"; eval "$(rbenv init -)"; #{command}}
 end
 
-def run(gemfile)
+def run(gemfile, task = "test")
   ENV["BUNDLE_GEMFILE"] = gemfile
   ENV["MOCHA_OPTIONS"] = "debug"
   reset_bundle
   execute(
     with_rbenv("bundle install --gemfile=#{gemfile}"),
-    with_rbenv("bundle exec rake test")
+    with_rbenv("bundle exec rake #{task}")
   )
 end
 
@@ -44,7 +44,9 @@ EXCLUDED_RUBY_193_GEMFILES = [
   "gemfiles/Gemfile.minitest.1.4.2"
 ]
 
-["1.8.7-p352", "1.9.3-p125-perf"].each do |ruby_version|
+RUBY_VERSIONS = ["1.8.7-p352", "1.9.3-p125-perf"]
+
+RUBY_VERSIONS.each do |ruby_version|
   execute("rbenv local #{ruby_version}")
   ["test-unit", "minitest"].each do |test_library|
     reset_bundle
@@ -57,3 +59,15 @@ EXCLUDED_RUBY_193_GEMFILES = [
   end
   execute("rbenv local --unset")
 end
+
+ruby_version = "1.9.3-p125-perf"
+execute("rbenv local #{ruby_version}")
+["test-unit", "minitest"].each do |test_library|
+  reset_bundle
+  gemfile = "gemfiles/Gemfile.#{test_library}.latest"
+  ruby_version_without_patch = ruby_version.split("-")[0]
+  p [ruby_version_without_patch, test_library, gemfile]
+  ENV['MOCHA_RUN_ADAPTER_TESTS'] = test_library
+  run(gemfile)
+end
+execute("rbenv local --unset")

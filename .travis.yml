@@ -30,3 +30,10 @@ matrix:
     - rvm: 1.9.3
       gemfile: gemfiles/Gemfile.minitest.1.4.2
       env: MOCHA_OPTIONS=debug
+  include:
+    - rvm: 1.9.3
+      gemfile: gemfiles/Gemfile.minitest.latest
+      env: MOCHA_OPTIONS=debug MOCHA_RUN_ADAPTER_TESTS=minitest
+    - rvm: 1.9.3
+      gemfile: gemfiles/Gemfile.test-unit.latest
+      env: MOCHA_OPTIONS=debug MOCHA_RUN_ADAPTER_TESTS=test-unit

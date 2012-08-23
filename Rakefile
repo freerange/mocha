@@ -9,7 +9,14 @@ desc "Run all tests"
 task 'default' => ['test', 'test:performance']
 
 desc "Run unit & acceptance tests"
-task 'test' => ['test:units', 'test:acceptance']
+task 'test' do
+  if test_library = ENV['MOCHA_RUN_ADAPTER_TESTS']
+    Rake::Task["test:adapters:#{test_library}"].invoke
+  else
+    Rake::Task['test:units'].invoke
+    Rake::Task['test:acceptance'].invoke
+  end
+end
 
 namespace 'test' do
 
@@ -40,7 +47,7 @@ namespace 'test' do
 
   namespace 'adapters' do
     desc "Run MiniTest adapter tests (intended to be run in its own process)"
-    Rake::TestTask.new('mini_test') do |t|
+    Rake::TestTask.new('minitest') do |t|
       t.libs << 'test'
       t.test_files = FileList['test/adapters/mini_test_test.rb']
       t.verbose = true
@@ -48,7 +55,7 @@ namespace 'test' do
     end
 
     desc "Run Test::Unit adapter tests (intended to be run in its own process)"
-    Rake::TestTask.new('test_unit') do |t|
+    Rake::TestTask.new('test-unit') do |t|
       t.libs << 'test'
       t.test_files = FileList['test/adapters/test_unit_test.rb']
       t.verbose = true
