@@ -9,11 +9,11 @@ rescue LoadError
 end
 
 unless Gem::Requirement.new('>= 3.3.0').satisfied_by?(mini_test_version)
-  raise "Mocha::Integration::MiniTest requires MiniTest version 3.3.0 or higher."
+  raise "Mocha::Adapters::MiniTest requires MiniTest version 3.3.0 or higher."
 end
 
 module Mocha
-  module Integration
+  module Adapters
     module MiniTest
 
       class AssertionCounter

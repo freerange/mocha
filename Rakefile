@@ -38,19 +38,19 @@ namespace 'test' do
     t.warning = true
   end
 
-  namespace 'integration' do
-    desc "Run MiniTest integration tests (intended to be run in its own process)"
+  namespace 'adapters' do
+    desc "Run MiniTest adapter tests (intended to be run in its own process)"
     Rake::TestTask.new('mini_test') do |t|
       t.libs << 'test'
-      t.test_files = FileList['test/integration/mini_test_test.rb']
+      t.test_files = FileList['test/adapters/mini_test_test.rb']
       t.verbose = true
       t.warning = true
     end
 
-    desc "Run Test::Unit integration tests (intended to be run in its own process)"
+    desc "Run Test::Unit adapter tests (intended to be run in its own process)"
     Rake::TestTask.new('test_unit') do |t|
       t.libs << 'test'
-      t.test_files = FileList['test/integration/test_unit_test.rb']
+      t.test_files = FileList['test/adapters/test_unit_test.rb']
       t.verbose = true
       t.warning = true
     end
