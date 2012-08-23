@@ -49,6 +49,13 @@ Note that versions 0.9.6 & 0.9.7 of the Rails plugin were broken. As of version 
 * {Source code}[http://github.com/freerange/mocha]
 * {Bug reports}[http://github.com/freerange/mocha/issues]
 
+== Developing Mocha
+
+* Fork the repository.
+* Make your changes in a branch (including tests).
+* Ensure all of the tests run against all supported versions of Test::Unit, MiniTest & Ruby by running ./build-matrix.rb (note that currently this makes a *lot* of assumptions about your local environment e.g. rbenv installed with specific Ruby versions).
+* Send us a pull request from your fork/branch.
+
 == License
 
 Copyright Revieworld Ltd. 2006

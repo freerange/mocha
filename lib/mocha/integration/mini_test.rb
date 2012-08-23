@@ -13,6 +13,7 @@ if !MiniTest::Unit::TestCase.ancestors.include?(Mocha::API)
   require 'mocha/integration/mini_test/version_230_to_2101'
   require 'mocha/integration/mini_test/version_2110_to_2111'
   require 'mocha/integration/mini_test/version_2112_to_320'
+  require 'mocha/integration/mini_test/version_330'
 
   module MiniTest
     class Unit
@@ -49,6 +50,8 @@ if !MiniTest::Unit::TestCase.ancestors.include?(Mocha::API)
           include Mocha::Integration::MiniTest::Version2110To2111
         elsif Gem::Requirement.new('>= 2.11.2', '<= 3.2.0').satisfied_by?(mini_test_version)
           include Mocha::Integration::MiniTest::Version2112To320
+        elsif Gem::Requirement.new('3.3.0').satisfied_by?(mini_test_version)
+          include Mocha::Integration::MiniTest::Version330
         else
           $stderr.puts "*** No Mocha monkey-patch for MiniTest version ***" if $mocha_options['debug']
         end
