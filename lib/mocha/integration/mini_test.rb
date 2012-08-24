@@ -12,17 +12,6 @@ require 'mocha/integration/mini_test/version_2110_to_2111'
 require 'mocha/integration/mini_test/version_2112_to_320'
 require 'mocha/integration/mini_test/version_330'
 
-if !MiniTest::Unit::TestCase.ancestors.include?(Mocha::API)
-  MiniTest::Unit::TestCase.send(:include, Mocha::API)
-end
-
-if !MiniTest::Unit::TestCase.method_defined?(:run_before_mocha)
-  class MiniTest::Unit::TestCase
-    alias_method :run_before_mocha, :run
-    remove_method :run
-  end
-end
-
 mini_test_version = begin
   Gem::Version.new(MiniTest::Unit::VERSION)
 rescue LoadError
