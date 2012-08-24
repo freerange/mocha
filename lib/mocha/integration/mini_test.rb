@@ -39,7 +39,7 @@ elsif Gem::Requirement.new('>= 2.11.0', '<= 2.11.1').satisfied_by?(mini_test_ver
   Mocha::Integration::MiniTest::Version2110To2111
 elsif Gem::Requirement.new('>= 2.11.2', '<= 3.2.0').satisfied_by?(mini_test_version)
   Mocha::Integration::MiniTest::Version2112To320
-elsif Gem::Requirement.new('3.3.0').satisfied_by?(mini_test_version)
+elsif Gem::Requirement.new('>= 3.3.0').satisfied_by?(mini_test_version)
   Mocha::Adapters::MiniTest
 else
   $stderr.puts "*** No Mocha monkey-patch for MiniTest version ***" if $mocha_options['debug']
