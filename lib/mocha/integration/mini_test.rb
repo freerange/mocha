@@ -10,6 +10,7 @@ require 'mocha/integration/mini_test/version_201_to_222'
 require 'mocha/integration/mini_test/version_230_to_2101'
 require 'mocha/integration/mini_test/version_2110_to_2111'
 require 'mocha/integration/mini_test/version_2112_to_320'
+
 require 'mocha/adapters/mini_test'
 
 mini_test_version = begin
