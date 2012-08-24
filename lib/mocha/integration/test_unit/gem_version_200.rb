@@ -11,36 +11,46 @@ module Mocha
       module GemVersion200
         def self.included(mod)
           $stderr.puts "Monkey patching Test::Unit gem v2.0.0" if $mocha_options['debug']
+          unless mod.ancestors.include?(Mocha::API)
+            mod.send(:include, Mocha::API)
+          end
+          unless mod.method_defined?(:run_before_mocha)
+            mod.send(:alias_method, :run_before_mocha, :run)
+            mod.send(:remove_method, :run)
+            mod.send(:include, InstanceMethods)
+          end
         end
-        def run(result)
-          assertion_counter = AssertionCounter.new(result)
-          begin
-            @_result = result
-            yield(Test::Unit::TestCase::STARTED, name)
+        module InstanceMethods
+          def run(result)
+            assertion_counter = AssertionCounter.new(result)
             begin
+              @_result = result
+              yield(Test::Unit::TestCase::STARTED, name)
               begin
-                run_setup
-                __send__(@method_name)
-                mocha_verify(assertion_counter)
-              rescue Mocha::ExpectationError => e
-                add_failure(e.message, e.backtrace)
-              rescue Exception
-                @interrupted = true
-                raise unless handle_exception($!)
-              ensure
                 begin
-                  run_teardown
+                  run_setup
+                  __send__(@method_name)
+                  mocha_verify(assertion_counter)
+                rescue Mocha::ExpectationError => e
+                  add_failure(e.message, e.backtrace)
                 rescue Exception
+                  @interrupted = true
                   raise unless handle_exception($!)
+                ensure
+                  begin
+                    run_teardown
+                  rescue Exception
+                    raise unless handle_exception($!)
+                  end
                 end
+              ensure
+                mocha_teardown
               end
+              result.add_run
+              yield(Test::Unit::TestCase::FINISHED, name)
             ensure
-              mocha_teardown
+              @_result = nil
             end
-            result.add_run
-            yield(Test::Unit::TestCase::FINISHED, name)
-          ensure
-            @_result = nil
           end
         end
       end

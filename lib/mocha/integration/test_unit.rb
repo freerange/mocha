@@ -8,17 +8,6 @@ require 'mocha/integration/test_unit/gem_version_230_to_251'
 require 'mocha/integration/test_unit/ruby_version_185_and_below'
 require 'mocha/integration/test_unit/ruby_version_186_and_above'
 
-if !Test::Unit::TestCase.ancestors.include?(Mocha::API)
-  Test::Unit::TestCase.send(:include, Mocha::API)
-end
-
-if !Test::Unit::TestCase.method_defined?(:run_before_mocha)
-  class Test::Unit::TestCase
-    alias_method :run_before_mocha, :run
-    remove_method :run
-  end
-end
-
 test_unit_version = begin
   load 'test/unit/version.rb'
   Gem::Version.new(Test::Unit::VERSION)

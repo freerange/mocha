@@ -11,36 +11,46 @@ module Mocha
       module RubyVersion185AndBelow
         def self.included(mod)
           $stderr.puts "Monkey patching Test::Unit for Ruby <= v1.8.5" if $mocha_options['debug']
+          unless mod.ancestors.include?(Mocha::API)
+            mod.send(:include, Mocha::API)
+          end
+          unless mod.method_defined?(:run_before_mocha)
+            mod.send(:alias_method, :run_before_mocha, :run)
+            mod.send(:remove_method, :run)
+            mod.send(:include, InstanceMethods)
+          end
         end
-        def run(result)
-          assertion_counter = AssertionCounter.new(result)
-          yield(Test::Unit::TestCase::STARTED, name)
-          @_result = result
-          begin
+        module InstanceMethods
+          def run(result)
+            assertion_counter = AssertionCounter.new(result)
+            yield(Test::Unit::TestCase::STARTED, name)
+            @_result = result
             begin
-              setup
-              __send__(@method_name)
-              mocha_verify(assertion_counter)
-            rescue Mocha::ExpectationError => e
-              add_failure(e.message, e.backtrace)
-            rescue Test::Unit::AssertionFailedError => e
-              add_failure(e.message, e.backtrace)
-            rescue StandardError, ScriptError
-              add_error($!)
-            ensure
               begin
-                teardown
+                setup
+                __send__(@method_name)
+                mocha_verify(assertion_counter)
+              rescue Mocha::ExpectationError => e
+                add_failure(e.message, e.backtrace)
               rescue Test::Unit::AssertionFailedError => e
                 add_failure(e.message, e.backtrace)
               rescue StandardError, ScriptError
                 add_error($!)
+              ensure
+                begin
+                  teardown
+                rescue Test::Unit::AssertionFailedError => e
+                  add_failure(e.message, e.backtrace)
+                rescue StandardError, ScriptError
+                  add_error($!)
+                end
               end
+            ensure
+              mocha_teardown
             end
-          ensure
-            mocha_teardown
+            result.add_run
+            yield(Test::Unit::TestCase::FINISHED, name)
           end
-          result.add_run
-          yield(Test::Unit::TestCase::FINISHED, name)
         end
       end
 
