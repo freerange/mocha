@@ -1,6 +1,5 @@
 require 'mocha_standalone'
 require 'mocha/expectation_error'
-require 'test/unit/assertionfailederror'
 
 test_unit_version = begin
   load 'test/unit/version.rb'
@@ -29,10 +28,17 @@ module Mocha
 
       include Mocha::API
 
-      def self.included(mod)
-        Mocha::ExpectationErrorFactory.exception_class = Test::Unit::AssertionFailedError
+      def handle_mocha_expectation_error(e)
+        return false unless e.is_a?(Mocha::ExpectationError)
+        problem_occurred
+        add_failure(e.message, e.backtrace)
+        true
+      end
 
+      def self.included(mod)
         mod.setup :mocha_setup
+
+        mod.exception_handler(:handle_mocha_expectation_error)
 
         mod.cleanup do
           assertion_counter = AssertionCounter.new(self)
