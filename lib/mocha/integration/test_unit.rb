@@ -1,14 +1,14 @@
 require 'mocha/api'
 require 'mocha/options'
 
-if !Test::Unit::TestCase.ancestors.include?(Mocha::API)
+require 'mocha/integration/test_unit/gem_version_200'
+require 'mocha/integration/test_unit/gem_version_201_to_202'
+require 'mocha/integration/test_unit/gem_version_203_to_220'
+require 'mocha/integration/test_unit/gem_version_230_to_251'
+require 'mocha/integration/test_unit/ruby_version_185_and_below'
+require 'mocha/integration/test_unit/ruby_version_186_and_above'
 
-  require 'mocha/integration/test_unit/gem_version_200'
-  require 'mocha/integration/test_unit/gem_version_201_to_202'
-  require 'mocha/integration/test_unit/gem_version_203_to_220'
-  require 'mocha/integration/test_unit/gem_version_230_to_251'
-  require 'mocha/integration/test_unit/ruby_version_185_and_below'
-  require 'mocha/integration/test_unit/ruby_version_186_and_above'
+if !Test::Unit::TestCase.ancestors.include?(Mocha::API)
 
   module Test
     module Unit
