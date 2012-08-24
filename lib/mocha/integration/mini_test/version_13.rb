@@ -1,4 +1,5 @@
 require 'mocha/integration/mini_test/assertion_counter'
+require 'mocha/integration/mini_test/exception_translation'
 
 module Mocha
 

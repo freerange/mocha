@@ -3,7 +3,6 @@ require 'mocha/options'
 
 if !MiniTest::Unit::TestCase.ancestors.include?(Mocha::API)
 
-  require 'mocha/integration/mini_test/exception_translation'
   require 'mocha/integration/mini_test/version_13'
   require 'mocha/integration/mini_test/version_140'
   require 'mocha/integration/mini_test/version_141'
