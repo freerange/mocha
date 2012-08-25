@@ -12,24 +12,25 @@ module TestRunner
   end
 
   def run_as_tests(methods = {})
-    test_class = Class.new(Test::Unit::TestCase) do
+    base_class = defined?(MiniTest) ? MiniTest::Unit::TestCase : Test::Unit::TestCase
+    test_class = Class.new(base_class) do
       methods.each do |(method_name, proc)|
         define_method(method_name, proc)
       end
     end
     tests = methods.keys.select { |m| m.to_s[/^test/] }.map { |m| test_class.new(m) }
 
-    if defined?(Test::Unit::TestResult)
-      test_result = TestUnitResult.build_test_result
-      tests.each do |test|
-        test.run(test_result) {}
-      end
-    else
+    if defined?(MiniTest)
       runner = MiniTest::Unit.new
       tests.each do |test|
         test.run(runner)
       end
       test_result = MiniTestResult.new(runner, tests)
+    else
+      test_result = TestUnitResult.build_test_result
+      tests.each do |test|
+        test.run(test_result) {}
+      end
     end
 
     test_result

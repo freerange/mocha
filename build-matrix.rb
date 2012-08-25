@@ -48,26 +48,22 @@ RUBY_VERSIONS = ["1.8.7-p352", "1.9.3-p125-perf"]
 
 RUBY_VERSIONS.each do |ruby_version|
   execute("rbenv local #{ruby_version}")
+  reset_bundle
+  run("Gemfile")
+  execute("rbenv local --unset")
+end
+
+RUBY_VERSIONS.each do |ruby_version|
+  execute("rbenv local #{ruby_version}")
   ["test-unit", "minitest"].each do |test_library|
     reset_bundle
     Dir["gemfiles/Gemfile.#{test_library}.*"].each do |gemfile|
       ruby_version_without_patch = ruby_version.split("-")[0]
       next if (ruby_version_without_patch == "1.9.3") && EXCLUDED_RUBY_193_GEMFILES.include?(gemfile)
       p [ruby_version_without_patch, test_library, gemfile]
+      ENV['MOCHA_RUN_ADAPTER_TESTS'] = test_library
       run(gemfile)
     end
   end
   execute("rbenv local --unset")
 end
-
-ruby_version = "1.9.3-p125-perf"
-execute("rbenv local #{ruby_version}")
-["test-unit", "minitest"].each do |test_library|
-  reset_bundle
-  gemfile = "gemfiles/Gemfile.#{test_library}.latest"
-  ruby_version_without_patch = ruby_version.split("-")[0]
-  p [ruby_version_without_patch, test_library, gemfile]
-  ENV['MOCHA_RUN_ADAPTER_TESTS'] = test_library
-  run(gemfile)
-end
-execute("rbenv local --unset")
