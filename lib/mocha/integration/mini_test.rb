@@ -47,5 +47,6 @@ else
 end
 
 if minitest_integration_module && !MiniTest::Unit::TestCase.ancestors.include?(minitest_integration_module)
+  $stderr.puts "Applying #{minitest_integration_module.description}" if $mocha_options['debug']
   MiniTest::Unit::TestCase.send(:include, minitest_integration_module)
 end

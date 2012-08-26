@@ -1,5 +1,6 @@
 require 'mocha/integration/mini_test/assertion_counter'
 require 'mocha/integration/mini_test/exception_translation'
+require 'mocha/integration/monkey_patcher'
 
 module Mocha
 
@@ -8,18 +9,13 @@ module Mocha
     module MiniTest
 
       module Version230To2101
-        def self.included(mod)
-          $stderr.puts "Monkey patching MiniTest >= v2.3.0 <= v2.10.1" if $mocha_options['debug']
-          unless mod.ancestors.include?(Mocha::API)
-            mod.send(:include, Mocha::API)
-          end
-          unless mod.method_defined?(:run_before_mocha)
-            mod.send(:alias_method, :run_before_mocha, :run)
-            mod.send(:remove_method, :run)
-            mod.send(:include, InstanceMethods)
-          end
+        def self.description
+          "monkey patch for MiniTest gem >= v2.3.0 <= v2.10.1"
         end
-        module InstanceMethods
+        def self.included(mod)
+          MonkeyPatcher.apply(mod, RunMethodPatch)
+        end
+        module RunMethodPatch
           def run runner
             trap 'INFO' do
               time = runner.start_time ? Time.now - runner.start_time : 0

@@ -17,6 +17,10 @@ module Mocha
 
       include Mocha::API
 
+      def self.description
+        "adapter for MiniTest gem >= v3.3.0"
+      end
+
       def self.included(mod)
         Mocha::ExpectationErrorFactory.exception_class = ::MiniTest::Assertion
       end
