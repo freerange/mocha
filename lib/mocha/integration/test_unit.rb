@@ -45,5 +45,6 @@ else
 end
 
 if test_unit_integration_module && !Test::Unit::TestCase.ancestors.include?(test_unit_integration_module)
+  $stderr.puts "Applying #{test_unit_integration_module.description}" if $mocha_options['debug']
   Test::Unit::TestCase.send(:include, test_unit_integration_module)
 end

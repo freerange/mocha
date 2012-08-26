@@ -17,6 +17,10 @@ module Mocha
 
       include Mocha::API
 
+      def self.description
+        "adapter for Test::Unit gem >= v2.5.1"
+      end
+
       def self.included(mod)
         mod.setup :mocha_setup, :before => :prepend
 
