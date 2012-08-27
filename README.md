@@ -2,9 +2,11 @@
 
 ### Description
 
-A Ruby library for mocking and stubbing with a unified, simple and readable syntax for both full & partial mocking.
+A Ruby library for mocking and stubbing.
 
-Mocha comes with built-in support for [MiniTest](https://github.com/seattlerb/minitest) and [Test::Unit](https://github.com/test-unit/test-unit/) and is supported by many other test frameworks, e.g. [RSpec](http://rspec.info/), [bacon](https://github.com/chneukirchen/bacon/), [expectations](http://expectations.rubyforge.org/), [Dust](http://dust.rubyforge.org/) and [JtestR](http://jtestr.codehaus.org/).
+It has a unified, simple and readable syntax for both full & partial mocking.
+
+It has built-in support for [MiniTest](https://github.com/seattlerb/minitest) and [Test::Unit](https://github.com/test-unit/test-unit/) and is supported by many other test frameworks, e.g. [RSpec](http://rspec.info/), [bacon](https://github.com/chneukirchen/bacon/), [expectations](http://expectations.rubyforge.org/), [Dust](http://dust.rubyforge.org/) and [JtestR](http://jtestr.codehaus.org/).
 
 ### Installation
 
