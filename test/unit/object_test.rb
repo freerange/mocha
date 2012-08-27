@@ -1,5 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
-require 'mocha/object'
+require 'mocha/object_methods'
+require 'mocha/module_methods'
+require 'mocha/class_methods'
 require 'mocha/mockery'
 require 'mocha/mock'
 require 'method_definer'
