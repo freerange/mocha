@@ -1,5 +1,6 @@
 require 'mocha/options'
 
+require 'mocha/integration/test_unit/nothing'
 require 'mocha/integration/test_unit/ruby_version_185_and_below'
 require 'mocha/integration/test_unit/ruby_version_186_and_above'
 require 'mocha/integration/test_unit/gem_version_200'
@@ -27,15 +28,12 @@ test_unit_integration_module = [
   Mocha::Integration::TestUnit::GemVersion201To202,
   Mocha::Integration::TestUnit::GemVersion200,
   Mocha::Integration::TestUnit::RubyVersion186AndAbove,
-  Mocha::Integration::TestUnit::RubyVersion185AndBelow
+  Mocha::Integration::TestUnit::RubyVersion185AndBelow,
+  Mocha::Integration::TestUnit::Nothing
 ].detect { |m| m.applicable_to?(test_unit_version, ruby_version) }
 
-if test_unit_integration_module
-  unless Test::Unit::TestCase < test_unit_integration_module
-    debug_puts "Applying #{test_unit_integration_module.description}"
-    Test::Unit::TestCase.send(:include, test_unit_integration_module)
-  end
-else
-  debug_puts "*** No Mocha integration for Test::Unit version ***"
+unless Test::Unit::TestCase < test_unit_integration_module
+  debug_puts "Applying #{test_unit_integration_module.description}"
+  Test::Unit::TestCase.send(:include, test_unit_integration_module)
 end
 

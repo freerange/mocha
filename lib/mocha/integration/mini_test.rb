@@ -1,5 +1,6 @@
 require 'mocha/options'
 
+require 'mocha/integration/mini_test/nothing'
 require 'mocha/integration/mini_test/version_13'
 require 'mocha/integration/mini_test/version_140'
 require 'mocha/integration/mini_test/version_141'
@@ -29,14 +30,11 @@ minitest_integration_module = [
   Mocha::Integration::MiniTest::Version142To172,
   Mocha::Integration::MiniTest::Version141,
   Mocha::Integration::MiniTest::Version140,
-  Mocha::Integration::MiniTest::Version13
+  Mocha::Integration::MiniTest::Version13,
+  Mocha::Integration::MiniTest::Nothing
 ].detect { |m| m.applicable_to?(mini_test_version) }
 
-if minitest_integration_module
-  unless MiniTest::Unit::TestCase < minitest_integration_module
-    debug_puts "Applying #{minitest_integration_module.description}"
-    MiniTest::Unit::TestCase.send(:include, minitest_integration_module)
-  end
-else
-  debug_puts "*** No Mocha integration for MiniTest version ***"
+unless MiniTest::Unit::TestCase < minitest_integration_module
+  debug_puts "Applying #{minitest_integration_module.description}"
+  MiniTest::Unit::TestCase.send(:include, minitest_integration_module)
 end
