@@ -1,7 +1,7 @@
 require 'test_runner'
 require 'execution_point'
 
-module SharedAdapterTests
+module SharedTests
   include TestRunner
 
   def test_assertion_satisfied

@@ -2,8 +2,8 @@ require File.expand_path('../../test_helper', __FILE__)
 
 require "test/unit"
 require "mocha"
-require "adapters/shared_adapter_tests"
+require "integration/shared_tests"
 
 class TestUnitTest < Test::Unit::TestCase
-  include SharedAdapterTests
+  include SharedTests
 end

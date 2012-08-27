@@ -61,7 +61,7 @@ RUBY_VERSIONS.each do |ruby_version|
       ruby_version_without_patch = ruby_version.split("-")[0]
       next if (ruby_version_without_patch == "1.9.3") && EXCLUDED_RUBY_193_GEMFILES.include?(gemfile)
       p [ruby_version_without_patch, test_library, gemfile]
-      ENV['MOCHA_RUN_ADAPTER_TESTS'] = test_library
+      ENV['MOCHA_RUN_INTEGRATION_TESTS'] = test_library
       run(gemfile)
     end
   end
