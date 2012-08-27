@@ -39,6 +39,5 @@ if test_unit_integration_module
   end
 else
   $stderr.puts "*** No Mocha integration for Test::Unit version ***" if $mocha_options['debug']
-  nil
 end
 
