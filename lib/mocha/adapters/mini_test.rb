@@ -17,6 +17,10 @@ module Mocha
 
       include Mocha::API
 
+      def self.applicable_to?(mini_test_version)
+        Gem::Requirement.new('>= 3.3.0').satisfied_by?(mini_test_version)
+      end
+
       def self.description
         "adapter for MiniTest gem >= v3.3.0"
       end

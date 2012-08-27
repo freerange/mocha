@@ -9,6 +9,9 @@ module Mocha
     module MiniTest
 
       module Version230To2101
+        def self.applicable_to?(mini_test_version)
+          Gem::Requirement.new('>= 2.3.0', '<= 2.10.1').satisfied_by?(mini_test_version)
+        end
         def self.description
           "monkey patch for MiniTest gem >= v2.3.0 <= v2.10.1"
         end

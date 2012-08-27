@@ -9,6 +9,9 @@ module Mocha
     module MiniTest
 
       module Version141
+        def self.applicable_to?(mini_test_version)
+          Gem::Requirement.new('1.4.1').satisfied_by?(mini_test_version)
+        end
         def self.description
           "monkey patch for MiniTest gem v1.4.1"
         end
