@@ -35,7 +35,7 @@ test_unit_integration_module = [
 ].detect { |m| m.applicable_to?(test_unit_version, ruby_version) }
 
 if test_unit_integration_module
-  unless Test::Unit::TestCase.ancestors.include?(test_unit_integration_module)
+  unless Test::Unit::TestCase < test_unit_integration_module
     $stderr.puts "Applying #{test_unit_integration_module.description}" if $mocha_options['debug']
     Test::Unit::TestCase.send(:include, test_unit_integration_module)
   end

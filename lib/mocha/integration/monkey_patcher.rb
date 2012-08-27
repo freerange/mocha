@@ -4,7 +4,7 @@ module Mocha
   module Integration
     module MonkeyPatcher
       def self.apply(mod, run_method_patch)
-        unless mod.ancestors.include?(Mocha::API)
+        unless mod < Mocha::API
           mod.send(:include, Mocha::API)
         end
         unless mod.method_defined?(:run_before_mocha)

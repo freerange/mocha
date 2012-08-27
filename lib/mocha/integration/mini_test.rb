@@ -34,7 +34,7 @@ minitest_integration_module = [
 ].detect { |m| m.applicable_to?(mini_test_version) }
 
 if minitest_integration_module
-  unless MiniTest::Unit::TestCase.ancestors.include?(minitest_integration_module)
+  unless MiniTest::Unit::TestCase < minitest_integration_module
     $stderr.puts "Applying #{minitest_integration_module.description}" if $mocha_options['debug']
     MiniTest::Unit::TestCase.send(:include, minitest_integration_module)
   end
