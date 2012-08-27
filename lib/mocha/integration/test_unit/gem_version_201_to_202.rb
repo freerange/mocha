@@ -10,6 +10,9 @@ module Mocha
     module TestUnit
 
       module GemVersion201To202
+        def self.applicable_to?(test_unit_version, ruby_version)
+          Gem::Requirement.new('>= 2.0.1', '<= 2.0.2').satisfied_by?(test_unit_version)
+        end
         def self.description
           "monkey patch for Test::Unit gem >= v2.0.1 and <= v2.0.2"
         end

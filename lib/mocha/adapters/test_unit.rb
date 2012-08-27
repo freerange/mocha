@@ -17,6 +17,10 @@ module Mocha
 
       include Mocha::API
 
+      def self.applicable_to?(test_unit_version, ruby_version)
+        Gem::Requirement.new('>= 2.5.1').satisfied_by?(test_unit_version)
+      end
+
       def self.description
         "adapter for Test::Unit gem >= v2.5.1"
       end
