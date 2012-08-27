@@ -15,6 +15,6 @@ unless test_unit_integration_module.applicable_to?(test_unit_version)
 end
 
 unless Test::Unit::TestCase < test_unit_integration_module
-  $stderr.puts "Applying #{test_unit_integration_module.description}" if $mocha_options['debug']
+  debug_puts "Applying #{test_unit_integration_module.description}"
   Test::Unit::TestCase.send(:include, test_unit_integration_module)
 end

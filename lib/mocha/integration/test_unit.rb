@@ -17,10 +17,8 @@ end
 
 ruby_version = Gem::Version.new(RUBY_VERSION.dup)
 
-if $mocha_options['debug']
-  $stderr.puts "Detected Ruby version: #{ruby_version}"
-  $stderr.puts "Detected Test::Unit version: #{test_unit_version}"
-end
+debug_puts "Detected Ruby version: #{ruby_version}"
+debug_puts "Detected Test::Unit version: #{test_unit_version}"
 
 test_unit_integration_module = [
   Mocha::Integration::TestUnit::Adapter,
@@ -34,10 +32,10 @@ test_unit_integration_module = [
 
 if test_unit_integration_module
   unless Test::Unit::TestCase < test_unit_integration_module
-    $stderr.puts "Applying #{test_unit_integration_module.description}" if $mocha_options['debug']
+    debug_puts "Applying #{test_unit_integration_module.description}"
     Test::Unit::TestCase.send(:include, test_unit_integration_module)
   end
 else
-  $stderr.puts "*** No Mocha integration for Test::Unit version ***" if $mocha_options['debug']
+  debug_puts "*** No Mocha integration for Test::Unit version ***"
 end
 

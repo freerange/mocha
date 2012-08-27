@@ -17,7 +17,7 @@ rescue LoadError
   Gem::Version.new('0.0.0')
 end
 
-$stderr.puts "Detected MiniTest version: #{mini_test_version}" if $mocha_options['debug']
+debug_puts "Detected MiniTest version: #{mini_test_version}"
 
 minitest_integration_module = [
   Mocha::Integration::MiniTest::Adapter,
@@ -34,9 +34,9 @@ minitest_integration_module = [
 
 if minitest_integration_module
   unless MiniTest::Unit::TestCase < minitest_integration_module
-    $stderr.puts "Applying #{minitest_integration_module.description}" if $mocha_options['debug']
+    debug_puts "Applying #{minitest_integration_module.description}"
     MiniTest::Unit::TestCase.send(:include, minitest_integration_module)
   end
 else
-  $stderr.puts "*** No Mocha integration for MiniTest version ***" if $mocha_options['debug']
+  debug_puts "*** No Mocha integration for MiniTest version ***"
 end

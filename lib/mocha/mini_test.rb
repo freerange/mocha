@@ -15,6 +15,6 @@ unless minitest_integration_module.applicable_to?(mini_test_version)
 end
 
 unless MiniTest::Unit::TestCase < minitest_integration_module
-  $stderr.puts "Applying #{minitest_integration_module.description}" if $mocha_options['debug']
+  debug_puts "Applying #{minitest_integration_module.description}"
   MiniTest::Unit::TestCase.send(:include, minitest_integration_module)
 end
