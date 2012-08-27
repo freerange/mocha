@@ -2,13 +2,11 @@ require 'mocha/options'
 
 require 'mocha/integration/test_unit/ruby_version_185_and_below'
 require 'mocha/integration/test_unit/ruby_version_186_and_above'
-
 require 'mocha/integration/test_unit/gem_version_200'
 require 'mocha/integration/test_unit/gem_version_201_to_202'
 require 'mocha/integration/test_unit/gem_version_203_to_220'
 require 'mocha/integration/test_unit/gem_version_230_to_250'
-
-require 'mocha/adapters/test_unit'
+require 'mocha/integration/test_unit/adapter'
 
 test_unit_version = begin
   load 'test/unit/version.rb'
@@ -25,7 +23,7 @@ if $mocha_options['debug']
 end
 
 test_unit_integration_module = [
-  Mocha::Adapters::TestUnit,
+  Mocha::Integration::TestUnit::Adapter,
   Mocha::Integration::TestUnit::GemVersion230To250,
   Mocha::Integration::TestUnit::GemVersion203To220,
   Mocha::Integration::TestUnit::GemVersion201To202,
@@ -40,7 +38,7 @@ if test_unit_integration_module
     Test::Unit::TestCase.send(:include, test_unit_integration_module)
   end
 else
-  $stderr.puts "*** No Mocha monkey-patch for Test::Unit version ***" if $mocha_options['debug']
+  $stderr.puts "*** No Mocha integration for Test::Unit version ***" if $mocha_options['debug']
   nil
 end
 

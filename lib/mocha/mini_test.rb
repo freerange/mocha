@@ -1,4 +1,5 @@
 require 'minitest/unit'
+require 'mocha/integration/mini_test/adapter'
 
 mini_test_version = begin
   Gem::Version.new(MiniTest::Unit::VERSION)
@@ -7,11 +8,9 @@ rescue LoadError
 end
 
 unless Gem::Requirement.new('>= 3.3.0').satisfied_by?(mini_test_version)
-  raise "Mocha::Adapters::MiniTest requires MiniTest version 3.3.0 or higher."
+  raise "Mocha::Integration::MiniTest::Adapter requires MiniTest version 3.3.0 or higher."
 end
 
-require 'mocha/adapters/mini_test'
-
 class MiniTest::Unit::TestCase
-  include Mocha::Adapters::MiniTest
+  include Mocha::Integration::MiniTest::Adapter
 end
