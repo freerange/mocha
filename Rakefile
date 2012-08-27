@@ -116,6 +116,7 @@ YARD::Rake::YardocTask.new('yardoc') do |task|
   task.options = ["--title", "Mocha #{Mocha::VERSION}", "--no-private"]
   task.files   = [
     'lib/mocha/api.rb',
+    'lib/mocha/hooks.rb',
     'lib/mocha/mock.rb',
     'lib/mocha/expectation.rb',
     'lib/mocha/object_methods.rb',
@@ -125,8 +126,12 @@ YARD::Rake::YardocTask.new('yardoc') do |task|
     'lib/mocha/state_machine.rb',
     'lib/mocha/sequence.rb',
     'lib/mocha/configuration.rb',
+    'lib/mocha/expectation_error_factory.rb',
+    'lib/mocha/expectation_error.rb',
     'lib/mocha/stubbing_error.rb',
     'lib/mocha/unexpected_invocation.rb',
+    'lib/mocha/integration/test_unit/adapter.rb',
+    'lib/mocha/integration/mini_test/adapter.rb',
     '-',
     'RELEASE.rdoc',
     'COPYING.rdoc',
