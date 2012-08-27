@@ -58,9 +58,9 @@ Note that as of version 0.9.8, the Mocha plugin is not automatically loaded at p
 
 ### Examples
 
-* Quick Start - {file:misc.rb Usage Examples}
-* Traditional mocking - {file:mocha.rb Star Trek Example}
-* Setting expectations on real classes - {file:stubba.rb Order Example}
+* Quick Start - [Usage Examples](/examples/misc.rb)
+* Traditional mocking - [Star Trek Example](/examples/mocha.rb)
+* Setting expectations on real classes - [Order Example](/examples/stubba.rb)
 * More examples on [James Mead's Blog](http://jamesmead.org/blog/)
 * [Mailing List Archives](http://groups.google.com/group/mocha-developer)
 
@@ -114,4 +114,4 @@ Mocha was initially harvested from projects at [Reevoo](http://www.reevoo.com/).
 
 © Copyright Revieworld Ltd. 2006
 
-You may use, copy and redistribute this library under the same terms as [Ruby itself](http://www.ruby-lang.org/en/LICENSE.txt) or under the {file:MIT-LICENSE.rdoc MIT license}.
+You may use, copy and redistribute this library under the same terms as [Ruby itself](http://www.ruby-lang.org/en/LICENSE.txt) or under the [MIT license](MIT-LICENSE.rdoc).
