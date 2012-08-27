@@ -1,4 +1,5 @@
 require 'minitest/unit'
+require 'mocha/options'
 require 'mocha/integration/mini_test/adapter'
 
 mini_test_version = begin
@@ -7,10 +8,13 @@ rescue LoadError
   Gem::Version.new('0.0.0')
 end
 
-unless Gem::Requirement.new('>= 3.3.0').satisfied_by?(mini_test_version)
-  raise "Mocha::Integration::MiniTest::Adapter requires MiniTest version 3.3.0 or higher."
+minitest_integration_module = Mocha::Integration::MiniTest::Adapter
+
+unless minitest_integration_module.applicable_to?(mini_test_version)
+  raise "Cannot apply #{minitest_integration_module.description}."
 end
 
-class MiniTest::Unit::TestCase
-  include Mocha::Integration::MiniTest::Adapter
+unless MiniTest::Unit::TestCase < minitest_integration_module
+  $stderr.puts "Applying #{minitest_integration_module.description}" if $mocha_options['debug']
+  MiniTest::Unit::TestCase.send(:include, minitest_integration_module)
 end

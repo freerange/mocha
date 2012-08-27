@@ -8,10 +8,13 @@ rescue LoadError
   Gem::Version.new('1.0.0')
 end
 
-unless Gem::Requirement.new('>= 2.5.1').satisfied_by?(test_unit_version)
-  raise "Mocha::Integration::TestUnit::Adapter requires Test::Unit version 2.5.1 or higher."
+test_unit_integration_module = Mocha::Integration::TestUnit::Adapter
+
+unless test_unit_integration_module.applicable_to?(test_unit_version)
+  raise "Cannot apply #{test_unit_integration_module.description}."
 end
 
-class Test::Unit::TestCase
-  include Mocha::Integration::TestUnit::Adapter
+unless Test::Unit::TestCase < test_unit_integration_module
+  $stderr.puts "Applying #{test_unit_integration_module.description}" if $mocha_options['debug']
+  Test::Unit::TestCase.send(:include, test_unit_integration_module)
 end
