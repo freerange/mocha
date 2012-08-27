@@ -239,18 +239,3 @@ module Mocha
   end
 
 end
-
-# @private
-class Object
-  include Mocha::ObjectMethods
-end
-
-# @private
-class Module
-  include Mocha::ModuleMethods
-end
-
-# @private
-class Class
-  include Mocha::ClassMethods
-end

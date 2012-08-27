@@ -6,13 +6,17 @@ require 'method_definer'
 
 class ObjectTest < Test::Unit::TestCase
 
-  include Mocha
+  def setup
+    Object.send(:include, Mocha::ObjectMethods)
+    Module.send(:include, Mocha::ModuleMethods)
+    Class.send(:include, Mocha::ClassMethods)
+  end
 
   def test_should_build_mocha_referring_to_self
     instance = Object.new
     mocha = instance.mocha
     assert_not_nil mocha
-    assert mocha.is_a?(Mock)
+    assert mocha.is_a?(Mocha::Mock)
     assert_equal instance.mocha_inspect, mocha.mocha_inspect
   end
 

@@ -1,6 +1,7 @@
 require 'mocha/parameter_matchers'
 require 'mocha/mockery'
 require 'mocha/sequence'
+require 'mocha/object'
 
 module Mocha
 
@@ -8,6 +9,13 @@ module Mocha
   module API
 
     include ParameterMatchers
+
+    # @private
+    def self.included(mod)
+      Object.send(:include, Mocha::ObjectMethods)
+      Module.send(:include, Mocha::ModuleMethods)
+      Class.send(:include, Mocha::ClassMethods)
+    end
 
     # Builds a new mock object
     #
