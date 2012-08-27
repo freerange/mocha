@@ -86,7 +86,6 @@ Mocha was initially harvested from projects at [Reevoo](http://www.reevoo.com/).
 * [Ben Griffiths](http://www.techbelly.com/)
 * [Chris Roos](http://chrisroos.co.uk/)
 * [Paul Battley](http://po-ru.com/)
-
 * [Chad Woolley](http://thewoolleyweb.com/)
 * [Dan Manges](http://www.dan-manges.com/)
 * [Denis Defreyne](http://stoneship.org/)
