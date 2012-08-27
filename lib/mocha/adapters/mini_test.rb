@@ -4,7 +4,6 @@ require 'mocha/expectation_error'
 module Mocha
   module Adapters
     module MiniTest
-
       class AssertionCounter
         def initialize(test_case)
           @test_case = test_case

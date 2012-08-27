@@ -1,11 +1,7 @@
 module Mocha
-
   module Integration
-
     module MiniTest
-
       class AssertionCounter
-
         def initialize(test_case)
           @test_case = test_case
         end
@@ -13,11 +9,7 @@ module Mocha
         def increment
           @test_case.assert(true)
         end
-
       end
-
     end
-
   end
-
 end

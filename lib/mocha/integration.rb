@@ -1,11 +1,8 @@
 require 'mocha/deprecation'
 
 module Mocha
-
   module Integration
-
     class << self
-
       def monkey_patches
         patches = []
         if test_unit_testcase_defined? && !test_unit_testcase_inherits_from_miniunit_testcase?
@@ -28,11 +25,8 @@ module Mocha
       def test_unit_testcase_inherits_from_miniunit_testcase?
         test_unit_testcase_defined? && mini_test_testcase_defined? && Test::Unit::TestCase.ancestors.include?(MiniTest::Unit::TestCase)
       end
-
     end
-
   end
-
 end
 
 unless Mocha::Integration.monkey_patches.any?

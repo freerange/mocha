@@ -4,21 +4,21 @@ require 'mocha/integration/monkey_patcher'
 require 'mocha/expectation_error'
 
 module Mocha
-
   module Integration
-
     module TestUnit
-
       module GemVersion230To250
         def self.applicable_to?(test_unit_version, ruby_version)
           Gem::Requirement.new('>= 2.3.0', '<= 2.5.0').satisfied_by?(test_unit_version)
         end
+
         def self.description
           "monkey patch for Test::Unit gem >= v2.3.0 and <= v2.5.0"
         end
+
         def self.included(mod)
           MonkeyPatcher.apply(mod, RunMethodPatch)
         end
+
         module RunMethodPatch
           def run(result)
             assertion_counter = AssertionCounter.new(result)
@@ -61,9 +61,6 @@ module Mocha
           end
         end
       end
-
     end
-
   end
-
 end

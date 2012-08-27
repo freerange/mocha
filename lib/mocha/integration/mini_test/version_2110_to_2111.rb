@@ -3,21 +3,21 @@ require 'mocha/integration/mini_test/exception_translation'
 require 'mocha/integration/monkey_patcher'
 
 module Mocha
-
   module Integration
-
     module MiniTest
-
       module Version2110To2111
         def self.applicable_to?(mini_test_version)
           Gem::Requirement.new('>= 2.11.0', '<= 2.11.1').satisfied_by?(mini_test_version)
         end
+
         def self.description
           "monkey patch for MiniTest gem >= v2.11.0 <= v2.11.1"
         end
+
         def self.included(mod)
           MonkeyPatcher.apply(mod, RunMethodPatch)
         end
+
         module RunMethodPatch
           def run runner
             trap 'INFO' do
@@ -62,9 +62,6 @@ module Mocha
           end
         end
       end
-
     end
-
   end
-
 end
