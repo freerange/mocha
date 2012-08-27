@@ -1,5 +1,5 @@
 require 'test/unit/testcase'
-require 'mocha/integration/test_unit/assertion_counter'
+require 'mocha/integration/assertion_counter'
 require 'mocha/integration/monkey_patcher'
 require 'mocha/expectation_error'
 
@@ -21,7 +21,7 @@ module Mocha
 
         module RunMethodPatch
           def run(result)
-            assertion_counter = AssertionCounter.new(result)
+            assertion_counter = AssertionCounter.new(self)
             begin
               @internal_data.test_started
               @_result = result

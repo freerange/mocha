@@ -1,19 +1,10 @@
 require 'mocha_standalone'
+require 'mocha/integration/assertion_counter'
 require 'mocha/expectation_error'
 
 module Mocha
   module Adapters
     module MiniTest
-      class AssertionCounter
-        def initialize(test_case)
-          @test_case = test_case
-        end
-
-        def increment
-          @test_case.assert(true)
-        end
-      end
-
       include Mocha::API
 
       def self.applicable_to?(mini_test_version)
@@ -35,7 +26,7 @@ module Mocha
 
       def before_teardown
         return unless passed?
-        assertion_counter = AssertionCounter.new(self)
+        assertion_counter = Integration::AssertionCounter.new(self)
         mocha_verify(assertion_counter)
       ensure
         super
