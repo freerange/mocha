@@ -1,4 +1,3 @@
-require 'mocha/api'
 require 'mocha/options'
 
 require 'mocha/integration/test_unit/ruby_version_185_and_below'

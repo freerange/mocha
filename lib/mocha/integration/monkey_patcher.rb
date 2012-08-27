@@ -1,3 +1,5 @@
+require 'mocha/api'
+
 module Mocha
   module Integration
     module MonkeyPatcher

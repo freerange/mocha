@@ -1,4 +1,3 @@
-require 'mocha/options'
 require 'mocha/deprecation'
 
 module Mocha

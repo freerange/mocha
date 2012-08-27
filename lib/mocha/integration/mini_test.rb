@@ -1,4 +1,3 @@
-require 'mocha/api'
 require 'mocha/options'
 
 require 'mocha/integration/mini_test/version_13'
