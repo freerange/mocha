@@ -135,7 +135,7 @@ YARD::Rake::YardocTask.new('yardoc') do |task|
     '-',
     'RELEASE.rdoc',
     'COPYING.md',
-    'MIT-LICENSE.rdoc',
+    'MIT-LICENSE.md',
     'examples/mocha.rb',
     'examples/stubba.rb',
     'examples/misc.rb',
