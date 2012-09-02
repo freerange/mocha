@@ -11,15 +11,16 @@ Gem::Specification.new do |s|
   s.authors = ["James Mead"]
   s.description = "Mocking and stubbing library with JMock/SchMock syntax, which allows mocking and stubbing of methods on real (non-mock) classes."
   s.email = "mocha-developer@googlegroups.com"
-  s.extra_rdoc_files = ["README.rdoc", "COPYING.rdoc"]
 
-  s.files = `git ls-files`.split("\n") - ["TODO", ".travis.yml", ".gitignore"]
+  s.files = `git ls-files`.split("\n")
+  s.files.delete(".travis.yml")
+  s.files.delete(".gitignore")
 
   s.homepage = "http://gofreerange.com/mocha/docs"
-  s.rdoc_options = ["--title", "Mocha", "--main", "README.rdoc", "--line-numbers"]
   s.require_paths = ["lib"]
   s.rubyforge_project = "mocha"
   s.summary = "Mocking and stubbing library"
+  s.has_rdoc = "yard"
 
   s.add_dependency("metaclass", "~> 0.0.1")
   if s.respond_to? :specification_version then
