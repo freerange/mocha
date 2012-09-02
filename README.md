@@ -193,15 +193,17 @@ class OrderTest < Test::Unit::TestCase
 end
 ```
 
-#### More Examples
-
-See [James Mead's Blog](http://jamesmead.org/blog/).
-
 ### Useful Links
 
+* [Official Documentation](http://gofreerange.com/mocha/docs/)
+* [Source Code](http://github.com/freerange/mocha)
 * [Mailing List](http://groups.google.com/group/mocha-developer)
-* [Source code](http://github.com/freerange/mocha)
-* [Bug reports](http://github.com/freerange/mocha/issues)
+* [James Mead's Blog](http://jamesmead.org/blog/)
+* [An Introduction To Mock Objects In Ruby](http://jamesmead.org/talks/2007-07-09-introduction-to-mock-objects-in-ruby-at-lrug/)
+* [Mocks Aren't Stubs](http://martinfowler.com/articles/mocksArentStubs.html)
+* [Growing Object-Oriented Software Guided By Tests](http://www.growing-object-oriented-software.com/)
+* [Mock Roles Not Objects](http://www.jmock.org/oopsla2004.pdf)
+* [jMock](http://www.jmock.org/)
 
 ### Contributing
 
