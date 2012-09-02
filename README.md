@@ -2,11 +2,10 @@
 
 ### Description
 
-A Ruby library for mocking and stubbing.
-
-It has a unified, simple and readable syntax for both full & partial mocking.
-
-It has built-in support for [MiniTest](https://github.com/seattlerb/minitest) and [Test::Unit](https://github.com/test-unit/test-unit/) and is supported by many other test frameworks, e.g. [RSpec](http://rspec.info/), [bacon](https://github.com/chneukirchen/bacon/), [expectations](http://expectations.rubyforge.org/), [Dust](http://dust.rubyforge.org/) and [JtestR](http://jtestr.codehaus.org/).
+* A Ruby library for mocking and stubbing.
+* A unified, simple and readable syntax for both full & partial mocking.
+* Built-in support for MiniTest and Test::Unit.
+* Supported by many other test frameworks.
 
 ### Installation
 
