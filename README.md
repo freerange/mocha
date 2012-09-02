@@ -56,16 +56,150 @@ Note that as of version 0.9.8, the Mocha plugin is not automatically loaded at p
 * Versions 0.9.6 & 0.9.7 of the Rails plugin were broken.
 * Please do not use these versions.
 
-### Examples
+### Usage
 
-* Quick Start - {file:misc.rb Usage Examples}
-* Traditional mocking - {file:mocha.rb Star Trek Example}
-* Setting expectations on real classes - {file:stubba.rb Order Example}
-* More examples on [James Mead's Blog](http://jamesmead.org/blog/)
-* [Mailing List Archives](http://groups.google.com/group/mocha-developer)
+#### Quick Start
 
-### Links
+```ruby
+require 'test/unit'
+require 'mocha'
 
+class MiscExampleTest < Test::Unit::TestCase
+  def test_mocking_a_class_method
+    product = Product.new
+    Product.expects(:find).with(1).returns(product)
+    assert_equal product, Product.find(1)
+  end
+
+  def test_mocking_an_instance_method_on_a_real_object
+    product = Product.new
+    product.expects(:save).returns(true)
+    assert product.save
+  end
+
+  def test_stubbing_instance_methods_on_real_objects
+    prices = [stub(:pence => 1000), stub(:pence => 2000)]
+    product = Product.new
+    product.stubs(:prices).returns(prices)
+    assert_equal [1000, 2000], product.prices.collect {|p| p.pence}
+  end
+
+  def test_stubbing_an_instance_method_on_all_instances_of_a_class
+    Product.any_instance.stubs(:name).returns('stubbed_name')
+    product = Product.new
+    assert_equal 'stubbed_name', product.name
+  end
+
+  def test_traditional_mocking
+    object = mock('object')
+    object.expects(:expected_method).with(:p1, :p2).returns(:result)
+    assert_equal :result, object.expected_method(:p1, :p2)
+  end
+
+  def test_shortcuts
+    object = stub(:method1 => :result1, :method2 => :result2)
+    assert_equal :result1, object.method1
+    assert_equal :result2, object.method2
+  end
+end
+```
+
+#### Mock Objects
+
+```ruby
+class Enterprise
+  def initialize(dilithium)
+    @dilithium = dilithium
+  end
+
+  def go(warp_factor)
+    warp_factor.times { @dilithium.nuke(:anti_matter) }
+  end
+end
+
+require 'test/unit'
+require 'mocha'
+
+class EnterpriseTest < Test::Unit::TestCase
+  def test_should_boldly_go
+    dilithium = mock()
+    dilithium.expects(:nuke).with(:anti_matter).at_least_once  # auto-verified at end of test
+    enterprise = Enterprise.new(dilithium)
+    enterprise.go(2)
+  end
+end
+```
+
+#### Partial Mocking
+
+```ruby
+class Order
+  attr_accessor :shipped_on
+
+  def total_cost
+    line_items.inject(0) { |total, line_item| total + line_item.price } + shipping_cost
+  end
+
+  def total_weight
+    line_items.inject(0) { |total, line_item| total + line_item.weight }
+  end
+
+  def shipping_cost
+    total_weight * 5 + 10
+  end
+
+  class << self
+    def find_all
+      # Database.connection.execute('select * from orders...
+    end
+  
+    def number_shipped_since(date)
+      find_all.select { |order| order.shipped_on > date }.length
+    end
+
+    def unshipped_value
+      find_all.inject(0) { |total, order| order.shipped_on ? total : total + order.total_cost }
+    end
+  end
+end
+
+require 'test/unit'
+require 'mocha'
+
+class OrderTest < Test::Unit::TestCase
+  # illustrates stubbing instance method
+  def test_should_calculate_shipping_cost_based_on_total_weight
+    order = Order.new
+    order.stubs(:total_weight).returns(10)
+    assert_equal 60, order.shipping_cost
+  end
+
+  # illustrates stubbing class method
+  def test_should_count_number_of_orders_shipped_after_specified_date
+    now = Time.now; week_in_secs = 7 * 24 * 60 * 60
+    order_1 = Order.new; order_1.shipped_on = now - 1 * week_in_secs
+    order_2 = Order.new; order_2.shipped_on = now - 3 * week_in_secs
+    Order.stubs(:find_all).returns([order_1, order_2])
+    assert_equal 1, Order.number_shipped_since(now - 2 * week_in_secs)
+  end
+
+  # illustrates stubbing instance method for all instances of a class
+  def test_should_calculate_value_of_unshipped_orders
+    Order.stubs(:find_all).returns([Order.new, Order.new, Order.new])
+    Order.any_instance.stubs(:shipped_on).returns(nil)
+    Order.any_instance.stubs(:total_cost).returns(10)
+    assert_equal 30, Order.unshipped_value
+  end
+end
+```
+
+#### More Examples
+
+See [James Mead's Blog](http://jamesmead.org/blog/).
+
+### Useful Links
+
+* [Mailing List](http://groups.google.com/group/mocha-developer)
 * [Source code](http://github.com/freerange/mocha)
 * [Bug reports](http://github.com/freerange/mocha/issues)
 
