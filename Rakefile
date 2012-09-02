@@ -134,7 +134,7 @@ YARD::Rake::YardocTask.new('yardoc') do |task|
     'lib/mocha/integration/mini_test/adapter.rb',
     '-',
     'RELEASE.rdoc',
-    'COPYING.rdoc',
+    'COPYING.md',
     'MIT-LICENSE.rdoc',
     'examples/mocha.rb',
     'examples/stubba.rb',
