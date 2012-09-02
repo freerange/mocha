@@ -33,7 +33,7 @@
 ## 0.11.1
 * In Ruby 1.8.7 methods accepting a block parameter were incorrectly restored without the block parameter after being stubbed. Fix for #76.
 
-## 0.11.0 (this version was yanked from rubygems.org)
+## 0.11.0
 * Store original method when stubbing rather than using alias_method. This fixes #41, #47, #74 and all tests now pass on both Ruby 1.8.7 and 1.9.3.
 * Attempting to stub a method on a frozen object should fail fast. See #68.
 * Prevent stubbing a method on nil by default. See #68.
