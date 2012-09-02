@@ -203,46 +203,20 @@ See [James Mead's Blog](http://jamesmead.org/blog/).
 * [Source code](http://github.com/freerange/mocha)
 * [Bug reports](http://github.com/freerange/mocha/issues)
 
-### Developing Mocha
+### Contributing
 
 * Fork the repository.
 * Make your changes in a branch (including tests).
 * Ensure all of the tests run against all supported versions of Test::Unit, MiniTest & Ruby by running ./build-matrix.rb (note that currently this makes a *lot* of assumptions about your local environment e.g. rbenv installed with specific Ruby versions).
 * Send us a pull request from your fork/branch.
 
+### Contributors
+
+See this [list of contributors](https://github.com/freerange/mocha/graphs/contributors).
+
 ### History
 
 Mocha was initially harvested from projects at [Reevoo](http://www.reevoo.com/). It's syntax is heavily based on that of [jMock](http://www.jmock.org).
-
-### Authors
-
-* [James Mead](http://jamesmead.org/)
-* [Ben Griffiths](http://www.techbelly.com/)
-* [Chris Roos](http://chrisroos.co.uk/)
-* [Paul Battley](http://po-ru.com/)
-* [Chad Woolley](http://thewoolleyweb.com/)
-* [Dan Manges](http://www.dan-manges.com/)
-* [Denis Defreyne](http://stoneship.org/)
-* [Diego Plentz](http://plentz.org/)
-* [Eloy Duran](http://soup.superalloy.nl/)
-* [Gleb Pomykalov](https://github.com/glebpom)
-* [Holger Just](https://github.com/meineerde)
-* [James Sanders](https://github.com/jsanders)
-* [Jeff Smick](https://github.com/sprsquish)
-* [Jens Fahnenbruck](https://github.com/jigfox)
-* [Jeremy Stephens](https://github.com/viking)
-* [Julik Tarkhanov](http://julik.nl/)
-* [Luke Redpath](http://lukeredpath.co.uk/)
-* [Nick Lewis](https://github.com/nicklewis)
-* [Prem Sichanugrist](http://sikachu.com/)
-* [Saikat Chakrabarti](http://techblog.gomockingbird.com/)
-* [Sander Hartlage](https://github.com/sander6)
-* [Steven Xu](http://stevenxu.ca/)
-* [Taylor Barstow](http://taylorbarstow.com/)
-* [Ubiratan Pires Alberton](https://github.com/Bira)
-* [Brian L. Troutwine](http://www.troutwine.us/)
-* [Red Davis](https://github.com/reddavis)
-* [Celestino Gomes](http://blog.tinogomes.com/)
 
 ### License
 
