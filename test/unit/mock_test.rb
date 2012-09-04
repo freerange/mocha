@@ -214,6 +214,12 @@ class MockTest < Test::Unit::TestCase
     assert_equal true, mock.respond_to?(:method1)
   end
 
+  def test_should_respond_to_expected_method_as_string
+    mock = build_mock
+    mock.expects(:method1)
+    assert_equal true, mock.respond_to?('method1')
+  end
+
   def test_should_not_respond_to_unexpected_method
     mock = build_mock
     assert_equal false, mock.respond_to?(:method1)
