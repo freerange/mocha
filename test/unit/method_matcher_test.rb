@@ -10,6 +10,11 @@ class MethodMatcherTest < Test::Unit::TestCase
     assert method_matcher.match?(:method_name)
   end
 
+  def test_should_match_if_actual_method_name_is_expected_method_name_as_string
+    method_matcher = MethodMatcher.new(:method_name)
+    assert method_matcher.match?('method_name')
+  end
+
   def test_should_not_match_if_actual_method_name_is_not_same_as_expected_method_name
     method_matcher = MethodMatcher.new(:method_name)
     assert !method_matcher.match?(:different_method_name)
