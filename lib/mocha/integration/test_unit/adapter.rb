@@ -1,4 +1,4 @@
-require 'mocha_standalone'
+require 'mocha/api'
 require 'mocha/integration/assertion_counter'
 require 'mocha/expectation_error'
 
