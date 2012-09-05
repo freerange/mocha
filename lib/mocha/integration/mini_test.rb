@@ -16,6 +16,8 @@ module Mocha
   module Integration
     module MiniTest
       def self.activate
+        return false unless defined?(::MiniTest::Unit::TestCase)
+
         mini_test_version = begin
           Gem::Version.new(::MiniTest::Unit::VERSION)
         rescue LoadError
@@ -43,6 +45,7 @@ module Mocha
           ::MiniTest::Unit::TestCase.send(:include, integration_module)
         end
       end
+      true
     end
   end
 end
