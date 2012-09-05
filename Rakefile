@@ -2,7 +2,6 @@ require "bundler"
 Bundler::GemHelper.install_tasks
 require "bundler/setup"
 
-require 'yard'
 require 'rake/testtask'
 
 desc "Run all tests"
@@ -106,23 +105,27 @@ def benchmark_test_case(klass, iterations)
   end
 end
 
-desc 'Remove generated documentation'
-task 'clobber_yardoc' do
-  `rm -rf ./doc`
-end
+unless ENV["MOCHA_NO_DOCS"]
+  require 'yard'
 
-desc 'Generate documentation'
-YARD::Rake::YardocTask.new('yardoc') do |task|
-  task.options = ["--title", "Mocha #{Mocha::VERSION}"]
-end
+  desc 'Remove generated documentation'
+  task 'clobber_yardoc' do
+    `rm -rf ./doc`
+  end
 
-desc "Generate documentation"
-task 'generate_docs' => ['clobber_yardoc', 'yardoc']
+  desc 'Generate documentation'
+  YARD::Rake::YardocTask.new('yardoc') do |task|
+    task.options = ["--title", "Mocha #{Mocha::VERSION}"]
+  end
 
-desc "Publish docs to gofreerange.com/docs/mocha"
-task 'publish_docs' => 'generate_docs' do
-  path = "/home/freerange/docs/mocha"
-  system %{ssh gofreerange.com "sudo rm -fr #{path} && mkdir -p #{path}" && scp -r doc/* gofreerange.com:#{path}}
+  desc "Generate documentation"
+  task 'generate_docs' => ['clobber_yardoc', 'yardoc']
+
+  desc "Publish docs to gofreerange.com/docs/mocha"
+  task 'publish_docs' => 'generate_docs' do
+    path = "/home/freerange/docs/mocha"
+    system %{ssh gofreerange.com "sudo rm -fr #{path} && mkdir -p #{path}" && scp -r doc/* gofreerange.com:#{path}}
+  end
 end
 
 task 'release' => 'default' do

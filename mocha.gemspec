@@ -30,18 +30,24 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency("rake", ">= 0")
       s.add_development_dependency("introspection", "~> 0.0.1")
-      s.add_development_dependency("yard")
-      s.add_development_dependency("redcarpet", "~> 1")
+      unless ENV["MOCHA_NO_DOCS"]
+        s.add_development_dependency("yard")
+        s.add_development_dependency("redcarpet", "~> 1")
+      end
     else
       s.add_dependency("rake", ">= 0")
       s.add_dependency("introspection", "~> 0.0.1")
-      s.add_dependency("yard")
-      s.add_dependency("redcarpet", "~> 1")
+      unless ENV["MOCHA_NO_DOCS"]
+        s.add_dependency("yard")
+        s.add_dependency("redcarpet", "~> 1")
+      end
     end
   else
     s.add_dependency("rake", ">= 0")
     s.add_dependency("introspection", "~> 0.0.1")
-    s.add_dependency("yard")
-    s.add_dependency("redcarpet", "~> 1")
+    unless ENV["MOCHA_NO_DOCS"]
+      s.add_dependency("yard")
+      s.add_dependency("redcarpet", "~> 1")
+    end
   end
 end
