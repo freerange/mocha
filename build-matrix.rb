@@ -57,9 +57,10 @@ RUBY_VERSIONS.each do |ruby_version|
   execute("rbenv local #{ruby_version}")
   ["test-unit", "minitest"].each do |test_library|
     reset_bundle
-    Dir["gemfiles/Gemfile.#{test_library}.*"].each do |gemfile|
+    (Dir["gemfiles/Gemfile.#{test_library}.*"] + ["Gemfile"]).each do |gemfile|
       ruby_version_without_patch = ruby_version.split("-")[0]
       next if (ruby_version_without_patch == "1.9.3") && EXCLUDED_RUBY_193_GEMFILES.include?(gemfile)
+      next if (ruby_version_without_patch == "1.8.7") && (gemfile == "Gemfile") && (test_library == "minitest")
       p [ruby_version_without_patch, test_library, gemfile]
       ENV['MOCHA_RUN_INTEGRATION_TESTS'] = test_library
       run(gemfile)

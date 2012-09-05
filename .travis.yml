@@ -26,6 +26,9 @@ matrix:
     - rvm: 1.9.3
       gemfile: gemfiles/Gemfile.minitest.2.0.0
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
+    - rvm: 1.9.3
+      gemfile: Gemfile
+      env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
     - rvm: 1.8.7
       gemfile: gemfiles/Gemfile.minitest.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
@@ -65,6 +68,9 @@ matrix:
     - rvm: 1.9.3
       gemfile: gemfiles/Gemfile.test-unit.2.0.0
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
+    - rvm: 1.9.3
+      gemfile: Gemfile
+      env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
     - rvm: 1.8.7
       gemfile: gemfiles/Gemfile.test-unit.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
@@ -76,4 +82,7 @@ matrix:
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
     - rvm: 1.8.7
       gemfile: gemfiles/Gemfile.test-unit.2.0.0
+      env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
+    - rvm: 1.8.7
+      gemfile: Gemfile
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
