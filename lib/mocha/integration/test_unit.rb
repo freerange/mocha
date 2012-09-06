@@ -6,7 +6,7 @@ if !Test::Unit::TestCase.ancestors.include?(Mocha::API)
   require 'mocha/integration/test_unit/gem_version_200'
   require 'mocha/integration/test_unit/gem_version_201_to_202'
   require 'mocha/integration/test_unit/gem_version_203_to_220'
-  require 'mocha/integration/test_unit/gem_version_230_to_251'
+  require 'mocha/integration/test_unit/gem_version_230_to_252'
   require 'mocha/integration/test_unit/ruby_version_185_and_below'
   require 'mocha/integration/test_unit/ruby_version_186_and_above'
 
@@ -43,8 +43,8 @@ if !Test::Unit::TestCase.ancestors.include?(Mocha::API)
           include Mocha::Integration::TestUnit::GemVersion201To202
         elsif Gem::Requirement.new('>= 2.0.3', '<= 2.2.0').satisfied_by?(test_unit_version)
           include Mocha::Integration::TestUnit::GemVersion203To220
-        elsif Gem::Requirement.new('>= 2.3.0', '<= 2.5.1').satisfied_by?(test_unit_version)
-          include Mocha::Integration::TestUnit::GemVersion230To251
+        elsif Gem::Requirement.new('>= 2.3.0', '<= 2.5.2').satisfied_by?(test_unit_version)
+          include Mocha::Integration::TestUnit::GemVersion230To252
         else
           $stderr.puts "*** No Mocha monkey-patch for Test::Unit version ***" if $mocha_options['debug']
         end
