@@ -215,6 +215,10 @@ end
 
 See this [list of contributors](https://github.com/freerange/mocha/graphs/contributors).
 
+### Translations
+
+* [Serbo-Croatian](http://science.webhostinggeeks.com/mocha) by [WHG Team](http://webhostinggeeks.com/).
+
 ### History
 
 Mocha was initially harvested from projects at [Reevoo](http://www.reevoo.com/). It's syntax is heavily based on that of [jMock](http://www.jmock.org).
