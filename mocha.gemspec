@@ -30,14 +30,17 @@ Gem::Specification.new do |s|
       s.add_development_dependency("rake", ">= 0")
       s.add_development_dependency("introspection", "~> 0.0.1")
       s.add_development_dependency("yard")
+      s.add_development_dependency("rdoc")
     else
       s.add_dependency("rake", ">= 0")
       s.add_dependency("introspection", "~> 0.0.1")
       s.add_dependency("yard")
+      s.add_dependency("rdoc")
     end
   else
     s.add_dependency("rake", ">= 0")
     s.add_dependency("introspection", "~> 0.0.1")
     s.add_dependency("yard")
+    s.add_dependency("rdoc")
   end
 end
