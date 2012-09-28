@@ -1,3 +1,6 @@
+= 0.12.6
+* Fixes #103.
+
 = 0.12.5
 * Officially support minitest v3.5.0 (still monkey-patching).
 
