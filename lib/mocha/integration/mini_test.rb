@@ -53,7 +53,7 @@ if !MiniTest::Unit::TestCase.ancestors.include?(Mocha::API)
         elsif Gem::Requirement.new('>= 3.3.0', '<= 3.5.0').satisfied_by?(mini_test_version)
           include Mocha::Integration::MiniTest::Version330To350
         else
-          $stderr.puts "*** No Mocha monkey-patch for MiniTest version ***" if $mocha_options['debug']
+          raise "No Mocha monkey-patch for MiniTest version"
         end
 
       end

@@ -46,7 +46,7 @@ if !Test::Unit::TestCase.ancestors.include?(Mocha::API)
         elsif Gem::Requirement.new('>= 2.3.0', '<= 2.5.2').satisfied_by?(test_unit_version)
           include Mocha::Integration::TestUnit::GemVersion230To252
         else
-          $stderr.puts "*** No Mocha monkey-patch for Test::Unit version ***" if $mocha_options['debug']
+          raise "No Mocha monkey-patch for Test::Unit version"
         end
 
       end
