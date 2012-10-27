@@ -1,5 +1,5 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
-require 'mocha'
+require 'mocha/setup'
 require 'execution_point'
 
 class StubbaTestResultTest < Test::Unit::TestCase

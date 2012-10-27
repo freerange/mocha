@@ -1,10 +1,8 @@
 require 'mocha/version'
 require 'mocha/integration'
+require 'mocha/deprecation'
 
-module Mocha
-  def self.activate
-    Integration.activate
-  end
-end
+Mocha::Deprecation.warning("Change `require 'mocha'` to `require 'mocha/setup'`.")
 
-Mocha.activate
+require 'mocha/setup'
+
