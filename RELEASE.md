@@ -1,5 +1,17 @@
 # Release Notes
 
+## 0.12.7
+* Officially support minitest v4.1.0 (still monkey-patching).
+
+## 0.12.6
+* Fixes #103.
+
+## 0.12.5
+* Officially support minitest v3.5.0 (still monkey-patching).
+
+## 0.12.4
+* Officially support minitest v3.4.0 & test-unit v2.5.2 (still monkey-patching).
+
 ## 0.12.3
 * Revert rename of undocumented internal module since it turns out Rails/ActiveSupport is relying on its existence.
 
