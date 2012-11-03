@@ -7,7 +7,7 @@ module Mocha
     def self.activate
       if [Integration::TestUnit, Integration::MiniTest].map(&:activate).none?
         Deprecation.warning("Test::Unit or MiniTest must be loaded *before* Mocha.")
-        Deprecation.warning("If you're integrating with another test library, you should probably require 'mocha_standalone' instead of 'mocha'")
+        Deprecation.warning("If you're integrating with a test library other than Test::Unit or MiniTest, you should use `require 'mocha/api'` instead of `require 'mocha'`.")
       end
     end
   end
