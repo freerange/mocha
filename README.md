@@ -18,7 +18,7 @@ Install the latest version of the gem with the following command...
 Note that if you are intending to use Mocha with Test::Unit or MiniTest, you should only load Mocha *after* loading the relevant test library...
 
     require "test/unit"
-    require "mocha"
+    require "mocha/setup"
 
 #### Bundler
 
@@ -29,7 +29,7 @@ If you're using Bundler, ensure the correct load order by not auto-requiring Moc
 
     # Elsewhere after Bundler has loaded gems
     require "test/unit"
-    require "mocha"
+    require "mocha/setup"
 
 #### Rails
 
@@ -39,7 +39,7 @@ If you're loading Mocha using Bundler within a Rails application, you should ens
     gem "mocha", :require => false
 
     # At bottom of test_helper.rb
-    require "mocha"
+    require "mocha/setup"
 
 #### Rails Plugin
 
@@ -61,7 +61,7 @@ Note that as of version 0.9.8, the Mocha plugin is not automatically loaded at p
 
 ```ruby
 require 'test/unit'
-require 'mocha'
+require 'mocha/setup'
 
 class MiscExampleTest < Test::Unit::TestCase
   def test_mocking_a_class_method
@@ -117,7 +117,7 @@ class Enterprise
 end
 
 require 'test/unit'
-require 'mocha'
+require 'mocha/setup'
 
 class EnterpriseTest < Test::Unit::TestCase
   def test_should_boldly_go
@@ -163,7 +163,7 @@ class Order
 end
 
 require 'test/unit'
-require 'mocha'
+require 'mocha/setup'
 
 class OrderTest < Test::Unit::TestCase
   # illustrates stubbing instance method
