@@ -9,6 +9,10 @@ module Mocha
         def self.description
           "nothing (no Test::Unit integration available)"
         end
+
+        def self.included(mod)
+          raise "No Test::Unit integration available"
+        end
       end
     end
   end

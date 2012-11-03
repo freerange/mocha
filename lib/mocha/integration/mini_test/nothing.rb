@@ -9,6 +9,10 @@ module Mocha
         def self.description
           "nothing (no MiniTest integration available)"
         end
+
+        def self.included(mod)
+          raise "No MiniTest integration available"
+        end
       end
     end
   end
