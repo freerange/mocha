@@ -1,5 +1,16 @@
 # Release Notes
 
+## 0.13.0
+* Major overhaul of MiniTest & Test::Unit integration. Mocha now integrates with later versions of the two test libraries using documented hooks rather than monkey-patching. This should mean that Mocha will integrate with new versions of either library without the need to release a new version of Mocha each time, which was clearly bad and unsustainable. Many thanks to @tenderlove, @zenspider & @kou for their help, suggestions & patience.
+* Temporarily deprecated `require 'mocha'`. Use `require 'mocha/setup'` instead. The plan is that eventually `require 'mocha'` will *not* automatically integrate with either of the two test libraries as it does at the moment, and you'll need to explicitly & separately trigger the integration. I think this will provide a lot more flexibility and will hopefully do away with the need for the `require: false` option in the `Gemfile` which has always confused people.
+* Although these are not part of Mocha's public API, I thought I should mention that the MiniTest and Test::Unit assertion counter classes have been combined into a single class `Mocha::Integration::AssertionCounter`.
+* Extracted Mocha::Hooks module from Mocha::API and added documentation for test library authors.
+* Improvements to documentation. Much of it has been combined into the README file.
+* Fix #101 - Mock#respond_to? doesn't work with a string argument - thanks to @urbanautomaton.
+* Fix #105 - Travis link in README - thanks to @cknadler.
+* Various improvements to automated testing of integration with test libraries.
+* Make deprecation warnings more prominent.
+
 ## 0.12.7
 * Officially support minitest v4.1.0 (still monkey-patching).
 
