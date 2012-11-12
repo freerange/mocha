@@ -1,3 +1,5 @@
+require 'mocha/debug'
+
 module Mocha
 
   class Deprecation
@@ -14,7 +16,7 @@ module Mocha
 
     end
 
-    self.mode = :enabled
+    self.mode = Debug::OPTIONS['debug'] ? :debug : :enabled
     self.messages = []
 
   end
