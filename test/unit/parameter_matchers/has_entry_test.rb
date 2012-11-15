@@ -93,4 +93,23 @@ class HasEntryTest < Test::Unit::TestCase
     assert_equal "Argument has multiple entries. Use Mocha::ParameterMatchers#has_entries instead.", e.message
   end
 
+  def test_should_match_array_as_value
+    matcher = has_entry(:key_1 => ['value_1', 'value_2'])
+    assert matcher.matches?([{:key_1 => ['value_1', 'value_2']}])
+  end
+  
+  def test_should_match_array_as_key
+    matcher = has_entry([:key_1, :key_2] => 'value_1')
+    assert matcher.matches?([{[:key_1, :key_2] => 'value_1', :key_3 => 'value_2'}])
+  end
+  
+  def test_should_match_hash_as_value_and_key
+    matcher = has_entry({{:key_1 => 'value_1', :key_2 => 'value_2'} => {:key_3 => 'value_3', :key_4 => 'value_4'}})
+    assert matcher.matches?([{{:key_1 => 'value_1', :key_2 => 'value_2'} => {:key_3 => 'value_3', :key_4 => 'value_4'}, :key_5 => 'value_5'}])
+  end
+
+  def test_should_match_matcher_as_value_and_key
+    matcher = has_entry({has_entry(:key_1 => 'value_1') => has_entry(:key_3 => 'value_3')})
+    assert matcher.matches?([{{:key_1 => 'value_1', :key_2 => 'value_2'} => {:key_3 => 'value_3', :key_4 => 'value_4'}, :key_5 => 'value_5'}])
+  end
 end
