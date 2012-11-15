@@ -1,56 +1,49 @@
-require 'mocha/api'
-require 'mocha/options'
+require 'mocha/debug'
 
-if !Test::Unit::TestCase.ancestors.include?(Mocha::API)
+require 'mocha/integration/test_unit/nothing'
+require 'mocha/integration/test_unit/ruby_version_185_and_below'
+require 'mocha/integration/test_unit/ruby_version_186_and_above'
+require 'mocha/integration/test_unit/gem_version_200'
+require 'mocha/integration/test_unit/gem_version_201_to_202'
+require 'mocha/integration/test_unit/gem_version_203_to_220'
+require 'mocha/integration/test_unit/gem_version_230_to_250'
+require 'mocha/integration/test_unit/adapter'
 
-  require 'mocha/integration/test_unit/gem_version_200'
-  require 'mocha/integration/test_unit/gem_version_201_to_202'
-  require 'mocha/integration/test_unit/gem_version_203_to_220'
-  require 'mocha/integration/test_unit/gem_version_230_to_251'
-  require 'mocha/integration/test_unit/ruby_version_185_and_below'
-  require 'mocha/integration/test_unit/ruby_version_186_and_above'
-
-  module Test
-    module Unit
-      class TestCase
-
-        include Mocha::API
-
-        alias_method :run_before_mocha, :run
-        remove_method :run
+module Mocha
+  module Integration
+    module TestUnit
+      def self.activate
+        return false unless defined?(::Test::Unit::TestCase) && !(defined?(::MiniTest::Unit::TestCase) && (::Test::Unit::TestCase < ::MiniTest::Unit::TestCase))
 
         test_unit_version = begin
           load 'test/unit/version.rb'
-          Gem::Version.new(Test::Unit::VERSION)
+          Gem::Version.new(::Test::Unit::VERSION)
         rescue LoadError
-          Gem::Version.new('1.x')
+          Gem::Version.new('1.0.0')
         end
 
-        if $mocha_options['debug']
-          $stderr.puts "Detected Ruby version: #{RUBY_VERSION}"
-          $stderr.puts "Detected Test::Unit version: #{test_unit_version}"
-        end
+        ruby_version = Gem::Version.new(RUBY_VERSION.dup)
 
-        if (test_unit_version == Gem::Version.new('1.x')) || (test_unit_version == Gem::Version.new('1.2.3'))
-          if RUBY_VERSION < '1.8.6'
-            include Mocha::Integration::TestUnit::RubyVersion185AndBelow
-          else
-            include Mocha::Integration::TestUnit::RubyVersion186AndAbove
-          end
-        elsif Gem::Requirement.new('2.0.0').satisfied_by?(test_unit_version)
-          include Mocha::Integration::TestUnit::GemVersion200
-        elsif Gem::Requirement.new('>= 2.0.1', '<= 2.0.2').satisfied_by?(test_unit_version)
-          include Mocha::Integration::TestUnit::GemVersion201To202
-        elsif Gem::Requirement.new('>= 2.0.3', '<= 2.2.0').satisfied_by?(test_unit_version)
-          include Mocha::Integration::TestUnit::GemVersion203To220
-        elsif Gem::Requirement.new('>= 2.3.0', '<= 2.5.1').satisfied_by?(test_unit_version)
-          include Mocha::Integration::TestUnit::GemVersion230To251
-        else
-          $stderr.puts "*** No Mocha monkey-patch for Test::Unit version ***" if $mocha_options['debug']
-        end
+        Debug.puts "Detected Ruby version: #{ruby_version}"
+        Debug.puts "Detected Test::Unit version: #{test_unit_version}"
 
+        integration_module = [
+          TestUnit::Adapter,
+          TestUnit::GemVersion230To250,
+          TestUnit::GemVersion203To220,
+          TestUnit::GemVersion201To202,
+          TestUnit::GemVersion200,
+          TestUnit::RubyVersion186AndAbove,
+          TestUnit::RubyVersion185AndBelow,
+          TestUnit::Nothing
+        ].detect { |m| m.applicable_to?(test_unit_version, ruby_version) }
+
+        unless ::Test::Unit::TestCase < integration_module
+          Debug.puts "Applying #{integration_module.description}"
+          ::Test::Unit::TestCase.send(:include, integration_module)
+        end
+        true
       end
     end
   end
-
 end

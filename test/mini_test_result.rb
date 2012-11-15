@@ -1,5 +1,4 @@
 require 'stringio'
-require 'test/unit/testcase'
 require 'minitest/unit'
 
 class MiniTestResult

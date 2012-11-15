@@ -1,3 +1,5 @@
+require 'mocha/debug'
+
 module Mocha
 
   class Deprecation
@@ -8,13 +10,13 @@ module Mocha
 
       def warning(message)
         @messages << message
-        $stderr.puts "Mocha deprecation warning: #{message}" unless mode == :disabled
+        $stderr.puts "\n*** Mocha deprecation warning: #{message}\n\n" unless mode == :disabled
         $stderr.puts caller.join("\n  ") if mode == :debug
       end
 
     end
 
-    self.mode = :enabled
+    self.mode = Debug::OPTIONS['debug'] ? :debug : :enabled
     self.messages = []
 
   end

@@ -2,14 +2,20 @@ require "bundler"
 Bundler::GemHelper.install_tasks
 require "bundler/setup"
 
-require 'yard'
 require 'rake/testtask'
 
 desc "Run all tests"
 task 'default' => ['test', 'test:performance']
 
-desc "Run unit & acceptance tests"
-task 'test' => ['test:units', 'test:acceptance']
+desc "Run tests"
+task 'test' do
+  if test_library = ENV['MOCHA_RUN_INTEGRATION_TESTS']
+    Rake::Task["test:integration:#{test_library}"].invoke
+  else
+    Rake::Task['test:units'].invoke
+    Rake::Task['test:acceptance'].invoke
+  end
+end
 
 namespace 'test' do
 
@@ -36,6 +42,24 @@ namespace 'test' do
     end
     t.verbose = true
     t.warning = true
+  end
+
+  namespace 'integration' do
+    desc "Run MiniTest integration tests (intended to be run in its own process)"
+    Rake::TestTask.new('minitest') do |t|
+      t.libs << 'test'
+      t.test_files = FileList['test/integration/mini_test_test.rb']
+      t.verbose = true
+      t.warning = true
+    end
+
+    desc "Run Test::Unit integration tests (intended to be run in its own process)"
+    Rake::TestTask.new('test-unit') do |t|
+      t.libs << 'test'
+      t.test_files = FileList['test/integration/test_unit_test.rb']
+      t.verbose = true
+      t.warning = true
+    end
   end
 
   # require 'rcov/rcovtask'
@@ -81,43 +105,27 @@ def benchmark_test_case(klass, iterations)
   end
 end
 
-desc 'Remove generated documentation'
-task 'clobber_yardoc' do
-  `rm -rf ./doc`
-end
+unless ENV["MOCHA_NO_DOCS"]
+  require 'yard'
 
-desc 'Generate documentation'
-YARD::Rake::YardocTask.new('yardoc') do |task|
-  task.options = ["--title", "Mocha #{Mocha::VERSION}", "--no-private"]
-  task.files   = [
-    'lib/mocha/api.rb',
-    'lib/mocha/mock.rb',
-    'lib/mocha/expectation.rb',
-    'lib/mocha/object.rb',
-    'lib/mocha/parameter_matchers.rb',
-    'lib/mocha/parameter_matchers',
-    'lib/mocha/state_machine.rb',
-    'lib/mocha/sequence.rb',
-    'lib/mocha/configuration.rb',
-    'lib/mocha/stubbing_error.rb',
-    'lib/mocha/unexpected_invocation.rb',
-    '-',
-    'RELEASE.rdoc',
-    'COPYING.rdoc',
-    'MIT-LICENSE.rdoc',
-    'examples/mocha.rb',
-    'examples/stubba.rb',
-    'examples/misc.rb',
-  ]
-end
+  desc 'Remove generated documentation'
+  task 'clobber_yardoc' do
+    `rm -rf ./doc`
+  end
 
-desc "Generate documentation"
-task 'generate_docs' => ['clobber_yardoc', 'yardoc']
+  desc 'Generate documentation'
+  YARD::Rake::YardocTask.new('yardoc') do |task|
+    task.options = ["--title", "Mocha #{Mocha::VERSION}"]
+  end
 
-desc "Publish docs to gofreerange.com/docs/mocha"
-task 'publish_docs' => 'generate_docs' do
-  path = "/home/freerange/docs/mocha"
-  system %{ssh gofreerange.com "sudo rm -fr #{path} && mkdir -p #{path}" && scp -r doc/* gofreerange.com:#{path}}
+  desc "Generate documentation"
+  task 'generate_docs' => ['clobber_yardoc', 'yardoc']
+
+  desc "Publish docs to gofreerange.com/docs/mocha"
+  task 'publish_docs' => 'generate_docs' do
+    path = "/home/freerange/docs/mocha"
+    system %{ssh gofreerange.com "sudo rm -fr #{path} && mkdir -p #{path}" && scp -r doc/* gofreerange.com:#{path}}
+  end
 end
 
 task 'release' => 'default' do

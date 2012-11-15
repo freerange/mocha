@@ -1,5 +1,5 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
-require 'mocha'
+require 'mocha/setup'
 
 class StubbingSameClassMethodOnParentAndChildClassTest < Test::Unit::TestCase
 
@@ -21,11 +21,11 @@ class StubbingSameClassMethodOnParentAndChildClassTest < Test::Unit::TestCase
     end
     child_class = Class.new(parent_class)
     test_result = run_as_tests(
-      lambda {
+      :test_1 => lambda {
         parent_class.stubs(:foo).returns("stubbed Parent.foo")
         child_class.stubs(:foo).returns("stubbed Child.foo")
       },
-      lambda {
+      :test_2 => lambda {
         parent_class.foo
         child_class.foo
       }

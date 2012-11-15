@@ -1,13 +1,25 @@
 require 'mocha/parameter_matchers'
+require 'mocha/hooks'
 require 'mocha/mockery'
 require 'mocha/sequence'
+require 'mocha/object_methods'
+require 'mocha/module_methods'
+require 'mocha/class_methods'
 
 module Mocha
 
-  # Methods added to +Test::Unit::TestCase+ or equivalent.
+  # Methods added to +Test::Unit::TestCase+, +MiniTest::Unit::TestCase+ or equivalent.
   module API
 
     include ParameterMatchers
+    include Hooks
+
+    # @private
+    def self.included(mod)
+      Object.send(:include, Mocha::ObjectMethods)
+      Module.send(:include, Mocha::ModuleMethods)
+      Class.send(:include, Mocha::ClassMethods)
+    end
 
     # Builds a new mock object
     #
@@ -157,21 +169,6 @@ module Mocha
     #   end
     def states(name)
       Mockery.instance.new_state_machine(name)
-    end
-
-    # @private
-    def mocha_setup
-    end
-
-    # @private
-    def mocha_verify(assertion_counter = nil)
-      Mockery.instance.verify(assertion_counter)
-    end
-
-    # @private
-    def mocha_teardown
-      Mockery.instance.teardown
-      Mockery.reset_instance
     end
 
   end
