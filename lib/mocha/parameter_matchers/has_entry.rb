@@ -42,22 +42,25 @@ module Mocha
     #   object.method_1('key_1' => 2, 'key_2' => 1)
     #   # error raised, because method_1 was not called with Hash containing entry: 'key_1' => 1
     def has_entry(*options)
-      param_1 = options.shift
-      if options.empty? && param_1.is_a?(Hash)
-        case param_1.length
-        when 0
-          raise ArgumentError.new("Argument has no entries.")
-        when 1
-          key   = param_1.keys.first
-          value = param_1[key]
+      case options.length
+      when 1
+        case options[0]
+        when Hash
+          case options[0].length
+          when 0
+            raise ArgumentError.new("Argument has no entries.")
+          when 1
+            key, value = options[0].first
+          else
+            raise ArgumentError.new("Argument has multiple entries. Use Mocha::ParameterMatchers#has_entries instead.")
+          end
         else
-          raise ArgumentError.new("Argument has multiple entries. Use Mocha::ParameterMatchers#has_entries instead.")
+          raise ArgumentError.new("Argument is not a Hash.")
         end
-      elsif options.length == 1
-        key   = param_1
-        value = options.shift
+      when 2
+        key, value = options
       else
-        raise ArgumentError.new("Wrong number of arguments.  has_entry takes either one parameter (must be a hash) or two parameters (any key and value).")
+        raise ArgumentError.new("Too many arguments; use either a single argument (must be a Hash) or two arguments (a key and a value).")
       end
       HasEntry.new(key, value)
     end
