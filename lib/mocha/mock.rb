@@ -198,10 +198,15 @@ module Mocha
     end
 
     # @private
+    def restrict_to_class_includes?(method_name)
+      @restrict_to_class.instance_methods.map(&:to_sym).include?(method_name.to_sym)
+    end
+
+    # @private
     def raise_no_method_error_if_restricted(method)
       if @responder and not @responder.respond_to?(method)
         raise NoMethodError, "undefined method `#{method}' for #{self.mocha_inspect} which responds like #{@responder.mocha_inspect}"
-      elsif @restrict_to_class and not @restrict_to_class.instance_methods.include?(method)
+      elsif @restrict_to_class and not restrict_to_class_includes?(method)
         raise NoMethodError, "undefined method `#{method}' for #{self.mocha_inspect} which responds like an instance of #{@restrict_to_class}"
       end
     end
@@ -224,7 +229,7 @@ module Mocha
 
     # @private
     def respond_to?(symbol, include_private = false)
-      if @restrict_to_class and not @restrict_to_class.instance_methods.include?(symbol)
+      if @restrict_to_class and not restrict_to_class_includes?(symbol)
         false
       elsif @responder then
         if @responder.method(:respond_to?).arity > 1

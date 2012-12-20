@@ -310,7 +310,7 @@ class MockTest < Test::Unit::TestCase
     assert_raises(NoMethodError) { mock.not_existent }
   end
 
-  def test_should_not_raise_no_method_error_if_restricted_clss_instance_methods_includes_invoked_method
+  def test_should_not_raise_no_method_error_if_restricted_class_instance_methods_includes_invoked_method
     klass = Class.new do
       define_method(:invoked_method) { true }
     end
