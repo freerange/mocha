@@ -162,6 +162,11 @@ module Mocha
       self
     end
 
+    def restrict_to_instance_of(klass)
+      @restrict_to_class = klass
+      self
+    end
+
     # @private
     def initialize(mockery, name = nil, &block)
       @mockery = mockery
@@ -169,6 +174,7 @@ module Mocha
       @expectations = ExpectationList.new
       @everything_stubbed = false
       @responder = nil
+      @restrict_to_class = nil
       instance_eval(&block) if block
     end
 
@@ -192,10 +198,18 @@ module Mocha
     end
 
     # @private
-    def method_missing(symbol, *arguments, &block)
-      if @responder and not @responder.respond_to?(symbol)
-        raise NoMethodError, "undefined method `#{symbol}' for #{self.mocha_inspect} which responds like #{@responder.mocha_inspect}"
+    def raise_no_method_error_if_restricted(method)
+      if @responder and not @responder.respond_to?(method)
+        raise NoMethodError, "undefined method `#{method}' for #{self.mocha_inspect} which responds like #{@responder.mocha_inspect}"
+      elsif @restrict_to_class and not @restrict_to_class.instance_methods.include?(method)
+        raise NoMethodError, "undefined method `#{method}' for #{self.mocha_inspect} which responds like an instance of #{@restrict_to_class}"
       end
+    end
+
+    # @private
+    def method_missing(symbol, *arguments, &block)
+      raise_no_method_error_if_restricted(symbol)
+
       if matching_expectation_allowing_invocation = @expectations.match_allowing_invocation(symbol, *arguments)
         matching_expectation_allowing_invocation.invoke(&block)
       else
@@ -210,7 +224,9 @@ module Mocha
 
     # @private
     def respond_to?(symbol, include_private = false)
-      if @responder then
+      if @restrict_to_class and not @restrict_to_class.instance_methods.include?(symbol)
+        false
+      elsif @responder then
         if @responder.method(:respond_to?).arity > 1
           @responder.respond_to?(symbol, include_private)
         else
