@@ -290,6 +290,51 @@ class MockTest < Test::Unit::TestCase
     end
   end
 
+  def test_should_not_respond_to_methods_which_the_restricted_class_does_not_include
+    klass = Class.new do
+      define_method(:respond_to?) { |symbol| false }
+    end
+    mock = build_mock
+    mock.restrict_to_instance_of(klass)
+    assert_equal false, mock.respond_to?(:invoked_method)
+  end
+
+  def test_should_raise_no_method_error_if_restricted_class_instance_methods_does_not_include_invoked_method
+    klass = Class.new
+    mock = build_mock
+
+    mock.restrict_to_instance_of(klass)
+
+    mock.stubs(:invoked_method)
+
+    assert_raises(NoMethodError) { mock.not_existent }
+  end
+
+  def test_should_not_raise_no_method_error_if_restricted_class_instance_methods_includes_invoked_method
+    klass = Class.new do
+      define_method(:invoked_method) { true }
+    end
+    mock = build_mock
+
+    mock.restrict_to_instance_of(klass)
+
+    mock.stubs(:invoked_method)
+
+    assert_nothing_raised(NoMethodError) { mock.invoked_method }
+  end
+
+  def test_should_raise_no_method_error_with_message_indicating_that_mock_is_constrained_to_restricted_class
+    dummy = Class.new
+    mock = build_mock
+    mock.restrict_to_instance_of(dummy)
+    mock.stubs(:invoked_method)
+    begin
+      mock.invoked_method
+    rescue NoMethodError => e
+      assert_match(/which responds like an instance of/, e.message)
+    end
+  end
+
   def test_should_handle_respond_to_with_private_methods_param_without_error
     mock = build_mock
     assert_nothing_raised{ mock.respond_to?(:object_id, false) }
