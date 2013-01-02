@@ -119,6 +119,7 @@ module Mocha
     #
     # @param [Object, #respond_to?] responder an object used to determine whether {Mock} instance should +#respond_to?+ to an invocation.
     # @return [Mock] the same {Mock} instance, thereby allowing invocations of other {Mock} methods to be chained.
+    # @see #responds_like_instance_of
     #
     # @example Normal mocking
     #   sheep = mock('sheep')
@@ -162,6 +163,36 @@ module Mocha
       self
     end
 
+    # Constrains the {Mock} instance so that it can only expect or stub methods to which an instance of the +responder_class+ responds. The constraint is only applied at method invocation time. Note that the responder instance is instantiated using +Class#allocate+.
+    #
+    # A +NoMethodError+ will be raised if the responder instance does not +#respond_to?+ a method invocation (even if the method has been expected or stubbed).
+    #
+    # The {Mock} instance will delegate its +#respond_to?+ method to the responder instance.
+    #
+    # @param [Class] responder_class a class used to determine whether {Mock} instance should +#respond_to?+ to an invocation.
+    # @return [Mock] the same {Mock} instance, thereby allowing invocations of other {Mock} methods to be chained.
+    # @see #responds_like
+    #
+    # @example Using {#responds_like_instance_of}
+    #   class Sheep
+    #     def initialize
+    #       raise "some awkward code we don't want to call"
+    #     end
+    #     def chew(grass); end
+    #   end
+    #
+    #   sheep = mock('sheep')
+    #   sheep.responds_like_instance_of(Sheep)
+    #   sheep.expects(:chew)
+    #   sheep.expects(:foo)
+    #   sheep.respond_to?(:chew) # => true
+    #   sheep.respond_to?(:foo) # => false
+    #   sheep.chew
+    #   sheep.foo # => raises NoMethodError exception
+    def responds_like_instance_of(responder_class)
+      responds_like(responder_class.allocate)
+    end
+
     # @private
     def initialize(mockery, name = nil, &block)
       @mockery = mockery
@@ -180,6 +211,7 @@ module Mocha
     alias_method :__stubs__, :stubs
 
     alias_method :quacks_like, :responds_like
+    alias_method :quacks_like_instance_of, :responds_like_instance_of
 
     # @private
     def __expectations__

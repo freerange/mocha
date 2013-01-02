@@ -243,9 +243,32 @@ class MockTest < Test::Unit::TestCase
     assert_equal false, mock.respond_to?(:invoked_method)
   end
 
-  def test_should_return_itself_to_allow_method_chaining
+  def test_should_respond_to_methods_which_the_responder_instance_does_responds_to
+    klass = Class.new do
+      define_method(:respond_to?) { |symbol| true }
+    end
+    mock = build_mock
+    mock.responds_like_instance_of(klass)
+    assert_equal true, mock.respond_to?(:invoked_method)
+  end
+
+  def test_should_not_respond_to_methods_which_the_responder_instance_does_not_responds_to
+    klass = Class.new do
+      define_method(:respond_to?) { |symbol| false }
+    end
+    mock = build_mock
+    mock.responds_like_instance_of(klass)
+    assert_equal false, mock.respond_to?(:invoked_method)
+  end
+
+  def test_respond_like_should_return_itself_to_allow_method_chaining
     mock = build_mock
     assert_same mock.responds_like(Object.new), mock
+  end
+
+  def test_respond_like_instance_of_should_return_itself_to_allow_method_chaining
+    mock = build_mock
+    assert_same mock.responds_like_instance_of(Object), mock
   end
 
   def test_should_not_raise_no_method_error_if_mock_is_not_restricted_to_respond_like_a_responder
