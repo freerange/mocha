@@ -155,7 +155,7 @@ module Mocha
     #   sheep_class.expects(:foo)
     #   sheep_class.respond_to?(:number_of_legs) # => true
     #   sheep_class.respond_to?(:foo) # => false
-    #   assert_equal 4, sheep_class.number_of_legs
+    #   sheep_class.number_of_legs # => 4
     #   sheep_class.foo # => raises NoMethodError exception
     def responds_like(responder)
       @responder = responder
