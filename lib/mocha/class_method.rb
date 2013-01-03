@@ -7,7 +7,8 @@ module Mocha
     attr_reader :stubbee, :method
 
     def initialize(stubbee, method)
-      @stubbee, @original_method = stubbee, nil
+      @stubbee = stubbee
+      @original_method, @original_visibility = nil, nil
       @method = RUBY_VERSION < '1.9' ? method.to_s : method.to_sym
     end
 
@@ -37,13 +38,13 @@ module Mocha
       if method_exists?(method)
         begin
           @original_method = stubbee._method(method)
+          @original_visibility = :public
+          if stubbee.__metaclass__.protected_instance_methods.include?(method)
+            @original_visibility = :protected
+          elsif stubbee.__metaclass__.private_instance_methods.include?(method)
+            @original_visibility = :private
+          end
           if @original_method && @original_method.owner == stubbee.__metaclass__
-            @original_visibility = :public
-            if stubbee.__metaclass__.protected_instance_methods.include?(method)
-              @original_visibility = :protected
-            elsif stubbee.__metaclass__.private_instance_methods.include?(method)
-              @original_visibility = :private
-            end
             stubbee.__metaclass__.send(:remove_method, method)
           end
         rescue NameError
@@ -74,6 +75,8 @@ module Mocha
         else
           stubbee.__metaclass__.send(:define_method, method, @original_method)
         end
+      end
+      if @original_visibility
         stubbee.__metaclass__.send(@original_visibility, method)
       end
     end

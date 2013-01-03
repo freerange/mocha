@@ -50,6 +50,23 @@ class UnstubbingTest < Test::Unit::TestCase
     assert_passed(test_result)
   end
 
+  def test_unstubbing_a_module_method_defined_like_fileutils_in_ruby_2_0_should_restore_original_behaviour
+    mod = Module.new do
+      def my_module_method; :original_return_value; end
+      private :my_module_method
+      extend self
+      class << self
+        public :my_module_method
+      end
+    end
+    test_result = run_as_test do
+      mod.stubs(:my_module_method).returns(:new_return_value)
+      mod.unstub(:my_module_method)
+      assert_equal :original_return_value, mod.my_module_method
+    end
+    assert_passed(test_result)
+  end
+
   def test_unstubbing_an_any_instance_method_should_restore_original_behaviour
     klass = Class.new do
       def my_instance_method; :original_return_value; end
