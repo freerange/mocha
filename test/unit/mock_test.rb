@@ -1,6 +1,6 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/mock'
-require 'mocha/expectation_error'
+require 'mocha/expectation_error_factory'
 require 'set'
 require 'simple_counter'
 
@@ -11,7 +11,7 @@ class MockTest < Test::Unit::TestCase
   def test_should_set_single_expectation
    mock = build_mock
    mock.expects(:method1).returns(1)
-   assert_nothing_raised(ExpectationError) do
+   assert_nothing_raised(ExpectationErrorFactory.exception_class) do
      assert_equal 1, mock.method1
    end
   end
@@ -36,7 +36,7 @@ class MockTest < Test::Unit::TestCase
 
   def test_should_be_able_to_extend_mock_object_with_module
     mock = build_mock
-    assert_nothing_raised(ExpectationError) { mock.extend(Module.new) }
+    assert_nothing_raised(ExpectationErrorFactory.exception_class) { mock.extend(Module.new) }
   end
 
   def test_should_be_equal
@@ -102,7 +102,7 @@ class MockTest < Test::Unit::TestCase
     mock = build_mock
     mock.stub_everything
     result = nil
-    assert_nothing_raised(ExpectationError) do
+    assert_nothing_raised(ExpectationErrorFactory.exception_class) do
       result = mock.unexpected_method
     end
     assert_nil result
@@ -110,7 +110,7 @@ class MockTest < Test::Unit::TestCase
 
   def test_should_raise_assertion_error_for_unexpected_method_call
     mock = build_mock
-    error = assert_raise(ExpectationError) do
+    error = assert_raise(ExpectationErrorFactory.exception_class) do
       mock.unexpected_method_called(:my_method, :argument1, :argument2)
     end
     assert_match(/unexpected invocation/, error.message)
@@ -329,7 +329,7 @@ class MockTest < Test::Unit::TestCase
     mock = build_mock
     mock.expects(:method1)
     mock.unstub(:method1)
-    e = assert_raises(ExpectationError) { mock.method1 }
+    e = assert_raises(ExpectationErrorFactory.exception_class) { mock.method1 }
     assert_match(/unexpected invocation/, e.message)
   end
 

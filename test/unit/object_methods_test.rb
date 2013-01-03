@@ -1,6 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/object_methods'
 require 'mocha/mock'
+require 'mocha/expectation_error_factory'
 
 class ObjectMethodsTest < Test::Unit::TestCase
 
@@ -34,7 +35,7 @@ class ObjectMethodsTest < Test::Unit::TestCase
   end
 
   def test_nobody_expects_the_spanish_inquisition
-    assert_raise(Mocha::ExpectationError) { @object.expects(:the_spanish_inquisition) }
+    assert_raise(Mocha::ExpectationErrorFactory.exception_class) { @object.expects(:the_spanish_inquisition) }
   end
 
   def test_should_alias_object_method
