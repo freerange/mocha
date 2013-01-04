@@ -477,4 +477,21 @@ class ExpectationTest < Test::Unit::TestCase
     assert expectation.match?(:method_one)
   end
 
+  def test_should_include_default_representation_of_object_in_inspect
+    object = Object.new
+    class << object
+      define_method(:inspect) { 'mock' }
+    end
+    expectation = Expectation.new(object, :method_one)
+    assert_match Regexp.new("^#<Expectation:0x[0-9A-Fa-f]{1,12} .* >$"), expectation.inspect
+  end
+
+  def test_should_include_output_of_mocha_inspect_in_inspect
+    object = Object.new
+    class << object
+      define_method(:inspect) { 'mock' }
+    end
+    expectation = Expectation.new(object, :method_one)
+    assert expectation.inspect.include?(expectation.mocha_inspect)
+  end
 end
