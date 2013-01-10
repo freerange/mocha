@@ -1,4 +1,4 @@
-## Mocha [![build status](https://secure.travis-ci.org/freerange/mocha.png)](https://secure.travis-ci.org/freerange/mocha)
+## Mocha [![build status](https://secure.travis-ci.org/freerange/mocha.png)](https://secure.travis-ci.org/freerange/mocha) [![Gem Version](https://badge.fury.io/rb/mocha.png)](http://badge.fury.io/rb/mocha)
 
 ### Description
 
