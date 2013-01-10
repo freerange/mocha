@@ -9,6 +9,8 @@ gemfile:
   - gemfiles/Gemfile.test-unit.2.0.1
   - gemfiles/Gemfile.test-unit.2.0.0
   - gemfiles/Gemfile.minitest.latest
+  - gemfiles/Gemfile.minitest.4.2.0
+  - gemfiles/Gemfile.minitest.3.3.0
   - gemfiles/Gemfile.minitest.2.11.2
   - gemfiles/Gemfile.minitest.2.11.0
   - gemfiles/Gemfile.minitest.2.3.0
