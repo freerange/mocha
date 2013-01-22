@@ -1,5 +1,14 @@
 # Release Notes
 
+## 0.13.2
+* Stubbing of methods re-declared with different visibilty. Fixes #109.
+* Add `Mock#responds_like_instance_of`. Fixes #119.
+* Make `Expectation#inspect` less verbose and more useful. Fixes #122.
+* Make unit tests more robust to changes in environment. Fixes #121.
+* Update README in an attempt to head Rails-related issues off at the pass.
+* Add a Gem Badge to provide a link to Mocha on Rubygems.
+* Make documentation example consistent with other examples.
+
 ## 0.13.1
 * Fix #97 - `Mocha::ParameterMatchers#has_entry` does not work with an Array as the entry's value. Thanks to @ngokli.
 * Allow deprecation `:debug` mode to be switched on from `MOCHA_OPTIONS` environment variable.
