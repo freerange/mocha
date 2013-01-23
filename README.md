@@ -41,7 +41,7 @@ If you're loading Mocha using Bundler within a Rails application, you should ens
     # At bottom of test_helper.rb
     require "mocha/setup"
 
-Note: Using the latest version of Mocha (0.13.1) with the latest versions of Rails (e.g. 3.2.11, 3.1.10, or 3.0.19), you will see the following Mocha deprecation warning:
+Note: Using the latest version of Mocha (0.13.2) with the latest versions of Rails (e.g. 3.2.11, 3.1.10, or 3.0.19), you will see the following Mocha deprecation warning:
 
     *** Mocha deprecation warning: Change `require 'mocha'` to `require 'mocha/setup'`.
 
