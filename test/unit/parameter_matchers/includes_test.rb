@@ -12,14 +12,29 @@ class IncludesTest < Test::Unit::TestCase
     assert matcher.matches?([[:x, :y, :z]])
   end
 
+  def test_should_match_object_that_includes_all_values
+    matcher = includes(:x, :y, :z)
+    assert matcher.matches?([[:x, :y, :z]])
+  end
+
+  def test_should_not_match_object_that_does_any_include_value
+    matcher = includes(:x, :y, :z, :not_included)
+    assert !matcher.matches?([[:x, :y, :z]])
+  end
+
   def test_should_not_match_object_that_does_not_include_value
     matcher = includes(:not_included)
     assert !matcher.matches?([[:x, :y, :z]])
   end
 
-  def test_should_describe_matcher
+  def test_should_describe_matcher_with_one_item
     matcher = includes(:x)
     assert_equal "includes(:x)", matcher.mocha_inspect
+  end
+
+  def test_should_describe_matcher_with_multiple_items
+    matcher = includes(:x, :y, :z)
+    assert_equal "includes(:x, :y, :z)", matcher.mocha_inspect
   end
 
   def test_should_not_raise_error_on_emtpy_arguments
