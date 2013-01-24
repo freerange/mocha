@@ -1,47 +1,55 @@
+require 'mocha/parameter_matchers/all_of'
 require 'mocha/parameter_matchers/base'
 
 module Mocha
 
   module ParameterMatchers
 
-    # Matches any object that responds with +true+ to +include?(item)+.
+    # Matches any object that responds with +true+ to +include?(item)+
+    # for all items.
     #
-    # @param [Object] item expected item.
+    # @param [Array] items expected items.
     # @return [Includes] parameter matcher.
     #
     # @see Expectation#with
     #
-    # @example Actual parameter includes item.
+    # @example Actual parameter includes all items.
     #   object = mock()
-    #   object.expects(:method_1).with(includes('foo'))
-    #   object.method_1(['foo', 'bar'])
+    #   object.expects(:method_1).with(includes('foo', 'bar'))
+    #   object.method_1(['foo', 'bar', 'baz'])
     #   # no error raised
     #
-    # @example Actual parameter does not include item.
-    #   object.method_1(['baz'])
-    #   # error raised, because ['baz'] does not include 'foo'.
-    def includes(item)
-      Includes.new(item)
+    # @example Actual parameter does not include all items.
+    #   object.method_1(['foo', baz'])
+    #   # error raised, because ['foor', baz'] does not include 'bar'.
+    def includes(*items)
+      Includes.new(*items)
     end
 
     # Parameter matcher which matches when actual parameter includes expected value.
     class Includes < Base
 
       # @private
-      def initialize(item)
-        @item = item
+      def initialize(*items)
+        @items = items
       end
 
-      # @private
       def matches?(available_parameters)
         parameter = available_parameters.shift
         return false unless parameter.respond_to?(:include?)
-        return parameter.include?(@item)
+
+        if @items.size == 1
+          return parameter.include?(@items.first)
+        else
+          includes_matchers = @items.map { |item| Includes.new(item) }
+          AllOf.new(*includes_matchers).matches?([parameter])
+        end
       end
 
       # @private
       def mocha_inspect
-        "includes(#{@item.mocha_inspect})"
+        repr = @items.map(&:mocha_inspect).join(', ')
+        "includes(#{repr})"
       end
 
     end
