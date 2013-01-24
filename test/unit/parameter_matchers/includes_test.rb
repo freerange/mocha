@@ -12,18 +12,18 @@ class IncludesTest < Test::Unit::TestCase
     assert matcher.matches?([[:x, :y, :z]])
   end
 
-  def test_should_match_object_that_includes_all_values
+  def test_should_match_object_including_all_values
     matcher = includes(:x, :y, :z)
     assert matcher.matches?([[:x, :y, :z]])
   end
 
-  def test_should_not_match_object_that_does_any_include_value
-    matcher = includes(:x, :y, :z, :not_included)
+  def test_should_not_match_object_that_does_not_include_value
+    matcher = includes(:not_included)
     assert !matcher.matches?([[:x, :y, :z]])
   end
 
-  def test_should_not_match_object_that_does_not_include_value
-    matcher = includes(:not_included)
+  def test_should_not_match_object_that_does_not_include_any_one_value
+    matcher = includes(:x, :y, :z, :not_included)
     assert !matcher.matches?([[:x, :y, :z]])
   end
 
