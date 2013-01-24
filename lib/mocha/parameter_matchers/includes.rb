@@ -8,7 +8,7 @@ module Mocha
     # Matches any object that responds with +true+ to +include?(item)+
     # for all items.
     #
-    # @param [Array] items expected items.
+    # @param [*Array] items expected items.
     # @return [Includes] parameter matcher.
     #
     # @see Expectation#with
@@ -20,13 +20,13 @@ module Mocha
     #   # no error raised
     #
     # @example Actual parameter does not include all items.
-    #   object.method_1(['foo', baz'])
-    #   # error raised, because ['foor', baz'] does not include 'bar'.
+    #   object.method_1(['foo', 'baz'])
+    #   # error raised, because ['foo', 'baz'] does not include 'bar'.
     def includes(*items)
       Includes.new(*items)
     end
 
-    # Parameter matcher which matches when actual parameter includes expected value.
+    # Parameter matcher which matches when actual parameter includes expected values.
     class Includes < Base
 
       # @private
@@ -34,6 +34,7 @@ module Mocha
         @items = items
       end
 
+      # @private
       def matches?(available_parameters)
         parameter = available_parameters.shift
         return false unless parameter.respond_to?(:include?)
