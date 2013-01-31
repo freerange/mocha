@@ -8,9 +8,9 @@ module Mocha
 
     module TestUnit
 
-      module GemVersion230To253
+      module GemVersion230To254
         def self.included(mod)
-          $stderr.puts "Monkey patching Test::Unit gem >= v2.3.0 and <= v2.5.3" if $mocha_options['debug']
+          $stderr.puts "Monkey patching Test::Unit gem >= v2.3.0 and <= v2.5.4" if $mocha_options['debug']
         end
         def run(result)
           assertion_counter = AssertionCounter.new(result)
