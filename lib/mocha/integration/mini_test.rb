@@ -16,6 +16,7 @@ if !MiniTest::Unit::TestCase.ancestors.include?(Mocha::API)
   require 'mocha/integration/mini_test/version_330_to_410'
   require 'mocha/integration/mini_test/version_420_to_433'
   require 'mocha/integration/mini_test/version_440'
+  require 'mocha/integration/mini_test/version_450'
 
   module MiniTest
     class Unit
@@ -58,6 +59,8 @@ if !MiniTest::Unit::TestCase.ancestors.include?(Mocha::API)
           include Mocha::Integration::MiniTest::Version420To433
         elsif Gem::Requirement.new('>= 4.4.0', '<= 4.4.0').satisfied_by?(mini_test_version)
           include Mocha::Integration::MiniTest::Version440
+        elsif Gem::Requirement.new('>= 4.5.0', '<= 4.5.0').satisfied_by?(mini_test_version)
+          include Mocha::Integration::MiniTest::Version450
         else
           raise "No Mocha monkey-patch for MiniTest version"
         end
