@@ -45,9 +45,9 @@ class MockTest < Test::Unit::TestCase
   end
 
   if RUBY_VERSION < '1.9'
-    OBJECT_METHODS = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ }
+    OBJECT_METHODS = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ || ["method_missing", "singleton_method_undefined", "initialize"].include?(m)}
   else
-    OBJECT_METHODS = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ || m == :object_id }
+    OBJECT_METHODS = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ || [:object_id, :method_missing, :singleton_method_undefined, :initialize, :String, :singleton_method_added].include?(m) }
   end
 
   def test_should_be_able_to_mock_standard_object_methods
