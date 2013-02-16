@@ -1,3 +1,6 @@
+= 0.12.10
+* Officially support minitest v4.6.1 (still monkey-patching).
+
 = 0.12.9
 * Officially support minitest v4.5.0 & test-unit v2.5.4 (still monkey-patching).
 
