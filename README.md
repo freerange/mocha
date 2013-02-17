@@ -41,15 +41,15 @@ If you're loading Mocha using Bundler within a Rails application, you should ens
     # At bottom of test_helper.rb
     require "mocha/setup"
 
-Note: Using the latest version of Mocha (0.13.2) with the latest versions of Rails (e.g. 3.2.11, 3.1.10, or 3.0.19), you will see the following Mocha deprecation warning:
+Note: Using the latest version of Mocha (0.13.2) with the latest versions of Rails (e.g. 3.2.12) or _some_ recent versions of Rails (e.g. 3.1.10, or 3.0.19), you will see the following Mocha deprecation warning:
 
     *** Mocha deprecation warning: Change `require 'mocha'` to `require 'mocha/setup'`.
 
 This will happen until new versions of Rails are released incorporating the following pull requests:
 
   * 3-2-stable - https://github.com/rails/rails/pull/8200
-  * 3-1-stable - https://github.com/rails/rails/pull/8871
-  * 3-0-stable - https://github.com/rails/rails/pull/8872
+  * ~~3-1-stable - https://github.com/rails/rails/pull/8871~~ [released in 3.1.11]
+  * ~~3-0-stable - https://github.com/rails/rails/pull/8872~~ [released in 3.0.20]
 
 The deprecation warning will not cause any problems, but if you don't like seeing then you could do one of the following:
 
@@ -59,7 +59,7 @@ The deprecation warning will not cause any problems, but if you don't like seein
     if Rails.env.test? || Rails.env.development?
       require "mocha/version"
       require "mocha/deprecation"
-      if Mocha::VERSION == "0.13.2" && Rails::VERSION::STRING == "3.2.11"
+      if Mocha::VERSION == "0.13.2" && Rails::VERSION::STRING == "3.2.12"
         Mocha::Deprecation.mode = :disabled
       end
     end
@@ -78,10 +78,10 @@ Note 2: This will not work with recent versions of the Test::Unit gem (see below
     # test/test_helper.rb
     require "mocha/setup"
 
-##### Option 3 - Downgrade to Mocha 0.12.8
+##### Option 3 - Downgrade to the latest 0.12.x version of Mocha
 
     # Gemfile in Rails app
-    gem "mocha", "~> 0.12.8", :require => false
+    gem "mocha", "~> 0.12.10", :require => false
 
     # At bottom of test_helper.rb
     require "mocha"
