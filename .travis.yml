@@ -2,12 +2,16 @@ script: "rake test"
 rvm:
   - 1.8.7
   - 1.9.3
+  - 2.0.0
 gemfile:
   - Gemfile
 env:
   - MOCHA_OPTIONS=debug
 matrix:
   include:
+    - rvm: 2.0.0
+      gemfile: gemfiles/Gemfile.minitest.latest
+      env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
     - rvm: 1.9.3
       gemfile: gemfiles/Gemfile.minitest.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
