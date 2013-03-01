@@ -77,7 +77,7 @@ module Mocha
         end
       end
       if @original_visibility
-        stubbee.__metaclass__.send(@original_visibility, method)
+        Module.instance_method(@original_visibility).bind(stubbee.__metaclass__).call(method)
       end
     end
 

@@ -20,6 +20,7 @@ class StubClassMethodDefinedOnClassTest < Test::Unit::TestCase
           :original_return_value
         end
         public :my_class_method
+        def self.public(*args); end
       end
     end
     assert_snapshot_unchanged(klass) do
@@ -39,6 +40,7 @@ class StubClassMethodDefinedOnClassTest < Test::Unit::TestCase
           :original_return_value
         end
         protected :my_class_method
+        def self.protected(*args); end
       end
     end
     assert_snapshot_unchanged(klass) do
@@ -58,6 +60,7 @@ class StubClassMethodDefinedOnClassTest < Test::Unit::TestCase
           :original_return_value
         end
         private :my_class_method
+        def self.private(*args); end
       end
     end
     assert_snapshot_unchanged(klass) do

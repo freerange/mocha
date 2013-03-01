@@ -32,6 +32,8 @@ class StubAnyInstanceMethodTest < Test::Unit::TestCase
       def my_instance_method
         :original_return_value
       end
+      public :my_instance_method
+      def self.public(*args); end
     end
     instance = klass.new
     run_as_test do
@@ -47,6 +49,7 @@ class StubAnyInstanceMethodTest < Test::Unit::TestCase
         :original_return_value
       end
       protected :my_instance_method
+      def self.protected(*args); end
       def my_unprotected_instance_method
         my_instance_method
       end
@@ -65,6 +68,7 @@ class StubAnyInstanceMethodTest < Test::Unit::TestCase
         :original_return_value
       end
       private :my_instance_method
+      def self.private(*args); end
     end
     instance = klass.new
     run_as_test do
