@@ -67,6 +67,43 @@ class UnstubbingTest < Test::Unit::TestCase
     assert_passed(test_result)
   end
 
+  # Under ruby-1.8.7, the alias method's owner is reported as
+  # the class itself (not the metaclass), so any existing method
+  # is not removed or restored.
+  # This causes `warning: method redefined` to be reported when
+  # the method is stubbed, since the original method is not removed.
+  # This also prevents calling previously existing methods after
+  # they are unstubbed, since they no longer exist.
+  def test_unstubbing_alias_method_under_ruby_1_8_7
+    mod = Module.new do
+      def my_module_method; :original_return_value; end
+      module_function :my_module_method
+      alias my_alias_method my_module_method
+      module_function :my_alias_method
+    end
+
+    test_result = run_as_test do
+      mod.stubs(:my_module_method).returns(:new_return_value)
+      assert_equal :new_return_value, mod.my_module_method
+
+      mod.stubs(:my_alias_method).returns(:new_return_value)
+      assert_equal :new_return_value, mod.my_alias_method
+
+      mod.stubs(:non_existant_method).returns(:new_return_value)
+      assert_equal :new_return_value, mod.non_existant_method
+
+      mod.unstub(:my_module_method)
+      mod.unstub(:my_alias_method)
+      mod.unstub(:non_existant_method)
+
+      assert_equal :original_return_value, mod.my_module_method
+      unless RUBY_VERSION < '1.9'
+        assert_equal :original_return_value, mod.my_alias_method
+      end
+    end
+    assert_passed(test_result)
+  end
+
   def test_unstubbing_an_any_instance_method_should_restore_original_behaviour
     klass = Class.new do
       def my_instance_method; :original_return_value; end

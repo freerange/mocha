@@ -76,7 +76,7 @@ module Mocha
           stubbee.__metaclass__.send(:define_method, method, @original_method)
         end
       end
-      if @original_visibility
+      if @original_visibility && method_exists?(method)
         Module.instance_method(@original_visibility).bind(stubbee.__metaclass__).call(method)
       end
     end
