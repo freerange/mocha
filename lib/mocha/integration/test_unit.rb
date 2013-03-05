@@ -13,7 +13,7 @@ module Mocha
   module Integration
     module TestUnit
       def self.activate
-        return false unless defined?(::Test::Unit::TestCase) && !(defined?(::MiniTest::Unit::TestCase) && (::Test::Unit::TestCase < ::MiniTest::Unit::TestCase))
+        return false unless defined?(::Test::Unit::TestCase) && !(defined?(::MiniTest::Unit::TestCase) && (::Test::Unit::TestCase < ::MiniTest::Unit::TestCase)) && !(defined?(::MiniTest::Spec) && (::Test::Unit::TestCase < ::MiniTest::Spec))
 
         test_unit_version = begin
           require 'test/unit/version'
