@@ -3,20 +3,28 @@ require 'minitest/unit'
 
 class MiniTestResult
 
-  FAILURE_PATTERN = %r{(Failure)\:\n([^\(]+)\(([^\)]+)\) \[([^\]]+)\]\:\n(.*)\n}m
-  ERROR_PATTERN   = %r{(Error)\:\n([^\(]+)\(([^\)]+)\)\:\n(.+?)\n}m
+  minitest_version = Gem::Version.new(::MiniTest::Unit::VERSION)
+  if Gem::Requirement.new('<= 4.6.1').satisfied_by?(minitest_version)
+    FAILURE_PATTERN = %r{(Failure)\:\n([^\(]+)\(([^\)]+)\) \[([^\]]+)\]\:\n(.*)\n}m
+    ERROR_PATTERN   = %r{(Error)\:\n([^\(]+)\(([^\)]+)\)\:\n(.+?)\n}m
+    PATTERN_INDICES = { :method => 2, :testcase => 3 }
+  else
+    FAILURE_PATTERN = %r{(Failure)\:\n.([^#]+)\#([^ ]+) \[([^\]]+)\]\:\n(.*)\n}m
+    ERROR_PATTERN   = %r{(Error)\:\n.([^#]+)\#([^ ]+)\:\n(.+?)\n}m
+    PATTERN_INDICES = { :method => 3, :testcase => 2 }
+  end
 
   def self.parse_failure(raw)
     matches = FAILURE_PATTERN.match(raw)
     return nil unless matches
-    Failure.new(matches[2], matches[3], [matches[4]], matches[5])
+    Failure.new(matches[PATTERN_INDICES[:method]], matches[PATTERN_INDICES[:testcase]], [matches[4]], matches[5])
   end
 
   def self.parse_error(raw)
     matches = ERROR_PATTERN.match(raw)
     return nil unless matches
     backtrace = raw.gsub(ERROR_PATTERN, '').split("\n").map(&:strip)
-    Error.new(matches[2], matches[3], matches[4], backtrace)
+    Error.new(matches[PATTERN_INDICES[:method]], matches[PATTERN_INDICES[:testcase]], matches[4], backtrace)
   end
 
   class Failure
