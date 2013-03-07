@@ -37,6 +37,7 @@ module Mocha
     # This method should be called after each individual test has finished (including after any "teardown" code).
     def mocha_teardown
       Mockery.teardown
+    ensure
       Mockery.reset_instance
     end
   end
