@@ -29,14 +29,14 @@ module Mocha
     #
     # This method should be called at the end of each individual test, before it has been determined whether or not the test has passed.
     def mocha_verify(assertion_counter = nil)
-      Mockery.instance.verify(assertion_counter)
+      Mockery.verify(assertion_counter)
     end
 
     # Resets Mocha after a test (only for use by authors of test libraries).
     #
     # This method should be called after each individual test has finished (including after any "teardown" code).
     def mocha_teardown
-      Mockery.instance.teardown
+      Mockery.teardown
       Mockery.reset_instance
     end
   end

@@ -17,6 +17,14 @@ module Mocha
         @instance ||= new
       end
 
+      def verify(*args)
+        instance.verify(*args)
+      end
+
+      def teardown
+        instance.teardown
+      end
+
       def reset_instance
         @instance = nil
       end
