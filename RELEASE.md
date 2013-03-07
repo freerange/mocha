@@ -1,5 +1,15 @@
 # Release Notes
 
+## 0.13.3
+* Allow `Mocha::ParameterMatchers#includes` to accept multiple items. Thanks to @simao.
+* Allow stubbing of *private* `Kernel` methods. Fixes #134. Thanks to @camski for reporting.
+* Avoid a warning when `test/unit/version` is required by other libraries in the same project. Fixes #140. Thanks to @tmiller.
+* Make auto-activation of Test::Unit integration more resilient. This change is specifically to cope with the nasty re-defining of classes that is done by the `minitest-spec-rails` gem. Fixes #143. Thanks to @tubaxenor for reporting.
+* Safer restoration of stubbed method visibility. Fixes #141. Thanks to @tmm1.
+* Ensure `Mockery` instance gets reset even if exception raised. Fixes #144.
+* Adapt Mocha acceptance tests to cope with changes in output from latest (v4.6.2) of MiniTest.
+* Updates to README about Rails compatibility.
+
 ## 0.13.2
 * Stubbing of methods re-declared with different visibilty. Fixes #109.
 * Add `Mock#responds_like_instance_of`. Fixes #119.
