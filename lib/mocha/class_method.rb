@@ -67,6 +67,7 @@ module Mocha
 
     def restore_original_method
       if @original_method
+        restore_method if @original_method.owner == stubbee.__metaclass__
         restore_method unless method_exists?(method)
         Module.instance_method(@original_visibility).bind(stubbee.__metaclass__).call(method)
       end
