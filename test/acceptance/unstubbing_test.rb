@@ -96,6 +96,24 @@ class UnstubbingTest < Test::Unit::TestCase
     assert_passed(test_result)
   end
 
+  def test_ensures_original_method_from_owner_is_restored
+    klass_a = Class.new do
+      def self.my_class_method; :klass_a_value; end
+    end
+    klass_b = Class.new(klass_a) do
+      def self.my_class_method; :klass_b_value; end
+    end
+    test_result = run_as_test do
+      assert_equal :klass_b_value, klass_b.my_class_method
+      klass_b.stubs(:my_class_method).returns(:new_return_value)
+      assert_equal :new_return_value, klass_b.my_class_method
+
+      klass_b.unstub(:my_class_method)
+      assert_equal :klass_b_value, klass_b.my_class_method
+    end
+    assert_passed(test_result)
+  end
+
   def test_unstubbing_an_any_instance_method_should_restore_original_behaviour
     klass = Class.new do
       def my_instance_method; :original_return_value; end
