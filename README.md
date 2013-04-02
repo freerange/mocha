@@ -41,59 +41,6 @@ If you're loading Mocha using Bundler within a Rails application, you should ens
     # At bottom of test_helper.rb
     require "mocha/setup"
 
-Note: Using the latest version of Mocha (0.13.3) with _some_ recent versions of Rails (e.g. 3.2.12, 3.1.10, or 3.0.19), you will see the following Mocha deprecation warning:
-
-    *** Mocha deprecation warning: Change `require 'mocha'` to `require 'mocha/setup'`.
-
-This will happen until new versions of Rails are released incorporating the following pull requests:
-
-  * ~~3-2-stable - https://github.com/rails/rails/pull/8200~~ [released in 3.2.13]
-  * ~~3-1-stable - https://github.com/rails/rails/pull/8871~~ [released in 3.1.11]
-  * ~~3-0-stable - https://github.com/rails/rails/pull/8872~~ [released in 3.0.20]
-
-The deprecation warning will not cause any problems, but if you don't like seeing then you could do one of the following:
-
-##### Option 1 - Disable Mocha deprecation warnings with a Rails initializer
-
-    # config/mocha.rb
-    if Rails.env.test? || Rails.env.development?
-      require "mocha/version"
-      require "mocha/deprecation"
-      if Mocha::VERSION == "0.13.3" && Rails::VERSION::STRING == "3.2.12"
-        Mocha::Deprecation.mode = :disabled
-      end
-    end
-
-Note 1: I have intentionally made this brittle against patch releases of Mocha and Rails, because this way you are more likely to notice when you no longer need the initializer.
-Note 2: This will not work with recent versions of the Test::Unit gem (see below).
-
-##### Option 2 - Use "edge" Rails or one of the relevant "stable" branches of Rails
-
-    # Gemfile
-    gem "rails", git: "git://github.com/rails/rails.git", branch: "3-2-stable"
-    group :test do
-      gem "mocha", :require => false
-    end
-
-    # test/test_helper.rb
-    require "mocha/setup"
-
-##### Option 3 - Downgrade to the latest 0.12.x version of Mocha
-
-    # Gemfile in Rails app
-    gem "mocha", "~> 0.12.10", :require => false
-
-    # At bottom of test_helper.rb
-    require "mocha"
-
-Note: This isn't as bad as it sounds, because there aren't many changes in Mocha 0.13.x that are not in 0.12.x.
-
-#### Rails with Test::Unit
-
-Unfortunately due to Rails relying on Mocha & Test::Unit internals, there is a problem with using recent released versions of Rails with the latest version of Mocha and recent versions of the Test::Unit gem.
-
-In this case you will have to use either Option 2 or Option 3 (see above). Option 1 will not work.
-
 #### Rails Plugin
 
 Install the Rails plugin...
@@ -104,9 +51,9 @@ Note: As of version 0.9.8, the Mocha plugin is not automatically loaded at plugi
 
 #### Know Issues
 
-* Versions 0.10.2, 0.10.3 & 0.11.0 of the Mocha gem were broken.
-* Versions 0.9.6 & 0.9.7 of the Mocha Rails plugin were broken.
-* Please do not use these versions.
+* 0.13.x versions cause a harmless, but annoying, deprecation warning when used with Rails 3.2.0-3.2.12, 3.1.0-3.1.10 & 3.0.0-3.0.19.
+* Versions 0.10.2, 0.10.3 & 0.11.0 of the Mocha gem were broken. Please do not use these versions.
+* Versions 0.9.6 & 0.9.7 of the Mocha Rails plugin were broken. Please do not use these versions.
 
 ### Usage
 
