@@ -1,5 +1,10 @@
 # Release Notes
 
+## 0.14.0.alpha
+
+* Add speculative support for Minitest v5. Due to incompatibilities it has not yet been possible to run the Mocha test suite against Minitest v5. However, @zenspider (author of Minitest) provided the patch and he has tested it against Rails v4. Fixes #156. Thanks to @zenspider.
+* Documentation updates.
+
 ## 0.13.3
 * Allow `Mocha::ParameterMatchers#includes` to accept multiple items. Thanks to @simao.
 * Allow stubbing of *private* `Kernel` methods. Fixes #134. Thanks to @camski for reporting.
