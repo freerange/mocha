@@ -1,3 +1,3 @@
 module Mocha
-  VERSION = "0.14.0.alpha"
+  VERSION = "0.14.0"
 end

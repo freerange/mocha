@@ -1,5 +1,9 @@
 # Release Notes
 
+## 0.14.0
+
+* Official support for MiniTest v5. All tests now pass on the continuous integration build.
+
 ## 0.14.0.alpha
 
 * Add speculative support for Minitest v5. Due to incompatibilities it has not yet been possible to run the Mocha test suite against Minitest v5. However, @zenspider (author of Minitest) provided the patch and he has tested it against Rails v4. Fixes #156. Thanks to @zenspider.
