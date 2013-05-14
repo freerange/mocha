@@ -1,6 +1,6 @@
-require 'test/unit/testcase'
-
-if defined?(MiniTest)
+if defined?(::Minitest::VERSION) && (Gem::Version.new(::Minitest::VERSION) >= Gem::Version.new('5.0.0'))
+  require File.expand_path('../minitest_result', __FILE__)
+elsif defined?(::MiniTest::Unit::VERSION) && (Gem::Version.new(::MiniTest::Unit::VERSION) < Gem::Version.new('5.0.0'))
   require File.expand_path('../mini_test_result', __FILE__)
 else
   require File.expand_path('../test_unit_result', __FILE__)
@@ -12,15 +12,22 @@ module TestRunner
   end
 
   def run_as_tests(methods = {})
-    base_class = defined?(MiniTest) ? MiniTest::Unit::TestCase : Test::Unit::TestCase
+    base_class = Mocha::TestCase
     test_class = Class.new(base_class) do
       methods.each do |(method_name, proc)|
         define_method(method_name, proc)
       end
     end
+
     tests = methods.keys.select { |m| m.to_s[/^test/] }.map { |m| test_class.new(m) }
 
-    if defined?(MiniTest)
+    if defined?(::Minitest::VERSION) && (Gem::Version.new(::Minitest::VERSION) >= Gem::Version.new('5.0.0'))
+      tests.each do |test|
+        test.run
+      end
+      Minitest::Runnable.runnables.delete(test_class)
+      test_result = MinitestResult.new(tests)
+    elsif defined?(::MiniTest::Unit::VERSION) && (Gem::Version.new(::MiniTest::Unit::VERSION) < Gem::Version.new('5.0.0'))
       runner = MiniTest::Unit.new
       tests.each do |test|
         test.run(runner)
@@ -44,5 +51,4 @@ module TestRunner
   def assert_failed(test_result)
     flunk "Test passed unexpectedly" unless test_result.failure_count + test_result.error_count > 0
   end
-
 end
