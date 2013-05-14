@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+require 'yaml'
+
 def execute(*commands)
   commands.each do |command|
     system(command)
@@ -27,45 +29,32 @@ def with_rbenv(command)
   %{export PATH="$HOME/.rbenv/bin:$PATH"; eval "$(rbenv init -)"; #{command}}
 end
 
-def run(gemfile, task = "test")
+def run(ruby_version, gemfile, task = "test")
+  ENV["RBENV_VERSION"] = ruby_version
   ENV["BUNDLE_GEMFILE"] = gemfile
   ENV["MOCHA_OPTIONS"] = "debug"
   ENV["MOCHA_NO_DOCS"] = "true"
   reset_bundle
   execute(
     with_rbenv("bundle install --gemfile=#{gemfile}"),
-    with_rbenv("bundle exec rake #{task}")
+    with_rbenv("bundle exec rake #{task}"),
   )
 end
 
-EXCLUDED_RUBY_193_GEMFILES = [
-  "gemfiles/Gemfile.minitest.1.3.0",
-  "gemfiles/Gemfile.minitest.1.4.0",
-  "gemfiles/Gemfile.minitest.1.4.1",
-  "gemfiles/Gemfile.minitest.1.4.2"
-]
+RUBY_VERSION_MAP = {
+  '1.8.7' => '1.8.7-p371',
+  '1.9.3' => '1.9.3-p362',
+  '2.0.0' => '2.0.0-p0'
+}
 
-RUBY_VERSIONS = ["1.8.7-p352", "1.9.3-p125-perf"]
-
-RUBY_VERSIONS.each do |ruby_version|
-  execute("rbenv local #{ruby_version}")
-  reset_bundle
-  run("Gemfile")
-  execute("rbenv local --unset")
-end
-
-RUBY_VERSIONS.each do |ruby_version|
-  execute("rbenv local #{ruby_version}")
-  ["test-unit", "minitest"].each do |test_library|
-    reset_bundle
-    (Dir["gemfiles/Gemfile.#{test_library}.*"] + ["Gemfile"]).each do |gemfile|
-      ruby_version_without_patch = ruby_version.split("-")[0]
-      next if (ruby_version_without_patch == "1.9.3") && EXCLUDED_RUBY_193_GEMFILES.include?(gemfile)
-      next if (ruby_version_without_patch == "1.8.7") && (gemfile == "Gemfile") && (test_library == "minitest")
-      p [ruby_version_without_patch, test_library, gemfile]
-      ENV['MOCHA_RUN_INTEGRATION_TESTS'] = test_library
-      run(gemfile)
-    end
-  end
-  execute("rbenv local --unset")
+travis_config = YAML.load(File.read('.travis.yml'))
+build_configs = travis_config['matrix']['include']
+build_configs.each do |config|
+  ruby_version = config['rvm']
+  rbenv_ruby = RUBY_VERSION_MAP[ruby_version]
+  gemfile = config['gemfile']
+  environment_variables = Hash[*config['env'].split.flat_map { |e| e.split('=') }]
+  environment_variables.each { |k, v| ENV[k] = v }
+  p [rbenv_ruby, gemfile]
+  run(rbenv_ruby, gemfile)
 end
