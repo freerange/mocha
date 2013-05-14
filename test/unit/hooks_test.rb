@@ -1,7 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/hooks'
 
-class HooksTest < Test::Unit::TestCase
+class HooksTest < Mocha::TestCase
   class Mocha::Mockery
     class << self
       attr_writer :instance

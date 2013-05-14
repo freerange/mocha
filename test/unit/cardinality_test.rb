@@ -1,7 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/cardinality'
 
-class CardinalityTest < Test::Unit::TestCase
+class CardinalityTest < Mocha::TestCase
 
   include Mocha
 

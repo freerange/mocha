@@ -5,7 +5,7 @@ require 'mocha/sequence'
 require 'execution_point'
 require 'simple_counter'
 
-class ExpectationTest < Test::Unit::TestCase
+class ExpectationTest < Mocha::TestCase
 
   include Mocha
 

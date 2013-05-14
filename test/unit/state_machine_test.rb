@@ -2,7 +2,7 @@ require File.expand_path('../../test_helper', __FILE__)
 
 require 'mocha/state_machine'
 
-class StateMachineTest < Test::Unit::TestCase
+class StateMachineTest < Mocha::TestCase
 
   include Mocha
 

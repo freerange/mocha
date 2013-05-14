@@ -1,7 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/setup'
 
-class MochaExampleTest < Test::Unit::TestCase
+class MochaExampleTest < Mocha::TestCase
 
   class Rover
 

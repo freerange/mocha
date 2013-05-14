@@ -4,7 +4,7 @@ require 'mocha/central'
 require 'mocha/mock'
 require 'method_definer'
 
-class CentralTest < Test::Unit::TestCase
+class CentralTest < Mocha::TestCase
 
   include Mocha
 

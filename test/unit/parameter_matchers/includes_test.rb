@@ -3,7 +3,7 @@ require File.expand_path('../../../test_helper', __FILE__)
 require 'mocha/parameter_matchers/includes'
 require 'mocha/inspect'
 
-class IncludesTest < Test::Unit::TestCase
+class IncludesTest < Mocha::TestCase
 
   include Mocha::ParameterMatchers
 

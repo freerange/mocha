@@ -1,7 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/backtrace_filter'
 
-class BacktraceFilterTest < Test::Unit::TestCase
+class BacktraceFilterTest < Mocha::TestCase
 
   include Mocha
 

@@ -1,7 +1,7 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
-class ExceptionRescueTest < Test::Unit::TestCase
+class ExceptionRescueTest < Mocha::TestCase
 
   include AcceptanceTest
 

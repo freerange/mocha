@@ -2,7 +2,7 @@ require File.expand_path('../../test_helper', __FILE__)
 
 require 'mocha/thrower'
 
-class ThrowerTest < Test::Unit::TestCase
+class ThrowerTest < Mocha::TestCase
 
   include Mocha
 

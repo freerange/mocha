@@ -1,7 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/parameters_matcher'
 
-class ParametersMatcherTest < Test::Unit::TestCase
+class ParametersMatcherTest < Mocha::TestCase
 
   include Mocha
 

@@ -2,7 +2,7 @@ require File.expand_path('../../test_helper', __FILE__)
 
 require 'mocha/in_state_ordering_constraint'
 
-class InStateOrderingConstraintTest < Test::Unit::TestCase
+class InStateOrderingConstraintTest < Mocha::TestCase
 
   include Mocha
 

@@ -2,7 +2,7 @@ require File.expand_path('../../test_helper', __FILE__)
 
 require 'mocha/return_values'
 
-class ReturnValuesTest < Test::Unit::TestCase
+class ReturnValuesTest < Mocha::TestCase
 
   include Mocha
 

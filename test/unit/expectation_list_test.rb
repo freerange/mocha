@@ -4,7 +4,7 @@ require 'mocha/expectation'
 require 'set'
 require 'method_definer'
 
-class ExpectationListTest < Test::Unit::TestCase
+class ExpectationListTest < Mocha::TestCase
 
   include Mocha
 

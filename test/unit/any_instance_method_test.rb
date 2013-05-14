@@ -3,7 +3,7 @@ require 'method_definer'
 require 'mocha/mock'
 require 'mocha/any_instance_method'
 
-class AnyInstanceMethodTest < Test::Unit::TestCase
+class AnyInstanceMethodTest < Mocha::TestCase
 
   include Mocha
 

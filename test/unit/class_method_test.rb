@@ -4,7 +4,7 @@ require 'mocha/mock'
 
 require 'mocha/class_method'
 
-class ClassMethodTest < Test::Unit::TestCase
+class ClassMethodTest < Mocha::TestCase
 
   include Mocha
 

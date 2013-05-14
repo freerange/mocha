@@ -2,7 +2,7 @@ require File.expand_path('../../test_helper', __FILE__)
 
 require 'mocha/change_state_side_effect'
 
-class ChangeStateSideEffectTest < Test::Unit::TestCase
+class ChangeStateSideEffectTest < Mocha::TestCase
 
   include Mocha
 

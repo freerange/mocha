@@ -1,7 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/method_matcher'
 
-class MethodMatcherTest < Test::Unit::TestCase
+class MethodMatcherTest < Mocha::TestCase
 
   include Mocha
 

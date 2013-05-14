@@ -1,7 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/inspect'
 
-class DateTimeInspectTest < Test::Unit::TestCase
+class DateTimeInspectTest < Mocha::TestCase
 
   def test_should_use_include_date_in_seconds
     time = Time.now

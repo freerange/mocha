@@ -1,7 +1,7 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
-class StubInstanceMethodDefinedOnKernelModuleTest < Test::Unit::TestCase
+class StubInstanceMethodDefinedOnKernelModuleTest < Mocha::TestCase
 
   include AcceptanceTest
 

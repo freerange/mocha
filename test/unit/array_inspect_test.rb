@@ -1,7 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/inspect'
 
-class ArrayInspectTest < Test::Unit::TestCase
+class ArrayInspectTest < Mocha::TestCase
 
   def test_should_use_inspect
     array = [1, 2]

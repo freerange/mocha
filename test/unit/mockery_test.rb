@@ -3,7 +3,7 @@ require 'mocha/mockery'
 require 'mocha/state_machine'
 require 'mocha/expectation_error_factory'
 
-class MockeryTest < Test::Unit::TestCase
+class MockeryTest < Mocha::TestCase
 
   include Mocha
 

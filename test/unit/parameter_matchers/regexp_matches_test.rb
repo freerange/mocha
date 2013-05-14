@@ -3,7 +3,7 @@ require File.expand_path('../../../test_helper', __FILE__)
 require 'mocha/parameter_matchers/regexp_matches'
 require 'mocha/inspect'
 
-class RegexpMatchesTest < Test::Unit::TestCase
+class RegexpMatchesTest < Mocha::TestCase
 
   include Mocha::ParameterMatchers
 

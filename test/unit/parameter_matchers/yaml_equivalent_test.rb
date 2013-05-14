@@ -3,7 +3,7 @@ require File.expand_path('../../../test_helper', __FILE__)
 require 'mocha/parameter_matchers/yaml_equivalent'
 require 'mocha/inspect'
 
-class YamlEquivalentTest < Test::Unit::TestCase
+class YamlEquivalentTest < Mocha::TestCase
 
   include Mocha::ParameterMatchers
 

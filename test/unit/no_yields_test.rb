@@ -2,7 +2,7 @@ require File.expand_path('../../test_helper', __FILE__)
 
 require 'mocha/no_yields'
 
-class NoYieldsTest < Test::Unit::TestCase
+class NoYieldsTest < Mocha::TestCase
 
   include Mocha
 

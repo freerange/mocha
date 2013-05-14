@@ -9,3 +9,5 @@ $:.unshift File.expand_path(File.join(File.dirname(__FILE__), 'unit', 'parameter
 $:.unshift File.expand_path(File.join(File.dirname(__FILE__), 'acceptance'))
 
 require 'test/unit'
+class Mocha::TestCase < Test::Unit::TestCase
+end

@@ -4,6 +4,6 @@ require "test/unit"
 require "mocha/setup"
 require "integration/shared_tests"
 
-class TestUnitTest < Test::Unit::TestCase
+class TestUnitTest < Mocha::TestCase
   include SharedTests
 end

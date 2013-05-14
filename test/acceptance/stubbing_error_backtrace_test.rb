@@ -2,7 +2,7 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 require 'execution_point'
 
-class StubbingErrorBacktraceTest < Test::Unit::TestCase
+class StubbingErrorBacktraceTest < Mocha::TestCase
 
   include AcceptanceTest
 

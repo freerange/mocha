@@ -2,7 +2,7 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/module_methods'
 require 'mocha/object_methods'
 
-class ModuleMethodsTest < Test::Unit::TestCase
+class ModuleMethodsTest < Mocha::TestCase
 
   def setup
     @module = Module.new.extend(Mocha::ModuleMethods, Mocha::ObjectMethods)

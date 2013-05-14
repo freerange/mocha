@@ -4,7 +4,7 @@ require 'mocha/expectation_error_factory'
 require 'set'
 require 'simple_counter'
 
-class MockTest < Test::Unit::TestCase
+class MockTest < Mocha::TestCase
 
   include Mocha
 

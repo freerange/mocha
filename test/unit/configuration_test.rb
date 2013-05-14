@@ -1,7 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 require "mocha/configuration"
 
-class ConfigurationTest < Test::Unit::TestCase
+class ConfigurationTest < Mocha::TestCase
   def test_allow_temporarily_changes_config_when_given_block
     Mocha::Configuration.warn_when(:stubbing_method_unnecessarily)
     yielded = false

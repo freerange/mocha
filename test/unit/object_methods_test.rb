@@ -3,7 +3,7 @@ require 'mocha/object_methods'
 require 'mocha/mock'
 require 'mocha/expectation_error_factory'
 
-class ObjectMethodsTest < Test::Unit::TestCase
+class ObjectMethodsTest < Mocha::TestCase
 
   def setup
     @object = Object.new.extend(Mocha::ObjectMethods)

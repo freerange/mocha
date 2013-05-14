@@ -3,7 +3,7 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/exception_raiser'
 require 'timeout'
 
-class ExceptionRaiserTest < Test::Unit::TestCase
+class ExceptionRaiserTest < Mocha::TestCase
 
   include Mocha
 

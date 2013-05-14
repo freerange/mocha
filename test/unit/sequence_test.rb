@@ -2,7 +2,7 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/sequence'
 require 'mocha/expectation'
 
-class SequenceTest < Test::Unit::TestCase
+class SequenceTest < Mocha::TestCase
 
   include Mocha
 

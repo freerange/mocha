@@ -1,7 +1,7 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
-class StubInstanceMethodDefinedOnActiveRecordAssociationProxyTest < Test::Unit::TestCase
+class StubInstanceMethodDefinedOnActiveRecordAssociationProxyTest < Mocha::TestCase
 
   include AcceptanceTest
 

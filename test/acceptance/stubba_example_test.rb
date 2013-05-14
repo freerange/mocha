@@ -29,7 +29,7 @@ module Thingy
 
 end
 
-class StubbaExampleTest < Test::Unit::TestCase
+class StubbaExampleTest < Mocha::TestCase
 
   def test_should_stub_instance_method
     widget = Widget.new

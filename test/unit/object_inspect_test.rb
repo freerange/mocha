@@ -2,7 +2,7 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/inspect'
 require 'method_definer'
 
-class ObjectInspectTest < Test::Unit::TestCase
+class ObjectInspectTest < Mocha::TestCase
 
   def test_should_return_default_string_representation_of_object_not_including_instance_variables
     object = Object.new

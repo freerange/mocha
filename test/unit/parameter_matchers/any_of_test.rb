@@ -4,7 +4,7 @@ require 'mocha/parameter_matchers/any_of'
 require 'mocha/inspect'
 require 'stub_matcher'
 
-class AnyOfTest < Test::Unit::TestCase
+class AnyOfTest < Mocha::TestCase
 
   include Mocha::ParameterMatchers
 

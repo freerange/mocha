@@ -5,7 +5,7 @@ require 'mocha/parameter_matchers/object'
 require 'mocha/parameter_matchers/equals'
 require 'mocha/inspect'
 
-class HasEntryTest < Test::Unit::TestCase
+class HasEntryTest < Mocha::TestCase
 
   include Mocha::ParameterMatchers
 

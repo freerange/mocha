@@ -5,7 +5,7 @@ require 'mocha/no_yields'
 require 'mocha/single_yield'
 require 'mocha/multiple_yields'
 
-class YieldParametersTest < Test::Unit::TestCase
+class YieldParametersTest < Mocha::TestCase
 
   include Mocha
 
