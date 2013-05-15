@@ -41,20 +41,13 @@ def run(ruby_version, gemfile, task = "test")
   )
 end
 
-RUBY_VERSION_MAP = {
-  '1.8.7' => '1.8.7-p371',
-  '1.9.3' => '1.9.3-p362',
-  '2.0.0' => '2.0.0-p0'
-}
-
 travis_config = YAML.load(File.read('.travis.yml'))
 build_configs = travis_config['matrix']['include']
 build_configs.each do |config|
   ruby_version = config['rvm']
-  rbenv_ruby = RUBY_VERSION_MAP[ruby_version]
   gemfile = config['gemfile']
   environment_variables = Hash[*config['env'].split.flat_map { |e| e.split('=') }]
   environment_variables.each { |k, v| ENV[k] = v }
-  p [rbenv_ruby, gemfile]
-  run(rbenv_ruby, gemfile)
+  p [ruby_version, gemfile]
+  run(ruby_version, gemfile)
 end
