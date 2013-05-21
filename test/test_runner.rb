@@ -6,6 +6,8 @@ else
   require File.expand_path('../test_unit_result', __FILE__)
 end
 
+require 'assertions'
+
 module TestRunner
   def run_as_test(&block)
     run_as_tests(:test_me => block)
@@ -14,6 +16,8 @@ module TestRunner
   def run_as_tests(methods = {})
     base_class = Mocha::TestCase
     test_class = Class.new(base_class) do
+      include Assertions
+
       methods.each do |(method_name, proc)|
         define_method(method_name, proc)
       end

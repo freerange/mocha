@@ -22,6 +22,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     instance = klass.new
     test_result = run_as_test do
       klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
+      assert_method_visiblity instance, :my_instance_method, :public
       assert_equal :new_return_value, instance.my_instance_method
     end
     assert_passed(test_result)

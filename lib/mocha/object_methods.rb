@@ -35,7 +35,7 @@ module Mocha
 
     # Adds an expectation that the specified method must be called exactly once with any parameters.
     #
-    # The original implementation of the method is replaced during the test and then restored at the end of the test.
+    # The original implementation of the method is replaced during the test and then restored at the end of the test. The temporary replacement method has the same visibilty as the original method.
     #
     # @param [Symbol,String] method_name name of expected method
     # @param [Hash] expected_methods_vs_return_values expected method name symbols as keys and corresponding return values as values - these expectations are setup as if {#expects} were called multiple times.
@@ -84,6 +84,8 @@ module Mocha
 
     # Adds an expectation that the specified method may be called any number of times with any parameters.
     #
+    # The original implementation of the method is replaced during the test and then restored at the end of the test. The temporary replacement method has the same visibilty as the original method.
+    #
     # @param [Symbol,String] method_name name of stubbed method
     # @param [Hash] stubbed_methods_vs_return_values stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if {#stubs} were called multiple times.
     #
@@ -128,7 +130,7 @@ module Mocha
 
     # Removes the specified stubbed methods (added by calls to {#expects} or {#stubs}) and all expectations associated with them.
     #
-    # Restores the original behaviour of the methods before they were stubbed.
+    # Restores the original behaviour of the methods before they were stubbed. This is normally done automatically at the end of each test, but in some circumstances you may want to do it *before* the end of the test.
     #
     # WARNING: If you {#unstub} a method which still has unsatisfied expectations, you may be removing the only way those expectations can be satisfied. Use {#unstub} with care.
     #
