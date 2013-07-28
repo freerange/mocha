@@ -23,6 +23,7 @@ if defined?(::Minitest) || defined?(MiniTest)
   rescue LoadError
     MiniTest::Unit.autorun
   end
+  require 'mocha/setup'
   class Mocha::TestCase < defined?(Minitest::Test) ? Minitest::Test : MiniTest::Unit::TestCase
     def assert_nothing_raised(exception = StandardError)
       yield
@@ -37,6 +38,7 @@ if defined?(::Minitest) || defined?(MiniTest)
   end
 else
   require 'test/unit'
+  require 'mocha/setup'
   class Mocha::TestCase < Test::Unit::TestCase
     def test_dummy
       # Some versions (?) of Test::Unit try to run this base class as a test case
