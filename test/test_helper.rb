@@ -17,6 +17,8 @@ begin
 rescue LoadError
 end
 
+module Mocha; end
+
 if defined?(::Minitest) || defined?(MiniTest)
   begin
     require 'minitest/autorun'
