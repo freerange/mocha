@@ -67,6 +67,53 @@ class UnstubbingTest < Mocha::TestCase
     assert_passed(test_result)
   end
 
+  def test_unstubbing_module_function_and_alias
+    mod = Module.new do
+      def my_module_method; :original_return_value; end
+      module_function :my_module_method
+      alias my_alias_method my_module_method
+      module_function :my_alias_method
+    end
+
+    test_result = run_as_test do
+      mod.stubs(:my_module_method).returns(:new_return_value)
+      assert_equal :new_return_value, mod.my_module_method
+
+      mod.stubs(:my_alias_method).returns(:new_return_value)
+      assert_equal :new_return_value, mod.my_alias_method
+
+      mod.stubs(:non_existant_method).returns(:new_return_value)
+      assert_equal :new_return_value, mod.non_existant_method
+
+      mod.unstub(:my_module_method)
+      assert_equal :original_return_value, mod.my_module_method
+
+      mod.unstub(:my_alias_method)
+      assert_equal :original_return_value, mod.my_alias_method
+
+      mod.unstub(:non_existant_method)
+    end
+    assert_passed(test_result)
+  end
+
+  def test_ensures_original_method_from_owner_is_restored
+    klass_a = Class.new do
+      def self.my_class_method; :klass_a_value; end
+    end
+    klass_b = Class.new(klass_a) do
+      def self.my_class_method; :klass_b_value; end
+    end
+    test_result = run_as_test do
+      assert_equal :klass_b_value, klass_b.my_class_method
+      klass_b.stubs(:my_class_method).returns(:new_return_value)
+      assert_equal :new_return_value, klass_b.my_class_method
+
+      klass_b.unstub(:my_class_method)
+      assert_equal :klass_b_value, klass_b.my_class_method
+    end
+    assert_passed(test_result)
+  end
+
   def test_unstubbing_an_any_instance_method_should_restore_original_behaviour
     klass = Class.new do
       def my_instance_method; :original_return_value; end

@@ -69,18 +69,21 @@ module Mocha
     end
 
     def restore_original_method
-      if @original_method && @original_method.owner == stubbee.__metaclass__
-        if RUBY_VERSION < '1.9'
-          original_method = @original_method
-          stubbee.__metaclass__.send(:define_method, method) do |*args, &block|
-            original_method.call(*args, &block)
-          end
-        else
-          stubbee.__metaclass__.send(:define_method, method, @original_method)
-        end
-      end
-      if @original_visibility
+      if @original_method
+        restore_method if @original_method.owner == stubbee.__metaclass__
+        restore_method unless method_exists?(method)
         Module.instance_method(@original_visibility).bind(stubbee.__metaclass__).call(method)
+      end
+    end
+
+    def restore_method
+      if RUBY_VERSION < '1.9'
+        original_method = @original_method
+        stubbee.__metaclass__.send(:define_method, method) do |*args, &block|
+          original_method.call(*args, &block)
+        end
+      else
+        stubbee.__metaclass__.send(:define_method, method, @original_method)
       end
     end
 
