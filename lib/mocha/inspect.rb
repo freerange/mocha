@@ -4,9 +4,13 @@ module Mocha
 
   module ObjectMethods
     def mocha_inspect
+      begin
+        return inspect unless inspect =~ /#</
+      rescue SystemStackError
+      end
       address = self.__id__ * 2
       address += 0x100000000 if address < 0
-      inspect =~ /#</ ? "#<#{self.class}:0x#{'%x' % address}>" : inspect
+      "#<#{self.class}:0x#{'%x' % address}>"
     end
   end
 
