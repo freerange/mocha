@@ -197,6 +197,14 @@ end
 
 Mocha is currently *not* thread-safe. There are two main reasons for this: (a) in multi-threaded code Mocha exceptions may be raised in a thread other than the one which is running the test and thus a Mocha exception may not be correctly intercepted by Mocha exception handling code; and (b) partial mocking changes the state of objects in the `ObjectSpace` which is shared across all threads in the Ruby process and this access to what is effectively global state is not synchronized.
 
+### Expectation matching / invocation order
+
+Stubs and expectations are basically the same thing. A stub is just an expectation of zero or more invocations. The `Expectation#stubs` method is syntactic sugar to make the intent of the test more explicit.
+
+When a method is invoked on a mock object, the mock object searches through its expectations from newest to oldest to find one that matches the invocation. After the invocation, the matching expectation might stop matching further invocations.
+
+See the [documentation](http://gofreerange.com/mocha/docs/Mocha/Mock.html) for `Mocha::Mock` for further details.
+
 ### Useful Links
 
 * [Official Documentation](http://gofreerange.com/mocha/docs/)

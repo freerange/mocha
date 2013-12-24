@@ -12,7 +12,59 @@ module Mocha
 
   # Traditional mock object.
   #
-  # All methods return an {Expectation} which can be further modified by methods on {Expectation}.
+  # All methods return an {Expectation} which can be further modified by
+  # methods on {Expectation}.
+  #
+  # Stubs and expectations are basically the same thing. A stub is just an
+  # expectation of zero or more invocations. The {#stubs} method is syntactic
+  # sugar to make the intent of the test more explicit.
+  #
+  # When a method is invoked on a mock object, the mock object searches through
+  # its expectations from newest to oldest to find one that matches the
+  # invocation. After the invocation, the matching expectation might stop
+  # matching further invocations. For example, an +expects(:foo).once+
+  # expectation only matches once and will be ignored on future invocations
+  # while an +expects(:foo).at_least_once+ expectation will always be matched
+  # against invocations.
+  #
+  # This scheme allows you to:
+  #
+  # - Set up default stubs in your the +setup+ method of your test class and
+  #   override some of those stubs in individual tests.
+  # - Set up different +once+ expectations for the same method with different
+  #   action per invocation. However, it's better to use the
+  #   {Expectation#returns} method with multiple arguments to do this, as
+  #   described below.
+  #
+  # However, there are some possible "gotchas" caused by this scheme:
+  #
+  # - if you create an expectation and then a stub for the same method, the
+  #   stub will always override the expectation and the expectation will never
+  #   be met.
+  # - if you create a stub and then an expectation for the same method, the
+  #   expectation will match, and when it stops matching the stub will be used
+  #   instead, possibly masking test failures.
+  # - if you create different expectations for the same method, they will be
+  #   invoked in the opposite order than that in which they were specified,
+  #   rather than the same order.
+  #
+  # The best thing to do is not set up multiple expectations and stubs for the
+  # same method with exactly the same matchers. Instead, use the
+  # {Expectation#returns} method with multiple arguments to create multiple
+  # actions for a method. You can also chain multiple calls to
+  # {Expectation#returns} and {Expectation#raises} (along with syntactic sugar
+  # {Expectation#then} if desired).
+  #
+  # @example
+  #   object = mock()
+  #   object.stubs(:expected_method).returns(1, 2).then.raises(Exception)
+  #   object.expected_method # => 1
+  #   object.expected_method # => 2
+  #   object.expected_method # => raises exception of class Exception1
+  #
+  # If you want to specify more complex ordering or order invocations across
+  # different mock objects, use the {Expectation#in_sequence} method to
+  # explicitly define a total or partial ordering of invocations.
   class Mock
 
     # Adds an expectation that the specified method must be called exactly once with any parameters.
