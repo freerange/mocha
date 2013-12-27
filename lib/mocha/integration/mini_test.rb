@@ -26,10 +26,10 @@ module Mocha
       end
 
       def self.version
-        if defined?(::Minitest)
-          ::Minitest::VERSION
-        elsif defined?(::MiniTest)
+        if defined?(::MiniTest::Unit::VERSION)
           ::MiniTest::Unit::VERSION
+        elsif defined?(::Minitest::VERSION)
+          ::Minitest::VERSION
         else
           '0.0.0'
         end
