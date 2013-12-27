@@ -8,6 +8,8 @@ $:.unshift File.expand_path(File.join(File.dirname(__FILE__), 'unit'))
 $:.unshift File.expand_path(File.join(File.dirname(__FILE__), 'unit', 'parameter_matchers'))
 $:.unshift File.expand_path(File.join(File.dirname(__FILE__), 'acceptance'))
 
+require 'mocha/detection/mini_test'
+
 begin
   require 'minitest'
 rescue LoadError
