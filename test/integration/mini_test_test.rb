@@ -9,9 +9,11 @@ begin
 rescue LoadError
 end
 
-require "mocha/setup"
+require "mocha/integration/mini_test"
 require "mocha/detection/mini_test"
 require "integration/shared_tests"
+
+Mocha::Integration::MiniTest.activate
 
 if testcase = Mocha::Detection::MiniTest.testcase
   class MiniTestTest < testcase
