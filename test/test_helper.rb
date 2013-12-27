@@ -19,13 +19,13 @@ end
 
 module Mocha; end
 
-if defined?(::Minitest) || defined?(MiniTest)
+if minitest_testcase = Mocha::Detection::MiniTest.testcase
   begin
     require 'minitest/autorun'
   rescue LoadError
     MiniTest::Unit.autorun
   end
-  class Mocha::TestCase < defined?(Minitest::Test) ? Minitest::Test : MiniTest::Unit::TestCase
+  class Mocha::TestCase < minitest_testcase
     def assert_nothing_raised(exception = StandardError)
       yield
     rescue exception => e
