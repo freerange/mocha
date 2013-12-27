@@ -21,7 +21,7 @@ end
 
 module Mocha; end
 
-if minitest_testcase = Mocha::Detection::MiniTest.testcase
+if (minitest_testcase = Mocha::Detection::MiniTest.testcase) && (ENV['MOCHA_RUN_INTEGRATION_TESTS'] != 'test-unit')
   begin
     require 'minitest/autorun'
   rescue LoadError
