@@ -1,11 +1,3 @@
-if defined?(::Minitest::VERSION) && (Gem::Version.new(::Minitest::VERSION) >= Gem::Version.new('5.0.0'))
-  require File.expand_path('../minitest_result', __FILE__)
-elsif defined?(::MiniTest::Unit::VERSION) && (Gem::Version.new(::MiniTest::Unit::VERSION) < Gem::Version.new('5.0.0'))
-  require File.expand_path('../mini_test_result', __FILE__)
-else
-  require File.expand_path('../test_unit_result', __FILE__)
-end
-
 require 'assertions'
 
 module TestRunner
@@ -26,18 +18,21 @@ module TestRunner
     tests = methods.keys.select { |m| m.to_s[/^test/] }.map { |m| test_class.new(m) }
 
     if defined?(::Minitest::VERSION) && (Gem::Version.new(::Minitest::VERSION) >= Gem::Version.new('5.0.0'))
+      require File.expand_path('../minitest_result', __FILE__)
       tests.each do |test|
         test.run
       end
       Minitest::Runnable.runnables.delete(test_class)
       test_result = MinitestResult.new(tests)
     elsif defined?(::MiniTest::Unit::VERSION) && (Gem::Version.new(::MiniTest::Unit::VERSION) < Gem::Version.new('5.0.0'))
+      require File.expand_path('../mini_test_result', __FILE__)
       runner = MiniTest::Unit.new
       tests.each do |test|
         test.run(runner)
       end
       test_result = MiniTestResult.new(runner, tests)
     else
+      require File.expand_path('../test_unit_result', __FILE__)
       test_result = TestUnitResult.build_test_result
       tests.each do |test|
         test.run(test_result) {}
