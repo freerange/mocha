@@ -55,7 +55,17 @@ build_configs.each do |config|
   ruby_version = config['rvm']
   gemfile = config['gemfile']
   environment_variables = Hash[*config['env'].split.flat_map { |e| e.split('=') }]
-  environment_variables.each { |k, v| ENV[k] = v }
-  p [ruby_version, gemfile]
-  run(ruby_version, gemfile)
+  original_environment_variables = {}
+  begin
+    environment_variables.each do |k, v|
+      original_environment_variables[k] = ENV[k]
+      ENV[k] = v
+    end
+    p [ruby_version, gemfile, environment_variables]
+    run(ruby_version, gemfile)
+  ensure
+    original_environment_variables.each do |k, v|
+      ENV[k] = v
+    end
+  end
 end
