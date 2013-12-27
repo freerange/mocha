@@ -10,10 +10,10 @@ rescue LoadError
 end
 
 require "mocha/setup"
+require "mocha/detection/mini_test"
 require "integration/shared_tests"
 
-if defined?(::Minitest) || defined?(MiniTest)
-  testcase = defined?(Minitest::Test) ? Minitest::Test : MiniTest::Unit::TestCase
+if testcase = Mocha::Detection::MiniTest.testcase
   class MiniTestTest < testcase
     include SharedTests
   end
