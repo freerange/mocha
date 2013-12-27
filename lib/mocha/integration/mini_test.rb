@@ -41,8 +41,8 @@ module Mocha
           Debug.puts "Applying #{integration_module.description}"
           target.send(:include, integration_module)
         end
+        true
       end
-      true
     end
   end
 end
