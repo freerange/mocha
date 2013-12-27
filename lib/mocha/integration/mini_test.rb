@@ -15,10 +15,29 @@ require 'mocha/integration/mini_test/adapter'
 module Mocha
   module Integration
     module MiniTest
-      def self.activate
-        return false unless defined?(::MiniTest::Unit::TestCase)
+      def self.testcase
+        if defined?(::Minitest::Test)
+          ::Minitest::Test
+        elsif defined?(::MiniTest::Unit::TestCase)
+          ::MiniTest::Unit::TestCase
+        else
+          nil
+        end
+      end
 
-        mini_test_version = Gem::Version.new(::MiniTest::Unit::VERSION)
+      def self.version
+        if defined?(::Minitest)
+          ::Minitest::VERSION
+        elsif defined?(::MiniTest)
+          ::MiniTest::Unit::VERSION
+        else
+          '0.0.0'
+        end
+      end
+
+      def self.activate
+        return false unless MiniTest.testcase
+        mini_test_version = Gem::Version.new(MiniTest.version)
 
         Debug.puts "Detected MiniTest version: #{mini_test_version}"
 
@@ -36,7 +55,7 @@ module Mocha
           MiniTest::Nothing
         ].detect { |m| m.applicable_to?(mini_test_version) }
 
-        target = defined?(Minitest::Test) ? ::Minitest::Test : ::MiniTest::Unit::TestCase
+        target = MiniTest.testcase
         unless target < integration_module
           Debug.puts "Applying #{integration_module.description}"
           target.send(:include, integration_module)
