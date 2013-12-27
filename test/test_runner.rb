@@ -1,5 +1,7 @@
 require 'assertions'
 
+require 'mocha/detection/mini_test'
+
 module TestRunner
   def run_as_test(&block)
     run_as_tests(:test_me => block)
@@ -17,14 +19,15 @@ module TestRunner
 
     tests = methods.keys.select { |m| m.to_s[/^test/] }.map { |m| test_class.new(m) }
 
-    if defined?(::Minitest::VERSION) && (Gem::Version.new(::Minitest::VERSION) >= Gem::Version.new('5.0.0'))
+    minitest_version = Gem::Version.new(Mocha::Detection::MiniTest.version)
+    if Gem::Requirement.new('>= 5.0.0').satisfied_by?(minitest_version)
       require File.expand_path('../minitest_result', __FILE__)
       tests.each do |test|
         test.run
       end
       Minitest::Runnable.runnables.delete(test_class)
       test_result = MinitestResult.new(tests)
-    elsif defined?(::MiniTest::Unit::VERSION) && (Gem::Version.new(::MiniTest::Unit::VERSION) < Gem::Version.new('5.0.0'))
+    elsif Gem::Requirement.new('> 0.0.0', '< 5.0.0').satisfied_by?(minitest_version)
       require File.expand_path('../mini_test_result', __FILE__)
       runner = MiniTest::Unit.new
       tests.each do |test|
