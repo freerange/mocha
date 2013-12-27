@@ -43,6 +43,14 @@ end
 
 travis_config = YAML.load(File.read('.travis.yml'))
 build_configs = travis_config['matrix']['include']
+travis_config['rvm'].each do |ruby_version|
+  travis_config['gemfile'].each do |gemfile|
+    travis_config['env'].each do |env|
+      build_configs << { 'rvm' => ruby_version, 'gemfile' => gemfile, 'env' => env }
+    end
+  end
+end
+
 build_configs.each do |config|
   ruby_version = config['rvm']
   gemfile = config['gemfile']
