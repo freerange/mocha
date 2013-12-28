@@ -8,7 +8,6 @@ rvm:
   - 2.0.0
 gemfile:
   - Gemfile
-bundler_args: --verbose
 env:
   - MOCHA_OPTIONS=debug DEBUG=true DEBUG_RESOLVER=true
 matrix:
