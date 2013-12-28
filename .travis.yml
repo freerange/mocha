@@ -1,5 +1,6 @@
 before_install:
-  - gem install rubygems-update -v2.1.11
+  - gem update --system 2.1.11
+  - gem --version
 script: "rake test"
 rvm:
   - 1.8.7
