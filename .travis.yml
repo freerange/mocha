@@ -1,5 +1,5 @@
 before_install:
-  - gem install bundler
+  - gem install bundler -v2.1.11
 script: "rake test"
 rvm:
   - 1.8.7
