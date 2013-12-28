@@ -9,7 +9,7 @@ rvm:
 gemfile:
   - Gemfile
 env:
-  - MOCHA_OPTIONS=debug DEBUG=true
+  - MOCHA_OPTIONS=debug
 matrix:
   include:
     - rvm: 2.0.0
