@@ -7,7 +7,7 @@ gemfile:
   - Gemfile
 bundler_args: --verbose
 env:
-  - MOCHA_OPTIONS=debug
+  - MOCHA_OPTIONS=debug DEBUG=true
 matrix:
   include:
     - rvm: 2.0.0
