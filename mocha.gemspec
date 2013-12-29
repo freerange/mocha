@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
   s.has_rdoc = "yard"
 
   s.add_dependency("metaclass", "~> 0.0.1")
+  s.add_dependency("multi_json", "~> 1.0.1")
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
