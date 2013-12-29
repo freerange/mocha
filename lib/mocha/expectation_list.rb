@@ -2,8 +2,9 @@ module Mocha
 
   class ExpectationList
 
-    def initialize
+    def initialize(klass = nil)
       @expectations = []
+      @klass = klass
     end
 
     def add(expectation)
@@ -49,8 +50,23 @@ module Mocha
 
     private
 
-    def matching_expectations(method_name, *arguments)
+    def local_matching_expectations(method_name, *arguments)
       @expectations.select { |e| e.match?(method_name, *arguments) }
+    end
+
+    def matching_expectations(method_name, *arguments)
+      expectations = local_matching_expectations(method_name, *arguments)
+      if @klass
+        klass = @klass
+        while klass
+          mocha = klass.mocha if klass.instance_variable_defined?(:@mocha)
+          klass = klass.superclass
+          next unless mocha
+          expectations += mocha.__expectations__.send(:local_matching_expectations, method_name, *arguments).
+            select { |expectation| expectation.including_subclasses? }
+        end
+      end
+      expectations
     end
 
   end

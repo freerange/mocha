@@ -72,4 +72,17 @@ class StubClassMethodDefinedOnSuperclassTest < Mocha::TestCase
     end
     assert_equal :original_return_value, klass.send(:my_class_method)
   end
+
+  def test_should_allow_including_subclasses_in_stub
+    superklass = Class.new do
+      class << self
+        def my_class_method
+          :original_return_value
+        end
+      end
+    end
+    klass = Class.new(superklass)
+    superklass.stubs(:my_class_method).including_subclasses.returns(:new_return_value)
+    assert_equal :new_return_value, klass.my_class_method
+  end
 end

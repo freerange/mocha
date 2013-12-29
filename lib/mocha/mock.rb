@@ -249,7 +249,9 @@ module Mocha
     def initialize(mockery, name = nil, &block)
       @mockery = mockery
       @name = name || DefaultName.new(self)
-      @expectations = ExpectationList.new
+      klass = name.instance_variable_get(:@object) if name.is_a?(ImpersonatingName)
+      klass = nil unless klass.is_a?(Class)
+      @expectations = ExpectationList.new(klass)
       @everything_stubbed = false
       @responder = nil
       @unexpected_invocation = nil

@@ -496,6 +496,29 @@ module Mocha
       self
     end
 
+    # Allows the expectation to match for subclasses
+    #
+    # Only applies to expectations on class methods.
+    #
+    # @param [value] to allow this expectation to match for subclasses
+    # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
+    #
+    # @example
+    # class A
+    #   def self.something
+    #     'A'
+    #   end
+    # end
+    # class B < A
+    # end
+    #
+    # A.stubs(:something).including_subclass.returns('stub')
+    # B.something => "stub"
+    def including_subclasses(value = true)
+      @including_subclasses = value
+      self
+    end
+
     # @private
     attr_reader :backtrace
 
@@ -507,6 +530,7 @@ module Mocha
       @ordering_constraints = []
       @side_effects = []
       @cardinality, @invocation_count = Cardinality.exactly(1), 0
+      @including_subclasses = false
       @return_values = ReturnValues.new
       @yield_parameters = YieldParameters.new
       @backtrace = backtrace || caller
@@ -555,6 +579,11 @@ module Mocha
     # @private
     def satisfied?
       @cardinality.satisfied?(@invocation_count)
+    end
+
+    # @private
+    def including_subclasses?
+      @including_subclasses
     end
 
     # @private
