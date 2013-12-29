@@ -252,6 +252,7 @@ module Mocha
       @expectations = ExpectationList.new
       @everything_stubbed = false
       @responder = nil
+      @unexpected_invocation = nil
       instance_eval(&block) if block
     end
 
@@ -284,9 +285,14 @@ module Mocha
         matching_expectation_allowing_invocation.invoke(&block)
       else
         if (matching_expectation = @expectations.match(symbol, *arguments)) || (!matching_expectation && !@everything_stubbed)
-          matching_expectation.invoke(&block) if matching_expectation
-          message = UnexpectedInvocation.new(self, symbol, *arguments).to_s
-          message << @mockery.mocha_inspect
+          if @unexpected_invocation.nil?
+            @unexpected_invocation = UnexpectedInvocation.new(self, symbol, *arguments)
+            matching_expectation.invoke(&block) if matching_expectation
+            message = @unexpected_invocation.full_description
+            message << @mockery.mocha_inspect
+          else
+            message = @unexpected_invocation.short_description
+          end
           raise ExpectationErrorFactory.build(message, caller)
         end
       end
