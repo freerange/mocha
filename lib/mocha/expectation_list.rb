@@ -2,8 +2,8 @@ module Mocha
 
   class ExpectationList
 
-    def initialize
-      @expectations = []
+    def initialize(expectations = [])
+      @expectations = expectations
     end
 
     def add(expectation)
@@ -45,6 +45,10 @@ module Mocha
 
     def any?
       @expectations.any?
+    end
+
+    def +(other)
+      self.class.new(self.to_a + other.to_a)
     end
 
     private
