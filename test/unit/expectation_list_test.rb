@@ -68,4 +68,15 @@ class ExpectationListTest < Mocha::TestCase
     assert_same expectation1, expectation_list.match_allowing_invocation(:my_method)
   end
 
+  def test_should_combine_two_expectation_lists_into_one
+    expectation_list1 = ExpectationList.new
+    expectation_list2 = ExpectationList.new
+    expectation1 = Expectation.new(nil, :my_method)
+    expectation2 = Expectation.new(nil, :my_method)
+    expectation_list1.add(expectation1)
+    expectation_list2.add(expectation2)
+    expectation_list = expectation_list1 + expectation_list2
+    assert_equal [expectation1, expectation2], expectation_list.to_a
+  end
+
 end

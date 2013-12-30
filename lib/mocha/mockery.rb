@@ -1,6 +1,7 @@
 require 'mocha/central'
 require 'mocha/mock'
 require 'mocha/names'
+require 'mocha/receivers'
 require 'mocha/state_machine'
 require 'mocha/logger'
 require 'mocha/configuration'
@@ -40,11 +41,11 @@ module Mocha
     end
 
     def mock_impersonating(object, &block)
-      add_mock(Mock.new(self, ImpersonatingName.new(object), &block))
+      add_mock(Mock.new(self, ImpersonatingName.new(object), ObjectReceiver.new(object), &block))
     end
 
     def mock_impersonating_any_instance_of(klass, &block)
-      add_mock(Mock.new(self, ImpersonatingAnyInstanceName.new(klass), &block))
+      add_mock(Mock.new(self, ImpersonatingAnyInstanceName.new(klass), AnyInstanceReceiver.new(klass), &block))
     end
 
     def new_state_machine(name)
