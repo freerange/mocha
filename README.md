@@ -17,29 +17,35 @@ Install the latest version of the gem with the following command...
 
 Note: If you are intending to use Mocha with Test::Unit or MiniTest, you should only setup Mocha *after* loading the relevant test library...
 
-    require "test/unit"
-    require "mocha/setup"
+```ruby
+require "test/unit"
+require "mocha/setup"
+```
 
 #### Bundler
 
 If you're using Bundler, include Mocha in the `Gemfile` and then setup Mocha later once you know the test library has been loaded...
 
-    # Gemfile
-    gem "mocha"
+```ruby
+# Gemfile
+gem "mocha"
 
-    # Elsewhere after Bundler has loaded gems
-    require "test/unit"
-    require "mocha/setup"
+# Elsewhere after Bundler has loaded gems
+require "test/unit"
+require "mocha/setup"
+```
 
 #### Rails
 
 If you're loading Mocha using Bundler within a Rails application, you should setup Mocha manually e.g. at the bottom of your `test_helper.rb`.
 
-    # Gemfile in Rails app
-    gem "mocha"
+```ruby
+# Gemfile in Rails app
+gem "mocha"
 
-    # At bottom of test_helper.rb
-    require "mocha/setup"
+# At bottom of test_helper.rb
+require "mocha/setup"
+```
 
 #### Rails Plugin
 
