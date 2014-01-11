@@ -17,34 +17,62 @@ Install the latest version of the gem with the following command...
 
 Note: If you are intending to use Mocha with Test::Unit or MiniTest, you should only setup Mocha *after* loading the relevant test library...
 
+##### Test::Unit
+
 ```ruby
-require "test/unit"
-require "mocha/setup"
+require 'rubygems'
+gem 'mocha'
+require 'test/unit'
+require 'mocha/test_unit'
+```
+
+##### MiniTest
+
+```ruby
+require 'rubygems'
+gem 'mocha'
+require 'minitest/unit'
+require 'mocha/mini_test'
 ```
 
 #### Bundler
 
 If you're using Bundler, include Mocha in the `Gemfile` and then setup Mocha later once you know the test library has been loaded...
 
+##### Test::Unit
+
 ```ruby
 # Gemfile
 gem "mocha"
 
-# Elsewhere after Bundler has loaded gems
+# Elsewhere after Bundler has loaded gems e.g. after `require 'bundler/setup'`
 require "test/unit"
-require "mocha/setup"
+require "mocha/test_unit"
+```
+
+##### MiniTest
+
+```ruby
+# Gemfile
+gem "mocha"
+
+# Elsewhere after Bundler has loaded gems e.g. after `require 'bundler/setup'`
+require "minitest/unit"
+require "mocha/mini_test"
 ```
 
 #### Rails
 
 If you're loading Mocha using Bundler within a Rails application, you should setup Mocha manually e.g. at the bottom of your `test_helper.rb`.
 
+##### MiniTest
+
 ```ruby
 # Gemfile in Rails app
-gem "mocha"
+gem 'mocha'
 
-# At bottom of test_helper.rb
-require "mocha/setup"
+# At bottom of test_helper.rb (or at least after `require 'rails/test_help'`)
+require 'mocha/mini_test'
 ```
 
 #### Rails Plugin
@@ -55,8 +83,12 @@ Install the Rails plugin...
 
 Note: As of version 0.9.8, the Mocha plugin is not automatically setup at plugin load time. Instead it must be manually setup e.g. at the bottom of your `test_helper.rb`.
 
-    # At bottom of test_helper.rb
-    require "mocha/setup"
+##### MiniTest
+
+```ruby
+# At bottom of test_helper.rb (or at least after `require 'rails/test_help'`)
+require 'mocha/mini_test'
+```
 
 #### Know Issues
 
@@ -71,7 +103,7 @@ Note: As of version 0.9.8, the Mocha plugin is not automatically setup at plugin
 
 ```ruby
 require 'test/unit'
-require 'mocha/setup'
+require 'mocha/test_unit'
 
 class MiscExampleTest < Test::Unit::TestCase
   def test_mocking_a_class_method
@@ -127,7 +159,7 @@ class Enterprise
 end
 
 require 'test/unit'
-require 'mocha/setup'
+require 'mocha/test_unit'
 
 class EnterpriseTest < Test::Unit::TestCase
   def test_should_boldly_go
@@ -173,7 +205,7 @@ class Order
 end
 
 require 'test/unit'
-require 'mocha/setup'
+require 'mocha/test_unit'
 
 class OrderTest < Test::Unit::TestCase
   # illustrates stubbing instance method
@@ -244,7 +276,7 @@ See this [list of contributors](https://github.com/freerange/mocha/graphs/contri
 
 ### Translations
 
-* [Serbo-Croatian](http://science.webhostinggeeks.com/mocha) by [WHG Team](http://webhostinggeeks.com/).
+* [Serbo-Croatian](http://science.webhostinggeeks.com/mocha) by [WHG Team](http://webhostinggeeks.com/). (may be out-of-date)
 
 ### History
 
