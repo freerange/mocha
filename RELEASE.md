@@ -24,8 +24,6 @@ running the tests inside the bundle, the `Mocha` module happens to be defined at
 * Document how to use the build-matrix script. Fixes #160.
 * Stubbing non-public method should use same visibility. This will probably break some existing tests that were somehow relying
 on the stubbed method being public while the original method was protected or private. Fixes #150.
-* Remove Ruby version map from build matrix script. I'm using the `rbenv-aliases` plugin to alias minor versions to the
-relevant patch version.
 
 ### Internal changes
 * Use lastest Rubygems in Travis CI builds.
@@ -42,6 +40,8 @@ MiniTest gem was not loaded.
 * Include standard build combinations from Travis CI config i.e. builds using standard library versions of test libraries.
 * Fix `build-matrix.rb` script. Also use `.travis.yml` to decide what combinations to run. This means we
 can now simulate the Travis CI build locally and avoid duplication. Fixes #157.
+* Remove Ruby version map from build matrix script. I'm using the `rbenv-aliases` plugin to alias minor versions to the
+relevant patch version.
 
 ## 0.14.0
 
