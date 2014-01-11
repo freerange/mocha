@@ -1,7 +1,8 @@
 # Release Notes
 
-## 1.0.0.alpha
+## 1.0.0
 
+### External changes
 * Assume 'mocha' has been required when requiring 'mocha/setup'.
 * Provide shortcuts for integrating with specific test library i.e. `require 'mocha/test_unit'` or `require 'mocha/mini_test'`
 as alternatives to `require 'mocha/setup'`.
@@ -13,8 +14,22 @@ Note: this may break existing tests which rely on the old behaviour. Stubbing a 
 method on a child class would previously cause an unexpected invocation error. By searching up through the inheritance
 hierarchy for each of the delegate mock objects, we can provide more intuitive behaviour. Instead of an unexpected invocation
 error, invoking the method on the child class will cause the stubbed method on the superclass to be used.
-* Run the standard test suite against Ruby 2.1.0 in the build matrix.
 * Avoid recursion when constructing unexpected invocation message. Fixes #168.
+* Add explanation of method dispatch. Heavily based on the relevant jMock v1 documentation. Fixes #172.
+* Make class_eval line number more accurate. This sets the line number as the line number of the `def` statement. Closes #169.
+* Allow nesting of `responds_with` parameter matcher. Closes #166.
+* Define `Mocha` module before it's referenced. The test helper defines a class `TestCase` within the `Mocha` module. When
+running the tests inside the bundle, the `Mocha` module happens to be defined at this point. However when running the tests outside the bundle, it is not defined and so an exception is raised: `uninitialized constant Mocha (NameError)`. Fixes #163.
+* Document lack of thread-safety. Fixes #154.
+* Document how to use the build-matrix script. Fixes #160.
+* Stubbing non-public method should use same visibility. This will probably break some existing tests that were somehow relying
+on the stubbed method being public while the original method was protected or private. Fixes #150.
+* Remove Ruby version map from build matrix script. I'm using the `rbenv-aliases` plugin to alias minor versions to the
+relevant patch version.
+
+### Internal changes
+* Use lastest Rubygems in Travis CI builds.
+* Run the standard test suite against Ruby 2.1.0 in the build matrix.
 * Run integration tests against Ruby 2.0.0 with latest Test::Unit gem in the build matrix.
 * Test::Unit is not available in Ruby v1.9.3 standard library, so remove it from the build matrix.
 * Force use of Test::Unit runner, etc in relevant integration tests. Prior to this, I don't think we were really testing the
@@ -25,20 +40,8 @@ MiniTest gem was not loaded.
 * Reset environment variables between build matrix builds.
 * Only activate integration with relevant test library for each of the integration tests.
 * Include standard build combinations from Travis CI config i.e. builds using standard library versions of test libraries.
-* Add explanation of method dispatch. Heavily based on the relevant jMock v1 documentation. Fixes #172.
-* Make class_eval line number more accurate. This sets the line number as the line number of the `def` statement. Closes #169.
-* Allow nesting of `responds_with` parameter matcher. Closes #166.
-* Define `Mocha` module before it's referenced. The test helper defines a class `TestCase` within the `Mocha` module. When
-running the tests inside the bundle, the `Mocha` module happens to be defined at this point. However when running the tests outside the bundle, it is not defined and so an exception is raised: `uninitialized constant Mocha (NameError)`. Fixes #163.
-* Document lack of thread-safety. Fixes #154.
-* Document how to use the build-matrix script. Fixes #160.
-* Stubbing non-public method should use same visibility. This will probably break some existing tests that were somehow relying
-on the stubbed method being public while the original method was protected or private. Fixes #150.
-* Remove ruby version map from build matrix script. I'm using the `rbenv-aliases` plugin to alias minor versions to the
-relevant patch version.
 * Fix `build-matrix.rb` script. Also use `.travis.yml` to decide what combinations to run. This means we
 can now simulate the Travis CI build locally and avoid duplication. Fixes #157.
-
 
 ## 0.14.0
 
