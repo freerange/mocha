@@ -15,7 +15,7 @@ Install the latest version of the gem with the following command...
 
     $ gem install mocha
 
-Note: If you are intending to use Mocha with Test::Unit or MiniTest, you should only load Mocha *after* loading the relevant test library...
+Note: If you are intending to use Mocha with Test::Unit or MiniTest, you should only setup Mocha *after* loading the relevant test library...
 
 ```ruby
 require "test/unit"
@@ -24,11 +24,11 @@ require "mocha/setup"
 
 #### Bundler
 
-If you're using Bundler, ensure the correct load order by not auto-requiring Mocha in the `Gemfile` and then load it later once you know the test library has been loaded...
+If you're using Bundler, include Mocha in the `Gemfile` and then setup Mocha later once you know the test library has been loaded...
 
 ```ruby
 # Gemfile
-gem "mocha", :require => false
+gem "mocha"
 
 # Elsewhere after Bundler has loaded gems
 require "test/unit"
@@ -37,11 +37,11 @@ require "mocha/setup"
 
 #### Rails
 
-If you're loading Mocha using Bundler within a Rails application, you should ensure Mocha is not auto-required (as above) and load Mocha manually e.g. at the bottom of your `test_helper.rb`.
+If you're loading Mocha using Bundler within a Rails application, you should setup Mocha manually e.g. at the bottom of your `test_helper.rb`.
 
 ```ruby
 # Gemfile in Rails app
-gem "mocha", :require => false
+gem "mocha"
 
 # At bottom of test_helper.rb
 require "mocha/setup"
@@ -53,7 +53,10 @@ Install the Rails plugin...
 
     $ rails plugin install git://github.com/freerange/mocha.git
 
-Note: As of version 0.9.8, the Mocha plugin is not automatically loaded at plugin load time. Instead it must be manually loaded e.g. at the bottom of your `test_helper.rb`.
+Note: As of version 0.9.8, the Mocha plugin is not automatically setup at plugin load time. Instead it must be manually setup e.g. at the bottom of your `test_helper.rb`.
+
+    # At bottom of test_helper.rb
+    require "mocha/setup"
 
 #### Know Issues
 

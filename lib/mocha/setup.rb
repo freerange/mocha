@@ -1,4 +1,3 @@
-require 'mocha/version'
 require 'mocha/integration'
 
 module Mocha
