@@ -4,5 +4,5 @@ module Mocha
   # Authors of test libraries may use +Mocha::ExpectationErrorFactory+ to have Mocha raise a different exception.
   #
   # @see Mocha::ExpectationErrorFactory
-  class ExpectationError < Exception; end
+  class ExpectationError < StandardError; end
 end
