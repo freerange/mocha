@@ -258,18 +258,6 @@ See the [documentation](http://gofreerange.com/mocha/docs/Mocha/Mock.html) for `
 * [Mock Roles Not Objects](http://www.jmock.org/oopsla2004.pdf)
 * [jMock](http://www.jmock.org/)
 
-### Contributing
-
-* Fork the repository.
-* Make your changes in a branch.
-* Add tests for new behaviour. Modify existing tests for changes to existing behaviour.
-* Run `bin/build-matrix` from the root directory and ensure all the tests pass.
-  * This script depends on `rbenv` being installed.
-  * You must have all the ruby versions listed in `.travis.yml` under the `rvm` key installed (currently 1.8.7, 1.9.3 & 2.0.0).
-  * I use `rbenv-aliases` to alias the patch versions.
-  * Note that the build matrix takes quite a while to run.
-* Send us a pull request from your fork/branch.
-
 ### Contributors
 
 See this [list of contributors](https://github.com/freerange/mocha/graphs/contributors).
