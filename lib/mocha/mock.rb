@@ -170,6 +170,8 @@ module Mocha
     #
     # The {Mock} instance will delegate its +#respond_to?+ method to the +responder+.
     #
+    # Note that the methods on +responder+ are never actually invoked.
+    #
     # @param [Object, #respond_to?] responder an object used to determine whether {Mock} instance should +#respond_to?+ to an invocation.
     # @return [Mock] the same {Mock} instance, thereby allowing invocations of other {Mock} methods to be chained.
     # @see #responds_like_instance_of
@@ -221,6 +223,8 @@ module Mocha
     # A +NoMethodError+ will be raised if the responder instance does not +#respond_to?+ a method invocation (even if the method has been expected or stubbed).
     #
     # The {Mock} instance will delegate its +#respond_to?+ method to the responder instance.
+    #
+    # Note that the methods on the responder instance are never actually invoked.
     #
     # @param [Class] responder_class a class used to determine whether {Mock} instance should +#respond_to?+ to an invocation.
     # @return [Mock] the same {Mock} instance, thereby allowing invocations of other {Mock} methods to be chained.
