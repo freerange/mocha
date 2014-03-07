@@ -19,22 +19,22 @@ class PrependTest < Mocha::TestCase
         super + " World"
       end
     end
-    instance = Class.new do
+    klass = Class.new do
       prepend mod
       def my_method
         "Hello"
       end
     end
-    assert_snapshot_unchanged(instance) do
+    assert_snapshot_unchanged(klass) do
       test_result = run_as_test do
-        instance.any_instance.stubs(:my_method).returns("Bye World")
-        object = instance.new
+        klass.any_instance.stubs(:my_method).returns("Bye World")
+        object = klass.new
         assert_equal "Bye World", object.my_method
       end
       assert_passed(test_result)
     end
 
-    object = instance.new
+    object = klass.new
     assert_equal "Hello World", object.my_method
   end
 end
