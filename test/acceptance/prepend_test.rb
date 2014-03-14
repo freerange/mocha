@@ -13,28 +13,52 @@ class PrependTest < Mocha::TestCase
     teardown_acceptance_test
   end
 
-  def test_stubbing_a_prepended_method
-    mod = Module.new do
-      def my_method
-        super + " World"
-      end
+  module Mod1
+    def my_method
+      super + " World"
     end
+  end
+
+  module Mod2
+    def my_method
+      super + " Wide"
+    end
+  end
+
+  def test_stubbing_a_prepended_method
     klass = Class.new do
-      prepend mod
+      prepend Mod1
+
       def my_method
         "Hello"
       end
     end
+
+    assert_basic_stubbing_works_on(klass)
+    assert_equal "Hello World", klass.new.my_method
+  end
+
+  def test_stubbing_multiple_prepended_method
+    klass = Class.new do
+      prepend Mod1
+      prepend Mod2
+
+      def my_method
+        "Hello"
+      end
+    end
+
+    assert_basic_stubbing_works_on(klass)
+    assert_equal "Hello World Wide", klass.new.my_method
+  end
+
+  def assert_basic_stubbing_works_on(klass)
     assert_snapshot_unchanged(klass) do
       test_result = run_as_test do
         klass.any_instance.stubs(:my_method).returns("Bye World")
-        object = klass.new
-        assert_equal "Bye World", object.my_method
+        assert_equal "Bye World", klass.new.my_method
       end
       assert_passed(test_result)
     end
-
-    object = klass.new
-    assert_equal "Hello World", object.my_method
   end
 end

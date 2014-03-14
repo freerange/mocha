@@ -16,17 +16,7 @@ module Mocha
       if method_exists?(method)
         begin
           if @original_method = stubbee.instance_method(method)
-            if stubbee_owns_the_method?
-              @method_owner = :stubbee
-            elsif prepended_modules_own_the_method?
-              @method_owner = :prepended_module
-              @original_prepended_method = prepended_module_owning_the_method.instance_method(method)
-
-              prepended_module_owning_the_method.send(:remove_method, method)
-              @original_method = stubbee.instance_method(method)
-            else
-              return
-            end
+            save_prepended_modules_and_methods unless stubbee_owns_the_method?
 
             @original_visibility = :public
             if stubbee.protected_instance_methods.include?(method)
@@ -57,13 +47,12 @@ module Mocha
 
     def restore_original_method
       if @original_method
-        if !@method_owner.nil?
-          stubbee.send(:define_method, method, @original_method)
-          Module.instance_method(@original_visibility).bind(stubbee).call(method)
-        end
-        if @method_owner == :prepended_module
-          prepended_module_owning_the_method.send(:define_method, method, @original_prepended_method)
-        end
+        stubbee.send(:define_method, method, @original_method)
+        Module.instance_method(@original_visibility).bind(stubbee).call(method)
+
+        @prepended_modules_and_methods.reverse_each do |mod, method_definition|
+          mod.send(:define_method, method, method_definition)
+        end if defined?(@prepended_modules_and_methods)
       end
     end
 
@@ -80,16 +69,18 @@ module Mocha
       @original_method.owner == stubbee
     end
 
-    def prepended_module_owning_the_method
-      @prepended_module_owning_the_method ||= stubbee_prepended_modules.find { |mod| @original_method.owner == mod }
-    end
+    def save_prepended_modules_and_methods
+      @prepended_modules_and_methods = []
 
-    def prepended_modules_own_the_method?
-      !!prepended_module_owning_the_method
-    end
+      begin
+        @prepended_modules_and_methods << [
+          @original_method.owner,
+          @original_method.owner.instance_method(method)
+        ]
 
-    def stubbee_prepended_modules
-      stubbee.ancestors.take_while { |ancestor| ancestor.is_a?(Module) }
+        @original_method.owner.send(:remove_method, method)
+        @original_method = stubbee.instance_method(method)
+      end while !@original_method.owner.is_a?(stubbee)
     end
 
   end
