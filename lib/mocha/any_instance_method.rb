@@ -18,6 +18,7 @@ module Mocha
           if @original_method = stubbee.instance_method(method)
             save_prepended_modules_and_methods unless stubbee_owns_the_method?
 
+
             @original_visibility = :public
             if stubbee.protected_instance_methods.include?(method)
               @original_visibility = :protected
@@ -80,7 +81,7 @@ module Mocha
 
         @original_method.owner.send(:remove_method, method)
         @original_method = stubbee.instance_method(method)
-      end while !@original_method.owner.is_a?(stubbee)
+      end while @original_method.owner.class == Module
     end
 
   end
