@@ -13,52 +13,56 @@ class PrependTest < Mocha::TestCase
     teardown_acceptance_test
   end
 
-  module Mod1
-    def my_method
-      super + " World"
-    end
-  end
+  if RUBY_VERSION >= '2.0'
 
-  module Mod2
-    def my_method
-      super + " Wide"
-    end
-  end
-
-  def test_stubbing_a_prepended_method
-    klass = Class.new do
-      prepend Mod1
-
+    module Mod1
       def my_method
-        "Hello"
+        super + " World"
       end
     end
 
-    assert_basic_stubbing_works_on(klass)
-    assert_equal "Hello World", klass.new.my_method
-  end
-
-  def test_stubbing_multiple_prepended_method
-    klass = Class.new do
-      prepend Mod1
-      prepend Mod2
-
+    module Mod2
       def my_method
-        "Hello"
+        super + " Wide"
       end
     end
 
-    assert_basic_stubbing_works_on(klass)
-    assert_equal "Hello World Wide", klass.new.my_method
-  end
+    def test_stubbing_a_prepended_method
+      klass = Class.new do
+        prepend Mod1
 
-  def assert_basic_stubbing_works_on(klass)
-    assert_snapshot_unchanged(klass) do
-      test_result = run_as_test do
-        klass.any_instance.stubs(:my_method).returns("Bye World")
-        assert_equal "Bye World", klass.new.my_method
+        def my_method
+          "Hello"
+        end
       end
-      assert_passed(test_result)
+
+      assert_basic_stubbing_works_on(klass)
+      assert_equal "Hello World", klass.new.my_method
     end
+
+    def test_stubbing_multiple_prepended_method
+      klass = Class.new do
+        prepend Mod1
+        prepend Mod2
+
+        def my_method
+          "Hello"
+        end
+      end
+
+      assert_basic_stubbing_works_on(klass)
+      assert_equal "Hello World Wide", klass.new.my_method
+    end
+
+    def assert_basic_stubbing_works_on(klass)
+      assert_snapshot_unchanged(klass) do
+        test_result = run_as_test do
+          klass.any_instance.stubs(:my_method).returns("Bye World")
+          assert_equal "Bye World", klass.new.my_method
+        end
+        assert_passed(test_result)
+      end
+    end
+
   end
 end
