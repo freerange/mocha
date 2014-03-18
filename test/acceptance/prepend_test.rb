@@ -27,21 +27,17 @@ class PrependTest < Mocha::TestCase
       end
     end
 
-    def test_stubbing_a_prepended_method
-      klass = Class.new do
-        prepend Mod1
+    class Klass1
+      prepend Mod1
+      prepend Mod2
 
-        def my_method
-          "Hello"
-        end
+      def my_method
+        "Hello"
       end
-
-      assert_basic_stubbing_works_on(klass)
-      assert_equal "Hello World", klass.new.my_method
     end
 
-    def test_stubbing_multiple_prepended_method
-      klass = Class.new do
+    class Klass2
+      class << self
         prepend Mod1
         prepend Mod2
 
@@ -49,19 +45,42 @@ class PrependTest < Mocha::TestCase
           "Hello"
         end
       end
-
-      assert_basic_stubbing_works_on(klass)
-      assert_equal "Hello World Wide", klass.new.my_method
     end
 
-    def assert_basic_stubbing_works_on(klass)
-      assert_snapshot_unchanged(klass) do
+    def test_stubbing_any_instance_with_multiple_prepended_methods
+      assert_snapshot_unchanged(Klass1) do
         test_result = run_as_test do
-          klass.any_instance.stubs(:my_method).returns("Bye World")
-          assert_equal "Bye World", klass.new.my_method
+          Klass1.any_instance.stubs(:my_method).returns("Bye World")
+          assert_equal "Bye World", Klass1.new.my_method
         end
         assert_passed(test_result)
       end
+      assert_equal "Hello World Wide", Klass1.new.my_method
+    end
+
+    def test_stubbing_instance_with_multiple_prepended_methods
+      object = Klass1.new
+
+      assert_snapshot_unchanged(object) do
+        test_result = run_as_test do
+          object.stubs(:my_method).returns("Bye World")
+          assert_equal "Bye World", object.my_method
+          assert_equal "Hello World Wide", Klass1.new.my_method
+        end
+        assert_passed(test_result)
+      end
+      assert_equal "Hello World Wide", object.my_method
+    end
+
+    def test_stubbing_a_prepended_class_method
+      assert_snapshot_unchanged(Klass2) do
+        test_result = run_as_test do
+          Klass2.stubs(:my_method).returns("Bye World")
+          assert_equal "Bye World", Klass2.my_method
+        end
+        assert_passed(test_result)
+      end
+      assert_equal "Hello World Wide", Klass2.my_method
     end
 
   end
