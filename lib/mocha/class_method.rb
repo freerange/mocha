@@ -76,9 +76,11 @@ module Mocha
         else
           stubbee.__metaclass__.send(:define_method, method, @original_method)
         end
-        restore_prepended_methods
       end
-      set_visibility(stubbee.__metaclass__, @original_visibility)
+      if @original_method
+        set_visibility(stubbee.__metaclass__, @original_visibility)
+      end
+      restore_prepended_methods
     end
 
     def matches?(other)
@@ -116,7 +118,7 @@ module Mocha
 
       return if @original_method.owner == stubbee
 
-      while stubbee_prepended_modules.include?(@original_method.owner)
+      while @original_method && stubbee_prepended_modules.include?(@original_method.owner)
         owner      = @original_method.owner
         meth       = owner.instance_method(method)
         visibility = get_visibility_from(owner)
@@ -131,11 +133,11 @@ module Mocha
       @prepended_modules_and_methods.reverse_each do |mod, method_definition, visibility|
         mod.send(:define_method, method, method_definition)
         set_visibility(mod, visibility)
-      end
+      end if defined?(@prepended_modules_and_methods)
     end
 
     def fetch_method_from_stubbee
-      stubbee._method(method)
+      stubbee._method(method) if method_exists?(method)
     end
 
     def stubbee_prepended_modules
