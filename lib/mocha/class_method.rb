@@ -40,13 +40,9 @@ module Mocha
           @original_method = fetch_method_from_stubbee
           save_prepended_modules_and_methods
 
-          @original_visibility = :public
-          if stubbee.__metaclass__.protected_instance_methods.include?(method)
-            @original_visibility = :protected
-          elsif stubbee.__metaclass__.private_instance_methods.include?(method)
-            @original_visibility = :private
-          end
-          if @original_method && @original_method.owner == stubbee.__metaclass__
+          @original_visibility = get_visibility_from(stubbee.__metaclass__)
+
+          if should_remove_original_method?
             stubbee.__metaclass__.send(:remove_method, method)
           end
         rescue NameError
@@ -71,7 +67,7 @@ module Mocha
     end
 
     def restore_original_method
-      if @original_method && @original_method.owner == stubbee.__metaclass__
+      if should_remove_original_method?
         if RUBY_VERSION < '1.9'
           original_method = @original_method
           stubbee.__metaclass__.send(:define_method, method) do |*args, &block|
@@ -82,9 +78,7 @@ module Mocha
         end
         restore_prepended_methods
       end
-      if @original_visibility
-        Module.instance_method(@original_visibility).bind(stubbee.__metaclass__).call(method)
-      end
+      set_visibility(stubbee.__metaclass__, @original_visibility)
     end
 
     def matches?(other)
@@ -106,15 +100,27 @@ module Mocha
 
     private
 
-    def save_prepended_modules_and_methods
-      return if @original_method.owner == stubbee
+    def set_visibility(on, visibility)
+      Module.instance_method(visibility).bind(on).call(method) if visibility
+    end
 
+    def should_remove_original_method?
+      @original_method && (
+        @original_method.owner == stubbee.__metaclass__ ||
+        !@prepended_modules_and_methods.empty?
+      )
+    end
+
+    def save_prepended_modules_and_methods
       @prepended_modules_and_methods = []
 
+      return if @original_method.owner == stubbee
+
       while stubbee_prepended_modules.include?(@original_method.owner)
-        owner = @original_method.owner
-        meth  = owner.instance_method(method)
-        @prepended_modules_and_methods << [owner, meth]
+        owner      = @original_method.owner
+        meth       = owner.instance_method(method)
+        visibility = get_visibility_from(owner)
+        @prepended_modules_and_methods << [owner, meth, visibility]
 
         @original_method.owner.send(:remove_method, method)
         @original_method = fetch_method_from_stubbee
@@ -122,9 +128,10 @@ module Mocha
     end
 
     def restore_prepended_methods
-      @prepended_modules_and_methods.reverse_each do |mod, method_definition|
+      @prepended_modules_and_methods.reverse_each do |mod, method_definition, visibility|
         mod.send(:define_method, method, method_definition)
-      end if defined?(@prepended_modules_and_methods)
+        set_visibility(mod, visibility)
+      end
     end
 
     def fetch_method_from_stubbee
@@ -133,6 +140,16 @@ module Mocha
 
     def stubbee_prepended_modules
       @prepended_modules ||= stubbee.__metaclass__.ancestors.take_while { |ancestor| ancestor.class == Module }
+    end
+
+    def get_visibility_from(owner)
+      visibility = :public
+      if owner.protected_instance_methods.include?(method)
+        visibility = :protected
+      elsif owner.private_instance_methods.include?(method)
+        visibility = :private
+      end
+      visibility
     end
   end
 
