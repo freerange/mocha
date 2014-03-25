@@ -25,6 +25,8 @@ module Mocha
             end
             stubbee.send(:remove_method, method)
           end
+
+          include_prepended_module if RUBY_VERSION >= '2.0'
         rescue NameError
           # deal with nasties like ActiveRecord::Associations::AssociationProxy
         end
@@ -32,7 +34,7 @@ module Mocha
     end
 
     def define_new_method
-      stubbee.class_eval(<<-CODE, __FILE__, __LINE__ + 1)
+      definition_target.class_eval(<<-CODE, __FILE__, __LINE__ + 1)
         def #{method}(*args, &block)
           self.class.any_instance.mocha.method_missing(:#{method}, *args, &block)
         end
@@ -40,7 +42,7 @@ module Mocha
     end
 
     def remove_new_method
-      stubbee.send(:remove_method, method)
+      definition_target.send(:remove_method, method)
     end
 
     def restore_original_method
@@ -55,6 +57,23 @@ module Mocha
       return true if stubbee.protected_instance_methods(false).include?(method)
       return true if stubbee.private_instance_methods(false).include?(method)
       return false
+    end
+
+    private
+
+    def include_prepended_module
+      possible_prepended_modules = stubbee.ancestors.take_while do |mod|
+        !(Class === mod)
+      end
+
+      if possible_prepended_modules.any?
+        @definition_target = PrependedModule.new
+        stubbee.__send__ :prepend, @definition_target
+      end
+    end
+
+    def definition_target
+      @definition_target ||= stubbee
     end
 
   end
