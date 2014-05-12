@@ -69,7 +69,7 @@ module Mocha
         !(Class === mod)
       end
 
-      if possible_prepended_modules.size > 0
+      if possible_prepended_modules.any?
         @definition_target = PrependedModule.new
         stubbee.__send__ :prepend, @definition_target
       end
