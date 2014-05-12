@@ -26,7 +26,7 @@ module Mocha
             stubbee.send(:remove_method, method)
           end
 
-          include_mocha_prepended_module if RUBY_VERSION >= '2.0'
+          include_prepended_module if RUBY_VERSION >= '2.0'
         rescue NameError
           # deal with nasties like ActiveRecord::Associations::AssociationProxy
         end
@@ -64,13 +64,13 @@ module Mocha
 
     private
 
-    def include_mocha_prepended_module
+    def include_prepended_module
       possible_prepended_modules = stubbee.ancestors.take_while do |mod|
         !(Class === mod)
       end
 
       if possible_prepended_modules.size > 0
-        @definition_target = MochaPrependedModule.new
+        @definition_target = PrependedModule.new
         stubbee.__send__ :prepend, @definition_target
       end
     end
