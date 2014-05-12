@@ -39,9 +39,6 @@ module Mocha
           self.class.any_instance.mocha.method_missing(:#{method}, *args, &block)
         end
       CODE
-      if @original_visibility
-        Module.instance_method(@original_visibility).bind(definition_target).call(method)
-      end
     end
 
     def remove_new_method
