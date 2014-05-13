@@ -1,5 +1,13 @@
 # Release Notes
 
+## 1.1.0
+
+* Set visibility of any instance stub method.
+* Stub methods with a prepended method if there are other prepended methods. Thanks to @mrsimo.
+* Improve docs for `Mock#responds_like` & `#responds_like_instance_of`.
+* Use GitHub convention for instructions on contributing to Mocha.
+* Fix typos in docs. Thanks to @10io
+
 ## 1.0.0
 
 ### External changes
