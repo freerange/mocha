@@ -13,7 +13,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     teardown_acceptance_test
   end
 
-  def test_should_stub_method_within_test
+  def test_should_stub_public_method_within_test
     klass = Class.new do
       def my_instance_method
         :original_return_value
@@ -63,6 +63,25 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     assert_equal :original_return_value, instance.my_unprotected_instance_method
   end
 
+  def test_should_stub_protected_method_within_test
+    klass = Class.new do
+      def my_instance_method
+        :original_return_value
+      end
+      protected :my_instance_method
+      def self.protected(*args); end
+      def my_unprotected_instance_method
+        my_instance_method
+      end
+    end
+    instance = klass.new
+    test_result = run_as_test do
+      klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
+      assert_method_visiblity instance, :my_instance_method, :protected
+    end
+    assert_passed(test_result)
+  end
+
   def test_should_leave_stubbed_private_method_unchanged_after_test
     klass = Class.new do
       def my_instance_method
@@ -77,6 +96,22 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     end
     assert instance.private_methods(false).any? { |m| m.to_s == 'my_instance_method' }
     assert_equal :original_return_value, instance.send(:my_instance_method)
+  end
+
+  def test_should_stub_private_method_within_test
+    klass = Class.new do
+      def my_instance_method
+        :original_return_value
+      end
+      private :my_instance_method
+      def self.private(*args); end
+    end
+    instance = klass.new
+    test_result = run_as_test do
+      klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
+      assert_method_visiblity instance, :my_instance_method, :private
+    end
+    assert_passed(test_result)
   end
 
   def test_should_reset_expectations_after_test
