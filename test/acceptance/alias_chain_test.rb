@@ -29,13 +29,13 @@ class AliasChainTest < Mocha::TestCase
 
   def test_alias_method_from_module
     test_result = run_as_tests(
-      :test_2 => lambda {
-        A.y
-        assert 2
-      },
       :test_1 => lambda {
         A.stubs(:y)
         assert 1
+      },
+      :test_2 => lambda {
+        A.y
+        assert 2
       }
     )
 
