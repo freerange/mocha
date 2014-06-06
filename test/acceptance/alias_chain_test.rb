@@ -3,39 +3,44 @@ require 'mocha/setup'
 
 class AliasChainTest < Mocha::TestCase
   include AcceptanceTest
-  i_suck_and_my_tests_are_order_dependent!
 
-  def setup
-    setup_acceptance_test
-  end
+  if RUBY_VERSION >= '2.0'
 
-  def teardown
-    teardown_acceptance_test
-  end
+    i_suck_and_my_tests_are_order_dependent!
 
-  module B
-    def x
+    def setup
+      setup_acceptance_test
     end
 
-    def self.extended(base)
-      class << base
-        alias_method :y, :x
+    def teardown
+      teardown_acceptance_test
+    end
+
+    module B
+      def x
+      end
+
+      def self.extended(base)
+        class << base
+          alias_method :y, :x
+        end
       end
     end
-  end
 
-  class A
-    extend B
-  end
+    class A
+      extend B
+    end
 
-  def test_a
-    A.stubs(:y)
-    assert 1
-  end
+    def test_a
+      A.stubs(:y)
+      assert 1
+    end
 
-  def test_b
-    A.y
-    assert 2
+    def test_b
+      A.y
+      assert 2
+    end
+
   end
 
 end
