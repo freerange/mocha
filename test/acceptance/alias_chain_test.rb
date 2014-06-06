@@ -18,7 +18,7 @@ class AliasChainTest < Mocha::TestCase
 
     def self.extended(base)
       class << base
-        alias_method :y, :x
+        alias_method :z, :x
       end
     end
   end
@@ -30,11 +30,11 @@ class AliasChainTest < Mocha::TestCase
   def test_alias_method_from_module
     test_result = run_as_tests(
       :test_1 => lambda {
-        A.stubs(:y)
+        A.stubs(:z)
         assert 1
       },
       :test_2 => lambda {
-        A.y
+        A.z
         assert 2
       }
     )
