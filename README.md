@@ -90,7 +90,7 @@ Note: As of version 0.9.8, the Mocha plugin is not automatically setup at plugin
 require 'mocha/mini_test'
 ```
 
-#### Know Issues
+#### Known Issues
 
 * 0.13.x versions cause a harmless, but annoying, deprecation warning when used with Rails 3.2.0-3.2.12, 3.1.0-3.1.10 & 3.0.0-3.0.19.
 * 0.11.x versions don't work with Rails 3.2.13 (`TypeError: superclass mismatch for class ExpectationError`). See #115.
