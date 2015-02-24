@@ -8,4 +8,14 @@ class StringInspectTest < Mocha::TestCase
     assert_equal "'my_string'", string.mocha_inspect
   end
 
+  def test_should_not_replace_quotes_in_the_actual_string
+	string = '"'
+	assert_equal "'\"'", string.mocha_inspect
+  end
+
+  def test_should_escape_single_quotes
+	string = "'"
+	assert_equal "'\\''", string.mocha_inspect
+  end
+
 end
