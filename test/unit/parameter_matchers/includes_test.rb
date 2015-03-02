@@ -1,6 +1,8 @@
 require File.expand_path('../../../test_helper', __FILE__)
 
 require 'mocha/parameter_matchers/includes'
+require 'mocha/parameter_matchers/object'
+require 'mocha/parameter_matchers/has_key'
 require 'mocha/inspect'
 
 class IncludesTest < Mocha::TestCase
@@ -55,5 +57,10 @@ class IncludesTest < Mocha::TestCase
   def test_should_not_match_on_argument_that_does_not_respond_to_include
     matcher = includes(:x)
     assert !matcher.matches?([:x])
+  end
+
+  def test_should_match_object_including_value_which_matches_nested_matcher
+    matcher = includes(has_key(:key))
+    assert matcher.matches?([[{:key => 'value'}]])
   end
 end
