@@ -68,4 +68,14 @@ class IncludesTest < Mocha::TestCase
     matcher = includes(has_key(:key))
     assert !matcher.matches?([[:non_matching_element, {:other_key => 'other-value'}]])
   end
+
+  def test_should_match_string_argument_containing_substring
+    matcher = includes('bar')
+    assert matcher.matches?(['foobarbaz'])
+  end
+
+  def test_should_not_match_string_argument_without_substring
+    matcher = includes('bar')
+    assert !matcher.matches?(['foobaz'])
+  end
 end

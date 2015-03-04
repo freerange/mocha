@@ -32,6 +32,16 @@ module Mocha
     # @example Actual parameter does not include item matching nested matcher.
     #   object.method_1(['foo', 'bar', {:other_key => 'baz'}])
     #   # error raised, because no element matches `has_key(:key)` matcher
+    #
+    # @example Actual parameter is a String including substring.
+    #   object = mock()
+    #   object.expects(:method_1).with(includes('bar'))
+    #   object.method_1('foobarbaz')
+    #   # no error raised
+    #
+    # @example Actual parameter is a String not including substring.
+    #   object.method_1('foobaz')
+    #   # error raised, because 'foobaz' does not include 'bar'
     def includes(*items)
       Includes.new(*items)
     end
@@ -49,7 +59,11 @@ module Mocha
         parameter = available_parameters.shift
         return false unless parameter.respond_to?(:include?)
         if @items.size == 1
-          return parameter.any? { |p| @items.first.to_matcher.matches?([p]) }
+          if parameter.respond_to?(:any?)
+            return parameter.any? { |p| @items.first.to_matcher.matches?([p]) }
+          else
+            return parameter.include?(@items.first)
+          end
         else
           includes_matchers = @items.map { |item| Includes.new(item) }
           AllOf.new(*includes_matchers).matches?([parameter])
