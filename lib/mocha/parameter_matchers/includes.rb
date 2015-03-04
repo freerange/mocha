@@ -23,13 +23,13 @@ module Mocha
     #   object.method_1(['foo', 'baz'])
     #   # error raised, because ['foo', 'baz'] does not include 'bar'.
     #
-    # @example Actual parameter includes item which matches nested matcher
+    # @example Actual parameter includes item which matches nested matcher.
     #   object = mock()
     #   object.expects(:method_1).with(includes(has_key(:key)))
     #   object.method_1(['foo', 'bar', {:key => 'baz'}])
     #   # no error raised
     #
-    # @example Actual parameter does not include item matching nested matcher
+    # @example Actual parameter does not include item matching nested matcher.
     #   object.method_1(['foo', 'bar', {:other_key => 'baz'}])
     #   # error raised, because no element matches `has_key(:key)` matcher
     def includes(*items)
