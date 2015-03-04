@@ -61,11 +61,11 @@ class IncludesTest < Mocha::TestCase
 
   def test_should_match_object_including_value_which_matches_nested_matcher
     matcher = includes(has_key(:key))
-    assert matcher.matches?([[{:key => 'value'}, :non_matching_element]])
+    assert matcher.matches?([[:non_matching_element, {:key => 'value'}]])
   end
 
   def test_should_not_match_object_which_doesnt_include_value_that_matches_nested_matcher
     matcher = includes(has_key(:key))
-    assert !matcher.matches?([[{:other_key => 'other-value'}, :non_matching_element]])
+    assert !matcher.matches?([[:non_matching_element, {:other_key => 'other-value'}]])
   end
 end
