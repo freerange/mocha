@@ -3,6 +3,7 @@ require File.expand_path('../../../test_helper', __FILE__)
 require 'mocha/parameter_matchers/includes'
 require 'mocha/parameter_matchers/object'
 require 'mocha/parameter_matchers/has_key'
+require 'mocha/parameter_matchers/regexp_matches'
 require 'mocha/inspect'
 
 class IncludesTest < Mocha::TestCase
@@ -77,5 +78,25 @@ class IncludesTest < Mocha::TestCase
   def test_should_not_match_string_argument_without_substring
     matcher = includes('bar')
     assert !matcher.matches?(['foobaz'])
+  end
+
+  def test_should_match_hash_argument_containing_given_key
+    matcher = includes(:key)
+    assert matcher.matches?([{:thing => 1, :key => 2}])
+  end
+
+  def test_should_not_match_hash_argument_missing_given_key
+    matcher = includes(:key)
+    assert !matcher.matches?([{:thing => 1, :other => :key}])
+  end
+
+  def test_should_match_hash_when_nested_matcher_matches_key
+    matcher = includes(regexp_matches(/ar/))
+    assert matcher.matches?([{'foo' => 1, 'bar' => 2}])
+  end
+
+  def test_should_not_match_hash_when_nested_matcher_doesn_not_match_key
+    matcher = includes(regexp_matches(/az/))
+    assert !matcher.matches?([{'foo' => 1, 'bar' => 2}])
   end
 end

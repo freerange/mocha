@@ -42,6 +42,26 @@ module Mocha
     # @example Actual parameter is a String not including substring.
     #   object.method_1('foobaz')
     #   # error raised, because 'foobaz' does not include 'bar'
+    #
+    # @example Actual parameter is a Hash including the given key.
+    #   object = mock()
+    #   object.expects(:method_1).with(includes(:bar))
+    #   object.method_1({:foo => 1, :bar => 2})
+    #   # no error raised
+    #
+    # @example Actual parameter is a Hash without the given key.
+    #   object.method_1({:foo => 1, :baz => 2})
+    #   # error raised, because hash does not include key 'bar'
+    #
+    # @example Actual parameter is a Hash with a key matching the given matcher.
+    #   object = mock()
+    #   object.expects(:method_1).with(includes(regexp_matches(/ar/)))
+    #   object.method_1({'foo' => 1, 'bar' => 2})
+    #   # no error raised
+    #
+    # @example Actual parameter is a Hash no key matching the given matcher.
+    #   object.method_1({'foo' => 1, 'baz' => 3})
+    #   # error raised, because hash does not include a key matching /ar/
     def includes(*items)
       Includes.new(*items)
     end
@@ -60,7 +80,7 @@ module Mocha
         return false unless parameter.respond_to?(:include?)
         if @items.size == 1
           if parameter.respond_to?(:any?)
-            return parameter.any? { |p| @items.first.to_matcher.matches?([p]) }
+            return parameter.any? { |(p,_)| @items.first.to_matcher.matches?([p]) }
           else
             return parameter.include?(@items.first)
           end
