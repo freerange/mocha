@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency("introspection", "~> 0.0.1")
       unless ENV["MOCHA_NO_DOCS"]
         s.add_development_dependency("yard")
-        s.add_development_dependency("redcarpet", "~> 1")
+        s.add_development_dependency("redcarpet")
         s.add_development_dependency("minitest") if RUBY_VERSION >= '2.2.0'
       end
     else
@@ -41,7 +41,7 @@ Gem::Specification.new do |s|
       s.add_dependency("introspection", "~> 0.0.1")
       unless ENV["MOCHA_NO_DOCS"]
         s.add_dependency("yard")
-        s.add_dependency("redcarpet", "~> 1")
+        s.add_dependency("redcarpet")
         s.add_dependency("minitest") if RUBY_VERSION >= '2.2.0'
       end
     end
@@ -50,7 +50,7 @@ Gem::Specification.new do |s|
     s.add_dependency("introspection", "~> 0.0.1")
     unless ENV["MOCHA_NO_DOCS"]
       s.add_dependency("yard")
-      s.add_dependency("redcarpet", "~> 1")
+      s.add_dependency("redcarpet")
       s.add_dependency("minitest") if RUBY_VERSION >= '2.2.0'
     end
   end
