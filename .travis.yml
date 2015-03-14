@@ -8,8 +8,7 @@ rvm:
 gemfile:
   - Gemfile
 env:
-  - MOCHA_OPTIONS=debug
-  - MOCHA_NO_DOCS=true
+  - MOCHA_OPTIONS=debug MOCHA_NO_DOCS=true
 matrix:
   include:
     - rvm: 2.0.0
