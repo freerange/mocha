@@ -33,7 +33,6 @@ Gem::Specification.new do |s|
       s.add_development_dependency("introspection", "~> 0.0.1")
       if RUBY_VERSION >= '2.2.0'
         s.add_development_dependency("minitest")
-        s.add_development_dependency("test-unit")
       end
       if ENV["MOCHA_GENERATE_DOCS"]
         s.add_development_dependency("yard")
@@ -44,7 +43,6 @@ Gem::Specification.new do |s|
       s.add_dependency("introspection", "~> 0.0.1")
       if RUBY_VERSION >= '2.2.0'
         s.add_dependency("minitest")
-        s.add_dependency("test-unit")
       end
       if ENV["MOCHA_GENERATE_DOCS"]
         s.add_dependency("yard")
@@ -56,7 +54,6 @@ Gem::Specification.new do |s|
     s.add_dependency("introspection", "~> 0.0.1")
     if RUBY_VERSION >= '2.2.0'
       s.add_dependency("minitest")
-      s.add_dependency("test-unit")
     end
     if ENV["MOCHA_GENERATE_DOCS"]
       s.add_dependency("yard")
