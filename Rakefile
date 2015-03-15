@@ -115,7 +115,7 @@ def benchmark_test_case(klass, iterations)
   end
 end
 
-unless ENV["MOCHA_NO_DOCS"]
+if ENV["MOCHA_GENERATE_DOCS"]
   require 'yard'
 
   desc 'Remove generated documentation'

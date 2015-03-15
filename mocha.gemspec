@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
         s.add_development_dependency("minitest")
         s.add_development_dependency("test-unit")
       end
-      unless ENV["MOCHA_NO_DOCS"]
+      if ENV["MOCHA_GENERATE_DOCS"]
         s.add_development_dependency("yard")
         s.add_development_dependency("redcarpet")
       end
@@ -46,7 +46,7 @@ Gem::Specification.new do |s|
         s.add_dependency("minitest")
         s.add_dependency("test-unit")
       end
-      unless ENV["MOCHA_NO_DOCS"]
+      if ENV["MOCHA_GENERATE_DOCS"]
         s.add_dependency("yard")
         s.add_dependency("redcarpet")
       end
@@ -58,7 +58,7 @@ Gem::Specification.new do |s|
       s.add_dependency("minitest")
       s.add_dependency("test-unit")
     end
-    unless ENV["MOCHA_NO_DOCS"]
+    if ENV["MOCHA_GENERATE_DOCS"]
       s.add_dependency("yard")
       s.add_dependency("redcarpet")
     end

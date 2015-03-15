@@ -33,7 +33,6 @@ def run(ruby_version, gemfile, task = "test")
   ENV["RBENV_VERSION"] = ruby_version
   ENV["BUNDLE_GEMFILE"] = gemfile
   ENV["MOCHA_OPTIONS"] = "debug"
-  ENV["MOCHA_NO_DOCS"] = "true"
   reset_bundle
   execute(
     with_rbenv("bundle install --gemfile=#{gemfile}"),
