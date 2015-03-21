@@ -75,6 +75,22 @@ gem 'mocha'
 require 'mocha/mini_test'
 ```
 
+##### RSpec
+
+Assuming you are using the `rspec-rails` gem:
+
+```ruby
+# Gemfile in Rails app
+gem 'mocha'
+
+# Within `spec/spec_helper.rb`
+RSpec.configure do |config|
+  config.mock_with :mocha
+end
+```
+
+Note: There is no need to use a require statement to setup Mocha; RSpec does this itself.
+
 #### Rails Plugin
 
 Install the Rails plugin...
@@ -193,7 +209,7 @@ class Order
     def find_all
       # Database.connection.execute('select * from orders...
     end
-  
+
     def number_shipped_since(date)
       find_all.select { |order| order.shipped_on > date }.length
     end
