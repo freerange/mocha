@@ -12,7 +12,7 @@ module Mocha
 
   module StringMethods
     def mocha_inspect
-      inspect.gsub(/\"/, "'")
+      inspect.gsub(/\\\"/, '"').gsub(/'/, "\\\\'").gsub(/(^")|("$)/, "'")
     end
   end
 
