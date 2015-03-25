@@ -21,7 +21,7 @@ class HasValueTest < Mocha::TestCase
 
   def test_should_describe_matcher
     matcher = has_value('value_1')
-    assert_equal "has_value('value_1')", matcher.mocha_inspect
+    assert_equal %{has_value("value_1")}, matcher.mocha_inspect
   end
 
   def test_should_match_hash_including_specified_value_with_nested_value_matcher

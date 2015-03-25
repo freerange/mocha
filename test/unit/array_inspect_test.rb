@@ -10,7 +10,7 @@ class ArrayInspectTest < Mocha::TestCase
 
   def test_should_use_mocha_inspect_on_each_item
     array = [1, 2, "chris"]
-    assert_equal "[1, 2, 'chris']", array.mocha_inspect
+    assert_equal %{[1, 2, "chris"]}, array.mocha_inspect
   end
 
 end

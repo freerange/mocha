@@ -343,7 +343,7 @@ class ExpectationTest < Mocha::TestCase
     sequence_two = Sequence.new('two')
     expectation = Expectation.new(mock, :expected_method).with(1, 2, {'a' => true}, {:b => false}, [1, 2, 3]).in_sequence(sequence_one, sequence_two)
     assert !expectation.verified?
-    assert_match "mock.expected_method(1, 2, {'a' => true}, {:b => false}, [1, 2, 3]); in sequence 'one'; in sequence 'two'", expectation.mocha_inspect
+    assert_match %{mock.expected_method(1, 2, {"a" => true}, {:b => false}, [1, 2, 3]); in sequence "one"; in sequence "two"}, expectation.mocha_inspect
   end
 
   class FakeConstraint
