@@ -16,7 +16,7 @@ matrix:
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
     - rvm: jruby-head
       gemfile: gemfiles/Gemfile.minitest.latest
-      env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
+      env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest JRUBY_OPTS=-Xbacktrace.mask=true
     - rvm: 1.9.3
       gemfile: gemfiles/Gemfile.minitest.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
