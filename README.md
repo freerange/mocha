@@ -78,7 +78,7 @@ require 'mocha/mini_test'
 
 ##### RSpec
 
-Assuming you are using the `rspec-rails` gem:
+RSpec includes a mocha adapter. Just tell RSpec you want to mock with `:mocha`:
 
 ```ruby
 # Gemfile in Rails app
