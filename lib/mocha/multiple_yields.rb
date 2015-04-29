@@ -9,9 +9,9 @@ module Mocha
     end
 
     def each
-      @parameter_groups.each do |parameter_group|
+      @parameter_groups.map do |parameter_group|
         yield(parameter_group)
-      end
+      end.last
     end
 
   end
