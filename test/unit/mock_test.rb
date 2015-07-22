@@ -159,6 +159,14 @@ class MockTest < Mocha::TestCase
     assert_equal :result2, mock.method2
   end
 
+  def test_should_invoke_return_block
+    mock = build_mock
+    mock.stubs(:method1).returns() { |arg1, arg2| arg1 + arg2 }
+    mock.stubs(:method2).returns() { |arg1, arg2| arg1 - arg2 }
+    assert_equal 3, mock.method1(1, 2)
+    assert_equal -1, mock.method2(1, 2)
+  end
+
   def test_should_set_up_multiple_stubs_with_return_values
     mock = build_mock
     mock.stubs(:method1 => :result1, :method2 => :result2)

@@ -8,8 +8,8 @@ module Mocha
       @value = value
     end
 
-    def evaluate
-      @value
+    def evaluate(*args)
+      @value.respond_to?(:call) ? @value.call(*args) : @value
     end
 
   end

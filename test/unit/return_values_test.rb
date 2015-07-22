@@ -44,6 +44,13 @@ class ReturnValuesTest < Mocha::TestCase
     assert_equal 'value_2', values.next
   end
 
+  def test_should_evaluate_return_block
+    method = Proc.new { |arg1, arg2| arg1 + arg2 }
+    values = ReturnValues.new(SingleReturnValue.new(method))
+    assert_equal 3, values.next(1, 2)
+    assert_equal 7, values.next(3, 4)
+  end
+
   def test_should_build_single_return_values_for_each_values
     values = ReturnValues.build('value_1', 'value_2', 'value_3').values
     assert_equal 'value_1', values[0].evaluate
@@ -58,6 +65,15 @@ class ReturnValuesTest < Mocha::TestCase
     assert_equal 'value_1', values[0].evaluate
     assert_equal 'value_2a', values[1].evaluate
     assert_equal 'value_2b', values[2].evaluate
+  end
+
+  def test_should_combine_return_values_with_block
+    values_1 = ReturnValues.build('value_1a', 'value_1b')
+    values_2 = ReturnValues.build() { 'value_2' }
+    values = (values_1 + values_2).values
+    assert_equal 'value_1a', values[0].evaluate
+    assert_equal 'value_1b', values[1].evaluate
+    assert_equal 'value_2', values[2].evaluate
   end
 
 end
