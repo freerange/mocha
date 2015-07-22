@@ -9,7 +9,7 @@ module Mocha
       new(*values.map { |value| SingleReturnValue.new(value) })
     end
 
-    attr_accessor :values, :result_block
+    attr_accessor :values
 
     def initialize(*values)
       @values = values
