@@ -76,4 +76,16 @@ class ReturnValuesTest < Mocha::TestCase
     assert_equal 'value_2', values[2].evaluate
   end
 
+  def test_should_handle_extra_arguments_to_raisers_and_throwers
+    method = Proc.new { |arg1, arg2| arg1 + arg2 }
+    exception_class = Class.new(StandardError)
+    values = ReturnValues.new(SingleReturnValue.new('value'), SingleReturnValue.new(method), ExceptionRaiser.new(exception_class, nil), Thrower.new(:tag))
+    assert_equal 'value', values.next(1, 2)
+    assert_equal 3, values.next(1, 2)
+    # Make sure the raiser accepts the extra arguments and raises the appropriate error still
+    exception = assert_raises(exception_class) { values.next(1, 2) }
+    assert_equal exception_class.to_s, exception.message
+    assert_throws(:tag) { values.next(1, 2) }
+  end
+
 end
