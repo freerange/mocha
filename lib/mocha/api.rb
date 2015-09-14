@@ -70,7 +70,7 @@ module Mocha
     #
     # @example Using stubbed_methods_vs_return_values Hash to setup stubbed methods.
     #   def test_motor_starts_and_stops
-    #     motor = mock('motor', :start => true, :stop => true)
+    #     motor = stub('motor', :start => true, :stop => true)
     #     assert motor.start
     #     assert motor.stop
     #     # an error will not be raised even if either Motor#start or Motor#stop has not been called
@@ -78,7 +78,7 @@ module Mocha
     #
     # @example Using the optional block to setup expectations & stubbed methods.
     #   def test_motor_starts_and_stops
-    #     motor = mock('motor') do
+    #     motor = stub('motor') do
     #       expects(:start).with(100.rpm).returns(true)
     #       stubs(:stop).returns(true)
     #     end
