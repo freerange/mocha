@@ -6,12 +6,12 @@ module Mocha
   module Integration
     module TestUnit
       module GemVersion230To250
-        def self.applicable_to?(test_unit_version, ruby_version = nil)
+        def self.applicable_to?(test_unit_version, _ruby_version = nil)
           Gem::Requirement.new('>= 2.3.0', '<= 2.5.0').satisfied_by?(test_unit_version)
         end
 
         def self.description
-          "monkey patch for Test::Unit gem >= v2.3.0 and <= v2.5.0"
+          'monkey patch for Test::Unit gem >= v2.3.0 and <= v2.5.0'
         end
 
         def self.included(mod)
@@ -37,14 +37,14 @@ module Mocha
                   add_failure(e.message, e.backtrace)
                 rescue Exception
                   @internal_data.interrupted
-                  raise unless handle_exception($!)
+                  raise unless handle_exception($ERROR_INFO)
                 ensure
                   begin
                     run_teardown
                   rescue Mocha::ExpectationError => e
                     add_failure(e.message, e.backtrace)
                   rescue Exception
-                    raise unless handle_exception($!)
+                    raise unless handle_exception($ERROR_INFO)
                   end
                 end
               ensure

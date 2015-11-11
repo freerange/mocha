@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class StubClassMethodDefinedOnClassTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -20,7 +19,7 @@ class StubClassMethodDefinedOnClassTest < Mocha::TestCase
           :original_return_value
         end
         public :my_class_method
-        def self.public(*args); end
+        def self.public(*_args); end
       end
     end
     assert_snapshot_unchanged(klass) do
@@ -41,7 +40,7 @@ class StubClassMethodDefinedOnClassTest < Mocha::TestCase
           :original_return_value
         end
         protected :my_class_method
-        def self.protected(*args); end
+        def self.protected(*_args); end
       end
     end
     assert_snapshot_unchanged(klass) do
@@ -62,7 +61,7 @@ class StubClassMethodDefinedOnClassTest < Mocha::TestCase
           :original_return_value
         end
         private :my_class_method
-        def self.private(*args); end
+        def self.private(*_args); end
       end
     end
     assert_snapshot_unchanged(klass) do

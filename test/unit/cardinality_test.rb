@@ -2,7 +2,6 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/cardinality'
 
 class CardinalityTest < Mocha::TestCase
-
   include Mocha
 
   def test_should_allow_invocations_if_invocation_count_has_not_yet_reached_maximum
@@ -52,5 +51,4 @@ class CardinalityTest < Mocha::TestCase
   def test_should_not_need_verifying
     assert_equal false, Cardinality.at_least(0).needs_verifying?
   end
-
 end

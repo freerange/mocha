@@ -3,7 +3,6 @@ require 'mocha/setup'
 require 'execution_point'
 
 class MochaTestResultTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -16,7 +15,7 @@ class MochaTestResultTest < Mocha::TestCase
 
   def test_should_include_expectation_verification_in_assertion_count
     test_result = run_as_test do
-      object = mock()
+      object = mock
       object.expects(:message)
       object.message
     end
@@ -32,7 +31,7 @@ class MochaTestResultTest < Mocha::TestCase
 
   def test_should_not_include_stubbing_expectation_verification_in_assertion_count
     test_result = run_as_test do
-      object = mock()
+      object = mock
       object.stubs(:message)
       object.message
     end
@@ -41,7 +40,7 @@ class MochaTestResultTest < Mocha::TestCase
 
   def test_should_include_expectation_verification_failure_in_failure_count
     test_result = run_as_test do
-      object = mock()
+      object = mock
       object.expects(:message)
     end
     assert_equal 1, test_result.failure_count
@@ -49,7 +48,7 @@ class MochaTestResultTest < Mocha::TestCase
 
   def test_should_include_unexpected_verification_failure_in_failure_count
     test_result = run_as_test do
-      object = mock()
+      object = mock
       object.message
     end
     assert_equal 1, test_result.failure_count
@@ -65,7 +64,7 @@ class MochaTestResultTest < Mocha::TestCase
   def test_should_display_backtrace_indicating_line_number_where_unexpected_method_was_called
     execution_point = nil
     test_result = run_as_test do
-      object = mock()
+      object = mock
       execution_point = ExecutionPoint.current; object.message
     end
     assert_equal 1, test_result.failure_count
@@ -80,5 +79,4 @@ class MochaTestResultTest < Mocha::TestCase
     assert_equal 1, test_result.failure_count
     assert_equal execution_point, ExecutionPoint.new(test_result.failures[0].location)
   end
-
 end

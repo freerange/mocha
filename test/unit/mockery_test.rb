@@ -4,7 +4,6 @@ require 'mocha/state_machine'
 require 'mocha/expectation_error_factory'
 
 class MockeryTest < Mocha::TestCase
-
   include Mocha
 
   def test_should_build_instance_of_mockery
@@ -72,8 +71,12 @@ class MockeryTest < Mocha::TestCase
 
   class FakeMethod
     def stub; end
+
     def unstub; end
-    def matches?(other); true; end
+
+    def matches?(_other)
+      true
+    end
   end
 
   def test_should_unstub_all_methods_on_teardown
@@ -87,37 +90,37 @@ class MockeryTest < Mocha::TestCase
   def test_should_display_object_id_for_mocha_inspect_if_mock_has_no_name
     mockery = Mockery.new
     mock = mockery.unnamed_mock
-    assert_match Regexp.new("^#<Mock:0x[0-9A-Fa-f]{1,12}>$"), mock.mocha_inspect
+    assert_match Regexp.new('^#<Mock:0x[0-9A-Fa-f]{1,12}>$'), mock.mocha_inspect
   end
 
   def test_should_display_object_id_for_inspect_if_mock_has_no_name
     mockery = Mockery.new
     mock = mockery.unnamed_mock
-    assert_match Regexp.new("^#<Mock:0x[0-9A-Fa-f]{1,12}>$"), mock.inspect
+    assert_match Regexp.new('^#<Mock:0x[0-9A-Fa-f]{1,12}>$'), mock.inspect
   end
 
   def test_should_display_name_for_mocha_inspect_if_mock_has_string_name
     mockery = Mockery.new
     mock = mockery.named_mock('named_mock')
-    assert_equal "#<Mock:named_mock>", mock.mocha_inspect
+    assert_equal '#<Mock:named_mock>', mock.mocha_inspect
   end
 
   def test_should_display_name_for_mocha_inspect_if_mock_has_symbol_name
     mockery = Mockery.new
     mock = mockery.named_mock(:named_mock)
-    assert_equal "#<Mock:named_mock>", mock.mocha_inspect
+    assert_equal '#<Mock:named_mock>', mock.mocha_inspect
   end
 
   def test_should_display_name_for_inspect_if_mock_has_string_name
     mockery = Mockery.new
     mock = mockery.named_mock('named_mock')
-    assert_equal "#<Mock:named_mock>", mock.inspect
+    assert_equal '#<Mock:named_mock>', mock.inspect
   end
 
   def test_should_display_name_for_inspect_if_mock_has_symbol_name
     mockery = Mockery.new
     mock = mockery.named_mock(:named_mock)
-    assert_equal "#<Mock:named_mock>", mock.inspect
+    assert_equal '#<Mock:named_mock>', mock.inspect
   end
 
   def test_should_display_impersonated_object_for_mocha_inspect
@@ -139,13 +142,12 @@ class MockeryTest < Mocha::TestCase
   def test_should_display_any_instance_prefix_followed_by_class_whose_instances_are_being_impersonated_for_mocha_inspect
     mockery = Mockery.new
     mock = mockery.mock_impersonating_any_instance_of(FakeClass)
-    assert_equal "#<AnyInstance:MockeryTest::FakeClass>", mock.mocha_inspect
+    assert_equal '#<AnyInstance:MockeryTest::FakeClass>', mock.mocha_inspect
   end
 
   def test_should_display_any_instance_prefix_followed_by_class_whose_instances_are_being_impersonated_for_inspect
     mockery = Mockery.new
     mock = mockery.mock_impersonating_any_instance_of(FakeClass)
-    assert_equal "#<AnyInstance:MockeryTest::FakeClass>", mock.inspect
+    assert_equal '#<AnyInstance:MockeryTest::FakeClass>', mock.inspect
   end
-
 end

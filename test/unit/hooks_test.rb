@@ -13,7 +13,7 @@ class HooksTest < Mocha::TestCase
     end
 
     def teardown
-      raise "exception within Mockery#teardown"
+      fail 'exception within Mockery#teardown'
     end
   end
 
@@ -22,7 +22,11 @@ class HooksTest < Mocha::TestCase
     original_mockery = FakeMockery.new
     Mocha::Mockery.instance = original_mockery
 
-    fake_test_case.mocha_teardown rescue nil
+    begin
+      fake_test_case.mocha_teardown
+    rescue
+      nil
+    end
 
     assert_not_same Mocha::Mockery.instance, original_mockery
   end

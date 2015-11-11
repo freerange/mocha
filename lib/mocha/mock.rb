@@ -10,7 +10,6 @@ require 'mocha/argument_iterator'
 require 'mocha/expectation_error_factory'
 
 module Mocha
-
   # Traditional mock object.
   #
   # All methods return an {Expectation} which can be further modified by
@@ -67,7 +66,6 @@ module Mocha
   # different mock objects, use the {Expectation#in_sequence} method to
   # explicitly define a total or partial ordering of invocations.
   class Mock
-
     # Adds an expectation that the specified method must be called exactly once with any parameters.
     #
     # @param [Symbol,String] method_name name of expected method
@@ -104,13 +102,13 @@ module Mocha
     #   object.expects(:expected_method_two).returns(:result_two)
     def expects(method_name_or_hash, backtrace = nil)
       iterator = ArgumentIterator.new(method_name_or_hash)
-      iterator.each { |*args|
+      iterator.each do |*args|
         method_name = args.shift
         ensure_method_not_already_defined(method_name)
         expectation = Expectation.new(self, method_name, backtrace)
         expectation.returns(args.shift) if args.length > 0
         @expectations.add(expectation)
-      }
+      end
     end
 
     # Adds an expectation that the specified method may be called any number of times with any parameters.
@@ -140,14 +138,14 @@ module Mocha
     #   object.stubs(:stubbed_method_two).returns(:result_two)
     def stubs(method_name_or_hash, backtrace = nil)
       iterator = ArgumentIterator.new(method_name_or_hash)
-      iterator.each { |*args|
+      iterator.each do |*args|
         method_name = args.shift
         ensure_method_not_already_defined(method_name)
         expectation = Expectation.new(self, method_name, backtrace)
         expectation.at_least(0)
         expectation.returns(args.shift) if args.length > 0
         @expectations.add(expectation)
-      }
+      end
     end
 
     # Removes the specified stubbed method (added by calls to {#expects} or {#stubs}) and all expectations associated with it.
@@ -289,8 +287,8 @@ module Mocha
 
     # @private
     def method_missing(symbol, *arguments, &block)
-      if @responder and not @responder.respond_to?(symbol)
-        raise NoMethodError, "undefined method `#{symbol}' for #{self.mocha_inspect} which responds like #{@responder.mocha_inspect}"
+      if @responder && !@responder.respond_to?(symbol)
+        fail NoMethodError, "undefined method `#{symbol}' for #{mocha_inspect} which responds like #{@responder.mocha_inspect}"
       end
       if matching_expectation_allowing_invocation = all_expectations.match_allowing_invocation(symbol, *arguments)
         matching_expectation_allowing_invocation.invoke(&block)
@@ -304,14 +302,14 @@ module Mocha
           else
             message = @unexpected_invocation.short_description
           end
-          raise ExpectationErrorFactory.build(message, caller)
+          fail ExpectationErrorFactory.build(message, caller)
         end
       end
     end
 
     # @private
     def respond_to?(symbol, include_private = false)
-      if @responder then
+      if @responder
         if @responder.method(:respond_to?).arity > 1
           @responder.respond_to?(symbol, include_private)
         else
@@ -339,14 +337,12 @@ module Mocha
 
     # @private
     def ensure_method_not_already_defined(method_name)
-      self.__metaclass__.send(:undef_method, method_name) if self.__metaclass__.method_defined?(method_name) || self.__metaclass__.private_method_defined?(method_name)
+      __metaclass__.send(:undef_method, method_name) if __metaclass__.method_defined?(method_name) || __metaclass__.private_method_defined?(method_name)
     end
 
     # @private
     def any_expectations?
       @expectations.any?
     end
-
   end
-
 end

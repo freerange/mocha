@@ -1,16 +1,15 @@
 require 'metaclass'
 
 module Mocha
-
   class ClassMethod
-
     PrependedModule = Class.new(Module)
 
     attr_reader :stubbee, :method
 
     def initialize(stubbee, method)
       @stubbee = stubbee
-      @original_method, @original_visibility = nil, nil
+      @original_method = nil
+      @original_visibility = nil
       @method = RUBY_VERSION < '1.9' ? method.to_s : method.to_sym
     end
 
@@ -23,9 +22,7 @@ module Mocha
       remove_new_method
       restore_original_method
       mock.unstub(method.to_sym)
-      unless mock.any_expectations?
-        reset_mocha
-      end
+      reset_mocha unless mock.any_expectations?
     end
 
     def mock
@@ -89,7 +86,7 @@ module Mocha
     end
 
     def matches?(other)
-      return false unless (other.class == self.class)
+      return false unless other.class == self.class
       (stubbee.object_id == other.stubbee.object_id) and (method == other.method)
     end
 
@@ -121,7 +118,5 @@ module Mocha
     def definition_target
       @definition_target ||= stubbee.__metaclass__
     end
-
   end
-
 end

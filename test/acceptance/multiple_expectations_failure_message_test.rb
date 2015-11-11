@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class FailureMessageTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -21,10 +20,10 @@ class FailureMessageTest < Mocha::TestCase
     end
     assert_failed(test_result)
     assert_equal [
-      "unexpected invocation: #<Mock:mock>.method_one()",
-      "unsatisfied expectations:",
-      "- expected exactly once, invoked twice: #<Mock:mock>.method_one(any_parameters)"
-     ], test_result.failure_message_lines
+      'unexpected invocation: #<Mock:mock>.method_one()',
+      'unsatisfied expectations:',
+      '- expected exactly once, invoked twice: #<Mock:mock>.method_one(any_parameters)'
+    ], test_result.failure_message_lines
   end
 
   def test_should_report_satisfied_expectations_as_well_as_unsatisfied_expectations
@@ -37,11 +36,11 @@ class FailureMessageTest < Mocha::TestCase
     end
     assert_failed(test_result)
     assert_equal [
-      "not all expectations were satisfied",
-       "unsatisfied expectations:",
-       "- expected exactly twice, invoked once: #<Mock:mock>.method_two(any_parameters)",
-       "satisfied expectations:",
-       "- expected exactly once, invoked once: #<Mock:mock>.method_one(any_parameters)"
+      'not all expectations were satisfied',
+      'unsatisfied expectations:',
+      '- expected exactly twice, invoked once: #<Mock:mock>.method_two(any_parameters)',
+      'satisfied expectations:',
+      '- expected exactly once, invoked once: #<Mock:mock>.method_one(any_parameters)'
     ], test_result.failure_message_lines
   end
 
@@ -57,12 +56,12 @@ class FailureMessageTest < Mocha::TestCase
     end
     assert_failed(test_result)
     assert_equal [
-      "not all expectations were satisfied",
-      "unsatisfied expectations:",
-      "- expected exactly 3 times, invoked twice: #<Mock:mock>.method_three(any_parameters)",
-      "satisfied expectations:",
-      "- expected exactly twice, invoked twice: #<Mock:mock>.method_two(any_parameters)",
-      "- expected exactly once, invoked once: #<Mock:mock>.method_one(any_parameters)"
-     ], test_result.failure_message_lines
+      'not all expectations were satisfied',
+      'unsatisfied expectations:',
+      '- expected exactly 3 times, invoked twice: #<Mock:mock>.method_three(any_parameters)',
+      'satisfied expectations:',
+      '- expected exactly twice, invoked twice: #<Mock:mock>.method_two(any_parameters)',
+      '- expected exactly once, invoked once: #<Mock:mock>.method_one(any_parameters)'
+    ], test_result.failure_message_lines
   end
 end

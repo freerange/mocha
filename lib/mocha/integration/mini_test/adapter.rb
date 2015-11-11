@@ -5,7 +5,6 @@ require 'mocha/expectation_error_factory'
 module Mocha
   module Integration
     module MiniTest
-
       # Integrates Mocha into recent versions of MiniTest.
       #
       # See the source code for an example of how to integrate Mocha into a test library.
@@ -19,11 +18,11 @@ module Mocha
 
         # @private
         def self.description
-          "adapter for MiniTest gem >= v3.3.0"
+          'adapter for MiniTest gem >= v3.3.0'
         end
 
         # @private
-        def self.included(mod)
+        def self.included(_mod)
           Mocha::ExpectationErrorFactory.exception_class = ::MiniTest::Assertion
         end
 
@@ -51,4 +50,3 @@ module Mocha
     end
   end
 end
-

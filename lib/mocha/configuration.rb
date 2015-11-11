@@ -1,18 +1,15 @@
 module Mocha
-
   # Configuration settings.
   class Configuration
-
     DEFAULTS = {
-      :stubbing_method_unnecessarily => :allow,
-      :stubbing_method_on_non_mock_object => :allow,
-      :stubbing_non_existent_method => :allow,
-      :stubbing_non_public_method => :allow,
-      :stubbing_method_on_nil => :prevent,
+      stubbing_method_unnecessarily: :allow,
+      stubbing_method_on_non_mock_object: :allow,
+      stubbing_non_existent_method: :allow,
+      stubbing_non_public_method: :allow,
+      stubbing_method_on_nil: :prevent
     }
 
     class << self
-
       # Allow the specified +action+.
       #
       # @param [Symbol] action one of +:stubbing_method_unnecessarily+, +:stubbing_method_on_non_mock_object+, +:stubbing_non_existent_method+, +:stubbing_non_public_method+, +:stubbing_method_on_nil+.
@@ -74,16 +71,13 @@ module Mocha
       end
 
       # @private
-      def temporarily_change_config(action, new_value, &block)
+      def temporarily_change_config(action, new_value, &_block)
         original_value = configuration[action]
         configuration[action] = new_value
         yield
       ensure
         configuration[action] = original_value
       end
-
     end
-
   end
-
 end

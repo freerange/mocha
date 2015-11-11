@@ -1,16 +1,14 @@
 module Mocha
-
   # Used to constrain the order in which expectations can occur.
   #
   # @see API#sequence
   # @see Expectation#in_sequence
   class Sequence
-
     # @private
     class InSequenceOrderingConstraint
-
       def initialize(sequence, index)
-        @sequence, @index = sequence, index
+        @sequence = sequence
+        @index = index
       end
 
       def allows_invocation_now?
@@ -20,7 +18,6 @@ module Mocha
       def mocha_inspect
         "in sequence #{@sequence.mocha_inspect}"
       end
-
     end
 
     # @private
@@ -38,14 +35,12 @@ module Mocha
 
     # @private
     def satisfied_to_index?(index)
-      @expectations[0...index].all? { |expectation| expectation.satisfied? }
+      @expectations[0...index].all?(&:satisfied?)
     end
 
     # @private
     def mocha_inspect
       "#{@name.mocha_inspect}"
     end
-
   end
-
 end

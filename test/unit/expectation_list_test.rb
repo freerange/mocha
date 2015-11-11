@@ -5,7 +5,6 @@ require 'set'
 require 'method_definer'
 
 class ExpectationListTest < Mocha::TestCase
-
   include Mocha
 
   def test_should_return_added_expectation
@@ -78,5 +77,4 @@ class ExpectationListTest < Mocha::TestCase
     expectation_list = expectation_list1 + expectation_list2
     assert_equal [expectation1, expectation2], expectation_list.to_a
   end
-
 end

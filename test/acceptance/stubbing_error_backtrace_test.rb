@@ -3,7 +3,6 @@ require 'mocha/setup'
 require 'execution_point'
 
 class StubbingErrorBacktraceTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -60,5 +59,4 @@ class StubbingErrorBacktraceTest < Mocha::TestCase
     assert_equal 1, test_result.error_count
     assert_equal execution_point, ExecutionPoint.new(test_result.errors[0].exception.backtrace)
   end
-
 end

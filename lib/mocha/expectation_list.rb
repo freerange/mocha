@@ -1,7 +1,5 @@
 module Mocha
-
   class ExpectationList
-
     def initialize(expectations = [])
       @expectations = expectations
     end
@@ -24,7 +22,7 @@ module Mocha
     end
 
     def match_allowing_invocation(method_name, *arguments)
-      matching_expectations(method_name, *arguments).detect { |e| e.invocations_allowed? }
+      matching_expectations(method_name, *arguments).detect(&:invocations_allowed?)
     end
 
     def verified?(assertion_counter = nil)
@@ -48,7 +46,7 @@ module Mocha
     end
 
     def +(other)
-      self.class.new(self.to_a + other.to_a)
+      self.class.new(to_a + other.to_a)
     end
 
     private
@@ -56,7 +54,5 @@ module Mocha
     def matching_expectations(method_name, *arguments)
       @expectations.select { |e| e.match?(method_name, *arguments) }
     end
-
   end
-
 end

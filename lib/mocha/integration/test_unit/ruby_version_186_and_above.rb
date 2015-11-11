@@ -11,7 +11,7 @@ module Mocha
         end
 
         def self.description
-          "monkey patch for standard library Test::Unit in Ruby >= v1.8.6"
+          'monkey patch for standard library Test::Unit in Ruby >= v1.8.6'
         end
 
         def self.included(mod)
@@ -33,8 +33,8 @@ module Mocha
               rescue Test::Unit::AssertionFailedError => e
                 add_failure(e.message, e.backtrace)
               rescue Exception
-                raise if Test::Unit::TestCase::PASSTHROUGH_EXCEPTIONS.include? $!.class
-                add_error($!)
+                raise if Test::Unit::TestCase::PASSTHROUGH_EXCEPTIONS.include? $ERROR_INFO.class
+                add_error($ERROR_INFO)
               ensure
                 begin
                   teardown
@@ -43,8 +43,8 @@ module Mocha
                 rescue Test::Unit::AssertionFailedError => e
                   add_failure(e.message, e.backtrace)
                 rescue Exception
-                  raise if Test::Unit::TestCase::PASSTHROUGH_EXCEPTIONS.include? $!.class
-                  add_error($!)
+                  raise if Test::Unit::TestCase::PASSTHROUGH_EXCEPTIONS.include? $ERROR_INFO.class
+                  add_error($ERROR_INFO)
                 end
               end
             ensure

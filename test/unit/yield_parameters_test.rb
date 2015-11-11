@@ -6,7 +6,6 @@ require 'mocha/single_yield'
 require 'mocha/multiple_yields'
 
 class YieldParametersTest < Mocha::TestCase
-
   include Mocha
 
   def test_should_return_null_yield_parameter_group_by_default
@@ -89,5 +88,4 @@ class YieldParametersTest < Mocha::TestCase
     assert parameter_group.is_a?(MultipleYields)
     assert_equal [[4, 5, 6], [7, 8]], parameter_group.parameter_groups
   end
-
 end

@@ -3,7 +3,6 @@ require 'mocha/class_methods'
 require 'mocha/object_methods'
 
 class ClassMethodsTest < Mocha::TestCase
-
   def setup
     @klass = Class.new.extend(Mocha::ClassMethods, Mocha::ObjectMethods)
   end
@@ -36,5 +35,4 @@ class ClassMethodsTest < Mocha::TestCase
     any_instance = @klass.any_instance
     assert_equal @klass, any_instance.stubba_object
   end
-
 end

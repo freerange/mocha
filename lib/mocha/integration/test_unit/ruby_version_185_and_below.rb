@@ -11,7 +11,7 @@ module Mocha
         end
 
         def self.description
-          "monkey patch for standard library in Ruby <= v1.8.5"
+          'monkey patch for standard library in Ruby <= v1.8.5'
         end
 
         def self.included(mod)
@@ -33,7 +33,7 @@ module Mocha
               rescue Test::Unit::AssertionFailedError => e
                 add_failure(e.message, e.backtrace)
               rescue StandardError, ScriptError
-                add_error($!)
+                add_error($ERROR_INFO)
               ensure
                 begin
                   teardown
@@ -42,7 +42,7 @@ module Mocha
                 rescue Test::Unit::AssertionFailedError => e
                   add_failure(e.message, e.backtrace)
                 rescue StandardError, ScriptError
-                  add_error($!)
+                  add_error($ERROR_INFO)
                 end
               end
             ensure

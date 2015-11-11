@@ -5,7 +5,6 @@ require 'mocha/inspect'
 require 'stub_matcher'
 
 class NotTest < Mocha::TestCase
-
   include Mocha::ParameterMatchers
 
   def test_should_match_if_matcher_does_not_match
@@ -22,5 +21,4 @@ class NotTest < Mocha::TestCase
     matcher = Not(Stub::Matcher.new(true))
     assert_equal 'Not(matcher(true))', matcher.mocha_inspect
   end
-
 end

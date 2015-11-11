@@ -2,7 +2,6 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/inspect'
 
 class DateTimeInspectTest < Mocha::TestCase
-
   def test_should_use_include_date_in_seconds
     time = Time.now
     assert_equal "#{time.inspect} (#{time.to_f} secs)", time.mocha_inspect
@@ -17,5 +16,4 @@ class DateTimeInspectTest < Mocha::TestCase
     datetime = DateTime.new(2006, 1, 1)
     assert_equal datetime.to_s, datetime.mocha_inspect
   end
-
 end

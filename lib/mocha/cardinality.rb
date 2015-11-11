@@ -1,11 +1,8 @@
 module Mocha
-
   class Cardinality
-
     INFINITY = 1 / 0.0
 
     class << self
-
       def exactly(count)
         new(count, count)
       end
@@ -20,15 +17,15 @@ module Mocha
 
       def times(range_or_count)
         case range_or_count
-          when Range then new(range_or_count.first, range_or_count.last)
-          else new(range_or_count, range_or_count)
+        when Range then new(range_or_count.first, range_or_count.last)
+        else new(range_or_count, range_or_count)
         end
       end
-
     end
 
     def initialize(required, maximum)
-      @required, @maximum = required, maximum
+      @required = required
+      @maximum = maximum
     end
 
     def invocations_allowed?(invocation_count)
@@ -57,10 +54,10 @@ module Mocha
 
     def mocha_inspect
       if allowed_any_number_of_times?
-        "allowed any number of times"
+        'allowed any number of times'
       else
         if required == 0 && maximum == 0
-          "expected never"
+          'expected never'
         elsif required == maximum
           "expected exactly #{times(required)}"
         elsif infinite?(maximum)
@@ -79,17 +76,15 @@ module Mocha
 
     def times(number)
       case number
-        when 0 then "no times"
-        when 1 then "once"
-        when 2 then "twice"
-        else "#{number} times"
+      when 0 then 'no times'
+      when 1 then 'once'
+      when 2 then 'twice'
+      else "#{number} times"
       end
     end
 
     def infinite?(number)
       number.respond_to?(:infinite?) && number.infinite?
     end
-
   end
-
 end

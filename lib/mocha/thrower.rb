@@ -1,15 +1,12 @@
 module Mocha
-
   class Thrower
-
     def initialize(tag, object = nil)
-      @tag, @object = tag, object
+      @tag = tag
+      @object = object
     end
 
     def evaluate
       throw @tag, @object
     end
-
   end
-
 end

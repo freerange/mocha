@@ -3,7 +3,6 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/single_yield'
 
 class SingleYieldTest < Mocha::TestCase
-
   include Mocha
 
   def test_should_provide_parameters_for_single_yield_in_single_invocation
@@ -14,5 +13,4 @@ class SingleYieldTest < Mocha::TestCase
     end
     assert_equal [[1, 2, 3]], parameter_groups
   end
-
 end
