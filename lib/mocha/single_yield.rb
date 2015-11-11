@@ -1,7 +1,5 @@
 module Mocha
-
   class SingleYield
-
     attr_reader :parameters
 
     def initialize(*parameters)
@@ -11,8 +9,5 @@ module Mocha
     def each
       yield(@parameters)
     end
-
   end
-
 end
-

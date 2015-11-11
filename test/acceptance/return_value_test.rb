@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class ReturnValueTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -24,7 +23,7 @@ class ReturnValueTest < Mocha::TestCase
 
   def test_should_build_mock_incorporating_two_expectations_with_return_values
     test_result = run_as_test do
-      foo = mock('foo', :bar => 'bar', :baz => 'baz')
+      foo = mock('foo', bar: 'bar', baz: 'baz')
       assert_equal 'bar', foo.bar
       assert_equal 'baz', foo.baz
     end
@@ -42,11 +41,10 @@ class ReturnValueTest < Mocha::TestCase
 
   def test_should_build_stub_incorporating_two_expectations_with_return_values
     test_result = run_as_test do
-      foo = stub('foo', :bar => 'bar', :baz => 'baz')
+      foo = stub('foo', bar: 'bar', baz: 'baz')
       assert_equal 'bar', foo.bar
       assert_equal 'baz', foo.baz
     end
     assert_passed(test_result)
   end
-
 end

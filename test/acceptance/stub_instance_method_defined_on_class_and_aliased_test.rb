@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class StubInstanceMethodDefinedOnClassAndAliasedTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup

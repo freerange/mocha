@@ -3,7 +3,6 @@ require 'mocha/setup'
 require 'execution_point'
 
 class StubbingFrozenObjectTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup

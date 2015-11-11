@@ -1,10 +1,9 @@
 require 'date'
 
 module Mocha
-
   module ObjectMethods
     def mocha_inspect
-      address = self.__id__ * 2
+      address = __id__ * 2
       address += 0x100000000 if address < 0
       inspect =~ /#</ ? "#<#{self.class}:0x#{'%x' % address}>" : inspect
     end
@@ -18,7 +17,7 @@ module Mocha
 
   module ArrayMethods
     def mocha_inspect
-      "[#{collect { |member| member.mocha_inspect }.join(', ')}]"
+      "[#{collect(&:mocha_inspect).join(', ')}]"
     end
   end
 
@@ -39,7 +38,6 @@ module Mocha
       to_s
     end
   end
-
 end
 
 class Object

@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class StubModuleMethodTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -14,7 +13,11 @@ class StubModuleMethodTest < Mocha::TestCase
   end
 
   def test_should_stub_method_within_test
-    mod = Module.new { def self.my_module_method; :original_return_value; end }
+    mod = Module.new {
+      def self.my_module_method
+        :original_return_value
+                 end
+    }
     test_result = run_as_test do
       mod.stubs(:my_module_method).returns(:new_return_value)
       assert_equal :new_return_value, mod.my_module_method
@@ -23,7 +26,11 @@ class StubModuleMethodTest < Mocha::TestCase
   end
 
   def test_should_leave_stubbed_public_method_unchanged_after_test
-    mod = Module.new { class << self; def my_module_method; :original_return_value; end; public :my_module_method; end }
+    mod = Module.new {
+      class << self; def my_module_method
+                       :original_return_value
+                                end; public :my_module_method; end
+    }
     run_as_test do
       mod.stubs(:my_module_method).returns(:new_return_value)
     end
@@ -32,7 +39,13 @@ class StubModuleMethodTest < Mocha::TestCase
   end
 
   def test_should_leave_stubbed_protected_method_unchanged_after_test
-    mod = Module.new { class << self; def my_module_method; :original_return_value; end; protected :my_module_method; def my_unprotected_module_method; my_module_method; end; end }
+    mod = Module.new {
+      class << self; def my_module_method
+                       :original_return_value
+                                end; protected :my_module_method; def my_unprotected_module_method
+                                                                    my_module_method
+                                                                                                                end; end
+    }
     run_as_test do
       mod.stubs(:my_module_method).returns(:new_return_value)
     end
@@ -41,7 +54,11 @@ class StubModuleMethodTest < Mocha::TestCase
   end
 
   def test_should_leave_stubbed_private_method_unchanged_after_test
-    mod = Module.new { class << self; def my_module_method; :original_return_value; end; private :my_module_method; end }
+    mod = Module.new {
+      class << self; def my_module_method
+                       :original_return_value
+                                end; private :my_module_method; end
+    }
     run_as_test do
       mod.stubs(:my_module_method).returns(:new_return_value)
     end
@@ -50,7 +67,11 @@ class StubModuleMethodTest < Mocha::TestCase
   end
 
   def test_should_reset_expectations_after_test
-    mod = Module.new { def self.my_module_method; :original_return_value; end }
+    mod = Module.new {
+      def self.my_module_method
+        :original_return_value
+                 end
+    }
     run_as_test do
       mod.stubs(:my_module_method)
     end
@@ -58,7 +79,11 @@ class StubModuleMethodTest < Mocha::TestCase
   end
 
   def test_should_be_able_to_stub_a_superclass_method
-    supermod = Module.new { def self.my_superclass_method; :original_return_value; end }
+    supermod = Module.new {
+      def self.my_superclass_method
+        :original_return_value
+                 end
+    }
     mod = Module.new { include supermod }
     test_result = run_as_test do
       mod.stubs(:my_superclass_method).returns(:new_return_value)
@@ -73,7 +98,7 @@ class StubModuleMethodTest < Mocha::TestCase
   def test_should_be_able_to_stub_method_if_ruby18_public_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby18_mod = Module.new do
       class << self
-        def public_methods(include_superclass = true)
+        def public_methods(_include_superclass = true)
           ['my_module_method']
         end
       end
@@ -88,7 +113,7 @@ class StubModuleMethodTest < Mocha::TestCase
   def test_should_be_able_to_stub_method_if_ruby19_public_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby19_mod = Module.new do
       class << self
-        def public_methods(include_superclass = true)
+        def public_methods(_include_superclass = true)
           [:my_module_method]
         end
       end
@@ -103,7 +128,7 @@ class StubModuleMethodTest < Mocha::TestCase
   def test_should_be_able_to_stub_method_if_ruby_18_protected_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby18_mod = Module.new do
       class << self
-        def protected_methods(include_superclass = true)
+        def protected_methods(_include_superclass = true)
           ['my_module_method']
         end
       end
@@ -118,7 +143,7 @@ class StubModuleMethodTest < Mocha::TestCase
   def test_should_be_able_to_stub_method_if_ruby19_protected_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby19_mod = Module.new do
       class << self
-        def protected_methods(include_superclass = true)
+        def protected_methods(_include_superclass = true)
           [:my_module_method]
         end
       end
@@ -133,7 +158,7 @@ class StubModuleMethodTest < Mocha::TestCase
   def test_should_be_able_to_stub_method_if_ruby18_private_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby18_mod = Module.new do
       class << self
-        def private_methods(include_superclass = true)
+        def private_methods(_include_superclass = true)
           ['my_module_method']
         end
       end
@@ -148,7 +173,7 @@ class StubModuleMethodTest < Mocha::TestCase
   def test_should_be_able_to_stub_method_if_ruby19_private_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby19_mod = Module.new do
       class << self
-        def private_methods(include_superclass = true)
+        def private_methods(_include_superclass = true)
           [:my_module_method]
         end
       end
@@ -159,5 +184,4 @@ class StubModuleMethodTest < Mocha::TestCase
     end
     assert_passed(test_result)
   end
-
 end

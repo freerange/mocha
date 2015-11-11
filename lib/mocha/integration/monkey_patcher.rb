@@ -17,7 +17,7 @@ module Mocha
             mod.send(:remove_method, :run)
             mod.send(:include, run_method_patch)
           else
-            raise "Unable to monkey-patch #{mod}, because it does not define a `#run` method"
+            fail "Unable to monkey-patch #{mod}, because it does not define a `#run` method"
           end
         end
       end

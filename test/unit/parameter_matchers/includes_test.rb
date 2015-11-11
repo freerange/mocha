@@ -7,7 +7,6 @@ require 'mocha/parameter_matchers/regexp_matches'
 require 'mocha/inspect'
 
 class IncludesTest < Mocha::TestCase
-
   include Mocha::ParameterMatchers
 
   def test_should_match_object_including_value
@@ -32,12 +31,12 @@ class IncludesTest < Mocha::TestCase
 
   def test_should_describe_matcher_with_one_item
     matcher = includes(:x)
-    assert_equal "includes(:x)", matcher.mocha_inspect
+    assert_equal 'includes(:x)', matcher.mocha_inspect
   end
 
   def test_should_describe_matcher_with_multiple_items
     matcher = includes(:x, :y, :z)
-    assert_equal "includes(:x, :y, :z)", matcher.mocha_inspect
+    assert_equal 'includes(:x, :y, :z)', matcher.mocha_inspect
   end
 
   def test_should_not_raise_error_on_emtpy_arguments
@@ -62,12 +61,12 @@ class IncludesTest < Mocha::TestCase
 
   def test_should_match_object_including_value_which_matches_nested_matcher
     matcher = includes(has_key(:key))
-    assert matcher.matches?([[:non_matching_element, {:key => 'value'}]])
+    assert matcher.matches?([[:non_matching_element, { key: 'value' }]])
   end
 
   def test_should_not_match_object_which_doesnt_include_value_that_matches_nested_matcher
     matcher = includes(has_key(:key))
-    assert !matcher.matches?([[:non_matching_element, {:other_key => 'other-value'}]])
+    assert !matcher.matches?([[:non_matching_element, { other_key: 'other-value' }]])
   end
 
   def test_should_match_string_argument_containing_substring
@@ -82,21 +81,21 @@ class IncludesTest < Mocha::TestCase
 
   def test_should_match_hash_argument_containing_given_key
     matcher = includes(:key)
-    assert matcher.matches?([{:thing => 1, :key => 2}])
+    assert matcher.matches?([{ thing: 1, key: 2 }])
   end
 
   def test_should_not_match_hash_argument_missing_given_key
     matcher = includes(:key)
-    assert !matcher.matches?([{:thing => 1, :other => :key}])
+    assert !matcher.matches?([{ thing: 1, other: :key }])
   end
 
   def test_should_match_hash_when_nested_matcher_matches_key
     matcher = includes(regexp_matches(/ar/))
-    assert matcher.matches?([{'foo' => 1, 'bar' => 2}])
+    assert matcher.matches?([{ 'foo' => 1, 'bar' => 2 }])
   end
 
   def test_should_not_match_hash_when_nested_matcher_doesn_not_match_key
     matcher = includes(regexp_matches(/az/))
-    assert !matcher.matches?([{'foo' => 1, 'bar' => 2}])
+    assert !matcher.matches?([{ 'foo' => 1, 'bar' => 2 }])
   end
 end

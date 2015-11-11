@@ -1,9 +1,7 @@
 require 'mocha/parameter_matchers/base'
 
 module Mocha
-
   module ParameterMatchers
-
     # Matches +Hash+ containing entry with +key+ and +value+.
     #
     # @overload def has_entry(key, value)
@@ -48,29 +46,29 @@ module Mocha
         when Hash
           case options[0].length
           when 0
-            raise ArgumentError.new("Argument has no entries.")
+            fail ArgumentError.new('Argument has no entries.')
           when 1
             key, value = options[0].first
           else
-            raise ArgumentError.new("Argument has multiple entries. Use Mocha::ParameterMatchers#has_entries instead.")
+            fail ArgumentError.new('Argument has multiple entries. Use Mocha::ParameterMatchers#has_entries instead.')
           end
         else
-          raise ArgumentError.new("Argument is not a Hash.")
+          fail ArgumentError.new('Argument is not a Hash.')
         end
       when 2
         key, value = options
       else
-        raise ArgumentError.new("Too many arguments; use either a single argument (must be a Hash) or two arguments (a key and a value).")
+        fail ArgumentError.new('Too many arguments; use either a single argument (must be a Hash) or two arguments (a key and a value).')
       end
       HasEntry.new(key, value)
     end
 
     # Parameter matcher which matches when actual parameter contains expected +Hash+ entry.
     class HasEntry < Base
-
       # @private
       def initialize(key, value)
-        @key, @value = key, value
+        @key = key
+        @value = value
       end
 
       # @private
@@ -85,9 +83,6 @@ module Mocha
       def mocha_inspect
         "has_entry(#{@key.mocha_inspect} => #{@value.mocha_inspect})"
       end
-
     end
-
   end
-
 end

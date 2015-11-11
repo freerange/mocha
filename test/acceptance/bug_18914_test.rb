@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class Bug18914Test < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -14,23 +13,20 @@ class Bug18914Test < Mocha::TestCase
   end
 
   class AlwaysEql
-
     def my_method
       true
     end
 
-    def ==(o)
+    def ==(_o)
       true
     end
 
-    def eql?(o)
+    def eql?(_o)
       true
     end
-
   end
 
   def test_should_not_allow_stubbing_of_non_mock_instance_disrupted_by_legitimate_overriding_of_eql_method
-
     always_eql_1 = AlwaysEql.new
     always_eql_1.stubs(:my_method).returns(false)
 
@@ -39,5 +35,4 @@ class Bug18914Test < Mocha::TestCase
 
     assert_equal false, always_eql_2.my_method
   end
-
 end

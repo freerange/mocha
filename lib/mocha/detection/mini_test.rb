@@ -6,9 +6,7 @@ module Mocha
           ::Minitest::Test
         elsif defined?(::MiniTest::Unit::TestCase)
           ::MiniTest::Unit::TestCase
-        else
-          nil
-        end
+                end
       end
 
       def self.version

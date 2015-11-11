@@ -1,9 +1,7 @@
 require 'mocha/parameter_matchers/base'
 
 module Mocha
-
   module ParameterMatchers
-
     # Matches if all +matchers+ match.
     #
     # @param [*Array<Base>] parameter_matchers parameter matchers.
@@ -28,7 +26,6 @@ module Mocha
 
     # Parameter matcher which combines a number of other matchers using a logical AND.
     class AllOf < Base
-
       # @private
       def initialize(*matchers)
         @matchers = matchers
@@ -42,11 +39,8 @@ module Mocha
 
       # @private
       def mocha_inspect
-        "all_of(#{@matchers.map { |matcher| matcher.mocha_inspect }.join(", ") })"
+        "all_of(#{@matchers.map(&:mocha_inspect).join(', ')})"
       end
-
     end
-
   end
-
 end

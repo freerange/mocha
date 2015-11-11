@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class StubEverythingTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -15,7 +14,7 @@ class StubEverythingTest < Mocha::TestCase
 
   def test_should_build_stub_and_explicitly_add_an_expectation
     test_result = run_as_test do
-      foo = stub_everything()
+      foo = stub_everything
       foo.stubs(:bar)
       foo.bar
       foo.unexpected_invocation
@@ -35,7 +34,7 @@ class StubEverythingTest < Mocha::TestCase
 
   def test_should_build_stub_incorporating_two_expectations
     test_result = run_as_test do
-      foo = stub_everything(:bar => 'bar', :baz => 'baz')
+      foo = stub_everything(bar: 'bar', baz: 'baz')
       foo.bar
       foo.baz
       foo.unexpected_invocation
@@ -45,12 +44,11 @@ class StubEverythingTest < Mocha::TestCase
 
   def test_should_build_named_stub_incorporating_two_expectations
     test_result = run_as_test do
-      foo = stub_everything('foo', :bar => 'bar', :baz => 'baz')
+      foo = stub_everything('foo', bar: 'bar', baz: 'baz')
       foo.bar
       foo.baz
       foo.unexpected_invocation
     end
     assert_passed(test_result)
   end
-
 end

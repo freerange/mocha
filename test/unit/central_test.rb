@@ -5,7 +5,6 @@ require 'mocha/mock'
 require 'method_definer'
 
 class CentralTest < Mocha::TestCase
-
   include Mocha
 
   def test_should_start_with_empty_stubba_methods

@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class ParameterMatcherTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -17,7 +16,7 @@ class ParameterMatcherTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(has_key(:key_1))
-      mock.method(:key_1 => 'value_1', :key_2 => 'value_2')
+      mock.method(key_1: 'value_1', key_2: 'value_2')
     end
     assert_passed(test_result)
   end
@@ -26,7 +25,7 @@ class ParameterMatcherTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(has_key(:key_1))
-      mock.method(:key_2 => 'value_2')
+      mock.method(key_2: 'value_2')
     end
     assert_failed(test_result)
   end
@@ -35,7 +34,7 @@ class ParameterMatcherTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(has_value('value_1'))
-      mock.method(:key_1 => 'value_1', :key_2 => 'value_2')
+      mock.method(key_1: 'value_1', key_2: 'value_2')
     end
     assert_passed(test_result)
   end
@@ -44,7 +43,7 @@ class ParameterMatcherTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(has_value('value_1'))
-      mock.method(:key_2 => 'value_2')
+      mock.method(key_2: 'value_2')
     end
     assert_failed(test_result)
   end
@@ -53,7 +52,7 @@ class ParameterMatcherTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(has_entry(:key_1, 'value_1'))
-      mock.method(:key_1 => 'value_1', :key_2 => 'value_2')
+      mock.method(key_1: 'value_1', key_2: 'value_2')
     end
     assert_passed(test_result)
   end
@@ -62,7 +61,7 @@ class ParameterMatcherTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(has_entry(:key_1, 'value_2'))
-      mock.method(:key_1 => 'value_1', :key_2 => 'value_2')
+      mock.method(key_1: 'value_1', key_2: 'value_2')
     end
     assert_failed(test_result)
   end
@@ -70,8 +69,8 @@ class ParameterMatcherTest < Mocha::TestCase
   def test_should_match_hash_parameter_with_specified_hash_entry
     test_result = run_as_test do
       mock = mock()
-      mock.expects(:method).with(has_entry(:key_1 => 'value_1'))
-      mock.method(:key_1 => 'value_1', :key_2 => 'value_2')
+      mock.expects(:method).with(has_entry(key_1: 'value_1'))
+      mock.method(key_1: 'value_1', key_2: 'value_2')
     end
     assert_passed(test_result)
   end
@@ -79,8 +78,8 @@ class ParameterMatcherTest < Mocha::TestCase
   def test_should_not_match_hash_parameter_with_specified_hash_entry
     test_result = run_as_test do
       mock = mock()
-      mock.expects(:method).with(has_entry(:key_1 => 'value_2'))
-      mock.method(:key_1 => 'value_1', :key_2 => 'value_2')
+      mock.expects(:method).with(has_entry(key_1: 'value_2'))
+      mock.method(key_1: 'value_1', key_2: 'value_2')
     end
     assert_failed(test_result)
   end
@@ -88,8 +87,8 @@ class ParameterMatcherTest < Mocha::TestCase
   def test_should_match_hash_parameter_with_specified_entries
     test_result = run_as_test do
       mock = mock()
-      mock.expects(:method).with(has_entries(:key_1 => 'value_1', :key_2 => 'value_2'))
-      mock.method(:key_1 => 'value_1', :key_2 => 'value_2', :key_3 => 'value_3')
+      mock.expects(:method).with(has_entries(key_1: 'value_1', key_2: 'value_2'))
+      mock.method(key_1: 'value_1', key_2: 'value_2', key_3: 'value_3')
     end
     assert_passed(test_result)
   end
@@ -97,8 +96,8 @@ class ParameterMatcherTest < Mocha::TestCase
   def test_should_not_match_hash_parameter_with_specified_entries
     test_result = run_as_test do
       mock = mock()
-      mock.expects(:method).with(has_entries(:key_1 => 'value_1', :key_2 => 'value_2'))
-      mock.method(:key_1 => 'value_1', :key_2 => 'value_3')
+      mock.expects(:method).with(has_entries(key_1: 'value_1', key_2: 'value_2'))
+      mock.method(key_1: 'value_1', key_2: 'value_3')
     end
     assert_failed(test_result)
   end
@@ -125,7 +124,7 @@ class ParameterMatcherTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(has_entries(:key_1 => regexp_matches(/value_1/), kind_of(Symbol) => 'value_2'))
-      mock.method(:key_1 => 'value_1', :key_2 => 'value_2', :key_3 => 'value_3')
+      mock.method(key_1: 'value_1', key_2: 'value_2', key_3: 'value_3')
     end
     assert_passed(test_result)
   end
@@ -134,7 +133,7 @@ class ParameterMatcherTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(has_entries(:key_1 => regexp_matches(/value_1/), kind_of(String) => 'value_2'))
-      mock.method(:key_1 => 'value_2', :key_2 => 'value_3')
+      mock.method(key_1: 'value_2', key_2: 'value_3')
     end
     assert_failed(test_result)
   end
@@ -162,8 +161,8 @@ class ParameterMatcherTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(has_key(:foo) | has_key(:bar)).times(2)
-      mock.method(:foo => 'fooval')
-      mock.method(:bar => 'barval')
+      mock.method(foo: 'fooval')
+      mock.method(bar: 'barval')
     end
     assert_passed(test_result)
   end
@@ -172,7 +171,7 @@ class ParameterMatcherTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(has_key(:foo) | has_key(:bar))
-      mock.method(:baz => 'bazval')
+      mock.method(baz: 'bazval')
     end
     assert_failed(test_result)
   end
@@ -199,7 +198,7 @@ class ParameterMatcherTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(has_key(:foo) & has_key(:bar))
-      mock.method(:foo => 'fooval', :bar => 'barval')
+      mock.method(foo: 'fooval', bar: 'barval')
     end
     assert_passed(test_result)
   end
@@ -208,7 +207,7 @@ class ParameterMatcherTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(has_key(:foo) & has_key(:bar))
-      mock.method(:foo => 'fooval', :baz => 'bazval')
+      mock.method(foo: 'fooval', baz: 'bazval')
     end
     assert_failed(test_result)
   end

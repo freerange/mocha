@@ -1,9 +1,7 @@
 require 'mocha/parameter_matchers/base'
 
 module Mocha
-
   module ParameterMatchers
-
     # Matches any object that is a +klass+.
     #
     # @param [Class] klass expected class.
@@ -29,7 +27,6 @@ module Mocha
 
     # Parameter matcher which matches when actual parameter is a specific class.
     class IsA < Base
-
       # @private
       def initialize(klass)
         @klass = klass
@@ -45,9 +42,6 @@ module Mocha
       def mocha_inspect
         "is_a(#{@klass.mocha_inspect})"
       end
-
     end
-
   end
-
 end

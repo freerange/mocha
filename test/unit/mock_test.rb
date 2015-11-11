@@ -5,22 +5,21 @@ require 'set'
 require 'simple_counter'
 
 class MockTest < Mocha::TestCase
-
   include Mocha
 
   def test_should_set_single_expectation
-   mock = build_mock
-   mock.expects(:method1).returns(1)
-   assert_nothing_raised(ExpectationErrorFactory.exception_class) do
-     assert_equal 1, mock.method1
-   end
+    mock = build_mock
+    mock.expects(:method1).returns(1)
+    assert_nothing_raised(ExpectationErrorFactory.exception_class) do
+      assert_equal 1, mock.method1
+    end
   end
 
   def test_should_build_and_store_expectations
-   mock = build_mock
-   expectation = mock.expects(:method1)
-   assert_not_nil expectation
-   assert_equal [expectation], mock.__expectations__.to_a
+    mock = build_mock
+    expectation = mock.expects(:method1)
+    assert_not_nil expectation
+    assert_equal [expectation], mock.__expectations__.to_a
   end
 
   def test_should_not_stub_everything_by_default
@@ -45,7 +44,7 @@ class MockTest < Mocha::TestCase
   end
 
   if RUBY_VERSION < '1.9'
-    OBJECT_METHODS = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ || ["method_missing", "singleton_method_undefined", "initialize"].include?(m)}
+    OBJECT_METHODS = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ || %w(method_missing singleton_method_undefined initialize).include?(m) }
   else
     OBJECT_METHODS = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ || [:object_id, :method_missing, :singleton_method_undefined, :initialize, :String, :singleton_method_added].include?(m) }
   end
@@ -148,20 +147,20 @@ class MockTest < Mocha::TestCase
     parameters_for_yield = [1, 2, 3]
     mock.expects(:method1).yields(*parameters_for_yield)
     yielded_parameters = nil
-    mock.method1() { |*parameters| yielded_parameters = parameters }
+    mock.method1 { |*parameters| yielded_parameters = parameters }
     assert_equal parameters_for_yield, yielded_parameters
   end
 
   def test_should_set_up_multiple_expectations_with_return_values
     mock = build_mock
-    mock.expects(:method1 => :result1, :method2 => :result2)
+    mock.expects(method1: :result1, method2: :result2)
     assert_equal :result1, mock.method1
     assert_equal :result2, mock.method2
   end
 
   def test_should_set_up_multiple_stubs_with_return_values
     mock = build_mock
-    mock.stubs(:method1 => :result1, :method2 => :result2)
+    mock.stubs(method1: :result1, method2: :result2)
     assert_equal :result1, mock.method1
     assert_equal :result2, mock.method2
   end
@@ -227,7 +226,7 @@ class MockTest < Mocha::TestCase
 
   def test_should_respond_to_methods_which_the_responder_does_responds_to
     instance = Class.new do
-      define_method(:respond_to?) { |symbol| true }
+      define_method(:respond_to?) { |_symbol| true }
     end.new
     mock = build_mock
     mock.responds_like(instance)
@@ -236,7 +235,7 @@ class MockTest < Mocha::TestCase
 
   def test_should_not_respond_to_methods_which_the_responder_does_not_responds_to
     instance = Class.new do
-      define_method(:respond_to?) { |symbol| false }
+      define_method(:respond_to?) { |_symbol| false }
     end.new
     mock = build_mock
     mock.responds_like(instance)
@@ -245,7 +244,7 @@ class MockTest < Mocha::TestCase
 
   def test_should_respond_to_methods_which_the_responder_instance_does_responds_to
     klass = Class.new do
-      define_method(:respond_to?) { |symbol| true }
+      define_method(:respond_to?) { |_symbol| true }
     end
     mock = build_mock
     mock.responds_like_instance_of(klass)
@@ -254,7 +253,7 @@ class MockTest < Mocha::TestCase
 
   def test_should_not_respond_to_methods_which_the_responder_instance_does_not_responds_to
     klass = Class.new do
-      define_method(:respond_to?) { |symbol| false }
+      define_method(:respond_to?) { |_symbol| false }
     end
     mock = build_mock
     mock.responds_like_instance_of(klass)
@@ -279,7 +278,7 @@ class MockTest < Mocha::TestCase
 
   def test_should_not_raise_no_method_error_if_responder_does_respond_to_invoked_method
     instance = Class.new do
-      define_method(:respond_to?) { |symbol| true }
+      define_method(:respond_to?) { |_symbol| true }
     end.new
     mock = build_mock
     mock.responds_like(instance)
@@ -289,7 +288,7 @@ class MockTest < Mocha::TestCase
 
   def test_should_raise_no_method_error_if_responder_does_not_respond_to_invoked_method
     instance = Class.new do
-      define_method(:respond_to?) { |symbol| false }
+      define_method(:respond_to?) { |_symbol| false }
       define_method(:mocha_inspect) { 'mocha_inspect' }
     end.new
     mock = build_mock
@@ -300,7 +299,7 @@ class MockTest < Mocha::TestCase
 
   def test_should_raise_no_method_error_with_message_indicating_that_mock_is_constrained_to_respond_like_responder
     instance = Class.new do
-      define_method(:respond_to?) { |symbol| false }
+      define_method(:respond_to?) { |_symbol| false }
       define_method(:mocha_inspect) { 'mocha_inspect' }
     end.new
     mock = build_mock

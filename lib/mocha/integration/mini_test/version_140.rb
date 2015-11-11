@@ -11,7 +11,7 @@ module Mocha
         end
 
         def self.description
-          "monkey patch for MiniTest gem v1.4.0"
+          'monkey patch for MiniTest gem v1.4.0'
         end
 
         def self.included(mod)
@@ -19,24 +19,24 @@ module Mocha
         end
 
         module RunMethodPatch
-          def run runner
+          def run(runner)
             assertion_counter = AssertionCounter.new(self)
             result = '.'
             begin
               begin
                 @passed = nil
-                self.setup
-                self.__send__ self.__name__
+                setup
+                __send__ __name__
                 mocha_verify(assertion_counter)
                 @passed = true
               rescue Exception => e
                 @passed = false
-                result = runner.puke(self.class, self.__name__, Mocha::Integration::MiniTest.translate(e))
+                result = runner.puke(self.class, __name__, Mocha::Integration::MiniTest.translate(e))
               ensure
                 begin
-                  self.teardown
+                  teardown
                 rescue Exception => e
-                  result = runner.puke(self.class, self.__name__, Mocha::Integration::MiniTest.translate(e))
+                  result = runner.puke(self.class, __name__, Mocha::Integration::MiniTest.translate(e))
                 end
               end
             ensure

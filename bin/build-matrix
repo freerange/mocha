@@ -5,23 +5,22 @@ require 'yaml'
 def execute(*commands)
   commands.each do |command|
     system(command)
-    unless $?.success?
-      message = [
-        "Executing shell command failed.",
-        "  Command: #{command}",
-        "  Status:  #{$?.exitstatus}"
-      ].join("\n")
-      raise message
-    end
+    next if $CHILD_STATUS.success?
+    message = [
+      'Executing shell command failed.',
+      "  Command: #{command}",
+      "  Status:  #{$CHILD_STATUS.exitstatus}"
+    ].join("\n")
+    fail message
   end
 end
 
 def reset_bundle
   execute(
-    "rm -rf .bundle/gems",
-    "rm -rf gemfiles/.bundle/gems",
-    "rm -f *.lock",
-    "rm -f gemfiles/*.lock"
+    'rm -rf .bundle/gems',
+    'rm -rf gemfiles/.bundle/gems',
+    'rm -f *.lock',
+    'rm -f gemfiles/*.lock'
   )
 end
 
@@ -29,14 +28,14 @@ def with_rbenv(command)
   %{export PATH="$HOME/.rbenv/bin:$PATH"; eval "$(rbenv init -)"; #{command}}
 end
 
-def run(ruby_version, gemfile, task = "test")
-  ENV["RBENV_VERSION"] = ruby_version
-  ENV["BUNDLE_GEMFILE"] = gemfile
-  ENV["MOCHA_OPTIONS"] = "debug"
+def run(ruby_version, gemfile, task = 'test')
+  ENV['RBENV_VERSION'] = ruby_version
+  ENV['BUNDLE_GEMFILE'] = gemfile
+  ENV['MOCHA_OPTIONS'] = 'debug'
   reset_bundle
   execute(
     with_rbenv("bundle install --gemfile=#{gemfile}"),
-    with_rbenv("bundle exec rake #{task}"),
+    with_rbenv("bundle exec rake #{task}")
   )
 end
 

@@ -1,7 +1,5 @@
 module Mocha
-
   class MultipleYields
-
     attr_reader :parameter_groups
 
     def initialize(*parameter_groups)
@@ -13,8 +11,5 @@ module Mocha
         yield(parameter_group)
       end
     end
-
   end
-
 end
-

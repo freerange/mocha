@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class RaiseExceptionTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -17,9 +16,9 @@ class RaiseExceptionTest < Mocha::TestCase
     exception_class = Class.new(StandardError)
     test_result = run_as_test do
       foo = stub('foo')
-      foo.stubs(:bar).raises(exception_class, "my-message")
+      foo.stubs(:bar).raises(exception_class, 'my-message')
       exception = assert_raises(exception_class) { foo.bar }
-      assert_equal "my-message", exception.message
+      assert_equal 'my-message', exception.message
     end
     assert_passed(test_result)
   end
@@ -35,5 +34,4 @@ class RaiseExceptionTest < Mocha::TestCase
     end
     assert_passed(test_result)
   end
-
 end

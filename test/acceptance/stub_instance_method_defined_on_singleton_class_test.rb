@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class StubInstanceMethodDefinedOnSingletonClassTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -66,5 +65,4 @@ class StubInstanceMethodDefinedOnSingletonClassTest < Mocha::TestCase
     end
     assert_equal :original_return_value, instance.send(:my_singleton_method)
   end
-
 end

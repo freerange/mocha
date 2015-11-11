@@ -4,7 +4,6 @@ require 'mocha/parameter_matchers/kind_of'
 require 'mocha/inspect'
 
 class KindOfTest < Mocha::TestCase
-
   include Mocha::ParameterMatchers
 
   def test_should_match_object_that_is_a_kind_of_specified_class
@@ -19,7 +18,6 @@ class KindOfTest < Mocha::TestCase
 
   def test_should_describe_matcher
     matcher = kind_of(Integer)
-    assert_equal "kind_of(Integer)", matcher.mocha_inspect
+    assert_equal 'kind_of(Integer)', matcher.mocha_inspect
   end
-
 end

@@ -4,12 +4,10 @@ require 'mocha/argument_iterator'
 require 'mocha/expectation_error_factory'
 
 module Mocha
-
   # Methods added to all objects to allow mocking and stubbing on real (i.e. non-mock) objects.
   #
   # Both {#expects} and {#stubs} return an {Expectation} which can be further modified by methods on {Expectation}.
   module ObjectMethods
-
     # @private
     alias_method :_method, :method
 
@@ -63,22 +61,22 @@ module Mocha
     # @see Mock#expects
     def expects(expected_methods_vs_return_values)
       if expected_methods_vs_return_values.to_s =~ /the[^a-z]*spanish[^a-z]*inquisition/i
-        raise ExpectationErrorFactory.build('NOBODY EXPECTS THE SPANISH INQUISITION!')
+        fail ExpectationErrorFactory.build('NOBODY EXPECTS THE SPANISH INQUISITION!')
       end
       if frozen?
-        raise StubbingError.new("can't stub method on frozen object: #{mocha_inspect}", caller)
+        fail StubbingError.new("can't stub method on frozen object: #{mocha_inspect}", caller)
       end
       expectation = nil
       mockery = Mocha::Mockery.instance
       iterator = ArgumentIterator.new(expected_methods_vs_return_values)
-      iterator.each { |*args|
+      iterator.each do |*args|
         method_name = args.shift
         mockery.on_stubbing(self, method_name)
         method = stubba_method.new(stubba_object, method_name)
         mockery.stubba.stub(method)
         expectation = mocha.expects(method_name, caller)
         expectation.returns(args.shift) if args.length > 0
-      }
+      end
       expectation
     end
 
@@ -112,19 +110,19 @@ module Mocha
     # @see Mock#stubs
     def stubs(stubbed_methods_vs_return_values)
       if frozen?
-        raise StubbingError.new("can't stub method on frozen object: #{mocha_inspect}", caller)
+        fail StubbingError.new("can't stub method on frozen object: #{mocha_inspect}", caller)
       end
       expectation = nil
       mockery = Mocha::Mockery.instance
       iterator = ArgumentIterator.new(stubbed_methods_vs_return_values)
-      iterator.each { |*args|
+      iterator.each do |*args|
         method_name = args.shift
         mockery.on_stubbing(self, method_name)
         method = stubba_method.new(stubba_object, method_name)
         mockery.stubba.stub(method)
         expectation = mocha.stubs(method_name, caller)
         expectation.returns(args.shift) if args.length > 0
-      }
+      end
       expectation
     end
 
@@ -167,9 +165,7 @@ module Mocha
       end
       return true if protected_methods(include_superclass_methods = true).include?(method)
       return true if private_methods(include_superclass_methods = true).include?(method)
-      return false
+      false
     end
-
   end
-
 end

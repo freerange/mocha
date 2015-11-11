@@ -2,11 +2,10 @@ require 'mocha/inspect'
 require 'mocha/parameter_matchers'
 
 module Mocha
-
   class ParametersMatcher
-
     def initialize(expected_parameters = [ParameterMatchers::AnyParameters.new], &matching_block)
-      @expected_parameters, @matching_block = expected_parameters, matching_block
+      @expected_parameters = expected_parameters
+      @matching_block = matching_block
     end
 
     def match?(actual_parameters = [])
@@ -29,9 +28,7 @@ module Mocha
     end
 
     def matchers
-      @expected_parameters.map { |parameter| parameter.to_matcher }
+      @expected_parameters.map(&:to_matcher)
     end
-
   end
-
 end

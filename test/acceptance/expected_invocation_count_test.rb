@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class ExpectedInvocationCountTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -30,9 +29,9 @@ class ExpectedInvocationCountTest < Mocha::TestCase
     end
     assert_failed(test_result)
     assert_equal [
-      "unexpected invocation: #<Mock:mock>.method()",
-      "unsatisfied expectations:",
-      "- expected never, invoked once: #<Mock:mock>.method(any_parameters)"
+      'unexpected invocation: #<Mock:mock>.method()',
+      'unsatisfied expectations:',
+      '- expected never, invoked once: #<Mock:mock>.method(any_parameters)'
     ], test_result.failure_message_lines
   end
 
@@ -53,9 +52,9 @@ class ExpectedInvocationCountTest < Mocha::TestCase
     end
     assert_failed(test_result)
     assert_equal [
-      "not all expectations were satisfied",
-      "unsatisfied expectations:",
-      "- expected exactly twice, invoked once: #<Mock:mock>.method(any_parameters)"
+      'not all expectations were satisfied',
+      'unsatisfied expectations:',
+      '- expected exactly twice, invoked once: #<Mock:mock>.method(any_parameters)'
     ], test_result.failure_message_lines
   end
 
@@ -67,9 +66,9 @@ class ExpectedInvocationCountTest < Mocha::TestCase
     end
     assert_failed(test_result)
     assert_equal [
-      "unexpected invocation: #<Mock:mock>.method()",
-      "unsatisfied expectations:",
-      "- expected exactly twice, invoked 3 times: #<Mock:mock>.method(any_parameters)"
+      'unexpected invocation: #<Mock:mock>.method()',
+      'unsatisfied expectations:',
+      '- expected exactly twice, invoked 3 times: #<Mock:mock>.method(any_parameters)'
     ], test_result.failure_message_lines
   end
 
@@ -108,9 +107,9 @@ class ExpectedInvocationCountTest < Mocha::TestCase
     end
     assert_failed(test_result)
     assert_equal [
-      "not all expectations were satisfied",
-      "unsatisfied expectations:",
-      "- expected between 2 and 4 times, invoked once: #<Mock:mock>.method(any_parameters)"
+      'not all expectations were satisfied',
+      'unsatisfied expectations:',
+      '- expected between 2 and 4 times, invoked once: #<Mock:mock>.method(any_parameters)'
     ], test_result.failure_message_lines
   end
 
@@ -122,9 +121,9 @@ class ExpectedInvocationCountTest < Mocha::TestCase
     end
     assert_failed(test_result)
     assert_equal [
-      "unexpected invocation: #<Mock:mock>.method()",
-      "unsatisfied expectations:",
-      "- expected between 2 and 4 times, invoked 5 times: #<Mock:mock>.method(any_parameters)"
+      'unexpected invocation: #<Mock:mock>.method()',
+      'unsatisfied expectations:',
+      '- expected between 2 and 4 times, invoked 5 times: #<Mock:mock>.method(any_parameters)'
     ], test_result.failure_message_lines
   end
 
@@ -154,9 +153,9 @@ class ExpectedInvocationCountTest < Mocha::TestCase
     end
     assert_failed(test_result)
     assert_equal [
-      "not all expectations were satisfied",
-      "unsatisfied expectations:",
-      "- expected at least once, not yet invoked: #<Mock:mock>.method(any_parameters)"
+      'not all expectations were satisfied',
+      'unsatisfied expectations:',
+      '- expected at least once, not yet invoked: #<Mock:mock>.method(any_parameters)'
     ], test_result.failure_message_lines
   end
 
@@ -186,9 +185,9 @@ class ExpectedInvocationCountTest < Mocha::TestCase
     end
     assert_failed(test_result)
     assert_equal [
-      "unexpected invocation: #<Mock:mock>.method()",
-      "unsatisfied expectations:",
-      "- expected at most once, invoked twice: #<Mock:mock>.method(any_parameters)"
+      'unexpected invocation: #<Mock:mock>.method()',
+      'unsatisfied expectations:',
+      '- expected at most once, invoked twice: #<Mock:mock>.method(any_parameters)'
     ], test_result.failure_message_lines
   end
 
@@ -209,9 +208,9 @@ class ExpectedInvocationCountTest < Mocha::TestCase
     end
     assert_failed(test_result)
     assert_equal [
-      "unexpected invocation: #<Mock:stub>.method()",
-      "unsatisfied expectations:",
-      "- expected never, invoked once: #<Mock:stub>.method(any_parameters)"
+      'unexpected invocation: #<Mock:stub>.method()',
+      'unsatisfied expectations:',
+      '- expected never, invoked once: #<Mock:stub>.method(any_parameters)'
     ], test_result.failure_message_lines
   end
 
@@ -223,10 +222,9 @@ class ExpectedInvocationCountTest < Mocha::TestCase
     end
     assert_failed(test_result)
     assert_equal [
-      "unexpected invocation: #<Mock:mock>.method()",
-      "unsatisfied expectations:",
-      "- expected exactly once, not yet invoked: #<Mock:mock>.method(1)"
+      'unexpected invocation: #<Mock:mock>.method()',
+      'unsatisfied expectations:',
+      '- expected exactly once, not yet invoked: #<Mock:mock>.method(1)'
     ], test_result.failure_message_lines
   end
-
 end

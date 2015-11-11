@@ -3,11 +3,9 @@ require 'mocha/sequence'
 require 'mocha/expectation'
 
 class SequenceTest < Mocha::TestCase
-
   include Mocha
 
   class FakeExpectation
-
     attr_reader :ordering_constraints
 
     def initialize(satisfied = false)
@@ -22,7 +20,6 @@ class SequenceTest < Mocha::TestCase
     def satisfied?
       @satisfied
     end
-
   end
 
   def test_should_be_satisfied_if_no_expectations_added
@@ -100,5 +97,4 @@ class SequenceTest < Mocha::TestCase
     sequence.constrain_as_next_in_sequence(expectation)
     assert_equal "in sequence 'wibble'", expectation.ordering_constraints[0].mocha_inspect
   end
-
 end

@@ -3,7 +3,6 @@ require 'uri'
 
 module Mocha
   module ParameterMatchers
-
     # Matches a URI without regard to the ordering of parameters in the query string.
     #
     # @param [String] uri URI to match.
@@ -28,7 +27,6 @@ module Mocha
 
     # Parameter matcher which matches URIs with equivalent query strings.
     class QueryStringMatches < Base
-
       # @private
       def initialize(uri)
         @uri = URI.parse(uri)
@@ -46,13 +44,13 @@ module Mocha
         "has_equivalent_query_string(#{@uri.mocha_inspect})"
       end
 
-    private
+      private
+
       # @private
       def explode(uri)
-        query_hash = (uri.query || '').split('&').inject({}){ |h, kv| h.merge(Hash[*kv.split('=')]) }
-        URI::Generic::COMPONENT.inject({}){ |h, k| h.merge(k => uri.__send__(k)) }.merge(:query => query_hash)
+        query_hash = (uri.query || '').split('&').inject({}) { |h, kv| h.merge(Hash[*kv.split('=')]) }
+        URI::Generic::COMPONENT.inject({}) { |h, k| h.merge(k => uri.__send__(k)) }.merge(query: query_hash)
       end
-
     end
   end
 end

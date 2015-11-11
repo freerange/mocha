@@ -1,9 +1,7 @@
 require 'mocha/parameter_matchers/base'
 
 module Mocha
-
   module ParameterMatchers
-
     # Matches any +Object+ equalling +value+.
     #
     # @param [Object] value expected value.
@@ -29,7 +27,6 @@ module Mocha
 
     # Parameter matcher which matches when actual parameter equals expected value.
     class Equals < Base
-
       # @private
       def initialize(value)
         @value = value
@@ -45,9 +42,6 @@ module Mocha
       def mocha_inspect
         @value.mocha_inspect
       end
-
     end
-
   end
-
 end

@@ -3,7 +3,6 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/no_yields'
 
 class NoYieldsTest < Mocha::TestCase
-
   include Mocha
 
   def test_should_provide_parameters_for_no_yields_in_single_invocation
@@ -14,5 +13,4 @@ class NoYieldsTest < Mocha::TestCase
     end
     assert_equal [], parameter_groups
   end
-
 end

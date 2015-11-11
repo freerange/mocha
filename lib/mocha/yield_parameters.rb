@@ -3,18 +3,16 @@ require 'mocha/single_yield'
 require 'mocha/multiple_yields'
 
 module Mocha
-
   class YieldParameters
-
     def initialize
       @parameter_groups = []
     end
 
     def next_invocation
       case @parameter_groups.length
-        when 0 then NoYields.new
-        when 1 then @parameter_groups.first
-        else @parameter_groups.shift
+      when 0 then NoYields.new
+      when 1 then @parameter_groups.first
+      else @parameter_groups.shift
       end
     end
 
@@ -25,7 +23,5 @@ module Mocha
     def multiple_add(*parameter_groups)
       @parameter_groups << MultipleYields.new(*parameter_groups)
     end
-
   end
-
 end

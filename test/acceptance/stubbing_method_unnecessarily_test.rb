@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class StubbingMethodUnnecessarilyTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -61,5 +60,4 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
     end
     assert_passed(test_result)
   end
-
 end

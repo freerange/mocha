@@ -2,35 +2,28 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/setup'
 
 class Widget
-
   def model
     'original_model'
   end
 
   class << self
-
-    def find(options)
+    def find(_options)
       []
     end
 
-    def create(attributes)
+    def create(_attributes)
       Widget.new
     end
-
   end
-
 end
 
 module Thingy
-
   def self.wotsit
     :hoojamaflip
   end
-
 end
 
 class StubbaExampleTest < Mocha::TestCase
-
   def test_should_stub_instance_method
     widget = Widget.new
     widget.expects(:model).returns('different_model')
@@ -86,9 +79,9 @@ class StubbaExampleTest < Mocha::TestCase
     found_widgets = [Widget.new]
     created_widget = Widget.new
     Widget.expects(:find).with(:all).returns(found_widgets)
-    Widget.expects(:create).with(:model => 'wombat').returns(created_widget)
+    Widget.expects(:create).with(model: 'wombat').returns(created_widget)
     assert_equal found_widgets, Widget.find(:all)
-    assert_equal created_widget, Widget.create(:model => 'wombat')
+    assert_equal created_widget, Widget.create(model: 'wombat')
   end
 
   def should_stub_instance_method_on_any_instance_of_a_class
@@ -98,5 +91,4 @@ class StubbaExampleTest < Mocha::TestCase
     assert_equal 'another_model', widget_1.model
     assert_equal 'another_model', widget_2.model
   end
-
 end

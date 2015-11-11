@@ -2,9 +2,7 @@ require 'mocha/parameter_matchers/all_of'
 require 'mocha/parameter_matchers/base'
 
 module Mocha
-
   module ParameterMatchers
-
     # Matches any object that responds with +true+ to +include?(item)+
     # for all items.
     #
@@ -68,7 +66,6 @@ module Mocha
 
     # Parameter matcher which matches when actual parameter includes expected values.
     class Includes < Base
-
       # @private
       def initialize(*items)
         @items = items
@@ -80,7 +77,7 @@ module Mocha
         return false unless parameter.respond_to?(:include?)
         if @items.size == 1
           if parameter.respond_to?(:any?) && !parameter.is_a?(String)
-            return parameter.any? { |(p,_)| @items.first.to_matcher.matches?([p]) }
+            return parameter.any? { |(p, _)| @items.first.to_matcher.matches?([p]) }
           else
             return parameter.include?(@items.first)
           end
@@ -95,9 +92,6 @@ module Mocha
         item_descriptions = @items.map(&:mocha_inspect)
         "includes(#{item_descriptions.join(', ')})"
       end
-
     end
-
   end
-
 end

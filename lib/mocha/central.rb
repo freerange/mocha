@@ -1,7 +1,5 @@
 module Mocha
-
   class Central
-
     attr_accessor :stubba_methods
 
     def initialize
@@ -23,11 +21,7 @@ module Mocha
     end
 
     def unstub_all
-      while stubba_methods.any? do
-        unstub(stubba_methods.first)
-      end
+      unstub(stubba_methods.first) while stubba_methods.any?
     end
-
   end
-
 end

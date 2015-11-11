@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class StubbingNonPublicClassMethodTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -149,7 +148,7 @@ class StubbingNonPublicClassMethodTest < Mocha::TestCase
     Mocha::Configuration.prevent(:stubbing_non_public_method)
     klass = Class.new do
       class << self
-        def respond_to?(method, include_private_methods = false)
+        def respond_to?(method, _include_private_methods = false)
           (method == :method_to_which_class_responds)
         end
       end
@@ -159,5 +158,4 @@ class StubbingNonPublicClassMethodTest < Mocha::TestCase
     end
     assert_passed(test_result)
   end
-
 end
