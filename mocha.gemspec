@@ -29,7 +29,11 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency("rake", ">= 0")
+      if RUBY_VERSION >= '1.9.3'
+        s.add_development_dependency("rake", ">= 0")
+      else
+        s.add_development_dependency("rake", "~> 10.0")
+      end
       s.add_development_dependency("introspection", "~> 0.0.1")
       if RUBY_VERSION >= '2.2.0'
         s.add_development_dependency("minitest")
@@ -39,7 +43,11 @@ Gem::Specification.new do |s|
         s.add_development_dependency("redcarpet")
       end
     else
-      s.add_dependency("rake", ">= 0")
+      if RUBY_VERSION >= '1.9.3'
+        s.add_development_dependency("rake", ">= 0")
+      else
+        s.add_development_dependency("rake", "~> 10.0")
+      end
       s.add_dependency("introspection", "~> 0.0.1")
       if RUBY_VERSION >= '2.2.0'
         s.add_dependency("minitest")
@@ -50,7 +58,11 @@ Gem::Specification.new do |s|
       end
     end
   else
-    s.add_dependency("rake", ">= 0")
+    if RUBY_VERSION >= '1.9.3'
+      s.add_development_dependency("rake", ">= 0")
+    else
+      s.add_development_dependency("rake", "~> 10.0")
+    end
     s.add_dependency("introspection", "~> 0.0.1")
     if RUBY_VERSION >= '2.2.0'
       s.add_dependency("minitest")
