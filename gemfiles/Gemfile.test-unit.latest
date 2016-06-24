@@ -3,5 +3,9 @@ source 'https://rubygems.org'
 gemspec :path=>"../"
 
 group :development do
-  gem "test-unit"
+  if RUBY_VERSION <= '1.8.7'
+    gem "test-unit", "~> 2"
+  else
+    gem "test-unit"
+  end
 end
