@@ -6,6 +6,8 @@ module Mocha
 
     PrependedModule = Class.new(Module)
 
+    RUBY_21_PLUS = (RUBY_VERSION >= "2.1.0")
+
     attr_reader :stubbee, :method
 
     def initialize(stubbee, method)
@@ -112,7 +114,7 @@ module Mocha
         !(Class === mod)
       end
 
-      if possible_prepended_modules.any? || aliased?
+      if possible_prepended_modules.any? || needs_prepend_because_it_was_aliased?
         @definition_target = PrependedModule.new
         stubbee.__metaclass__.__send__ :prepend, @definition_target
       end
@@ -122,8 +124,8 @@ module Mocha
       @definition_target ||= stubbee.__metaclass__
     end
 
-    def aliased?
-      @original_method.original_name != @original_method.name
+    def needs_prepend_because_it_was_aliased?
+      RUBY_21_PLUS && @original_method.original_name != @original_method.name
     end
 
   end
