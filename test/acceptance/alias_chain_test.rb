@@ -15,16 +15,13 @@ class AliasChainTest < Mocha::TestCase
   module B
     def x
     end
-
-    def self.extended(base)
-      class << base
-        alias_method :z, :x
-      end
-    end
   end
 
   class A
     extend B
+    class << self
+      alias_method :z, :x
+    end
   end
 
   def test_alias_method_from_module
