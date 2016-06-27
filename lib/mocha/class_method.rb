@@ -4,6 +4,9 @@ module Mocha
 
   class ClassMethod
 
+    RUBY_18 = (RUBY_VERSION < '1.9')
+    RUBY_2PLUS = (RUBY_VERSION >= '2.0')
+
     PrependedModule = Class.new(Module)
 
     attr_reader :stubbee, :method
@@ -11,7 +14,7 @@ module Mocha
     def initialize(stubbee, method)
       @stubbee = stubbee
       @original_method, @original_visibility = nil, nil
-      @method = RUBY_VERSION < '1.9' ? method.to_s : method.to_sym
+      @method = (RUBY_18 ? method.to_s : method.to_sym)
     end
 
     def stub
@@ -50,7 +53,7 @@ module Mocha
             stubbee.__metaclass__.send(:remove_method, method)
           end
 
-          include_prepended_module if RUBY_VERSION >= '2.0'
+          include_prepended_module if RUBY_2PLUS
         rescue NameError
           # deal with nasties like ActiveRecord::Associations::AssociationProxy
         end
@@ -74,7 +77,7 @@ module Mocha
 
     def restore_original_method
       if @original_method && @original_method.owner == stubbee.__metaclass__
-        if RUBY_VERSION < '1.9'
+        if RUBY_18
           original_method = @original_method
           stubbee.__metaclass__.send(:define_method, method) do |*args, &block|
             original_method.call(*args, &block)
@@ -102,7 +105,9 @@ module Mocha
     def method_exists?(method)
       symbol = method.to_sym
       __metaclass__ = stubbee.__metaclass__
-      __metaclass__.public_method_defined?(symbol) || __metaclass__.protected_method_defined?(symbol) || __metaclass__.private_method_defined?(symbol)
+      __metaclass__.public_method_defined?(symbol) ||
+        __metaclass__.protected_method_defined?(symbol) ||
+        __metaclass__.private_method_defined?(symbol)
     end
 
     private
