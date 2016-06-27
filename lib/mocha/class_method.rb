@@ -4,6 +4,9 @@ module Mocha
 
   class ClassMethod
 
+    RUBY_18 = (RUBY_VERSION < '1.9')
+    RUBY_2PLUS = (RUBY_VERSION >= '2.0')
+
     PrependedModule = Class.new(Module)
 
     attr_reader :stubbee, :method
@@ -11,7 +14,7 @@ module Mocha
     def initialize(stubbee, method)
       @stubbee = stubbee
       @original_method, @original_visibility = nil, nil
-      @method = RUBY_VERSION < '1.9' ? method.to_s : method.to_sym
+      @method = (RUBY_18 ? method.to_s : method.to_sym)
     end
 
     def stub
@@ -37,20 +40,14 @@ module Mocha
     end
 
     def hide_original_method
-      if method_exists?(method)
+      if @original_visibility = method_visibility(method)
         begin
           @original_method = stubbee._method(method)
-          @original_visibility = :public
-          if stubbee.__metaclass__.protected_instance_methods.include?(method)
-            @original_visibility = :protected
-          elsif stubbee.__metaclass__.private_instance_methods.include?(method)
-            @original_visibility = :private
-          end
           if @original_method && @original_method.owner == stubbee.__metaclass__
             stubbee.__metaclass__.send(:remove_method, method)
           end
 
-          include_prepended_module if RUBY_VERSION >= '2.0'
+          include_prepended_module if RUBY_2PLUS
         rescue NameError
           # deal with nasties like ActiveRecord::Associations::AssociationProxy
         end
@@ -74,7 +71,7 @@ module Mocha
 
     def restore_original_method
       if @original_method && @original_method.owner == stubbee.__metaclass__
-        if RUBY_VERSION < '1.9'
+        if RUBY_18
           original_method = @original_method
           stubbee.__metaclass__.send(:define_method, method) do |*args, &block|
             original_method.call(*args, &block)
@@ -99,10 +96,13 @@ module Mocha
       "#{stubbee}.#{method}"
     end
 
-    def method_exists?(method)
+    def method_visibility(method)
       symbol = method.to_sym
       __metaclass__ = stubbee.__metaclass__
-      __metaclass__.public_method_defined?(symbol) || __metaclass__.protected_method_defined?(symbol) || __metaclass__.private_method_defined?(symbol)
+
+      (__metaclass__.public_method_defined?(symbol) && :public) ||
+        (__metaclass__.protected_method_defined?(symbol) && :protected) ||
+        (__metaclass__.private_method_defined?(symbol) && :private)
     end
 
     private
