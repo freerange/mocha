@@ -1,5 +1,6 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
+require 'mocha/ruby_version'
 
 class PrependTest < Mocha::TestCase
 
@@ -13,7 +14,7 @@ class PrependTest < Mocha::TestCase
     teardown_acceptance_test
   end
 
-  if RUBY_VERSION >= '2.0'
+  if Mocha::RUBY_V2_PLUS
 
     module Mod1
       def my_method

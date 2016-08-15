@@ -1,3 +1,4 @@
+require 'mocha/ruby_version'
 require 'mocha/class_method'
 
 module Mocha
@@ -26,7 +27,7 @@ module Mocha
             stubbee.send(:remove_method, method)
           end
 
-          include_prepended_module if RUBY_VERSION >= '2.0'
+          include_prepended_module if RUBY_V2_PLUS
         rescue NameError
           # deal with nasties like ActiveRecord::Associations::AssociationProxy
         end
