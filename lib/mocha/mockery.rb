@@ -1,3 +1,4 @@
+require 'mocha/ruby_version'
 require 'mocha/central'
 require 'mocha/mock'
 require 'mocha/names'
@@ -97,7 +98,7 @@ module Mocha
     end
 
     def on_stubbing(object, method)
-      method = RUBY_VERSION < '1.9' ? method.to_s : method.to_sym
+      method = PRE_RUBY_V19 ? method.to_s : method.to_sym
       unless Mocha::Configuration.allow?(:stubbing_non_existent_method)
         unless object.method_exists?(method, include_public_methods = true)
           on_stubbing_non_existent_method(object, method)

@@ -1,3 +1,4 @@
+require 'mocha/ruby_version'
 require 'metaclass'
 
 module Mocha
@@ -11,7 +12,7 @@ module Mocha
     def initialize(stubbee, method)
       @stubbee = stubbee
       @original_method, @original_visibility = nil, nil
-      @method = RUBY_VERSION < '1.9' ? method.to_s : method.to_sym
+      @method = PRE_RUBY_V19 ? method.to_s : method.to_sym
     end
 
     def stub
@@ -74,7 +75,7 @@ module Mocha
 
     def restore_original_method
       if @original_method && @original_method.owner == stubbee.__metaclass__
-        if RUBY_VERSION < '1.9'
+        if PRE_RUBY_V19
           original_method = @original_method
           stubbee.__metaclass__.send(:define_method, method) do |*args, &block|
             original_method.call(*args, &block)

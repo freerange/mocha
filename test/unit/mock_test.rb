@@ -1,4 +1,5 @@
 require File.expand_path('../../test_helper', __FILE__)
+require 'mocha/ruby_version'
 require 'mocha/mock'
 require 'mocha/expectation_error_factory'
 require 'set'
@@ -44,7 +45,7 @@ class MockTest < Mocha::TestCase
     assert_equal true, mock.eql?(mock)
   end
 
-  if RUBY_VERSION < '1.9'
+  if PRE_RUBY_V19
     OBJECT_METHODS = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ || ["method_missing", "singleton_method_undefined", "initialize"].include?(m)}
   else
     OBJECT_METHODS = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ || [:object_id, :method_missing, :singleton_method_undefined, :initialize, :String, :singleton_method_added].include?(m) }
