@@ -96,11 +96,11 @@ module Mocha
 
     def method_visibility(method)
       symbol = method.to_sym
-      __metaclass__ = stubbee.__metaclass__
+      metaclass = stubbee.__metaclass__
 
-      (__metaclass__.public_method_defined?(symbol) && :public) ||
-        (__metaclass__.protected_method_defined?(symbol) && :protected) ||
-        (__metaclass__.private_method_defined?(symbol) && :private)
+      (metaclass.public_method_defined?(symbol) && :public) ||
+        (metaclass.protected_method_defined?(symbol) && :protected) ||
+        (metaclass.private_method_defined?(symbol) && :private)
     end
 
     private
