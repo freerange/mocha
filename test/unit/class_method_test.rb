@@ -8,6 +8,7 @@ class ClassMethodTest < Mocha::TestCase
 
   include Mocha
 
+unless RUBY_V2_PLUS
   def test_should_hide_original_method
     klass = Class.new { def self.method_x; end }
     method = ClassMethod.new(klass, :method_x)
@@ -16,6 +17,7 @@ class ClassMethodTest < Mocha::TestCase
 
     assert_equal false, klass.respond_to?(:method_x)
   end
+end
 
   def test_should_not_raise_error_hiding_method_that_isnt_defined
     klass = Class.new
