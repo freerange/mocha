@@ -1,4 +1,5 @@
-## Mocha [![build status](https://secure.travis-ci.org/freerange/mocha.png)](https://secure.travis-ci.org/freerange/mocha) [![Gem Version](https://badge.fury.io/rb/mocha.png)](http://badge.fury.io/rb/mocha)
+## Mocha [![build status](https://secure.travis-ci.org/freerange/mocha.png)](https://secure.travis-ci.org/freerange/mocha) [![Gem Version](https://badge.fury.io/rb/mocha.png)](http://badge.fury.io/rb/mocha) [![OpenCollective](https://opencollective.com/mocha/backers/badge.svg)](#backers) [![OpenCollective](https://opencollective.com/mocha/sponsors/badge.svg)](#sponsors)
+
 
 ### Description
 
@@ -277,6 +278,75 @@ See the [documentation](http://gofreerange.com/mocha/docs/Mocha/Mock.html) for `
 ### Contributors
 
 See this [list of contributors](https://github.com/freerange/mocha/graphs/contributors).
+
+###Backers
+
+Support us with a monthly donation and help us continue our activities. [[Become a backer](https://opencollective.com/mocha#backer)]
+
+<a href="https://opencollective.com/mocha/backer/0/website" target="_blank"><img src="https://opencollective.com/mocha/backer/0/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/1/website" target="_blank"><img src="https://opencollective.com/mocha/backer/1/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/2/website" target="_blank"><img src="https://opencollective.com/mocha/backer/2/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/3/website" target="_blank"><img src="https://opencollective.com/mocha/backer/3/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/4/website" target="_blank"><img src="https://opencollective.com/mocha/backer/4/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/5/website" target="_blank"><img src="https://opencollective.com/mocha/backer/5/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/6/website" target="_blank"><img src="https://opencollective.com/mocha/backer/6/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/7/website" target="_blank"><img src="https://opencollective.com/mocha/backer/7/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/8/website" target="_blank"><img src="https://opencollective.com/mocha/backer/8/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/9/website" target="_blank"><img src="https://opencollective.com/mocha/backer/9/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/10/website" target="_blank"><img src="https://opencollective.com/mocha/backer/10/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/11/website" target="_blank"><img src="https://opencollective.com/mocha/backer/11/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/12/website" target="_blank"><img src="https://opencollective.com/mocha/backer/12/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/13/website" target="_blank"><img src="https://opencollective.com/mocha/backer/13/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/14/website" target="_blank"><img src="https://opencollective.com/mocha/backer/14/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/15/website" target="_blank"><img src="https://opencollective.com/mocha/backer/15/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/16/website" target="_blank"><img src="https://opencollective.com/mocha/backer/16/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/17/website" target="_blank"><img src="https://opencollective.com/mocha/backer/17/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/18/website" target="_blank"><img src="https://opencollective.com/mocha/backer/18/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/19/website" target="_blank"><img src="https://opencollective.com/mocha/backer/19/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/20/website" target="_blank"><img src="https://opencollective.com/mocha/backer/20/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/21/website" target="_blank"><img src="https://opencollective.com/mocha/backer/21/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/22/website" target="_blank"><img src="https://opencollective.com/mocha/backer/22/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/23/website" target="_blank"><img src="https://opencollective.com/mocha/backer/23/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/24/website" target="_blank"><img src="https://opencollective.com/mocha/backer/24/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/25/website" target="_blank"><img src="https://opencollective.com/mocha/backer/25/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/26/website" target="_blank"><img src="https://opencollective.com/mocha/backer/26/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/27/website" target="_blank"><img src="https://opencollective.com/mocha/backer/27/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/28/website" target="_blank"><img src="https://opencollective.com/mocha/backer/28/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/backer/29/website" target="_blank"><img src="https://opencollective.com/mocha/backer/29/avatar.svg"></a>
+
+### Sponsors
+Become a sponsor and get your logo on our README on Github with a link to your site. [[Become a sponsor](https://opencollective.com/mocha#sponsor)]
+
+<a href="https://opencollective.com/mocha/sponsor/0/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/1/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/2/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/3/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/4/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/5/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/6/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/7/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/8/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/9/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/9/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/10/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/10/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/11/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/11/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/12/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/12/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/13/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/13/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/14/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/14/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/15/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/15/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/16/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/16/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/17/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/17/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/18/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/18/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/19/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/19/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/20/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/20/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/21/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/21/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/22/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/22/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/23/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/23/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/24/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/24/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/25/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/25/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/26/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/26/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/27/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/27/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/28/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/28/avatar.svg"></a>
+<a href="https://opencollective.com/mocha/sponsor/29/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/29/avatar.svg"></a>
 
 ### Translations
 
