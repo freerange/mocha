@@ -22,7 +22,7 @@ module Mocha
     #   object = mock()
     #   object.expects(:method_1).with(equals(2))
     #   object.method_1(3)
-    #   # error raised, because method_1 was not called with an +Object+ that equals 3
+    #   # error raised, because method_1 was not called with an +Object+ that equals 2
     def equals(value)
       Equals.new(value)
     end
