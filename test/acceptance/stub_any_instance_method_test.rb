@@ -127,22 +127,64 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     assert_equal 0, klass.any_instance.mocha.__expectations__.length
   end
 
-  def test_should_be_able_to_stub_a_superclass_method
+  def test_should_be_able_to_stub_a_public_superclass_method
     superklass = Class.new do
       def my_superclass_method
         :original_return_value
       end
+      public :my_superclass_method
     end
     klass = Class.new(superklass)
     instance = klass.new
     test_result = run_as_test do
       klass.any_instance.stubs(:my_superclass_method).returns(:new_return_value)
+      assert_method_visibility instance, :my_superclass_method, :public
       assert_equal :new_return_value, instance.my_superclass_method
     end
     assert_passed(test_result)
     assert instance.public_methods(true).any? { |m| m.to_s == 'my_superclass_method' }
     assert !klass.public_methods(false).any? { |m| m.to_s == 'my_superclass_method' }
     assert_equal :original_return_value, instance.my_superclass_method
+  end
+
+  def test_should_be_able_to_stub_a_protected_superclass_method
+    superklass = Class.new do
+      def my_superclass_method
+        :original_return_value
+      end
+      protected :my_superclass_method
+    end
+    klass = Class.new(superklass)
+    instance = klass.new
+    test_result = run_as_test do
+      klass.any_instance.stubs(:my_superclass_method).returns(:new_return_value)
+      assert_method_visibility instance, :my_superclass_method, :protected
+      assert_equal :new_return_value, instance.send(:my_superclass_method)
+    end
+    assert_passed(test_result)
+    assert instance.protected_methods(true).any? { |m| m.to_s == 'my_superclass_method' }
+    assert !klass.protected_methods(false).any? { |m| m.to_s == 'my_superclass_method' }
+    assert_equal :original_return_value, instance.send(:my_superclass_method)
+  end
+
+  def test_should_be_able_to_stub_a_private_superclass_method
+    superklass = Class.new do
+      def my_superclass_method
+        :original_return_value
+      end
+      private :my_superclass_method
+    end
+    klass = Class.new(superklass)
+    instance = klass.new
+    test_result = run_as_test do
+      klass.any_instance.stubs(:my_superclass_method).returns(:new_return_value)
+      assert_method_visibility instance, :my_superclass_method, :private
+      assert_equal :new_return_value, instance.send(:my_superclass_method)
+    end
+    assert_passed(test_result)
+    assert instance.private_methods(true).any? { |m| m.to_s == 'my_superclass_method' }
+    assert !klass.private_methods(false).any? { |m| m.to_s == 'my_superclass_method' }
+    assert_equal :original_return_value, instance.send(:my_superclass_method)
   end
 
   def test_should_be_able_to_stub_method_if_ruby18_public_instance_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
@@ -185,7 +227,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     end
     test_result = run_as_test do
       ruby18_klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
-      assert_equal :new_return_value, ruby18_klass.new.my_instance_method
+      assert_equal :new_return_value, ruby18_klass.new.send(:my_instance_method)
     end
     assert_passed(test_result)
   end
@@ -200,7 +242,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     end
     test_result = run_as_test do
       ruby19_klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
-      assert_equal :new_return_value, ruby19_klass.new.my_instance_method
+      assert_equal :new_return_value, ruby19_klass.new.send(:my_instance_method)
     end
     assert_passed(test_result)
   end
@@ -215,7 +257,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     end
     test_result = run_as_test do
       ruby18_klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
-      assert_equal :new_return_value, ruby18_klass.new.my_instance_method
+      assert_equal :new_return_value, ruby18_klass.new.send(:my_instance_method)
     end
     assert_passed(test_result)
   end
@@ -230,7 +272,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     end
     test_result = run_as_test do
       ruby19_klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
-      assert_equal :new_return_value, ruby19_klass.new.my_instance_method
+      assert_equal :new_return_value, ruby19_klass.new.send(:my_instance_method)
     end
     assert_passed(test_result)
   end
