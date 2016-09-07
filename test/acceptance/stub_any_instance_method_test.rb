@@ -22,7 +22,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     instance = klass.new
     test_result = run_as_test do
       klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
-      assert_method_visiblity instance, :my_instance_method, :public
+      assert_method_visibility instance, :my_instance_method, :public
       assert_equal :new_return_value, instance.my_instance_method
     end
     assert_passed(test_result)
@@ -77,7 +77,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     instance = klass.new
     test_result = run_as_test do
       klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
-      assert_method_visiblity instance, :my_instance_method, :protected
+      assert_method_visibility instance, :my_instance_method, :protected
     end
     assert_passed(test_result)
   end
@@ -109,7 +109,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     instance = klass.new
     test_result = run_as_test do
       klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
-      assert_method_visiblity instance, :my_instance_method, :private
+      assert_method_visibility instance, :my_instance_method, :private
     end
     assert_passed(test_result)
   end

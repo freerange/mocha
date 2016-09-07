@@ -26,7 +26,7 @@ class StubClassMethodDefinedOnClassTest < Mocha::TestCase
     assert_snapshot_unchanged(klass) do
       test_result = run_as_test do
         klass.stubs(:my_class_method).returns(:new_return_value)
-        assert_method_visiblity klass, :my_class_method, :public
+        assert_method_visibility klass, :my_class_method, :public
         assert_equal :new_return_value, klass.my_class_method
       end
       assert_passed(test_result)
@@ -47,7 +47,7 @@ class StubClassMethodDefinedOnClassTest < Mocha::TestCase
     assert_snapshot_unchanged(klass) do
       test_result = run_as_test do
         klass.stubs(:my_class_method).returns(:new_return_value)
-        assert_method_visiblity klass, :my_class_method, :protected
+        assert_method_visibility klass, :my_class_method, :protected
         assert_equal :new_return_value, klass.send(:my_class_method)
       end
       assert_passed(test_result)
@@ -68,7 +68,7 @@ class StubClassMethodDefinedOnClassTest < Mocha::TestCase
     assert_snapshot_unchanged(klass) do
       test_result = run_as_test do
         klass.stubs(:my_class_method).returns(:new_return_value)
-        assert_method_visiblity klass, :my_class_method, :private
+        assert_method_visibility klass, :my_class_method, :private
         assert_equal :new_return_value, klass.send(:my_class_method)
       end
       assert_passed(test_result)
