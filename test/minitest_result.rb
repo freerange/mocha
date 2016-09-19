@@ -20,7 +20,7 @@ class MinitestResult
   end
 
   def failures
-    @tests.map(&:failures).flatten.select { |r| Minitest::Assertion === r }.map { |f| Failure.new(f) }
+    @tests.map(&:failures).flatten.select { |r| r.instance_of?(Minitest::Assertion) }.map { |f| Failure.new(f) }
   end
 
   def failure_count
@@ -32,7 +32,7 @@ class MinitestResult
   end
 
   def errors
-    @tests.map(&:failures).flatten.select { |r| Minitest::UnexpectedError === r }
+    @tests.map(&:failures).flatten.select { |r| r.instance_of?(Minitest::UnexpectedError) }
   end
 
   def error_count
