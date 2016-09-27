@@ -15,8 +15,7 @@ module Mocha
       return unless (@original_visibility = method_visibility(method))
       begin
         if RUBY_V2_PLUS
-          @definition_target = PrependedModule.new
-          stubbee.__send__ :prepend, @definition_target
+          prepend_module
         else
           @original_method = original_method(method)
           if @original_method && @original_method.owner == stubbee
@@ -57,6 +56,11 @@ module Mocha
 
     def original_method(method)
       stubbee.instance_method(method)
+    end
+
+    def prepend_module
+      @definition_target = PrependedModule.new
+      stubbee.__send__ :prepend, @definition_target
     end
 
     def definition_target
