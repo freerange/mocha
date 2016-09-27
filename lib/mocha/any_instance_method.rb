@@ -40,10 +40,6 @@ module Mocha
       Module.instance_method(@original_visibility).bind(definition_target).call(method)
     end
 
-    def remove_new_method
-      definition_target.send(:remove_method, method)
-    end
-
     def restore_original_method
       return if RUBY_V2_PLUS
       return unless @original_method && @original_method.owner == stubbee
