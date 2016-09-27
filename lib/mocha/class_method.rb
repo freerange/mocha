@@ -44,7 +44,7 @@ module Mocha
             prepend_module
           else
             @original_method = original_method(method)
-            if @original_method && @original_method.owner == stubbee.__metaclass__
+            if original_method_defined_on_stubbee?
               stubbee.__metaclass__.send(:remove_method, method)
             end
           end
@@ -111,6 +111,10 @@ module Mocha
 
     def original_method(method)
       stubbee._method(method)
+    end
+
+    def original_method_defined_on_stubbee?
+      @original_method && @original_method.owner == stubbee.__metaclass__
     end
 
     def prepend_module
