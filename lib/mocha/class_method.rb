@@ -67,18 +67,18 @@ module Mocha
 
     def restore_original_method
       unless RUBY_V2_PLUS
-        if @original_method && @original_method.owner == stubbee.__metaclass__
+        if @original_method && @original_method.owner == default_definition_target
           if PRE_RUBY_V19
             original_method = @original_method
-            stubbee.__metaclass__.send(:define_method, method_name) do |*args, &block|
+            default_definition_target.send(:define_method, method_name) do |*args, &block|
               original_method.call(*args, &block)
             end
           else
-            stubbee.__metaclass__.send(:define_method, method_name, @original_method)
+            default_definition_target.send(:define_method, method_name, @original_method)
           end
         end
         if @original_visibility
-          Module.instance_method(@original_visibility).bind(stubbee.__metaclass__).call(method_name)
+          Module.instance_method(@original_visibility).bind(default_definition_target).call(method_name)
         end
       end
     end
@@ -96,7 +96,7 @@ module Mocha
 
     def method_visibility(method_name)
       symbol = method_name.to_sym
-      metaclass = stubbee.__metaclass__
+      metaclass = default_definition_target
 
       (metaclass.public_method_defined?(symbol) && :public) ||
         (metaclass.protected_method_defined?(symbol) && :protected) ||
@@ -110,16 +110,16 @@ module Mocha
     end
 
     def original_method_defined_on_stubbee?
-      @original_method && @original_method.owner == stubbee.__metaclass__
+      @original_method && @original_method.owner == default_definition_target
     end
 
     def remove_original_method_from_stubbee
-      stubbee.__metaclass__.send(:remove_method, method_name)
+      default_definition_target.send(:remove_method, method_name)
     end
 
     def prepend_module
       @definition_target = PrependedModule.new
-      stubbee.__metaclass__.__send__ :prepend, @definition_target
+      default_definition_target.__send__ :prepend, @definition_target
     end
 
     def stub_method_definition
