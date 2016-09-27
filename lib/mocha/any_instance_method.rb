@@ -57,10 +57,6 @@ module Mocha
       [method_implementation, filename, line_number_of_method_implementation]
     end
 
-    def definition_target
-      @definition_target ||= default_definition_target
-    end
-
     def default_definition_target
       stubbee
     end
