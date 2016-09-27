@@ -20,7 +20,7 @@ module Mocha
             @definition_target = PrependedModule.new
             stubbee.__send__ :prepend, @definition_target
           else
-            @original_method = stubbee.instance_method(method)
+            @original_method = original_method(method)
             if @original_method && @original_method.owner == stubbee
               stubbee.send(:remove_method, method)
             end
@@ -58,6 +58,10 @@ module Mocha
     end
 
     private
+
+    def original_method(method)
+      stubbee.instance_method(method)
+    end
 
     def definition_target
       @definition_target ||= stubbee
