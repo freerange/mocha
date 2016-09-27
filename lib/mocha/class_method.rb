@@ -7,12 +7,12 @@ module Mocha
 
     PrependedModule = Class.new(Module)
 
-    attr_reader :stubbee, :method
+    attr_reader :stubbee, :method_name
 
-    def initialize(stubbee, method)
+    def initialize(stubbee, method_name)
       @stubbee = stubbee
       @original_method, @original_visibility = nil, nil
-      @method = PRE_RUBY_V19 ? method.to_s : method.to_sym
+      @method_name = PRE_RUBY_V19 ? method_name.to_s : method_name.to_sym
     end
 
     def stub
@@ -23,7 +23,7 @@ module Mocha
     def unstub
       remove_new_method
       restore_original_method
-      mock.unstub(method.to_sym)
+      mock.unstub(method_name.to_sym)
       unless mock.any_expectations?
         reset_mocha
       end
@@ -38,12 +38,12 @@ module Mocha
     end
 
     def hide_original_method
-      if @original_visibility = method_visibility(method)
+      if @original_visibility = method_visibility(method_name)
         begin
           if RUBY_V2_PLUS
             prepend_module
           else
-            @original_method = original_method(method)
+            @original_method = original_method(method_name)
             if original_method_defined_on_stubbee?
               remove_original_method_from_stubbee
             end
@@ -57,12 +57,12 @@ module Mocha
     def define_new_method
       definition_target.class_eval(*stub_method_definition)
       if @original_visibility
-        Module.instance_method(@original_visibility).bind(definition_target).call(method)
+        Module.instance_method(@original_visibility).bind(definition_target).call(method_name)
       end
     end
 
     def remove_new_method
-      definition_target.send(:remove_method, method)
+      definition_target.send(:remove_method, method_name)
     end
 
     def restore_original_method
@@ -70,32 +70,32 @@ module Mocha
         if @original_method && @original_method.owner == stubbee.__metaclass__
           if PRE_RUBY_V19
             original_method = @original_method
-            stubbee.__metaclass__.send(:define_method, method) do |*args, &block|
+            stubbee.__metaclass__.send(:define_method, method_name) do |*args, &block|
               original_method.call(*args, &block)
             end
           else
-            stubbee.__metaclass__.send(:define_method, method, @original_method)
+            stubbee.__metaclass__.send(:define_method, method_name, @original_method)
           end
         end
         if @original_visibility
-          Module.instance_method(@original_visibility).bind(stubbee.__metaclass__).call(method)
+          Module.instance_method(@original_visibility).bind(stubbee.__metaclass__).call(method_name)
         end
       end
     end
 
     def matches?(other)
       return false unless (other.class == self.class)
-      (stubbee.object_id == other.stubbee.object_id) and (method == other.method)
+      (stubbee.object_id == other.stubbee.object_id) and (method_name == other.method_name)
     end
 
     alias_method :==, :eql?
 
     def to_s
-      "#{stubbee}.#{method}"
+      "#{stubbee}.#{method_name}"
     end
 
-    def method_visibility(method)
-      symbol = method.to_sym
+    def method_visibility(method_name)
+      symbol = method_name.to_sym
       metaclass = stubbee.__metaclass__
 
       (metaclass.public_method_defined?(symbol) && :public) ||
@@ -105,8 +105,8 @@ module Mocha
 
     private
 
-    def original_method(method)
-      stubbee._method(method)
+    def original_method(method_name)
+      stubbee._method(method_name)
     end
 
     def original_method_defined_on_stubbee?
@@ -114,7 +114,7 @@ module Mocha
     end
 
     def remove_original_method_from_stubbee
-      stubbee.__metaclass__.send(:remove_method, method)
+      stubbee.__metaclass__.send(:remove_method, method_name)
     end
 
     def prepend_module
@@ -125,8 +125,8 @@ module Mocha
     def stub_method_definition
       filename, line_number_of_method_implementation = __FILE__, __LINE__ + 2
       method_implementation = <<-CODE
-      def #{method}(*args, &block)
-        mocha.method_missing(:#{method}, *args, &block)
+      def #{method_name}(*args, &block)
+        mocha.method_missing(:#{method_name}, *args, &block)
       end
       CODE
       [method_implementation, filename, line_number_of_method_implementation]
