@@ -133,7 +133,11 @@ module Mocha
     end
 
     def definition_target
-      @definition_target ||= stubbee.__metaclass__
+      @definition_target ||= default_definition_target
+    end
+
+    def default_definition_target
+      stubbee.__metaclass__
     end
 
   end

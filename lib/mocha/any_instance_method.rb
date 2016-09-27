@@ -58,7 +58,11 @@ module Mocha
     end
 
     def definition_target
-      @definition_target ||= stubbee
+      @definition_target ||= default_definition_target
+    end
+
+    def default_definition_target
+      stubbee
     end
 
   end
