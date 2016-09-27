@@ -54,11 +54,7 @@ module Mocha
     end
 
     def define_new_method
-      definition_target.class_eval(<<-CODE, __FILE__, __LINE__ + 1)
-        def #{method}(*args, &block)
-          mocha.method_missing(:#{method}, *args, &block)
-        end
-      CODE
+      definition_target.class_eval(*stub_method_definition)
       return unless @original_visibility
       Module.instance_method(@original_visibility).bind(definition_target).call(method)
     end
@@ -120,6 +116,15 @@ module Mocha
     def prepend_module
       @definition_target = PrependedModule.new
       stubbee.__metaclass__.__send__ :prepend, @definition_target
+    end
+
+    def stub_method_definition
+      method_implementation = <<-CODE
+      def #{method}(*args, &block)
+        mocha.method_missing(:#{method}, *args, &block)
+      end
+      CODE
+      [method_implementation, __FILE__, __LINE__ - 4]
     end
 
     def definition_target
