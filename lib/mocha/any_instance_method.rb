@@ -13,13 +13,6 @@ module Mocha
       stubbee.any_instance.reset_mocha
     end
 
-    def define_new_method
-      definition_target.class_eval(*stub_method_definition)
-      if @original_visibility
-        Module.instance_method(@original_visibility).bind(definition_target).call(method)
-      end
-    end
-
     def restore_original_method
       unless RUBY_V2_PLUS
         if @original_method && @original_method.owner == stubbee
