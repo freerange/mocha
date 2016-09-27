@@ -21,7 +21,7 @@ module Mocha
           else
             @original_method = original_method(method)
             if original_method_defined_on_stubbee?
-              stubbee.send(:remove_method, method)
+              remove_original_method_from_stubbee
             end
           end
         rescue NameError
@@ -64,6 +64,10 @@ module Mocha
 
     def original_method_defined_on_stubbee?
       @original_method && @original_method.owner == stubbee
+    end
+
+    def remove_original_method_from_stubbee
+      stubbee.send(:remove_method, method)
     end
 
     def prepend_module
