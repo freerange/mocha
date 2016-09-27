@@ -43,7 +43,7 @@ module Mocha
         else
           @original_method = original_method(method)
           if original_method_defined_on_stubbee?
-            stubbee.__metaclass__.send(:remove_method, method)
+            remove_original_method_from_stubbee
           end
         end
       # rubocop:disable Lint/HandleExceptions
@@ -111,6 +111,10 @@ module Mocha
 
     def original_method_defined_on_stubbee?
       @original_method && @original_method.owner == stubbee.__metaclass__
+    end
+
+    def remove_original_method_from_stubbee
+      stubbee.__metaclass__.send(:remove_method, method)
     end
 
     def prepend_module
