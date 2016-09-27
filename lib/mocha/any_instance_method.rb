@@ -11,24 +11,6 @@ module Mocha
       stubbee.any_instance.reset_mocha
     end
 
-    def hide_original_method
-      return unless (@original_visibility = method_visibility(method))
-      begin
-        if RUBY_V2_PLUS
-          prepend_module
-        else
-          @original_method = original_method(method)
-          if original_method_defined_on_stubbee?
-            remove_original_method_from_stubbee
-          end
-        end
-      # rubocop:disable Lint/HandleExceptions
-      rescue NameError
-        # deal with nasties like ActiveRecord::Associations::AssociationProxy
-      end
-      # rubocop:enable Lint/HandleExceptions
-    end
-
     def define_new_method
       definition_target.class_eval(<<-CODE, __FILE__, __LINE__ + 1)
         def #{method}(*args, &block)

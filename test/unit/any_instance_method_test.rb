@@ -56,7 +56,7 @@ class AnyInstanceMethodTest < Mocha::TestCase
     method.define_new_method
 
     expected_filename = 'any_instance_method.rb'
-    expected_line_number = 35
+    expected_line_number = 17
 
     exception = assert_raises(Exception) { klass.new.method_x }
     matching_line = exception.backtrace.find do |line|
