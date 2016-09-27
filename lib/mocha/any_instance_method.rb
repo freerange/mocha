@@ -14,20 +14,20 @@ module Mocha
     def restore_original_method
       return if RUBY_V2_PLUS
       return unless @original_method && @original_method.owner == stubbee
-      stubbee.send(:define_method, method, @original_method)
-      Module.instance_method(@original_visibility).bind(stubbee).call(method)
+      stubbee.send(:define_method, method_name, @original_method)
+      Module.instance_method(@original_visibility).bind(stubbee).call(method_name)
     end
 
-    def method_visibility(method)
-      (stubbee.public_instance_methods(true).include?(method) && :public) ||
-        (stubbee.protected_instance_methods(true).include?(method) && :protected) ||
-        (stubbee.private_instance_methods(true).include?(method) && :private)
+    def method_visibility(method_name)
+      (stubbee.public_instance_methods(true).include?(method_name) && :public) ||
+        (stubbee.protected_instance_methods(true).include?(method_name) && :protected) ||
+        (stubbee.private_instance_methods(true).include?(method_name) && :private)
     end
 
     private
 
-    def original_method(method)
-      stubbee.instance_method(method)
+    def original_method(method_name)
+      stubbee.instance_method(method_name)
     end
 
     def original_method_defined_on_stubbee?
@@ -35,7 +35,7 @@ module Mocha
     end
 
     def remove_original_method_from_stubbee
-      stubbee.send(:remove_method, method)
+      stubbee.send(:remove_method, method_name)
     end
 
     def prepend_module
@@ -45,8 +45,8 @@ module Mocha
 
     def stub_method_definition
       method_implementation = <<-CODE
-      def #{method}(*args, &block)
-        self.class.any_instance.mocha.method_missing(:#{method}, *args, &block)
+      def #{method_name}(*args, &block)
+        self.class.any_instance.mocha.method_missing(:#{method_name}, *args, &block)
       end
       CODE
       [method_implementation, __FILE__, __LINE__ - 4]
