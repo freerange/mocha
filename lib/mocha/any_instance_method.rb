@@ -17,11 +17,14 @@ module Mocha
       if @original_visibility = method_visibility(method)
         begin
           @original_method = stubbee.instance_method(method)
-          if @original_method && @original_method.owner == stubbee
-            stubbee.send(:remove_method, method)
+          if RUBY_V2_PLUS
+            @definition_target = PrependedModule.new
+            stubbee.__send__ :prepend, @definition_target
+          else
+            if @original_method && @original_method.owner == stubbee
+              stubbee.send(:remove_method, method)
+            end
           end
-
-          include_prepended_module if RUBY_V2_PLUS
         rescue NameError
           # deal with nasties like ActiveRecord::Associations::AssociationProxy
         end
@@ -44,9 +47,11 @@ module Mocha
     end
 
     def restore_original_method
-      if @original_method && @original_method.owner == stubbee
-        stubbee.send(:define_method, method, @original_method)
-        Module.instance_method(@original_visibility).bind(stubbee).call(method)
+      unless RUBY_V2_PLUS
+        if @original_method && @original_method.owner == stubbee
+          stubbee.send(:define_method, method, @original_method)
+          Module.instance_method(@original_visibility).bind(stubbee).call(method)
+        end
       end
     end
 
@@ -57,17 +62,6 @@ module Mocha
     end
 
     private
-
-    def include_prepended_module
-      possible_prepended_modules = stubbee.ancestors.take_while do |mod|
-        !(Class === mod)
-      end
-
-      if possible_prepended_modules.any?
-        @definition_target = PrependedModule.new
-        stubbee.__send__ :prepend, @definition_target
-      end
-    end
 
     def definition_target
       @definition_target ||= stubbee
