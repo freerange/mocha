@@ -42,11 +42,6 @@ module Mocha
       default_stub_method_owner.send(:remove_method, method_name)
     end
 
-    def prepend_module
-      @stub_method_owner = PrependedModule.new
-      default_stub_method_owner.__send__ :prepend, @stub_method_owner
-    end
-
     def stub_method_definition
       filename, line_number_of_method_implementation = __FILE__, __LINE__ + 2
       method_implementation = <<-CODE
