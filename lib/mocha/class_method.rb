@@ -41,7 +41,7 @@ module Mocha
       if @original_visibility = method_visibility(method_name)
         begin
           if RUBY_V2_PLUS
-            prepend_module
+            use_prepended_module_for_stub_method
           else
             @original_method = original_method(method_name)
             if original_method_defined_on_stubbee?
@@ -117,7 +117,7 @@ module Mocha
       default_stub_method_owner.send(:remove_method, method_name)
     end
 
-    def prepend_module
+    def use_prepended_module_for_stub_method
       @stub_method_owner = PrependedModule.new
       default_stub_method_owner.__send__ :prepend, @stub_method_owner
     end
