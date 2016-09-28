@@ -16,7 +16,7 @@ module Mocha
     def restore_original_method
       unless RUBY_V2_PLUS
         if original_method_defined_on_stubbee?
-          default_stub_method_owner.send(:define_method, method_name, @original_method)
+          default_stub_method_owner.send(:define_method, method_name, original_method)
           Module.instance_method(@original_visibility).bind(default_stub_method_owner).call(method_name)
         end
       end
@@ -30,12 +30,12 @@ module Mocha
 
     private
 
-    def original_method
-      default_stub_method_owner.instance_method(method_name)
+    def store_original_method
+      @original_method = default_stub_method_owner.instance_method(method_name)
     end
 
     def original_method_defined_on_stubbee?
-      @original_method && @original_method.owner == default_stub_method_owner
+      original_method && original_method.owner == default_stub_method_owner
     end
 
     def remove_original_method_from_stubbee
