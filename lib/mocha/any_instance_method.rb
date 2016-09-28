@@ -15,36 +15,36 @@ module Mocha
 
     def restore_original_method
       unless RUBY_V2_PLUS
-        if @original_method && @original_method.owner == default_definition_target
-          default_definition_target.send(:define_method, method_name, @original_method)
-          Module.instance_method(@original_visibility).bind(default_definition_target).call(method_name)
+        if @original_method && @original_method.owner == default_stub_method_owner
+          default_stub_method_owner.send(:define_method, method_name, @original_method)
+          Module.instance_method(@original_visibility).bind(default_stub_method_owner).call(method_name)
         end
       end
     end
 
     def method_visibility(method_name)
-      (default_definition_target.public_instance_methods(true).include?(method_name) && :public) ||
-        (default_definition_target.protected_instance_methods(true).include?(method_name) && :protected) ||
-        (default_definition_target.private_instance_methods(true).include?(method_name) && :private)
+      (default_stub_method_owner.public_instance_methods(true).include?(method_name) && :public) ||
+        (default_stub_method_owner.protected_instance_methods(true).include?(method_name) && :protected) ||
+        (default_stub_method_owner.private_instance_methods(true).include?(method_name) && :private)
     end
 
     private
 
     def original_method(method_name)
-      default_definition_target.instance_method(method_name)
+      default_stub_method_owner.instance_method(method_name)
     end
 
     def original_method_defined_on_stubbee?
-      @original_method && @original_method.owner == default_definition_target
+      @original_method && @original_method.owner == default_stub_method_owner
     end
 
     def remove_original_method_from_stubbee
-      default_definition_target.send(:remove_method, method_name)
+      default_stub_method_owner.send(:remove_method, method_name)
     end
 
     def prepend_module
       @definition_target = PrependedModule.new
-      default_definition_target.__send__ :prepend, @definition_target
+      default_stub_method_owner.__send__ :prepend, @definition_target
     end
 
     def stub_method_definition
@@ -57,7 +57,7 @@ module Mocha
       [method_implementation, filename, line_number_of_method_implementation]
     end
 
-    def default_definition_target
+    def default_stub_method_owner
       stubbee
     end
 
