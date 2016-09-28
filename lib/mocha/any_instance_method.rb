@@ -30,7 +30,7 @@ module Mocha
 
     private
 
-    def original_method(method_name)
+    def original_method
       default_stub_method_owner.instance_method(method_name)
     end
 

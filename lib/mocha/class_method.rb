@@ -43,7 +43,7 @@ module Mocha
           if RUBY_V2_PLUS
             use_prepended_module_for_stub_method
           else
-            @original_method = original_method(method_name)
+            @original_method = original_method
             if original_method_defined_on_stubbee?
               remove_original_method_from_stubbee
             end
@@ -105,7 +105,7 @@ module Mocha
 
     private
 
-    def original_method(method_name)
+    def original_method
       stubbee._method(method_name)
     end
 
