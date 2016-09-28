@@ -37,20 +37,20 @@ module Mocha
 
     def hide_original_method
       return unless (@original_visibility = method_visibility(method_name))
-      begin
-        if use_prepended_module_for_stub_method?
-          use_prepended_module_for_stub_method
-        else
+      if use_prepended_module_for_stub_method?
+        use_prepended_module_for_stub_method
+      else
+        begin
           store_original_method
-          if original_method_defined_on_stubbee?
-            remove_original_method_from_stubbee
-          end
+        # rubocop:disable Lint/HandleExceptions
+        rescue NameError
+          # deal with nasties like ActiveRecord::Associations::AssociationProxy
         end
-      # rubocop:disable Lint/HandleExceptions
-      rescue NameError
-        # deal with nasties like ActiveRecord::Associations::AssociationProxy
+        # rubocop:enable Lint/HandleExceptions
+        if original_method_defined_on_stubbee?
+          remove_original_method_from_stubbee
+        end
       end
-      # rubocop:enable Lint/HandleExceptions
     end
 
     def define_new_method
