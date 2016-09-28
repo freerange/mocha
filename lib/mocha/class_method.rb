@@ -55,14 +55,14 @@ module Mocha
     end
 
     def define_new_method
-      definition_target.class_eval(*stub_method_definition)
+      stub_method_owner.class_eval(*stub_method_definition)
       if @original_visibility
-        Module.instance_method(@original_visibility).bind(definition_target).call(method_name)
+        Module.instance_method(@original_visibility).bind(stub_method_owner).call(method_name)
       end
     end
 
     def remove_new_method
-      definition_target.send(:remove_method, method_name)
+      stub_method_owner.send(:remove_method, method_name)
     end
 
     def restore_original_method
@@ -118,8 +118,8 @@ module Mocha
     end
 
     def prepend_module
-      @definition_target = PrependedModule.new
-      default_stub_method_owner.__send__ :prepend, @definition_target
+      @stub_method_owner = PrependedModule.new
+      default_stub_method_owner.__send__ :prepend, @stub_method_owner
     end
 
     def stub_method_definition
@@ -132,8 +132,8 @@ module Mocha
       [method_implementation, filename, line_number_of_method_implementation]
     end
 
-    def definition_target
-      @definition_target ||= default_stub_method_owner
+    def stub_method_owner
+      @stub_method_owner ||= default_stub_method_owner
     end
 
     def default_stub_method_owner

@@ -43,8 +43,8 @@ module Mocha
     end
 
     def prepend_module
-      @definition_target = PrependedModule.new
-      default_stub_method_owner.__send__ :prepend, @definition_target
+      @stub_method_owner = PrependedModule.new
+      default_stub_method_owner.__send__ :prepend, @stub_method_owner
     end
 
     def stub_method_definition
