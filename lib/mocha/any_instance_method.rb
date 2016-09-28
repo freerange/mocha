@@ -15,7 +15,7 @@ module Mocha
 
     def restore_original_method
       unless RUBY_V2_PLUS
-        if @original_method && @original_method.owner == default_stub_method_owner
+        if original_method_defined_on_stubbee?
           default_stub_method_owner.send(:define_method, method_name, @original_method)
           Module.instance_method(@original_visibility).bind(default_stub_method_owner).call(method_name)
         end

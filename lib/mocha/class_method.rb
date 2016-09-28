@@ -67,7 +67,7 @@ module Mocha
 
     def restore_original_method
       unless RUBY_V2_PLUS
-        if @original_method && @original_method.owner == default_stub_method_owner
+        if original_method_defined_on_stubbee?
           if PRE_RUBY_V19
             original_method = @original_method
             default_stub_method_owner.send(:define_method, method_name) do |*args, &block|
