@@ -8,15 +8,20 @@ rvm:
   - 2.0.0
   - 2.1
   - 2.2
+  - jruby-head
 gemfile:
   - Gemfile
 env:
   - MOCHA_OPTIONS=debug
+  - JRUBY_OPTS=-Xbacktrace.mask=true
 matrix:
   include:
     - rvm: 2.0.0
       gemfile: gemfiles/Gemfile.minitest.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
+    - rvm: jruby-head
+      gemfile: gemfiles/Gemfile.minitest.latest
+      env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest JRUBY_OPTS=-Xbacktrace.mask=true
     - rvm: 1.9.3
       gemfile: gemfiles/Gemfile.minitest.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
@@ -68,6 +73,9 @@ matrix:
     - rvm: 2.0.0
       gemfile: gemfiles/Gemfile.test-unit.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
+    - rvm: jruby-head
+      gemfile: gemfiles/Gemfile.test-unit.latest
+      env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit JRUBY_OPTS=-Xbacktrace.mask=true
     - rvm: 1.9.3
       gemfile: gemfiles/Gemfile.test-unit.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
