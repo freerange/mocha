@@ -1,5 +1,22 @@
 # Release Notes
 
+## 1.2.0
+
+* Always use prepended module to stub class & instance methods for Ruby v2+ - thanks to @grosser & @chrisroos (43d56671, #244)
+* Always use prepended module to stub AnyInstance methods in Ruby v2+ - thanks to @chrisroos (#262)
+* Always set visibility of stub method to match stubbed method on included module - thanks to @grosser & @chrisroos (e87c03b0, #248)
+* Always set visibility to stub method to match stubbed method on superclass - thanks to @chrisroos (38d902ad)
+* Allow stubbing of method to which any instance responds (#200)
+* Allow `includes` matcher to take matcher arguments - thanks to @lazyatom (#217)
+* Avoid exception in older version of Rubygems - thanks to @chrisroos (78d930a7)
+* Add licenses to gemspec as requested by @coreyhaines (#201)
+* Fix typo in README - thanks to @jaredbeck (6119460d)
+* Added section about using Mocha with RSpec & Rails to README (#221)
+* Fix documentation for Mocha::API#stub method - thanks to @raeno (599b1dcd)
+* Added backers and sponsors from OpenCollective - thanks to @piamancini (#253)
+* Fix typo in docs for equals - thanks to @alexcoco (#254)
+* Add known issue for Ruby v1.8 to README - thanks to @chrisroos (2c642096)
+
 ## 1.1.0
 
 * Set visibility of any instance stub method.
