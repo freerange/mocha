@@ -1,5 +1,9 @@
 # Release Notes
 
+## 1.2.1
+
+* Fixed #272. Workaround Ruby bug 12832 which caused interpreter to hang. See https://bugs.ruby-lang.org/issues/12832. Thanks to @chrisroos & @petems (6f1c8b9b, #273).
+
 ## 1.2.0
 
 * Always use prepended module to stub class & instance methods for Ruby v2+ - thanks to @grosser & @chrisroos (43d56671, #244)
