@@ -1,4 +1,4 @@
-## Mocha [![build status](https://secure.travis-ci.org/freerange/mocha.png)](https://secure.travis-ci.org/freerange/mocha) [![Gem Version](https://badge.fury.io/rb/mocha.png)](http://badge.fury.io/rb/mocha) [![OpenCollective](https://opencollective.com/mocha/backers/badge.svg)](#backers) [![OpenCollective](https://opencollective.com/mocha/sponsors/badge.svg)](#sponsors)
+## Mocha [![Build Status](https://travis-ci.org/freerange/mocha.svg?branch=master)](https://travis-ci.org/freerange/mocha) [![Gem Version](https://badge.fury.io/rb/mocha.png)](http://badge.fury.io/rb/mocha) [![OpenCollective](https://opencollective.com/mocha/backers/badge.svg)](#backers) [![OpenCollective](https://opencollective.com/mocha/sponsors/badge.svg)](#sponsors)
 
 
 ### Description
