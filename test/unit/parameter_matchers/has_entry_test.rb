@@ -31,12 +31,12 @@ class HasEntryTest < Mocha::TestCase
 
   def test_should_describe_matcher_with_key_value_pair
     matcher = has_entry(:key_1, 'value_1')
-    assert_equal "has_entry(:key_1 => 'value_1')", matcher.mocha_inspect
+    assert_equal %{has_entry(:key_1 => "value_1")}, matcher.mocha_inspect
   end
 
   def test_should_describe_matcher_with_entry
     matcher = has_entry(:key_1 => 'value_1')
-    assert_equal "has_entry(:key_1 => 'value_1')", matcher.mocha_inspect
+    assert_equal %{has_entry(:key_1 => "value_1")}, matcher.mocha_inspect
   end
 
   def test_should_match_hash_including_specified_entry_with_nested_key_matcher

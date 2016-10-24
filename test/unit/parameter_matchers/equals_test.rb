@@ -19,7 +19,7 @@ class EqualsTest < Mocha::TestCase
 
   def test_should_describe_matcher
     matcher = equals('x')
-    assert_equal "'x'", matcher.mocha_inspect
+    assert_equal %{"x"}, matcher.mocha_inspect
   end
 
 end

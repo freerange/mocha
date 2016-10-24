@@ -10,12 +10,6 @@ module Mocha
     end
   end
 
-  module StringMethods
-    def mocha_inspect
-      inspect.gsub(/\"/, "'")
-    end
-  end
-
   module ArrayMethods
     def mocha_inspect
       "[#{collect { |member| member.mocha_inspect }.join(', ')}]"
@@ -44,10 +38,6 @@ end
 
 class Object
   include Mocha::ObjectMethods
-end
-
-class String
-  include Mocha::StringMethods
 end
 
 class Array
