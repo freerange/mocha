@@ -354,6 +354,31 @@ Become a sponsor and get your logo on our README on Github with a link to your s
 
 * [Serbo-Croatian](http://science.webhostinggeeks.com/mocha) by [WHG Team](http://webhostinggeeks.com/). (may be out-of-date)
 
+### Releasing a new version
+
+* Update the RELEASE.md file with a summary of changes
+* Bump the version in `lib/mocha/version.rb`
+* Commit & push to Github
+* Check Travis CI build is passing - https://travis-ci.org/freerange/mocha
+
+* Sign in to rubygems.org and find API key - https://rubygems.org/profile/edit
+
+    $ curl -u james@floehopper.org https://rubygems.org/api/v1/api_key.yaml > ~/.gem/credentials; chmod 0600 ~/.gem/credentials`
+
+* Sign in to Google Analytics - https://analytics.google.com/analytics/web/
+* Find the web property ID for Go Free Range Ltd > Mocha Documentation (UA-45002715-2)
+
+    $ MOCHA_GENERATE_DOCS=true bundle install
+
+    $ MOCHA_GENERATE_DOCS=true GOOGLE_ANALYTICS_WEB_PROPERTY_ID=UA-45002715-2 rake release
+    mocha 1.2.0 built to pkg/mocha-1.2.0.gem.
+    Tagged v1.2.0.
+    Pushed git commits and tags.
+    Pushed mocha 1.2.0 to rubygems.org.
+    [runs tests]
+    [generates docs]
+    [deploys docs]
+
 ### History
 
 Mocha was initially harvested from projects at [Reevoo](http://www.reevoo.com/). It's syntax is heavily based on that of [jMock](http://www.jmock.org).
