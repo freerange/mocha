@@ -34,10 +34,6 @@ module Mocha
       original_method && original_method.owner == default_stub_method_owner
     end
 
-    def remove_original_method_from_stubbee
-      default_stub_method_owner.send(:remove_method, method_name)
-    end
-
     def stub_method_definition
       method_implementation = <<-CODE
       def #{method_name}(*args, &block)
