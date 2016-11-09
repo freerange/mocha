@@ -34,10 +34,6 @@ module Mocha
       @original_method = default_stub_method_owner.instance_method(method_name)
     end
 
-    def original_method_defined_on_stubbee?
-      original_method && original_method.owner == default_stub_method_owner
-    end
-
     def stub_method_definition
       filename, line_number_of_method_implementation = __FILE__, __LINE__ + 2
       method_implementation = <<-CODE
