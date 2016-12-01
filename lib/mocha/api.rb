@@ -27,6 +27,7 @@ module Mocha
     # @param [Hash] expected_methods_vs_return_values expected method name symbols as keys and corresponding return values as values - these expectations are setup as if {Mock#expects} were called multiple times.
     # @yield optional block to be evaluated in the context of the mock object instance, giving an alternative way to setup stubbed methods.
     # @yield note that the block is evaulated by calling Mock#instance_eval and so things like instance variables declared in the test will not be available within the block.
+    # @yield deprecated: use Object#tap or define stubs/expectations with an explicit receiver instead.
     # @return [Mock] a new mock object
     #
     # @overload def mock(name, &block)
@@ -40,7 +41,7 @@ module Mocha
     #     assert motor.stop
     #     # an error will be raised unless both Motor#start and Motor#stop have been called
     #   end
-    # @example Using the optional block to setup expectations & stubbed methods.
+    # @example Using the optional block to setup expectations & stubbed methods [deprecated].
     #   def test_motor_starts_and_stops
     #     motor = mock('motor') do
     #       expects(:start).with(100.rpm).returns(true)
@@ -64,6 +65,7 @@ module Mocha
     # @param [Hash] stubbed_methods_vs_return_values stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if {Mock#stubs} were called multiple times.
     # @yield optional block to be evaluated in the context of the mock object instance, giving an alternative way to setup stubbed methods.
     # @yield note that the block is evaulated by calling Mock#instance_eval and so things like instance variables declared in the test will not be available within the block.
+    # @yield deprecated: use Object#tap or define stubs/expectations with an explicit receiver instead.
     # @return [Mock] a new mock object
     #
     # @overload def stub(name, &block)
@@ -78,7 +80,7 @@ module Mocha
     #     # an error will not be raised even if either Motor#start or Motor#stop has not been called
     #   end
     #
-    # @example Using the optional block to setup expectations & stubbed methods.
+    # @example Using the optional block to setup expectations & stubbed methods [deprecated].
     #   def test_motor_starts_and_stops
     #     motor = stub('motor') do
     #       expects(:start).with(100.rpm).returns(true)
@@ -102,6 +104,7 @@ module Mocha
     # @param [Hash] stubbed_methods_vs_return_values stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if {Mock#stubs} were called multiple times.
     # @yield optional block to be evaluated in the context of the mock object instance, giving an alternative way to setup stubbed methods.
     # @yield note that the block is evaulated by calling Mock#instance_eval and so things like instance variables declared in the test will not be available within the block.
+    # @yield deprecated: use Object#tap or define stubs/expectations with an explicit receiver instead.
     # @return [Mock] a new mock object
     #
     # @overload def stub_everything(name, &block)

@@ -1,5 +1,6 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
+require 'deprecation_disabler'
 
 class MockWithInitializerBlockTest < Mocha::TestCase
 
@@ -15,35 +16,41 @@ class MockWithInitializerBlockTest < Mocha::TestCase
 
   def test_should_expect_two_method_invocations_and_receive_both_of_them
     test_result = run_as_test do
-      mock = mock() do
-        expects(:method_1)
-        expects(:method_2)
+      DeprecationDisabler.disable_deprecations do
+        mock = mock() do
+          expects(:method_1)
+          expects(:method_2)
+        end
+        mock.method_1
+        mock.method_2
       end
-      mock.method_1
-      mock.method_2
     end
     assert_passed(test_result)
   end
 
   def test_should_expect_two_method_invocations_but_receive_only_one_of_them
     test_result = run_as_test do
-      mock = mock() do
-        expects(:method_1)
-        expects(:method_2)
+      DeprecationDisabler.disable_deprecations do
+        mock = mock() do
+          expects(:method_1)
+          expects(:method_2)
+        end
+        mock.method_1
       end
-      mock.method_1
     end
     assert_failed(test_result)
   end
 
   def test_should_stub_methods
     test_result = run_as_test do
-      mock = mock() do
-        stubs(:method_1).returns(1)
-        stubs(:method_2).returns(2)
+      DeprecationDisabler.disable_deprecations do
+        mock = mock() do
+          stubs(:method_1).returns(1)
+          stubs(:method_2).returns(2)
+        end
+        assert_equal 1, mock.method_1
+        assert_equal 2, mock.method_2
       end
-      assert_equal 1, mock.method_1
-      assert_equal 2, mock.method_2
     end
     assert_passed(test_result)
   end

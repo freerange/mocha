@@ -12,4 +12,5 @@ module DeprecationDisabler
     end
   end
 
+  module_function :disable_deprecations
 end
