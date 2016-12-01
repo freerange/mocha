@@ -10,14 +10,16 @@ class ExecutionPoint
     @backtrace = backtrace
   end
 
+  def first_line_of_backtrace
+    @backtrace && (@backtrace.first || 'unknown:0')
+  end
+
   def file_name
-    return "unknown" unless @backtrace && @backtrace.first
-    /\A(.*?):\d+/.match(@backtrace.first)[1]
+    /\A(.*?):\d+/.match(first_line_of_backtrace)[1]
   end
 
   def line_number
-    return "unknown" unless @backtrace && @backtrace.first
-    Integer(/\A.*?:(\d+)/.match(@backtrace.first)[1])
+    Integer(/\A.*?:(\d+)/.match(first_line_of_backtrace)[1])
   end
 
   def ==(other)
