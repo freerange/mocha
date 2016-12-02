@@ -3,7 +3,7 @@ before_install:
 bundler_args: "--verbose"
 script: "rake test"
 rvm:
-  - 1.8.7
+  - 1.8.7-p371
   - 1.9.3
   - 2.0.0
   - 2.1
