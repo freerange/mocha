@@ -3,6 +3,7 @@ before_install:
 bundler_args: "--verbose"
 script: "rake test"
 rvm:
+  - 1.8.7
   - 1.9.3
   - 2.0.0
   - 2.1
@@ -15,10 +16,6 @@ env:
   - MOCHA_OPTIONS=debug
 matrix:
   include:
-    - rvm: 1.8.7
-      dist: precise
-      gemfile: Gemfile
-      env: MOCHA_OPTIONS=debug
     - rvm: jruby
       gemfile: gemfiles/Gemfile.minitest.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
@@ -56,39 +53,30 @@ matrix:
       gemfile: Gemfile
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
     - rvm: 1.8.7
-      dist: precise
       gemfile: gemfiles/Gemfile.minitest.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
     - rvm: 1.8.7
-      dist: precise
       gemfile: gemfiles/Gemfile.minitest.2.11.2
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
     - rvm: 1.8.7
-      dist: precise
       gemfile: gemfiles/Gemfile.minitest.2.11.0
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
     - rvm: 1.8.7
-      dist: precise
       gemfile: gemfiles/Gemfile.minitest.2.3.0
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
     - rvm: 1.8.7
-      dist: precise
       gemfile: gemfiles/Gemfile.minitest.2.0.1
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
     - rvm: 1.8.7
-      dist: precise
       gemfile: gemfiles/Gemfile.minitest.2.0.0
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
     - rvm: 1.8.7
-      dist: precise
       gemfile: gemfiles/Gemfile.minitest.1.4.2
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
     - rvm: 1.8.7
-      dist: precise
       gemfile: gemfiles/Gemfile.minitest.1.4.0
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
     - rvm: 1.8.7
-      dist: precise
       gemfile: gemfiles/Gemfile.minitest.1.3.0
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
     - rvm: jruby
@@ -119,22 +107,17 @@ matrix:
       gemfile: gemfiles/Gemfile.test-unit.2.0.0
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
     - rvm: 1.8.7
-      dist: precise
       gemfile: gemfiles/Gemfile.test-unit.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
     - rvm: 1.8.7
-      dist: precise
       gemfile: gemfiles/Gemfile.test-unit.2.0.3
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
     - rvm: 1.8.7
-      dist: precise
       gemfile: gemfiles/Gemfile.test-unit.2.0.1
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
     - rvm: 1.8.7
-      dist: precise
       gemfile: gemfiles/Gemfile.test-unit.2.0.0
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
     - rvm: 1.8.7
-      dist: precise
       gemfile: Gemfile
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
