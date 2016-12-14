@@ -25,7 +25,8 @@ module Mocha
     #
     # @param [String] name identifies mock object in error messages.
     # @param [Hash] expected_methods_vs_return_values expected method name symbols as keys and corresponding return values as values - these expectations are setup as if {Mock#expects} were called multiple times.
-    # @yield optional block to be evaluated against the mock object instance, giving an alternative way to setup expectations.
+    # @yield optional block to be evaluated in the context of the mock object instance, giving an alternative way to setup stubbed methods.
+    # @yield note that the block is evaulated by calling Mock#instance_eval and so things like instance variables declared in the test will not be available within the block.
     # @return [Mock] a new mock object
     #
     # @overload def mock(name, &block)
@@ -61,7 +62,8 @@ module Mocha
     #
     # @param [String] name identifies mock object in error messages.
     # @param [Hash] stubbed_methods_vs_return_values stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if {Mock#stubs} were called multiple times.
-    # @yield optional block to be evaluated against the mock object instance, giving an alternative way to setup stubbed methods.
+    # @yield optional block to be evaluated in the context of the mock object instance, giving an alternative way to setup stubbed methods.
+    # @yield note that the block is evaulated by calling Mock#instance_eval and so things like instance variables declared in the test will not be available within the block.
     # @return [Mock] a new mock object
     #
     # @overload def stub(name, &block)
@@ -98,7 +100,8 @@ module Mocha
     #
     # @param [String] name identifies mock object in error messages.
     # @param [Hash] stubbed_methods_vs_return_values stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if {Mock#stubs} were called multiple times.
-    # @yield optional block to be evaluated against the mock object instance, giving an alternative way to setup stubbed methods.
+    # @yield optional block to be evaluated in the context of the mock object instance, giving an alternative way to setup stubbed methods.
+    # @yield note that the block is evaulated by calling Mock#instance_eval and so things like instance variables declared in the test will not be available within the block.
     # @return [Mock] a new mock object
     #
     # @overload def stub_everything(name, &block)
