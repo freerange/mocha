@@ -8,6 +8,7 @@ require 'mocha/parameters_matcher'
 require 'mocha/unexpected_invocation'
 require 'mocha/argument_iterator'
 require 'mocha/expectation_error_factory'
+require 'mocha/deprecation'
 
 module Mocha
 
@@ -259,7 +260,10 @@ module Mocha
       @everything_stubbed = false
       @responder = nil
       @unexpected_invocation = nil
-      instance_eval(&block) if block
+      if block
+        Deprecation.warning('Passing a block is deprecated. Use Object#tap or define stubs/expectations with an explicit receiver instead.')
+        instance_eval(&block)
+      end
     end
 
     # @private
