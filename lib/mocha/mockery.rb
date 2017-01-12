@@ -12,11 +12,25 @@ require 'mocha/expectation_error_factory'
 module Mocha
 
   class Mockery
+    class Null
+      def method_missing(method_name, *args, &block)
+        if method_name == :raise
+          super
+        else
+          raise StubbingError.new('Mocking/stubbing outside of the per-test lifecycle is not supported.', caller)
+        end
+      end
+
+      def respond_to_missing?(method_name, include_private = false)
+        (method != :raise) || super
+      end
+    end
 
     class << self
+      attr_reader :instance
 
-      def instance
-        @instance ||= new
+      def build_instance
+        @instance = new
       end
 
       def verify(*args)
@@ -28,10 +42,12 @@ module Mocha
       end
 
       def reset_instance
-        @instance = nil
+        @instance = Null.new
       end
 
     end
+
+    reset_instance
 
     def named_mock(name, &block)
       add_mock(Mock.new(self, Name.new(name), &block))

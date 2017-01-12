@@ -21,6 +21,7 @@ module Mocha
     #
     # This method should be called before each individual test starts (including before any "setup" code).
     def mocha_setup
+      Mockery.build_instance
     end
 
     # Verifies that all mock expectations have been met (only for use by authors of test libraries).
