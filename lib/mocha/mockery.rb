@@ -24,6 +24,11 @@ module Mocha
       def respond_to_missing?(method_name, include_private = false)
         (method != :raise) || super
       end
+
+      # No ops - just to make acceptance tests pass
+      def verify(*args); end
+      def teardown; end
+      attr_writer :logger
     end
 
     class << self
