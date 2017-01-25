@@ -44,6 +44,30 @@ end
     assert mocha.__verified__?
   end
 
+  def test_should_include_the_filename_and_line_number_in_exceptions
+    klass = Class.new { def method_x; end }
+    method = AnyInstanceMethod.new(klass, :method_x)
+    mocha = build_mock
+    mocha.stubs(:method_x).raises(Exception)
+    any_instance = Object.new
+    any_instance.define_instance_method(:mocha) { mocha }
+    klass.define_instance_method(:any_instance) { any_instance }
+
+    method.hide_original_method
+    method.define_new_method
+
+    expected_filename = 'any_instance_method.rb'
+    expected_line_number = 37
+
+    exception = assert_raises(Exception) { klass.new.method_x }
+    matching_line = exception.backtrace.find do |line|
+      filename, line_number, _context = line.split(':')
+      filename.include?(expected_filename) && line_number.to_i == expected_line_number
+    end
+
+    assert_not_nil matching_line, "Expected to find #{expected_filename}:#{expected_line_number} in the backtrace:\n #{exception.backtrace.join("\n")}"
+  end
+
   def test_should_restore_original_method
     klass = Class.new { def method_x; :original_result; end }
     method = AnyInstanceMethod.new(klass, :method_x)

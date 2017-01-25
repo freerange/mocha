@@ -49,6 +49,28 @@ end
     assert mocha.__verified__?
   end
 
+  def test_should_include_the_filename_and_line_number_in_exceptions
+    klass = Class.new { def self.method_x; end }
+    mocha = build_mock
+    klass.define_instance_method(:mocha) { mocha }
+    mocha.stubs(:method_x).raises(Exception)
+    method = ClassMethod.new(klass, :method_x)
+
+    method.hide_original_method
+    method.define_new_method
+
+    expected_filename = 'class_method.rb'
+    expected_line_number = 61
+
+    exception = assert_raises(Exception) { klass.method_x }
+    matching_line = exception.backtrace.find do |line|
+      filename, line_number, _context = line.split(':')
+      filename.include?(expected_filename) && line_number.to_i == expected_line_number
+    end
+
+    assert_not_nil matching_line, "Expected to find #{expected_filename}:#{expected_line_number} in the backtrace:\n #{exception.backtrace.join("\n")}"
+  end
+
   def test_should_remove_new_method
     klass = Class.new { def self.method_x; end }
     method = ClassMethod.new(klass, :method_x)
