@@ -22,7 +22,7 @@ module Mocha
       end
     end
 
-    def method_visibility(method_name)
+    def method_visibility
       (default_stub_method_owner.public_instance_methods(true).include?(method_name) && :public) ||
         (default_stub_method_owner.protected_instance_methods(true).include?(method_name) && :protected) ||
         (default_stub_method_owner.private_instance_methods(true).include?(method_name) && :private)

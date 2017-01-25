@@ -38,7 +38,7 @@ module Mocha
     end
 
     def hide_original_method
-      if @original_visibility = method_visibility(method_name)
+      if @original_visibility = method_visibility
         if use_prepended_module_for_stub_method?
           use_prepended_module_for_stub_method
         else
@@ -94,7 +94,7 @@ module Mocha
       "#{stubbee}.#{method_name}"
     end
 
-    def method_visibility(method_name)
+    def method_visibility
       symbol = method_name.to_sym
       metaclass = default_stub_method_owner
 
