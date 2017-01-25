@@ -47,7 +47,7 @@ module Mocha
           # deal with nasties like ActiveRecord::Associations::AssociationProxy
         end
         # rubocop:enable Lint/HandleExceptions
-        if original_method_defined_on_stubbee?
+        if stub_method_overwrites_original_method?
           remove_original_method_from_stubbee
         end
       end
@@ -65,7 +65,7 @@ module Mocha
 
     def restore_original_method
       return if use_prepended_module_for_stub_method?
-      if original_method_defined_on_stubbee?
+      if stub_method_overwrites_original_method?
         if PRE_RUBY_V19
           original_method_in_scope = original_method
           default_stub_method_owner.send(:define_method, method_name) do |*args, &block|
@@ -107,7 +107,7 @@ module Mocha
       @original_method = stubbee._method(method_name)
     end
 
-    def original_method_defined_on_stubbee?
+    def stub_method_overwrites_original_method?
       original_method && original_method.owner == default_stub_method_owner
     end
 

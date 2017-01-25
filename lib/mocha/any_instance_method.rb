@@ -13,7 +13,7 @@ module Mocha
 
     def restore_original_method
       return if use_prepended_module_for_stub_method?
-      return unless original_method_defined_on_stubbee?
+      return unless stub_method_overwrites_original_method?
       default_stub_method_owner.send(:define_method, method_name, original_method)
       Module.instance_method(@original_visibility).bind(default_stub_method_owner).call(method_name)
     end
