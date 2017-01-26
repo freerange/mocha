@@ -36,7 +36,8 @@ module Mocha
     end
 
     def hide_original_method
-      return unless (@original_visibility = method_visibility)
+      return unless method_defined_in_stubbee_or_in_ancestor_chain?
+      @original_visibility = method_visibility
       if use_prepended_module_for_stub_method?
         use_prepended_module_for_stub_method
       else
@@ -98,6 +99,7 @@ module Mocha
         (metaclass.protected_method_defined?(symbol) && :protected) ||
         (metaclass.private_method_defined?(symbol) && :private)
     end
+    alias_method :method_defined_in_stubbee_or_in_ancestor_chain?, :method_visibility
 
     private
 
