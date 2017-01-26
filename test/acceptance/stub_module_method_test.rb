@@ -14,7 +14,11 @@ class StubModuleMethodTest < Mocha::TestCase
   end
 
   def test_should_stub_method_within_test
-    mod = Module.new { def self.my_module_method; :original_return_value; end }
+    mod = Module.new do
+      def self.my_module_method
+        :original_return_value
+      end
+    end
     test_result = run_as_test do
       mod.stubs(:my_module_method).returns(:new_return_value)
       assert_equal :new_return_value, mod.my_module_method
@@ -23,7 +27,14 @@ class StubModuleMethodTest < Mocha::TestCase
   end
 
   def test_should_leave_stubbed_public_method_unchanged_after_test
-    mod = Module.new { class << self; def my_module_method; :original_return_value; end; public :my_module_method; end }
+    mod = Module.new do
+      class << self
+        def my_module_method
+          :original_return_value
+        end
+        public :my_module_method
+      end
+    end
     run_as_test do
       mod.stubs(:my_module_method).returns(:new_return_value)
     end
@@ -32,7 +43,17 @@ class StubModuleMethodTest < Mocha::TestCase
   end
 
   def test_should_leave_stubbed_protected_method_unchanged_after_test
-    mod = Module.new { class << self; def my_module_method; :original_return_value; end; protected :my_module_method; def my_unprotected_module_method; my_module_method; end; end }
+    mod = Module.new do
+      class << self
+        def my_module_method
+          :original_return_value
+        end
+        protected :my_module_method
+        def my_unprotected_module_method
+          my_module_method
+        end
+      end
+    end
     run_as_test do
       mod.stubs(:my_module_method).returns(:new_return_value)
     end
@@ -41,7 +62,14 @@ class StubModuleMethodTest < Mocha::TestCase
   end
 
   def test_should_leave_stubbed_private_method_unchanged_after_test
-    mod = Module.new { class << self; def my_module_method; :original_return_value; end; private :my_module_method; end }
+    mod = Module.new do
+      class << self
+        def my_module_method
+          :original_return_value
+        end
+        private :my_module_method
+      end
+    end
     run_as_test do
       mod.stubs(:my_module_method).returns(:new_return_value)
     end
@@ -50,7 +78,11 @@ class StubModuleMethodTest < Mocha::TestCase
   end
 
   def test_should_reset_expectations_after_test
-    mod = Module.new { def self.my_module_method; :original_return_value; end }
+    mod = Module.new do
+      def self.my_module_method
+        :original_return_value
+      end
+    end
     run_as_test do
       mod.stubs(:my_module_method)
     end
@@ -58,8 +90,14 @@ class StubModuleMethodTest < Mocha::TestCase
   end
 
   def test_should_be_able_to_stub_a_superclass_method
-    supermod = Module.new { def self.my_superclass_method; :original_return_value; end }
-    mod = Module.new { include supermod }
+    supermod = Module.new do
+      def self.my_superclass_method
+        :original_return_value
+      end
+    end
+    mod = Module.new do
+      include supermod
+    end
     test_result = run_as_test do
       mod.stubs(:my_superclass_method).returns(:new_return_value)
       assert_equal :new_return_value, mod.my_superclass_method
