@@ -18,12 +18,6 @@ module Mocha
       Module.instance_method(original_visibility).bind(original_method_owner).call(method_name)
     end
 
-    def method_visibility
-      (original_method_owner.public_method_defined?(method_name) && :public) ||
-        (original_method_owner.protected_method_defined?(method_name) && :protected) ||
-        (original_method_owner.private_method_defined?(method_name) && :private)
-    end
-
     private
 
     def store_original_method
