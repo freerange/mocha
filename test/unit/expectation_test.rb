@@ -147,6 +147,13 @@ class ExpectationTest < Mocha::TestCase
     assert_equal [[1, 2, 3], [4, 5], [6, 7]], yielded_parameters
   end
 
+  def test_should_yield_multiple_times_with_hashes_correctly
+    expectation = new_expectation().multiple_yields({:one => "1"}, {:two => "2"})
+    yielded_parameters = []
+    expectation.invoke() { |*parameters| yielded_parameters << parameters }
+    assert_equal [{:one => "1"}, {:two => "2"}], yielded_parameters
+  end
+
   def test_should_return_specified_value
     expectation = new_expectation.returns(99)
     assert_equal 99, expectation.invoke
