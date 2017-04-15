@@ -14,7 +14,7 @@ module Mocha
 
       # @private
       def activate
-        @state_machine.current_state = @state
+        @state_machine.become(@state)
       end
 
       # @private
@@ -59,6 +59,8 @@ module Mocha
     def initialize(name)
       @name = name
       @current_state = nil
+      @enter_state_cb= {}
+      @exit_state_cb= {}
     end
 
     # Put the {StateMachine} into the state specified by +initial_state_name+.
@@ -70,11 +72,30 @@ module Mocha
       self
     end
 
+    # Add enter_state callback.
+    #
+    # @param [String] state name of state
+    def enter_state(state, &block)
+      @enter_state_cb[state]||= []
+      @enter_state_cb[state]<< block
+    end
+
+    # Add exit_state callback.
+    #
+    # @param [String] state name of state
+    def exit_state(state, &block)
+      @exit_state_cb[state]||= []
+      @exit_state_cb[state]<< block
+    end
+
     # Put the {StateMachine} into the +next_state_name+.
     #
     # @param [String] next_state_name name of new state
     def become(next_state_name)
+      return if @current_state == next_state_name
+      @exit_state_cb[@current_state].each(&:call) if @exit_state_cb.has_key?(@current_state)
       @current_state = next_state_name
+      @enter_state_cb[@current_state].each(&:call) if @enter_state_cb.has_key?(@current_state)
     end
 
     # Provides a mechanism to change the {StateMachine} into the state specified by +state_name+ at some point in the future.
