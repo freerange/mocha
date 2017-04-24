@@ -282,7 +282,7 @@ See the [documentation](http://gofreerange.com/mocha/docs/Mocha/Mock.html) for `
 
 See this [list of contributors](https://github.com/freerange/mocha/graphs/contributors).
 
-###Backers
+### Backers
 
 Support us with a monthly donation and help us continue our activities. [[Become a backer](https://opencollective.com/mocha#backer)]
 
@@ -318,6 +318,7 @@ Support us with a monthly donation and help us continue our activities. [[Become
 <a href="https://opencollective.com/mocha/backer/29/website" target="_blank"><img src="https://opencollective.com/mocha/backer/29/avatar.svg"></a>
 
 ### Sponsors
+
 Become a sponsor and get your logo on our README on Github with a link to your site. [[Become a sponsor](https://opencollective.com/mocha#sponsor)]
 
 <a href="https://opencollective.com/mocha/sponsor/0/website" target="_blank"><img src="https://opencollective.com/mocha/sponsor/0/avatar.svg"></a>
