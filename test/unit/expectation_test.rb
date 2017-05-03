@@ -147,6 +147,24 @@ class ExpectationTest < Mocha::TestCase
     assert_equal [[1, 2, 3], [4, 5], [6, 7]], yielded_parameters
   end
 
+  def test_should_return_yielded_value
+    expectation = new_expectation.yields
+    result = expectation.invoke { 'foobar' }
+    assert_equal 'foobar', result
+  end
+
+  def test_should_return_last_yielded_value
+    expectation = new_expectation.multiple_yields('a', 'b', 'c')
+    result = expectation.invoke { |param| param }
+    assert_equal 'c', result
+  end
+
+  def test_should_return_specified_value_when_yielding
+    expectation = new_expectation.yields.returns('bazqux')
+    result = expectation.invoke { 'foobar' }
+    assert_equal 'bazqux', result
+  end
+
   def test_should_return_specified_value
     expectation = new_expectation.returns(99)
     assert_equal 99, expectation.invoke

@@ -562,9 +562,10 @@ module Mocha
       @invocation_count += 1
       perform_side_effects()
       if block_given? then
-        @yield_parameters.next_invocation.each do |yield_parameters|
+        yield_result = @yield_parameters.next_invocation.each do |yield_parameters|
           yield(*yield_parameters)
         end
+        return yield_result if @return_values.values.empty?
       end
       @return_values.next
     end
