@@ -6,7 +6,7 @@ module Mocha
       @exception, @message = exception, message
     end
 
-    def evaluate
+    def evaluate(*args)
       raise @exception, @exception.to_s if @exception.is_a?(Module) && (@exception < Interrupt)
       raise @exception, @message if @message
       raise @exception

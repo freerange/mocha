@@ -44,6 +44,13 @@ class ReturnValuesTest < Mocha::TestCase
     assert_equal 'value_2', values.next
   end
 
+  def test_should_evaluate_return_block
+    method = Proc.new { |arg1, arg2| arg1 + arg2 }
+    values = ReturnValues.new(SingleReturnValue.new(method))
+    assert_equal 3, values.next(1, 2)
+    assert_equal 7, values.next(3, 4)
+  end
+
   def test_should_build_single_return_values_for_each_values
     values = ReturnValues.build('value_1', 'value_2', 'value_3').values
     assert_equal 'value_1', values[0].evaluate
@@ -58,6 +65,27 @@ class ReturnValuesTest < Mocha::TestCase
     assert_equal 'value_1', values[0].evaluate
     assert_equal 'value_2a', values[1].evaluate
     assert_equal 'value_2b', values[2].evaluate
+  end
+
+  def test_should_combine_return_values_with_block
+    values_1 = ReturnValues.build('value_1a', 'value_1b')
+    values_2 = ReturnValues.build() { 'value_2' }
+    values = (values_1 + values_2).values
+    assert_equal 'value_1a', values[0].evaluate
+    assert_equal 'value_1b', values[1].evaluate
+    assert_equal 'value_2', values[2].evaluate
+  end
+
+  def test_should_handle_extra_arguments_to_raisers_and_throwers
+    method = Proc.new { |arg1, arg2| arg1 + arg2 }
+    exception_class = Class.new(StandardError)
+    values = ReturnValues.new(SingleReturnValue.new('value'), SingleReturnValue.new(method), ExceptionRaiser.new(exception_class, nil), Thrower.new(:tag))
+    assert_equal 'value', values.next(1, 2)
+    assert_equal 3, values.next(1, 2)
+    # Make sure the raiser accepts the extra arguments and raises the appropriate error still
+    exception = assert_raises(exception_class) { values.next(1, 2) }
+    assert_equal exception_class.to_s, exception.message
+    assert_throws(:tag) { values.next(1, 2) }
   end
 
 end

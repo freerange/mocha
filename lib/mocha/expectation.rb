@@ -283,6 +283,9 @@ module Mocha
 
     # Modifies expectation so that when the expected method is called, it returns the specified +value+.
     #
+    # @yield optional block specifying custom result generation.
+    # @yieldparam [*Array] actual_parameters parameters with which expected method was invoked.
+    # @yieldreturn [Boolean] result for actual parameters
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
     # @see #then
     #
@@ -317,14 +320,21 @@ module Mocha
     #   object.expected_method # => 2
     #   object.expected_method # => raises exception of class Exception1
     #
+    # @example Return a custom value given the parameters
+    #   object = mock()
+    #   object.stubs(:expected_method).returns() { |x, y| x + y }
+    #   object.expected_method(1, 2) # => 3
+    #   object.stubs(:expected_method).returns() { |x, y| x - y }
+    #   object.expected_method(1, 2) # => -1
+    #
     # @example Note that in Ruby a method returning multiple values is exactly equivalent to a method returning an +Array+ of those values.
     #   object = mock()
     #   object.stubs(:expected_method).returns([1, 2])
     #   x, y = object.expected_method
     #   x # => 1
     #   y # => 2
-    def returns(*values)
-      @return_values += ReturnValues.build(*values)
+    def returns(*values, &result_block)
+      @return_values += ReturnValues.build(*values, &result_block)
       self
     end
 
@@ -558,7 +568,7 @@ module Mocha
     end
 
     # @private
-    def invoke
+    def invoke(*actual_parameters)
       @invocation_count += 1
       perform_side_effects()
       if block_given? then
@@ -566,7 +576,7 @@ module Mocha
           yield(*yield_parameters)
         end
       end
-      @return_values.next
+      @return_values.next(*actual_parameters)
     end
 
     # @private
