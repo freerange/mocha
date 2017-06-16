@@ -15,6 +15,11 @@ class IncludesTest < Mocha::TestCase
     assert matcher.matches?([[:x, :y, :z]])
   end
 
+  def test_should_match_object_including_array_value
+    matcher = includes([:x])
+    assert matcher.matches?([[[:x], [:y], [:z]]])
+  end
+
   def test_should_match_object_including_all_values
     matcher = includes(:x, :y, :z)
     assert matcher.matches?([[:x, :y, :z]])
