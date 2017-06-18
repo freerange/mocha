@@ -35,4 +35,9 @@ class QueryStringTest < Mocha::TestCase
     matcher = has_equivalent_query_string('/foo?a=1&b=2')
     assert matcher.matches?(['/foo?a=1&b=2'])
   end
+
+  def test_should_match_query_string_containing_blank_value
+    matcher = has_equivalent_query_string('http://example.com/foo?a=&b=2')
+    assert matcher.matches?(['http://example.com/foo?a=&b=2'])
+  end
 end
