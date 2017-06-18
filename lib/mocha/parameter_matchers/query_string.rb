@@ -49,7 +49,11 @@ module Mocha
     private
       # @private
       def explode(uri)
-        query_hash = (uri.query || '').split('&').inject({}){ |h, kv| h.merge(Hash[*kv.split('=')]) }
+        query_hash = (uri.query || '').split('&').inject({}) do |h, kv|
+          param = kv.split('=')
+          param[1] = '' if param.size < 2
+          h.merge(Hash[*param])
+        end
         URI::Generic::COMPONENT.inject({}){ |h, k| h.merge(k => uri.__send__(k)) }.merge(:query => query_hash)
       end
 

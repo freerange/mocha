@@ -297,6 +297,15 @@ class ParameterMatcherTest < Mocha::TestCase
     assert_passed(test_result)
   end
 
+  def test_should_match_parameter_with_blank_value
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(has_equivalent_query_string('http://example.com/foo?a='))
+      mock.method('http://example.com/foo?a=')
+    end
+    assert_passed(test_result)
+  end
+
   def test_should_match_parameter_when_value_is_divisible_by_four
     test_result = run_as_test do
       mock = mock()
