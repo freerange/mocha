@@ -7,7 +7,7 @@ module Mocha
     # Matches a URI without regard to the ordering of parameters in the query string.
     #
     # @param [String] uri URI to match.
-    # @return [QueryStringMatches] parameter matcher.
+    # @return [QueryString] parameter matcher.
     #
     # @see Expectation#with
     #
@@ -23,11 +23,11 @@ module Mocha
     #   object.method_1('http://example.com/foo?a=1&b=3')
     #   # error raised, because the query parameters were different
     def has_equivalent_query_string(uri)
-      QueryStringMatches.new(uri)
+      QueryString.new(uri)
     end
 
     # Parameter matcher which matches URIs with equivalent query strings.
-    class QueryStringMatches < Base
+    class QueryString < Base
 
       # @private
       def initialize(uri)

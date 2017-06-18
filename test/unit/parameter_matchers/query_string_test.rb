@@ -2,7 +2,7 @@ require File.expand_path('../../../test_helper', __FILE__)
 
 require 'mocha/parameter_matchers/query_string'
 
-class QueryStringMatchesTest < Mocha::TestCase
+class QueryStringTest < Mocha::TestCase
 
   include Mocha::ParameterMatchers
 
