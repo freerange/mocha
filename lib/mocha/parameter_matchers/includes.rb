@@ -80,7 +80,8 @@ module Mocha
         return false unless parameter.respond_to?(:include?)
         if @items.size == 1
           if parameter.respond_to?(:any?) && !parameter.is_a?(String)
-            return parameter.any? { |(p,_)| @items.first.to_matcher.matches?([p]) }
+            parameter = parameter.keys if parameter.is_a?(Hash)
+            return parameter.any? { |p| @items.first.to_matcher.matches?([p]) }
           else
             return parameter.include?(@items.first)
           end
