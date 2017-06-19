@@ -1,5 +1,7 @@
+require 'mocha/deprecation'
 require 'mocha/parameter_matchers/base'
 require 'uri'
+require 'cgi'
 
 module Mocha
   module ParameterMatchers
@@ -7,27 +9,34 @@ module Mocha
     # Matches a URI without regard to the ordering of parameters in the query string.
     #
     # @param [String] uri URI to match.
-    # @return [QueryString] parameter matcher.
+    # @return [EquivalentUri] parameter matcher.
     #
     # @see Expectation#with
     #
-    # @example Actual URI has equivalent query string.
+    # @example Actual URI is equivalent.
     #   object = mock()
-    #   object.expects(:method_1).with(has_equivalent_query_string('http://example.com/foo?a=1&b=2))
+    #   object.expects(:method_1).with(equivalent_uri('http://example.com/foo?a=1&b=2))
     #   object.method_1('http://example.com/foo?b=2&a=1')
     #   # no error raised
     #
-    # @example Actual URI does not have equivalent query string.
+    # @example Actual URI is not equivalent.
     #   object = mock()
-    #   object.expects(:method_1).with(has_equivalent_query_string('http://example.com/foo?a=1&b=2))
+    #   object.expects(:method_1).with(equivalent_uri('http://example.com/foo?a=1&b=2))
     #   object.method_1('http://example.com/foo?a=1&b=3')
     #   # error raised, because the query parameters were different
+    def equivalent_uri(uri)
+      EquivalentUri.new(uri)
+    end
+
+    # @deprecated Use {#equivalent_uri} instead.
     def has_equivalent_query_string(uri)
-      QueryString.new(uri)
+      Mocha::Deprecation.warning("`has_equivalent_query_string` is deprecated. Please use `equivalent_uri` instead.")
+
+      equivalent_uri(uri)
     end
 
     # Parameter matcher which matches URIs with equivalent query strings.
-    class QueryString < Base
+    class EquivalentUri < Base
 
       # @private
       def initialize(uri)
@@ -43,16 +52,13 @@ module Mocha
 
       # @private
       def mocha_inspect
-        "has_equivalent_query_string(#{@uri.mocha_inspect})"
+        "equivalent_uri(#{@uri.mocha_inspect})"
       end
 
     private
       # @private
       def explode(uri)
-        query_hash = (uri.query || '').split('&').inject({}) do |h, pair|
-          key, value = pair.split('=')
-          h.merge(key => value || '')
-        end
+        query_hash = CGI.parse(uri.query || '')
         URI::Generic::COMPONENT.inject({}){ |h, k| h.merge(k => uri.__send__(k)) }.merge(:query => query_hash)
       end
 
