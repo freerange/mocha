@@ -1,6 +1,7 @@
 require 'mocha/deprecation'
 require 'mocha/parameter_matchers/base'
 require 'uri'
+require 'cgi'
 
 module Mocha
   module ParameterMatchers
@@ -57,10 +58,7 @@ module Mocha
     private
       # @private
       def explode(uri)
-        query_hash = (uri.query || '').split('&').inject({}) do |h, pair|
-          key, value = pair.split('=')
-          h.merge(key => value || '')
-        end
+        query_hash = CGI.parse(uri.query || '')
         URI::Generic::COMPONENT.inject({}){ |h, k| h.merge(k => uri.__send__(k)) }.merge(:query => query_hash)
       end
 
