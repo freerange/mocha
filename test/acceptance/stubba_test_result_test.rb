@@ -16,7 +16,10 @@ class StubbaTestResultTest < Mocha::TestCase
 
   def test_should_include_expectation_verification_in_assertion_count
     test_result = run_as_test do
-      object = Class.new { def message; end }.new
+      object = Class.new do
+        def message
+        end
+      end.new
       object.expects(:message)
       object.message
     end
@@ -32,7 +35,10 @@ class StubbaTestResultTest < Mocha::TestCase
 
   def test_should_not_include_stubbing_expectation_verification_in_assertion_count
     test_result = run_as_test do
-      object = Class.new { def message; end }.new
+      object = Class.new do
+        def message
+        end
+      end.new
       object.stubs(:message)
       object.message
     end
@@ -41,7 +47,10 @@ class StubbaTestResultTest < Mocha::TestCase
 
   def test_should_include_expectation_verification_failure_in_failure_count
     test_result = run_as_test do
-      object = Class.new { def message; end }.new
+      object = Class.new do
+        def message
+        end
+      end.new
       object.expects(:message)
     end
     assert_equal 1, test_result.failure_count
