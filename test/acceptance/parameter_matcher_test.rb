@@ -243,19 +243,19 @@ class ParameterMatcherTest < Mocha::TestCase
     assert_failed(test_result)
   end
 
-  def test_should_match_parameter_that_has_equivalent_query_string
+  def test_should_match_parameter_that_is_equivalent_uri
     test_result = run_as_test do
       mock = mock()
-      mock.expects(:method).with(has_equivalent_query_string('http://example.com/foo?b=2&a=1'))
+      mock.expects(:method).with(equivalent_uri('http://example.com/foo?b=2&a=1'))
       mock.method('http://example.com/foo?a=1&b=2')
     end
     assert_passed(test_result)
   end
 
-  def test_should_not_match_parameter_that_does_not_have_equivalent_query_string
+  def test_should_not_match_parameter_that_is_not_equivalent
     test_result = run_as_test do
       mock = mock()
-      mock.expects(:method).with(has_equivalent_query_string('http://example.com/foo?a=1'))
+      mock.expects(:method).with(equivalent_uri('http://example.com/foo?a=1'))
       mock.method('http://example.com/foo?a=1&b=2')
     end
     assert_failed(test_result)
