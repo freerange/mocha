@@ -1,5 +1,28 @@
 # Release Notes
 
+## 1.3.0
+
+* Ensure all tests run individually - thanks to @chrisroos (#267)
+* Update Travis CI build status badge to show master branch status (#264)
+* Correct RSpec section of the README - thanks to @myronmarston (0cc039c8)
+* Fix pretty printing of quotes in `String#mocha_inspect` (#215 & #223)
+* Add release instructions to README - thanks to @chrisroos (70a5febd & 3c664df7)
+* Require at least Ruby v1.8.7 in gemspec - thanks to @knappe (3e20be8e)
+* Remove redundant InstanceMethod#method_exists? - thanks to @chrisroos (8f58eddf)
+* Reduce risk of hitting bug 12832 in Ruby v2.3 - thanks to @chrisroos (#277 & eca7560c)
+* Fix JRuby build - thanks to @headius (jruby/jruby#4250) & @chrisroos (#274)
+* Add latest stable version of JRuby to Travis CI build matrix (#288)
+* Fix Ruby v1.8.7 builds on Travis CI (928b5a40 & 460dce5b)
+* Deprecate passing block to mock object constructor (#290)
+* Add a known issue to README for Ruby bug 12876 (#276)
+* Add Ruby 2.4 and ruby-head to Travis CI build matrix - thanks to @junaruga (#297)
+* Fix `Mocha::ParameterMatchers#includes` for `Array` values - thanks to @timcraft (#302)
+* Use faster container-based virtual environments for Travis CI builds (#305)
+* Rename `Mocha::ParameterMatchers::QueryStringMatches` to `QueryString` (#306)
+* Handle blank parameter value for query string matcher - thanks to @weynsee (#303 & #304)
+* Rename `Mocha::ParameterMatchers::QueryString` -> `EquivalentUri` (#307)
+* Use `do ... end` instead of `{ ... }` in acceptance tests - thanks to @chrisroos (#294)
+
 ## 1.2.1
 
 * Fixed #272. Workaround Ruby bug 12832 which caused interpreter to hang. See https://bugs.ruby-lang.org/issues/12832. Thanks to @chrisroos & @petems (6f1c8b9b, #273).
