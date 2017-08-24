@@ -418,7 +418,7 @@ Hash with wrong number of entries.
 
 ## 0.5.0
 
-- Parameter Matchers - I’ve added a few Hamcrest-style parameter matchers which are designed to be used inside Expectation#with. The following matchers are currently available: anything(), includes(), has_key(), has_value(), has_entry(), all_of() & any_of(). More to follow soon. The idea is eventually to get rid of the nasty parameter_block option on Expectation#with.
+- Parameter Matchers - I've added a few Hamcrest-style parameter matchers which are designed to be used inside Expectation#with. The following matchers are currently available: anything(), includes(), has_key(), has_value(), has_entry(), all_of() & any_of(). More to follow soon. The idea is eventually to get rid of the nasty parameter_block option on Expectation#with.
 
   object = mock()
   object.expects(:method).with(has_key('key_1'))
