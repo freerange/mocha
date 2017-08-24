@@ -179,10 +179,9 @@ end
   def test_should_return_mock_for_stubbee
     mocha = Object.new
     stubbee = Object.new
-    stubbee.define_instance_accessor(:mocha) { mocha }
-    stubbee.mocha = nil
+    stubbee.define_instance_method(:mocha) { mocha }
     method = ClassMethod.new(stubbee, :method_name)
-    assert_equal stubbee.mocha, method.mock
+    assert_equal mocha, method.mock
   end
 
   def test_should_not_match_if_other_object_has_a_different_class
