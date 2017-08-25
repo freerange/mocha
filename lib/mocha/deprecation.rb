@@ -1,4 +1,5 @@
 require 'mocha/debug'
+require 'mocha/backtrace_filter'
 
 module Mocha
 
@@ -11,10 +12,9 @@ module Mocha
       def warning(message)
         @messages << message
         unless mode == :disabled
-          $stderr.puts "Mocha deprecation warning: #{message}"
-        end
-        if mode == :debug
-          $stderr.puts caller.join("\n  ")
+          filter = BacktraceFilter.new
+          location = filter.filtered(caller)[0]
+          $stderr.puts "Mocha deprecation warning at #{location}: #{message}"
         end
       end
 
