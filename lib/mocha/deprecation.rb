@@ -10,8 +10,12 @@ module Mocha
 
       def warning(message)
         @messages << message
-        $stderr.puts "\n*** Mocha deprecation warning: #{message}\n\n" unless mode == :disabled
-        $stderr.puts caller.join("\n  ") if mode == :debug
+        unless mode == :disabled
+          $stderr.puts "\n*** Mocha deprecation warning: #{message}\n\n"
+        end
+        if mode == :debug
+          $stderr.puts caller.join("\n  ")
+        end
       end
 
     end
