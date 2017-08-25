@@ -1,4 +1,3 @@
-require 'mocha/debug'
 require 'mocha/backtrace_filter'
 
 module Mocha
@@ -20,7 +19,7 @@ module Mocha
 
     end
 
-    self.mode = Debug::OPTIONS['debug'] ? :debug : :enabled
+    self.mode = :enabled
     self.messages = []
 
   end
