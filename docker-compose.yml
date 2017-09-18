@@ -1,0 +1,12 @@
+app:
+  build: .
+  volumes:
+    - .:/app
+    - ssh:/ssh
+  volumes_from:
+    - bundled_gems
+
+bundled_gems:
+  image: busybox
+  volumes:
+    - /bundled_gems
