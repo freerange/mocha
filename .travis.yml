@@ -9,7 +9,7 @@ rvm:
   - 2.0.0
   - 2.1.10
   - 2.2.6
-  - 2.3.3
+  - 2.3.6
   - 2.4.3
   - 2.5.0
   - ruby-head
@@ -32,7 +32,7 @@ matrix:
     - rvm: 2.4.3
       gemfile: gemfiles/Gemfile.minitest.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
-    - rvm: 2.3.3
+    - rvm: 2.3.6
       gemfile: gemfiles/Gemfile.minitest.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
     - rvm: 2.2.6
@@ -104,7 +104,7 @@ matrix:
     - rvm: 2.4.3
       gemfile: gemfiles/Gemfile.test-unit.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
-    - rvm: 2.3.3
+    - rvm: 2.3.6
       gemfile: gemfiles/Gemfile.test-unit.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
     - rvm: 2.2.6
