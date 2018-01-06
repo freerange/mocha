@@ -100,12 +100,12 @@ module Mocha
     def on_stubbing(object, method)
       method = PRE_RUBY_V19 ? method.to_s : method.to_sym
       unless Mocha::Configuration.allow?(:stubbing_non_existent_method)
-        unless object.method_exists?(method, include_public_methods = true)
+        unless object.method_exists?(method, _include_public_methods = true)
           on_stubbing_non_existent_method(object, method)
         end
       end
       unless Mocha::Configuration.allow?(:stubbing_non_public_method)
-        if object.method_exists?(method, include_public_methods = false)
+        if object.method_exists?(method, _include_public_methods = false)
           on_stubbing_non_public_method(object, method)
         end
       end
