@@ -15,12 +15,16 @@ rvm:
   - ruby-head
   - jruby-9.1.15.0
   - jruby-head
+  - rbx-3
 gemfile:
   - Gemfile
 env:
   - MOCHA_OPTIONS=debug
 matrix:
   include:
+    - rvm: rbx-3
+      gemfile: gemfiles/Gemfile.minitest.latest
+      env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
     - rvm: jruby-head
       gemfile: gemfiles/Gemfile.minitest.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
@@ -97,6 +101,9 @@ matrix:
       gemfile: gemfiles/Gemfile.minitest.1.3.0
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
     - rvm: jruby-9.1.15.0
+      gemfile: gemfiles/Gemfile.test-unit.latest
+      env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
+    - rvm: rbx-3
       gemfile: gemfiles/Gemfile.test-unit.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
     - rvm: jruby-head
