@@ -1,3 +1,2 @@
-require "mocha/integration/mini_test"
-
-Mocha::Integration::MiniTest.activate
+warn "Require mocha/minitest instead of mocha/mini_test"
+require 'mocha/mini_test'
