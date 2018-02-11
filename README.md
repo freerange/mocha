@@ -33,7 +33,7 @@ require 'mocha/test_unit'
 require 'rubygems'
 gem 'mocha'
 require 'minitest/unit'
-require 'mocha/mini_test'
+require 'mocha/minitest'
 ```
 
 #### Bundler
@@ -59,7 +59,7 @@ gem "mocha"
 
 # Elsewhere after Bundler has loaded gems e.g. after `require 'bundler/setup'`
 require "minitest/unit"
-require "mocha/mini_test"
+require "mocha/minitest"
 ```
 
 #### Rails
@@ -73,7 +73,7 @@ If you're loading Mocha using Bundler within a Rails application, you should set
 gem 'mocha'
 
 # At bottom of test_helper.rb (or at least after `require 'rails/test_help'`)
-require 'mocha/mini_test'
+require 'mocha/minitest'
 ```
 
 ##### RSpec
@@ -104,7 +104,7 @@ Note: As of version 0.9.8, the Mocha plugin is not automatically setup at plugin
 
 ```ruby
 # At bottom of test_helper.rb (or at least after `require 'rails/test_help'`)
-require 'mocha/mini_test'
+require 'mocha/minitest'
 ```
 
 #### Known Issues

@@ -1,3 +1,5 @@
-require "mocha/integration/mini_test"
+require 'mocha/deprecation'
 
-Mocha::Integration::MiniTest.activate
+Mocha::Deprecation.warning("`require 'mocha/mini_test'` has been deprecated. Please use `require 'mocha/minitest' instead.")
+
+require 'mocha/minitest'
