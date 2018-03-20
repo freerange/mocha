@@ -334,6 +334,14 @@ class MockTest < Mocha::TestCase
     assert_match(/unexpected invocation/, e.message)
   end
 
+  unless PRE_RUBY_V19
+    def test_expectation_is_defined_on_mock
+      mock = build_mock
+      mock.expects(:method1)
+      assert defined? mock.method1
+    end
+  end
+
   private
 
   def build_mock
