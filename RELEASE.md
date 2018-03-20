@@ -1,5 +1,13 @@
 # Release Notes
 
+## Unreleased
+
+* Fix deprecation warning for `assert_nil` in `ClassMethodTest` (#308 & #309)
+* Display file and line number in deprecation warning - thanks to @chrisarcand (#310, #312 & #313)
+* Rename `mocha/mini_test.rb` to `mocha/minitest.rb` - thanks to @grosser (#320 & #322)
+* Fix warning when delegating to mock in Ruby 2.4 - thanks to @tjvc (#321 & #323)
+* Updates to Travis CI configuration ([73af600..9732726](https://github.com/freerange/mocha/compare/73af600...9732726) & 0426e5e)
+
 ## 1.3.0
 
 * Ensure all tests run individually - thanks to @chrisroos (#267)
