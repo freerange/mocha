@@ -1,6 +1,6 @@
 # Release Notes
 
-## Unreleased
+## 1.4.0
 
 * Fix deprecation warning for `assert_nil` in `ClassMethodTest` (#308 & #309)
 * Display file and line number in deprecation warning - thanks to @chrisarcand (#310, #312 & #313)
