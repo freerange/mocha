@@ -9,7 +9,15 @@ class MockeryTest < Mocha::TestCase
   include Mocha
   include DeprecationDisabler
 
+  def test_should_return_null_mockery_if_not_built
+    mockery = Mockery.reset_instance
+    mockery = Mockery.instance
+    assert_not_nil mockery
+    assert_kind_of Mockery::Null, mockery
+  end
+
   def test_should_build_instance_of_mockery
+    Mockery.build_instance
     mockery = Mockery.instance
     assert_not_nil mockery
     assert_kind_of Mockery, mockery
