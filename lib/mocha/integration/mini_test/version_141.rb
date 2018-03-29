@@ -31,6 +31,7 @@ module Mocha
             begin
               begin
                 @passed = nil
+                mocha_setup
                 self.setup
                 self.__send__ self.__name__
                 mocha_verify(assertion_counter)

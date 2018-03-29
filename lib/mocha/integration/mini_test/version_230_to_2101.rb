@@ -31,6 +31,7 @@ module Mocha
             begin
               begin
                 @passed = nil
+                mocha_setup
                 self.setup
                 self.run_setup_hooks
                 self.__send__ self.__name__

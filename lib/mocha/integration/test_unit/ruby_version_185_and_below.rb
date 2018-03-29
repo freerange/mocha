@@ -25,6 +25,7 @@ module Mocha
             @_result = result
             begin
               begin
+                mocha_setup
                 setup
                 __send__(@method_name)
                 mocha_verify(assertion_counter)

@@ -32,6 +32,7 @@ module Mocha
               begin
                 @passed = nil
                 self.before_setup
+                mocha_setup
                 self.setup
                 self.after_setup
                 self.run_test self.__name__
