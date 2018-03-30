@@ -2,6 +2,23 @@ module Mocha
 
   class Central
 
+    class Null < self
+
+      def initialize(&block)
+        super
+        @raise_not_initialized_error = block
+      end
+
+      def stub(*)
+        @raise_not_initialized_error.call
+      end
+
+      def unstub(*)
+        @raise_not_initialized_error.call
+      end
+
+    end
+
     attr_accessor :stubba_methods
 
     def initialize

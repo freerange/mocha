@@ -7,16 +7,40 @@ require 'mocha/state_machine'
 require 'mocha/logger'
 require 'mocha/configuration'
 require 'mocha/stubbing_error'
+require 'mocha/not_initialized_error'
 require 'mocha/expectation_error_factory'
 
 module Mocha
 
   class Mockery
 
+    class Null < self
+
+      def add_mock(*)
+        raise_not_initialized_error
+      end
+
+      def add_state_machine(*)
+        raise_not_initialized_error
+      end
+
+      def stubba
+        Central::Null.new(&method(:raise_not_initialized_error))
+      end
+
+      private
+
+      def raise_not_initialized_error
+        message = 'Mocha methods cannot be used outside the context of a test'
+        raise NotInitializedError.new(message, caller)
+      end
+
+    end
+
     class << self
 
       def instance
-        instances.last
+        instances.last || Null.new
       end
 
       def setup
@@ -35,6 +59,7 @@ module Mocha
 
       def reset_instance
         @instances.pop
+        @instances = nil if instances.empty?
       end
 
       private

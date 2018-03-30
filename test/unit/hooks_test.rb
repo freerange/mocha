@@ -1,5 +1,6 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/hooks'
+require 'mocha/mockery'
 
 class HooksTest < Mocha::TestCase
   class Mocha::Mockery
@@ -24,6 +25,6 @@ class HooksTest < Mocha::TestCase
 
     fake_test_case.mocha_teardown rescue nil
 
-    assert_nil Mocha::Mockery.instance
+    assert_kind_of Mocha::Mockery::Null, Mocha::Mockery.instance
   end
 end

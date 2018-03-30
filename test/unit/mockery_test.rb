@@ -17,6 +17,13 @@ class MockeryTest < Mocha::TestCase
     Mockery.reset_instance
   end
 
+  def test_should_return_null_mockery_if_not_setup
+    Mockery.reset_instance
+    mockery = Mockery.instance
+    assert_not_nil mockery
+    assert_kind_of Mockery::Null, mockery
+  end
+
   def test_should_return_instance_of_mockery
     mockery = Mockery.instance
     assert_not_nil mockery
