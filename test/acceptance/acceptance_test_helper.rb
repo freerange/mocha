@@ -27,13 +27,11 @@ module AcceptanceTest
     Mocha::Configuration.reset_configuration
     @logger = FakeLogger.new
     mockery = Mocha::Mockery.instance
-    @original_logger = mockery.logger
     mockery.logger = @logger
   end
 
   def teardown_acceptance_test
     Mocha::Configuration.reset_configuration
-    Mocha::Mockery.instance.logger = @original_logger
   end
 
   include Introspection::Assertions
