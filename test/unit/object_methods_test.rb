@@ -1,12 +1,18 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/object_methods'
+require 'mocha/mockery'
 require 'mocha/mock'
 require 'mocha/expectation_error_factory'
 
 class ObjectMethodsTest < Mocha::TestCase
 
   def setup
+    Mocha::Mockery.setup
     @object = Object.new.extend(Mocha::ObjectMethods)
+  end
+
+  def teardown
+    Mocha::Mockery.reset_instance
   end
 
   def test_should_build_mocha_referring_to_self

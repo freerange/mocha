@@ -16,7 +16,13 @@ module Mocha
     class << self
 
       def instance
-        @instance ||= new
+        instances.last
+      end
+
+      def setup
+        mockery = new
+        mockery.logger = instance.logger unless instances.empty?
+        @instances.push(mockery)
       end
 
       def verify(*args)
@@ -28,7 +34,13 @@ module Mocha
       end
 
       def reset_instance
-        @instance = nil
+        @instances.pop
+      end
+
+      private
+
+      def instances
+        @instances ||= []
       end
 
     end
