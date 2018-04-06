@@ -55,9 +55,7 @@ module Mocha
 
       def teardown
         instance.teardown
-      end
-
-      def reset_instance
+      ensure
         @instances.pop
         @instances = nil if instances.empty?
       end

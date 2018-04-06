@@ -12,7 +12,7 @@ class ObjectMethodsTest < Mocha::TestCase
   end
 
   def teardown
-    Mocha::Mockery.reset_instance
+    Mocha::Mockery.teardown
   end
 
   def test_should_build_mocha_referring_to_self

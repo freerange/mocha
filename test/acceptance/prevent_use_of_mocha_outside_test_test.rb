@@ -8,7 +8,7 @@ class PreventUseOfMochaOutsideTestTest < Mocha::TestCase
 
   def setup
     setup_acceptance_test
-    Mocha::Mockery.reset_instance
+    mocha_teardown
   end
 
   def teardown
