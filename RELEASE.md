@@ -1,6 +1,6 @@
 # Release Notes
 
-## Unreleased
+## 1.5.0
 
 * Prevent use of Mocha outside the context of a test/example - thanks to @andyw8 & @lzap (#327)
 
