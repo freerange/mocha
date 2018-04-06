@@ -9,7 +9,22 @@ class MockeryTest < Mocha::TestCase
   include Mocha
   include DeprecationDisabler
 
-  def test_should_build_instance_of_mockery
+  def setup
+    Mockery.setup
+  end
+
+  def teardown
+    Mockery.teardown
+  end
+
+  def test_should_return_null_mockery_if_not_setup
+    Mockery.teardown
+    mockery = Mockery.instance
+    assert_not_nil mockery
+    assert_kind_of Mockery::Null, mockery
+  end
+
+  def test_should_return_instance_of_mockery
     mockery = Mockery.instance
     assert_not_nil mockery
     assert_kind_of Mockery, mockery
@@ -23,7 +38,7 @@ class MockeryTest < Mocha::TestCase
 
   def test_should_expire_mockery_instance_cache
     mockery_1 = Mockery.instance
-    Mockery.reset_instance
+    Mockery.teardown
     mockery_2 = Mockery.instance
     assert_not_same mockery_1, mockery_2
   end

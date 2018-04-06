@@ -21,6 +21,7 @@ module Mocha
     #
     # This method should be called before each individual test starts (including before any "setup" code).
     def mocha_setup
+      Mockery.setup
     end
 
     # Verifies that all mock expectations have been met (only for use by authors of test libraries).
@@ -37,8 +38,6 @@ module Mocha
     # This method should be called after each individual test has finished (including after any "teardown" code).
     def mocha_teardown
       Mockery.teardown
-    ensure
-      Mockery.reset_instance
     end
   end
 end

@@ -28,6 +28,7 @@ module Mocha
               yield(Test::Unit::TestCase::STARTED_OBJECT, self)
               begin
                 begin
+                  mocha_setup
                   run_setup
                   run_test
                   run_cleanup

@@ -26,6 +26,7 @@ module Mocha
               yield(Test::Unit::TestCase::STARTED, name)
               begin
                 begin
+                  mocha_setup
                   run_setup
                   __send__(@method_name)
                   mocha_verify(assertion_counter)
