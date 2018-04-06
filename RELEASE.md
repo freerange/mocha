@@ -1,5 +1,9 @@
 # Release Notes
 
+## Unreleased
+
+* Prevent use of Mocha outside the context of a test/example - thanks to @andyw8 & @lzap (#327)
+
 ## 1.4.0
 
 * Fix deprecation warning for `assert_nil` in `ClassMethodTest` (#308 & #309)
