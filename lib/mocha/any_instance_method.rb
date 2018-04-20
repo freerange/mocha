@@ -16,22 +16,22 @@ module Mocha
     def restore_original_method
       unless use_prepended_module_for_stub_method?
         if stub_method_overwrites_original_method?
-          default_stub_method_owner.send(:define_method, method_name, original_method)
-          Module.instance_method(@original_visibility).bind(default_stub_method_owner).call(method_name)
+          original_method_owner.send(:define_method, method_name, original_method)
+          Module.instance_method(@original_visibility).bind(original_method_owner).call(method_name)
         end
       end
     end
 
     def method_visibility
-      (default_stub_method_owner.public_instance_methods(true).include?(method_name) && :public) ||
-        (default_stub_method_owner.protected_instance_methods(true).include?(method_name) && :protected) ||
-        (default_stub_method_owner.private_instance_methods(true).include?(method_name) && :private)
+      (original_method_owner.public_instance_methods(true).include?(method_name) && :public) ||
+        (original_method_owner.protected_instance_methods(true).include?(method_name) && :protected) ||
+        (original_method_owner.private_instance_methods(true).include?(method_name) && :private)
     end
 
     private
 
     def store_original_method
-      @original_method = default_stub_method_owner.instance_method(method_name)
+      @original_method = original_method_owner.instance_method(method_name)
     end
 
     def stub_method_definition
@@ -44,7 +44,7 @@ module Mocha
       [method_implementation, filename, line_number_of_method_implementation]
     end
 
-    def default_stub_method_owner
+    def original_method_owner
       stubbee
     end
 

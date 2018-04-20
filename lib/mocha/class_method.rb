@@ -71,15 +71,15 @@ module Mocha
         if stub_method_overwrites_original_method?
           if PRE_RUBY_V19
             original_method_in_scope = original_method
-            default_stub_method_owner.send(:define_method, method_name) do |*args, &block|
+            original_method_owner.send(:define_method, method_name) do |*args, &block|
               original_method_in_scope.call(*args, &block)
             end
           else
-            default_stub_method_owner.send(:define_method, method_name, original_method)
+            original_method_owner.send(:define_method, method_name, original_method)
           end
         end
         if @original_visibility
-          Module.instance_method(@original_visibility).bind(default_stub_method_owner).call(method_name)
+          Module.instance_method(@original_visibility).bind(original_method_owner).call(method_name)
         end
       end
     end
@@ -97,7 +97,7 @@ module Mocha
 
     def method_visibility
       symbol = method_name.to_sym
-      metaclass = default_stub_method_owner
+      metaclass = original_method_owner
 
       (metaclass.public_method_defined?(symbol) && :public) ||
         (metaclass.protected_method_defined?(symbol) && :protected) ||
@@ -114,11 +114,11 @@ module Mocha
     end
 
     def stub_method_overwrites_original_method?
-      original_method && original_method.owner == default_stub_method_owner
+      original_method && original_method.owner == original_method_owner
     end
 
     def remove_original_method_from_stubbee
-      default_stub_method_owner.send(:remove_method, method_name)
+      original_method_owner.send(:remove_method, method_name)
     end
 
     def use_prepended_module_for_stub_method?
@@ -127,7 +127,7 @@ module Mocha
 
     def use_prepended_module_for_stub_method
       @stub_method_owner = PrependedModule.new
-      default_stub_method_owner.__send__ :prepend, @stub_method_owner
+      original_method_owner.__send__ :prepend, @stub_method_owner
     end
 
     def stub_method_definition
@@ -141,10 +141,10 @@ module Mocha
     end
 
     def stub_method_owner
-      @stub_method_owner ||= default_stub_method_owner
+      @stub_method_owner ||= original_method_owner
     end
 
-    def default_stub_method_owner
+    def original_method_owner
       stubbee.__metaclass__
     end
 
