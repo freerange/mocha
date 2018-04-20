@@ -3,6 +3,7 @@ require 'mocha/object_methods'
 require 'mocha/mockery'
 require 'mocha/mock'
 require 'mocha/expectation_error_factory'
+require 'mocha/names'
 
 class ObjectMethodsTest < Mocha::TestCase
 
@@ -19,12 +20,23 @@ class ObjectMethodsTest < Mocha::TestCase
     mocha = @object.mocha
     assert_not_nil mocha
     assert mocha.is_a?(Mocha::Mock)
-    assert_equal @object.mocha_inspect, mocha.mocha_inspect
+    expected_name = Mocha::ImpersonatingName.new(@object).mocha_inspect
+    assert_equal expected_name, mocha.mocha_inspect
+  end
+
+  def test_should_not_build_mocha_if_instantiate_is_false
+    assert_nil @object.mocha(false)
   end
 
   def test_should_reuse_existing_mocha
     mocha_1 = @object.mocha
     mocha_2 = @object.mocha
+    assert_equal mocha_1, mocha_2
+  end
+
+  def test_should_reuse_existing_mocha_even_if_instantiate_is_false
+    mocha_1 = @object.mocha
+    mocha_2 = @object.mocha(false)
     assert_equal mocha_1, mocha_2
   end
 

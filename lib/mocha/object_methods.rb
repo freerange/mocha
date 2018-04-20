@@ -14,8 +14,12 @@ module Mocha
     alias_method :_method, :method
 
     # @private
-    def mocha
-      @mocha ||= Mocha::Mockery.instance.mock_impersonating(self)
+    def mocha(instantiate = true)
+      if instantiate
+        @mocha ||= Mocha::Mockery.instance.mock_impersonating(self)
+      else
+        defined?(@mocha) ? @mocha : nil
+      end
     end
 
     # @private
