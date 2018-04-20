@@ -37,7 +37,7 @@ module Mocha
 
     def hide_original_method
       return unless method_defined_in_stubbee_or_in_ancestor_chain?
-      @original_visibility = method_visibility
+      store_original_method_visibility
       if use_prepended_module_for_stub_method?
         use_prepended_module_for_stub_method
       else
@@ -56,8 +56,8 @@ module Mocha
 
     def define_new_method
       stub_method_owner.class_eval(*stub_method_definition)
-      return unless @original_visibility
-      Module.instance_method(@original_visibility).bind(stub_method_owner).call(method_name)
+      return unless original_visibility
+      Module.instance_method(original_visibility).bind(stub_method_owner).call(method_name)
     end
 
     def remove_new_method
@@ -76,8 +76,8 @@ module Mocha
           original_method_owner.send(:define_method, method_name, original_method)
         end
       end
-      return unless @original_visibility
-      Module.instance_method(@original_visibility).bind(stubbee.__metaclass__).call(method_name)
+      return unless original_visibility
+      Module.instance_method(original_visibility).bind(stubbee.__metaclass__).call(method_name)
     end
 
     def matches?(other)
@@ -103,10 +103,14 @@ module Mocha
 
     private
 
-    attr_reader :original_method
+    attr_reader :original_method, :original_visibility
 
     def store_original_method
       @original_method = stubbee._method(method_name)
+    end
+
+    def store_original_method_visibility
+      @original_visibility = method_visibility
     end
 
     def stub_method_overwrites_original_method?
