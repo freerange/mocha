@@ -17,7 +17,7 @@ module Mocha
       unless use_prepended_module_for_stub_method?
         if stub_method_overwrites_original_method?
           original_method_owner.send(:define_method, method_name, original_method)
-          Module.instance_method(@original_visibility).bind(original_method_owner).call(method_name)
+          Module.instance_method(original_visibility).bind(original_method_owner).call(method_name)
         end
       end
     end
