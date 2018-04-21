@@ -19,8 +19,12 @@ module Mocha
         @stubba_object = klass
       end
 
-      def mocha
-        @mocha ||= Mocha::Mockery.instance.mock_impersonating_any_instance_of(@stubba_object)
+      def mocha(instantiate = true)
+        if instantiate
+          @mocha ||= Mocha::Mockery.instance.mock_impersonating_any_instance_of(@stubba_object)
+        else
+          defined?(@mocha) ? @mocha : nil
+        end
       end
 
       def stubba_method

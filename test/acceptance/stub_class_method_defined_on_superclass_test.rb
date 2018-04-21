@@ -109,4 +109,34 @@ class StubClassMethodDefinedOnSuperclassTest < Mocha::TestCase
     end
     assert_passed(test_result)
   end
+
+  def test_expect_method_on_superclass_even_if_preceded_by_test_expecting_method_on_subclass
+    superklass = Class.new do
+      def self.inspect
+        'superklass'
+      end
+      def self.my_class_method; end
+    end
+    klass = Class.new(superklass) do
+      def self.inspect
+        'klass'
+      end
+      def self.my_class_method; end
+    end
+    test_result = run_as_tests(
+      :test_1 => lambda {
+        klass.expects(:my_class_method)
+        klass.my_class_method
+      },
+      :test_2 => lambda {
+        superklass.expects(:my_class_method)
+      }
+    )
+    assert_failed(test_result)
+    assert_equal [
+      "not all expectations were satisfied",
+      "unsatisfied expectations:",
+      "- expected exactly once, not yet invoked: superklass.my_class_method(any_parameters)"
+    ], test_result.failure_message_lines
+  end
 end

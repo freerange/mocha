@@ -4,13 +4,31 @@ require 'mocha/receivers'
 class ObjectReceiverTest < Mocha::TestCase
   include Mocha
 
-  class FakeObject < Struct.new(:mocha)
+  class FakeObject
+    def initialize(mocha)
+      @mocha = mocha
+    end
+
+    def mocha(_)
+      @mocha
+    end
+
     def is_a?(klass)
       false
     end
   end
 
-  class FakeClass < Struct.new(:superclass, :mocha)
+  class FakeClass
+    attr_reader :superclass
+
+    def initialize(superclass, mocha)
+      @superclass, @mocha = superclass, mocha
+    end
+
+    def mocha(_)
+      @mocha
+    end
+
     def is_a?(klass)
       klass == Class
     end
@@ -35,6 +53,16 @@ class AnyInstanceReceiverTest < Mocha::TestCase
   include Mocha
 
   class FakeAnyInstanceClass
+    class AnyInstance
+      def initialize(mocha)
+        @mocha = mocha
+      end
+
+      def mocha(_)
+        @mocha
+      end
+    end
+
     attr_reader :superclass
 
     def initialize(superclass, mocha)
@@ -42,7 +70,7 @@ class AnyInstanceReceiverTest < Mocha::TestCase
     end
 
     def any_instance
-      Struct.new(:mocha).new(@mocha)
+      AnyInstance.new(@mocha)
     end
   end
 

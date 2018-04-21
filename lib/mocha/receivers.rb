@@ -9,7 +9,8 @@ module Mocha
     def mocks
       object, mocks = @object, []
       while object do
-        mocks << object.mocha
+        mocha = object.mocha(false)
+        mocks << mocha if mocha
         object = object.is_a?(Class) ? object.superclass : nil
       end
       mocks
@@ -26,7 +27,8 @@ module Mocha
     def mocks
       klass, mocks = @klass, []
       while klass do
-        mocks << klass.any_instance.mocha
+        mocha = klass.any_instance.mocha(false)
+        mocks << mocha if mocha
         klass = klass.superclass
       end
       mocks
