@@ -59,7 +59,7 @@ class ClassMethodTest < Mocha::TestCase
     method.define_new_method
 
     expected_filename = 'class_method.rb'
-    expected_line_number = 136
+    expected_line_number = 135
 
     exception = assert_raises(Exception) { klass.method_x }
     matching_line = exception.backtrace.find do |line|

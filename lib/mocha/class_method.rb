@@ -92,12 +92,11 @@ module Mocha
     end
 
     def method_visibility
-      symbol = method_name.to_sym
       metaclass = original_method_owner
 
-      (metaclass.public_method_defined?(symbol) && :public) ||
-        (metaclass.protected_method_defined?(symbol) && :protected) ||
-        (metaclass.private_method_defined?(symbol) && :private)
+      (metaclass.public_method_defined?(method_name) && :public) ||
+        (metaclass.protected_method_defined?(method_name) && :protected) ||
+        (metaclass.private_method_defined?(method_name) && :private)
     end
     alias_method :method_defined_in_stubbee_or_in_ancestor_chain?, :method_visibility
 
