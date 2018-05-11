@@ -19,9 +19,9 @@ module Mocha
     end
 
     def method_visibility
-      (original_method_owner.public_instance_methods(true).include?(method_name) && :public) ||
-        (original_method_owner.protected_instance_methods(true).include?(method_name) && :protected) ||
-        (original_method_owner.private_instance_methods(true).include?(method_name) && :private)
+      (original_method_owner.public_method_defined?(method_name) && :public) ||
+        (original_method_owner.protected_method_defined?(method_name) && :protected) ||
+        (original_method_owner.private_method_defined?(method_name) && :private)
     end
 
     private
