@@ -13,7 +13,7 @@ module Mocha
         unless mode == :disabled
           filter = BacktraceFilter.new
           location = filter.filtered(caller)[0]
-          $stderr.puts "Mocha deprecation warning at #{location}: #{message}"
+          warn "Mocha deprecation warning at #{location}: #{message}"
         end
       end
 
