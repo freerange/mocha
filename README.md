@@ -1,4 +1,4 @@
-## Mocha [![Build Status](https://travis-ci.org/freerange/mocha.svg?branch=master)](https://travis-ci.org/freerange/mocha) [![Gem Version](https://badge.fury.io/rb/mocha.png)](http://badge.fury.io/rb/mocha)
+## Mocha [![Build Status](https://travis-ci.org/freerange/mocha.svg?branch=master)](https://travis-ci.org/freerange/mocha) [![Gem Version](https://badge.fury.io/rb/mocha.svg)](http://badge.fury.io/rb/mocha) [![SemVer](https://api.dependabot.com/badges/compatibility_score?dependency-name=mocha&package-manager=bundler&version-scheme=semver)](https://dependabot.com/compatibility-score.html?dependency-name=mocha&package-manager=bundler&version-scheme=semver)
 
 
 ### Description
