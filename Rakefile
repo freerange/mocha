@@ -16,6 +16,7 @@ task 'test' do
   else
     Rake::Task['test:units'].invoke
     Rake::Task['test:acceptance'].invoke
+    Rake::Task['test:non_regression'].invoke
   end
 end
 
@@ -23,6 +24,7 @@ namespace 'test' do
 
   unit_tests = FileList['test/unit/**/*_test.rb']
   all_acceptance_tests = FileList['test/acceptance/*_test.rb']
+  non_regression_tests = FileList['test/non_regression/*_test.rb']
   ruby186_incompatible_acceptance_tests = FileList['test/acceptance/stub_class_method_defined_on_*_test.rb'] + FileList['test/acceptance/stub_instance_method_defined_on_*_test.rb']
   ruby186_compatible_acceptance_tests = all_acceptance_tests - ruby186_incompatible_acceptance_tests
 
@@ -30,6 +32,14 @@ namespace 'test' do
   Rake::TestTask.new('units') do |t|
     t.libs << 'test'
     t.test_files = unit_tests
+    t.verbose = true
+    t.warning = true
+  end
+
+  desc "Run non-regression tests"
+  Rake::TestTask.new('non_regression') do |t|
+    t.libs << 'test'
+    t.test_files = non_regression_tests
     t.verbose = true
     t.warning = true
   end

@@ -28,6 +28,8 @@ if (minitest_testcase = Mocha::Detection::MiniTest.testcase) && (ENV['MOCHA_RUN_
     MiniTest::Unit.autorun
   end
   class Mocha::TestCase < minitest_testcase
+    require 'byebug'
+
     def assert_nothing_raised(exception = StandardError)
       yield
     rescue exception => e
@@ -42,6 +44,7 @@ if (minitest_testcase = Mocha::Detection::MiniTest.testcase) && (ENV['MOCHA_RUN_
 else
   require 'test/unit'
   class Mocha::TestCase < Test::Unit::TestCase
+    require 'byebug'
     def test_dummy
       # Some versions (?) of Test::Unit try to run this base class as a test case
       # and it fails because it has no test methods, so I'm adding a dummy test.
