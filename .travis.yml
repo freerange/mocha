@@ -9,20 +9,12 @@ rvm:
   - 2.4.3
   - 2.5.0
   - ruby-head
-  - jruby-9.1.15.0
-  - jruby-head
 gemfile:
   - Gemfile
 env:
   - MOCHA_OPTIONS=debug
 matrix:
   include:
-    - rvm: jruby-head
-      gemfile: gemfiles/Gemfile.minitest.latest
-      env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
-    - rvm: jruby-9.1.15.0
-      gemfile: gemfiles/Gemfile.minitest.latest
-      env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
     - rvm: ruby-head
       gemfile: gemfiles/Gemfile.minitest.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
@@ -38,12 +30,6 @@ matrix:
     - rvm: 2.2.9
       gemfile: gemfiles/Gemfile.minitest.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
-    - rvm: jruby-9.1.15.0
-      gemfile: gemfiles/Gemfile.test-unit.latest
-      env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
-    - rvm: jruby-head
-      gemfile: gemfiles/Gemfile.test-unit.latest
-      env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
     - rvm: ruby-head
       gemfile: gemfiles/Gemfile.test-unit.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
@@ -61,5 +47,4 @@ matrix:
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
   allow_failures:
     - rvm: ruby-head
-    - rvm: jruby-head
   fast_finish: true
