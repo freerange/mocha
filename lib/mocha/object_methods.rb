@@ -4,7 +4,8 @@ require 'mocha/argument_iterator'
 require 'mocha/expectation_error_factory'
 
 module Mocha
-
+  class MethodCannotBeSafelyStubbed  < ArgumentError; end
+  class MethodCannotBeSafelyExpected < ArgumentError; end
   # Methods added to all objects to allow mocking and stubbing on real (i.e. non-mock) objects.
   #
   # Both {#expects} and {#stubs} return an {Expectation} which can be further modified by methods on {Expectation}.
@@ -65,25 +66,12 @@ module Mocha
     #   product.expects(:save).returns(true)
     #
     # @see Mock#expects
+
     def expects(expected_methods_vs_return_values)
       if expected_methods_vs_return_values.to_s =~ /the[^a-z]*spanish[^a-z]*inquisition/i
         raise ExpectationErrorFactory.build('NOBODY EXPECTS THE SPANISH INQUISITION!')
       end
-      if frozen?
-        raise StubbingError.new("can't stub method on frozen object: #{mocha_inspect}", caller)
-      end
-      expectation = nil
-      mockery = Mocha::Mockery.instance
-      iterator = ArgumentIterator.new(expected_methods_vs_return_values)
-      iterator.each { |*args|
-        method_name = args.shift
-        mockery.on_stubbing(self, method_name)
-        method = stubba_method.new(stubba_object, method_name)
-        mockery.stubba.stub(method)
-        expectation = mocha.expects(method_name, caller)
-        expectation.returns(args.shift) if args.length > 0
-      }
-      expectation
+      setup_all_the_expects(expected_methods_vs_return_values)
     end
 
     # Adds an expectation that the specified method may be called any number of times with any parameters.
@@ -115,22 +103,41 @@ module Mocha
     #
     # @see Mock#stubs
     def stubs(stubbed_methods_vs_return_values)
-      if frozen?
-        raise StubbingError.new("can't stub method on frozen object: #{mocha_inspect}", caller)
-      end
-      expectation = nil
-      mockery = Mocha::Mockery.instance
-      iterator = ArgumentIterator.new(stubbed_methods_vs_return_values)
-      iterator.each { |*args|
-        method_name = args.shift
-        mockery.on_stubbing(self, method_name)
-        method = stubba_method.new(stubba_object, method_name)
-        mockery.stubba.stub(method)
-        expectation = mocha.stubs(method_name, caller)
-        expectation.returns(args.shift) if args.length > 0
-      }
-      expectation
+      setup_all_the_stubs(stubbed_methods_vs_return_values)
     end
+
+    ##################################################3
+    # Eventually factorize these two methods
+    #
+    def safe_stubs(stubbed_methods_vs_return_values)
+      setup_all_the_stubs(stubbed_methods_vs_return_values) do |mockery, *args|
+        method_name = args.first
+        next if method_exists? method_name
+        raise MethodCannotBeSafelyStubbed.new(
+          [
+            "#{self} does not respond_to? #{method_name}.",
+            'Cannot #safe_stubs it. Use #stubs instead if',
+            'you are not interested in respecting the object interface.'
+          ].join(' ')
+        )
+      end
+    end
+
+    def safe_expects(expected_methods_vs_return_values)
+      setup_all_the_expects(expected_methods_vs_return_values) do |mockery, *args|
+        method_name = args.first
+        next if method_exists? method_name
+        raise MethodCannotBeSafelyExpected.new(
+          [
+            "#{self} does not respond_to? #{method_name}.",
+            'Cannot #safe_expects it. Use #expects instead if',
+            'you are not interested in respecting the object interface.'
+          ].join(' ')
+        )
+      end
+    end
+    #
+    ###############################################################################
 
     # Removes the specified stubbed methods (added by calls to {#expects} or {#stubs}) and all expectations associated with them.
     #
@@ -174,6 +181,61 @@ module Mocha
       return false
     end
 
-  end
+    private
 
+    def setup_all_the_stubs(stubbed_methods_vs_return_values)
+      expectation = nil
+      prepare_object_for_stubbing do |mockery|
+        ArgumentIterator.new(stubbed_methods_vs_return_values).each do |*args|
+          yield(mockery, *args) if block_given?
+          expectation = stubs_specific_method(mockery, *args)
+        end
+      end
+      expectation
+    end
+
+    def setup_all_the_expects(stubbed_methods_vs_return_values)
+      expectation = nil
+      prepare_object_for_stubbing do |mockery|
+        ArgumentIterator.new(stubbed_methods_vs_return_values).each do |*args|
+          yield(mockery, *args) if block_given?
+          expectation = expects_specific_method(mockery, *args)
+        end
+      end
+      expectation
+    end
+
+    def prepare_object_for_stubbing
+      if frozen?
+        raise StubbingError.new("can't stub method on frozen object: #{mocha_inspect}", caller)
+      end
+      yield Mocha::Mockery.instance if block_given?
+    end
+
+    def stubs_specific_method(mockery, *stubbing_args)
+      intercept_specific_method_for(
+        :stubs,
+        mockery,
+        *stubbing_args
+      )
+    end
+
+    def expects_specific_method(mockery, *stubbing_args)
+      intercept_specific_method_for(
+        :expects,
+        mockery,
+        *stubbing_args
+      )
+    end
+
+    def intercept_specific_method_for(intercepting_through, mockery, *stubbing_args)
+      method_name = stubbing_args.shift
+      mockery.on_stubbing(self, method_name)
+      method = stubba_method.new(stubba_object, method_name)
+      mockery.stubba.stub(method)
+      expectation = mocha.public_send(intercepting_through, method_name, caller)
+      expectation.returns(stubbing_args.shift) if stubbing_args.length > 0
+      expectation
+    end
+  end
 end

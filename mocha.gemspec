@@ -28,6 +28,8 @@ Gem::Specification.new do |s|
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
+    s.add_development_dependency("byebug", "~> 10.0")
+    s.add_development_dependency("m", "~> 1.5.0")
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       if RUBY_VERSION >= '1.9.3'
