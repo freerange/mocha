@@ -33,6 +33,8 @@ class SafeExpectsTest < Mocha::TestCase
       "$#{(price_in_cents/100.0).floor}"
     end
 
+    private
+
     def unit_price_cents
       200
     end
@@ -72,6 +74,14 @@ class SafeExpectsTest < Mocha::TestCase
     donut.safe_expects(:price_for).with(10).returns FIFTEEN_BUCKS
     assert_equal FIFTEEN_BUCKS, donut.price_for(10)
   end
+
+  def test_can_safe_expect_private_methods
+    assert_equal '$20', donut.price_for(10)
+
+    donut.safe_expects(:unit_price_cents).returns 150
+    assert_equal FIFTEEN_BUCKS, donut.price_for(10)
+  end
+
 
   private
 

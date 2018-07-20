@@ -112,7 +112,7 @@ module Mocha
     def safe_stubs(stubbed_methods_vs_return_values)
       setup_all_the_stubs(stubbed_methods_vs_return_values) do |mockery, *args|
         method_name = args.first
-        next if respond_to? method_name
+        next if method_exists? method_name
         raise MethodCannotBeSafelyStubbed.new(
           [
             "#{self} does not respond_to? #{method_name}.",
@@ -126,7 +126,7 @@ module Mocha
     def safe_expects(expected_methods_vs_return_values)
       setup_all_the_expects(expected_methods_vs_return_values) do |mockery, *args|
         method_name = args.first
-        next if respond_to? method_name
+        next if method_exists? method_name
         raise MethodCannotBeSafelyExpected.new(
           [
             "#{self} does not respond_to? #{method_name}.",

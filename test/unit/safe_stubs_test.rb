@@ -26,6 +26,18 @@ class SafeStubsTest < Mocha::TestCase
     def icing
       DEFAULT_ICING
     end
+
+    def price_for(quantity)
+      return unless quantity
+      price_in_cents = quantity * unit_price_cents
+      "$#{(price_in_cents/100.0).floor}"
+    end
+
+    private
+
+    def unit_price_cents
+      200
+    end
   end
 
   def test_unstubbed_objects_still_answer_as_expected
@@ -52,6 +64,22 @@ class SafeStubsTest < Mocha::TestCase
     assert_raises Mocha::MethodCannotBeSafelyStubbed do
       donut.safe_stubs favorite_color: BLUE
     end
+  end
+
+  FIFTEEN_BUCKS = '$15'
+
+  def test_safely_stubs_works_with_arguments
+    assert_equal '$20', donut.price_for(10)
+
+    donut.safe_stubs(:price_for).with(10).returns FIFTEEN_BUCKS
+    assert_equal FIFTEEN_BUCKS, donut.price_for(10)
+  end
+
+  def test_can_safe_stub_private_methods
+    assert_equal '$20', donut.price_for(10)
+
+    donut.safe_stubs(:unit_price_cents).returns 150
+    assert_equal FIFTEEN_BUCKS, donut.price_for(10)
   end
 
   private
