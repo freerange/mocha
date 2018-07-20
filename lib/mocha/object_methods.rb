@@ -116,7 +116,7 @@ module Mocha
         raise MethodCannotBeSafelyStubbed.new(
           [
             "#{self} does not respond_to? #{method_name}.",
-            'Cannot #safely_stubs it. Use #stubs instead if',
+            'Cannot #safe_stubs it. Use #stubs instead if',
             'you are not interested in respecting the object interface.'
           ].join(' ')
         )
@@ -130,7 +130,7 @@ module Mocha
         raise MethodCannotBeSafelyExpected.new(
           [
             "#{self} does not respond_to? #{method_name}.",
-            'Cannot #safely_expects it. Use #expects instead if',
+            'Cannot #safe_expects it. Use #expects instead if',
             'you are not interested in respecting the object interface.'
           ].join(' ')
         )
