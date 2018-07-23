@@ -266,6 +266,17 @@ When a method is invoked on a mock object, the mock object searches through its 
 
 See the [documentation](http://gofreerange.com/mocha/docs/Mocha/Mock.html) for `Mocha::Mock` for further details.
 
+### Configuration
+
+If you want, Mocha can generate a warning or raise an exception when:
+
+* stubbing a method unnecessarily
+* stubbing method on a non-mock object
+* stubbing a non-existent method
+* stubbing a non-public method
+
+See the [documentation](http://gofreerange.com/mocha/docs/Mocha/Configuration.html) for `Mocha::Configuration` for further details.
+
 ### Useful Links
 
 * [Official Documentation](http://gofreerange.com/mocha/docs/)
