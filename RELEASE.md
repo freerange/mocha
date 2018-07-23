@@ -1,5 +1,13 @@
 # Release Notes
 
+## 1.6.0
+
+* Fix subtle bug in setting correct visibility of stubbed module methods on `Kernel` or `Object` - thanks to @chrisroos (#295)
+* Avoid mocks for partial mocking leaking into subsequent tests - thanks to @skliew for reporting (#331)
+* Remove OpenCollective badge, backers & sponsors (a283a079)
+* Change gem version badge to SVG format and add SemVer stability badge - thanks to @greysteil (#335)
+* Improve documentation for Configuration (#236)
+
 ## 1.5.0
 
 * Prevent use of Mocha outside the context of a test/example - thanks to @andyw8 & @lzap (#327)
