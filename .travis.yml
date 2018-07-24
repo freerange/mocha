@@ -7,7 +7,7 @@ rvm:
   - 1.8.7-p371
   - 1.9.3
   - 2.0.0
-  - 2.1.11
+  - 2.1.10
   - 2.2.10
   - 2.3.7
   - 2.4.4
@@ -42,7 +42,7 @@ matrix:
     - rvm: 2.2.10
       gemfile: gemfiles/Gemfile.minitest.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
-    - rvm: 2.1.11
+    - rvm: 2.1.10
       gemfile: gemfiles/Gemfile.minitest.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
     - rvm: 2.0.0
@@ -117,7 +117,7 @@ matrix:
     - rvm: 2.2.10
       gemfile: gemfiles/Gemfile.test-unit.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
-    - rvm: 2.1.11
+    - rvm: 2.1.10
       gemfile: gemfiles/Gemfile.test-unit.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
     - rvm: 2.0.0
