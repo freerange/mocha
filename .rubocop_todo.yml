@@ -116,15 +116,6 @@ Style/GuardClause:
     - 'lib/mocha/parameters_matcher.rb'
     - 'yard-templates/default/layout/html/setup.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, MinBodyLength.
-# SupportedStyles: skip_modifier_ifs, always
-Style/Next:
-  Exclude:
-    - 'bin/build-matrix'
-    - 'lib/mocha/mockery.rb'
-
 # Offense count: 21
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, EnforcedStyle.

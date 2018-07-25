@@ -94,9 +94,8 @@ module Mocha
       end
       expectations.each do |e|
         unless Mocha::Configuration.allow?(:stubbing_method_unnecessarily)
-          unless e.used?
-            on_stubbing_method_unnecessarily(e)
-          end
+          next if e.used?
+          on_stubbing_method_unnecessarily(e)
         end
       end
     end
