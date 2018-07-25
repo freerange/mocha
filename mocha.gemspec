@@ -3,18 +3,6 @@ lib = File.expand_path('../lib/', __FILE__)
 $LOAD_PATH.unshift lib unless $LOAD_PATH.include?(lib)
 require "mocha/version"
 
-def rubygems_version
-  @rubygems_version ||= if defined?(Gem::VERSION)
-    # Introduced in Rubygems v1.3.2
-    Gem::VERSION
-  elsif defined?(Gem::RubyGemsVersion)
-    # Introduced in v0.2.0
-    Gem::RubyGemsVersion
-  else
-    '0.0.0'
-  end
-end
-
 Gem::Specification.new do |s|
   s.name = "mocha"
   s.version = Mocha::VERSION
@@ -37,7 +25,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency("metaclass", "~> 0.0.1")
 
-  if Gem::Version.new(rubygems_version) < Gem::Version.new('1.2.0')
+  unless s.respond_to?(:add_development_dependency)
     class << s
       def add_development_dependency(*args)
         add_dependency(*args)
