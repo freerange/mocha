@@ -366,12 +366,6 @@ Style/Next:
     - 'bin/build-matrix'
     - 'lib/mocha/mockery.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/Not:
-  Exclude:
-    - 'lib/mocha/mock.rb'
-
 # Offense count: 21
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, EnforcedStyle.
