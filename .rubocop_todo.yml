@@ -116,17 +116,6 @@ Style/GuardClause:
     - 'lib/mocha/parameters_matcher.rb'
     - 'yard-templates/default/layout/html/setup.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-Style/MultilineIfModifier:
-  Exclude:
-    - 'lib/mocha/integration/mini_test/version_142_to_172.rb'
-    - 'lib/mocha/integration/mini_test/version_200.rb'
-    - 'lib/mocha/integration/mini_test/version_201_to_222.rb'
-    - 'lib/mocha/integration/mini_test/version_2110_to_2111.rb'
-    - 'lib/mocha/integration/mini_test/version_2112_to_320.rb'
-    - 'lib/mocha/integration/mini_test/version_230_to_2101.rb'
-
 # Offense count: 3
 # Cop supports --auto-correct.
 Style/MultilineIfThen:
