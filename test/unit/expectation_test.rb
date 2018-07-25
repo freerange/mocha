@@ -354,8 +354,8 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_be_in_correct_order_if_all_ordering_constraints_allow_invocation_now
-    constraint_one = FakeConstraint.new(allows_invocation_now = true)
-    constraint_two = FakeConstraint.new(allows_invocation_now = true)
+    constraint_one = FakeConstraint.new(true)
+    constraint_two = FakeConstraint.new(true)
     expectation = Expectation.new(nil, :method_one)
     expectation.add_ordering_constraint(constraint_one)
     expectation.add_ordering_constraint(constraint_two)
@@ -363,8 +363,8 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_not_be_in_correct_order_if_one_ordering_constraint_does_not_allow_invocation_now
-    constraint_one = FakeConstraint.new(allows_invocation_now = true)
-    constraint_two = FakeConstraint.new(allows_invocation_now = false)
+    constraint_one = FakeConstraint.new(true)
+    constraint_two = FakeConstraint.new(false)
     expectation = Expectation.new(nil, :method_one)
     expectation.add_ordering_constraint(constraint_one)
     expectation.add_ordering_constraint(constraint_two)
@@ -372,8 +372,8 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_match_if_all_ordering_constraints_allow_invocation_now
-    constraint_one = FakeConstraint.new(allows_invocation_now = true)
-    constraint_two = FakeConstraint.new(allows_invocation_now = true)
+    constraint_one = FakeConstraint.new(true)
+    constraint_two = FakeConstraint.new(true)
     expectation = Expectation.new(nil, :method_one)
     expectation.add_ordering_constraint(constraint_one)
     expectation.add_ordering_constraint(constraint_two)
@@ -381,8 +381,8 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_not_match_if_one_ordering_constraints_does_not_allow_invocation_now
-    constraint_one = FakeConstraint.new(allows_invocation_now = true)
-    constraint_two = FakeConstraint.new(allows_invocation_now = false)
+    constraint_one = FakeConstraint.new(true)
+    constraint_two = FakeConstraint.new(false)
     expectation = Expectation.new(nil, :method_one)
     expectation.add_ordering_constraint(constraint_one)
     expectation.add_ordering_constraint(constraint_two)

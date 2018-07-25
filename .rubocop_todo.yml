@@ -45,14 +45,6 @@ Lint/DuplicateMethods:
     - 'test/acceptance/stubbing_non_existent_class_method_test.rb'
     - 'test/acceptance/stubbing_non_public_class_method_test.rb'
 
-# Offense count: 16
-Lint/UselessAssignment:
-  Exclude:
-    - 'lib/mocha/class_methods.rb'
-    - 'lib/mocha/mockery.rb'
-    - 'lib/mocha/object_methods.rb'
-    - 'test/unit/expectation_test.rb'
-
 # Offense count: 69
 Metrics/AbcSize:
   Max: 41
