@@ -36,15 +36,6 @@ Layout/AccessModifierIndentation:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces.
-# SupportedStyles: space, no_space
-# SupportedStylesForEmptyBraces: space, no_space
-Layout/SpaceBeforeBlockBraces:
-  Exclude:
-    - 'lib/mocha/parameter_matchers/equivalent_uri.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 Layout/SpaceBeforeSemicolon:
   Exclude:
     - 'test/unit/class_method_test.rb'
