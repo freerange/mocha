@@ -44,9 +44,9 @@ Gem::Specification.new do |s|
       end
     else
       if RUBY_VERSION >= '1.9.3'
-        s.add_development_dependency("rake", ">= 0")
+        s.add_dependency("rake", ">= 0")
       else
-        s.add_development_dependency("rake", "~> 10.0")
+        s.add_dependency("rake", "~> 10.0")
       end
       s.add_dependency("introspection", "~> 0.0.1")
       if RUBY_VERSION >= '2.2.0'
@@ -59,9 +59,9 @@ Gem::Specification.new do |s|
     end
   else
     if RUBY_VERSION >= '1.9.3'
-      s.add_development_dependency("rake", ">= 0")
+      s.add_dependency("rake", ">= 0")
     else
-      s.add_development_dependency("rake", "~> 10.0")
+      s.add_dependency("rake", "~> 10.0")
     end
     s.add_dependency("introspection", "~> 0.0.1")
     if RUBY_VERSION >= '2.2.0'
