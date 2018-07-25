@@ -20,9 +20,11 @@ module Mocha
     #   object.expects(:method_1).with(has_value(1))
     #   object.method_1('key_2' => 2)
     #   # error raised, because method_1 was not called with Hash containing value: 1
+    # rubocop:disable Naming/PredicateName
     def has_value(value)
       HasValue.new(value)
     end
+    # rubocop:enable Naming/PredicateName
 
     # Parameter matcher which matches when actual parameter contains +Hash+ entry with expected value.
     class HasValue < Base

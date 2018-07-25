@@ -21,9 +21,11 @@ module Mocha
     #   object.expects(:method_1).with(is_a(Integer))
     #   object.method_1('string')
     #   # error raised, because method_1 was not called with an Integer
+    # rubocop:disable Naming/PredicateName
     def is_a(klass)
       IsA.new(klass)
     end
+    # rubocop:enable Naming/PredicateName
 
     # Parameter matcher which matches when actual parameter is a specific class.
     class IsA < Base
