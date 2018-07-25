@@ -10,7 +10,7 @@ class ExecutionPoint
   end
 
   def first_relevant_line_of_backtrace
-    @backtrace && (@backtrace.reject { |l| /\Aorg\/jruby\//.match(l) }.first || 'unknown:0')
+    @backtrace && (@backtrace.reject { |l| %r{\Aorg/jruby/}.match(l) }.first || 'unknown:0')
   end
 
   def file_name

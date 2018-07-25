@@ -169,6 +169,6 @@ module SharedTests
     assert_failed(test_result)
     exception = test_result.errors.first.exception
     assert_equal execution_point, ExecutionPoint.new(exception.backtrace)
-    assert_match %r{undefined method `foo'}, exception.message
+    assert_match(/undefined method `foo'/, exception.message)
   end
 end

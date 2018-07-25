@@ -116,16 +116,6 @@ Style/GuardClause:
     - 'lib/mocha/parameters_matcher.rb'
     - 'yard-templates/default/layout/html/setup.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, AllowInnerSlashes.
-# SupportedStyles: slashes, percent_r, mixed
-Style/RegexpLiteral:
-  Exclude:
-    - 'test/execution_point.rb'
-    - 'test/integration/shared_tests.rb'
-    - 'test/mini_test_result.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Style/RescueModifier:
