@@ -1,1 +1,5 @@
 inherit_from: .rubocop_todo.yml
+
+# Regexp#match? has only been available since Ruby v2.4
+Performance/RegexpMatch:
+  Enabled: false
