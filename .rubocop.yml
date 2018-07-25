@@ -16,3 +16,7 @@ Style/EachWithObject:
 # Kernel#format has only supported named references since Ruby v1.9
 Style/FormatStringToken:
   EnforcedStyle: unannotated
+
+# ruby19 style has only been supported since Ruby v1.9
+Style/HashSyntax:
+  EnforcedStyle: hash_rockets
