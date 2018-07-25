@@ -19,7 +19,7 @@ module Mocha
         end
 
         module RunMethodPatch
-          # rubocop:disable Lint/RescueException, Style/FormatString
+          # rubocop:disable Lint/RescueException, Style/FormatString, Style/MethodDefParentheses
           def run runner
             trap 'INFO' do
               time = Time.now - runner.start_time
@@ -58,7 +58,7 @@ module Mocha
             end
             result
           end
-          # rubocop:enable Lint/RescueException, Style/FormatString
+          # rubocop:enable Lint/RescueException, Style/FormatString, Style/MethodDefParentheses
         end
       end
     end

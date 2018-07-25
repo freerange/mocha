@@ -19,7 +19,7 @@ module Mocha
         end
 
         module RunMethodPatch
-          # rubocop:disable Layout/SpaceInsidePercentLiteralDelimiters, Lint/RescueException, Style/FormatString
+          # rubocop:disable Layout/SpaceInsidePercentLiteralDelimiters, Lint/RescueException, Style/FormatString, Style/MethodDefParentheses
           def run runner
             trap "INFO" do
               runner.report.each_with_index do |msg, i|
@@ -65,7 +65,7 @@ module Mocha
             end
             result
           end
-          # rubocop:enable Layout/SpaceInsidePercentLiteralDelimiters, Lint/RescueException, Style/FormatString
+          # rubocop:enable Layout/SpaceInsidePercentLiteralDelimiters, Lint/RescueException, Style/FormatString, Style/MethodDefParentheses
         end
       end
     end
