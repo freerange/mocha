@@ -95,7 +95,7 @@ class MockeryTest < Mocha::TestCase
 
     def unstub; end
 
-    def matches?(other); true; end
+    def matches?(_other); true; end
   end
 
   def test_should_unstub_all_methods_on_teardown

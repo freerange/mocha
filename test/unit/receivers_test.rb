@@ -13,7 +13,7 @@ class ObjectReceiverTest < Mocha::TestCase
       @mocha
     end
 
-    def is_a?(klass)
+    def is_a?(_klass)
       false
     end
   end

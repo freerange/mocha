@@ -7,11 +7,11 @@ class Widget
   end
 
   class << self
-    def find(options)
+    def find(_options)
       []
     end
 
-    def create(attributes)
+    def create(_attributes)
       Widget.new
     end
   end

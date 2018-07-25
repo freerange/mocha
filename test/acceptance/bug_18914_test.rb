@@ -17,11 +17,11 @@ class Bug18914Test < Mocha::TestCase
       true
     end
 
-    def ==(o)
+    def ==(_o)
       true
     end
 
-    def eql?(o)
+    def eql?(_o)
       true
     end
   end

@@ -61,7 +61,7 @@ class HasEntryTest < Mocha::TestCase
   def test_should_not_match_object_that_doesnt_respond_to_keys
     matcher = has_entry(:key_1 => equals('value_2'))
     object = Class.new do
-      def [](key)
+      def [](_key)
         'value_2'
       end
     end.new

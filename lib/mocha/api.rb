@@ -13,7 +13,7 @@ module Mocha
     include Hooks
 
     # @private
-    def self.included(mod)
+    def self.included(_mod)
       Object.send(:include, Mocha::ObjectMethods)
       Module.send(:include, Mocha::ModuleMethods)
       Class.send(:include, Mocha::ClassMethods)

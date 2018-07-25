@@ -213,7 +213,7 @@ class ClassMethodTest < Mocha::TestCase
 
   def test_should_match_if_other_class_method_has_same_stubbee_and_same_method_but_stubbee_equal_method_lies_like_active_record_association_proxy
     stubbee = Class.new do
-      def equal?(other); false; end
+      def equal?(_other); false; end
     end.new
     class_method_1 = ClassMethod.new(stubbee, :method)
     class_method_2 = ClassMethod.new(stubbee, :method)

@@ -136,7 +136,7 @@ module Mocha
       end
 
       # @private
-      def temporarily_change_config(action, new_value, &block)
+      def temporarily_change_config(action, new_value)
         original_value = configuration[action]
         configuration[action] = new_value
         yield

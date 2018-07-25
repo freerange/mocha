@@ -191,7 +191,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
   def test_should_be_able_to_stub_method_if_ruby18_public_instance_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby18_klass = Class.new do
       class << self
-        def public_instance_methods(include_superclass = true)
+        def public_instance_methods(_include_superclass = true)
           ['my_instance_method']
         end
       end
@@ -206,7 +206,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
   def test_should_be_able_to_stub_method_if_ruby19_public_instance_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby19_klass = Class.new do
       class << self
-        def public_instance_methods(include_superclass = true)
+        def public_instance_methods(_include_superclass = true)
           [:my_instance_method]
         end
       end
@@ -221,7 +221,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
   def test_should_be_able_to_stub_method_if_ruby18_protected_instance_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby18_klass = Class.new do
       class << self
-        def protected_instance_methods(include_superclass = true)
+        def protected_instance_methods(_include_superclass = true)
           ['my_instance_method']
         end
       end
@@ -236,7 +236,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
   def test_should_be_able_to_stub_method_if_ruby19_protected_instance_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby19_klass = Class.new do
       class << self
-        def protected_instance_methods(include_superclass = true)
+        def protected_instance_methods(_include_superclass = true)
           [:my_instance_method]
         end
       end
@@ -251,7 +251,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
   def test_should_be_able_to_stub_method_if_ruby18_private_instance_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby18_klass = Class.new do
       class << self
-        def private_instance_methods(include_superclass = true)
+        def private_instance_methods(_include_superclass = true)
           ['my_instance_method']
         end
       end
@@ -266,7 +266,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
   def test_should_be_able_to_stub_method_if_ruby19_private_instance_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby19_klass = Class.new do
       class << self
-        def private_instance_methods(include_superclass = true)
+        def private_instance_methods(_include_superclass = true)
           [:my_instance_method]
         end
       end

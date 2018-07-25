@@ -45,12 +45,6 @@ Lint/DuplicateMethods:
     - 'test/acceptance/stubbing_non_existent_class_method_test.rb'
     - 'test/acceptance/stubbing_non_public_class_method_test.rb'
 
-# Offense count: 51
-# Cop supports --auto-correct.
-# Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods.
-Lint/UnusedMethodArgument:
-  Enabled: false
-
 # Offense count: 16
 Lint/UselessAssignment:
   Exclude:
