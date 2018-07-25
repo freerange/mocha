@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
   end
 
   if RUBY_VERSION >= '1.9.3'
-    s.add_development_dependency("rake", ">= 0")
+    s.add_development_dependency("rake")
   else
     s.add_development_dependency("rake", "~> 10.0")
   end
