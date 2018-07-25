@@ -23,7 +23,7 @@ class FailureMessageTest < Mocha::TestCase
       "unexpected invocation: #<Mock:mock>.method_one()",
       "unsatisfied expectations:",
       "- expected exactly once, invoked twice: #<Mock:mock>.method_one(any_parameters)"
-     ], test_result.failure_message_lines
+    ], test_result.failure_message_lines
   end
 
   def test_should_report_satisfied_expectations_as_well_as_unsatisfied_expectations
@@ -62,6 +62,6 @@ class FailureMessageTest < Mocha::TestCase
       "satisfied expectations:",
       "- expected exactly twice, invoked twice: #<Mock:mock>.method_two(any_parameters)",
       "- expected exactly once, invoked once: #<Mock:mock>.method_one(any_parameters)"
-     ], test_result.failure_message_lines
+    ], test_result.failure_message_lines
   end
 end

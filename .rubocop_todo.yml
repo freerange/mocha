@@ -36,15 +36,6 @@ Layout/AccessModifierIndentation:
 
 # Offense count: 2
 # Cop supports --auto-correct.
-# Configuration parameters: IndentationWidth.
-# SupportedStyles: special_inside_parentheses, consistent, align_brackets
-Layout/IndentArray:
-  EnforcedStyle: consistent
-  Exclude:
-    - 'test/acceptance/multiple_expectations_failure_message_test.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: normal, rails
 Layout/IndentationConsistency:
