@@ -105,12 +105,6 @@ Style/ExpandPathArguments:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-# Offense count: 4
-# Configuration parameters: AllowedVariables.
-Style/GlobalVars:
-  Exclude:
-    - 'Rakefile'
-
 # Offense count: 22
 # Configuration parameters: MinBodyLength.
 Style/GuardClause:
