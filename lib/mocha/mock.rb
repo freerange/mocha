@@ -104,13 +104,13 @@ module Mocha
     #   object.expects(:expected_method_two).returns(:result_two)
     def expects(method_name_or_hash, backtrace = nil)
       iterator = ArgumentIterator.new(method_name_or_hash)
-      iterator.each { |*args|
+      iterator.each do |*args|
         method_name = args.shift
         ensure_method_not_already_defined(method_name)
         expectation = Expectation.new(self, method_name, backtrace)
         expectation.returns(args.shift) if args.length > 0
         @expectations.add(expectation)
-      }
+      end
     end
 
     # Adds an expectation that the specified method may be called any number of times with any parameters.
@@ -140,14 +140,14 @@ module Mocha
     #   object.stubs(:stubbed_method_two).returns(:result_two)
     def stubs(method_name_or_hash, backtrace = nil)
       iterator = ArgumentIterator.new(method_name_or_hash)
-      iterator.each { |*args|
+      iterator.each do |*args|
         method_name = args.shift
         ensure_method_not_already_defined(method_name)
         expectation = Expectation.new(self, method_name, backtrace)
         expectation.at_least(0)
         expectation.returns(args.shift) if args.length > 0
         @expectations.add(expectation)
-      }
+      end
     end
 
     # Removes the specified stubbed method (added by calls to {#expects} or {#stubs}) and all expectations associated with it.
