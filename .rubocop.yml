@@ -38,3 +38,7 @@ Style/Lambda:
 # Numeric#positive? have only been supported since Ruby v2.3
 Style/NumericPredicate:
   EnforcedStyle: comparison
+
+# The safe navigation operator has only been supported since Ruby v2.3
+Style/SafeNavigation:
+  Enabled: false
