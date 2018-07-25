@@ -9,18 +9,18 @@ class MockTest < Mocha::TestCase
   include Mocha
 
   def test_should_set_single_expectation
-   mock = build_mock
-   mock.expects(:method1).returns(1)
-   assert_nothing_raised(ExpectationErrorFactory.exception_class) do
-     assert_equal 1, mock.method1
-   end
+    mock = build_mock
+    mock.expects(:method1).returns(1)
+    assert_nothing_raised(ExpectationErrorFactory.exception_class) do
+      assert_equal 1, mock.method1
+    end
   end
 
   def test_should_build_and_store_expectations
-   mock = build_mock
-   expectation = mock.expects(:method1)
-   assert_not_nil expectation
-   assert_equal [expectation], mock.__expectations__.to_a
+    mock = build_mock
+    expectation = mock.expects(:method1)
+    assert_not_nil expectation
+    assert_equal [expectation], mock.__expectations__.to_a
   end
 
   def test_should_not_stub_everything_by_default
