@@ -20,7 +20,6 @@ task 'test' do
 end
 
 namespace 'test' do
-
   unit_tests = FileList['test/unit/**/*_test.rb']
   all_acceptance_tests = FileList['test/acceptance/*_test.rb']
   ruby186_incompatible_acceptance_tests = FileList['test/acceptance/stub_class_method_defined_on_*_test.rb'] + FileList['test/acceptance/stub_instance_method_defined_on_*_test.rb']
@@ -84,7 +83,6 @@ namespace 'test' do
       puts "#{test_case}: #{benchmark_test_case(test_case, iterations)} seconds."
     end
   end
-
 end
 
 def benchmark_test_case(klass, iterations)
