@@ -116,14 +116,6 @@ Style/GuardClause:
     - 'lib/mocha/parameters_matcher.rb'
     - 'yard-templates/default/layout/html/setup.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: compact, exploded
-Style/RaiseArgs:
-  Exclude:
-    - 'lib/mocha/parameter_matchers/has_entry.rb'
-
 # Offense count: 7
 # Cop supports --auto-correct.
 # Configuration parameters: AllowMultipleReturnValues.
