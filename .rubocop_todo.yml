@@ -95,15 +95,6 @@ Style/Documentation:
 
 # Offense count: 2
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty, nil, both
-Style/EmptyElse:
-  Exclude:
-    - 'lib/mocha/detection/mini_test.rb'
-    - 'lib/mocha/detection/test_unit.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
 Style/EmptyLiteral:
   Exclude:
     - 'test/unit/expectation_test.rb'
