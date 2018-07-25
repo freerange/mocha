@@ -116,24 +116,6 @@ Style/GuardClause:
     - 'lib/mocha/parameters_matcher.rb'
     - 'yard-templates/default/layout/html/setup.rb'
 
-# Offense count: 74
-# Cop supports --auto-correct.
-Style/RedundantSelf:
-  Exclude:
-    - 'lib/mocha/expectation_list.rb'
-    - 'lib/mocha/inspect.rb'
-    - 'lib/mocha/integration/mini_test/version_13.rb'
-    - 'lib/mocha/integration/mini_test/version_140.rb'
-    - 'lib/mocha/integration/mini_test/version_141.rb'
-    - 'lib/mocha/integration/mini_test/version_142_to_172.rb'
-    - 'lib/mocha/integration/mini_test/version_200.rb'
-    - 'lib/mocha/integration/mini_test/version_201_to_222.rb'
-    - 'lib/mocha/integration/mini_test/version_2110_to_2111.rb'
-    - 'lib/mocha/integration/mini_test/version_2112_to_320.rb'
-    - 'lib/mocha/integration/mini_test/version_230_to_2101.rb'
-    - 'lib/mocha/mock.rb'
-    - 'test/method_definer.rb'
-
 # Offense count: 6
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, AllowInnerSlashes.

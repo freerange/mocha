@@ -46,7 +46,7 @@ module Mocha
     end
 
     def +(other)
-      self.class.new(self.to_a + other.to_a)
+      self.class.new(to_a + other.to_a)
     end
 
     private

@@ -294,7 +294,7 @@ module Mocha
     # rubocop:disable Style/MethodMissingSuper
     def method_missing(symbol, *arguments, &block)
       if @responder && !@responder.respond_to?(symbol)
-        raise NoMethodError, "undefined method `#{symbol}' for #{self.mocha_inspect} which responds like #{@responder.mocha_inspect}"
+        raise NoMethodError, "undefined method `#{symbol}' for #{mocha_inspect} which responds like #{@responder.mocha_inspect}"
       end
       if (matching_expectation_allowing_invocation = all_expectations.match_allowing_invocation(symbol, *arguments))
         matching_expectation_allowing_invocation.invoke(&block)
@@ -349,7 +349,7 @@ module Mocha
 
     # @private
     def ensure_method_not_already_defined(method_name)
-      self.__metaclass__.send(:undef_method, method_name) if self.__metaclass__.method_defined?(method_name) || self.__metaclass__.private_method_defined?(method_name)
+      __metaclass__.send(:undef_method, method_name) if __metaclass__.method_defined?(method_name) || __metaclass__.private_method_defined?(method_name)
     end
 
     # @private
