@@ -559,7 +559,7 @@ module Mocha
     def invoke
       @invocation_count += 1
       perform_side_effects
-      if block_given? then
+      if block_given?
         @yield_parameters.next_invocation.each do |yield_parameters|
           yield(*yield_parameters)
         end

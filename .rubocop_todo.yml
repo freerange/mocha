@@ -116,14 +116,6 @@ Style/GuardClause:
     - 'lib/mocha/parameters_matcher.rb'
     - 'yard-templates/default/layout/html/setup.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/MultilineIfThen:
-  Exclude:
-    - 'lib/mocha/argument_iterator.rb'
-    - 'lib/mocha/expectation.rb'
-    - 'lib/mocha/mock.rb'
-
 # Offense count: 5
 # Cop supports --auto-correct.
 Style/MutableConstant:

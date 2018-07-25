@@ -5,7 +5,7 @@ module Mocha
     end
 
     def each
-      if @argument.is_a?(Hash) then
+      if @argument.is_a?(Hash)
         @argument.each do |method_name, return_value|
           yield method_name, return_value
         end
