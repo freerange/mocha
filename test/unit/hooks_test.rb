@@ -12,8 +12,7 @@ class HooksTest < Mocha::TestCase
   # rubocop:enable Style/ClassAndModuleChildren
 
   class FakeMockery
-    def verify(*args)
-    end
+    def verify(*args); end
 
     def teardown
       raise "exception within Mockery#teardown"

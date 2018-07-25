@@ -93,17 +93,6 @@ Style/AccessModifierDeclarations:
 Style/Documentation:
   Enabled: false
 
-# Offense count: 9
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: compact, expanded
-Style/EmptyMethod:
-  Exclude:
-    - 'lib/mocha/no_yields.rb'
-    - 'test/acceptance/stubba_test_result_test.rb'
-    - 'test/acceptance/stubbing_on_non_mock_object_test.rb'
-    - 'test/unit/hooks_test.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/Encoding:
