@@ -93,12 +93,6 @@ Style/AccessModifierDeclarations:
 Style/Documentation:
   Enabled: false
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/Encoding:
-  Exclude:
-    - 'mocha.gemspec'
-
 # Offense count: 119
 # Cop supports --auto-correct.
 Style/ExpandPathArguments:
