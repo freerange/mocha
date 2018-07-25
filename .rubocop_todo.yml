@@ -116,14 +116,6 @@ Style/GuardClause:
     - 'lib/mocha/parameters_matcher.rb'
     - 'yard-templates/default/layout/html/setup.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: AllowSafeAssignment, AllowInMultilineConditions.
-Style/ParenthesesAroundCondition:
-  Exclude:
-    - 'lib/mocha/class_method.rb'
-    - 'test/acceptance/mocha_example_test.rb'
-
 # Offense count: 15
 # Cop supports --auto-correct.
 # Configuration parameters: PreferredDelimiters.

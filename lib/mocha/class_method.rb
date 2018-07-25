@@ -90,7 +90,7 @@ module Mocha
     end
 
     def matches?(other)
-      return false unless (other.class == self.class)
+      return false unless other.class == self.class
       (stubbee.object_id == other.stubbee.object_id) && (method == other.method)
     end
 
