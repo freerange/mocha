@@ -6,11 +6,11 @@ class MiniTestResult
   if Gem::Requirement.new('<= 4.6.1').satisfied_by?(minitest_version)
     FAILURE_PATTERN = %r{(Failure)\:\n([^\(]+)\(([^\)]+)\) \[([^\]]+)\]\:\n(.*)\n}m
     ERROR_PATTERN   = %r{(Error)\:\n([^\(]+)\(([^\)]+)\)\:\n(.+?)\n}m
-    PATTERN_INDICES = { :method => 2, :testcase => 3 }
+    PATTERN_INDICES = { :method => 2, :testcase => 3 }.freeze
   else
     FAILURE_PATTERN = %r{(Failure)\:\n.([^#]+)\#([^ ]+) \[([^\]]+)\]\:\n(.*)\n}m
     ERROR_PATTERN   = %r{(Error)\:\n.([^#]+)\#([^ ]+)\:\n(.+?)\n}m
-    PATTERN_INDICES = { :method => 3, :testcase => 2 }
+    PATTERN_INDICES = { :method => 3, :testcase => 2 }.freeze
   end
 
   def self.parse_failure(raw)

@@ -72,7 +72,7 @@ module Mocha
       :stubbing_non_existent_method => :allow,
       :stubbing_non_public_method => :allow,
       :stubbing_method_on_nil => :prevent,
-    }
+    }.freeze
 
     class << self
       # Allow the specified +action+.
