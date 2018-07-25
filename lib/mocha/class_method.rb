@@ -47,9 +47,11 @@ module Mocha
               stubbee.__metaclass__.send(:remove_method, method)
             end
           end
+        # rubocop:disable Lint/HandleExceptions
         rescue NameError
           # deal with nasties like ActiveRecord::Associations::AssociationProxy
         end
+        # rubocop:enable Lint/HandleExceptions
       end
     end
 
