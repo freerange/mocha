@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency("metaclass", "~> 0.0.1")
 
-  if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+  if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0')
     if RUBY_VERSION >= '1.9.3'
       s.add_development_dependency("rake", ">= 0")
     else
