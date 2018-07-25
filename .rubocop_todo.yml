@@ -34,14 +34,6 @@ Layout/AccessModifierIndentation:
     - 'test/acceptance/stubbing_non_public_instance_method_test.rb'
     - 'test/acceptance/unstubbing_test.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-Layout/AlignArray:
-  Exclude:
-    - 'lib/mocha/integration/mini_test/version_141.rb'
-    - 'lib/mocha/integration/mini_test/version_142_to_172.rb'
-    - 'test/acceptance/multiple_expectations_failure_message_test.rb'
-
 # Offense count: 11
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, IndentOneStep, IndentationWidth.

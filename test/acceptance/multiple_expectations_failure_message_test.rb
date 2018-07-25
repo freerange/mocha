@@ -38,10 +38,10 @@ class FailureMessageTest < Mocha::TestCase
     assert_failed(test_result)
     assert_equal [
       "not all expectations were satisfied",
-       "unsatisfied expectations:",
-       "- expected exactly twice, invoked once: #<Mock:mock>.method_two(any_parameters)",
-       "satisfied expectations:",
-       "- expected exactly once, invoked once: #<Mock:mock>.method_one(any_parameters)"
+      "unsatisfied expectations:",
+      "- expected exactly twice, invoked once: #<Mock:mock>.method_two(any_parameters)",
+      "satisfied expectations:",
+      "- expected exactly once, invoked once: #<Mock:mock>.method_one(any_parameters)"
     ], test_result.failure_message_lines
   end
 
