@@ -93,13 +93,6 @@ Style/AccessModifierDeclarations:
 Style/Documentation:
   Enabled: false
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/EmptyLiteral:
-  Exclude:
-    - 'test/unit/expectation_test.rb'
-    - 'test/unit/parameter_matchers/has_entry_test.rb'
-
 # Offense count: 9
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.

@@ -80,7 +80,7 @@ class HasEntryTest < Mocha::TestCase
 
   def test_should_raise_argument_error_if_single_argument_is_not_a_hash
     e = assert_raises(ArgumentError) do
-      has_entry(Array.new)
+      has_entry([])
     end
     assert_equal "Argument is not a Hash.", e.message
   end

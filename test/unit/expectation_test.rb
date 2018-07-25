@@ -113,7 +113,7 @@ class ExpectationTest < Mocha::TestCase
     expectation = new_expectation().yields()
     yielded_parameters = nil
     expectation.invoke() { |*parameters| yielded_parameters = parameters }
-    assert_equal Array.new, yielded_parameters
+    assert_equal [], yielded_parameters
   end
 
   def test_should_yield_with_specified_parameters
