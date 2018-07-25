@@ -83,12 +83,6 @@ Metrics/ModuleLength:
 Metrics/PerceivedComplexity:
   Max: 11
 
-# Offense count: 4
-Naming/BinaryOperatorParameterName:
-  Exclude:
-    - 'lib/mocha/parameter_matchers/base.rb'
-    - 'test/acceptance/bug_18914_test.rb'
-
 # Offense count: 1
 # Configuration parameters: .
 # SupportedStyles: snake_case, camelCase
