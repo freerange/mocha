@@ -24,7 +24,11 @@ class HooksTest < Mocha::TestCase
     mockery = FakeMockery.new
     Mocha::Mockery.instances = [mockery]
 
-    fake_test_case.mocha_teardown rescue nil
+    begin
+      fake_test_case.mocha_teardown
+    rescue StandardError
+      nil
+    end
 
     assert_kind_of Mocha::Mockery::Null, Mocha::Mockery.instance
   end

@@ -60,7 +60,11 @@ class StatesTest < Mocha::TestCase
       mock.expects(:first).raises.then(readiness.is('ready'))
       mock.expects(:second).when(readiness.is('ready'))
 
-      mock.first rescue nil
+      begin
+        mock.first
+      rescue StandardError
+        nil
+      end
       mock.second
     end
     assert_passed(test_result)

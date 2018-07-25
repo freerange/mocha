@@ -118,13 +118,6 @@ Style/GuardClause:
 
 # Offense count: 2
 # Cop supports --auto-correct.
-Style/RescueModifier:
-  Exclude:
-    - 'test/acceptance/states_test.rb'
-    - 'test/unit/hooks_test.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: implicit, explicit
 Style/RescueStandardError:
