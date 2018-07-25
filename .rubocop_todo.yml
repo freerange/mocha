@@ -93,11 +93,6 @@ Style/AccessModifierDeclarations:
 Style/Documentation:
   Enabled: false
 
-# Offense count: 119
-# Cop supports --auto-correct.
-Style/ExpandPathArguments:
-  Enabled: false
-
 # Offense count: 237
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.

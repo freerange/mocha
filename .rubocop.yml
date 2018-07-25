@@ -13,6 +13,10 @@ Style/Alias:
 Style/EachWithObject:
   Enabled: false
 
+# Kernel#__dir__ has only been available since Ruby v2.0
+Style/ExpandPathArguments:
+  Enabled: false
+
 # Kernel#format has only supported named references since Ruby v1.9
 Style/FormatStringToken:
   EnforcedStyle: unannotated
