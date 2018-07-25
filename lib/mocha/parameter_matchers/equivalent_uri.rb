@@ -53,7 +53,7 @@ module Mocha
         "equivalent_uri(#{@uri.mocha_inspect})"
       end
 
-    private
+      private
 
       # @private
       def explode(uri)

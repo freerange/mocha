@@ -19,7 +19,6 @@ Gemspec/RequiredRubyVersion:
 # SupportedStyles: outdent, indent
 Layout/AccessModifierIndentation:
   Exclude:
-    - 'lib/mocha/parameter_matchers/equivalent_uri.rb'
     - 'test/acceptance/stub_any_instance_method_defined_on_superclass_test.rb'
     - 'test/acceptance/stub_any_instance_method_test.rb'
     - 'test/acceptance/stub_class_method_defined_on_module_test.rb'
