@@ -135,6 +135,8 @@ Layout/EndAlignment:
 # SupportedStyles: special_inside_parentheses, consistent, align_brackets
 Layout/IndentArray:
   EnforcedStyle: consistent
+  Exclude:
+    - 'test/acceptance/multiple_expectations_failure_message_test.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -392,6 +394,8 @@ Naming/BinaryOperatorParameterName:
 # SupportedStyles: snake_case, camelCase
 Naming/MethodName:
   EnforcedStyle: snake_case
+  Exclude:
+    - 'lib/mocha/parameter_matchers/not.rb'
 
 # Offense count: 7
 # Configuration parameters: NamePrefix, NamePrefixBlacklist, NameWhitelist, MethodDefinitionMacros.
