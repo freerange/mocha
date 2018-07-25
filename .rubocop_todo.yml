@@ -36,12 +36,6 @@ Layout/AccessModifierIndentation:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Layout/EmptyLines:
-  Exclude:
-    - 'lib/mocha/mockery.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 Layout/EmptyLinesAroundAccessModifier:
   Exclude:
     - 'lib/mocha/parameter_matchers/equivalent_uri.rb'

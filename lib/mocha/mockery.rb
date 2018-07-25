@@ -205,7 +205,6 @@ module Mocha
       @logger ||= Logger.new($stderr)
     end
 
-
     private
 
     def expectations
