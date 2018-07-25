@@ -9,7 +9,7 @@ class AnythingTest < Mocha::TestCase
   def test_should_match_anything
     matcher = anything
     assert matcher.matches?([:something])
-    assert matcher.matches?([{'x' => 'y'}])
+    assert matcher.matches?([{ 'x' => 'y' }])
   end
 
   def test_should_describe_matcher

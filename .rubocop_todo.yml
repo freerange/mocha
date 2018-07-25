@@ -34,20 +34,6 @@ Layout/AccessModifierIndentation:
     - 'test/acceptance/stubbing_non_public_instance_method_test.rb'
     - 'test/acceptance/unstubbing_test.rb'
 
-# Offense count: 50
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces.
-# SupportedStyles: space, no_space, compact
-# SupportedStylesForEmptyBraces: space, no_space
-Layout/SpaceInsideHashLiteralBraces:
-  Exclude:
-    - 'test/unit/expectation_test.rb'
-    - 'test/unit/hash_inspect_test.rb'
-    - 'test/unit/parameter_matchers/anything_test.rb'
-    - 'test/unit/parameter_matchers/has_entry_test.rb'
-    - 'test/unit/parameter_matchers/includes_test.rb'
-    - 'test/unit/parameters_matcher_test.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
