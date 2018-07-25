@@ -18,6 +18,7 @@ class ExpectationsOnMultipleMethodsTest < Mocha::TestCase
       def my_instance_method_1
         :original_return_value_1
       end
+
       def my_instance_method_2
         :original_return_value_2
       end
@@ -38,6 +39,7 @@ class ExpectationsOnMultipleMethodsTest < Mocha::TestCase
       def my_instance_method_1
         :original_return_value_1
       end
+
       def my_instance_method_2
         :original_return_value_2
       end

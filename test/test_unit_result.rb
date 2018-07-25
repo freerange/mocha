@@ -8,9 +8,11 @@ class TestUnitResult
       def failure_messages
         failures.map { |failure| failure.message }
       end
+
       def failure_message_lines
         failure_messages.map { |message| message.split("\n") }.flatten
       end
+
       def error_messages
         errors.map { |error| error.message }
       end

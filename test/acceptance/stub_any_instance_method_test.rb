@@ -51,6 +51,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
       end
       protected :my_instance_method
       def self.protected(*args); end
+
       def my_unprotected_instance_method
         my_instance_method
       end
@@ -70,6 +71,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
       end
       protected :my_instance_method
       def self.protected(*args); end
+
       def my_unprotected_instance_method
         my_instance_method
       end

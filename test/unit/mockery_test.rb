@@ -93,7 +93,9 @@ class MockeryTest < Mocha::TestCase
 
   class FakeMethod
     def stub; end
+
     def unstub; end
+
     def matches?(other); true; end
   end
 

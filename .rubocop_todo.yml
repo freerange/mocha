@@ -34,20 +34,6 @@ Layout/AccessModifierIndentation:
     - 'test/acceptance/stubbing_non_public_instance_method_test.rb'
     - 'test/acceptance/unstubbing_test.rb'
 
-# Offense count: 17
-# Cop supports --auto-correct.
-# Configuration parameters: AllowAdjacentOneLineDefs, NumberOfEmptyLines.
-Layout/EmptyLineBetweenDefs:
-  Exclude:
-    - 'test/acceptance/expectations_on_multiple_methods_test.rb'
-    - 'test/acceptance/issue_65_test.rb'
-    - 'test/acceptance/stub_any_instance_method_defined_on_superclass_test.rb'
-    - 'test/acceptance/stub_any_instance_method_test.rb'
-    - 'test/acceptance/stub_class_method_defined_on_superclass_test.rb'
-    - 'test/acceptance/unstubbing_test.rb'
-    - 'test/test_unit_result.rb'
-    - 'test/unit/mockery_test.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Layout/EmptyLines:

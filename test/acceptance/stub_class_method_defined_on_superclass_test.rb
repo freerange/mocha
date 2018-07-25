@@ -115,12 +115,14 @@ class StubClassMethodDefinedOnSuperclassTest < Mocha::TestCase
       def self.inspect
         'superklass'
       end
+
       def self.my_class_method; end
     end
     klass = Class.new(superklass) do
       def self.inspect
         'klass'
       end
+
       def self.my_class_method; end
     end
     test_result = run_as_tests(

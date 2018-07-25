@@ -83,6 +83,7 @@ class UnstubbingTest < Mocha::TestCase
   def test_unstubbing_multiple_methods_should_restore_original_behaviour
     klass = Class.new do
       def my_first_instance_method; :original_return_value; end
+
       def my_second_instance_method; :original_return_value; end
     end
     test_result = run_as_test do
@@ -139,6 +140,7 @@ class UnstubbingTest < Mocha::TestCase
   def test_unstubbing_a_method_should_not_unstub_other_stubbed_methods
     klass = Class.new do
       def my_first_instance_method; :first_return_value; end
+
       def my_second_instance_method; :second_return_value; end
     end
 
