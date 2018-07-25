@@ -45,14 +45,6 @@ Lint/DuplicateMethods:
     - 'test/acceptance/stubbing_non_existent_class_method_test.rb'
     - 'test/acceptance/stubbing_non_public_class_method_test.rb'
 
-# Offense count: 9
-# Cop supports --auto-correct.
-# Configuration parameters: IgnoreEmptyBlocks, AllowUnusedKeywordArguments.
-Lint/UnusedBlockArgument:
-  Exclude:
-    - 'Rakefile'
-    - 'test/unit/mock_test.rb'
-
 # Offense count: 51
 # Cop supports --auto-correct.
 # Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods.
