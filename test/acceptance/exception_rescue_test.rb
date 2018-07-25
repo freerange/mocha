@@ -17,7 +17,7 @@ class ExceptionRescueTest < Mocha::TestCase
       mock = mock('mock')
       begin
         mock.some_method
-      rescue => e
+      rescue StandardError => e
         flunk "should not rescue #{e.class}"
       end
     end
@@ -31,7 +31,7 @@ class ExceptionRescueTest < Mocha::TestCase
       mock.expects(:some_method).never
       begin
         mock.some_method
-      rescue => e
+      rescue StandardError => e
         flunk "should not rescue #{e.class}"
       end
     end
