@@ -19,6 +19,7 @@ module Mocha
         end
 
         module RunMethodPatch
+          # rubocop:disable Layout/SpaceInsidePercentLiteralDelimiters
           def run runner
             trap "INFO" do
               runner.report.each_with_index do |msg, i|
@@ -64,6 +65,7 @@ module Mocha
             end
             result
           end
+          # rubocop:enable Layout/SpaceInsidePercentLiteralDelimiters
         end
       end
     end
