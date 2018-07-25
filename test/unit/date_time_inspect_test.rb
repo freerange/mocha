@@ -13,7 +13,7 @@ class DateTimeInspectTest < Mocha::TestCase
   end
 
   def test_should_use_to_s_for_datetime
-    datetime = DateTime.new(2006, 1, 1)
+    datetime = DateTime.new(2006, 1, 1) # rubocop:disable Style/DateTime
     assert_equal datetime.to_s, datetime.mocha_inspect
   end
 end

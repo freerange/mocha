@@ -90,11 +90,6 @@ Style/AccessModifierDeclarations:
   Enabled: false
 
 # Offense count: 1
-Style/DateTime:
-  Exclude:
-    - 'test/unit/date_time_inspect_test.rb'
-
-# Offense count: 1
 # Cop supports --auto-correct.
 Style/DefWithParentheses:
   Exclude:
