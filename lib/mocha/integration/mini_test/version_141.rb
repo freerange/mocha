@@ -19,7 +19,7 @@ module Mocha
         end
 
         module RunMethodPatch
-          # rubocop:disable Layout/AlignArray, Lint/RescueException, Style/FormatString, Style/MethodDefParentheses
+          # rubocop:disable all
           def run runner
             trap 'INFO' do
               warn '%s#%s %.2fs' % [self.class, self.__name__,
@@ -57,7 +57,7 @@ module Mocha
             end
             result
           end
-          # rubocop:enable Layout/AlignArray, Lint/RescueException, Style/FormatString, Style/MethodDefParentheses
+          # rubocop:enable all
         end
       end
     end

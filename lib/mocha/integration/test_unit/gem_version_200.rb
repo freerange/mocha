@@ -19,7 +19,7 @@ module Mocha
         end
 
         module RunMethodPatch
-          # rubocop:disable Lint/RescueException
+          # rubocop:disable all
           def run(result)
             assertion_counter = AssertionCounter.new(self)
             begin
@@ -54,7 +54,7 @@ module Mocha
               @_result = nil
             end
           end
-          # rubocop:enable Lint/RescueException
+          # rubocop:enable all
         end
       end
     end

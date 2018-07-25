@@ -19,7 +19,7 @@ module Mocha
         end
 
         module RunMethodPatch
-          # rubocop:disable Lint/RescueException, Style/MethodDefParentheses
+          # rubocop:disable all
           def run runner
             assertion_counter = AssertionCounter.new(self)
             result = '.'
@@ -46,7 +46,7 @@ module Mocha
             end
             result
           end
-          # rubocop:enable Lint/RescueException, Style/MethodDefParentheses
+          # rubocop:enable all
         end
       end
     end
