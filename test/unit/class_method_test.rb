@@ -72,7 +72,7 @@ class ClassMethodTest < Mocha::TestCase
   end
 
   def test_should_restore_original_method_accepting_a_block_parameter
-    klass = Class.new { def self.method_x(&block); block.call if block_given? ; end }
+    klass = Class.new { def self.method_x(&block); block.call if block_given?; end }
     klass.__metaclass__.send(:alias_method, :_method, :method)
     method = ClassMethod.new(klass, :method_x)
 

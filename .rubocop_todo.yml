@@ -36,12 +36,6 @@ Layout/AccessModifierIndentation:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Layout/SpaceBeforeSemicolon:
-  Exclude:
-    - 'test/unit/class_method_test.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBrackets.
 # SupportedStyles: space, no_space, compact
 # SupportedStylesForEmptyBrackets: space, no_space
