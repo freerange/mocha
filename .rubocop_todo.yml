@@ -98,23 +98,6 @@ Style/Documentation:
 Style/ExpandPathArguments:
   Enabled: false
 
-# Offense count: 11
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: format, sprintf, percent
-Style/FormatString:
-  Exclude:
-    - 'lib/mocha/expectation.rb'
-    - 'lib/mocha/inspect.rb'
-    - 'lib/mocha/integration/mini_test/version_141.rb'
-    - 'lib/mocha/integration/mini_test/version_142_to_172.rb'
-    - 'lib/mocha/integration/mini_test/version_200.rb'
-    - 'lib/mocha/integration/mini_test/version_201_to_222.rb'
-    - 'lib/mocha/integration/mini_test/version_2110_to_2111.rb'
-    - 'lib/mocha/integration/mini_test/version_2112_to_320.rb'
-    - 'lib/mocha/integration/mini_test/version_230_to_2101.rb'
-    - 'lib/mocha/names.rb'
-
 # Offense count: 18
 # Configuration parameters: .
 # SupportedStyles: annotated, template, unannotated
