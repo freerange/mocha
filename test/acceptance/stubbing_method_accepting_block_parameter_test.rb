@@ -20,7 +20,7 @@ class StubbingMethodAcceptingBlockParameterTest < Mocha::TestCase
       klass.stubs(:my_class_method)
     end
     assert_passed(test_result)
-    assert_equal :return_value, klass.my_class_method { :return_value }
+    assert_equal :return_value, (klass.my_class_method { :return_value })
   end
 
   def test_stubbing_instance_method_accepting_block_parameter_should_restore_original_method
@@ -31,7 +31,7 @@ class StubbingMethodAcceptingBlockParameterTest < Mocha::TestCase
       instance.stubs(:my_instance_method)
     end
     assert_passed(test_result)
-    assert_equal :return_value, instance.my_instance_method { :return_value }
+    assert_equal :return_value, (instance.my_instance_method { :return_value })
   end
 
   def test_stubbing_any_instance_method_accepting_block_parameter_should_restore_original_method
@@ -42,6 +42,6 @@ class StubbingMethodAcceptingBlockParameterTest < Mocha::TestCase
       klass.any_instance.stubs(:my_instance_method)
     end
     assert_passed(test_result)
-    assert_equal :return_value, klass.new.my_instance_method { :return_value }
+    assert_equal :return_value, (klass.new.my_instance_method { :return_value })
   end
 end

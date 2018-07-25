@@ -39,7 +39,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     run_as_test do
       klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
     end
-    assert instance.public_methods(false).any? { |m| m.to_s == 'my_instance_method' }
+    assert(instance.public_methods(false).any? { |m| m.to_s == 'my_instance_method' })
     assert_equal :original_return_value, instance.my_instance_method
   end
 
@@ -59,7 +59,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     run_as_test do
       klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
     end
-    assert instance.protected_methods(false).any? { |m| m.to_s == 'my_instance_method' }
+    assert(instance.protected_methods(false).any? { |m| m.to_s == 'my_instance_method' })
     assert_equal :original_return_value, instance.my_unprotected_instance_method
   end
 
@@ -95,7 +95,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     run_as_test do
       klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
     end
-    assert instance.private_methods(false).any? { |m| m.to_s == 'my_instance_method' }
+    assert(instance.private_methods(false).any? { |m| m.to_s == 'my_instance_method' })
     assert_equal :original_return_value, instance.send(:my_instance_method)
   end
 
@@ -143,8 +143,8 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
       assert_equal :new_return_value, instance.my_superclass_method
     end
     assert_passed(test_result)
-    assert instance.public_methods(true).any? { |m| m.to_s == 'my_superclass_method' }
-    assert !klass.public_methods(false).any? { |m| m.to_s == 'my_superclass_method' }
+    assert(instance.public_methods(true).any? { |m| m.to_s == 'my_superclass_method' })
+    assert(!klass.public_methods(false).any? { |m| m.to_s == 'my_superclass_method' })
     assert_equal :original_return_value, instance.my_superclass_method
   end
 
@@ -163,8 +163,8 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
       assert_equal :new_return_value, instance.send(:my_superclass_method)
     end
     assert_passed(test_result)
-    assert instance.protected_methods(true).any? { |m| m.to_s == 'my_superclass_method' }
-    assert !klass.protected_methods(false).any? { |m| m.to_s == 'my_superclass_method' }
+    assert(instance.protected_methods(true).any? { |m| m.to_s == 'my_superclass_method' })
+    assert(!klass.protected_methods(false).any? { |m| m.to_s == 'my_superclass_method' })
     assert_equal :original_return_value, instance.send(:my_superclass_method)
   end
 
@@ -183,8 +183,8 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
       assert_equal :new_return_value, instance.send(:my_superclass_method)
     end
     assert_passed(test_result)
-    assert instance.private_methods(true).any? { |m| m.to_s == 'my_superclass_method' }
-    assert !klass.private_methods(false).any? { |m| m.to_s == 'my_superclass_method' }
+    assert(instance.private_methods(true).any? { |m| m.to_s == 'my_superclass_method' })
+    assert(!klass.private_methods(false).any? { |m| m.to_s == 'my_superclass_method' })
     assert_equal :original_return_value, instance.send(:my_superclass_method)
   end
 

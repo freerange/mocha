@@ -37,7 +37,7 @@ class StubModuleMethodTest < Mocha::TestCase
     run_as_test do
       mod.stubs(:my_module_method).returns(:new_return_value)
     end
-    assert mod.public_methods(false).any? { |m| m.to_s == 'my_module_method' }
+    assert(mod.public_methods(false).any? { |m| m.to_s == 'my_module_method' })
     assert_equal :original_return_value, mod.my_module_method
   end
 
@@ -56,7 +56,7 @@ class StubModuleMethodTest < Mocha::TestCase
     run_as_test do
       mod.stubs(:my_module_method).returns(:new_return_value)
     end
-    assert mod.protected_methods(false).any? { |m| m.to_s == 'my_module_method' }
+    assert(mod.protected_methods(false).any? { |m| m.to_s == 'my_module_method' })
     assert_equal :original_return_value, mod.my_unprotected_module_method
   end
 
@@ -72,7 +72,7 @@ class StubModuleMethodTest < Mocha::TestCase
     run_as_test do
       mod.stubs(:my_module_method).returns(:new_return_value)
     end
-    assert mod.private_methods(false).any? { |m| m.to_s == 'my_module_method' }
+    assert(mod.private_methods(false).any? { |m| m.to_s == 'my_module_method' })
     assert_equal :original_return_value, mod.send(:my_module_method)
   end
 
@@ -102,8 +102,8 @@ class StubModuleMethodTest < Mocha::TestCase
       assert_equal :new_return_value, mod.my_superclass_method
     end
     assert_passed(test_result)
-    assert supermod.public_methods.any? { |m| m.to_s == 'my_superclass_method' }
-    assert !mod.public_methods(false).any? { |m| m.to_s == 'my_superclass_method' }
+    assert(supermod.public_methods.any? { |m| m.to_s == 'my_superclass_method' })
+    assert(!mod.public_methods(false).any? { |m| m.to_s == 'my_superclass_method' })
     assert_equal :original_return_value, supermod.my_superclass_method
   end
 
