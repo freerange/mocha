@@ -89,14 +89,6 @@ Metrics/PerceivedComplexity:
 Style/AccessModifierDeclarations:
   Enabled: false
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: braces, no_braces, context_dependent
-Style/BracesAroundHashParameters:
-  Exclude:
-    - 'test/unit/parameter_matchers/has_entry_test.rb'
-
 # Offense count: 3
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, EnforcedStyle.

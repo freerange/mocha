@@ -117,12 +117,12 @@ class HasEntryTest < Mocha::TestCase
   end
 
   def test_should_match_hash_as_value_and_key
-    matcher = has_entry({ { :key_1 => 'value_1', :key_2 => 'value_2' } => { :key_3 => 'value_3', :key_4 => 'value_4' } })
+    matcher = has_entry({ :key_1 => 'value_1', :key_2 => 'value_2' } => { :key_3 => 'value_3', :key_4 => 'value_4' })
     assert matcher.matches?([{ { :key_1 => 'value_1', :key_2 => 'value_2' } => { :key_3 => 'value_3', :key_4 => 'value_4' }, :key_5 => 'value_5' }])
   end
 
   def test_should_match_matcher_as_value_and_key
-    matcher = has_entry({ has_entry(:key_1 => 'value_1') => has_entry(:key_3 => 'value_3') })
+    matcher = has_entry(has_entry(:key_1 => 'value_1') => has_entry(:key_3 => 'value_3'))
     assert matcher.matches?([{ { :key_1 => 'value_1', :key_2 => 'value_2' } => { :key_3 => 'value_3', :key_4 => 'value_4' }, :key_5 => 'value_5' }])
   end
 end
