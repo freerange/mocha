@@ -56,6 +56,7 @@ module Mocha
       end
 
     private
+
       # @private
       def explode(uri)
         query_hash = CGI.parse(uri.query || '')

@@ -34,12 +34,6 @@ Layout/AccessModifierIndentation:
     - 'test/acceptance/stubbing_non_public_instance_method_test.rb'
     - 'test/acceptance/unstubbing_test.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Layout/EmptyLinesAroundAccessModifier:
-  Exclude:
-    - 'lib/mocha/parameter_matchers/equivalent_uri.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
