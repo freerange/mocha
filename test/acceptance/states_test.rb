@@ -57,7 +57,7 @@ class StatesTest < Mocha::TestCase
       mock = mock()
       readiness = states('readiness')
 
-      mock.expects(:first).raises().then(readiness.is('ready'))
+      mock.expects(:first).raises.then(readiness.is('ready'))
       mock.expects(:second).when(readiness.is('ready'))
 
       mock.first rescue nil

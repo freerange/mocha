@@ -162,7 +162,7 @@ class MockTest < Mocha::TestCase
     parameters_for_yield = [1, 2, 3]
     mock.expects(:method1).yields(*parameters_for_yield)
     yielded_parameters = nil
-    mock.method1() { |*parameters| yielded_parameters = parameters }
+    mock.method1 { |*parameters| yielded_parameters = parameters }
     assert_equal parameters_for_yield, yielded_parameters
   end
 

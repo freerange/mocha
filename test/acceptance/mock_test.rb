@@ -14,7 +14,7 @@ class MockTest < Mocha::TestCase
 
   def test_should_build_mock_and_explicitly_add_an_expectation_which_is_satisfied
     test_result = run_as_test do
-      foo = mock()
+      foo = mock
       foo.expects(:bar)
       foo.bar
     end
@@ -23,7 +23,7 @@ class MockTest < Mocha::TestCase
 
   def test_should_build_mock_and_explicitly_add_an_expectation_which_is_not_satisfied
     test_result = run_as_test do
-      foo = mock()
+      foo = mock
       foo.expects(:bar)
     end
     assert_failed(test_result)

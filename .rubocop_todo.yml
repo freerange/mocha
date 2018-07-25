@@ -116,21 +116,6 @@ Style/GuardClause:
     - 'lib/mocha/parameters_matcher.rb'
     - 'yard-templates/default/layout/html/setup.rb'
 
-# Offense count: 35
-# Cop supports --auto-correct.
-# Configuration parameters: IgnoredMethods.
-Style/MethodCallWithoutArgsParentheses:
-  Exclude:
-    - 'lib/mocha/expectation.rb'
-    - 'test/acceptance/failure_messages_test.rb'
-    - 'test/acceptance/mocha_test_result_test.rb'
-    - 'test/acceptance/mock_test.rb'
-    - 'test/acceptance/states_test.rb'
-    - 'test/acceptance/stub_everything_test.rb'
-    - 'test/acceptance/stub_test.rb'
-    - 'test/unit/expectation_test.rb'
-    - 'test/unit/mock_test.rb'
-
 # Offense count: 9
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.

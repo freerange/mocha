@@ -47,7 +47,7 @@ class FailureMessagesTest < Mocha::TestCase
 
   def test_should_display_mock_address_when_expectation_was_on_unnamed_mock
     test_result = run_as_test do
-      foo = mock()
+      foo = mock
       foo.expects(:bar)
     end
     assert_match Regexp.new("#<Mock:#{OBJECT_ADDRESS_PATTERN}>"), test_result.failures[0].message

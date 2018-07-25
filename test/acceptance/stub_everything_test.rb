@@ -14,7 +14,7 @@ class StubEverythingTest < Mocha::TestCase
 
   def test_should_build_stub_and_explicitly_add_an_expectation
     test_result = run_as_test do
-      foo = stub_everything()
+      foo = stub_everything
       foo.stubs(:bar)
       foo.bar
       foo.unexpected_invocation

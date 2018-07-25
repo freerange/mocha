@@ -17,12 +17,12 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_match_calls_to_same_method_with_exactly_zero_parameters
-    expectation = new_expectation.with()
+    expectation = new_expectation.with
     assert expectation.match?(:expected_method)
   end
 
   def test_should_not_match_calls_to_same_method_with_more_than_zero_parameters
-    expectation = new_expectation.with()
+    expectation = new_expectation.with
     assert !expectation.match?(:expected_method, 1, 2, 3)
   end
 
@@ -32,12 +32,12 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_match_calls_to_same_method_with_parameters_constrained_as_expected
-    expectation = new_expectation.with() { |x, y, z| x + y == z }
+    expectation = new_expectation.with { |x, y, z| x + y == z }
     assert expectation.match?(:expected_method, 1, 2, 3)
   end
 
   def test_should_not_match_calls_to_different_method_with_parameters_constrained_as_expected
-    expectation = new_expectation.with() { |x, y, z| x + y == z }
+    expectation = new_expectation.with { |x, y, z| x + y == z }
     assert !expectation.match?(:different_method, 1, 2, 3)
   end
 
@@ -61,7 +61,7 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_not_match_calls_to_same_method_with_parameters_not_constrained_as_expected
-    expectation = new_expectation.with() { |x, y, z| x + y == z }
+    expectation = new_expectation.with { |x, y, z| x + y == z }
     assert !expectation.match?(:expected_method, 1, 0, 3)
   end
 
@@ -105,44 +105,44 @@ class ExpectationTest < Mocha::TestCase
 
   def test_should_not_yield
     yielded = false
-    new_expectation.invoke() { yielded = true }
+    new_expectation.invoke { yielded = true }
     assert_equal false, yielded
   end
 
   def test_should_yield_no_parameters
-    expectation = new_expectation().yields()
+    expectation = new_expectation.yields
     yielded_parameters = nil
-    expectation.invoke() { |*parameters| yielded_parameters = parameters }
+    expectation.invoke { |*parameters| yielded_parameters = parameters }
     assert_equal [], yielded_parameters
   end
 
   def test_should_yield_with_specified_parameters
-    expectation = new_expectation().yields(1, 2, 3)
+    expectation = new_expectation.yields(1, 2, 3)
     yielded_parameters = nil
-    expectation.invoke() { |*parameters| yielded_parameters = parameters }
+    expectation.invoke { |*parameters| yielded_parameters = parameters }
     assert_equal [1, 2, 3], yielded_parameters
   end
 
   def test_should_yield_different_parameters_on_consecutive_invocations
-    expectation = new_expectation().yields(1, 2, 3).yields(4, 5)
+    expectation = new_expectation.yields(1, 2, 3).yields(4, 5)
     yielded_parameters = []
-    expectation.invoke() { |*parameters| yielded_parameters << parameters }
-    expectation.invoke() { |*parameters| yielded_parameters << parameters }
+    expectation.invoke { |*parameters| yielded_parameters << parameters }
+    expectation.invoke { |*parameters| yielded_parameters << parameters }
     assert_equal [[1, 2, 3], [4, 5]], yielded_parameters
   end
 
   def test_should_yield_multiple_times_for_single_invocation
-    expectation = new_expectation().multiple_yields([1, 2, 3], [4, 5])
+    expectation = new_expectation.multiple_yields([1, 2, 3], [4, 5])
     yielded_parameters = []
-    expectation.invoke() { |*parameters| yielded_parameters << parameters }
+    expectation.invoke { |*parameters| yielded_parameters << parameters }
     assert_equal [[1, 2, 3], [4, 5]], yielded_parameters
   end
 
   def test_should_yield_multiple_times_for_first_invocation_and_once_for_second_invocation
-    expectation = new_expectation().multiple_yields([1, 2, 3], [4, 5]).then.yields(6, 7)
+    expectation = new_expectation.multiple_yields([1, 2, 3], [4, 5]).then.yields(6, 7)
     yielded_parameters = []
-    expectation.invoke() { |*parameters| yielded_parameters << parameters }
-    expectation.invoke() { |*parameters| yielded_parameters << parameters }
+    expectation.invoke { |*parameters| yielded_parameters << parameters }
+    expectation.invoke { |*parameters| yielded_parameters << parameters }
     assert_equal [[1, 2, 3], [4, 5], [6, 7]], yielded_parameters
   end
 
@@ -178,7 +178,7 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_return_nil_if_no_value_specified
-    expectation = new_expectation.returns()
+    expectation = new_expectation.returns
     assert_nil expectation.invoke
   end
 
@@ -215,14 +215,14 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_return_values_then_raise_exception
-    expectation = new_expectation.returns(1, 2).then.raises()
+    expectation = new_expectation.returns(1, 2).then.raises
     assert_equal 1, expectation.invoke
     assert_equal 2, expectation.invoke
     assert_raise(RuntimeError) { expectation.invoke }
   end
 
   def test_should_raise_exception_then_return_values
-    expectation = new_expectation.raises().then.returns(1, 2)
+    expectation = new_expectation.raises.then.returns(1, 2)
     assert_raise(RuntimeError) { expectation.invoke }
     assert_equal 1, expectation.invoke
     assert_equal 2, expectation.invoke
