@@ -49,7 +49,7 @@ module Mocha
           return false unless matcher.matches?(available_parameters)
           index += 1
         end
-        return true
+        true
       end
 
       # @private

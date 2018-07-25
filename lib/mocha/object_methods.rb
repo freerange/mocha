@@ -169,7 +169,7 @@ module Mocha
       end
       return true if protected_methods(true).include?(method)
       return true if private_methods(true).include?(method)
-      return false
+      false
     end
   end
 end

@@ -10,9 +10,9 @@ module Mocha
 
     def match?(actual_parameters = [])
       if @matching_block
-        return @matching_block.call(*actual_parameters)
+        @matching_block.call(*actual_parameters)
       else
-        return parameters_match?(actual_parameters)
+        parameters_match?(actual_parameters)
       end
     end
 

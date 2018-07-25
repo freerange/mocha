@@ -29,7 +29,7 @@ module Mocha
         while available_parameters.length > 0 do
           available_parameters.shift
         end
-        return true
+        true
       end
 
       # @private

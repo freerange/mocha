@@ -116,18 +116,6 @@ Style/GuardClause:
     - 'lib/mocha/parameters_matcher.rb'
     - 'yard-templates/default/layout/html/setup.rb'
 
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: AllowMultipleReturnValues.
-Style/RedundantReturn:
-  Exclude:
-    - 'lib/mocha/class_methods.rb'
-    - 'lib/mocha/object_methods.rb'
-    - 'lib/mocha/parameter_matchers/any_parameters.rb'
-    - 'lib/mocha/parameter_matchers/anything.rb'
-    - 'lib/mocha/parameter_matchers/optionally.rb'
-    - 'lib/mocha/parameters_matcher.rb'
-
 # Offense count: 74
 # Cop supports --auto-correct.
 Style/RedundantSelf:

@@ -39,7 +39,7 @@ module Mocha
         end
         return true if @stubba_object.protected_instance_methods(true).include?(method)
         return true if @stubba_object.private_instance_methods(true).include?(method)
-        return false
+        false
       end
     end
 
