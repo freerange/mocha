@@ -28,15 +28,15 @@ class ObjectMethodsTest < Mocha::TestCase
   end
 
   def test_should_reuse_existing_mocha
-    mocha_1 = @object.mocha
-    mocha_2 = @object.mocha
-    assert_equal mocha_1, mocha_2
+    mocha1 = @object.mocha
+    mocha2 = @object.mocha
+    assert_equal mocha1, mocha2
   end
 
   def test_should_reuse_existing_mocha_even_if_instantiate_is_false
-    mocha_1 = @object.mocha
-    mocha_2 = @object.mocha(false)
-    assert_equal mocha_1, mocha_2
+    mocha1 = @object.mocha
+    mocha2 = @object.mocha(false)
+    assert_equal mocha1, mocha2
   end
 
   def test_should_reset_mocha

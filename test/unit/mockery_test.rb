@@ -30,25 +30,25 @@ class MockeryTest < Mocha::TestCase
   end
 
   def test_should_cache_instance_of_mockery
-    mockery_1 = Mockery.instance
-    mockery_2 = Mockery.instance
-    assert_same mockery_1, mockery_2
+    mockery1 = Mockery.instance
+    mockery2 = Mockery.instance
+    assert_same mockery1, mockery2
   end
 
   def test_should_expire_mockery_instance_cache
-    mockery_1 = Mockery.instance
+    mockery1 = Mockery.instance
     Mockery.teardown
-    mockery_2 = Mockery.instance
-    assert_not_same mockery_1, mockery_2
+    mockery2 = Mockery.instance
+    assert_not_same mockery1, mockery2
   end
 
   def test_should_raise_expectation_error_because_not_all_expectations_are_satisfied
     mockery = Mockery.new
     disable_deprecations do
-      mock_1 = mockery.named_mock('mock-1') { expects(:method_1) }
-      mock_2 = mockery.named_mock('mock-2') { expects(:method_2) }
-      1.times { mock_1.method_1 }
-      0.times { mock_2.method_2 }
+      mock1 = mockery.named_mock('mock-1') { expects(:method_1) }
+      mock2 = mockery.named_mock('mock-2') { expects(:method_2) }
+      1.times { mock1.method_1 }
+      0.times { mock2.method_2 }
     end
     assert_raises(ExpectationErrorFactory.exception_class) { mockery.verify }
   end
@@ -70,10 +70,10 @@ class MockeryTest < Mocha::TestCase
 
   def test_should_build_new_instance_of_stubba_on_teardown
     mockery = Mockery.new
-    stubba_1 = mockery.stubba
+    stubba1 = mockery.stubba
     mockery.teardown
-    stubba_2 = mockery.stubba
-    assert_not_same stubba_1, stubba_2
+    stubba2 = mockery.stubba
+    assert_not_same stubba1, stubba2
   end
 
   def test_should_build_and_store_new_state_machine

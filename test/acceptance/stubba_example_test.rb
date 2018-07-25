@@ -86,9 +86,9 @@ class StubbaExampleTest < Mocha::TestCase
 
   def should_stub_instance_method_on_any_instance_of_a_class
     Widget.any_instance.expects(:model).at_least_once.returns('another_model')
-    widget_1 = Widget.new
-    widget_2 = Widget.new
-    assert_equal 'another_model', widget_1.model
-    assert_equal 'another_model', widget_2.model
+    widget1 = Widget.new
+    widget2 = Widget.new
+    assert_equal 'another_model', widget1.model
+    assert_equal 'another_model', widget2.model
   end
 end
