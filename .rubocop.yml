@@ -33,3 +33,8 @@ Style/IfUnlessModifier:
 # Lambda literal syntax has only been supported since Ruby v2.0
 Style/Lambda:
   EnforcedStyle: lambda
+
+# While Numeric#zero? has been supported since Ruby v1.8.6, Numeric#negative? &
+# Numeric#positive? have only been supported since Ruby v2.3
+Style/NumericPredicate:
+  EnforcedStyle: comparison

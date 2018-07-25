@@ -118,25 +118,6 @@ Style/GuardClause:
 
 # Offense count: 21
 # Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect, EnforcedStyle.
-# SupportedStyles: predicate, comparison
-Style/NumericPredicate:
-  Exclude:
-    - 'spec/**/*'
-    - 'lib/mocha/cardinality.rb'
-    - 'lib/mocha/expectation.rb'
-    - 'lib/mocha/inspect.rb'
-    - 'lib/mocha/mock.rb'
-    - 'lib/mocha/names.rb'
-    - 'lib/mocha/object_methods.rb'
-    - 'lib/mocha/parameter_matchers/any_parameters.rb'
-    - 'lib/mocha/parameter_matchers/optionally.rb'
-    - 'lib/mocha/parameters_matcher.rb'
-    - 'test/acceptance/parameter_matcher_test.rb'
-    - 'test/test_runner.rb'
-
-# Offense count: 21
-# Cop supports --auto-correct.
 Style/ParallelAssignment:
   Exclude:
     - 'lib/mocha/cardinality.rb'
