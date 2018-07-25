@@ -128,13 +128,6 @@ Style/GuardClause:
 Style/HashSyntax:
   EnforcedStyle: hash_rockets
 
-# Offense count: 3
-Style/IfInsideElse:
-  Exclude:
-    - 'lib/mocha/cardinality.rb'
-    - 'lib/mocha/integration/monkey_patcher.rb'
-    - 'lib/mocha/mock.rb'
-
 # Offense count: 28
 # Cop supports --auto-correct.
 Style/IfUnlessModifier:
