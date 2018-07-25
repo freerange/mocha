@@ -40,7 +40,7 @@ def run(ruby_version, gemfile, task = "test")
   )
 end
 
-travis_config = YAML.load(File.read('.travis.yml'))
+travis_config = YAML.safe_load(File.read('.travis.yml'))
 build_configs = travis_config['matrix']['include']
 travis_config['rvm'].each do |ruby_version|
   travis_config['gemfile'].each do |gemfile|

@@ -83,13 +83,6 @@ Metrics/ModuleLength:
 Metrics/PerceivedComplexity:
   Max: 11
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Security/YAMLLoad:
-  Exclude:
-    - 'bin/build-matrix'
-    - 'lib/mocha/parameter_matchers/yaml_equivalent.rb'
-
 # Offense count: 97
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: inline, group

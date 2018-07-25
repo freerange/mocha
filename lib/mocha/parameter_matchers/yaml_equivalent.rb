@@ -35,7 +35,9 @@ module Mocha
       # @private
       def matches?(available_parameters)
         parameter = available_parameters.shift
+        # rubocop:disable Security/YAMLLoad
         @object == YAML.load(parameter)
+        # rubocop:enable Security/YAMLLoad
       end
 
       # @private
