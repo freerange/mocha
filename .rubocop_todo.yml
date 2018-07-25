@@ -89,12 +89,6 @@ Metrics/PerceivedComplexity:
 Style/AccessModifierDeclarations:
   Enabled: false
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/DefWithParentheses:
-  Exclude:
-    - 'lib/mocha/expectation.rb'
-
 # Offense count: 105
 Style/Documentation:
   Enabled: false

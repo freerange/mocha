@@ -182,7 +182,7 @@ module Mocha
     #   object = mock()
     #   object.expects(:expected_method).at_most_once
     #   2.times { object.expected_method } # => unexpected invocation
-    def at_most_once()
+    def at_most_once
       at_most(1)
       self
     end
