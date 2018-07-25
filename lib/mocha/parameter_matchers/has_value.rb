@@ -28,7 +28,6 @@ module Mocha
 
     # Parameter matcher which matches when actual parameter contains +Hash+ entry with expected value.
     class HasValue < Base
-
       # @private
       def initialize(value)
         @value = value
@@ -45,7 +44,6 @@ module Mocha
       def mocha_inspect
         "has_value(#{@value.mocha_inspect})"
       end
-
     end
 
   end

@@ -6,7 +6,6 @@ require 'mocha/expectation_error_factory'
 require 'mocha/names'
 
 class ObjectMethodsTest < Mocha::TestCase
-
   def setup
     Mocha::Mockery.setup
     @object = Object.new.extend(Mocha::ObjectMethods)
@@ -60,5 +59,4 @@ class ObjectMethodsTest < Mocha::TestCase
     klass = Class.new { def self.method_x; end }
     assert_equal klass._method(:method_x), klass.method(:method_x)
   end
-
 end

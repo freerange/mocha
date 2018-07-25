@@ -37,7 +37,6 @@ module Mocha
 
     # Parameter matcher which matches URIs with equivalent query strings.
     class EquivalentUri < Base
-
       # @private
       def initialize(uri)
         @uri = URI.parse(uri)
@@ -62,7 +61,6 @@ module Mocha
         query_hash = CGI.parse(uri.query || '')
         URI::Generic::COMPONENT.inject({}){ |h, k| h.merge(k => uri.__send__(k)) }.merge(:query => query_hash)
       end
-
     end
   end
 end

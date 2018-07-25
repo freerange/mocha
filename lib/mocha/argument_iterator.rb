@@ -1,7 +1,6 @@
 module Mocha
 
   class ArgumentIterator
-
     def initialize(argument)
       @argument = argument
     end
@@ -15,7 +14,6 @@ module Mocha
         block.call(@argument)
       end
     end
-
   end
 
 end

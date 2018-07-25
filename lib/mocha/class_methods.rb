@@ -14,7 +14,6 @@ module Mocha
 
     # @private
     class AnyInstance
-
       def initialize(klass)
         @stubba_object = klass
       end
@@ -44,7 +43,6 @@ module Mocha
         return true if @stubba_object.private_instance_methods(include_superclass_methods = true).include?(method)
         return false
       end
-
     end
 
     # @return [Mock] a mock object which will detect calls to any instance of this class.

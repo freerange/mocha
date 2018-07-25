@@ -26,7 +26,6 @@ module Mocha
 
     # Parameter matcher which always matches whatever the parameters.
     class AnyParameters < Base
-
       # @private
       def matches?(available_parameters)
         while available_parameters.length > 0 do
@@ -39,7 +38,6 @@ module Mocha
       def mocha_inspect
         "any_parameters"
       end
-
     end
 
   end

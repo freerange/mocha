@@ -1,7 +1,6 @@
 module Mocha
 
   class MethodMatcher
-
     attr_reader :expected_method_name
 
     def initialize(expected_method_name)
@@ -15,7 +14,6 @@ module Mocha
     def mocha_inspect
       "#{@expected_method_name}"
     end
-
   end
 
 end

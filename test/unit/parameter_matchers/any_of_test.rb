@@ -5,7 +5,6 @@ require 'mocha/inspect'
 require 'stub_matcher'
 
 class AnyOfTest < Mocha::TestCase
-
   include Mocha::ParameterMatchers
 
   def test_should_match_if_any_matchers_match
@@ -22,5 +21,4 @@ class AnyOfTest < Mocha::TestCase
     matcher = any_of(Stub::Matcher.new(false), Stub::Matcher.new(true), Stub::Matcher.new(false))
     assert_equal 'any_of(matcher(false), matcher(true), matcher(false))', matcher.mocha_inspect
   end
-
 end

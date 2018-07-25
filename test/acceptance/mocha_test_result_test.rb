@@ -3,7 +3,6 @@ require 'mocha/setup'
 require 'execution_point'
 
 class MochaTestResultTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -80,5 +79,4 @@ class MochaTestResultTest < Mocha::TestCase
     assert_equal 1, test_result.failure_count
     assert_equal execution_point, ExecutionPoint.new(test_result.failures[0].location)
   end
-
 end

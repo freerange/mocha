@@ -4,7 +4,6 @@ require 'mocha/inspect'
 require 'method_definer'
 
 class ObjectInspectTest < Mocha::TestCase
-
   def test_should_return_default_string_representation_of_object_not_including_instance_variables
     object = Object.new
     class << object
@@ -35,5 +34,4 @@ class ObjectInspectTest < Mocha::TestCase
 
     assert_equal [:__id__], calls.uniq
   end
-
 end

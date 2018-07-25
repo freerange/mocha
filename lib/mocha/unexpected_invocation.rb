@@ -2,7 +2,6 @@ module Mocha
 
   # Exception raised when an unexpected method is invoked
   class UnexpectedInvocation
-
     # @private
     def initialize(mock, symbol, *arguments)
       @mock, @symbol, @arguments = mock, symbol, arguments
@@ -20,7 +19,6 @@ module Mocha
     def short_description
       "unexpected invocation: #{@symbol}(#{@arguments.join(', ')})"
     end
-
   end
 
 end

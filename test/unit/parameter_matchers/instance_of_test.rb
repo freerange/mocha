@@ -4,7 +4,6 @@ require 'mocha/parameter_matchers/instance_of'
 require 'mocha/inspect'
 
 class InstanceOfTest < Mocha::TestCase
-
   include Mocha::ParameterMatchers
 
   def test_should_match_object_that_is_an_instance_of_specified_class
@@ -21,5 +20,4 @@ class InstanceOfTest < Mocha::TestCase
     matcher = instance_of(String)
     assert_equal "instance_of(String)", matcher.mocha_inspect
   end
-
 end

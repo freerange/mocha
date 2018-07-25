@@ -28,7 +28,6 @@ module Mocha
 
     # Parameter matcher which combines a number of other matchers using a logical AND.
     class AllOf < Base
-
       # @private
       def initialize(*matchers)
         @matchers = matchers
@@ -44,7 +43,6 @@ module Mocha
       def mocha_inspect
         "all_of(#{@matchers.map { |matcher| matcher.mocha_inspect }.join(", ") })"
       end
-
     end
 
   end

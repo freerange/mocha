@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class PartialMockTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -43,5 +42,4 @@ class PartialMockTest < Mocha::TestCase
     end
     assert_failed(test_result)
   end
-
 end

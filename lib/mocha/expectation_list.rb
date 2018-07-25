@@ -1,7 +1,6 @@
 module Mocha
 
   class ExpectationList
-
     def initialize(expectations = [])
       @expectations = expectations
     end
@@ -56,7 +55,6 @@ module Mocha
     def matching_expectations(method_name, *arguments)
       @expectations.select { |e| e.match?(method_name, *arguments) }
     end
-
   end
 
 end

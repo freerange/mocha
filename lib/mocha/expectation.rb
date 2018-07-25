@@ -14,7 +14,6 @@ module Mocha
 
   # Methods on expectations returned from {Mock#expects}, {Mock#stubs}, {ObjectMethods#expects} and {ObjectMethods#stubs}.
   class Expectation
-
     # Modifies expectation so that the number of calls to the expected method must be within a specific +range+.
     #
     # @param [Range,Integer] range specifies the allowable range in the number of expected invocations.
@@ -606,7 +605,6 @@ module Mocha
     def method_signature
       "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}#{@parameters_matcher.mocha_inspect}"
     end
-
   end
 
 end

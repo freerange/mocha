@@ -67,7 +67,6 @@ module Mocha
 
     # Parameter matcher which matches when actual parameter contains expected +Hash+ entry.
     class HasEntry < Base
-
       # @private
       def initialize(key, value)
         @key, @value = key, value
@@ -85,7 +84,6 @@ module Mocha
       def mocha_inspect
         "has_entry(#{@key.mocha_inspect} => #{@value.mocha_inspect})"
       end
-
     end
 
   end

@@ -1,7 +1,6 @@
 module Mocha
 
   class ObjectReceiver
-
     def initialize(object)
       @object = object
     end
@@ -15,11 +14,9 @@ module Mocha
       end
       mocks
     end
-
   end
 
   class AnyInstanceReceiver
-
     def initialize(klass)
       @klass = klass
     end
@@ -33,11 +30,9 @@ module Mocha
       end
       mocks
     end
-
   end
 
   class DefaultReceiver
-
     def initialize(mock)
       @mock = mock
     end
@@ -45,7 +40,6 @@ module Mocha
     def mocks
       [@mock]
     end
-
   end
 
 end

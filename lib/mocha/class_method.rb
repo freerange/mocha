@@ -4,7 +4,6 @@ require 'metaclass'
 module Mocha
 
   class ClassMethod
-
     PrependedModule = Class.new(Module)
 
     attr_reader :stubbee, :method
@@ -113,7 +112,6 @@ module Mocha
     def definition_target
       @definition_target ||= stubbee.__metaclass__
     end
-
   end
 
 end

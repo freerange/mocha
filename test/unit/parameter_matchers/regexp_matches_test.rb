@@ -4,7 +4,6 @@ require 'mocha/parameter_matchers/regexp_matches'
 require 'mocha/inspect'
 
 class RegexpMatchesTest < Mocha::TestCase
-
   include Mocha::ParameterMatchers
 
   def test_should_match_parameter_matching_regular_expression

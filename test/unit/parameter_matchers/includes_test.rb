@@ -7,7 +7,6 @@ require 'mocha/parameter_matchers/regexp_matches'
 require 'mocha/inspect'
 
 class IncludesTest < Mocha::TestCase
-
   include Mocha::ParameterMatchers
 
   def test_should_match_object_including_value

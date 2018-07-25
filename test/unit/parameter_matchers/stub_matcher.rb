@@ -1,7 +1,6 @@
 module Stub
 
   class Matcher
-
     attr_accessor :value
 
     def initialize(matches)
@@ -21,7 +20,6 @@ module Stub
     def to_matcher
       self
     end
-
   end
 
 end

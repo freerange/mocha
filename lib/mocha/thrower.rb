@@ -1,7 +1,6 @@
 module Mocha
 
   class Thrower
-
     def initialize(tag, object = nil)
       @tag, @object = tag, object
     end
@@ -9,7 +8,6 @@ module Mocha
     def evaluate
       throw @tag, @object
     end
-
   end
 
 end

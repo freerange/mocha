@@ -69,7 +69,6 @@ module Mocha
   # different mock objects, use the {Expectation#in_sequence} method to
   # explicitly define a total or partial ordering of invocations.
   class Mock
-
     # Adds an expectation that the specified method must be called exactly once with any parameters.
     #
     # @param [Symbol,String] method_name name of expected method
@@ -358,7 +357,6 @@ module Mocha
     def any_expectations?
       @expectations.any?
     end
-
   end
 
 end

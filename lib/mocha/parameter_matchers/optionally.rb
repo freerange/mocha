@@ -38,7 +38,6 @@ module Mocha
 
     # Parameter matcher which allows optional parameters to be specified.
     class Optionally < Base
-
       # @private
       def initialize(*parameters)
         @matchers = parameters.map { |parameter| parameter.to_matcher }
@@ -59,7 +58,6 @@ module Mocha
       def mocha_inspect
         "optionally(#{@matchers.map { |matcher| matcher.mocha_inspect }.join(", ") })"
       end
-
     end
 
   end

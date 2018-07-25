@@ -4,7 +4,6 @@ module Mocha
 
     # @abstract Subclass and implement +#matches?+ and +#mocha_inspect+ to define a custom matcher. Also add a suitably named instance method to {ParameterMatchers} to build an instance of the new matcher c.f. {#equals}.
     class Base
-
       # @private
       def to_matcher
         self
@@ -63,7 +62,6 @@ module Mocha
       def |(matcher)
         AnyOf.new(self, matcher)
       end
-
     end
 
   end

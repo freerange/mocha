@@ -29,7 +29,6 @@ module Mocha
 
     # Parameter matcher which matches when actual parameter is a kind of specified class.
     class KindOf < Base
-
       # @private
       def initialize(klass)
         @klass = klass
@@ -45,7 +44,6 @@ module Mocha
       def mocha_inspect
         "kind_of(#{@klass.mocha_inspect})"
       end
-
     end
 
   end

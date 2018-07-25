@@ -68,7 +68,6 @@ module Mocha
 
     # Parameter matcher which matches when actual parameter includes expected values.
     class Includes < Base
-
       # @private
       def initialize(*items)
         @items = items
@@ -96,7 +95,6 @@ module Mocha
         item_descriptions = @items.map(&:mocha_inspect)
         "includes(#{item_descriptions.join(', ')})"
       end
-
     end
 
   end

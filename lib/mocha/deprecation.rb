@@ -3,9 +3,7 @@ require 'mocha/backtrace_filter'
 module Mocha
 
   class Deprecation
-
     class << self
-
       attr_accessor :mode, :messages
 
       def warning(message)
@@ -16,12 +14,10 @@ module Mocha
           $stderr.puts "Mocha deprecation warning at #{location}: #{message}"
         end
       end
-
     end
 
     self.mode = :enabled
     self.messages = []
-
   end
 
 end

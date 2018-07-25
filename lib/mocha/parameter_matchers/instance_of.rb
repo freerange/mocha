@@ -29,7 +29,6 @@ module Mocha
 
     # Parameter matcher which matches when actual parameter is an instance of the specified class.
     class InstanceOf < Base
-
       # @private
       def initialize(klass)
         @klass = klass
@@ -45,7 +44,6 @@ module Mocha
       def mocha_inspect
         "instance_of(#{@klass.mocha_inspect})"
       end
-
     end
 
   end

@@ -30,7 +30,6 @@ module Mocha
 
     # Parameter matcher which matches if actual parameter returns expected result when specified method is invoked.
     class RespondsWith < Base
-
       # @private
       def initialize(message, result)
         @message, @result = message, result
@@ -46,7 +45,6 @@ module Mocha
       def mocha_inspect
         "responds_with(#{@message.mocha_inspect}, #{@result.mocha_inspect})"
       end
-
     end
 
   end

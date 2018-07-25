@@ -1,7 +1,6 @@
 module Mocha
 
   class ExceptionRaiser
-
     def initialize(exception, message)
       @exception, @message = exception, message
     end
@@ -11,7 +10,6 @@ module Mocha
       raise @exception, @message if @message
       raise @exception
     end
-
   end
 
 end

@@ -3,7 +3,6 @@ require 'mocha/module_methods'
 require 'mocha/object_methods'
 
 class ModuleMethodsTest < Mocha::TestCase
-
   def setup
     @module = Module.new.extend(Mocha::ModuleMethods, Mocha::ObjectMethods)
   end
@@ -15,5 +14,4 @@ class ModuleMethodsTest < Mocha::TestCase
   def test_should_stub_self_for_module
     assert_equal @module, @module.stubba_object
   end
-
 end

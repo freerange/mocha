@@ -5,7 +5,6 @@ require 'mocha/parameter_matchers/object'
 require 'mocha/inspect'
 
 class HasEntriesTest < Mocha::TestCase
-
   include Mocha::ParameterMatchers
 
   def test_should_match_hash_including_specified_entries
@@ -47,5 +46,4 @@ class HasEntriesTest < Mocha::TestCase
     matcher = has_entries(:key_1 => equals('value_2'), :key_2 => equals('value_2'), :key_3 => equals('value_3'))
     assert !matcher.matches?([{ :key_1 => 'value_1', :key_2 => 'value_2' }])
   end
-
 end

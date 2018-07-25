@@ -4,7 +4,6 @@ require 'mocha/parameter_matchers'
 module Mocha
 
   class ParametersMatcher
-
     def initialize(expected_parameters = [ParameterMatchers::AnyParameters.new], &matching_block)
       @expected_parameters, @matching_block = expected_parameters, matching_block
     end
@@ -31,7 +30,6 @@ module Mocha
     def matchers
       @expected_parameters.map { |parameter| parameter.to_matcher }
     end
-
   end
 
 end

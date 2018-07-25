@@ -30,7 +30,6 @@ module Mocha
 
     # Parameter matcher which matches when actual parameter contains all expected +Hash+ entries.
     class HasEntries < Base
-
       # @private
       def initialize(entries)
         @entries = entries
@@ -47,7 +46,6 @@ module Mocha
       def mocha_inspect
         "has_entries(#{@entries.mocha_inspect})"
       end
-
     end
 
   end

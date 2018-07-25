@@ -3,7 +3,6 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/return_values'
 
 class ReturnValuesTest < Mocha::TestCase
-
   include Mocha
 
   def test_should_return_nil
@@ -59,5 +58,4 @@ class ReturnValuesTest < Mocha::TestCase
     assert_equal 'value_2a', values[1].evaluate
     assert_equal 'value_2b', values[2].evaluate
   end
-
 end

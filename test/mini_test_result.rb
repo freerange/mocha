@@ -2,7 +2,6 @@ require 'stringio'
 require 'minitest/unit'
 
 class MiniTestResult
-
   minitest_version = Gem::Version.new(::MiniTest::Unit::VERSION)
   if Gem::Requirement.new('<= 4.6.1').satisfied_by?(minitest_version)
     FAILURE_PATTERN = %r{(Failure)\:\n([^\(]+)\(([^\)]+)\) \[([^\]]+)\]\:\n(.*)\n}m

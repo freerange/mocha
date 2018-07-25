@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class StubAnyInstanceMethodTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -278,5 +277,4 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     end
     assert_passed(test_result)
   end
-
 end

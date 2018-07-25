@@ -3,7 +3,6 @@ require 'mocha/setup'
 require 'mocha/ruby_version'
 
 class PrependTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -85,5 +84,4 @@ class PrependTest < Mocha::TestCase
     end
 
   end
-
 end

@@ -13,9 +13,7 @@ require 'mocha/expectation_error_factory'
 module Mocha
 
   class Mockery
-
     class Null < self
-
       def add_mock(*)
         raise_not_initialized_error
       end
@@ -34,11 +32,9 @@ module Mocha
         message = 'Mocha methods cannot be used outside the context of a test'
         raise NotInitializedError.new(message, caller)
       end
-
     end
 
     class << self
-
       def instance
         instances.last || Null.new
       end
@@ -65,7 +61,6 @@ module Mocha
       def instances
         @instances ||= []
       end
-
     end
 
     def named_mock(name, &block)
@@ -234,7 +229,6 @@ module Mocha
       @mocks = nil
       @state_machines = nil
     end
-
   end
 
 end

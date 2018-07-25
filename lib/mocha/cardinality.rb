@@ -1,11 +1,9 @@
 module Mocha
 
   class Cardinality
-
     INFINITY = 1 / 0.0
 
     class << self
-
       def exactly(count)
         new(count, count)
       end
@@ -24,7 +22,6 @@ module Mocha
         else new(range_or_count, range_or_count)
         end
       end
-
     end
 
     def initialize(required, maximum)
@@ -89,7 +86,6 @@ module Mocha
     def infinite?(number)
       number.respond_to?(:infinite?) && number.infinite?
     end
-
   end
 
 end

@@ -2,9 +2,7 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/setup'
 
 class MochaExampleTest < Mocha::TestCase
-
   class Rover
-
     def initialize(left_track, right_track, steps_per_metre, steps_per_degree)
       @left_track, @right_track, @steps_per_metre, @steps_per_degree = left_track, right_track, steps_per_metre, steps_per_degree
     end
@@ -32,7 +30,6 @@ class MochaExampleTest < Mocha::TestCase
     def wait
       while (@left_track.moving? or @right_track.moving?); end
     end
-
   end
 
   def test_should_step_both_tracks_forward_ten_steps
@@ -94,5 +91,4 @@ class MochaExampleTest < Mocha::TestCase
 
     rover.left(90)
   end
-
 end

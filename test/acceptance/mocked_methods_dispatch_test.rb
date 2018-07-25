@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class MockedMethodDispatchTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -74,5 +73,4 @@ class MockedMethodDispatchTest < Mocha::TestCase
     end
     assert_passed(test_result)
   end
-
 end

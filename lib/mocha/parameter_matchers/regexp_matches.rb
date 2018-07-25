@@ -29,7 +29,6 @@ module Mocha
 
     # Parameter matcher which matches if specified regular expression matches actual paramter.
     class RegexpMatches < Base
-
       # @private
       def initialize(regexp)
         @regexp = regexp
@@ -46,7 +45,6 @@ module Mocha
       def mocha_inspect
         "regexp_matches(#{@regexp.mocha_inspect})"
       end
-
     end
 
   end

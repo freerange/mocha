@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class OptionalParameterMatcherTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -66,5 +65,4 @@ class OptionalParameterMatcherTest < Mocha::TestCase
     end
     assert_failed(test_result)
   end
-
 end

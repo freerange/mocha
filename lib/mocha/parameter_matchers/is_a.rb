@@ -29,7 +29,6 @@ module Mocha
 
     # Parameter matcher which matches when actual parameter is a specific class.
     class IsA < Base
-
       # @private
       def initialize(klass)
         @klass = klass
@@ -45,7 +44,6 @@ module Mocha
       def mocha_inspect
         "is_a(#{@klass.mocha_inspect})"
       end
-
     end
 
   end

@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class ExpectedInvocationCountTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -228,5 +227,4 @@ class ExpectedInvocationCountTest < Mocha::TestCase
       "- expected exactly once, not yet invoked: #<Mock:mock>.method(1)"
     ], test_result.failure_message_lines
   end
-
 end

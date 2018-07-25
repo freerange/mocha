@@ -1,5 +1,4 @@
 class ExecutionPoint
-
   attr_reader :backtrace
 
   def self.current
@@ -34,5 +33,4 @@ class ExecutionPoint
   def inspect
     to_s
   end
-
 end

@@ -5,7 +5,6 @@ require 'mocha/parameter_matchers/object'
 require 'mocha/inspect'
 
 class RespondsWithTest < Mocha::TestCase
-
   include Mocha::ParameterMatchers
 
   def test_should_match_parameter_responding_with_expected_value
@@ -28,5 +27,4 @@ class RespondsWithTest < Mocha::TestCase
     matcher = responds_with(:foo, :bar)
     assert_equal 'responds_with(:foo, :bar)', matcher.mocha_inspect
   end
-
 end

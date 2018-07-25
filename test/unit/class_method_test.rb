@@ -5,7 +5,6 @@ require 'mocha/mock'
 require 'mocha/class_method'
 
 class ClassMethodTest < Mocha::TestCase
-
   include Mocha
 
 unless RUBY_V2_PLUS

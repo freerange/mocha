@@ -3,11 +3,9 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/in_state_ordering_constraint'
 
 class InStateOrderingConstraintTest < Mocha::TestCase
-
   include Mocha
 
   class FakeStatePredicate
-
     attr_writer :active, :description
 
     def active?
@@ -17,7 +15,6 @@ class InStateOrderingConstraintTest < Mocha::TestCase
     def mocha_inspect
       @description
     end
-
   end
 
   def test_should_allow_invocation_when_state_is_active
@@ -39,5 +36,4 @@ class InStateOrderingConstraintTest < Mocha::TestCase
 
     assert_equal 'when the-state-predicate', ordering_constraint.mocha_inspect
   end
-
 end

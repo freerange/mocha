@@ -4,7 +4,6 @@ require 'mocha/parameter_matchers/is_a'
 require 'mocha/inspect'
 
 class IsATest < Mocha::TestCase
-
   include Mocha::ParameterMatchers
 
   def test_should_match_object_that_is_a_specified_class
@@ -21,5 +20,4 @@ class IsATest < Mocha::TestCase
     matcher = is_a(Integer)
     assert_equal "is_a(Integer)", matcher.mocha_inspect
   end
-
 end

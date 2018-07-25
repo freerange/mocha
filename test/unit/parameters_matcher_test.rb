@@ -2,7 +2,6 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/parameters_matcher'
 
 class ParametersMatcherTest < Mocha::TestCase
-
   include Mocha
 
   def test_should_match_any_actual_parameters_if_no_expected_parameters_specified
@@ -117,5 +116,4 @@ class ParametersMatcherTest < Mocha::TestCase
     parameters_matcher = ParametersMatcher.new
     assert_equal '(any_parameters)', parameters_matcher.mocha_inspect
   end
-
 end

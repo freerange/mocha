@@ -1,9 +1,7 @@
 module Mocha
 
   class Central
-
     class Null < self
-
       def initialize(&block)
         super
         @raise_not_initialized_error = block
@@ -16,7 +14,6 @@ module Mocha
       def unstub(*)
         @raise_not_initialized_error.call
       end
-
     end
 
     attr_accessor :stubba_methods
@@ -44,7 +41,6 @@ module Mocha
         unstub(stubba_methods.first)
       end
     end
-
   end
 
 end

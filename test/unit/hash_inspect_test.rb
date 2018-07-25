@@ -2,7 +2,6 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/inspect'
 
 class HashInspectTest < Mocha::TestCase
-
   def test_should_keep_spacing_between_key_value
     hash = {:a => true}
     assert_equal '{:a => true}', hash.mocha_inspect
@@ -12,5 +11,4 @@ class HashInspectTest < Mocha::TestCase
     hash = {:a => 'mocha'}
     assert_equal %{{:a => "mocha"}}, hash.mocha_inspect
   end
-
 end

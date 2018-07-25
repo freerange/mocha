@@ -6,7 +6,6 @@ require 'execution_point'
 require 'simple_counter'
 
 class ExpectationTest < Mocha::TestCase
-
   include Mocha
 
   def new_expectation
@@ -326,7 +325,6 @@ class ExpectationTest < Mocha::TestCase
   end
 
   class FakeMock
-
     def initialize(name)
       @name = name
     end
@@ -334,7 +332,6 @@ class ExpectationTest < Mocha::TestCase
     def mocha_inspect
       @name
     end
-
   end
 
   def test_should_raise_error_with_message_indicating_which_method_was_expected_to_be_called_on_which_mock_object_with_which_parameters_and_in_what_sequences
@@ -347,7 +344,6 @@ class ExpectationTest < Mocha::TestCase
   end
 
   class FakeConstraint
-
     def initialize(allows_invocation_now)
       @allows_invocation_now = allows_invocation_now
     end
@@ -355,7 +351,6 @@ class ExpectationTest < Mocha::TestCase
     def allows_invocation_now?
       @allows_invocation_now
     end
-
   end
 
   def test_should_be_in_correct_order_if_all_ordering_constraints_allow_invocation_now
@@ -418,7 +413,6 @@ class ExpectationTest < Mocha::TestCase
   end
 
   class FakeSequence
-
     attr_reader :expectations
 
     def initialize
@@ -428,7 +422,6 @@ class ExpectationTest < Mocha::TestCase
     def constrain_as_next_in_sequence(expectation)
       @expectations << expectation
     end
-
   end
 
   def test_should_tell_sequences_to_constrain_expectation_as_next_in_sequence
@@ -441,7 +434,6 @@ class ExpectationTest < Mocha::TestCase
   end
 
   class FakeState
-
     def initialize
       @active = false
     end
@@ -453,7 +445,6 @@ class ExpectationTest < Mocha::TestCase
     def active?
       @active
     end
-
   end
 
   def test_should_change_state_when_expectation_is_invoked

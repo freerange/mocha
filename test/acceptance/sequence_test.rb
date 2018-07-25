@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class SequenceTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -188,5 +187,4 @@ class SequenceTest < Mocha::TestCase
     assert_match Regexp.new(%{in sequence "one"}), test_result.failures.first.message
     assert_match Regexp.new(%{in sequence "two"}), test_result.failures.first.message
   end
-
 end

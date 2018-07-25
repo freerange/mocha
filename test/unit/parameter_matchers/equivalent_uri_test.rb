@@ -3,7 +3,6 @@ require 'deprecation_disabler'
 require 'mocha/parameter_matchers/equivalent_uri'
 
 class EquivalentUriMatchesTest < Mocha::TestCase
-
   include Mocha::ParameterMatchers
   include DeprecationDisabler
 

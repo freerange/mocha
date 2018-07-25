@@ -6,7 +6,6 @@ require 'set'
 require 'simple_counter'
 
 class MockTest < Mocha::TestCase
-
   include Mocha
 
   def test_should_set_single_expectation

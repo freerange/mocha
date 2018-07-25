@@ -23,7 +23,6 @@ module Mocha
 
     # Parameter matcher which always matches a single parameter.
     class Anything < Base
-
       # @private
       def matches?(available_parameters)
         available_parameters.shift
@@ -34,7 +33,6 @@ module Mocha
       def mocha_inspect
         "anything"
       end
-
     end
 
   end

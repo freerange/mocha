@@ -5,7 +5,6 @@ require 'mocha/parameter_matchers/object'
 require 'mocha/inspect'
 
 class HasKeyTest < Mocha::TestCase
-
   include Mocha::ParameterMatchers
 
   def test_should_match_hash_including_specified_key

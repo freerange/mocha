@@ -1,7 +1,6 @@
 module Mocha
 
   class Logger
-
     def initialize(io)
       @io = io
     end
@@ -9,7 +8,6 @@ module Mocha
     def warn(message)
       @io.puts "WARNING: #{message}"
     end
-
   end
 
 end

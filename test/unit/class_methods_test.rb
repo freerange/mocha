@@ -5,7 +5,6 @@ require 'mocha/mockery'
 require 'mocha/names'
 
 class ClassMethodsTest < Mocha::TestCase
-
   def setup
     Mocha::Mockery.setup
     @klass = Class.new.extend(Mocha::ClassMethods, Mocha::ObjectMethods)
@@ -67,5 +66,4 @@ class ClassMethodsTest < Mocha::TestCase
     any_instance = @klass.any_instance
     assert_equal @klass, any_instance.stubba_object
   end
-
 end

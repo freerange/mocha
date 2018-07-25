@@ -5,10 +5,8 @@ module Mocha
   # @see API#sequence
   # @see Expectation#in_sequence
   class Sequence
-
     # @private
     class InSequenceOrderingConstraint
-
       def initialize(sequence, index)
         @sequence, @index = sequence, index
       end
@@ -20,7 +18,6 @@ module Mocha
       def mocha_inspect
         "in sequence #{@sequence.mocha_inspect}"
       end
-
     end
 
     # @private
@@ -45,7 +42,6 @@ module Mocha
     def mocha_inspect
       "#{@name.mocha_inspect}"
     end
-
   end
 
 end

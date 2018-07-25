@@ -5,7 +5,6 @@ require 'mocha/expectation_error_factory'
 require 'deprecation_disabler'
 
 class MockeryTest < Mocha::TestCase
-
   include Mocha
   include DeprecationDisabler
 
@@ -170,5 +169,4 @@ class MockeryTest < Mocha::TestCase
     mock = mockery.mock_impersonating_any_instance_of(FakeClass)
     assert_equal "#<AnyInstance:MockeryTest::FakeClass>", mock.inspect
   end
-
 end

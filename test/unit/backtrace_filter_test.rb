@@ -2,7 +2,6 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/backtrace_filter'
 
 class BacktraceFilterTest < Mocha::TestCase
-
   include Mocha
 
   def test_should_exclude_mocha_locations_from_backtrace
@@ -15,5 +14,4 @@ class BacktraceFilterTest < Mocha::TestCase
   def test_should_determine_path_for_mocha_lib_directory
     assert_match Regexp.new("/lib/$"), BacktraceFilter::LIB_DIRECTORY
   end
-
 end
