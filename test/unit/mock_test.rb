@@ -45,7 +45,7 @@ class MockTest < Mocha::TestCase
   end
 
   if PRE_RUBY_V19
-    OBJECT_METHODS = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ || ["method_missing", "singleton_method_undefined", "initialize"].include?(m)}
+    OBJECT_METHODS = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ || ["method_missing", "singleton_method_undefined", "initialize"].include?(m) }
   else
     OBJECT_METHODS = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ || [:object_id, :method_missing, :singleton_method_undefined, :initialize, :String, :singleton_method_added].include?(m) }
   end

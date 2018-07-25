@@ -32,12 +32,12 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_match_calls_to_same_method_with_parameters_constrained_as_expected
-    expectation = new_expectation.with() {|x, y, z| x + y == z}
+    expectation = new_expectation.with() { |x, y, z| x + y == z }
     assert expectation.match?(:expected_method, 1, 2, 3)
   end
 
   def test_should_not_match_calls_to_different_method_with_parameters_constrained_as_expected
-    expectation = new_expectation.with() {|x, y, z| x + y == z}
+    expectation = new_expectation.with() { |x, y, z| x + y == z }
     assert !expectation.match?(:different_method, 1, 2, 3)
   end
 
@@ -61,7 +61,7 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_not_match_calls_to_same_method_with_parameters_not_constrained_as_expected
-    expectation = new_expectation.with() {|x, y, z| x + y == z}
+    expectation = new_expectation.with() { |x, y, z| x + y == z }
     assert !expectation.match?(:expected_method, 1, 0, 3)
   end
 
@@ -275,7 +275,7 @@ class ExpectationTest < Mocha::TestCase
 
   def test_should_verify_successfully_if_expected_call_was_made_at_least_once
     expectation = new_expectation.at_least_once
-    3.times {expectation.invoke}
+    3.times { expectation.invoke }
     assert expectation.verified?
   end
 
@@ -287,20 +287,20 @@ class ExpectationTest < Mocha::TestCase
 
   def test_should_verify_successfully_if_expected_call_was_made_expected_number_of_times
     expectation = new_expectation.times(2)
-    2.times {expectation.invoke}
+    2.times { expectation.invoke }
     assert expectation.verified?
   end
 
   def test_should_not_verify_successfully_if_expected_call_was_made_too_few_times
     expectation = new_expectation.times(2)
-    1.times {expectation.invoke}
+    1.times { expectation.invoke }
     assert !expectation.verified?
     assert_match(/expected exactly twice, invoked once/i, expectation.mocha_inspect)
   end
 
   def test_should_not_verify_successfully_if_expected_call_was_made_too_many_times
     expectation = new_expectation.times(2)
-    3.times {expectation.invoke}
+    3.times { expectation.invoke }
     assert !expectation.verified?
   end
 

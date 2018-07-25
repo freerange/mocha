@@ -123,7 +123,7 @@ class ClassMethodTest < Mocha::TestCase
     method = ClassMethod.new(klass, :method_x)
     mocha = build_mock
     klass.define_instance_method(:mocha) { mocha }
-    method.replace_instance_method(:reset_mocha) { }
+    method.replace_instance_method(:reset_mocha) {}
     method.define_instance_accessor(:remove_called)
     method.replace_instance_method(:remove_new_method) { self.remove_called = true }
 
@@ -137,7 +137,7 @@ class ClassMethodTest < Mocha::TestCase
     mocha = build_mock
     klass.define_instance_method(:mocha) { mocha }
     method = ClassMethod.new(klass, :method_x)
-    method.replace_instance_method(:reset_mocha) { }
+    method.replace_instance_method(:reset_mocha) {}
     method.define_instance_accessor(:restore_called)
     method.replace_instance_method(:restore_original_method) { self.restore_called = true }
 
@@ -149,7 +149,7 @@ class ClassMethodTest < Mocha::TestCase
   def test_should_call_mocha_unstub
     klass = Class.new { def self.method_x; end }
     method = ClassMethod.new(klass, :method_x)
-    method.replace_instance_method(:restore_original_method) { }
+    method.replace_instance_method(:restore_original_method) {}
     mocha = Class.new { class << self; attr_accessor :unstub_method; end; def self.unstub(method); self.unstub_method = method; end; }
     mocha.define_instance_method(:any_expectations?) { true }
     method.replace_instance_method(:mock) { mocha }
@@ -161,8 +161,8 @@ class ClassMethodTest < Mocha::TestCase
   def test_should_call_stubbee_reset_mocha_if_no_expectations_remaining
     klass = Class.new { def self.method_x; end }
     method = ClassMethod.new(klass, :method_x)
-    method.replace_instance_method(:remove_new_method) { }
-    method.replace_instance_method(:restore_original_method) { }
+    method.replace_instance_method(:remove_new_method) {}
+    method.replace_instance_method(:restore_original_method) {}
     mocha = Class.new
     mocha.define_instance_method(:unstub) { |method_name| }
     mocha.define_instance_method(:any_expectations?) { false }
