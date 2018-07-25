@@ -43,6 +43,7 @@ Gem::Specification.new do |s|
     # No test libraries in standard library
     s.add_development_dependency("minitest")
   end
+  s.add_development_dependency("rubocop")
   if ENV["MOCHA_GENERATE_DOCS"]
     s.add_development_dependency("yard")
     s.add_development_dependency("redcarpet")
