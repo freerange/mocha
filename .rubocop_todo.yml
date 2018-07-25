@@ -83,11 +83,6 @@ Metrics/ModuleLength:
 Metrics/PerceivedComplexity:
   Max: 11
 
-# Offense count: 1
-Security/Eval:
-  Exclude:
-    - 'test/unit/parameter_matchers/has_entries_test.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Security/YAMLLoad:
