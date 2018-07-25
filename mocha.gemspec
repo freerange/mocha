@@ -42,7 +42,9 @@ Gem::Specification.new do |s|
     # No test libraries in standard library
     s.add_development_dependency("minitest")
   end
-  s.add_development_dependency("rubocop")
+  if RUBY_VERSION >= '1.9.2'
+    s.add_development_dependency("rubocop")
+  end
   if ENV["MOCHA_GENERATE_DOCS"]
     s.add_development_dependency("redcarpet")
     s.add_development_dependency("yard")
