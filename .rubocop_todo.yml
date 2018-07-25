@@ -33,16 +33,6 @@ Layout/AccessModifierIndentation:
     - 'test/acceptance/stubbing_non_public_instance_method_test.rb'
     - 'test/acceptance/unstubbing_test.rb'
 
-# Offense count: 5
-# Configuration parameters: AllowSafeAssignment.
-Lint/AssignmentInCondition:
-  Exclude:
-    - 'Rakefile'
-    - 'lib/mocha/any_instance_method.rb'
-    - 'lib/mocha/central.rb'
-    - 'lib/mocha/class_method.rb'
-    - 'lib/mocha/mock.rb'
-
 # Offense count: 28
 Lint/DuplicateMethods:
   Exclude:

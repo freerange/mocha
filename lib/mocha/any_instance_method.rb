@@ -12,7 +12,7 @@ module Mocha
     end
 
     def hide_original_method
-      if @original_visibility = method_visibility(method)
+      if (@original_visibility = method_visibility(method))
         begin
           if RUBY_V2_PLUS
             @definition_target = PrependedModule.new
