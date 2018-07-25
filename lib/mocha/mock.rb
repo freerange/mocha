@@ -291,6 +291,7 @@ module Mocha
     end
 
     # @private
+    # rubocop:disable Style/MethodMissingSuper
     def method_missing(symbol, *arguments, &block)
       if @responder && !@responder.respond_to?(symbol)
         raise NoMethodError, "undefined method `#{symbol}' for #{self.mocha_inspect} which responds like #{@responder.mocha_inspect}"
@@ -309,6 +310,7 @@ module Mocha
         raise ExpectationErrorFactory.build(message, caller)
       end
     end
+    # rubocop:enable Style/MethodMissingSuper
 
     # @private
     def respond_to_missing?(symbol, include_private = false)

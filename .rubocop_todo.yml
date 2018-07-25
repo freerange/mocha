@@ -116,11 +116,6 @@ Style/GuardClause:
     - 'lib/mocha/parameters_matcher.rb'
     - 'yard-templates/default/layout/html/setup.rb'
 
-# Offense count: 1
-Style/MethodMissingSuper:
-  Exclude:
-    - 'lib/mocha/mock.rb'
-
 # Offense count: 6
 # Cop supports --auto-correct.
 Style/MultilineIfModifier:
