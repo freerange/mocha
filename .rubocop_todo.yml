@@ -91,17 +91,6 @@ Style/AccessModifierDeclarations:
 
 # Offense count: 4
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: always, conditionals
-Style/AndOr:
-  Exclude:
-    - 'lib/mocha/class_method.rb'
-    - 'lib/mocha/mock.rb'
-    - 'test/acceptance/mocha_example_test.rb'
-    - 'test/execution_point.rb'
-
-# Offense count: 4
-# Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, ProceduralMethods, FunctionalMethods, IgnoredMethods.
 # SupportedStyles: line_count_based, semantic, braces_for_chaining
 # ProceduralMethods: benchmark, bm, bmbm, create, each_with_object, measure, new, realtime, tap, with_object

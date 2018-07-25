@@ -292,7 +292,7 @@ module Mocha
 
     # @private
     def method_missing(symbol, *arguments, &block)
-      if @responder and not @responder.respond_to?(symbol)
+      if @responder && (not @responder.respond_to?(symbol))
         raise NoMethodError, "undefined method `#{symbol}' for #{self.mocha_inspect} which responds like #{@responder.mocha_inspect}"
       end
       if (matching_expectation_allowing_invocation = all_expectations.match_allowing_invocation(symbol, *arguments))

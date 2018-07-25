@@ -28,7 +28,7 @@ class MochaExampleTest < Mocha::TestCase
     end
 
     def wait
-      while (@left_track.moving? or @right_track.moving?); end
+      while (@left_track.moving? || @right_track.moving?); end
     end
   end
 

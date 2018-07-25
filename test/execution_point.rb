@@ -23,7 +23,7 @@ class ExecutionPoint
 
   def ==(other)
     return false unless other.is_a?(ExecutionPoint)
-    (file_name == other.file_name) and (line_number == other.line_number)
+    (file_name == other.file_name) && (line_number == other.line_number)
   end
 
   def to_s
