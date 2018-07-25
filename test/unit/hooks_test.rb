@@ -3,11 +3,13 @@ require 'mocha/hooks'
 require 'mocha/mockery'
 
 class HooksTest < Mocha::TestCase
+  # rubocop:disable Style/ClassAndModuleChildren
   class Mocha::Mockery
     class << self
       attr_writer :instances
     end
   end
+  # rubocop:enable Style/ClassAndModuleChildren
 
   class FakeMockery
     def verify(*args)
