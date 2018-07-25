@@ -98,12 +98,6 @@ Style/Documentation:
 Style/ExpandPathArguments:
   Enabled: false
 
-# Offense count: 18
-# Configuration parameters: .
-# SupportedStyles: annotated, template, unannotated
-Style/FormatStringToken:
-  EnforcedStyle: unannotated
-
 # Offense count: 237
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
