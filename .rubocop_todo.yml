@@ -89,18 +89,6 @@ Metrics/PerceivedComplexity:
 Style/AccessModifierDeclarations:
   Enabled: false
 
-# Offense count: 11
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: prefer_alias, prefer_alias_method
-Style/Alias:
-  Exclude:
-    - 'lib/mocha/class_method.rb'
-    - 'lib/mocha/is_a.rb'
-    - 'lib/mocha/mock.rb'
-    - 'lib/mocha/object_methods.rb'
-    - 'test/test_helper.rb'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.

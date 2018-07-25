@@ -3,3 +3,8 @@ inherit_from: .rubocop_todo.yml
 # Regexp#match? has only been available since Ruby v2.4
 Performance/RegexpMatch:
   Enabled: false
+
+# Even the reference in the documentation suggests that you should prefer
+# `alias_method` vs `alias`, so I don't understand why that isn't the default.
+Style/Alias:
+  EnforcedStyle: prefer_alias_method
