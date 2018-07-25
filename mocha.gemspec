@@ -19,7 +19,6 @@ Gem::Specification.new do |s|
 
   s.homepage = "http://gofreerange.com/mocha/docs"
   s.require_paths = ["lib"]
-  s.rubyforge_project = "mocha"
   s.summary = "Mocking and stubbing library"
   s.has_rdoc = "yard"
 
