@@ -35,4 +35,3 @@ class ConfigurationTest < Mocha::TestCase
     assert Mocha::Configuration.allow?(:stubbing_method_unnecessarily)
   end
 end
-

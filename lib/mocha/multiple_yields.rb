@@ -13,4 +13,3 @@ module Mocha
     end
   end
 end
-
