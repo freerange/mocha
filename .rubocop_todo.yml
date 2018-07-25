@@ -93,12 +93,6 @@ Style/AccessModifierDeclarations:
 Style/Documentation:
   Enabled: false
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/EachWithObject:
-  Exclude:
-    - 'lib/mocha/debug.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
