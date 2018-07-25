@@ -116,14 +116,6 @@ Style/GuardClause:
     - 'lib/mocha/parameters_matcher.rb'
     - 'yard-templates/default/layout/html/setup.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: line_count_dependent, lambda, literal
-Style/Lambda:
-  Exclude:
-    - 'test/acceptance/parameter_matcher_test.rb'
-
 # Offense count: 35
 # Cop supports --auto-correct.
 # Configuration parameters: IgnoredMethods.
