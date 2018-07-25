@@ -24,7 +24,8 @@ module Mocha
     end
 
     def initialize(required, maximum)
-      @required, @maximum = required, maximum
+      @required = required
+      @maximum = maximum
     end
 
     def invocations_allowed?(invocation_count)

@@ -504,7 +504,8 @@ module Mocha
       @parameters_matcher = ParametersMatcher.new
       @ordering_constraints = []
       @side_effects = []
-      @cardinality, @invocation_count = Cardinality.exactly(1), 0
+      @cardinality = Cardinality.exactly(1)
+      @invocation_count = 0
       @return_values = ReturnValues.new
       @yield_parameters = YieldParameters.new
       @backtrace = backtrace || caller

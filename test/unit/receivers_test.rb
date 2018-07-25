@@ -22,7 +22,8 @@ class ObjectReceiverTest < Mocha::TestCase
     attr_reader :superclass
 
     def initialize(superclass, mocha)
-      @superclass, @mocha = superclass, mocha
+      @superclass = superclass
+      @mocha = mocha
     end
 
     def mocha(_instantiate)
@@ -66,7 +67,8 @@ class AnyInstanceReceiverTest < Mocha::TestCase
     attr_reader :superclass
 
     def initialize(superclass, mocha)
-      @superclass, @mocha = superclass, mocha
+      @superclass = superclass
+      @mocha = mocha
     end
 
     def any_instance

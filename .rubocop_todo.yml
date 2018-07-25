@@ -116,26 +116,6 @@ Style/GuardClause:
     - 'lib/mocha/parameters_matcher.rb'
     - 'yard-templates/default/layout/html/setup.rb'
 
-# Offense count: 21
-# Cop supports --auto-correct.
-Style/ParallelAssignment:
-  Exclude:
-    - 'lib/mocha/cardinality.rb'
-    - 'lib/mocha/class_method.rb'
-    - 'lib/mocha/exception_raiser.rb'
-    - 'lib/mocha/expectation.rb'
-    - 'lib/mocha/parameter_matchers/has_entry.rb'
-    - 'lib/mocha/parameter_matchers/responds_with.rb'
-    - 'lib/mocha/parameters_matcher.rb'
-    - 'lib/mocha/receivers.rb'
-    - 'lib/mocha/sequence.rb'
-    - 'lib/mocha/state_machine.rb'
-    - 'lib/mocha/thrower.rb'
-    - 'lib/mocha/unexpected_invocation.rb'
-    - 'test/acceptance/mocha_example_test.rb'
-    - 'test/mini_test_result.rb'
-    - 'test/unit/receivers_test.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: AllowSafeAssignment, AllowInMultilineConditions.

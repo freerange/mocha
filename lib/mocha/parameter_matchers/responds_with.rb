@@ -30,7 +30,8 @@ module Mocha
     class RespondsWith < Base
       # @private
       def initialize(message, result)
-        @message, @result = message, result
+        @message = message
+        @result = result
       end
 
       # @private

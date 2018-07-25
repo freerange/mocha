@@ -6,7 +6,8 @@ module Mocha
     class State
       # @private
       def initialize(state_machine, state)
-        @state_machine, @state = state_machine, state
+        @state_machine = state_machine
+        @state = state
       end
 
       # @private
@@ -29,7 +30,8 @@ module Mocha
     class StatePredicate
       # @private
       def initialize(state_machine, state)
-        @state_machine, @state = state_machine, state
+        @state_machine = state_machine
+        @state = state
       end
 
       # @private

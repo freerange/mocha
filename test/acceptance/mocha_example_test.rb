@@ -4,7 +4,10 @@ require 'mocha/setup'
 class MochaExampleTest < Mocha::TestCase
   class Rover
     def initialize(left_track, right_track, steps_per_metre, steps_per_degree)
-      @left_track, @right_track, @steps_per_metre, @steps_per_degree = left_track, right_track, steps_per_metre, steps_per_degree
+      @left_track = left_track
+      @right_track = right_track
+      @steps_per_metre = steps_per_metre
+      @steps_per_degree = steps_per_degree
     end
 
     def forward(metres)

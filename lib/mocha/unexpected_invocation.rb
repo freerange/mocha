@@ -3,7 +3,9 @@ module Mocha
   class UnexpectedInvocation
     # @private
     def initialize(mock, symbol, *arguments)
-      @mock, @symbol, @arguments = mock, symbol, arguments
+      @mock = mock
+      @symbol = symbol
+      @arguments = arguments
     end
 
     # @private

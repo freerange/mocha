@@ -9,7 +9,8 @@ module Mocha
 
     def initialize(stubbee, method)
       @stubbee = stubbee
-      @original_method, @original_visibility = nil, nil
+      @original_method = nil
+      @original_visibility = nil
       @method = PRE_RUBY_V19 ? method.to_s : method.to_sym
     end
 

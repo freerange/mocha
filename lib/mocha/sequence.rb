@@ -7,7 +7,8 @@ module Mocha
     # @private
     class InSequenceOrderingConstraint
       def initialize(sequence, index)
-        @sequence, @index = sequence, index
+        @sequence = sequence
+        @index = index
       end
 
       def allows_invocation_now?

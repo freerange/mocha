@@ -5,7 +5,8 @@ module Mocha
     end
 
     def mocks
-      object, mocks = @object, []
+      object = @object
+      mocks = []
       while object do
         mocha = object.mocha(false)
         mocks << mocha if mocha
@@ -21,7 +22,8 @@ module Mocha
     end
 
     def mocks
-      klass, mocks = @klass, []
+      klass = @klass
+      mocks = []
       while klass do
         mocha = klass.any_instance.mocha(false)
         mocks << mocha if mocha
