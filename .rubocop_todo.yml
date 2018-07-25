@@ -34,15 +34,6 @@ Layout/AccessModifierIndentation:
     - 'test/acceptance/stubbing_non_public_instance_method_test.rb'
     - 'test/acceptance/unstubbing_test.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: normal, rails
-Layout/IndentationConsistency:
-  Exclude:
-    - 'test/unit/any_instance_method_test.rb'
-    - 'test/unit/class_method_test.rb'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 # Configuration parameters: Width, IgnoredPatterns.

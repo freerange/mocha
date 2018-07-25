@@ -7,17 +7,17 @@ require 'mocha/class_method'
 class ClassMethodTest < Mocha::TestCase
   include Mocha
 
-unless RUBY_V2_PLUS
-  def test_should_hide_original_method
-    klass = Class.new { def self.method_x; end }
-    klass.__metaclass__.send(:alias_method, :_method, :method)
-    method = ClassMethod.new(klass, :method_x)
+  unless RUBY_V2_PLUS
+    def test_should_hide_original_method
+      klass = Class.new { def self.method_x; end }
+      klass.__metaclass__.send(:alias_method, :_method, :method)
+      method = ClassMethod.new(klass, :method_x)
 
-    method.hide_original_method
+      method.hide_original_method
 
-    assert_equal false, klass.respond_to?(:method_x)
+      assert_equal false, klass.respond_to?(:method_x)
+    end
   end
-end
 
   def test_should_not_raise_error_hiding_method_that_isnt_defined
     klass = Class.new
