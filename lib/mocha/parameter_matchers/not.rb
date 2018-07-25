@@ -1,9 +1,7 @@
 require 'mocha/parameter_matchers/base'
 
 module Mocha
-
   module ParameterMatchers
-
     # Matches if +matcher+ does *not* match.
     #
     # @param [Base] matcher matcher whose logic to invert.
@@ -44,7 +42,5 @@ module Mocha
         "Not(#{@matcher.mocha_inspect})"
       end
     end
-
   end
-
 end

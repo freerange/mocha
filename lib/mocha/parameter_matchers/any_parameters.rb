@@ -1,9 +1,7 @@
 require 'mocha/parameter_matchers/base'
 
 module Mocha
-
   module ParameterMatchers
-
     # Matches any parameters. This is used as the default for a newly built expectation.
     #
     # @return [AnyParameters] parameter matcher.
@@ -39,7 +37,5 @@ module Mocha
         "any_parameters"
       end
     end
-
   end
-
 end

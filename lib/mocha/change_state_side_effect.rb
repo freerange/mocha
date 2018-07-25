@@ -1,5 +1,4 @@
 module Mocha
-
   class ChangeStateSideEffect
     def initialize(state)
       @state = state
@@ -13,5 +12,4 @@ module Mocha
       "then #{@state.mocha_inspect}"
     end
   end
-
 end

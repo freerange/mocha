@@ -1,9 +1,7 @@
 require 'mocha/parameter_matchers/base'
 
 module Mocha
-
   module ParameterMatchers
-
     # Matches any object that matches +regexp+.
     #
     # @param [Regexp] regexp regular expression to match.
@@ -46,7 +44,5 @@ module Mocha
         "regexp_matches(#{@regexp.mocha_inspect})"
       end
     end
-
   end
-
 end

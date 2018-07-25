@@ -1,7 +1,6 @@
 require 'mocha/backtrace_filter'
 
 module Mocha
-
   class Deprecation
     class << self
       attr_accessor :mode, :messages
@@ -19,5 +18,4 @@ module Mocha
     self.mode = :enabled
     self.messages = []
   end
-
 end

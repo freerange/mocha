@@ -1,9 +1,7 @@
 require 'mocha/parameter_matchers/base'
 
 module Mocha
-
   module ParameterMatchers
-
     # Matches any +Object+ equalling +value+.
     #
     # @param [Object] value expected value.
@@ -45,7 +43,5 @@ module Mocha
         @value.mocha_inspect
       end
     end
-
   end
-
 end

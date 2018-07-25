@@ -1,7 +1,6 @@
 require 'mocha/single_return_value'
 
 module Mocha
-
   class ReturnValues
     def self.build(*values)
       new(*values.map { |value| SingleReturnValue.new(value) })
@@ -25,5 +24,4 @@ module Mocha
       self.class.new(*(@values + other.values))
     end
   end
-
 end

@@ -11,7 +11,6 @@ require 'mocha/not_initialized_error'
 require 'mocha/expectation_error_factory'
 
 module Mocha
-
   class Mockery
     class Null < self
       def add_mock(*)
@@ -230,5 +229,4 @@ module Mocha
       @state_machines = nil
     end
   end
-
 end

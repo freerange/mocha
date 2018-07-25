@@ -2,9 +2,7 @@ require 'mocha/parameter_matchers/base'
 require 'yaml'
 
 module Mocha
-
   module ParameterMatchers
-
     # Matches any YAML that represents the specified +object+
     #
     # @param [Object] object object whose YAML to compare.
@@ -45,7 +43,5 @@ module Mocha
         "yaml_equivalent(#{@object.mocha_inspect})"
       end
     end
-
   end
-
 end

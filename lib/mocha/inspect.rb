@@ -1,7 +1,6 @@
 require 'date'
 
 module Mocha
-
   module ObjectMethods
     def mocha_inspect
       address = self.__id__ * 2
@@ -33,7 +32,6 @@ module Mocha
       to_s
     end
   end
-
 end
 
 class Object

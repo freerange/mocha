@@ -1,9 +1,7 @@
 require 'mocha/parameter_matchers/base'
 
 module Mocha
-
   module ParameterMatchers
-
     # Matches +Hash+ containing +key+.
     #
     # @param [Object] key expected key.
@@ -45,7 +43,5 @@ module Mocha
         "has_key(#{@key.mocha_inspect})"
       end
     end
-
   end
-
 end

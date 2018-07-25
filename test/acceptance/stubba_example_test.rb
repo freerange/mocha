@@ -18,11 +18,9 @@ class Widget
 end
 
 module Thingy
-
   def self.wotsit
     :hoojamaflip
   end
-
 end
 
 class StubbaExampleTest < Mocha::TestCase

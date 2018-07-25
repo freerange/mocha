@@ -1,5 +1,4 @@
 module Mocha
-
   class MultipleYields
     attr_reader :parameter_groups
 
@@ -13,6 +12,5 @@ module Mocha
       end
     end
   end
-
 end
 

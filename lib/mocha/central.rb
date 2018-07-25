@@ -1,5 +1,4 @@
 module Mocha
-
   class Central
     class Null < self
       def initialize(&block)
@@ -42,5 +41,4 @@ module Mocha
       end
     end
   end
-
 end

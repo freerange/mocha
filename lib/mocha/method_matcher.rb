@@ -1,5 +1,4 @@
 module Mocha
-
   class MethodMatcher
     attr_reader :expected_method_name
 
@@ -15,5 +14,4 @@ module Mocha
       "#{@expected_method_name}"
     end
   end
-
 end

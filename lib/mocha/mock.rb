@@ -12,7 +12,6 @@ require 'mocha/deprecation'
 require 'mocha/ruby_version'
 
 module Mocha
-
   # Traditional mock object.
   #
   # All methods return an {Expectation} which can be further modified by
@@ -358,5 +357,4 @@ module Mocha
       @expectations.any?
     end
   end
-
 end

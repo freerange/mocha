@@ -2,7 +2,6 @@ require 'mocha/ruby_version'
 require 'mocha/class_method'
 
 module Mocha
-
   class AnyInstanceMethod < ClassMethod
     def mock
       stubbee.any_instance.mocha
@@ -66,5 +65,4 @@ module Mocha
       @definition_target ||= stubbee
     end
   end
-
 end

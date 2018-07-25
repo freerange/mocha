@@ -5,7 +5,6 @@ require 'mocha/expectation_error_factory'
 module Mocha
   module Integration
     module MiniTest
-
       # Integrates Mocha into recent versions of MiniTest.
       #
       # See the source code for an example of how to integrate Mocha into a test library.

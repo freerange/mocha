@@ -11,7 +11,6 @@ require 'mocha/change_state_side_effect'
 require 'mocha/cardinality'
 
 module Mocha
-
   # Methods on expectations returned from {Mock#expects}, {Mock#stubs}, {ObjectMethods#expects} and {ObjectMethods#stubs}.
   class Expectation
     # Modifies expectation so that the number of calls to the expected method must be within a specific +range+.
@@ -606,5 +605,4 @@ module Mocha
       "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}#{@parameters_matcher.mocha_inspect}"
     end
   end
-
 end

@@ -1,9 +1,7 @@
 require 'mocha/parameter_matchers/base'
 
 module Mocha
-
   module ParameterMatchers
-
     # Matches +Hash+ containing +value+.
     #
     # @param [Object] value expected value.
@@ -45,7 +43,5 @@ module Mocha
         "has_value(#{@value.mocha_inspect})"
       end
     end
-
   end
-
 end

@@ -1,9 +1,7 @@
 require 'mocha/parameter_matchers/base'
 
 module Mocha
-
   module ParameterMatchers
-
     # Matches any object that is a +klass+.
     #
     # @param [Class] klass expected class.
@@ -45,7 +43,5 @@ module Mocha
         "is_a(#{@klass.mocha_inspect})"
       end
     end
-
   end
-
 end

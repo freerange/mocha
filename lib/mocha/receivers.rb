@@ -1,5 +1,4 @@
 module Mocha
-
   class ObjectReceiver
     def initialize(object)
       @object = object
@@ -41,5 +40,4 @@ module Mocha
       [@mock]
     end
   end
-
 end

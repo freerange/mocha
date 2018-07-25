@@ -3,7 +3,6 @@ require 'mocha/single_yield'
 require 'mocha/multiple_yields'
 
 module Mocha
-
   class YieldParameters
     def initialize
       @parameter_groups = []
@@ -25,5 +24,4 @@ module Mocha
       @parameter_groups << MultipleYields.new(*parameter_groups)
     end
   end
-
 end

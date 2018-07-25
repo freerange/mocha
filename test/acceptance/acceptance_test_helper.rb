@@ -4,7 +4,6 @@ require 'mocha/configuration'
 require 'introspection'
 
 module AcceptanceTest
-
   class FakeLogger
     attr_reader :warnings
 
@@ -33,5 +32,4 @@ module AcceptanceTest
   end
 
   include Introspection::Assertions
-
 end

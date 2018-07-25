@@ -1,5 +1,4 @@
 module Mocha
-
   # Exception raised when an unexpected method is invoked
   class UnexpectedInvocation
     # @private
@@ -20,5 +19,4 @@ module Mocha
       "unexpected invocation: #{@symbol}(#{@arguments.join(', ')})"
     end
   end
-
 end

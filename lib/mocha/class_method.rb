@@ -2,7 +2,6 @@ require 'mocha/ruby_version'
 require 'metaclass'
 
 module Mocha
-
   class ClassMethod
     PrependedModule = Class.new(Module)
 
@@ -113,5 +112,4 @@ module Mocha
       @definition_target ||= stubbee.__metaclass__
     end
   end
-
 end

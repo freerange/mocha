@@ -2,9 +2,7 @@ require 'mocha/parameter_matchers/base'
 require 'yaml'
 
 module Mocha
-
   module ParameterMatchers
-
     # Matches any object that responds to +message+ with +result+. To put it another way, it tests the quack, not the duck.
     #
     # @param [Symbol] message method to invoke.
@@ -46,7 +44,5 @@ module Mocha
         "responds_with(#{@message.mocha_inspect}, #{@result.mocha_inspect})"
       end
     end
-
   end
-
 end

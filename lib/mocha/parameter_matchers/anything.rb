@@ -1,9 +1,7 @@
 require 'mocha/parameter_matchers/base'
 
 module Mocha
-
   module ParameterMatchers
-
     # Matches any object.
     #
     # @return [Anything] parameter matcher.
@@ -34,7 +32,5 @@ module Mocha
         "anything"
       end
     end
-
   end
-
 end

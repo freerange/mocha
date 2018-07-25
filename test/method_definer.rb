@@ -1,7 +1,6 @@
 require 'metaclass'
 
 module Mocha
-
   module ObjectMethods
     def define_instance_method(method_symbol, &block)
       __metaclass__.send(:define_method, method_symbol, block)
@@ -16,7 +15,6 @@ module Mocha
       symbols.each { |symbol| __metaclass__.send(:attr_accessor, symbol) }
     end
   end
-
 end
 
 class Object

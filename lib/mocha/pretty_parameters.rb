@@ -1,7 +1,6 @@
 require 'mocha/inspect'
 
 module Mocha
-
   class PrettyParameters
     def initialize(params)
       @params = params
@@ -22,5 +21,4 @@ module Mocha
       @params_string = @params_string.gsub(/^\{|\}$/, '') if @params.length == 1
     end
   end
-
 end

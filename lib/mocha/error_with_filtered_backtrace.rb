@@ -1,7 +1,6 @@
 require 'mocha/backtrace_filter'
 
 module Mocha
-
   # @private
   class ErrorWithFilteredBacktrace < StandardError
     # @private
@@ -11,5 +10,4 @@ module Mocha
       set_backtrace(filter.filtered(backtrace))
     end
   end
-
 end

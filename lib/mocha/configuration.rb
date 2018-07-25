@@ -1,5 +1,4 @@
 module Mocha
-
   # This class allows you to determine what should happen under certain circumstances. In each scenario, Mocha can be configured to {.allow do nothing}, {.warn_when display a warning message}, or {.prevent raise an exception}. The relevant scenario is identified using one of the following symbols:
   #
   # * +:stubbing_method_unnecessarily+ This is useful for identifying unused stubs. Unused stubs are often accidentally introduced when code is {http://martinfowler.com/bliki/DefinitionOfRefactoring.html refactored}. Allowed by default.
@@ -146,5 +145,4 @@ module Mocha
       end
     end
   end
-
 end

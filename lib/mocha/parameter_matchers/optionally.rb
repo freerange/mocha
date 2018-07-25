@@ -1,7 +1,5 @@
 module Mocha
-
   module ParameterMatchers
-
     # Matches optional parameters if available.
     #
     # @param [*Array<Base>] matchers matchers for optional parameters.
@@ -59,7 +57,5 @@ module Mocha
         "optionally(#{@matchers.map { |matcher| matcher.mocha_inspect }.join(", ") })"
       end
     end
-
   end
-
 end

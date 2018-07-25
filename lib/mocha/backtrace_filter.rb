@@ -1,5 +1,4 @@
 module Mocha
-
   class BacktraceFilter
     LIB_DIRECTORY = File.expand_path(File.join(File.dirname(__FILE__), "..")) + File::SEPARATOR
 
@@ -11,5 +10,4 @@ module Mocha
       backtrace.reject { |location| @path_pattern.match(File.expand_path(location)) }
     end
   end
-
 end

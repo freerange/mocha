@@ -1,5 +1,4 @@
 module Mocha
-
   class ImpersonatingName
     def initialize(object)
       @object = object
@@ -41,5 +40,4 @@ module Mocha
       "#<Mock:0x#{'%x' % address}>"
     end
   end
-
 end

@@ -1,5 +1,4 @@
 module Mocha
-
   class InStateOrderingConstraint
     def initialize(state_predicate)
       @state_predicate = state_predicate
@@ -13,5 +12,4 @@ module Mocha
       "when #{@state_predicate.mocha_inspect}"
     end
   end
-
 end

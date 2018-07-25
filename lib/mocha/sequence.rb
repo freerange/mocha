@@ -1,5 +1,4 @@
 module Mocha
-
   # Used to constrain the order in which expectations can occur.
   #
   # @see API#sequence
@@ -43,5 +42,4 @@ module Mocha
       "#{@name.mocha_inspect}"
     end
   end
-
 end

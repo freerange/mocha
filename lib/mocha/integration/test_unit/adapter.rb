@@ -5,7 +5,6 @@ require 'mocha/expectation_error'
 module Mocha
   module Integration
     module TestUnit
-
       # Integrates Mocha into recent versions of Test::Unit.
       #
       # See the source code for an example of how to integrate Mocha into a test library.

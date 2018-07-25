@@ -1,5 +1,4 @@
 module Mocha
-
   class Cardinality
     INFINITY = 1 / 0.0
 
@@ -87,5 +86,4 @@ module Mocha
       number.respond_to?(:infinite?) && number.infinite?
     end
   end
-
 end

@@ -1,9 +1,7 @@
 require 'mocha/parameter_matchers/base'
 
 module Mocha
-
   module ParameterMatchers
-
     # Matches if all +matchers+ match.
     #
     # @param [*Array<Base>] parameter_matchers parameter matchers.
@@ -44,7 +42,5 @@ module Mocha
         "all_of(#{@matchers.map { |matcher| matcher.mocha_inspect }.join(", ") })"
       end
     end
-
   end
-
 end

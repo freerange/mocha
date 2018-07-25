@@ -2,9 +2,7 @@ require 'mocha/parameter_matchers/all_of'
 require 'mocha/parameter_matchers/base'
 
 module Mocha
-
   module ParameterMatchers
-
     # Matches any object that responds with +true+ to +include?(item)+
     # for all items.
     #
@@ -96,7 +94,5 @@ module Mocha
         "includes(#{item_descriptions.join(', ')})"
       end
     end
-
   end
-
 end

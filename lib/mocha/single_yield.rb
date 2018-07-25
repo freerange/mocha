@@ -1,5 +1,4 @@
 module Mocha
-
   class SingleYield
     attr_reader :parameters
 
@@ -11,6 +10,5 @@ module Mocha
       yield(@parameters)
     end
   end
-
 end
 

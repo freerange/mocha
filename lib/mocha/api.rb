@@ -7,10 +7,8 @@ require 'mocha/module_methods'
 require 'mocha/class_methods'
 
 module Mocha
-
   # Methods added to +Test::Unit::TestCase+, +MiniTest::Unit::TestCase+ or equivalent.
   module API
-
     include ParameterMatchers
     include Hooks
 
@@ -176,7 +174,5 @@ module Mocha
     def states(name)
       Mockery.instance.new_state_machine(name)
     end
-
   end
-
 end

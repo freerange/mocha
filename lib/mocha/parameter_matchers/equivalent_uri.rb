@@ -5,7 +5,6 @@ require 'cgi'
 
 module Mocha
   module ParameterMatchers
-
     # Matches a URI without regard to the ordering of parameters in the query string.
     #
     # @param [String] uri URI to match.

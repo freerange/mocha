@@ -4,12 +4,10 @@ require 'mocha/argument_iterator'
 require 'mocha/expectation_error_factory'
 
 module Mocha
-
   # Methods added to all objects to allow mocking and stubbing on real (i.e. non-mock) objects.
   #
   # Both {#expects} and {#stubs} return an {Expectation} which can be further modified by methods on {Expectation}.
   module ObjectMethods
-
     # @private
     alias_method :_method, :method
 
@@ -173,7 +171,5 @@ module Mocha
       return true if private_methods(include_superclass_methods = true).include?(method)
       return false
     end
-
   end
-
 end

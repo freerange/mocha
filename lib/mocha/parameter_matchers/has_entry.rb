@@ -1,9 +1,7 @@
 require 'mocha/parameter_matchers/base'
 
 module Mocha
-
   module ParameterMatchers
-
     # Matches +Hash+ containing entry with +key+ and +value+.
     #
     # @overload def has_entry(key, value)
@@ -85,7 +83,5 @@ module Mocha
         "has_entry(#{@key.mocha_inspect} => #{@value.mocha_inspect})"
       end
     end
-
   end
-
 end

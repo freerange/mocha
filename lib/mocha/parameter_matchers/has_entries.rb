@@ -3,9 +3,7 @@ require 'mocha/parameter_matchers/all_of'
 require 'mocha/parameter_matchers/has_entry'
 
 module Mocha
-
   module ParameterMatchers
-
     # Matches +Hash+ containing all +entries+.
     #
     # @param [Hash] entries expected +Hash+ entries.
@@ -47,7 +45,5 @@ module Mocha
         "has_entries(#{@entries.mocha_inspect})"
       end
     end
-
   end
-
 end
