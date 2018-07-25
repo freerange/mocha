@@ -45,14 +45,6 @@ Lint/DuplicateMethods:
     - 'test/acceptance/stubbing_non_existent_class_method_test.rb'
     - 'test/acceptance/stubbing_non_public_class_method_test.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: runtime_error, standard_error
-Lint/InheritException:
-  Exclude:
-    - 'lib/mocha/expectation_error.rb'
-
 # Offense count: 28
 Lint/RescueException:
   Exclude:
