@@ -57,6 +57,6 @@ class FailureMessagesTest < Mocha::TestCase
     test_result = run_as_test do
       'Foo'.expects(:bar)
     end
-    assert_match Regexp.new(%{"Foo"}), test_result.failures[0].message
+    assert_match Regexp.new(%("Foo")), test_result.failures[0].message
   end
 end

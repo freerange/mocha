@@ -9,6 +9,6 @@ class HashInspectTest < Mocha::TestCase
 
   def test_should_use_mocha_inspect_on_each_item
     hash = { :a => 'mocha' }
-    assert_equal %{{:a => "mocha"}}, hash.mocha_inspect
+    assert_equal %({:a => "mocha"}), hash.mocha_inspect
   end
 end

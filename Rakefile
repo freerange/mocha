@@ -138,7 +138,7 @@ if ENV["MOCHA_GENERATE_DOCS"]
   desc "Publish docs to #{MOCHA_DOCS_HOST}/docs/mocha"
   task 'publish_docs' => 'generate_docs' do
     path = "/home/freerange/docs/mocha"
-    system %{ssh #{MOCHA_DOCS_HOST} "sudo rm -fr #{path} && mkdir -p #{path}" && scp -r doc/* #{MOCHA_DOCS_HOST}:#{path}}
+    system %(ssh #{MOCHA_DOCS_HOST} "sudo rm -fr #{path} && mkdir -p #{path}" && scp -r doc/* #{MOCHA_DOCS_HOST}:#{path})
   end
 end
 

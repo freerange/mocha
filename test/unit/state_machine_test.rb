@@ -91,6 +91,6 @@ class StateMachineTest < Mocha::TestCase
   end
 
   def any_state
-    %w(A B C D)
+    %w[A B C D]
   end
 end

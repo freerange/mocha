@@ -116,23 +116,6 @@ Style/GuardClause:
     - 'lib/mocha/parameters_matcher.rb'
     - 'yard-templates/default/layout/html/setup.rb'
 
-# Offense count: 15
-# Cop supports --auto-correct.
-# Configuration parameters: PreferredDelimiters.
-Style/PercentLiteralDelimiters:
-  Exclude:
-    - 'Rakefile'
-    - 'lib/mocha/integration/mini_test/version_2110_to_2111.rb'
-    - 'lib/mocha/integration/mini_test/version_2112_to_320.rb'
-    - 'test/acceptance/failure_messages_test.rb'
-    - 'test/acceptance/sequence_test.rb'
-    - 'test/unit/array_inspect_test.rb'
-    - 'test/unit/hash_inspect_test.rb'
-    - 'test/unit/parameter_matchers/equals_test.rb'
-    - 'test/unit/sequence_test.rb'
-    - 'test/unit/state_machine_test.rb'
-    - 'test/unit/string_inspect_test.rb'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.

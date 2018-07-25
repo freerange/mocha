@@ -95,6 +95,6 @@ class SequenceTest < Mocha::TestCase
     sequence = Sequence.new('wibble')
     expectation = FakeExpectation.new
     sequence.constrain_as_next_in_sequence(expectation)
-    assert_equal %{in sequence "wibble"}, expectation.ordering_constraints[0].mocha_inspect
+    assert_equal %(in sequence "wibble"), expectation.ordering_constraints[0].mocha_inspect
   end
 end
