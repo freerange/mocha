@@ -34,17 +34,6 @@ Layout/AccessModifierIndentation:
     - 'test/acceptance/stubbing_non_public_instance_method_test.rb'
     - 'test/acceptance/unstubbing_test.rb'
 
-# Offense count: 11
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentOneStep, IndentationWidth.
-# SupportedStyles: case, end
-Layout/CaseIndentation:
-  Exclude:
-    - 'lib/mocha/cardinality.rb'
-    - 'lib/mocha/expectation.rb'
-    - 'lib/mocha/return_values.rb'
-    - 'lib/mocha/yield_parameters.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Layout/EmptyLineAfterMagicComment:
