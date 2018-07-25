@@ -25,37 +25,20 @@ Gem::Specification.new do |s|
   s.has_rdoc = "yard"
 
   s.add_dependency("metaclass", "~> 0.0.1")
-  if s.respond_to? :specification_version then
-    s.specification_version = 3
 
-    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      if RUBY_VERSION >= '1.9.3'
-        s.add_development_dependency("rake", ">= 0")
-      else
-        s.add_development_dependency("rake", "~> 10.0")
-      end
-      s.add_development_dependency("introspection", "~> 0.0.1")
-      if RUBY_VERSION >= '2.2.0'
-        s.add_development_dependency("minitest")
-      end
-      if ENV["MOCHA_GENERATE_DOCS"]
-        s.add_development_dependency("yard")
-        s.add_development_dependency("redcarpet")
-      end
+  if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+    if RUBY_VERSION >= '1.9.3'
+      s.add_development_dependency("rake", ">= 0")
     else
-      if RUBY_VERSION >= '1.9.3'
-        s.add_dependency("rake", ">= 0")
-      else
-        s.add_dependency("rake", "~> 10.0")
-      end
-      s.add_dependency("introspection", "~> 0.0.1")
-      if RUBY_VERSION >= '2.2.0'
-        s.add_dependency("minitest")
-      end
-      if ENV["MOCHA_GENERATE_DOCS"]
-        s.add_dependency("yard")
-        s.add_dependency("redcarpet")
-      end
+      s.add_development_dependency("rake", "~> 10.0")
+    end
+    s.add_development_dependency("introspection", "~> 0.0.1")
+    if RUBY_VERSION >= '2.2.0'
+      s.add_development_dependency("minitest")
+    end
+    if ENV["MOCHA_GENERATE_DOCS"]
+      s.add_development_dependency("yard")
+      s.add_development_dependency("redcarpet")
     end
   else
     if RUBY_VERSION >= '1.9.3'
