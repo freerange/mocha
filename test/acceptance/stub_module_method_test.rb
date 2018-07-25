@@ -103,7 +103,7 @@ class StubModuleMethodTest < Mocha::TestCase
     end
     assert_passed(test_result)
     assert(supermod.public_methods.any? { |m| m.to_s == 'my_superclass_method' })
-    assert(!mod.public_methods(false).any? { |m| m.to_s == 'my_superclass_method' })
+    assert(mod.public_methods(false).none? { |m| m.to_s == 'my_superclass_method' })
     assert_equal :original_return_value, supermod.my_superclass_method
   end
 
