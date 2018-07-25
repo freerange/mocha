@@ -44,11 +44,11 @@ class MockTest < Mocha::TestCase
     assert_equal true, mock.eql?(mock)
   end
 
-  if PRE_RUBY_V19
-    OBJECT_METHODS = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ || ["method_missing", "singleton_method_undefined", "initialize"].include?(m) }
-  else
-    OBJECT_METHODS = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ || [:object_id, :method_missing, :singleton_method_undefined, :initialize, :String, :singleton_method_added].include?(m) }
-  end
+  OBJECT_METHODS = if PRE_RUBY_V19
+                     STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ || ["method_missing", "singleton_method_undefined", "initialize"].include?(m) }
+                   else
+                     STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject { |m| m =~ /^__.*__$/ || [:object_id, :method_missing, :singleton_method_undefined, :initialize, :String, :singleton_method_added].include?(m) }
+                   end
 
   def test_should_be_able_to_mock_standard_object_methods
     mock = build_mock

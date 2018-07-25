@@ -36,11 +36,11 @@ namespace 'test' do
   desc "Run acceptance tests"
   Rake::TestTask.new('acceptance') do |t|
     t.libs << 'test'
-    if defined?(RUBY_VERSION) && (RUBY_VERSION >= "1.8.7")
-      t.test_files = all_acceptance_tests
-    else
-      t.test_files = ruby186_compatible_acceptance_tests
-    end
+    t.test_files = if defined?(RUBY_VERSION) && (RUBY_VERSION >= "1.8.7")
+                     all_acceptance_tests
+                   else
+                     ruby186_compatible_acceptance_tests
+                   end
     t.verbose = true
     t.warning = true
   end
