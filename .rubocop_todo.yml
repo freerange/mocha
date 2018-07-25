@@ -89,15 +89,6 @@ Metrics/PerceivedComplexity:
 Style/AccessModifierDeclarations:
   Enabled: false
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: is_a?, kind_of?
-Style/ClassCheck:
-  Exclude:
-    - 'lib/mocha/integration/mini_test/exception_translation.rb'
-    - 'lib/mocha/parameter_matchers/kind_of.rb'
-
 # Offense count: 3
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SingleLineConditionsOnly, IncludeTernaryExpressions.

@@ -35,7 +35,9 @@ module Mocha
       # @private
       def matches?(available_parameters)
         parameter = available_parameters.shift
+        # rubocop:disable Style/ClassCheck
         parameter.kind_of?(@klass)
+        # rubocop:enable Style/ClassCheck
       end
 
       # @private
