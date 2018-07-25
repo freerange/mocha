@@ -121,21 +121,6 @@ Style/GuardClause:
     - 'lib/mocha/parameters_matcher.rb'
     - 'yard-templates/default/layout/html/setup.rb'
 
-# Offense count: 28
-# Cop supports --auto-correct.
-Style/IfUnlessModifier:
-  Exclude:
-    - 'Rakefile'
-    - 'lib/mocha/any_instance_method.rb'
-    - 'lib/mocha/class_method.rb'
-    - 'lib/mocha/class_methods.rb'
-    - 'lib/mocha/detection/test_unit.rb'
-    - 'lib/mocha/mock.rb'
-    - 'lib/mocha/mockery.rb'
-    - 'lib/mocha/object_methods.rb'
-    - 'test/test_helper.rb'
-    - 'yard-templates/default/layout/html/setup.rb'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 # Configuration parameters: InverseMethods, InverseBlocks.
