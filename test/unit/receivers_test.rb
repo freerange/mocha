@@ -9,7 +9,7 @@ class ObjectReceiverTest < Mocha::TestCase
       @mocha = mocha
     end
 
-    def mocha(_)
+    def mocha(_instantiate)
       @mocha
     end
 
@@ -25,7 +25,7 @@ class ObjectReceiverTest < Mocha::TestCase
       @superclass, @mocha = superclass, mocha
     end
 
-    def mocha(_)
+    def mocha(_instantiate)
       @mocha
     end
 
@@ -58,7 +58,7 @@ class AnyInstanceReceiverTest < Mocha::TestCase
         @mocha = mocha
       end
 
-      def mocha(_)
+      def mocha(_instantiate)
         @mocha
       end
     end

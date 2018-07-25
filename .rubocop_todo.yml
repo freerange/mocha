@@ -83,15 +83,6 @@ Metrics/ModuleLength:
 Metrics/PerceivedComplexity:
   Max: 11
 
-# Offense count: 6
-# Configuration parameters: MinNameLength, AllowNamesEndingInNumbers, AllowedNames, ForbiddenNames.
-# AllowedNames: io, id, to, by, on, in, at, ip
-Naming/UncommunicativeMethodParamName:
-  Exclude:
-    - 'lib/mocha/integration/test_unit/adapter.rb'
-    - 'test/acceptance/bug_18914_test.rb'
-    - 'test/unit/receivers_test.rb'
-
 # Offense count: 46
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: snake_case, normalcase, non_integer

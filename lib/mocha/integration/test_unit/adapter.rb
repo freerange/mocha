@@ -38,10 +38,10 @@ module Mocha
         private
 
         # @private
-        def handle_mocha_expectation_error(e)
-          return false unless e.is_a?(Mocha::ExpectationError)
+        def handle_mocha_expectation_error(exception)
+          return false unless exception.is_a?(Mocha::ExpectationError)
           problem_occurred
-          add_failure(e.message, e.backtrace)
+          add_failure(exception.message, exception.backtrace)
           true
         end
       end
