@@ -45,14 +45,6 @@ Lint/DuplicateMethods:
     - 'test/acceptance/stubbing_non_existent_class_method_test.rb'
     - 'test/acceptance/stubbing_non_public_class_method_test.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect.
-Lint/EmptyEnsure:
-  Exclude:
-    - 'lib/mocha/integration/test_unit/gem_version_203_to_220.rb'
-    - 'lib/mocha/integration/test_unit/gem_version_230_to_250.rb'
-
 # Offense count: 5
 Lint/HandleExceptions:
   Exclude:
