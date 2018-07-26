@@ -1,9 +1,7 @@
 require 'mocha/parameter_matchers/base'
 
 module Mocha
-
   module ParameterMatchers
-
     # Matches any +Object+ that is a kind of +klass+.
     #
     # @param [Class] klass expected class.
@@ -29,7 +27,6 @@ module Mocha
 
     # Parameter matcher which matches when actual parameter is a kind of specified class.
     class KindOf < Base
-
       # @private
       def initialize(klass)
         @klass = klass
@@ -38,16 +35,15 @@ module Mocha
       # @private
       def matches?(available_parameters)
         parameter = available_parameters.shift
+        # rubocop:disable Style/ClassCheck
         parameter.kind_of?(@klass)
+        # rubocop:enable Style/ClassCheck
       end
 
       # @private
       def mocha_inspect
         "kind_of(#{@klass.mocha_inspect})"
       end
-
     end
-
   end
-
 end

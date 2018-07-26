@@ -4,7 +4,6 @@ require 'mocha/parameter_matchers/equals'
 require 'mocha/inspect'
 
 class EqualsTest < Mocha::TestCase
-
   include Mocha::ParameterMatchers
 
   def test_should_match_object_that_equals_value
@@ -19,7 +18,6 @@ class EqualsTest < Mocha::TestCase
 
   def test_should_describe_matcher
     matcher = equals('x')
-    assert_equal %{"x"}, matcher.mocha_inspect
+    assert_equal %("x"), matcher.mocha_inspect
   end
-
 end

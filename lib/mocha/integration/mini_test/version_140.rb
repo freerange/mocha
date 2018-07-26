@@ -11,7 +11,7 @@ module Mocha
         end
 
         def self.description
-          "monkey patch for MiniTest gem v1.4.0"
+          'monkey patch for MiniTest gem v1.4.0'
         end
 
         def self.included(mod)
@@ -19,6 +19,7 @@ module Mocha
         end
 
         module RunMethodPatch
+          # rubocop:disable all
           def run runner
             assertion_counter = AssertionCounter.new(self)
             result = '.'
@@ -45,6 +46,7 @@ module Mocha
             end
             result
           end
+          # rubocop:enable all
         end
       end
     end

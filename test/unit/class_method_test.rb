@@ -5,20 +5,19 @@ require 'mocha/mock'
 require 'mocha/class_method'
 
 class ClassMethodTest < Mocha::TestCase
-
   include Mocha
 
-unless RUBY_V2_PLUS
-  def test_should_hide_original_method
-    klass = Class.new { def self.method_x; end }
-    klass.__metaclass__.send(:alias_method, :_method, :method)
-    method = ClassMethod.new(klass, :method_x)
+  unless RUBY_V2_PLUS
+    def test_should_hide_original_method
+      klass = Class.new { def self.method_x; end }
+      klass.__metaclass__.send(:alias_method, :_method, :method)
+      method = ClassMethod.new(klass, :method_x)
 
-    method.hide_original_method
+      method.hide_original_method
 
-    assert_equal false, klass.respond_to?(:method_x)
+      assert_equal false, klass.respond_to?(:method_x)
+    end
   end
-end
 
   def test_should_not_raise_error_hiding_method_that_isnt_defined
     klass = Class.new
@@ -59,7 +58,11 @@ end
   end
 
   def test_should_restore_original_method
-    klass = Class.new { def self.method_x; :original_result; end }
+    klass = Class.new do
+      def self.method_x
+        :original_result
+      end
+    end
     klass.__metaclass__.send(:alias_method, :_method, :method)
     method = ClassMethod.new(klass, :method_x)
 
@@ -73,7 +76,11 @@ end
   end
 
   def test_should_restore_original_method_accepting_a_block_parameter
-    klass = Class.new { def self.method_x(&block); block.call if block_given? ; end }
+    klass = Class.new do
+      def self.method_x(&block)
+        block.call if block_given?
+      end
+    end
     klass.__metaclass__.send(:alias_method, :_method, :method)
     method = ClassMethod.new(klass, :method_x)
 
@@ -88,7 +95,11 @@ end
   end
 
   def test_should_not_restore_original_method_if_none_was_defined_in_first_place
-    klass = Class.new { def self.method_x; :new_result; end }
+    klass = Class.new do
+      def self.method_x
+        :new_result
+      end
+    end
     method = ClassMethod.new(klass, :method_x)
 
     method.restore_original_method
@@ -124,7 +135,7 @@ end
     method = ClassMethod.new(klass, :method_x)
     mocha = build_mock
     klass.define_instance_method(:mocha) { mocha }
-    method.replace_instance_method(:reset_mocha) { }
+    method.replace_instance_method(:reset_mocha) {}
     method.define_instance_accessor(:remove_called)
     method.replace_instance_method(:remove_new_method) { self.remove_called = true }
 
@@ -138,7 +149,7 @@ end
     mocha = build_mock
     klass.define_instance_method(:mocha) { mocha }
     method = ClassMethod.new(klass, :method_x)
-    method.replace_instance_method(:reset_mocha) { }
+    method.replace_instance_method(:reset_mocha) {}
     method.define_instance_accessor(:restore_called)
     method.replace_instance_method(:restore_original_method) { self.restore_called = true }
 
@@ -150,8 +161,15 @@ end
   def test_should_call_mocha_unstub
     klass = Class.new { def self.method_x; end }
     method = ClassMethod.new(klass, :method_x)
-    method.replace_instance_method(:restore_original_method) { }
-    mocha = Class.new { class << self; attr_accessor :unstub_method; end; def self.unstub(method); self.unstub_method = method; end; }
+    method.replace_instance_method(:restore_original_method) {}
+    mocha = Class.new do
+      class << self
+        attr_accessor :unstub_method
+      end
+      def self.unstub(method)
+        self.unstub_method = method
+      end
+    end
     mocha.define_instance_method(:any_expectations?) { true }
     method.replace_instance_method(:mock) { mocha }
 
@@ -162,13 +180,18 @@ end
   def test_should_call_stubbee_reset_mocha_if_no_expectations_remaining
     klass = Class.new { def self.method_x; end }
     method = ClassMethod.new(klass, :method_x)
-    method.replace_instance_method(:remove_new_method) { }
-    method.replace_instance_method(:restore_original_method) { }
+    method.replace_instance_method(:remove_new_method) {}
+    method.replace_instance_method(:restore_original_method) {}
     mocha = Class.new
     mocha.define_instance_method(:unstub) { |method_name| }
     mocha.define_instance_method(:any_expectations?) { false }
     method.replace_instance_method(:mock) { mocha }
-    stubbee = Class.new { attr_accessor :reset_mocha_called; def reset_mocha; self.reset_mocha_called = true; end; }.new
+    stubbee = Class.new do
+      attr_accessor :reset_mocha_called
+      def reset_mocha
+        self.reset_mocha_called = true
+      end
+    end.new
     method.replace_instance_method(:stubbee) { stubbee }
 
     method.unstub
@@ -191,34 +214,36 @@ end
   end
 
   def test_should_not_match_if_other_class_method_has_different_stubbee
-    stubbee_1 = Object.new
-    stubbee_2 = Object.new
-    class_method_1 = ClassMethod.new(stubbee_1, :method)
-    class_method_2 = ClassMethod.new(stubbee_2, :method)
-    assert !class_method_1.matches?(class_method_2)
+    stubbee1 = Object.new
+    stubbee2 = Object.new
+    class_method1 = ClassMethod.new(stubbee1, :method)
+    class_method2 = ClassMethod.new(stubbee2, :method)
+    assert !class_method1.matches?(class_method2)
   end
 
   def test_should_not_match_if_other_class_method_has_different_method
     stubbee = Object.new
-    class_method_1 = ClassMethod.new(stubbee, :method_1)
-    class_method_2 = ClassMethod.new(stubbee, :method_2)
-    assert !class_method_1.matches?(class_method_2)
+    class_method1 = ClassMethod.new(stubbee, :method_1)
+    class_method2 = ClassMethod.new(stubbee, :method_2)
+    assert !class_method1.matches?(class_method2)
   end
 
   def test_should_match_if_other_class_method_has_same_stubbee_and_same_method_so_no_attempt_is_made_to_stub_a_method_twice
     stubbee = Object.new
-    class_method_1 = ClassMethod.new(stubbee, :method)
-    class_method_2 = ClassMethod.new(stubbee, :method)
-    assert class_method_1.matches?(class_method_2)
+    class_method1 = ClassMethod.new(stubbee, :method)
+    class_method2 = ClassMethod.new(stubbee, :method)
+    assert class_method1.matches?(class_method2)
   end
 
   def test_should_match_if_other_class_method_has_same_stubbee_and_same_method_but_stubbee_equal_method_lies_like_active_record_association_proxy
     stubbee = Class.new do
-      def equal?(other); false; end
+      def equal?(_other)
+        false
+      end
     end.new
-    class_method_1 = ClassMethod.new(stubbee, :method)
-    class_method_2 = ClassMethod.new(stubbee, :method)
-    assert class_method_1.matches?(class_method_2)
+    class_method1 = ClassMethod.new(stubbee, :method)
+    class_method2 = ClassMethod.new(stubbee, :method)
+    assert class_method1.matches?(class_method2)
   end
 
   private

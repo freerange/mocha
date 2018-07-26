@@ -2,8 +2,7 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class FailureMessagesTest < Mocha::TestCase
-
-  OBJECT_ADDRESS_PATTERN = '0x[0-9A-Fa-f]{1,12}'
+  OBJECT_ADDRESS_PATTERN = '0x[0-9A-Fa-f]{1,12}'.freeze
 
   include AcceptanceTest
 
@@ -48,7 +47,7 @@ class FailureMessagesTest < Mocha::TestCase
 
   def test_should_display_mock_address_when_expectation_was_on_unnamed_mock
     test_result = run_as_test do
-      foo = mock()
+      foo = mock
       foo.expects(:bar)
     end
     assert_match Regexp.new("#<Mock:#{OBJECT_ADDRESS_PATTERN}>"), test_result.failures[0].message
@@ -58,7 +57,6 @@ class FailureMessagesTest < Mocha::TestCase
     test_result = run_as_test do
       'Foo'.expects(:bar)
     end
-    assert_match Regexp.new(%{"Foo"}), test_result.failures[0].message
+    assert_match Regexp.new(%("Foo")), test_result.failures[0].message
   end
-
 end

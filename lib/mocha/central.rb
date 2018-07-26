@@ -1,9 +1,6 @@
 module Mocha
-
   class Central
-
     class Null < self
-
       def initialize(&block)
         super
         @raise_not_initialized_error = block
@@ -16,7 +13,6 @@ module Mocha
       def unstub(*)
         @raise_not_initialized_error.call
       end
-
     end
 
     attr_accessor :stubba_methods
@@ -26,25 +22,21 @@ module Mocha
     end
 
     def stub(method)
-      unless stubba_methods.detect { |m| m.matches?(method) }
-        method.stub
-        stubba_methods.push(method)
-      end
+      return if stubba_methods.detect { |m| m.matches?(method) }
+      method.stub
+      stubba_methods.push(method)
     end
 
     def unstub(method)
-      if existing = stubba_methods.detect { |m| m.matches?(method) }
-        existing.unstub
-        stubba_methods.delete(existing)
-      end
+      return unless (existing = stubba_methods.detect { |m| m.matches?(method) })
+      existing.unstub
+      stubba_methods.delete(existing)
     end
 
     def unstub_all
-      while stubba_methods.any? do
+      while stubba_methods.any?
         unstub(stubba_methods.first)
       end
     end
-
   end
-
 end

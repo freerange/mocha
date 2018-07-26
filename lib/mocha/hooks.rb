@@ -1,7 +1,6 @@
 require 'mocha/mockery'
 
 module Mocha
-
   # Integration hooks for test library authors.
   #
   # The methods in this module should be called from test libraries wishing to integrate with Mocha.

@@ -3,7 +3,6 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/state_machine'
 
 class StateMachineTest < Mocha::TestCase
-
   include Mocha
 
   def test_should_initially_be_in_no_state
@@ -92,7 +91,6 @@ class StateMachineTest < Mocha::TestCase
   end
 
   def any_state
-    %w(A B C D)
+    %w[A B C D]
   end
-
 end

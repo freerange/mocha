@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class StubInstanceMethodDefinedOnObjectClassTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -13,6 +12,7 @@ class StubInstanceMethodDefinedOnObjectClassTest < Mocha::TestCase
     teardown_acceptance_test
   end
 
+  # rubocop:disable Lint/DuplicateMethods
   def test_should_stub_public_method_and_leave_it_unchanged_after_test
     Object.class_eval do
       def my_instance_method
@@ -72,4 +72,5 @@ class StubInstanceMethodDefinedOnObjectClassTest < Mocha::TestCase
   ensure
     Object.class_eval { remove_method :my_instance_method }
   end
+  # rubocop:enable Lint/DuplicateMethods
 end

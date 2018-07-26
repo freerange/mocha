@@ -23,9 +23,7 @@ module TestRunner
       minitest_version = Gem::Version.new(Mocha::Detection::MiniTest.version)
       if Gem::Requirement.new('>= 5.0.0').satisfied_by?(minitest_version)
         require File.expand_path('../minitest_result', __FILE__)
-        tests.each do |test|
-          test.run
-        end
+        tests.each(&:run)
         Minitest::Runnable.runnables.delete(test_class)
         test_result = MinitestResult.new(tests)
       elsif Gem::Requirement.new('> 0.0.0', '< 5.0.0').satisfied_by?(minitest_version)
@@ -53,6 +51,6 @@ module TestRunner
   end
 
   def assert_failed(test_result)
-    flunk "Test passed unexpectedly" unless test_result.failure_count + test_result.error_count > 0
+    flunk 'Test passed unexpectedly' unless test_result.failure_count + test_result.error_count > 0
   end
 end

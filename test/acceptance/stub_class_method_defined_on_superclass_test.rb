@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class StubClassMethodDefinedOnSuperclassTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -13,6 +12,7 @@ class StubClassMethodDefinedOnSuperclassTest < Mocha::TestCase
     teardown_acceptance_test
   end
 
+  # rubocop:disable Lint/DuplicateMethods
   def test_should_stub_public_method_on_child_class_and_leave_it_unchanged_after_test
     superklass = Class.new do
       class << self
@@ -115,12 +115,14 @@ class StubClassMethodDefinedOnSuperclassTest < Mocha::TestCase
       def self.inspect
         'superklass'
       end
+
       def self.my_class_method; end
     end
     klass = Class.new(superklass) do
       def self.inspect
         'klass'
       end
+
       def self.my_class_method; end
     end
     test_result = run_as_tests(
@@ -134,9 +136,10 @@ class StubClassMethodDefinedOnSuperclassTest < Mocha::TestCase
     )
     assert_failed(test_result)
     assert_equal [
-      "not all expectations were satisfied",
-      "unsatisfied expectations:",
-      "- expected exactly once, not yet invoked: superklass.my_class_method(any_parameters)"
+      'not all expectations were satisfied',
+      'unsatisfied expectations:',
+      '- expected exactly once, not yet invoked: superklass.my_class_method(any_parameters)'
     ], test_result.failure_message_lines
   end
+  # rubocop:enable Lint/DuplicateMethods
 end

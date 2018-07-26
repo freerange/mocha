@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class StubAnyInstanceMethodTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -40,7 +39,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     run_as_test do
       klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
     end
-    assert instance.public_methods(false).any? { |m| m.to_s == 'my_instance_method' }
+    assert(instance.public_methods(false).any? { |m| m.to_s == 'my_instance_method' })
     assert_equal :original_return_value, instance.my_instance_method
   end
 
@@ -51,6 +50,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
       end
       protected :my_instance_method
       def self.protected(*args); end
+
       def my_unprotected_instance_method
         my_instance_method
       end
@@ -59,7 +59,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     run_as_test do
       klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
     end
-    assert instance.protected_methods(false).any? { |m| m.to_s == 'my_instance_method' }
+    assert(instance.protected_methods(false).any? { |m| m.to_s == 'my_instance_method' })
     assert_equal :original_return_value, instance.my_unprotected_instance_method
   end
 
@@ -70,6 +70,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
       end
       protected :my_instance_method
       def self.protected(*args); end
+
       def my_unprotected_instance_method
         my_instance_method
       end
@@ -94,7 +95,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     run_as_test do
       klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
     end
-    assert instance.private_methods(false).any? { |m| m.to_s == 'my_instance_method' }
+    assert(instance.private_methods(false).any? { |m| m.to_s == 'my_instance_method' })
     assert_equal :original_return_value, instance.send(:my_instance_method)
   end
 
@@ -142,8 +143,8 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
       assert_equal :new_return_value, instance.my_superclass_method
     end
     assert_passed(test_result)
-    assert instance.public_methods(true).any? { |m| m.to_s == 'my_superclass_method' }
-    assert !klass.public_methods(false).any? { |m| m.to_s == 'my_superclass_method' }
+    assert(instance.public_methods(true).any? { |m| m.to_s == 'my_superclass_method' })
+    assert(klass.public_methods(false).none? { |m| m.to_s == 'my_superclass_method' })
     assert_equal :original_return_value, instance.my_superclass_method
   end
 
@@ -162,8 +163,8 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
       assert_equal :new_return_value, instance.send(:my_superclass_method)
     end
     assert_passed(test_result)
-    assert instance.protected_methods(true).any? { |m| m.to_s == 'my_superclass_method' }
-    assert !klass.protected_methods(false).any? { |m| m.to_s == 'my_superclass_method' }
+    assert(instance.protected_methods(true).any? { |m| m.to_s == 'my_superclass_method' })
+    assert(klass.protected_methods(false).none? { |m| m.to_s == 'my_superclass_method' })
     assert_equal :original_return_value, instance.send(:my_superclass_method)
   end
 
@@ -182,15 +183,16 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
       assert_equal :new_return_value, instance.send(:my_superclass_method)
     end
     assert_passed(test_result)
-    assert instance.private_methods(true).any? { |m| m.to_s == 'my_superclass_method' }
-    assert !klass.private_methods(false).any? { |m| m.to_s == 'my_superclass_method' }
+    assert(instance.private_methods(true).any? { |m| m.to_s == 'my_superclass_method' })
+    assert(klass.private_methods(false).none? { |m| m.to_s == 'my_superclass_method' })
     assert_equal :original_return_value, instance.send(:my_superclass_method)
   end
 
+  # rubocop:disable Lint/DuplicateMethods
   def test_should_be_able_to_stub_method_if_ruby18_public_instance_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby18_klass = Class.new do
       class << self
-        def public_instance_methods(include_superclass = true)
+        def public_instance_methods(_include_superclass = true)
           ['my_instance_method']
         end
       end
@@ -205,7 +207,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
   def test_should_be_able_to_stub_method_if_ruby19_public_instance_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby19_klass = Class.new do
       class << self
-        def public_instance_methods(include_superclass = true)
+        def public_instance_methods(_include_superclass = true)
           [:my_instance_method]
         end
       end
@@ -220,7 +222,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
   def test_should_be_able_to_stub_method_if_ruby18_protected_instance_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby18_klass = Class.new do
       class << self
-        def protected_instance_methods(include_superclass = true)
+        def protected_instance_methods(_include_superclass = true)
           ['my_instance_method']
         end
       end
@@ -235,7 +237,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
   def test_should_be_able_to_stub_method_if_ruby19_protected_instance_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby19_klass = Class.new do
       class << self
-        def protected_instance_methods(include_superclass = true)
+        def protected_instance_methods(_include_superclass = true)
           [:my_instance_method]
         end
       end
@@ -250,7 +252,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
   def test_should_be_able_to_stub_method_if_ruby18_private_instance_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby18_klass = Class.new do
       class << self
-        def private_instance_methods(include_superclass = true)
+        def private_instance_methods(_include_superclass = true)
           ['my_instance_method']
         end
       end
@@ -265,7 +267,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
   def test_should_be_able_to_stub_method_if_ruby19_private_instance_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby19_klass = Class.new do
       class << self
-        def private_instance_methods(include_superclass = true)
+        def private_instance_methods(_include_superclass = true)
           [:my_instance_method]
         end
       end
@@ -276,5 +278,5 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     end
     assert_passed(test_result)
   end
-
+  # rubocop:enable Lint/DuplicateMethods
 end

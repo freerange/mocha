@@ -1,10 +1,7 @@
 module Mocha
-
   module ParameterMatchers
-
     # @abstract Subclass and implement +#matches?+ and +#mocha_inspect+ to define a custom matcher. Also add a suitably named instance method to {ParameterMatchers} to build an instance of the new matcher c.f. {#equals}.
     class Base
-
       # @private
       def to_matcher
         self
@@ -16,7 +13,7 @@ module Mocha
       #
       # This shorthand will not work with an implicit equals match. Instead, an explicit {Equals} matcher should be used.
       #
-      # @param [Base] matcher parameter matcher.
+      # @param [Base] other parameter matcher.
       # @return [AllOf] parameter matcher.
       #
       # @see Expectation#with
@@ -30,8 +27,8 @@ module Mocha
       #
       #   object.expects(:run).with(has_key(:foo) & has_key(:bar))
       #   object.run(:foo => 'foovalue', :bar => 'barvalue)
-      def &(matcher)
-        AllOf.new(self, matcher)
+      def &(other)
+        AllOf.new(self, other)
       end
 
       # A shorthand way of combining two matchers when at least one must match.
@@ -40,7 +37,7 @@ module Mocha
       #
       # This shorthand will not work with an implicit equals match. Instead, an explicit {Equals} matcher should be used.
       #
-      # @param [Base] matcher parameter matcher.
+      # @param [Base] other parameter matcher.
       # @return [AnyOf] parameter matcher.
       #
       # @see Expectation#with
@@ -60,12 +57,9 @@ module Mocha
       #   object.run(1) # passes
       #   object.run(2) # passes
       #   object.run(3) # fails
-      def |(matcher)
-        AnyOf.new(self, matcher)
+      def |(other)
+        AnyOf.new(self, other)
       end
-
     end
-
   end
-
 end

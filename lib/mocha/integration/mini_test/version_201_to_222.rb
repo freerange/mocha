@@ -11,7 +11,7 @@ module Mocha
         end
 
         def self.description
-          "monkey patch for MiniTest gem >= v2.0.1 <= v2.2.2"
+          'monkey patch for MiniTest gem >= v2.0.1 <= v2.2.2'
         end
 
         def self.included(mod)
@@ -19,6 +19,7 @@ module Mocha
         end
 
         module RunMethodPatch
+          # rubocop:disable all
           def run runner
             trap 'INFO' do
               time = runner.start_time ? Time.now - runner.start_time : 0
@@ -57,6 +58,7 @@ module Mocha
             end
             result
           end
+          # rubocop:enable all
         end
       end
     end

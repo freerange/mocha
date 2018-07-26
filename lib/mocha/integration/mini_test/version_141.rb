@@ -11,7 +11,7 @@ module Mocha
         end
 
         def self.description
-          "monkey patch for MiniTest gem v1.4.1"
+          'monkey patch for MiniTest gem v1.4.1'
         end
 
         def self.included(mod)
@@ -19,6 +19,7 @@ module Mocha
         end
 
         module RunMethodPatch
+          # rubocop:disable all
           def run runner
             trap 'INFO' do
               warn '%s#%s %.2fs' % [self.class, self.__name__,
@@ -56,6 +57,7 @@ module Mocha
             end
             result
           end
+          # rubocop:enable all
         end
       end
     end

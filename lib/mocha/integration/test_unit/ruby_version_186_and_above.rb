@@ -11,7 +11,7 @@ module Mocha
         end
 
         def self.description
-          "monkey patch for standard library Test::Unit in Ruby >= v1.8.6"
+          'monkey patch for standard library Test::Unit in Ruby >= v1.8.6'
         end
 
         def self.included(mod)
@@ -19,6 +19,7 @@ module Mocha
         end
 
         module RunMethodPatch
+          # rubocop:disable all
           def run(result)
             assertion_counter = AssertionCounter.new(self)
             yield(Test::Unit::TestCase::STARTED, name)
@@ -54,6 +55,7 @@ module Mocha
             result.add_run
             yield(Test::Unit::TestCase::FINISHED, name)
           end
+          # rubocop:enable all
         end
       end
     end

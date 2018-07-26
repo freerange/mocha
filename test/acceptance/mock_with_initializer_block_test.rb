@@ -3,7 +3,6 @@ require 'mocha/setup'
 require 'deprecation_disabler'
 
 class MockWithInitializerBlockTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -54,5 +53,4 @@ class MockWithInitializerBlockTest < Mocha::TestCase
     end
     assert_passed(test_result)
   end
-
 end

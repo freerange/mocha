@@ -5,7 +5,6 @@ require 'mocha/expectation_error_factory'
 require 'deprecation_disabler'
 
 class MockeryTest < Mocha::TestCase
-
   include Mocha
   include DeprecationDisabler
 
@@ -31,25 +30,25 @@ class MockeryTest < Mocha::TestCase
   end
 
   def test_should_cache_instance_of_mockery
-    mockery_1 = Mockery.instance
-    mockery_2 = Mockery.instance
-    assert_same mockery_1, mockery_2
+    mockery1 = Mockery.instance
+    mockery2 = Mockery.instance
+    assert_same mockery1, mockery2
   end
 
   def test_should_expire_mockery_instance_cache
-    mockery_1 = Mockery.instance
+    mockery1 = Mockery.instance
     Mockery.teardown
-    mockery_2 = Mockery.instance
-    assert_not_same mockery_1, mockery_2
+    mockery2 = Mockery.instance
+    assert_not_same mockery1, mockery2
   end
 
   def test_should_raise_expectation_error_because_not_all_expectations_are_satisfied
     mockery = Mockery.new
     disable_deprecations do
-      mock_1 = mockery.named_mock('mock-1') { expects(:method_1) }
-      mock_2 = mockery.named_mock('mock-2') { expects(:method_2) }
-      1.times { mock_1.method_1 }
-      0.times { mock_2.method_2 }
+      mock1 = mockery.named_mock('mock-1') { expects(:method_1) }
+      mock2 = mockery.named_mock('mock-2') { expects(:method_2) }
+      1.times { mock1.method_1 }
+      0.times { mock2.method_2 }
     end
     assert_raises(ExpectationErrorFactory.exception_class) { mockery.verify }
   end
@@ -71,10 +70,10 @@ class MockeryTest < Mocha::TestCase
 
   def test_should_build_new_instance_of_stubba_on_teardown
     mockery = Mockery.new
-    stubba_1 = mockery.stubba
+    stubba1 = mockery.stubba
     mockery.teardown
-    stubba_2 = mockery.stubba
-    assert_not_same stubba_1, stubba_2
+    stubba2 = mockery.stubba
+    assert_not_same stubba1, stubba2
   end
 
   def test_should_build_and_store_new_state_machine
@@ -93,8 +92,12 @@ class MockeryTest < Mocha::TestCase
 
   class FakeMethod
     def stub; end
+
     def unstub; end
-    def matches?(other); true; end
+
+    def matches?(_other)
+      true
+    end
   end
 
   def test_should_unstub_all_methods_on_teardown
@@ -108,51 +111,51 @@ class MockeryTest < Mocha::TestCase
   def test_should_display_object_id_for_mocha_inspect_if_mock_has_no_name
     mockery = Mockery.new
     mock = mockery.unnamed_mock
-    assert_match Regexp.new("^#<Mock:0x[0-9A-Fa-f]{1,12}>$"), mock.mocha_inspect
+    assert_match Regexp.new('^#<Mock:0x[0-9A-Fa-f]{1,12}>$'), mock.mocha_inspect
   end
 
   def test_should_display_object_id_for_inspect_if_mock_has_no_name
     mockery = Mockery.new
     mock = mockery.unnamed_mock
-    assert_match Regexp.new("^#<Mock:0x[0-9A-Fa-f]{1,12}>$"), mock.inspect
+    assert_match Regexp.new('^#<Mock:0x[0-9A-Fa-f]{1,12}>$'), mock.inspect
   end
 
   def test_should_display_name_for_mocha_inspect_if_mock_has_string_name
     mockery = Mockery.new
     mock = mockery.named_mock('named_mock')
-    assert_equal "#<Mock:named_mock>", mock.mocha_inspect
+    assert_equal '#<Mock:named_mock>', mock.mocha_inspect
   end
 
   def test_should_display_name_for_mocha_inspect_if_mock_has_symbol_name
     mockery = Mockery.new
     mock = mockery.named_mock(:named_mock)
-    assert_equal "#<Mock:named_mock>", mock.mocha_inspect
+    assert_equal '#<Mock:named_mock>', mock.mocha_inspect
   end
 
   def test_should_display_name_for_inspect_if_mock_has_string_name
     mockery = Mockery.new
     mock = mockery.named_mock('named_mock')
-    assert_equal "#<Mock:named_mock>", mock.inspect
+    assert_equal '#<Mock:named_mock>', mock.inspect
   end
 
   def test_should_display_name_for_inspect_if_mock_has_symbol_name
     mockery = Mockery.new
     mock = mockery.named_mock(:named_mock)
-    assert_equal "#<Mock:named_mock>", mock.inspect
+    assert_equal '#<Mock:named_mock>', mock.inspect
   end
 
   def test_should_display_impersonated_object_for_mocha_inspect
     mockery = Mockery.new
     instance = Object.new
     mock = mockery.mock_impersonating(instance)
-    assert_equal "#{instance.mocha_inspect}", mock.mocha_inspect
+    assert_equal instance.mocha_inspect.to_s, mock.mocha_inspect
   end
 
   def test_should_display_impersonated_object_for_inspect
     mockery = Mockery.new
     instance = Object.new
     mock = mockery.mock_impersonating(instance)
-    assert_equal "#{instance.mocha_inspect}", mock.inspect
+    assert_equal instance.mocha_inspect.to_s, mock.inspect
   end
 
   class FakeClass; end
@@ -160,13 +163,12 @@ class MockeryTest < Mocha::TestCase
   def test_should_display_any_instance_prefix_followed_by_class_whose_instances_are_being_impersonated_for_mocha_inspect
     mockery = Mockery.new
     mock = mockery.mock_impersonating_any_instance_of(FakeClass)
-    assert_equal "#<AnyInstance:MockeryTest::FakeClass>", mock.mocha_inspect
+    assert_equal '#<AnyInstance:MockeryTest::FakeClass>', mock.mocha_inspect
   end
 
   def test_should_display_any_instance_prefix_followed_by_class_whose_instances_are_being_impersonated_for_inspect
     mockery = Mockery.new
     mock = mockery.mock_impersonating_any_instance_of(FakeClass)
-    assert_equal "#<AnyInstance:MockeryTest::FakeClass>", mock.inspect
+    assert_equal '#<AnyInstance:MockeryTest::FakeClass>', mock.inspect
   end
-
 end

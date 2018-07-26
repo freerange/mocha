@@ -3,7 +3,6 @@ require 'mocha/setup'
 require 'mocha/not_initialized_error'
 
 class PreventUseOfMochaOutsideTestTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -75,5 +74,4 @@ class PreventUseOfMochaOutsideTestTest < Mocha::TestCase
     klass = Class.new
     assert_raises(Mocha::NotInitializedError) { klass.any_instance.unstub(:expected_method) }
   end
-
 end

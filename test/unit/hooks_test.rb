@@ -3,18 +3,19 @@ require 'mocha/hooks'
 require 'mocha/mockery'
 
 class HooksTest < Mocha::TestCase
+  # rubocop:disable Style/ClassAndModuleChildren
   class Mocha::Mockery
     class << self
       attr_writer :instances
     end
   end
+  # rubocop:enable Style/ClassAndModuleChildren
 
   class FakeMockery
-    def verify(*args)
-    end
+    def verify(*args); end
 
     def teardown
-      raise "exception within Mockery#teardown"
+      raise 'exception within Mockery#teardown'
     end
   end
 
@@ -23,7 +24,11 @@ class HooksTest < Mocha::TestCase
     mockery = FakeMockery.new
     Mocha::Mockery.instances = [mockery]
 
-    fake_test_case.mocha_teardown rescue nil
+    begin
+      fake_test_case.mocha_teardown
+    rescue StandardError
+      nil
+    end
 
     assert_kind_of Mocha::Mockery::Null, Mocha::Mockery.instance
   end

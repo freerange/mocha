@@ -3,7 +3,6 @@ require 'mocha/setup'
 require 'execution_point'
 
 class StubbingFrozenObjectTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -14,6 +13,7 @@ class StubbingFrozenObjectTest < Mocha::TestCase
     teardown_acceptance_test
   end
 
+  # rubocop:disable Style/Semicolon
   def test_should_fail_fast_if_attempting_to_stub_method_on_frozen_object
     object = Object.new
     object.freeze
@@ -85,4 +85,5 @@ class StubbingFrozenObjectTest < Mocha::TestCase
     assert_equal 1, test_result.error_count
     assert_equal execution_point, ExecutionPoint.new(test_result.errors[0].exception.backtrace)
   end
+  # rubocop:enable Style/Semicolon
 end

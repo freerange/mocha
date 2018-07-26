@@ -5,7 +5,6 @@ require 'mocha/mock'
 require 'method_definer'
 
 class CentralTest < Mocha::TestCase
-
   include Mocha
 
   def test_should_start_with_empty_stubba_methods
@@ -48,48 +47,48 @@ class CentralTest < Mocha::TestCase
 
   def test_should_unstub_specified_method
     stubba = Central.new
-    method_1 = build_mock
-    method_1.stubs(:matches?).returns(false)
-    method_2 = build_mock
-    method_2.stubs(:matches?).returns(true)
-    method_2.expects(:unstub)
-    stubba.stubba_methods = [method_1, method_2]
+    method1 = build_mock
+    method1.stubs(:matches?).returns(false)
+    method2 = build_mock
+    method2.stubs(:matches?).returns(true)
+    method2.expects(:unstub)
+    stubba.stubba_methods = [method1, method2]
 
-    stubba.unstub(method_2)
+    stubba.unstub(method2)
 
-    assert_equal [method_1], stubba.stubba_methods
-    assert method_2.__verified__?
+    assert_equal [method1], stubba.stubba_methods
+    assert method2.__verified__?
   end
 
   def test_should_not_unstub_specified_method_if_not_already_stubbed
     stubba = Central.new
-    method_1 = build_mock
-    method_1.stubs(:matches?).returns(false)
-    method_2 = build_mock
-    method_2.expects(:unstub).never
-    stubba.stubba_methods = [method_1]
+    method1 = build_mock
+    method1.stubs(:matches?).returns(false)
+    method2 = build_mock
+    method2.expects(:unstub).never
+    stubba.stubba_methods = [method1]
 
-    stubba.unstub(method_2)
+    stubba.unstub(method2)
 
-    assert_equal [method_1], stubba.stubba_methods
-    assert method_2.__verified__?
+    assert_equal [method1], stubba.stubba_methods
+    assert method2.__verified__?
   end
 
   def test_should_unstub_all_methods
     stubba = Central.new
-    method_1 = build_mock
-    method_1.stubs(:matches?).returns(true)
-    method_1.expects(:unstub)
-    method_2 = build_mock
-    method_2.stubs(:matches?).returns(true)
-    method_2.expects(:unstub)
-    stubba.stubba_methods = [method_1, method_2]
+    method1 = build_mock
+    method1.stubs(:matches?).returns(true)
+    method1.expects(:unstub)
+    method2 = build_mock
+    method2.stubs(:matches?).returns(true)
+    method2.expects(:unstub)
+    stubba.stubba_methods = [method1, method2]
 
     stubba.unstub_all
 
     assert_equal [], stubba.stubba_methods
-    assert method_1.__verified__?
-    assert method_2.__verified__?
+    assert method1.__verified__?
+    assert method2.__verified__?
   end
 
   private

@@ -3,7 +3,6 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/thrower'
 
 class ThrowerTest < Mocha::TestCase
-
   include Mocha
 
   def test_should_throw_tag
@@ -16,5 +15,4 @@ class ThrowerTest < Mocha::TestCase
     return_value = catch(:tag) { thrower.evaluate }
     assert_equal 'return-value', return_value
   end
-
 end

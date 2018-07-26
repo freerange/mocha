@@ -1,9 +1,7 @@
 require 'mocha/parameter_matchers/base'
 
 module Mocha
-
   module ParameterMatchers
-
     # Matches any parameters. This is used as the default for a newly built expectation.
     #
     # @return [AnyParameters] parameter matcher.
@@ -26,22 +24,18 @@ module Mocha
 
     # Parameter matcher which always matches whatever the parameters.
     class AnyParameters < Base
-
       # @private
       def matches?(available_parameters)
-        while available_parameters.length > 0 do
+        until available_parameters.empty?
           available_parameters.shift
         end
-        return true
+        true
       end
 
       # @private
       def mocha_inspect
-        "any_parameters"
+        'any_parameters'
       end
-
     end
-
   end
-
 end

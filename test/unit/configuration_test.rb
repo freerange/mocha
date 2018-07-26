@@ -1,5 +1,5 @@
 require File.expand_path('../../test_helper', __FILE__)
-require "mocha/configuration"
+require 'mocha/configuration'
 
 class ConfigurationTest < Mocha::TestCase
   def test_allow_temporarily_changes_config_when_given_block
@@ -35,4 +35,3 @@ class ConfigurationTest < Mocha::TestCase
     assert Mocha::Configuration.allow?(:stubbing_method_unnecessarily)
   end
 end
-

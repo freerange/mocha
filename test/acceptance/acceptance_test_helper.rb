@@ -4,9 +4,7 @@ require 'mocha/configuration'
 require 'introspection'
 
 module AcceptanceTest
-
   class FakeLogger
-
     attr_reader :warnings
 
     def initialize
@@ -16,7 +14,6 @@ module AcceptanceTest
     def warn(message)
       @warnings << message
     end
-
   end
 
   attr_reader :logger
@@ -35,5 +32,4 @@ module AcceptanceTest
   end
 
   include Introspection::Assertions
-
 end

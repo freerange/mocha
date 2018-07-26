@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class StubbingNonExistentClassMethodTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -52,6 +51,7 @@ class StubbingNonExistentClassMethodTest < Mocha::TestCase
     assert_passed(test_result)
   end
 
+  # rubocop:disable Lint/DuplicateMethods
   def test_should_allow_stubbing_existing_public_class_method
     Mocha::Configuration.prevent(:stubbing_non_existent_method)
     klass = Class.new do
@@ -70,7 +70,7 @@ class StubbingNonExistentClassMethodTest < Mocha::TestCase
     Mocha::Configuration.prevent(:stubbing_non_existent_method)
     klass = Class.new do
       class << self
-        def respond_to?(method, include_private = false)
+        def respond_to?(method, _include_private = false)
           (method == :method_to_which_class_responds)
         end
       end
@@ -153,5 +153,5 @@ class StubbingNonExistentClassMethodTest < Mocha::TestCase
     end
     assert_passed(test_result)
   end
-
+  # rubocop:enable Lint/DuplicateMethods
 end

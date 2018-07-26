@@ -2,16 +2,16 @@ module Mocha
   module Integration
     module MiniTest
       module Nothing
-        def self.applicable_to?(test_unit_version, ruby_version = nil)
+        def self.applicable_to?(_test_unit_version, _ruby_version = nil)
           true
         end
 
         def self.description
-          "nothing (no MiniTest integration available)"
+          'nothing (no MiniTest integration available)'
         end
 
-        def self.included(mod)
-          raise "No MiniTest integration available"
+        def self.included(_mod)
+          raise 'No MiniTest integration available'
         end
       end
     end

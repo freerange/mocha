@@ -6,12 +6,12 @@ module Mocha
   module Integration
     module TestUnit
       module GemVersion203To220
-        def self.applicable_to?(test_unit_version, ruby_version = nil)
+        def self.applicable_to?(test_unit_version, _ruby_version = nil)
           Gem::Requirement.new('>= 2.0.3', '<= 2.2.0').satisfied_by?(test_unit_version)
         end
 
         def self.description
-          "monkey patch for Test::Unit gem >= v2.0.3 and <= v2.2.0"
+          'monkey patch for Test::Unit gem >= v2.0.3 and <= v2.2.0'
         end
 
         def self.included(mod)
@@ -19,6 +19,7 @@ module Mocha
         end
 
         module RunMethodPatch
+          # rubocop:disable all
           def run(result)
             assertion_counter = AssertionCounter.new(self)
             begin
@@ -53,6 +54,7 @@ module Mocha
               # @_result = nil # For test-spec's after_all :<
             end
           end
+          # rubocop:enable all
         end
       end
     end

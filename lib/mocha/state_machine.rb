@@ -1,15 +1,13 @@
 module Mocha
-
   # A state machine that is used to constrain the order of invocations.
   # An invocation can be constrained to occur when a state {#is}, or {#is_not}, active.
   class StateMachine
-
     # Provides a mechanism to change the state of a {StateMachine} at some point in the future.
     class State
-
       # @private
       def initialize(state_machine, state)
-        @state_machine, @state = state_machine, state
+        @state_machine = state_machine
+        @state = state
       end
 
       # @private
@@ -26,15 +24,14 @@ module Mocha
       def mocha_inspect
         "#{@state_machine.name} is #{@state.mocha_inspect}"
       end
-
     end
 
     # Provides the ability to determine whether a {StateMachine} is in a specified state at some point in the future.
     class StatePredicate
-
       # @private
       def initialize(state_machine, state)
-        @state_machine, @state = state_machine, state
+        @state_machine = state_machine
+        @state = state
       end
 
       # @private
@@ -46,7 +43,6 @@ module Mocha
       def mocha_inspect
         "#{@state_machine.name} is not #{@state.mocha_inspect}"
       end
-
     end
 
     # @private
@@ -88,9 +84,11 @@ module Mocha
     end
 
     # Provides a mechanism to determine whether the {StateMachine} is not in the state specified by +state_name+ at some point in the future.
+    # rubocop:disable Naming/PredicateName
     def is_not(state_name)
       StatePredicate.new(self, state_name)
     end
+    # rubocop:enable Naming/PredicateName
 
     # @private
     def mocha_inspect
@@ -100,7 +98,5 @@ module Mocha
         "#{@name} has no current state"
       end
     end
-
   end
-
 end

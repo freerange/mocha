@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class ExpectationsOnMultipleMethodsTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -18,6 +17,7 @@ class ExpectationsOnMultipleMethodsTest < Mocha::TestCase
       def my_instance_method_1
         :original_return_value_1
       end
+
       def my_instance_method_2
         :original_return_value_2
       end
@@ -38,6 +38,7 @@ class ExpectationsOnMultipleMethodsTest < Mocha::TestCase
       def my_instance_method_1
         :original_return_value_1
       end
+
       def my_instance_method_2
         :original_return_value_2
       end

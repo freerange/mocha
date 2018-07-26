@@ -11,11 +11,8 @@ require 'mocha/not_initialized_error'
 require 'mocha/expectation_error_factory'
 
 module Mocha
-
   class Mockery
-
     class Null < self
-
       def add_mock(*)
         raise_not_initialized_error
       end
@@ -34,11 +31,9 @@ module Mocha
         message = 'Mocha methods cannot be used outside the context of a test'
         raise NotInitializedError.new(message, caller)
       end
-
     end
 
     class << self
-
       def instance
         instances.last || Null.new
       end
@@ -65,7 +60,6 @@ module Mocha
       def instances
         @instances ||= []
       end
-
     end
 
     def named_mock(name, &block)
@@ -91,18 +85,17 @@ module Mocha
     def verify(assertion_counter = nil)
       unless mocks.all? { |mock| mock.__verified__?(assertion_counter) }
         message = "not all expectations were satisfied\n#{mocha_inspect}"
-        if unsatisfied_expectations.empty?
-          backtrace = caller
-        else
-          backtrace = unsatisfied_expectations[0].backtrace
-        end
+        backtrace = if unsatisfied_expectations.empty?
+                      caller
+                    else
+                      unsatisfied_expectations[0].backtrace
+                    end
         raise ExpectationErrorFactory.build(message, backtrace)
       end
       expectations.each do |e|
         unless Mocha::Configuration.allow?(:stubbing_method_unnecessarily)
-          unless e.used?
-            on_stubbing_method_unnecessarily(e)
-          end
+          next if e.used?
+          on_stubbing_method_unnecessarily(e)
         end
       end
     end
@@ -125,22 +118,22 @@ module Mocha
     end
 
     def mocha_inspect
-      message = ""
-      message << "unsatisfied expectations:\n- #{unsatisfied_expectations.map { |e| e.mocha_inspect }.join("\n- ")}\n" unless unsatisfied_expectations.empty?
-      message << "satisfied expectations:\n- #{satisfied_expectations.map { |e| e.mocha_inspect }.join("\n- ")}\n" unless satisfied_expectations.empty?
-      message << "states:\n- #{state_machines.map { |sm| sm.mocha_inspect }.join("\n- ")}" unless state_machines.empty?
+      message = ''
+      message << "unsatisfied expectations:\n- #{unsatisfied_expectations.map(&:mocha_inspect).join("\n- ")}\n" unless unsatisfied_expectations.empty?
+      message << "satisfied expectations:\n- #{satisfied_expectations.map(&:mocha_inspect).join("\n- ")}\n" unless satisfied_expectations.empty?
+      message << "states:\n- #{state_machines.map(&:mocha_inspect).join("\n- ")}" unless state_machines.empty?
       message
     end
 
     def on_stubbing(object, method)
       method = PRE_RUBY_V19 ? method.to_s : method.to_sym
       unless Mocha::Configuration.allow?(:stubbing_non_existent_method)
-        unless object.method_exists?(method, include_public_methods = true)
+        unless object.method_exists?(method, true)
           on_stubbing_non_existent_method(object, method)
         end
       end
       unless Mocha::Configuration.allow?(:stubbing_non_public_method)
-        if object.method_exists?(method, include_public_methods = false)
+        if object.method_exists?(method, false)
           on_stubbing_non_public_method(object, method)
         end
       end
@@ -149,54 +142,48 @@ module Mocha
           on_stubbing_method_on_nil(object, method)
         end
       end
-      unless Mocha::Configuration.allow?(:stubbing_method_on_non_mock_object)
-        on_stubbing_method_on_non_mock_object(object, method)
-      end
+      return if Mocha::Configuration.allow?(:stubbing_method_on_non_mock_object)
+      on_stubbing_method_on_non_mock_object(object, method)
     end
 
     def on_stubbing_non_existent_method(object, method)
       if Mocha::Configuration.prevent?(:stubbing_non_existent_method)
         raise StubbingError.new("stubbing non-existent method: #{object.mocha_inspect}.#{method}", caller)
       end
-      if Mocha::Configuration.warn_when?(:stubbing_non_existent_method)
-        logger.warn "stubbing non-existent method: #{object.mocha_inspect}.#{method}"
-      end
+      return unless Mocha::Configuration.warn_when?(:stubbing_non_existent_method)
+      logger.warn "stubbing non-existent method: #{object.mocha_inspect}.#{method}"
     end
 
     def on_stubbing_non_public_method(object, method)
       if Mocha::Configuration.prevent?(:stubbing_non_public_method)
         raise StubbingError.new("stubbing non-public method: #{object.mocha_inspect}.#{method}", caller)
       end
-      if Mocha::Configuration.warn_when?(:stubbing_non_public_method)
-        logger.warn "stubbing non-public method: #{object.mocha_inspect}.#{method}"
-      end
+      return unless Mocha::Configuration.warn_when?(:stubbing_non_public_method)
+      logger.warn "stubbing non-public method: #{object.mocha_inspect}.#{method}"
     end
 
     def on_stubbing_method_on_nil(object, method)
       if Mocha::Configuration.prevent?(:stubbing_method_on_nil)
         raise StubbingError.new("stubbing method on nil: #{object.mocha_inspect}.#{method}", caller)
       end
-      if Mocha::Configuration.warn_when?(:stubbing_method_on_nil)
-        logger.warn "stubbing method on nil: #{object.mocha_inspect}.#{method}"
-      end
+      return unless Mocha::Configuration.warn_when?(:stubbing_method_on_nil)
+      logger.warn "stubbing method on nil: #{object.mocha_inspect}.#{method}"
     end
 
     def on_stubbing_method_on_non_mock_object(object, method)
       if Mocha::Configuration.prevent?(:stubbing_method_on_non_mock_object)
         raise StubbingError.new("stubbing method on non-mock object: #{object.mocha_inspect}.#{method}", caller)
       end
-      if Mocha::Configuration.warn_when?(:stubbing_method_on_non_mock_object)
-        logger.warn "stubbing method on non-mock object: #{object.mocha_inspect}.#{method}"
-      end
+      return unless Mocha::Configuration.warn_when?(:stubbing_method_on_non_mock_object)
+      logger.warn "stubbing method on non-mock object: #{object.mocha_inspect}.#{method}"
     end
 
     def on_stubbing_method_unnecessarily(expectation)
       if Mocha::Configuration.prevent?(:stubbing_method_unnecessarily)
         raise StubbingError.new("stubbing method unnecessarily: #{expectation.method_signature}", expectation.backtrace)
       end
-      if Mocha::Configuration.warn_when?(:stubbing_method_unnecessarily)
-        logger.warn "stubbing method unnecessarily: #{expectation.method_signature}"
-      end
+      return unless Mocha::Configuration.warn_when?(:stubbing_method_unnecessarily)
+      logger.warn "stubbing method unnecessarily: #{expectation.method_signature}"
     end
 
     attr_writer :logger
@@ -205,7 +192,6 @@ module Mocha
       @logger ||= Logger.new($stderr)
     end
 
-
     private
 
     def expectations
@@ -213,11 +199,11 @@ module Mocha
     end
 
     def unsatisfied_expectations
-      expectations.reject { |e| e.verified? }
+      expectations.reject(&:verified?)
     end
 
     def satisfied_expectations
-      expectations.select { |e| e.verified? }
+      expectations.select(&:verified?)
     end
 
     def add_mock(mock)
@@ -235,7 +221,5 @@ module Mocha
       @mocks = nil
       @state_machines = nil
     end
-
   end
-
 end

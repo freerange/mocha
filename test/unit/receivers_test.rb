@@ -9,11 +9,11 @@ class ObjectReceiverTest < Mocha::TestCase
       @mocha = mocha
     end
 
-    def mocha(_)
+    def mocha(_instantiate)
       @mocha
     end
 
-    def is_a?(klass)
+    def is_a?(_klass)
       false
     end
   end
@@ -22,10 +22,11 @@ class ObjectReceiverTest < Mocha::TestCase
     attr_reader :superclass
 
     def initialize(superclass, mocha)
-      @superclass, @mocha = superclass, mocha
+      @superclass = superclass
+      @mocha = mocha
     end
 
-    def mocha(_)
+    def mocha(_instantiate)
       @mocha
     end
 
@@ -58,7 +59,7 @@ class AnyInstanceReceiverTest < Mocha::TestCase
         @mocha = mocha
       end
 
-      def mocha(_)
+      def mocha(_instantiate)
         @mocha
       end
     end
@@ -66,7 +67,8 @@ class AnyInstanceReceiverTest < Mocha::TestCase
     attr_reader :superclass
 
     def initialize(superclass, mocha)
-      @superclass, @mocha = superclass, mocha
+      @superclass = superclass
+      @mocha = mocha
     end
 
     def any_instance

@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class SequenceTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -73,8 +72,8 @@ class SequenceTest < Mocha::TestCase
 
   def test_should_constrain_invocations_to_occur_in_expected_order_even_if_expected_on_partial_mocks
     test_result = run_as_test do
-      partial_mock_one = "1"
-      partial_mock_two = "2"
+      partial_mock_one = '1'
+      partial_mock_two = '2'
       sequence = sequence('one')
 
       partial_mock_one.expects(:first).in_sequence(sequence)
@@ -88,8 +87,8 @@ class SequenceTest < Mocha::TestCase
 
   def test_should_allow_invocations_in_sequence_even_if_expected_on_partial_mocks
     test_result = run_as_test do
-      partial_mock_one = "1"
-      partial_mock_two = "2"
+      partial_mock_one = '1'
+      partial_mock_two = '2'
       sequence = sequence('one')
 
       partial_mock_one.expects(:first).in_sequence(sequence)
@@ -148,7 +147,7 @@ class SequenceTest < Mocha::TestCase
       mock.first
     end
     assert_failed(test_result)
-    assert_match Regexp.new(%{in sequence "one"}), test_result.failures.first.message
+    assert_match Regexp.new(%(in sequence "one")), test_result.failures.first.message
   end
 
   def test_should_allow_expectations_to_be_in_more_than_one_sequence
@@ -166,8 +165,8 @@ class SequenceTest < Mocha::TestCase
       mock.second
     end
     assert_failed(test_result)
-    assert_match Regexp.new(%{in sequence "one"}), test_result.failures.first.message
-    assert_match Regexp.new(%{in sequence "two"}), test_result.failures.first.message
+    assert_match Regexp.new(%(in sequence "one")), test_result.failures.first.message
+    assert_match Regexp.new(%(in sequence "two")), test_result.failures.first.message
   end
 
   def test_should_have_shortcut_for_expectations_to_be_in_more_than_one_sequence
@@ -185,8 +184,7 @@ class SequenceTest < Mocha::TestCase
       mock.second
     end
     assert_failed(test_result)
-    assert_match Regexp.new(%{in sequence "one"}), test_result.failures.first.message
-    assert_match Regexp.new(%{in sequence "two"}), test_result.failures.first.message
+    assert_match Regexp.new(%(in sequence "one")), test_result.failures.first.message
+    assert_match Regexp.new(%(in sequence "two")), test_result.failures.first.message
   end
-
 end

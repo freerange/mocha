@@ -1,9 +1,7 @@
 require 'mocha/is_a'
 
 module Mocha
-
   class SingleReturnValue
-
     def initialize(value)
       @value = value
     end
@@ -11,7 +9,5 @@ module Mocha
     def evaluate
       @value
     end
-
   end
-
 end

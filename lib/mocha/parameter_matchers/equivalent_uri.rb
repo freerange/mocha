@@ -5,7 +5,6 @@ require 'cgi'
 
 module Mocha
   module ParameterMatchers
-
     # Matches a URI without regard to the ordering of parameters in the query string.
     #
     # @param [String] uri URI to match.
@@ -29,15 +28,16 @@ module Mocha
     end
 
     # @deprecated Use {#equivalent_uri} instead.
+    # rubocop:disable Naming/PredicateName
     def has_equivalent_query_string(uri)
-      Mocha::Deprecation.warning("`has_equivalent_query_string` is deprecated. Please use `equivalent_uri` instead.")
+      Mocha::Deprecation.warning('`has_equivalent_query_string` is deprecated. Please use `equivalent_uri` instead.')
 
       equivalent_uri(uri)
     end
+    # rubocop:enable Naming/PredicateName
 
     # Parameter matcher which matches URIs with equivalent query strings.
     class EquivalentUri < Base
-
       # @private
       def initialize(uri)
         @uri = URI.parse(uri)
@@ -55,13 +55,13 @@ module Mocha
         "equivalent_uri(#{@uri.mocha_inspect})"
       end
 
-    private
+      private
+
       # @private
       def explode(uri)
         query_hash = CGI.parse(uri.query || '')
-        URI::Generic::COMPONENT.inject({}){ |h, k| h.merge(k => uri.__send__(k)) }.merge(:query => query_hash)
+        URI::Generic::COMPONENT.inject({}) { |h, k| h.merge(k => uri.__send__(k)) }.merge(:query => query_hash)
       end
-
     end
   end
 end

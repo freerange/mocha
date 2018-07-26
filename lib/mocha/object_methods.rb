@@ -4,12 +4,10 @@ require 'mocha/argument_iterator'
 require 'mocha/expectation_error_factory'
 
 module Mocha
-
   # Methods added to all objects to allow mocking and stubbing on real (i.e. non-mock) objects.
   #
   # Both {#expects} and {#stubs} return an {Expectation} which can be further modified by methods on {Expectation}.
   module ObjectMethods
-
     # @private
     alias_method :_method, :method
 
@@ -75,14 +73,14 @@ module Mocha
       expectation = nil
       mockery = Mocha::Mockery.instance
       iterator = ArgumentIterator.new(expected_methods_vs_return_values)
-      iterator.each { |*args|
+      iterator.each do |*args|
         method_name = args.shift
         mockery.on_stubbing(self, method_name)
         method = stubba_method.new(stubba_object, method_name)
         mockery.stubba.stub(method)
         expectation = mocha.expects(method_name, caller)
-        expectation.returns(args.shift) if args.length > 0
-      }
+        expectation.returns(args.shift) unless args.empty?
+      end
       expectation
     end
 
@@ -121,14 +119,14 @@ module Mocha
       expectation = nil
       mockery = Mocha::Mockery.instance
       iterator = ArgumentIterator.new(stubbed_methods_vs_return_values)
-      iterator.each { |*args|
+      iterator.each do |*args|
         method_name = args.shift
         mockery.on_stubbing(self, method_name)
         method = stubba_method.new(stubba_object, method_name)
         mockery.stubba.stub(method)
         expectation = mocha.stubs(method_name, caller)
-        expectation.returns(args.shift) if args.length > 0
-      }
+        expectation.returns(args.shift) unless args.empty?
+      end
       expectation
     end
 
@@ -166,14 +164,12 @@ module Mocha
     # @private
     def method_exists?(method, include_public_methods = true)
       if include_public_methods
-        return true if public_methods(include_superclass_methods = true).include?(method)
+        return true if public_methods(true).include?(method)
         return true if respond_to?(method.to_sym)
       end
-      return true if protected_methods(include_superclass_methods = true).include?(method)
-      return true if private_methods(include_superclass_methods = true).include?(method)
-      return false
+      return true if protected_methods(true).include?(method)
+      return true if private_methods(true).include?(method)
+      false
     end
-
   end
-
 end

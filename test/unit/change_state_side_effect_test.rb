@@ -3,11 +3,9 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/change_state_side_effect'
 
 class ChangeStateSideEffectTest < Mocha::TestCase
-
   include Mocha
 
   class FakeState
-
     attr_reader :active
     attr_writer :description
 
@@ -18,7 +16,6 @@ class ChangeStateSideEffectTest < Mocha::TestCase
     def mocha_inspect
       @description
     end
-
   end
 
   def test_should_activate_the_given_state
@@ -37,5 +34,4 @@ class ChangeStateSideEffectTest < Mocha::TestCase
 
     assert_equal 'then the-new-state', side_effect.mocha_inspect
   end
-
 end

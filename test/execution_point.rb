@@ -1,5 +1,4 @@
 class ExecutionPoint
-
   attr_reader :backtrace
 
   def self.current
@@ -11,7 +10,7 @@ class ExecutionPoint
   end
 
   def first_relevant_line_of_backtrace
-    @backtrace && (@backtrace.reject { |l| /\Aorg\/jruby\//.match(l) }.first || 'unknown:0')
+    @backtrace && (@backtrace.reject { |l| %r{\Aorg/jruby/}.match(l) }.first || 'unknown:0')
   end
 
   def file_name
@@ -24,7 +23,7 @@ class ExecutionPoint
 
   def ==(other)
     return false unless other.is_a?(ExecutionPoint)
-    (file_name == other.file_name) and (line_number == other.line_number)
+    (file_name == other.file_name) && (line_number == other.line_number)
   end
 
   def to_s
@@ -34,5 +33,4 @@ class ExecutionPoint
   def inspect
     to_s
   end
-
 end

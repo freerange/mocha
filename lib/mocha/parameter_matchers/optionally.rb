@@ -1,7 +1,5 @@
 module Mocha
-
   module ParameterMatchers
-
     # Matches optional parameters if available.
     #
     # @param [*Array<Base>] matchers matchers for optional parameters.
@@ -38,30 +36,26 @@ module Mocha
 
     # Parameter matcher which allows optional parameters to be specified.
     class Optionally < Base
-
       # @private
       def initialize(*parameters)
-        @matchers = parameters.map { |parameter| parameter.to_matcher }
+        @matchers = parameters.map(&:to_matcher)
       end
 
       # @private
       def matches?(available_parameters)
         index = 0
-        while (available_parameters.length > 0) && (index < @matchers.length) do
+        while !available_parameters.empty? && (index < @matchers.length)
           matcher = @matchers[index]
           return false unless matcher.matches?(available_parameters)
           index += 1
         end
-        return true
+        true
       end
 
       # @private
       def mocha_inspect
-        "optionally(#{@matchers.map { |matcher| matcher.mocha_inspect }.join(", ") })"
+        "optionally(#{@matchers.map(&:mocha_inspect).join(', ')})"
       end
-
     end
-
   end
-
 end

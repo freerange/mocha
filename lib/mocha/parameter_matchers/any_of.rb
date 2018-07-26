@@ -1,9 +1,7 @@
 require 'mocha/parameter_matchers/base'
 
 module Mocha
-
   module ParameterMatchers
-
     # Matches if any +matchers+ match.
     #
     # @param [*Array<Base>] parameter_matchers parameter matchers.
@@ -34,7 +32,6 @@ module Mocha
 
     # Parameter matcher which combines a number of other matchers using a logical OR.
     class AnyOf < Base
-
       # @private
       def initialize(*matchers)
         @matchers = matchers
@@ -48,11 +45,8 @@ module Mocha
 
       # @private
       def mocha_inspect
-        "any_of(#{@matchers.map { |matcher| matcher.mocha_inspect }.join(", ") })"
+        "any_of(#{@matchers.map(&:mocha_inspect).join(', ')})"
       end
-
     end
-
   end
-
 end

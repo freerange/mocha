@@ -6,7 +6,6 @@ require 'mocha/expectation_error_factory'
 require 'mocha/names'
 
 class ObjectMethodsTest < Mocha::TestCase
-
   def setup
     Mocha::Mockery.setup
     @object = Object.new.extend(Mocha::ObjectMethods)
@@ -29,15 +28,15 @@ class ObjectMethodsTest < Mocha::TestCase
   end
 
   def test_should_reuse_existing_mocha
-    mocha_1 = @object.mocha
-    mocha_2 = @object.mocha
-    assert_equal mocha_1, mocha_2
+    mocha1 = @object.mocha
+    mocha2 = @object.mocha
+    assert_equal mocha1, mocha2
   end
 
   def test_should_reuse_existing_mocha_even_if_instantiate_is_false
-    mocha_1 = @object.mocha
-    mocha_2 = @object.mocha(false)
-    assert_equal mocha_1, mocha_2
+    mocha1 = @object.mocha
+    mocha2 = @object.mocha(false)
+    assert_equal mocha1, mocha2
   end
 
   def test_should_reset_mocha
@@ -60,5 +59,4 @@ class ObjectMethodsTest < Mocha::TestCase
     klass = Class.new { def self.method_x; end }
     assert_equal klass._method(:method_x), klass.method(:method_x)
   end
-
 end

@@ -3,7 +3,6 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/return_values'
 
 class ReturnValuesTest < Mocha::TestCase
-
   include Mocha
 
   def test_should_return_nil
@@ -52,12 +51,11 @@ class ReturnValuesTest < Mocha::TestCase
   end
 
   def test_should_combine_two_sets_of_return_values
-    values_1 = ReturnValues.build('value_1')
-    values_2 = ReturnValues.build('value_2a', 'value_2b')
-    values = (values_1 + values_2).values
+    values1 = ReturnValues.build('value_1')
+    values2 = ReturnValues.build('value_2a', 'value_2b')
+    values = (values1 + values2).values
     assert_equal 'value_1', values[0].evaluate
     assert_equal 'value_2a', values[1].evaluate
     assert_equal 'value_2b', values[2].evaluate
   end
-
 end

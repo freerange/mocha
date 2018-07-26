@@ -6,7 +6,6 @@ require 'execution_point'
 require 'simple_counter'
 
 class ExpectationTest < Mocha::TestCase
-
   include Mocha
 
   def new_expectation
@@ -18,12 +17,12 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_match_calls_to_same_method_with_exactly_zero_parameters
-    expectation = new_expectation.with()
+    expectation = new_expectation.with
     assert expectation.match?(:expected_method)
   end
 
   def test_should_not_match_calls_to_same_method_with_more_than_zero_parameters
-    expectation = new_expectation.with()
+    expectation = new_expectation.with
     assert !expectation.match?(:expected_method, 1, 2, 3)
   end
 
@@ -33,12 +32,12 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_match_calls_to_same_method_with_parameters_constrained_as_expected
-    expectation = new_expectation.with() {|x, y, z| x + y == z}
+    expectation = new_expectation.with { |x, y, z| x + y == z }
     assert expectation.match?(:expected_method, 1, 2, 3)
   end
 
   def test_should_not_match_calls_to_different_method_with_parameters_constrained_as_expected
-    expectation = new_expectation.with() {|x, y, z| x + y == z}
+    expectation = new_expectation.with { |x, y, z| x + y == z }
     assert !expectation.match?(:different_method, 1, 2, 3)
   end
 
@@ -62,7 +61,7 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_not_match_calls_to_same_method_with_parameters_not_constrained_as_expected
-    expectation = new_expectation.with() {|x, y, z| x + y == z}
+    expectation = new_expectation.with { |x, y, z| x + y == z }
     assert !expectation.match?(:expected_method, 1, 0, 3)
   end
 
@@ -99,51 +98,53 @@ class ExpectationTest < Mocha::TestCase
     assert_equal backtrace, expectation.backtrace
   end
 
+  # rubocop:disable Style/Semicolon
   def test_should_default_backtrace_to_caller
     execution_point = ExecutionPoint.current; expectation = Expectation.new(nil, :expected_method)
     assert_equal execution_point, ExecutionPoint.new(expectation.backtrace)
   end
+  # rubocop:enable Style/Semicolon
 
   def test_should_not_yield
     yielded = false
-    new_expectation.invoke() { yielded = true }
+    new_expectation.invoke { yielded = true }
     assert_equal false, yielded
   end
 
   def test_should_yield_no_parameters
-    expectation = new_expectation().yields()
+    expectation = new_expectation.yields
     yielded_parameters = nil
-    expectation.invoke() { |*parameters| yielded_parameters = parameters }
-    assert_equal Array.new, yielded_parameters
+    expectation.invoke { |*parameters| yielded_parameters = parameters }
+    assert_equal [], yielded_parameters
   end
 
   def test_should_yield_with_specified_parameters
-    expectation = new_expectation().yields(1, 2, 3)
+    expectation = new_expectation.yields(1, 2, 3)
     yielded_parameters = nil
-    expectation.invoke() { |*parameters| yielded_parameters = parameters }
+    expectation.invoke { |*parameters| yielded_parameters = parameters }
     assert_equal [1, 2, 3], yielded_parameters
   end
 
   def test_should_yield_different_parameters_on_consecutive_invocations
-    expectation = new_expectation().yields(1, 2, 3).yields(4, 5)
+    expectation = new_expectation.yields(1, 2, 3).yields(4, 5)
     yielded_parameters = []
-    expectation.invoke() { |*parameters| yielded_parameters << parameters }
-    expectation.invoke() { |*parameters| yielded_parameters << parameters }
+    expectation.invoke { |*parameters| yielded_parameters << parameters }
+    expectation.invoke { |*parameters| yielded_parameters << parameters }
     assert_equal [[1, 2, 3], [4, 5]], yielded_parameters
   end
 
   def test_should_yield_multiple_times_for_single_invocation
-    expectation = new_expectation().multiple_yields([1, 2, 3], [4, 5])
+    expectation = new_expectation.multiple_yields([1, 2, 3], [4, 5])
     yielded_parameters = []
-    expectation.invoke() { |*parameters| yielded_parameters << parameters }
+    expectation.invoke { |*parameters| yielded_parameters << parameters }
     assert_equal [[1, 2, 3], [4, 5]], yielded_parameters
   end
 
   def test_should_yield_multiple_times_for_first_invocation_and_once_for_second_invocation
-    expectation = new_expectation().multiple_yields([1, 2, 3], [4, 5]).then.yields(6, 7)
+    expectation = new_expectation.multiple_yields([1, 2, 3], [4, 5]).then.yields(6, 7)
     yielded_parameters = []
-    expectation.invoke() { |*parameters| yielded_parameters << parameters }
-    expectation.invoke() { |*parameters| yielded_parameters << parameters }
+    expectation.invoke { |*parameters| yielded_parameters << parameters }
+    expectation.invoke { |*parameters| yielded_parameters << parameters }
     assert_equal [[1, 2, 3], [4, 5], [6, 7]], yielded_parameters
   end
 
@@ -179,7 +180,7 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_return_nil_if_no_value_specified
-    expectation = new_expectation.returns()
+    expectation = new_expectation.returns
     assert_nil expectation.invoke
   end
 
@@ -209,21 +210,21 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_raise_custom_exception_with_message
-    exception_msg = "exception message"
+    exception_msg = 'exception message'
     expectation = new_expectation.raises(Exception, exception_msg)
     exception = assert_raise(Exception) { expectation.invoke }
     assert_equal exception_msg, exception.message
   end
 
   def test_should_return_values_then_raise_exception
-    expectation = new_expectation.returns(1, 2).then.raises()
+    expectation = new_expectation.returns(1, 2).then.raises
     assert_equal 1, expectation.invoke
     assert_equal 2, expectation.invoke
     assert_raise(RuntimeError) { expectation.invoke }
   end
 
   def test_should_raise_exception_then_return_values
-    expectation = new_expectation.raises().then.returns(1, 2)
+    expectation = new_expectation.raises.then.returns(1, 2)
     assert_raise(RuntimeError) { expectation.invoke }
     assert_equal 1, expectation.invoke
     assert_equal 2, expectation.invoke
@@ -276,7 +277,7 @@ class ExpectationTest < Mocha::TestCase
 
   def test_should_verify_successfully_if_expected_call_was_made_at_least_once
     expectation = new_expectation.at_least_once
-    3.times {expectation.invoke}
+    3.times { expectation.invoke }
     assert expectation.verified?
   end
 
@@ -288,20 +289,20 @@ class ExpectationTest < Mocha::TestCase
 
   def test_should_verify_successfully_if_expected_call_was_made_expected_number_of_times
     expectation = new_expectation.times(2)
-    2.times {expectation.invoke}
+    2.times { expectation.invoke }
     assert expectation.verified?
   end
 
   def test_should_not_verify_successfully_if_expected_call_was_made_too_few_times
     expectation = new_expectation.times(2)
-    1.times {expectation.invoke}
+    1.times { expectation.invoke }
     assert !expectation.verified?
     assert_match(/expected exactly twice, invoked once/i, expectation.mocha_inspect)
   end
 
   def test_should_not_verify_successfully_if_expected_call_was_made_too_many_times
     expectation = new_expectation.times(2)
-    3.times {expectation.invoke}
+    3.times { expectation.invoke }
     assert !expectation.verified?
   end
 
@@ -320,13 +321,14 @@ class ExpectationTest < Mocha::TestCase
     assert_equal 0, assertion_counter.count
   end
 
+  # rubocop:disable Style/Semicolon
   def test_should_store_backtrace_from_point_where_expectation_was_created
     execution_point = ExecutionPoint.current; expectation = Expectation.new(nil, :expected_method)
     assert_equal execution_point, ExecutionPoint.new(expectation.backtrace)
   end
+  # rubocop:enable Style/Semicolon
 
   class FakeMock
-
     def initialize(name)
       @name = name
     end
@@ -334,20 +336,18 @@ class ExpectationTest < Mocha::TestCase
     def mocha_inspect
       @name
     end
-
   end
 
   def test_should_raise_error_with_message_indicating_which_method_was_expected_to_be_called_on_which_mock_object_with_which_parameters_and_in_what_sequences
     mock = FakeMock.new('mock')
     sequence_one = Sequence.new('one')
     sequence_two = Sequence.new('two')
-    expectation = Expectation.new(mock, :expected_method).with(1, 2, {'a' => true}, {:b => false}, [1, 2, 3]).in_sequence(sequence_one, sequence_two)
+    expectation = Expectation.new(mock, :expected_method).with(1, 2, { 'a' => true }, { :b => false }, [1, 2, 3]).in_sequence(sequence_one, sequence_two)
     assert !expectation.verified?
     assert_match %{mock.expected_method(1, 2, {"a" => true}, {:b => false}, [1, 2, 3]); in sequence "one"; in sequence "two"}, expectation.mocha_inspect
   end
 
   class FakeConstraint
-
     def initialize(allows_invocation_now)
       @allows_invocation_now = allows_invocation_now
     end
@@ -355,12 +355,11 @@ class ExpectationTest < Mocha::TestCase
     def allows_invocation_now?
       @allows_invocation_now
     end
-
   end
 
   def test_should_be_in_correct_order_if_all_ordering_constraints_allow_invocation_now
-    constraint_one = FakeConstraint.new(allows_invocation_now = true)
-    constraint_two = FakeConstraint.new(allows_invocation_now = true)
+    constraint_one = FakeConstraint.new(true)
+    constraint_two = FakeConstraint.new(true)
     expectation = Expectation.new(nil, :method_one)
     expectation.add_ordering_constraint(constraint_one)
     expectation.add_ordering_constraint(constraint_two)
@@ -368,8 +367,8 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_not_be_in_correct_order_if_one_ordering_constraint_does_not_allow_invocation_now
-    constraint_one = FakeConstraint.new(allows_invocation_now = true)
-    constraint_two = FakeConstraint.new(allows_invocation_now = false)
+    constraint_one = FakeConstraint.new(true)
+    constraint_two = FakeConstraint.new(false)
     expectation = Expectation.new(nil, :method_one)
     expectation.add_ordering_constraint(constraint_one)
     expectation.add_ordering_constraint(constraint_two)
@@ -377,8 +376,8 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_match_if_all_ordering_constraints_allow_invocation_now
-    constraint_one = FakeConstraint.new(allows_invocation_now = true)
-    constraint_two = FakeConstraint.new(allows_invocation_now = true)
+    constraint_one = FakeConstraint.new(true)
+    constraint_two = FakeConstraint.new(true)
     expectation = Expectation.new(nil, :method_one)
     expectation.add_ordering_constraint(constraint_one)
     expectation.add_ordering_constraint(constraint_two)
@@ -386,8 +385,8 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_not_match_if_one_ordering_constraints_does_not_allow_invocation_now
-    constraint_one = FakeConstraint.new(allows_invocation_now = true)
-    constraint_two = FakeConstraint.new(allows_invocation_now = false)
+    constraint_one = FakeConstraint.new(true)
+    constraint_two = FakeConstraint.new(false)
     expectation = Expectation.new(nil, :method_one)
     expectation.add_ordering_constraint(constraint_one)
     expectation.add_ordering_constraint(constraint_two)
@@ -418,7 +417,6 @@ class ExpectationTest < Mocha::TestCase
   end
 
   class FakeSequence
-
     attr_reader :expectations
 
     def initialize
@@ -428,7 +426,6 @@ class ExpectationTest < Mocha::TestCase
     def constrain_as_next_in_sequence(expectation)
       @expectations << expectation
     end
-
   end
 
   def test_should_tell_sequences_to_constrain_expectation_as_next_in_sequence
@@ -441,7 +438,6 @@ class ExpectationTest < Mocha::TestCase
   end
 
   class FakeState
-
     def initialize
       @active = false
     end
@@ -453,7 +449,6 @@ class ExpectationTest < Mocha::TestCase
     def active?
       @active
     end
-
   end
 
   def test_should_change_state_when_expectation_is_invoked
@@ -483,7 +478,7 @@ class ExpectationTest < Mocha::TestCase
       define_method(:inspect) { 'mock' }
     end
     expectation = Expectation.new(object, :method_one)
-    assert_match Regexp.new("^#<Expectation:0x[0-9A-Fa-f]{1,12} .* >$"), expectation.inspect
+    assert_match Regexp.new('^#<Expectation:0x[0-9A-Fa-f]{1,12} .* >$'), expectation.inspect
   end
 
   def test_should_include_output_of_mocha_inspect_in_inspect

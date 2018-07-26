@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class StatesTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -58,13 +57,16 @@ class StatesTest < Mocha::TestCase
       mock = mock()
       readiness = states('readiness')
 
-      mock.expects(:first).raises().then(readiness.is('ready'))
+      mock.expects(:first).raises.then(readiness.is('ready'))
       mock.expects(:second).when(readiness.is('ready'))
 
-      mock.first rescue nil
+      begin
+        mock.first
+      rescue StandardError
+        nil
+      end
       mock.second
     end
     assert_passed(test_result)
   end
-
 end

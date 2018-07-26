@@ -1,5 +1,4 @@
 module Mocha
-
   # This class allows you to determine what should happen under certain circumstances. In each scenario, Mocha can be configured to {.allow do nothing}, {.warn_when display a warning message}, or {.prevent raise an exception}. The relevant scenario is identified using one of the following symbols:
   #
   # * +:stubbing_method_unnecessarily+ This is useful for identifying unused stubs. Unused stubs are often accidentally introduced when code is {http://martinfowler.com/bliki/DefinitionOfRefactoring.html refactored}. Allowed by default.
@@ -67,17 +66,15 @@ module Mocha
   #     # => no exception raised
   #   end
   class Configuration
-
     DEFAULTS = {
       :stubbing_method_unnecessarily => :allow,
       :stubbing_method_on_non_mock_object => :allow,
       :stubbing_non_existent_method => :allow,
       :stubbing_non_public_method => :allow,
-      :stubbing_method_on_nil => :prevent,
-    }
+      :stubbing_method_on_nil => :prevent
+    }.freeze
 
     class << self
-
       # Allow the specified +action+.
       #
       # @param [Symbol] action one of +:stubbing_method_unnecessarily+, +:stubbing_method_on_non_mock_object+, +:stubbing_non_existent_method+, +:stubbing_non_public_method+, +:stubbing_method_on_nil+.
@@ -139,16 +136,13 @@ module Mocha
       end
 
       # @private
-      def temporarily_change_config(action, new_value, &block)
+      def temporarily_change_config(action, new_value)
         original_value = configuration[action]
         configuration[action] = new_value
         yield
       ensure
         configuration[action] = original_value
       end
-
     end
-
   end
-
 end

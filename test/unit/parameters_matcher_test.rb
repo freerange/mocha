@@ -2,7 +2,6 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/parameters_matcher'
 
 class ParametersMatcherTest < Mocha::TestCase
-
   include Mocha
 
   def test_should_match_any_actual_parameters_if_no_expected_parameters_specified
@@ -101,14 +100,14 @@ class ParametersMatcherTest < Mocha::TestCase
   end
 
   def test_should_remove_curly_braces_if_hash_is_only_argument
-    params = [{:a => 1, :z => 2}]
+    params = [{ :a => 1, :z => 2 }]
     parameters_matcher = ParametersMatcher.new(params)
     assert_nil parameters_matcher.mocha_inspect.index('{')
     assert_nil parameters_matcher.mocha_inspect.index('}')
   end
 
   def test_should_not_remove_curly_braces_if_hash_is_not_the_only_argument
-    params = [1, {:a => 1}]
+    params = [1, { :a => 1 }]
     parameters_matcher = ParametersMatcher.new(params)
     assert_equal '(1, {:a => 1})', parameters_matcher.mocha_inspect
   end
@@ -117,5 +116,4 @@ class ParametersMatcherTest < Mocha::TestCase
     parameters_matcher = ParametersMatcher.new
     assert_equal '(any_parameters)', parameters_matcher.mocha_inspect
   end
-
 end

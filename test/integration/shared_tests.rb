@@ -11,6 +11,7 @@ module SharedTests
     assert_passed(test_result)
   end
 
+  # rubocop:disable Style/Semicolon
   def test_assertion_unsatisfied
     execution_point = nil
     test_result = run_as_test do
@@ -24,19 +25,19 @@ module SharedTests
   def test_mock_object_unexpected_invocation
     execution_point = nil
     test_result = run_as_test do
-      mock = mock("not expecting invocation")
+      mock = mock('not expecting invocation')
       execution_point = ExecutionPoint.current; mock.unexpected
     end
     assert_failed(test_result)
     failure = test_result.failures.first
     assert_equal execution_point, ExecutionPoint.new(failure.location)
-    assert_equal ["unexpected invocation: #<Mock:not expecting invocation>.unexpected()"], test_result.failure_message_lines
+    assert_equal ['unexpected invocation: #<Mock:not expecting invocation>.unexpected()'], test_result.failure_message_lines
   end
 
   def test_mock_object_explicitly_unexpected_invocation
     execution_point = nil
     test_result = run_as_test do
-      mock = mock("not expecting invocation")
+      mock = mock('not expecting invocation')
       mock.expects(:unexpected).never
       execution_point = ExecutionPoint.current; mock.unexpected
     end
@@ -44,25 +45,25 @@ module SharedTests
     failure = test_result.failures.first
     assert_equal execution_point, ExecutionPoint.new(failure.location)
     assert_equal [
-      "unexpected invocation: #<Mock:not expecting invocation>.unexpected()",
-      "unsatisfied expectations:",
-      "- expected never, invoked once: #<Mock:not expecting invocation>.unexpected(any_parameters)"
+      'unexpected invocation: #<Mock:not expecting invocation>.unexpected()',
+      'unsatisfied expectations:',
+      '- expected never, invoked once: #<Mock:not expecting invocation>.unexpected(any_parameters)'
     ], test_result.failure_message_lines
   end
 
   def test_mock_object_unsatisfied_expectation
     execution_point = nil
     test_result = run_as_test do
-      mock = mock("expecting invocation")
+      mock = mock('expecting invocation')
       execution_point = ExecutionPoint.current; mock.expects(:expected)
     end
     assert_failed(test_result)
     failure = test_result.failures.first
     assert_equal execution_point, ExecutionPoint.new(failure.location)
     assert_equal [
-      "not all expectations were satisfied",
-      "unsatisfied expectations:",
-      "- expected exactly once, not yet invoked: #<Mock:expecting invocation>.expected(any_parameters)"
+      'not all expectations were satisfied',
+      'unsatisfied expectations:',
+      '- expected exactly once, not yet invoked: #<Mock:expecting invocation>.expected(any_parameters)'
     ], test_result.failure_message_lines
   end
 
@@ -70,7 +71,7 @@ module SharedTests
     execution_point = nil
     test_result = run_as_tests(
       :setup => lambda {
-        mock = mock("not expecting invocation")
+        mock = mock('not expecting invocation')
         execution_point = ExecutionPoint.current; mock.unexpected
       },
       :test_me => lambda {
@@ -80,14 +81,14 @@ module SharedTests
     assert_failed(test_result)
     failure = test_result.failures.first
     assert_equal execution_point, ExecutionPoint.new(failure.location)
-    assert_equal ["unexpected invocation: #<Mock:not expecting invocation>.unexpected()"], test_result.failure_message_lines
+    assert_equal ['unexpected invocation: #<Mock:not expecting invocation>.unexpected()'], test_result.failure_message_lines
   end
 
   def test_mock_object_unsatisfied_expectation_in_setup
     execution_point = nil
     test_result = run_as_tests(
       :setup => lambda {
-        mock = mock("expecting invocation")
+        mock = mock('expecting invocation')
         execution_point = ExecutionPoint.current; mock.expects(:expected)
       },
       :test_me => lambda {
@@ -98,9 +99,9 @@ module SharedTests
     failure = test_result.failures.first
     assert_equal execution_point, ExecutionPoint.new(failure.location)
     assert_equal [
-      "not all expectations were satisfied",
-      "unsatisfied expectations:",
-      "- expected exactly once, not yet invoked: #<Mock:expecting invocation>.expected(any_parameters)"
+      'not all expectations were satisfied',
+      'unsatisfied expectations:',
+      '- expected exactly once, not yet invoked: #<Mock:expecting invocation>.expected(any_parameters)'
     ], test_result.failure_message_lines
   end
 
@@ -111,14 +112,14 @@ module SharedTests
         assert true
       },
       :teardown => lambda {
-        mock = mock("not expecting invocation")
+        mock = mock('not expecting invocation')
         execution_point = ExecutionPoint.current; mock.unexpected
       }
     )
     assert_failed(test_result)
     failure = test_result.failures.first
     assert_equal execution_point, ExecutionPoint.new(failure.location)
-    assert_equal ["unexpected invocation: #<Mock:not expecting invocation>.unexpected()"], test_result.failure_message_lines
+    assert_equal ['unexpected invocation: #<Mock:not expecting invocation>.unexpected()'], test_result.failure_message_lines
   end
 
   def test_real_object_explicitly_unexpected_invocation
@@ -133,7 +134,7 @@ module SharedTests
     assert_equal execution_point, ExecutionPoint.new(failure.location)
     assert_equal [
       "unexpected invocation: #{object.mocha_inspect}.unexpected()",
-      "unsatisfied expectations:",
+      'unsatisfied expectations:',
       "- expected never, invoked once: #{object.mocha_inspect}.unexpected(any_parameters)"
     ], test_result.failure_message_lines
   end
@@ -148,8 +149,8 @@ module SharedTests
     failure = test_result.failures.first
     assert_equal execution_point, ExecutionPoint.new(failure.location)
     assert_equal [
-      "not all expectations were satisfied",
-      "unsatisfied expectations:",
+      'not all expectations were satisfied',
+      'unsatisfied expectations:',
       "- expected exactly once, not yet invoked: #{object.mocha_inspect}.expected(any_parameters)"
     ], test_result.failure_message_lines
   end
@@ -169,6 +170,7 @@ module SharedTests
     assert_failed(test_result)
     exception = test_result.errors.first.exception
     assert_equal execution_point, ExecutionPoint.new(exception.backtrace)
-    assert_match %r{undefined method `foo'}, exception.message
+    assert_match(/undefined method `foo'/, exception.message)
   end
+  # rubocop:enable Style/Semicolon
 end

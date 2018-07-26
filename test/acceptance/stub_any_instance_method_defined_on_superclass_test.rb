@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class StubAnyInstanceMethodDefinedOnSuperclassTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -37,12 +36,14 @@ class StubAnyInstanceMethodDefinedOnSuperclassTest < Mocha::TestCase
       def self.inspect
         'superklass'
       end
+
       def my_instance_method; end
     end
     klass = Class.new(superklass) do
       def self.inspect
         'klass'
       end
+
       def my_instance_method; end
     end
     test_result = run_as_tests(
@@ -56,9 +57,9 @@ class StubAnyInstanceMethodDefinedOnSuperclassTest < Mocha::TestCase
     )
     assert_failed(test_result)
     assert_equal [
-      "not all expectations were satisfied",
-      "unsatisfied expectations:",
-      "- expected exactly once, not yet invoked: #<AnyInstance:superklass>.my_instance_method(any_parameters)"
+      'not all expectations were satisfied',
+      'unsatisfied expectations:',
+      '- expected exactly once, not yet invoked: #<AnyInstance:superklass>.my_instance_method(any_parameters)'
     ], test_result.failure_message_lines
   end
 end

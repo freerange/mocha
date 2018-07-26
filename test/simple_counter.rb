@@ -1,5 +1,4 @@
 class SimpleCounter
-
   attr_reader :count
 
   def initialize
@@ -9,5 +8,4 @@ class SimpleCounter
   def increment
     @count += 1
   end
-
 end

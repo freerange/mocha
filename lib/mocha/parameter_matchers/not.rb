@@ -1,9 +1,7 @@
 require 'mocha/parameter_matchers/base'
 
 module Mocha
-
   module ParameterMatchers
-
     # Matches if +matcher+ does *not* match.
     #
     # @param [Base] matcher matcher whose logic to invert.
@@ -22,13 +20,14 @@ module Mocha
     #   object.expects(:method_1).with(Not(includes(1)))
     #   object.method_1([0, 1, 2, 3])
     #   # error raised, because method_1 was not called with object not including 1
+    # rubocop:disable Naming/MethodName
     def Not(matcher)
       Not.new(matcher)
     end
+    # rubocop:enable Naming/MethodName
 
     # Parameter matcher which inverts the logic of the specified matcher using a logical NOT operation.
     class Not < Base
-
       # @private
       def initialize(matcher)
         @matcher = matcher
@@ -44,9 +43,6 @@ module Mocha
       def mocha_inspect
         "Not(#{@matcher.mocha_inspect})"
       end
-
     end
-
   end
-
 end

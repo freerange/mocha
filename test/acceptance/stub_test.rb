@@ -2,7 +2,6 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/setup'
 
 class StubTest < Mocha::TestCase
-
   include AcceptanceTest
 
   def setup
@@ -15,7 +14,7 @@ class StubTest < Mocha::TestCase
 
   def test_should_build_stub_and_explicitly_add_an_expectation
     test_result = run_as_test do
-      foo = stub()
+      foo = stub
       foo.stubs(:bar)
       foo.bar
     end
@@ -48,5 +47,4 @@ class StubTest < Mocha::TestCase
     end
     assert_passed(test_result)
   end
-
 end

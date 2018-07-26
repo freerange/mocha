@@ -5,7 +5,6 @@ require 'mocha/parameter_matchers/object'
 require 'mocha/inspect'
 
 class HasEntriesTest < Mocha::TestCase
-
   include Mocha::ParameterMatchers
 
   def test_should_match_hash_including_specified_entries
@@ -23,7 +22,9 @@ class HasEntriesTest < Mocha::TestCase
     description = matcher.mocha_inspect
     matches = /has_entries\((.*)\)/.match(description)
     assert_not_nil matches[0]
+    # rubocop:disable Security/Eval
     entries = eval(matches[1], binding, __FILE__, __LINE__)
+    # rubocop:enable Security/Eval
     assert_equal 'value_1', entries[:key_1]
     assert_equal 'value_2', entries[:key_2]
   end
@@ -47,5 +48,4 @@ class HasEntriesTest < Mocha::TestCase
     matcher = has_entries(:key_1 => equals('value_2'), :key_2 => equals('value_2'), :key_3 => equals('value_3'))
     assert !matcher.matches?([{ :key_1 => 'value_1', :key_2 => 'value_2' }])
   end
-
 end

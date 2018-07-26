@@ -3,10 +3,8 @@ require 'mocha/class_method'
 require 'mocha/any_instance_method'
 
 module Mocha
-
   # Methods added to all classes to allow mocking and stubbing on real (i.e. non-mock) objects.
   module ClassMethods
-
     # @private
     def stubba_method
       Mocha::ClassMethod
@@ -14,7 +12,6 @@ module Mocha
 
     # @private
     class AnyInstance
-
       def initialize(klass)
         @stubba_object = klass
       end
@@ -31,20 +28,17 @@ module Mocha
         Mocha::AnyInstanceMethod
       end
 
-      def stubba_object
-        @stubba_object
-      end
+      attr_reader :stubba_object
 
       def method_exists?(method, include_public_methods = true)
         if include_public_methods
-          return true if @stubba_object.public_instance_methods(include_superclass_methods = true).include?(method)
+          return true if @stubba_object.public_instance_methods(true).include?(method)
           return true if @stubba_object.allocate.respond_to?(method.to_sym)
         end
-        return true if @stubba_object.protected_instance_methods(include_superclass_methods = true).include?(method)
-        return true if @stubba_object.private_instance_methods(include_superclass_methods = true).include?(method)
-        return false
+        return true if @stubba_object.protected_instance_methods(true).include?(method)
+        return true if @stubba_object.private_instance_methods(true).include?(method)
+        false
       end
-
     end
 
     # @return [Mock] a mock object which will detect calls to any instance of this class.
@@ -62,7 +56,5 @@ module Mocha
       end
       @any_instance ||= AnyInstance.new(self)
     end
-
   end
-
 end

@@ -11,10 +11,8 @@ require 'mocha/change_state_side_effect'
 require 'mocha/cardinality'
 
 module Mocha
-
   # Methods on expectations returned from {Mock#expects}, {Mock#stubs}, {ObjectMethods#expects} and {ObjectMethods#stubs}.
   class Expectation
-
     # Modifies expectation so that the number of calls to the expected method must be within a specific +range+.
     #
     # @param [Range,Integer] range specifies the allowable range in the number of expected invocations.
@@ -184,7 +182,7 @@ module Mocha
     #   object = mock()
     #   object.expects(:expected_method).at_most_once
     #   2.times { object.expected_method } # => unexpected invocation
-    def at_most_once()
+    def at_most_once
       at_most(1)
       self
     end
@@ -506,7 +504,8 @@ module Mocha
       @parameters_matcher = ParametersMatcher.new
       @ordering_constraints = []
       @side_effects = []
-      @cardinality, @invocation_count = Cardinality.exactly(1), 0
+      @cardinality = Cardinality.exactly(1)
+      @invocation_count = 0
       @return_values = ReturnValues.new
       @yield_parameters = YieldParameters.new
       @backtrace = backtrace || caller
@@ -529,12 +528,12 @@ module Mocha
 
     # @private
     def perform_side_effects
-      @side_effects.each { |side_effect| side_effect.perform }
+      @side_effects.each(&:perform)
     end
 
     # @private
     def in_correct_order?
-      @ordering_constraints.all? { |ordering_constraint| ordering_constraint.allows_invocation_now? }
+      @ordering_constraints.all?(&:allows_invocation_now?)
     end
 
     # @private
@@ -560,8 +559,8 @@ module Mocha
     # @private
     def invoke
       @invocation_count += 1
-      perform_side_effects()
-      if block_given? then
+      perform_side_effects
+      if block_given?
         @yield_parameters.next_invocation.each do |yield_parameters|
           yield(*yield_parameters)
         end
@@ -584,21 +583,21 @@ module Mocha
     def inspect
       address = __id__ * 2
       address += 0x100000000 if address < 0
-      "#<Expectation:0x#{'%x' % address} #{mocha_inspect} >"
+      "#<Expectation:0x#{format('%x', address)} #{mocha_inspect} >"
     end
 
     # @private
     def mocha_inspect
       message = "#{@cardinality.mocha_inspect}, "
       message << case @invocation_count
-        when 0 then "not yet invoked"
-        when 1 then "invoked once"
-        when 2 then "invoked twice"
-        else "invoked #{@invocation_count} times"
-      end
-      message << ": "
+                 when 0 then 'not yet invoked'
+                 when 1 then 'invoked once'
+                 when 2 then 'invoked twice'
+                 else "invoked #{@invocation_count} times"
+                 end
+      message << ': '
       message << method_signature
-      message << "; #{@ordering_constraints.map { |oc| oc.mocha_inspect }.join("; ")}" unless @ordering_constraints.empty?
+      message << "; #{@ordering_constraints.map(&:mocha_inspect).join('; ')}" unless @ordering_constraints.empty?
       message
     end
 
@@ -606,7 +605,5 @@ module Mocha
     def method_signature
       "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}#{@parameters_matcher.mocha_inspect}"
     end
-
   end
-
 end
