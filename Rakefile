@@ -87,8 +87,10 @@ end
 
 begin
   require 'rubocop/rake_task'
-  RuboCop::RakeTask.new
-  task 'test' => 'rubocop'
+  if RUBY_VERSION >= '2.2.0'
+    RuboCop::RakeTask.new
+    task 'test' => 'rubocop'
+  end
 rescue LoadError # rubocop:disable Lint/HandleExceptions
 end
 
