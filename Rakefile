@@ -85,6 +85,13 @@ namespace 'test' do
   end
 end
 
+begin
+  require 'rubocop/rake_task'
+  RuboCop::RakeTask.new
+  task 'test' => 'rubocop'
+rescue LoadError # rubocop:disable Lint/HandleExceptions
+end
+
 def benchmark_test_case(klass, iterations)
   require 'benchmark'
   require 'mocha/detection/mini_test'
