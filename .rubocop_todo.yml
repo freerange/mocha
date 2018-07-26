@@ -100,22 +100,6 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-# Offense count: 22
-# Configuration parameters: MinBodyLength.
-Style/GuardClause:
-  Exclude:
-    - 'lib/mocha/any_instance_method.rb'
-    - 'lib/mocha/central.rb'
-    - 'lib/mocha/class_method.rb'
-    - 'lib/mocha/deprecation.rb'
-    - 'lib/mocha/integration.rb'
-    - 'lib/mocha/integration/monkey_patcher.rb'
-    - 'lib/mocha/mock.rb'
-    - 'lib/mocha/mockery.rb'
-    - 'lib/mocha/parameter_matchers/includes.rb'
-    - 'lib/mocha/parameters_matcher.rb'
-    - 'yard-templates/default/layout/html/setup.rb'
-
 # Offense count: 32
 # Cop supports --auto-correct.
 # Configuration parameters: AllowAsExpressionSeparator.

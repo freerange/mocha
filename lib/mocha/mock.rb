@@ -259,10 +259,9 @@ module Mocha
       @everything_stubbed = false
       @responder = nil
       @unexpected_invocation = nil
-      if block
-        Deprecation.warning('Passing a block is deprecated. Use Object#tap or define stubs/expectations with an explicit receiver instead.')
-        instance_eval(&block)
-      end
+      return unless block
+      Deprecation.warning('Passing a block is deprecated. Use Object#tap or define stubs/expectations with an explicit receiver instead.')
+      instance_eval(&block)
     end
 
     # @private

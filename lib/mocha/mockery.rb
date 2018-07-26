@@ -142,54 +142,48 @@ module Mocha
           on_stubbing_method_on_nil(object, method)
         end
       end
-      unless Mocha::Configuration.allow?(:stubbing_method_on_non_mock_object)
-        on_stubbing_method_on_non_mock_object(object, method)
-      end
+      return if Mocha::Configuration.allow?(:stubbing_method_on_non_mock_object)
+      on_stubbing_method_on_non_mock_object(object, method)
     end
 
     def on_stubbing_non_existent_method(object, method)
       if Mocha::Configuration.prevent?(:stubbing_non_existent_method)
         raise StubbingError.new("stubbing non-existent method: #{object.mocha_inspect}.#{method}", caller)
       end
-      if Mocha::Configuration.warn_when?(:stubbing_non_existent_method)
-        logger.warn "stubbing non-existent method: #{object.mocha_inspect}.#{method}"
-      end
+      return unless Mocha::Configuration.warn_when?(:stubbing_non_existent_method)
+      logger.warn "stubbing non-existent method: #{object.mocha_inspect}.#{method}"
     end
 
     def on_stubbing_non_public_method(object, method)
       if Mocha::Configuration.prevent?(:stubbing_non_public_method)
         raise StubbingError.new("stubbing non-public method: #{object.mocha_inspect}.#{method}", caller)
       end
-      if Mocha::Configuration.warn_when?(:stubbing_non_public_method)
-        logger.warn "stubbing non-public method: #{object.mocha_inspect}.#{method}"
-      end
+      return unless Mocha::Configuration.warn_when?(:stubbing_non_public_method)
+      logger.warn "stubbing non-public method: #{object.mocha_inspect}.#{method}"
     end
 
     def on_stubbing_method_on_nil(object, method)
       if Mocha::Configuration.prevent?(:stubbing_method_on_nil)
         raise StubbingError.new("stubbing method on nil: #{object.mocha_inspect}.#{method}", caller)
       end
-      if Mocha::Configuration.warn_when?(:stubbing_method_on_nil)
-        logger.warn "stubbing method on nil: #{object.mocha_inspect}.#{method}"
-      end
+      return unless Mocha::Configuration.warn_when?(:stubbing_method_on_nil)
+      logger.warn "stubbing method on nil: #{object.mocha_inspect}.#{method}"
     end
 
     def on_stubbing_method_on_non_mock_object(object, method)
       if Mocha::Configuration.prevent?(:stubbing_method_on_non_mock_object)
         raise StubbingError.new("stubbing method on non-mock object: #{object.mocha_inspect}.#{method}", caller)
       end
-      if Mocha::Configuration.warn_when?(:stubbing_method_on_non_mock_object)
-        logger.warn "stubbing method on non-mock object: #{object.mocha_inspect}.#{method}"
-      end
+      return unless Mocha::Configuration.warn_when?(:stubbing_method_on_non_mock_object)
+      logger.warn "stubbing method on non-mock object: #{object.mocha_inspect}.#{method}"
     end
 
     def on_stubbing_method_unnecessarily(expectation)
       if Mocha::Configuration.prevent?(:stubbing_method_unnecessarily)
         raise StubbingError.new("stubbing method unnecessarily: #{expectation.method_signature}", expectation.backtrace)
       end
-      if Mocha::Configuration.warn_when?(:stubbing_method_unnecessarily)
-        logger.warn "stubbing method unnecessarily: #{expectation.method_signature}"
-      end
+      return unless Mocha::Configuration.warn_when?(:stubbing_method_unnecessarily)
+      logger.warn "stubbing method unnecessarily: #{expectation.method_signature}"
     end
 
     attr_writer :logger

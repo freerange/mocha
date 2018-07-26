@@ -22,17 +22,15 @@ module Mocha
     end
 
     def stub(method)
-      unless stubba_methods.detect { |m| m.matches?(method) }
-        method.stub
-        stubba_methods.push(method)
-      end
+      return if stubba_methods.detect { |m| m.matches?(method) }
+      method.stub
+      stubba_methods.push(method)
     end
 
     def unstub(method)
-      if (existing = stubba_methods.detect { |m| m.matches?(method) })
-        existing.unstub
-        stubba_methods.delete(existing)
-      end
+      return unless (existing = stubba_methods.detect { |m| m.matches?(method) })
+      existing.unstub
+      stubba_methods.delete(existing)
     end
 
     def unstub_all
