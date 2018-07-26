@@ -100,22 +100,6 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-# Offense count: 32
-# Cop supports --auto-correct.
-# Configuration parameters: AllowAsExpressionSeparator.
-Style/Semicolon:
-  Exclude:
-    - 'lib/mocha/debug.rb'
-    - 'test/acceptance/mocha_test_result_test.rb'
-    - 'test/acceptance/stubba_test_result_test.rb'
-    - 'test/acceptance/stubbing_error_backtrace_test.rb'
-    - 'test/acceptance/stubbing_frozen_object_test.rb'
-    - 'test/integration/shared_tests.rb'
-    - 'test/unit/any_instance_method_test.rb'
-    - 'test/unit/class_method_test.rb'
-    - 'test/unit/expectation_test.rb'
-    - 'test/unit/object_inspect_test.rb'
-
 # Offense count: 777
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https

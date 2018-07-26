@@ -59,6 +59,7 @@ class StubbaTestResultTest < Mocha::TestCase
     assert_equal 1, test_result.failure_count
   end
 
+  # rubocop:disable Style/Semicolon
   def test_should_display_backtrace_indicating_line_number_where_failing_assertion_was_called
     execution_point = nil
     test_result = run_as_test do
@@ -67,4 +68,5 @@ class StubbaTestResultTest < Mocha::TestCase
     assert_equal 1, test_result.failure_count
     assert_equal execution_point, ExecutionPoint.new(test_result.failures[0].location)
   end
+  # rubocop:enable Style/Semicolon
 end

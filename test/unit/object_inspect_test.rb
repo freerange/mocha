@@ -25,9 +25,20 @@ class ObjectInspectTest < Mocha::TestCase
   def test_should_use_underscored_id_instead_of_object_id_or_id_so_that_they_can_be_stubbed
     calls = []
     object = Object.new
-    object.replace_instance_method(:id) { calls << :id; return 1 } if Mocha::PRE_RUBY_V19
-    object.replace_instance_method(:object_id) { calls << :object_id; return 1 }
-    object.replace_instance_method(:__id__) { calls << :__id__; return 1 }
+    if Mocha::PRE_RUBY_V19
+      object.replace_instance_method(:id) do
+        calls << :id
+        return 1
+      end
+    end
+    object.replace_instance_method(:object_id) do
+      calls << :object_id
+      return 1
+    end
+    object.replace_instance_method(:__id__) do
+      calls << :__id__
+      return 1
+    end
     object.replace_instance_method(:inspect) { 'object-description' }
 
     object.mocha_inspect
