@@ -28,9 +28,7 @@ module Mocha
         Mocha::AnyInstanceMethod
       end
 
-      def stubba_object
-        @stubba_object
-      end
+      attr_reader :stubba_object
 
       def method_exists?(method, include_public_methods = true)
         if include_public_methods
