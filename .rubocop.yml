@@ -54,3 +54,7 @@ Style/WhileUntilModifier:
 # frozen_string_literal magic comment has only been supported since Ruby v2.3
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+# This recently introduced cop seems to have stirred up some controversy
+Style/AccessModifierDeclarations:
+  Enabled: false

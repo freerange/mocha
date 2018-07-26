@@ -83,12 +83,6 @@ Metrics/ModuleLength:
 Metrics/PerceivedComplexity:
   Max: 11
 
-# Offense count: 97
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: inline, group
-Style/AccessModifierDeclarations:
-  Enabled: false
-
 # Offense count: 105
 Style/Documentation:
   Enabled: false
