@@ -11,7 +11,7 @@ module Mocha
     end
 
     def mocha_inspect
-      "#{@expected_method_name}"
+      @expected_method_name.to_s
     end
   end
 end

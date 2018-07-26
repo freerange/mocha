@@ -40,7 +40,7 @@ module Mocha
 
     # @private
     def mocha_inspect
-      "#{@name.mocha_inspect}"
+      @name.mocha_inspect.to_s
     end
   end
 end

@@ -146,14 +146,14 @@ class MockeryTest < Mocha::TestCase
     mockery = Mockery.new
     instance = Object.new
     mock = mockery.mock_impersonating(instance)
-    assert_equal "#{instance.mocha_inspect}", mock.mocha_inspect
+    assert_equal instance.mocha_inspect.to_s, mock.mocha_inspect
   end
 
   def test_should_display_impersonated_object_for_inspect
     mockery = Mockery.new
     instance = Object.new
     mock = mockery.mock_impersonating(instance)
-    assert_equal "#{instance.mocha_inspect}", mock.inspect
+    assert_equal instance.mocha_inspect.to_s, mock.inspect
   end
 
   class FakeClass; end

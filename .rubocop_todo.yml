@@ -184,14 +184,6 @@ Style/SymbolProc:
     - 'test/test_runner.rb'
     - 'test/test_unit_result.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-Style/UnneededInterpolation:
-  Exclude:
-    - 'lib/mocha/method_matcher.rb'
-    - 'lib/mocha/sequence.rb'
-    - 'test/unit/mockery_test.rb'
-
 # Offense count: 5
 # Cop supports --auto-correct.
 Style/WhileUntilDo:
