@@ -66,3 +66,7 @@ Layout/AccessModifierIndentation:
 # Allow long comment lines, e.g. YARD documentation
 Metrics/LineLength:
   IgnoredPatterns: ['\A\s*#']
+
+# It's not possible to set TargetRubyVersion to Ruby < v2.2
+Gemspec/RequiredRubyVersion:
+  Enabled: false
