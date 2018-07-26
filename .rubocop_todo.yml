@@ -33,18 +33,6 @@ Layout/AccessModifierIndentation:
     - 'test/acceptance/stubbing_non_public_instance_method_test.rb'
     - 'test/acceptance/unstubbing_test.rb'
 
-# Offense count: 28
-Lint/DuplicateMethods:
-  Exclude:
-    - 'test/acceptance/stub_any_instance_method_test.rb'
-    - 'test/acceptance/stub_class_method_defined_on_active_record_association_proxy_test.rb'
-    - 'test/acceptance/stub_class_method_defined_on_class_test.rb'
-    - 'test/acceptance/stub_class_method_defined_on_superclass_test.rb'
-    - 'test/acceptance/stub_instance_method_defined_on_object_class_test.rb'
-    - 'test/acceptance/stub_module_method_test.rb'
-    - 'test/acceptance/stubbing_non_existent_class_method_test.rb'
-    - 'test/acceptance/stubbing_non_public_class_method_test.rb'
-
 # Offense count: 69
 Metrics/AbcSize:
   Max: 41

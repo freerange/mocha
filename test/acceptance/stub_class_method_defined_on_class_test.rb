@@ -12,6 +12,7 @@ class StubClassMethodDefinedOnClassTest < Mocha::TestCase
     teardown_acceptance_test
   end
 
+  # rubocop:disable Lint/DuplicateMethods
   def test_should_stub_public_method_and_leave_it_unchanged_after_test
     klass = Class.new do
       class << self
@@ -74,4 +75,5 @@ class StubClassMethodDefinedOnClassTest < Mocha::TestCase
     end
     assert_equal :original_return_value, klass.send(:my_class_method)
   end
+  # rubocop:enable Lint/DuplicateMethods
 end

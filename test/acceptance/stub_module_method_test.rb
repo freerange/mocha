@@ -12,6 +12,7 @@ class StubModuleMethodTest < Mocha::TestCase
     teardown_acceptance_test
   end
 
+  # rubocop:disable Lint/DuplicateMethods
   def test_should_stub_method_within_test
     mod = Module.new do
       def self.my_module_method
@@ -196,4 +197,5 @@ class StubModuleMethodTest < Mocha::TestCase
     end
     assert_passed(test_result)
   end
+  # rubocop:enable Lint/DuplicateMethods
 end

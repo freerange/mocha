@@ -188,6 +188,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     assert_equal :original_return_value, instance.send(:my_superclass_method)
   end
 
+  # rubocop:disable Lint/DuplicateMethods
   def test_should_be_able_to_stub_method_if_ruby18_public_instance_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby18_klass = Class.new do
       class << self
@@ -277,4 +278,5 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     end
     assert_passed(test_result)
   end
+  # rubocop:enable Lint/DuplicateMethods
 end
