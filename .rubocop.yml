@@ -62,3 +62,7 @@ Style/AccessModifierDeclarations:
 # Enabling this cop results in an "Infinite loop detected" exception
 Layout/AccessModifierIndentation:
   Enabled: false
+
+# Allow long comment lines, e.g. YARD documentation
+Metrics/LineLength:
+  IgnoredPatterns: ['\A\s*#']
