@@ -26,7 +26,7 @@ module Mocha
     class AnyParameters < Base
       # @private
       def matches?(available_parameters)
-        while available_parameters.length > 0
+        until available_parameters.empty?
           available_parameters.shift
         end
         true

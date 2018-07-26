@@ -184,16 +184,6 @@ Style/SymbolProc:
     - 'test/test_runner.rb'
     - 'test/test_unit_result.rb'
 
-# Offense count: 7
-# Cop supports --auto-correct.
-Style/ZeroLengthPredicate:
-  Exclude:
-    - 'lib/mocha/mock.rb'
-    - 'lib/mocha/object_methods.rb'
-    - 'lib/mocha/parameter_matchers/any_parameters.rb'
-    - 'lib/mocha/parameter_matchers/optionally.rb'
-    - 'lib/mocha/parameters_matcher.rb'
-
 # Offense count: 777
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https

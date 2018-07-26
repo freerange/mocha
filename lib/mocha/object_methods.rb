@@ -79,7 +79,7 @@ module Mocha
         method = stubba_method.new(stubba_object, method_name)
         mockery.stubba.stub(method)
         expectation = mocha.expects(method_name, caller)
-        expectation.returns(args.shift) if args.length > 0
+        expectation.returns(args.shift) unless args.empty?
       end
       expectation
     end
@@ -125,7 +125,7 @@ module Mocha
         method = stubba_method.new(stubba_object, method_name)
         mockery.stubba.stub(method)
         expectation = mocha.stubs(method_name, caller)
-        expectation.returns(args.shift) if args.length > 0
+        expectation.returns(args.shift) unless args.empty?
       end
       expectation
     end

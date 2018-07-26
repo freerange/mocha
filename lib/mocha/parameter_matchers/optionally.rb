@@ -44,7 +44,7 @@ module Mocha
       # @private
       def matches?(available_parameters)
         index = 0
-        while (available_parameters.length > 0) && (index < @matchers.length)
+        while !available_parameters.empty? && (index < @matchers.length)
           matcher = @matchers[index]
           return false unless matcher.matches?(available_parameters)
           index += 1
