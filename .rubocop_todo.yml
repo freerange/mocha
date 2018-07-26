@@ -166,17 +166,6 @@ Style/SpecialGlobalVars:
 Style/StringLiterals:
   Enabled: false
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiteralsInInterpolation:
-  Exclude:
-    - 'lib/mocha/expectation.rb'
-    - 'lib/mocha/parameter_matchers/all_of.rb'
-    - 'lib/mocha/parameter_matchers/any_of.rb'
-    - 'lib/mocha/parameter_matchers/optionally.rb'
-
 # Offense count: 9
 # Cop supports --auto-correct.
 # Configuration parameters: MinSize.

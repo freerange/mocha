@@ -597,7 +597,7 @@ module Mocha
                  end
       message << ": "
       message << method_signature
-      message << "; #{@ordering_constraints.map { |oc| oc.mocha_inspect }.join("; ")}" unless @ordering_constraints.empty?
+      message << "; #{@ordering_constraints.map { |oc| oc.mocha_inspect }.join('; ')}" unless @ordering_constraints.empty?
       message
     end
 
