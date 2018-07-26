@@ -144,21 +144,6 @@ Style/SingleLineMethods:
     - 'test/unit/mockery_test.rb'
     - 'test/unit/parameter_matchers/responds_with_test.rb'
 
-# Offense count: 21
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: use_perl_names, use_english_names
-Style/SpecialGlobalVars:
-  Exclude:
-    - 'bin/build-matrix'
-    - 'lib/mocha/integration/test_unit/gem_version_200.rb'
-    - 'lib/mocha/integration/test_unit/gem_version_201_to_202.rb'
-    - 'lib/mocha/integration/test_unit/gem_version_203_to_220.rb'
-    - 'lib/mocha/integration/test_unit/gem_version_230_to_250.rb'
-    - 'lib/mocha/integration/test_unit/ruby_version_185_and_below.rb'
-    - 'lib/mocha/integration/test_unit/ruby_version_186_and_above.rb'
-    - 'test/test_helper.rb'
-
 # Offense count: 777
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https

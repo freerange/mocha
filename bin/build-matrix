@@ -5,11 +5,11 @@ require 'yaml'
 def execute(*commands)
   commands.each do |command|
     system(command)
-    next if $?.success?
+    next if $CHILD_STATUS.success?
     message = [
       'Executing shell command failed.',
       "  Command: #{command}",
-      "  Status:  #{$?.exitstatus}"
+      "  Status:  #{$CHILD_STATUS.exitstatus}"
     ].join("\n")
     raise message
   end
