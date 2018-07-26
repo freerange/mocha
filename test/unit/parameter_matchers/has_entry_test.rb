@@ -112,8 +112,8 @@ class HasEntryTest < Mocha::TestCase
   end
 
   def test_should_match_array_as_value
-    matcher = has_entry(:key_1 => ['value_1', 'value_2'])
-    assert matcher.matches?([{ :key_1 => ['value_1', 'value_2'] }])
+    matcher = has_entry(:key_1 => %w[value_1 value_2])
+    assert matcher.matches?([{ :key_1 => %w[value_1 value_2] }])
   end
 
   def test_should_match_hash_as_value_and_key

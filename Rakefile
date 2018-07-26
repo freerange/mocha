@@ -133,7 +133,7 @@ if ENV["MOCHA_GENERATE_DOCS"]
   end
 
   desc "Generate documentation"
-  task 'generate_docs' => ['clobber_yardoc', 'yardoc']
+  task 'generate_docs' => %w[clobber_yardoc yardoc]
 
   desc "Publish docs to #{MOCHA_DOCS_HOST}/docs/mocha"
   task 'publish_docs' => 'generate_docs' do

@@ -45,10 +45,10 @@ class MockTest < Mocha::TestCase
   end
 
   EXCLUDED_METHODS = {
-    true => [
-      "method_missing",
-      "singleton_method_undefined",
-      "initialize"
+    true => %w[
+      method_missing
+      singleton_method_undefined
+      initialize
     ],
     false => [
       :object_id,

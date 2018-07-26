@@ -184,14 +184,6 @@ Style/SymbolProc:
     - 'test/test_runner.rb'
     - 'test/test_unit_result.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: WordRegex.
-# SupportedStyles: percent, brackets
-Style/WordArray:
-  EnforcedStyle: percent
-  MinSize: 4
-
 # Offense count: 7
 # Cop supports --auto-correct.
 Style/ZeroLengthPredicate:
