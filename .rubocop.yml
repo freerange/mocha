@@ -58,3 +58,7 @@ Style/FrozenStringLiteralComment:
 # This recently introduced cop seems to have stirred up some controversy
 Style/AccessModifierDeclarations:
   Enabled: false
+
+# Enabling this cop results in an "Infinite loop detected" exception
+Layout/AccessModifierIndentation:
+  Enabled: false

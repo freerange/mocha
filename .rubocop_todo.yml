@@ -13,26 +13,6 @@ Gemspec/RequiredRubyVersion:
   Exclude:
     - 'mocha.gemspec'
 
-# Offense count: 57
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: outdent, indent
-Layout/AccessModifierIndentation:
-  Exclude:
-    - 'test/acceptance/stub_any_instance_method_defined_on_superclass_test.rb'
-    - 'test/acceptance/stub_any_instance_method_test.rb'
-    - 'test/acceptance/stub_class_method_defined_on_module_test.rb'
-    - 'test/acceptance/stub_instance_method_defined_on_class_and_aliased_test.rb'
-    - 'test/acceptance/stub_instance_method_defined_on_class_test.rb'
-    - 'test/acceptance/stub_instance_method_defined_on_module_test.rb'
-    - 'test/acceptance/stub_instance_method_defined_on_superclass_test.rb'
-    - 'test/acceptance/stubbing_error_backtrace_test.rb'
-    - 'test/acceptance/stubbing_non_existent_any_instance_method_test.rb'
-    - 'test/acceptance/stubbing_non_existent_instance_method_test.rb'
-    - 'test/acceptance/stubbing_non_public_any_instance_method_test.rb'
-    - 'test/acceptance/stubbing_non_public_instance_method_test.rb'
-    - 'test/acceptance/unstubbing_test.rb'
-
 # Offense count: 69
 Metrics/AbcSize:
   Max: 41
