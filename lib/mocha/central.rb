@@ -36,7 +36,7 @@ module Mocha
     end
 
     def unstub_all
-      while stubba_methods.any? do
+      while stubba_methods.any?
         unstub(stubba_methods.first)
       end
     end

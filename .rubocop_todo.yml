@@ -184,15 +184,6 @@ Style/SymbolProc:
     - 'test/test_runner.rb'
     - 'test/test_unit_result.rb'
 
-# Offense count: 5
-# Cop supports --auto-correct.
-Style/WhileUntilDo:
-  Exclude:
-    - 'lib/mocha/central.rb'
-    - 'lib/mocha/parameter_matchers/any_parameters.rb'
-    - 'lib/mocha/parameter_matchers/optionally.rb'
-    - 'lib/mocha/receivers.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Style/WhileUntilModifier:
