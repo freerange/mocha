@@ -71,7 +71,7 @@ module Mocha
       :stubbing_method_on_non_mock_object => :allow,
       :stubbing_non_existent_method => :allow,
       :stubbing_non_public_method => :allow,
-      :stubbing_method_on_nil => :prevent,
+      :stubbing_method_on_nil => :prevent
     }.freeze
 
     class << self
