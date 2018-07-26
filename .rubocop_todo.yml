@@ -184,13 +184,6 @@ Style/SymbolProc:
     - 'test/test_runner.rb'
     - 'test/test_unit_result.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/WhileUntilModifier:
-  Exclude:
-    - 'lib/mocha/central.rb'
-    - 'lib/mocha/parameter_matchers/any_parameters.rb'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 # Configuration parameters: WordRegex.
