@@ -22,7 +22,7 @@ module Mocha
     end
 
     def match_allowing_invocation(method_name, *arguments)
-      matching_expectations(method_name, *arguments).detect { |e| e.invocations_allowed? }
+      matching_expectations(method_name, *arguments).detect(&:invocations_allowed?)
     end
 
     def verified?(assertion_counter = nil)

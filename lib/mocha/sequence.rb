@@ -35,7 +35,7 @@ module Mocha
 
     # @private
     def satisfied_to_index?(index)
-      @expectations[0...index].all? { |expectation| expectation.satisfied? }
+      @expectations[0...index].all?(&:satisfied?)
     end
 
     # @private

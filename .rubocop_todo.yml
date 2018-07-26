@@ -166,24 +166,6 @@ Style/SpecialGlobalVars:
 Style/StringLiterals:
   Enabled: false
 
-# Offense count: 19
-# Cop supports --auto-correct.
-# Configuration parameters: IgnoredMethods.
-# IgnoredMethods: respond_to, define_method
-Style/SymbolProc:
-  Exclude:
-    - 'lib/mocha/expectation.rb'
-    - 'lib/mocha/expectation_list.rb'
-    - 'lib/mocha/inspect.rb'
-    - 'lib/mocha/mockery.rb'
-    - 'lib/mocha/parameter_matchers/all_of.rb'
-    - 'lib/mocha/parameter_matchers/any_of.rb'
-    - 'lib/mocha/parameter_matchers/optionally.rb'
-    - 'lib/mocha/parameters_matcher.rb'
-    - 'lib/mocha/sequence.rb'
-    - 'test/test_runner.rb'
-    - 'test/test_unit_result.rb'
-
 # Offense count: 777
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https

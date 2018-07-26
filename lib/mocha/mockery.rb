@@ -119,9 +119,9 @@ module Mocha
 
     def mocha_inspect
       message = ""
-      message << "unsatisfied expectations:\n- #{unsatisfied_expectations.map { |e| e.mocha_inspect }.join("\n- ")}\n" unless unsatisfied_expectations.empty?
-      message << "satisfied expectations:\n- #{satisfied_expectations.map { |e| e.mocha_inspect }.join("\n- ")}\n" unless satisfied_expectations.empty?
-      message << "states:\n- #{state_machines.map { |sm| sm.mocha_inspect }.join("\n- ")}" unless state_machines.empty?
+      message << "unsatisfied expectations:\n- #{unsatisfied_expectations.map(&:mocha_inspect).join("\n- ")}\n" unless unsatisfied_expectations.empty?
+      message << "satisfied expectations:\n- #{satisfied_expectations.map(&:mocha_inspect).join("\n- ")}\n" unless satisfied_expectations.empty?
+      message << "states:\n- #{state_machines.map(&:mocha_inspect).join("\n- ")}" unless state_machines.empty?
       message
     end
 
@@ -205,11 +205,11 @@ module Mocha
     end
 
     def unsatisfied_expectations
-      expectations.reject { |e| e.verified? }
+      expectations.reject(&:verified?)
     end
 
     def satisfied_expectations
-      expectations.select { |e| e.verified? }
+      expectations.select(&:verified?)
     end
 
     def add_mock(mock)

@@ -11,7 +11,7 @@ module Mocha
 
   module ArrayMethods
     def mocha_inspect
-      "[#{collect { |member| member.mocha_inspect }.join(', ')}]"
+      "[#{collect(&:mocha_inspect).join(', ')}]"
     end
   end
 

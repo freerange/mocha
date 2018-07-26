@@ -528,12 +528,12 @@ module Mocha
 
     # @private
     def perform_side_effects
-      @side_effects.each { |side_effect| side_effect.perform }
+      @side_effects.each(&:perform)
     end
 
     # @private
     def in_correct_order?
-      @ordering_constraints.all? { |ordering_constraint| ordering_constraint.allows_invocation_now? }
+      @ordering_constraints.all?(&:allows_invocation_now?)
     end
 
     # @private
@@ -597,7 +597,7 @@ module Mocha
                  end
       message << ": "
       message << method_signature
-      message << "; #{@ordering_constraints.map { |oc| oc.mocha_inspect }.join('; ')}" unless @ordering_constraints.empty?
+      message << "; #{@ordering_constraints.map(&:mocha_inspect).join('; ')}" unless @ordering_constraints.empty?
       message
     end
 

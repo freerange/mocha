@@ -38,7 +38,7 @@ module Mocha
     class Optionally < Base
       # @private
       def initialize(*parameters)
-        @matchers = parameters.map { |parameter| parameter.to_matcher }
+        @matchers = parameters.map(&:to_matcher)
       end
 
       # @private
@@ -54,7 +54,7 @@ module Mocha
 
       # @private
       def mocha_inspect
-        "optionally(#{@matchers.map { |matcher| matcher.mocha_inspect }.join(', ')})"
+        "optionally(#{@matchers.map(&:mocha_inspect).join(', ')})"
       end
     end
   end
