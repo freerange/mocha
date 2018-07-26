@@ -45,23 +45,23 @@ module Mocha
     end
 
     def allowed_any_number_of_times?
-      required == 0 && infinite?(maximum)
+      required.zero? && infinite?(maximum)
     end
 
     def used?(invocation_count)
-      (invocation_count > 0) || (maximum == 0)
+      (invocation_count > 0) || maximum.zero?
     end
 
     def mocha_inspect
       if allowed_any_number_of_times?
         'allowed any number of times'
-      elsif required == 0 && maximum == 0
+      elsif required.zero? && maximum.zero?
         'expected never'
       elsif required == maximum
         "expected exactly #{times(required)}"
       elsif infinite?(maximum)
         "expected at least #{times(required)}"
-      elsif required == 0
+      elsif required.zero?
         "expected at most #{times(maximum)}"
       else
         "expected between #{required} and #{times(maximum)}"

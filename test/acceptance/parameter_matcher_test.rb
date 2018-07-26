@@ -263,7 +263,7 @@ class ParameterMatcherTest < Mocha::TestCase
   def test_should_match_parameter_when_value_is_divisible_by_four
     test_result = run_as_test do
       mock = mock()
-      mock.expects(:method).with { |actual_value| actual_value % 4 == 0 }
+      mock.expects(:method).with { |actual_value| (actual_value % 4).zero? }
       mock.method(8)
     end
     assert_passed(test_result)
@@ -272,7 +272,7 @@ class ParameterMatcherTest < Mocha::TestCase
   def test_should_not_match_parameter_when_value_is_not_divisible_by_four
     test_result = run_as_test do
       mock = mock()
-      mock.expects(:method).with { |actual_value| actual_value % 4 == 0 }
+      mock.expects(:method).with { |actual_value| (actual_value % 4).zero? }
       mock.method(9)
     end
     assert_failed(test_result)
