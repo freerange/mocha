@@ -5,7 +5,7 @@ module Mocha
     end.freeze
 
     def self.puts(message)
-      $stderr.puts(message) if OPTIONS['debug']
+      warn(message) if OPTIONS['debug']
     end
   end
 end

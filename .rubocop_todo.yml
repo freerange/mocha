@@ -159,13 +159,6 @@ Style/SpecialGlobalVars:
     - 'lib/mocha/integration/test_unit/ruby_version_186_and_above.rb'
     - 'test/test_helper.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/StderrPuts:
-  Exclude:
-    - 'lib/mocha/debug.rb'
-    - 'lib/mocha/deprecation.rb'
-
 # Offense count: 251
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.
