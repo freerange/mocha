@@ -35,7 +35,7 @@ def run(ruby_version, gemfile, task = "test")
   reset_bundle
   execute(
     with_rbenv("bundle install --gemfile=#{gemfile}"),
-    with_rbenv("bundle exec rake #{task}"),
+    with_rbenv("bundle exec rake #{task}")
   )
 end
 
