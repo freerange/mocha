@@ -132,18 +132,6 @@ Style/Semicolon:
     - 'test/unit/expectation_test.rb'
     - 'test/unit/object_inspect_test.rb'
 
-# Offense count: 28
-# Cop supports --auto-correct.
-# Configuration parameters: AllowIfMethodIsEmpty.
-Style/SingleLineMethods:
-  Exclude:
-    - 'test/acceptance/stubbing_method_accepting_block_parameter_test.rb'
-    - 'test/acceptance/unstubbing_test.rb'
-    - 'test/unit/any_instance_method_test.rb'
-    - 'test/unit/class_method_test.rb'
-    - 'test/unit/mockery_test.rb'
-    - 'test/unit/parameter_matchers/responds_with_test.rb'
-
 # Offense count: 777
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https

@@ -44,7 +44,11 @@ class AnyInstanceMethodTest < Mocha::TestCase
   end
 
   def test_should_restore_original_method
-    klass = Class.new { def method_x; :original_result; end }
+    klass = Class.new do
+      def method_x
+        :original_result
+      end
+    end
     method = AnyInstanceMethod.new(klass, :method_x)
 
     method.hide_original_method
@@ -58,7 +62,11 @@ class AnyInstanceMethodTest < Mocha::TestCase
   end
 
   def test_should_not_restore_original_method_if_none_was_defined_in_first_place
-    klass = Class.new { def method_x; :new_result; end }
+    klass = Class.new do
+      def method_x
+        :new_result
+      end
+    end
     method = AnyInstanceMethod.new(klass, :method_x)
 
     method.restore_original_method
@@ -108,7 +116,14 @@ class AnyInstanceMethodTest < Mocha::TestCase
 
     method.replace_instance_method(:remove_new_method) {}
     method.replace_instance_method(:restore_original_method) {}
-    mocha = Class.new { class << self; attr_accessor :unstub_method; end; def self.unstub(method); self.unstub_method = method; end; }
+    mocha = Class.new do
+      class << self
+        attr_accessor :unstub_method
+      end
+      def self.unstub(method)
+        self.unstub_method = method
+      end
+    end
     mocha.define_instance_method(:any_expectations?) { true }
     method.replace_instance_method(:mock) { mocha }
 
