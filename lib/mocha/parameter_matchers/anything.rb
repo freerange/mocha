@@ -29,7 +29,7 @@ module Mocha
 
       # @private
       def mocha_inspect
-        "anything"
+        'anything'
       end
     end
   end

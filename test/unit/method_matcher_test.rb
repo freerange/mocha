@@ -21,6 +21,6 @@ class MethodMatcherTest < Mocha::TestCase
 
   def test_should_describe_what_method_is_expected
     method_matcher = MethodMatcher.new(:method_name)
-    assert_equal "method_name", method_matcher.mocha_inspect
+    assert_equal 'method_name', method_matcher.mocha_inspect
   end
 end

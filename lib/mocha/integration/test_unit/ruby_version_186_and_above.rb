@@ -11,7 +11,7 @@ module Mocha
         end
 
         def self.description
-          "monkey patch for standard library Test::Unit in Ruby >= v1.8.6"
+          'monkey patch for standard library Test::Unit in Ruby >= v1.8.6'
         end
 
         def self.included(mod)

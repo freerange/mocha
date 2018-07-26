@@ -18,6 +18,6 @@ class YamlEquivalentTest < Mocha::TestCase
 
   def test_should_describe_matcher
     matcher = yaml_equivalent([1, 2, 3])
-    assert_equal "yaml_equivalent([1, 2, 3])", matcher.mocha_inspect
+    assert_equal 'yaml_equivalent([1, 2, 3])', matcher.mocha_inspect
   end
 end

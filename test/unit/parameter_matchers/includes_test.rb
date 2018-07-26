@@ -36,12 +36,12 @@ class IncludesTest < Mocha::TestCase
 
   def test_should_describe_matcher_with_one_item
     matcher = includes(:x)
-    assert_equal "includes(:x)", matcher.mocha_inspect
+    assert_equal 'includes(:x)', matcher.mocha_inspect
   end
 
   def test_should_describe_matcher_with_multiple_items
     matcher = includes(:x, :y, :z)
-    assert_equal "includes(:x, :y, :z)", matcher.mocha_inspect
+    assert_equal 'includes(:x, :y, :z)', matcher.mocha_inspect
   end
 
   def test_should_not_raise_error_on_emtpy_arguments

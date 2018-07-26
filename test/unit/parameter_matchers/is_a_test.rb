@@ -18,6 +18,6 @@ class IsATest < Mocha::TestCase
 
   def test_should_describe_matcher
     matcher = is_a(Integer)
-    assert_equal "is_a(Integer)", matcher.mocha_inspect
+    assert_equal 'is_a(Integer)', matcher.mocha_inspect
   end
 end

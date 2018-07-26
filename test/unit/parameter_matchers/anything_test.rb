@@ -14,6 +14,6 @@ class AnythingTest < Mocha::TestCase
 
   def test_should_describe_matcher
     matcher = anything
-    assert_equal "anything", matcher.mocha_inspect
+    assert_equal 'anything', matcher.mocha_inspect
   end
 end

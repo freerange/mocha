@@ -15,7 +15,7 @@ class HooksTest < Mocha::TestCase
     def verify(*args); end
 
     def teardown
-      raise "exception within Mockery#teardown"
+      raise 'exception within Mockery#teardown'
     end
   end
 

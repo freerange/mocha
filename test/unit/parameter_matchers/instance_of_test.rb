@@ -18,6 +18,6 @@ class InstanceOfTest < Mocha::TestCase
 
   def test_should_describe_matcher
     matcher = instance_of(String)
-    assert_equal "instance_of(String)", matcher.mocha_inspect
+    assert_equal 'instance_of(String)', matcher.mocha_inspect
   end
 end

@@ -7,11 +7,11 @@ module Mocha
         end
 
         def self.description
-          "nothing (no Test::Unit integration available)"
+          'nothing (no Test::Unit integration available)'
         end
 
         def self.included(_mod)
-          raise "No Test::Unit integration available"
+          raise 'No Test::Unit integration available'
         end
       end
     end

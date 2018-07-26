@@ -18,6 +18,6 @@ class KindOfTest < Mocha::TestCase
 
   def test_should_describe_matcher
     matcher = kind_of(Integer)
-    assert_equal "kind_of(Integer)", matcher.mocha_inspect
+    assert_equal 'kind_of(Integer)', matcher.mocha_inspect
   end
 end

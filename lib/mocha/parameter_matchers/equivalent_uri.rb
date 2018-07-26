@@ -30,7 +30,7 @@ module Mocha
     # @deprecated Use {#equivalent_uri} instead.
     # rubocop:disable Naming/PredicateName
     def has_equivalent_query_string(uri)
-      Mocha::Deprecation.warning("`has_equivalent_query_string` is deprecated. Please use `equivalent_uri` instead.")
+      Mocha::Deprecation.warning('`has_equivalent_query_string` is deprecated. Please use `equivalent_uri` instead.')
 
       equivalent_uri(uri)
     end

@@ -10,7 +10,7 @@ class ObjectInspectTest < Mocha::TestCase
       attr_accessor :attribute
     end
     object.attribute = 'instance_variable'
-    assert_match Regexp.new("^#<Object:0x[0-9A-Fa-f]{1,8}.*>$"), object.mocha_inspect
+    assert_match Regexp.new('^#<Object:0x[0-9A-Fa-f]{1,8}.*>$'), object.mocha_inspect
     assert_no_match(/instance_variable/, object.mocha_inspect)
   end
 
@@ -28,7 +28,7 @@ class ObjectInspectTest < Mocha::TestCase
     object.replace_instance_method(:id) { calls << :id; return 1 } if Mocha::PRE_RUBY_V19
     object.replace_instance_method(:object_id) { calls << :object_id; return 1 }
     object.replace_instance_method(:__id__) { calls << :__id__; return 1 }
-    object.replace_instance_method(:inspect) { "object-description" }
+    object.replace_instance_method(:inspect) { 'object-description' }
 
     object.mocha_inspect
 

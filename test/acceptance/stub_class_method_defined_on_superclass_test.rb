@@ -135,9 +135,9 @@ class StubClassMethodDefinedOnSuperclassTest < Mocha::TestCase
     )
     assert_failed(test_result)
     assert_equal [
-      "not all expectations were satisfied",
-      "unsatisfied expectations:",
-      "- expected exactly once, not yet invoked: superklass.my_class_method(any_parameters)"
+      'not all expectations were satisfied',
+      'unsatisfied expectations:',
+      '- expected exactly once, not yet invoked: superklass.my_class_method(any_parameters)'
     ], test_result.failure_message_lines
   end
 end

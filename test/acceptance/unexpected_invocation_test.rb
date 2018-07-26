@@ -19,6 +19,6 @@ class UnexpectedInvocationTest < Mocha::TestCase
       instance.inspect(1, 2, 'foo')
     end
     assert_failed(test_result)
-    assert_equal "unexpected invocation: inspect(1, 2, foo)", test_result.failure_message_lines[0]
+    assert_equal 'unexpected invocation: inspect(1, 2, foo)', test_result.failure_message_lines[0]
   end
 end

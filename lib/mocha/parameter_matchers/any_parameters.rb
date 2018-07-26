@@ -34,7 +34,7 @@ module Mocha
 
       # @private
       def mocha_inspect
-        "any_parameters"
+        'any_parameters'
       end
     end
   end

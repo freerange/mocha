@@ -11,7 +11,7 @@ module Mocha
         end
 
         def self.description
-          "monkey patch for MiniTest gem v1.4.0"
+          'monkey patch for MiniTest gem v1.4.0'
         end
 
         def self.included(mod)

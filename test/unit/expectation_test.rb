@@ -208,7 +208,7 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_raise_custom_exception_with_message
-    exception_msg = "exception message"
+    exception_msg = 'exception message'
     expectation = new_expectation.raises(Exception, exception_msg)
     exception = assert_raise(Exception) { expectation.invoke }
     assert_equal exception_msg, exception.message
@@ -474,7 +474,7 @@ class ExpectationTest < Mocha::TestCase
       define_method(:inspect) { 'mock' }
     end
     expectation = Expectation.new(object, :method_one)
-    assert_match Regexp.new("^#<Expectation:0x[0-9A-Fa-f]{1,12} .* >$"), expectation.inspect
+    assert_match Regexp.new('^#<Expectation:0x[0-9A-Fa-f]{1,12} .* >$'), expectation.inspect
   end
 
   def test_should_include_output_of_mocha_inspect_in_inspect

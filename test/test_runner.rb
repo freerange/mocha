@@ -51,6 +51,6 @@ module TestRunner
   end
 
   def assert_failed(test_result)
-    flunk "Test passed unexpectedly" unless test_result.failure_count + test_result.error_count > 0
+    flunk 'Test passed unexpectedly' unless test_result.failure_count + test_result.error_count > 0
   end
 end

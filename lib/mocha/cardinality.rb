@@ -54,9 +54,9 @@ module Mocha
 
     def mocha_inspect
       if allowed_any_number_of_times?
-        "allowed any number of times"
+        'allowed any number of times'
       elsif required == 0 && maximum == 0
-        "expected never"
+        'expected never'
       elsif required == maximum
         "expected exactly #{times(required)}"
       elsif infinite?(maximum)
@@ -74,9 +74,9 @@ module Mocha
 
     def times(number)
       case number
-      when 0 then "no times"
-      when 1 then "once"
-      when 2 then "twice"
+      when 0 then 'no times'
+      when 1 then 'once'
+      when 2 then 'twice'
       else "#{number} times"
       end
     end

@@ -22,7 +22,7 @@ class ExceptionRescueTest < Mocha::TestCase
       end
     end
     assert_failed(test_result)
-    assert_equal "unexpected invocation: #<Mock:mock>.some_method()", test_result.failure_message_lines[0]
+    assert_equal 'unexpected invocation: #<Mock:mock>.some_method()', test_result.failure_message_lines[0]
   end
 
   def test_invocation_never_expected_exception_is_not_caught_by_standard_rescue
@@ -36,7 +36,7 @@ class ExceptionRescueTest < Mocha::TestCase
       end
     end
     assert_failed(test_result)
-    assert_equal "unexpected invocation: #<Mock:mock>.some_method()", test_result.failure_message_lines[0]
+    assert_equal 'unexpected invocation: #<Mock:mock>.some_method()', test_result.failure_message_lines[0]
   end
 
   def test_unsatisfied_expectation_exception_is_not_caught_by_standard_rescue
@@ -46,9 +46,9 @@ class ExceptionRescueTest < Mocha::TestCase
     end
     assert_failed(test_result)
     assert_equal [
-      "not all expectations were satisfied",
-      "unsatisfied expectations:",
-      "- expected exactly once, not yet invoked: #<Mock:mock>.some_method(any_parameters)"
+      'not all expectations were satisfied',
+      'unsatisfied expectations:',
+      '- expected exactly once, not yet invoked: #<Mock:mock>.some_method(any_parameters)'
     ], test_result.failure_message_lines
   end
 end
