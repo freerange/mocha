@@ -1,5 +1,12 @@
 # Release Notes
 
+## 1.7.0
+
+* Update Ruby & JRuby versions in Travis CI config (9bf55631 & 3883af7e)
+* Simplify gemspec (63744f86)
+* Add rubocop and fix most cop violations (#341)
+* Use Kernel#warn for deprecations - thanks to @etiennebarrie (#333, 196970a)
+
 ## 1.6.0
 
 * Fix subtle bug in setting correct visibility of stubbed module methods on `Kernel` or `Object` - thanks to @chrisroos (#295)
