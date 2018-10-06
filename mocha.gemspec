@@ -43,7 +43,7 @@ Gem::Specification.new do |s|
     s.add_development_dependency('minitest')
   end
   if RUBY_VERSION >= '1.9.2'
-    s.add_development_dependency('rubocop', '~> 0.58.0')
+    s.add_development_dependency('rubocop', '<= 0.58.2')
   end
   if ENV['MOCHA_GENERATE_DOCS']
     s.add_development_dependency('redcarpet')
