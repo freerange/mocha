@@ -5,7 +5,7 @@ module Mocha
     def mocha_inspect
       address = __id__ * 2
       address += 0x100000000 if address < 0
-      inspect =~ /#</ ? "#<#{self.class}:0x#{format('%x', address)}>" : inspect
+      inspect =~ /#</ ? "#<#{self.class}:0x#{Kernel.format('%x', address)}>" : inspect
     end
   end
 
