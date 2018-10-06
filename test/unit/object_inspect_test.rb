@@ -45,4 +45,14 @@ class ObjectInspectTest < Mocha::TestCase
 
     assert_equal [:__id__], calls.uniq
   end
+
+  def test_should_not_call_object_instance_format_method
+    object = Object.new
+    class << object
+      def format(*)
+        'internal_format'
+      end
+    end
+    assert_no_match(/internal_format/, object.mocha_inspect)
+  end
 end
