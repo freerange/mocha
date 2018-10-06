@@ -49,7 +49,7 @@ class ObjectInspectTest < Mocha::TestCase
   def test_should_not_call_object_instance_methods
     object = Object.new
     class << object
-      def format(*args)
+      def format(*)
         'internal_format'
       end
     end
