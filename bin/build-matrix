@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'yaml'
+require 'English'
 
 def execute(*commands)
   commands.each do |command|
