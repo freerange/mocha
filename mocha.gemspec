@@ -19,7 +19,6 @@ Gem::Specification.new do |s|
   s.homepage = 'http://gofreerange.com/mocha/docs'
   s.require_paths = ['lib']
   s.summary = 'Mocking and stubbing library'
-  s.has_rdoc = 'yard'
 
   s.add_dependency('metaclass', '~> 0.0.1')
 
