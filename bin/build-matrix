@@ -60,7 +60,8 @@ build_configs.each do |config|
       original_environment_variables[k] = ENV[k]
       ENV[k] = v
     end
-    p [ruby_version, gemfile, environment_variables]
+    puts
+    puts "Ruby v#{ruby_version}; Gemfile path: #{gemfile}; Environment: #{environment_variables}"
     run(ruby_version, gemfile)
   ensure
     original_environment_variables.each do |k, v|
