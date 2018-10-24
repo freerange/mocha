@@ -293,10 +293,6 @@ See the [documentation](http://gofreerange.com/mocha/docs/Mocha/Configuration.ht
 
 See this [list of contributors](https://github.com/freerange/mocha/graphs/contributors).
 
-### Translations
-
-* [Serbo-Croatian](http://science.webhostinggeeks.com/mocha) by [WHG Team](http://webhostinggeeks.com/). (may be out-of-date)
-
 ### Releasing a new version
 
 * Update the RELEASE.md file with a summary of changes
