@@ -46,6 +46,30 @@ class MockTest < Mocha::TestCase
     assert_failed(test_result)
   end
 
+  def test_build_mock_with_method_name_symbol_which_is_satisfied
+    test_result = run_as_test do
+      foo = mock(:cat)
+      foo.cat
+    end
+    assert_passed(test_result)
+  end
+
+  def test_build_mock_with_method_name_symbol_which_is_not_satisfied
+    test_result = run_as_test do
+      mock(:cat)
+    end
+    assert_failed(test_result)
+  end
+
+  def test_build_mock_with_method_name_symbol_which_is_called_twice
+    test_result = run_as_test do
+      foo = mock(:cat)
+      foo.cat
+      foo.cat
+    end
+    assert_failed(test_result)
+  end
+
   def test_should_build_mock_incorporating_two_expectations_which_are_satisifed
     test_result = run_as_test do
       foo = mock(:bar => 'bar', :baz => 'baz')

@@ -23,6 +23,7 @@ module Mocha
     #
     # @param [String] name identifies mock object in error messages.
     # @param [Hash] expected_methods_vs_return_values expected method name symbols as keys and corresponding return values as values - these expectations are setup as if {Mock#expects} were called multiple times.
+    # @param [Symbol] expected_method_name name of a method expected to be called once.
     # @yield optional block to be evaluated in the context of the mock object instance, giving an alternative way to setup stubbed methods.
     # @yield note that the block is evaulated by calling Mock#instance_eval and so things like instance variables declared in the test will not be available within the block.
     # @yield deprecated: use Object#tap or define stubs/expectations with an explicit receiver instead.
@@ -30,6 +31,7 @@ module Mocha
     #
     # @overload def mock(name, &block)
     # @overload def mock(expected_methods_vs_return_values = {}, &block)
+    # @overload def mock(expected_method_name, &block)
     # @overload def mock(name, expected_methods_vs_return_values = {}, &block)
     #
     # @example Using expected_methods_vs_return_values Hash to setup expectations.
@@ -38,6 +40,12 @@ module Mocha
     #     assert motor.start
     #     assert motor.stop
     #     # an error will be raised unless both Motor#start and Motor#stop have been called
+    #   end
+    # @example Using expected_method_name to get a mock that expects a single call to a single method
+    #   def test_motor_starts
+    #     motor = mock(:start)
+    #     motor.start
+    #     # an error will be raised if any other methods are called, or if Motor#start is called twice
     #   end
     # @example Using the optional block to setup expectations & stubbed methods [deprecated].
     #   def test_motor_starts_and_stops
