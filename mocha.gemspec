@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.files.delete('.travis.yml')
   s.files.delete('.gitignore')
 
-  s.homepage = 'http://gofreerange.com/mocha/docs'
+  s.homepage = 'https://mocha.jamesmead.org'
   s.require_paths = ['lib']
   s.summary = 'Mocking and stubbing library'
 

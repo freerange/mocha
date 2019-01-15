@@ -318,7 +318,7 @@
 
 <p>When a method is invoked on a mock object, the mock object searches through its expectations from newest to oldest to find one that matches the invocation. After the invocation, the matching expectation might stop matching further invocations.</p>
 
-<p>See the <a href="http://gofreerange.com/mocha/docs/Mocha/Mock.html">documentation</a> for <code>Mocha::Mock</code> for further details.</p>
+<p>See the <a href="https://mocha.jamesmead.org/Mocha/Mock.html">documentation</a> for <code>Mocha::Mock</code> for further details.</p>
 
 <h3>Configuration</h3>
 
@@ -331,12 +331,12 @@
 <li>stubbing a non-public method</li>
 </ul>
 
-<p>See the <a href="http://gofreerange.com/mocha/docs/Mocha/Configuration.html">documentation</a> for <code>Mocha::Configuration</code> for further details.</p>
+<p>See the <a href="https://mocha.jamesmead.org/mocha/docs/Mocha/Configuration.html">documentation</a> for <code>Mocha::Configuration</code> for further details.</p>
 
 <h3>Useful Links</h3>
 
 <ul>
-<li><a href="http://gofreerange.com/mocha/docs/">Official Documentation</a></li>
+<li><a href="https://mocha.jamesmead.org">Official Documentation</a></li>
 <li><a href="http://github.com/freerange/mocha">Source Code</a></li>
 <li><a href="http://groups.google.com/group/mocha-developer">Mailing List</a></li>
 <li><a href="http://jamesmead.org/blog/">James Mead&#39;s Blog</a></li>
@@ -356,29 +356,36 @@
 <ul>
 <li>Update the RELEASE.md file with a summary of changes</li>
 <li>Bump the version in <code>lib/mocha/version.rb</code></li>
-<li>Commit &amp; push to Github</li>
+<li>Commit &amp; push to GitHub</li>
 <li><p>Check Travis CI build is passing - <a href="https://travis-ci.org/freerange/mocha">https://travis-ci.org/freerange/mocha</a></p></li>
-<li><p>Sign in to rubygems.org and find API key - <a href="https://rubygems.org/profile/edit">https://rubygems.org/profile/edit</a></p></li>
+<li><p>Sign in to Google Analytics - <a href="https://analytics.google.com/analytics/web/">https://analytics.google.com/analytics/web/</a></p></li>
+<li><p>Find the web property ID for Go Free Range Ltd &gt; Mocha Documentation (UA-45002715-2)</p></li>
+<li><p>Generate documentation:</p></li>
+</ul>
+
+<pre class="code bash"><code class="bash">$ MOCHA_GENERATE_DOCS=true bundle install
+
+$ MOCHA_GENERATE_DOCS=true GOOGLE_ANALYTICS_WEB_PROPERTY_ID=UA-45002715-2 rake generate_docs
+</code></pre>
+
+<ul>
+<li>Commit documentation &amp; push to GitHub</li>
+<li>Sign in to rubygems.org and find API key - <a href="https://rubygems.org/profile/edit">https://rubygems.org/profile/edit</a></li>
 </ul>
 
 <pre class="code bash"><code class="bash">$ curl -u james@floehopper.org https://rubygems.org/api/v1/api_key.yaml &gt; ~/.gem/credentials; chmod 0600 ~/.gem/credentials`
 </code></pre>
 
 <ul>
-<li>Sign in to Google Analytics - <a href="https://analytics.google.com/analytics/web/">https://analytics.google.com/analytics/web/</a></li>
-<li>Find the web property ID for Go Free Range Ltd &gt; Mocha Documentation (UA-45002715-2)</li>
+<li>Release gem to Rubygems:</li>
 </ul>
 
-<pre class="code bash"><code class="bash">$ MOCHA_GENERATE_DOCS=true bundle install
-
-$ MOCHA_GENERATE_DOCS=true GOOGLE_ANALYTICS_WEB_PROPERTY_ID=UA-45002715-2 rake release
+<pre class="code bash"><code class="bash">$ MOCHA_GENERATE_DOCS=true GOOGLE_ANALYTICS_WEB_PROPERTY_ID=UA-45002715-2 rake release
+[runs tests]
 mocha 1.2.0 built to pkg/mocha-1.2.0.gem.
 Tagged v1.2.0.
 Pushed git commits and tags.
 Pushed mocha 1.2.0 to rubygems.org.
-[runs tests]
-[generates docs]
-[deploys docs]
 </code></pre>
 
 <h3>History</h3>
@@ -403,7 +410,7 @@ Pushed mocha 1.2.0 to rubygems.org.
 </script></div>
 
       <div id="footer">
-  Generated on Tue Jan 15 14:59:48 2019 by
+  Generated on Tue Jan 15 15:36:34 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.16 (ruby-2.5.3).
 </div>

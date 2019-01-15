@@ -264,7 +264,7 @@ Stubs and expectations are basically the same thing. A stub is just an expectati
 
 When a method is invoked on a mock object, the mock object searches through its expectations from newest to oldest to find one that matches the invocation. After the invocation, the matching expectation might stop matching further invocations.
 
-See the [documentation](http://gofreerange.com/mocha/docs/Mocha/Mock.html) for `Mocha::Mock` for further details.
+See the [documentation](https://mocha.jamesmead.org/Mocha/Mock.html) for `Mocha::Mock` for further details.
 
 ### Configuration
 
@@ -275,11 +275,11 @@ If you want, Mocha can generate a warning or raise an exception when:
 * stubbing a non-existent method
 * stubbing a non-public method
 
-See the [documentation](http://gofreerange.com/mocha/docs/Mocha/Configuration.html) for `Mocha::Configuration` for further details.
+See the [documentation](https://mocha.jamesmead.org/mocha/docs/Mocha/Configuration.html) for `Mocha::Configuration` for further details.
 
 ### Useful Links
 
-* [Official Documentation](http://gofreerange.com/mocha/docs/)
+* [Official Documentation](https://mocha.jamesmead.org)
 * [Source Code](http://github.com/freerange/mocha)
 * [Mailing List](http://groups.google.com/group/mocha-developer)
 * [James Mead's Blog](http://jamesmead.org/blog/)
