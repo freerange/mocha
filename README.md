@@ -319,7 +319,7 @@ $ curl -u james@floehopper.org https://rubygems.org/api/v1/api_key.yaml > ~/.gem
 * Release gem to Rubygems:
 
 ```bash
-$ MOCHA_GENERATE_DOCS=true GOOGLE_ANALYTICS_WEB_PROPERTY_ID=UA-625523-7 rake release
+$ rake release
 [runs tests]
 mocha 1.2.0 built to pkg/mocha-1.2.0.gem.
 Tagged v1.2.0.
