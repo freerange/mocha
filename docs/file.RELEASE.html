@@ -6,7 +6,7 @@
 <title>
   File: RELEASE
   
-    &mdash; Mocha 1.7.0
+    &mdash; Mocha 1.8.0
   
 </title>
 
@@ -58,6 +58,18 @@
       </div>
 
       <div id="content"><div id='filecontents'><h1>Release Notes</h1>
+
+<h2>1.8.0</h2>
+
+<ul>
+<li>Constrain rubocop version to avoid breaking Travis CI builds (05e507f5)</li>
+<li>Avoid calling Kernel#format from ObjectMethods#mocha_inspect - thanks to @hoffmanilya (#345)</li>
+<li>Fix build matrix script (#346)</li>
+<li>Avoid deprecation warning in gemspec (4976e0bc)</li>
+<li>Removed link to documentation translation (ef428ea2)</li>
+<li>Don&#39;t use the new bundler v2 in builds (683ded9b)</li>
+<li>Moved documentation from <a href="https://gofreerange.com/mocha/docs">https://gofreerange.com/mocha/docs</a> to <a href="https://mocha.jamesmead.org/">https://mocha.jamesmead.org/</a> <a href="https://github.com/freerange/mocha/compare/683ded...a17fde">683ded...a17fde</a></li>
+</ul>
 
 <h2>1.7.0</h2>
 
@@ -853,7 +865,7 @@ Hash with wrong number of entries.</li>
 </div>
 
       <div id="footer">
-  Generated on Tue Jan 15 16:19:10 2019 by
+  Generated on Tue Jan 15 17:13:05 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.16 (ruby-2.5.3).
 </div>
