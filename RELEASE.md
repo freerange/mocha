@@ -1,5 +1,15 @@
 # Release Notes
 
+## 1.8.0
+
+* Constrain rubocop version to avoid breaking Travis CI builds (05e507f5)
+* Avoid calling Kernel#format from ObjectMethods#mocha_inspect - thanks to @hoffmanilya (#345)
+* Fix build matrix script (#346)
+* Avoid deprecation warning in gemspec (4976e0bc)
+* Removed link to documentation translation (ef428ea2)
+* Don't use the new bundler v2 in builds (683ded9b)
+* Moved documentation from https://gofreerange.com/mocha/docs to https://mocha.jamesmead.org/ [683ded...a17fde](https://github.com/freerange/mocha/compare/683ded...a17fde)
+
 ## 1.7.0
 
 * Update Ruby & JRuby versions in Travis CI config (9bf55631 & 3883af7e)
