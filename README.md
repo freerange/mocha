@@ -297,29 +297,34 @@ See this [list of contributors](https://github.com/freerange/mocha/graphs/contri
 
 * Update the RELEASE.md file with a summary of changes
 * Bump the version in `lib/mocha/version.rb`
-* Commit & push to Github
+* Commit & push to GitHub
 * Check Travis CI build is passing - https://travis-ci.org/freerange/mocha
 
+* Sign in to Google Analytics - https://analytics.google.com/analytics/web/
+* Find the web property ID for Go Free Range Ltd > Mocha Documentation (UA-45002715-2)
+* Generate documentation:
+
+```bash
+$ MOCHA_GENERATE_DOCS=true bundle install
+
+$ MOCHA_GENERATE_DOCS=true GOOGLE_ANALYTICS_WEB_PROPERTY_ID=UA-45002715-2 rake generate_docs
+```
+* Commit documentation & push to GitHub
 * Sign in to rubygems.org and find API key - https://rubygems.org/profile/edit
 
 ```bash
 $ curl -u james@floehopper.org https://rubygems.org/api/v1/api_key.yaml > ~/.gem/credentials; chmod 0600 ~/.gem/credentials`
 ```
 
-* Sign in to Google Analytics - https://analytics.google.com/analytics/web/
-* Find the web property ID for Go Free Range Ltd > Mocha Documentation (UA-45002715-2)
+* Release gem to Rubygems:
 
 ```bash
-$ MOCHA_GENERATE_DOCS=true bundle install
-
 $ MOCHA_GENERATE_DOCS=true GOOGLE_ANALYTICS_WEB_PROPERTY_ID=UA-45002715-2 rake release
+[runs tests]
 mocha 1.2.0 built to pkg/mocha-1.2.0.gem.
 Tagged v1.2.0.
 Pushed git commits and tags.
 Pushed mocha 1.2.0 to rubygems.org.
-[runs tests]
-[generates docs]
-[deploys docs]
 ```
 
 ### History

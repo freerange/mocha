@@ -146,6 +146,4 @@ if ENV['MOCHA_GENERATE_DOCS']
   task 'generate_docs' => %w[clobber_yardoc yardoc]
 end
 
-task 'release' => 'default' do
-  Rake::Task['generate_docs'].invoke
-end
+task 'release' => 'default'
