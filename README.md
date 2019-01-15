@@ -275,7 +275,7 @@ If you want, Mocha can generate a warning or raise an exception when:
 * stubbing a non-existent method
 * stubbing a non-public method
 
-See the [documentation](https://mocha.jamesmead.org/mocha/docs/Mocha/Configuration.html) for `Mocha::Configuration` for further details.
+See the [documentation](https://mocha.jamesmead.org/Mocha/Configuration.html) for `Mocha::Configuration` for further details.
 
 ### Useful Links
 
