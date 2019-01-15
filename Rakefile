@@ -2,8 +2,6 @@ require 'bundler'
 Bundler::GemHelper.install_tasks
 require 'bundler/setup'
 
-MOCHA_DOCS_HOST = ENV['MOCHA_DOCS_HOST'] || 'gofreerange.com'
-
 require 'rake/testtask'
 
 desc 'Run all tests'
@@ -143,14 +141,8 @@ if ENV['MOCHA_GENERATE_DOCS']
 
   desc 'Generate documentation'
   task 'generate_docs' => %w[clobber_yardoc yardoc]
-
-  desc "Publish docs to #{MOCHA_DOCS_HOST}/docs/mocha"
-  task 'publish_docs' => 'generate_docs' do
-    path = '/home/freerange/docs/mocha'
-    system %(ssh #{MOCHA_DOCS_HOST} "sudo rm -fr #{path} && mkdir -p #{path}" && scp -r doc/* #{MOCHA_DOCS_HOST}:#{path})
-  end
 end
 
 task 'release' => 'default' do
-  Rake::Task['publish_docs'].invoke
+  Rake::Task['generate_docs'].invoke
 end
