@@ -125,7 +125,7 @@ if ENV['MOCHA_GENERATE_DOCS']
 
   desc 'Remove generated documentation'
   task 'clobber_yardoc' do
-    `rm -rf ./doc`
+    `rm -rf ./docs`
   end
 
   task 'docs_environment' do
@@ -136,7 +136,10 @@ if ENV['MOCHA_GENERATE_DOCS']
 
   desc 'Generate documentation'
   YARD::Rake::YardocTask.new('yardoc' => 'docs_environment') do |task|
-    task.options = ['--title', "Mocha #{Mocha::VERSION}"]
+    task.options = [
+      '--title', "Mocha #{Mocha::VERSION}",
+      '--output-dir', 'docs'
+    ]
   end
 
   desc 'Generate documentation'
