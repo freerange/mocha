@@ -1,4 +1,5 @@
 sudo: false
+dist: trusty
 before_install:
   - gem install bundler -v '< 2'
 bundler_args: "--verbose"
