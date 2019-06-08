@@ -256,7 +256,15 @@ end
 
 ### Thread safety
 
-Mocha is currently *not* thread-safe. There are two main reasons for this: (a) in multi-threaded code Mocha exceptions may be raised in a thread other than the one which is running the test and thus a Mocha exception may not be correctly intercepted by Mocha exception handling code; and (b) partial mocking changes the state of objects in the `ObjectSpace` which is shared across all threads in the Ruby process and this access to what is effectively global state is not synchronized.
+Mocha currently *does not* attempt to be thread-safe. 
+
+#### Can I test multi-threaded code with Mocha?
+
+The short answer is no. In multi-threaded code Mocha exceptions may be raised in a thread other than the one which is running the test and thus a Mocha exception may not be correctly intercepted by Mocha exception handling code.
+
+#### Can I run my tests across multiple threads?
+
+Maybe, but probably not. Partial mocking changes the state of objects in the `ObjectSpace` which is shared across all threads in the Ruby process and this access to what is effectively global state is not synchronized. So, for example, if two tests are running concurrently and one uses `#any_instance` to modify a class, both tests will see those changes immediately.
 
 ### Expectation matching / invocation order
 
