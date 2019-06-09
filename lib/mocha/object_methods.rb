@@ -13,16 +13,19 @@ module Mocha
 
     # @private
     def mocha(instantiate = true)
+      @mochas ||= {}
       if instantiate
-        @mocha ||= Mocha::Mockery.instance.mock_impersonating(self)
+        @mochas[Thread.current] ||= Mocha::Mockery.instance.mock_impersonating(self)
       else
-        defined?(@mocha) ? @mocha : nil
+        defined?(@mochas) ? @mochas[Thread.current] : nil
       end
     end
 
     # @private
     def reset_mocha
-      @mocha = nil
+      return unless @mochas
+      @mochas[Thread.current] = nil
+      @mochas = nil if @mochas.empty?
     end
 
     # @private

@@ -41,7 +41,7 @@ module Mocha
       def setup
         mockery = new
         mockery.logger = instance.logger unless instances.empty?
-        @instances.push(mockery)
+        Thread.current[:instances].push(mockery)
       end
 
       def verify(*args)
@@ -51,14 +51,14 @@ module Mocha
       def teardown
         instance.teardown
       ensure
-        @instances.pop
-        @instances = nil if instances.empty?
+        Thread.current[:instances].pop
+        Thread.current[:instances] = nil if instances.empty?
       end
 
       private
 
       def instances
-        @instances ||= []
+        Thread.current[:instances] ||= []
       end
     end
 
