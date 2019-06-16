@@ -36,7 +36,6 @@ def run(ruby_version, gemfile, task = 'test')
   ENV['MOCHA_OPTIONS'] = 'debug'
   reset_bundle
   execute(
-    with_rbenv('gem update bundler --force --no-post-install-message'),
     with_rbenv("bundle install --gemfile=#{gemfile}"),
     with_rbenv("bundle exec rake #{task}")
   )
