@@ -80,4 +80,4 @@ build_configs.each do |config|
   end
 end
 
-puts "Missing Ruby versions: #{missing_ruby_versions.join(', ')}"
+puts "Missing Ruby versions: #{missing_ruby_versions.to_a.join(', ')}"
