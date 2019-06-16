@@ -11,56 +11,30 @@ module Mocha
       stubbee.any_instance.reset_mocha
     end
 
-    def hide_original_method
-      return unless (@original_visibility = method_visibility(method))
-      begin
-        if RUBY_V2_PLUS
-          @definition_target = PrependedModule.new
-          stubbee.__send__ :prepend, @definition_target
-        else
-          @original_method = stubbee.instance_method(method)
-          if @original_method && @original_method.owner == stubbee
-            stubbee.send(:remove_method, method)
-          end
-        end
-      # rubocop:disable Lint/HandleExceptions
-      rescue NameError
-        # deal with nasties like ActiveRecord::Associations::AssociationProxy
-      end
-      # rubocop:enable Lint/HandleExceptions
-    end
-
-    def define_new_method
-      definition_target.class_eval(<<-CODE, __FILE__, __LINE__ + 1)
-        def #{method}(*args, &block)
-          self.class.any_instance.mocha.method_missing(:#{method}, *args, &block)
-        end
-      CODE
-      return unless @original_visibility
-      Module.instance_method(@original_visibility).bind(definition_target).call(method)
-    end
-
-    def remove_new_method
-      definition_target.send(:remove_method, method)
-    end
-
     def restore_original_method
-      return if RUBY_V2_PLUS
-      return unless @original_method && @original_method.owner == stubbee
-      stubbee.send(:define_method, method, @original_method)
-      Module.instance_method(@original_visibility).bind(stubbee).call(method)
-    end
-
-    def method_visibility(method)
-      (stubbee.public_instance_methods(true).include?(method) && :public) ||
-        (stubbee.protected_instance_methods(true).include?(method) && :protected) ||
-        (stubbee.private_instance_methods(true).include?(method) && :private)
+      return if use_prepended_module_for_stub_method?
+      return unless stub_method_overwrites_original_method?
+      original_method_owner.send(:define_method, method_name, original_method)
+      Module.instance_method(original_visibility).bind(original_method_owner).call(method_name)
     end
 
     private
 
-    def definition_target
-      @definition_target ||= stubbee
+    def store_original_method
+      @original_method = original_method_owner.instance_method(method_name)
+    end
+
+    def stub_method_definition
+      method_implementation = <<-CODE
+      def #{method_name}(*args, &block)
+        self.class.any_instance.mocha.method_missing(:#{method_name}, *args, &block)
+      end
+      CODE
+      [method_implementation, __FILE__, __LINE__ - 4]
+    end
+
+    def original_method_owner
+      stubbee
     end
   end
 end
