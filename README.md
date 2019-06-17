@@ -256,7 +256,7 @@ end
 
 ### Thread safety
 
-Mocha currently *does not* attempt to be thread-safe. 
+Mocha currently *does not* attempt to be thread-safe.
 
 #### Can I test multi-threaded code with Mocha?
 
