@@ -309,13 +309,13 @@ See this [list of contributors](https://github.com/freerange/mocha/graphs/contri
 * Check Travis CI build is passing - https://travis-ci.org/freerange/mocha
 
 * Sign in to Google Analytics - https://analytics.google.com/analytics/web/
-* Find the web property ID for Go Free Range Ltd > Mocha Documentation (UA-45002715-2)
+* Find the web property ID for Go Free Range Ltd > Mocha Documentation (UA-625523-7)
 * Generate documentation:
 
 ```bash
 $ MOCHA_GENERATE_DOCS=true bundle install
 
-$ MOCHA_GENERATE_DOCS=true GOOGLE_ANALYTICS_WEB_PROPERTY_ID=UA-45002715-2 rake generate_docs
+$ MOCHA_GENERATE_DOCS=true GOOGLE_ANALYTICS_WEB_PROPERTY_ID=UA-625523-7 rake generate_docs
 ```
 * Commit documentation & push to GitHub
 * Sign in to rubygems.org and find API key - https://rubygems.org/profile/edit
