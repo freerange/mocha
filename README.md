@@ -309,7 +309,7 @@ See this [list of contributors](https://github.com/freerange/mocha/graphs/contri
 * Check Travis CI build is passing - https://travis-ci.org/freerange/mocha
 
 * Sign in to Google Analytics - https://analytics.google.com/analytics/web/
-* Find the web property ID for Go Free Range Ltd > Mocha Documentation (UA-625523-7)
+* Find the web property ID for floehopper (625523) > Mocha Documentation (UA-625523-7)
 * Generate documentation:
 
 ```bash
