@@ -1,6 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'method_definer'
 require 'mocha/mock'
+require 'mocha/singleton_class'
 
 require 'mocha/class_method'
 
@@ -10,7 +11,7 @@ class ClassMethodTest < Mocha::TestCase
   unless RUBY_V2_PLUS
     def test_should_hide_original_method
       klass = Class.new { def self.method_x; end }
-      klass.__metaclass__.send(:alias_method, :_method, :method)
+      klass.singleton_class.send(:alias_method, :_method, :method)
       method = ClassMethod.new(klass, :method_x)
 
       method.hide_original_method
@@ -85,7 +86,7 @@ class ClassMethodTest < Mocha::TestCase
         :original_result
       end
     end
-    klass.__metaclass__.send(:alias_method, :_method, :method)
+    klass.singleton_class.send(:alias_method, :_method, :method)
     method = ClassMethod.new(klass, :method_x)
 
     method.hide_original_method
@@ -103,7 +104,7 @@ class ClassMethodTest < Mocha::TestCase
         block.call if block_given?
       end
     end
-    klass.__metaclass__.send(:alias_method, :_method, :method)
+    klass.singleton_class.send(:alias_method, :_method, :method)
     method = ClassMethod.new(klass, :method_x)
 
     method.hide_original_method

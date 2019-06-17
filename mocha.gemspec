@@ -20,8 +20,6 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
   s.summary = 'Mocking and stubbing library'
 
-  s.add_dependency('metaclass', '~> 0.0.1')
-
   unless s.respond_to?(:add_development_dependency)
     class << s
       def add_development_dependency(*args)

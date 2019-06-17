@@ -1,5 +1,5 @@
 require 'mocha/ruby_version'
-require 'metaclass'
+require 'mocha/singleton_class'
 
 module Mocha
   class ClassMethod
@@ -77,7 +77,7 @@ module Mocha
         end
       end
       return unless original_visibility
-      Module.instance_method(original_visibility).bind(stubbee.__metaclass__).call(method_name)
+      Module.instance_method(original_visibility).bind(stubbee.singleton_class).call(method_name)
     end
 
     def matches?(other)
@@ -141,7 +141,7 @@ module Mocha
     end
 
     def original_method_owner
-      stubbee.__metaclass__
+      stubbee.singleton_class
     end
   end
 end

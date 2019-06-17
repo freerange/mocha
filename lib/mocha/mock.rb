@@ -1,4 +1,4 @@
-require 'metaclass'
+require 'mocha/singleton_class'
 require 'mocha/expectation'
 require 'mocha/expectation_list'
 require 'mocha/names'
@@ -271,6 +271,8 @@ module Mocha
 
     alias_method :__stubs__, :stubs
 
+    alias_method :__singleton_class__, :singleton_class
+
     alias_method :quacks_like, :responds_like
     alias_method :quacks_like_instance_of, :responds_like_instance_of
 
@@ -348,7 +350,7 @@ module Mocha
 
     # @private
     def ensure_method_not_already_defined(method_name)
-      __metaclass__.send(:undef_method, method_name) if __metaclass__.method_defined?(method_name) || __metaclass__.private_method_defined?(method_name)
+      __singleton_class__.send(:undef_method, method_name) if __singleton_class__.method_defined?(method_name) || __singleton_class__.private_method_defined?(method_name)
     end
 
     # @private
