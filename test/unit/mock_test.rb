@@ -56,8 +56,7 @@ class MockTest < Mocha::TestCase
       :singleton_method_undefined,
       :initialize,
       :String,
-      :singleton_method_added,
-      :singleton_class
+      :singleton_method_added
     ]
   }.freeze
 
