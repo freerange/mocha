@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Mocha 1.8.0
+    &mdash; Mocha 1.9.0
   
 </title>
 
@@ -310,7 +310,15 @@
 
 <h3>Thread safety</h3>
 
-<p>Mocha is currently <em>not</em> thread-safe. There are two main reasons for this: (a) in multi-threaded code Mocha exceptions may be raised in a thread other than the one which is running the test and thus a Mocha exception may not be correctly intercepted by Mocha exception handling code; and (b) partial mocking changes the state of objects in the <code>ObjectSpace</code> which is shared across all threads in the Ruby process and this access to what is effectively global state is not synchronized.</p>
+<p>Mocha currently <em>does not</em> attempt to be thread-safe.</p>
+
+<h4>Can I test multi-threaded code with Mocha?</h4>
+
+<p>The short answer is no. In multi-threaded code Mocha exceptions may be raised in a thread other than the one which is running the test and thus a Mocha exception may not be correctly intercepted by Mocha exception handling code.</p>
+
+<h4>Can I run my tests across multiple threads?</h4>
+
+<p>Maybe, but probably not. Partial mocking changes the state of objects in the <code>ObjectSpace</code> which is shared across all threads in the Ruby process and this access to what is effectively global state is not synchronized. So, for example, if two tests are running concurrently and one uses <code>#any_instance</code> to modify a class, both tests will see those changes immediately.</p>
 
 <h3>Expectation matching / invocation order</h3>
 
@@ -359,13 +367,13 @@
 <li>Commit &amp; push to GitHub</li>
 <li><p>Check Travis CI build is passing - <a href="https://travis-ci.org/freerange/mocha">https://travis-ci.org/freerange/mocha</a></p></li>
 <li><p>Sign in to Google Analytics - <a href="https://analytics.google.com/analytics/web/">https://analytics.google.com/analytics/web/</a></p></li>
-<li><p>Find the web property ID for Go Free Range Ltd &gt; Mocha Documentation (UA-45002715-2)</p></li>
+<li><p>Find the web property ID for Go Free Range Ltd &gt; Mocha Documentation (UA-625523-7)</p></li>
 <li><p>Generate documentation:</p></li>
 </ul>
 
 <pre class="code bash"><code class="bash">$ MOCHA_GENERATE_DOCS=true bundle install
 
-$ MOCHA_GENERATE_DOCS=true GOOGLE_ANALYTICS_WEB_PROPERTY_ID=UA-45002715-2 rake generate_docs
+$ MOCHA_GENERATE_DOCS=true GOOGLE_ANALYTICS_WEB_PROPERTY_ID=UA-625523-7 rake generate_docs
 </code></pre>
 
 <ul>
@@ -408,9 +416,9 @@ Pushed mocha 1.2.0 to rubygems.org.
 </div>
 
       <div id="footer">
-  Generated on Tue Jan 15 17:13:05 2019 by
+  Generated on Mon Jun 17 18:38:43 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.16 (ruby-2.5.3).
+  0.9.19 (ruby-2.5.3).
 </div>
 
     </div>

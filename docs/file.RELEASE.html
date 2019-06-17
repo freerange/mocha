@@ -6,7 +6,7 @@
 <title>
   File: RELEASE
   
-    &mdash; Mocha 1.8.0
+    &mdash; Mocha 1.9.0
   
 </title>
 
@@ -58,6 +58,18 @@
       </div>
 
       <div id="content"><div id='filecontents'><h1>Release Notes</h1>
+
+<h2>1.9.0</h2>
+
+<ul>
+<li>Add TruffleRuby to Travis CI build matrix - thanks to @deepj (#354)</li>
+<li>Explicitly set Travis CI OS to Ubuntu Trusty 14.04 (ded1fa45)</li>
+<li>Expand explanation of thread-safety concerns - thanks to @techbelly (#357)</li>
+<li>Refactor class method and any instance method - thanks to @chrisroos (#358)</li>
+<li>Rely on default bundler version in Travis CI builds (3352e9c5)</li>
+<li>Fix local build-matrix script (11abe231)</li>
+<li>No need to install latest bundler in build-matrix script (8247a894)</li>
+</ul>
 
 <h2>1.8.0</h2>
 
@@ -865,9 +877,9 @@ Hash with wrong number of entries.</li>
 </div>
 
       <div id="footer">
-  Generated on Tue Jan 15 17:13:05 2019 by
+  Generated on Mon Jun 17 18:38:43 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.16 (ruby-2.5.3).
+  0.9.19 (ruby-2.5.3).
 </div>
 
     </div>
