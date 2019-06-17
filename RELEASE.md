@@ -1,5 +1,15 @@
 # Release Notes
 
+## 1.9.0
+
+* Add TruffleRuby to Travis CI build matrix - thanks to @deepj (#354)
+* Explicitly set Travis CI OS to Ubuntu Trusty 14.04 (ded1fa45)
+* Expand explanation of thread-safety concerns - thanks to @techbelly (#357)
+* Refactor class method and any instance method - thanks to @chrisroos (#358)
+* Rely on default bundler version in Travis CI builds (3352e9c5)
+* Fix local build-matrix script (11abe231)
+* No need to install latest bundler in build-matrix script (8247a894)
+
 ## 1.8.0
 
 * Constrain rubocop version to avoid breaking Travis CI builds (05e507f5)
