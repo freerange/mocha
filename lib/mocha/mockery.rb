@@ -127,22 +127,19 @@ module Mocha
 
     def on_stubbing(object, method)
       method = PRE_RUBY_V19 ? method.to_s : method.to_sym
-      check(:stubbing_non_existent_method, 'non-existent method', object, method) do
+      method_signature = "#{object.mocha_inspect}.#{method}"
+      check(:stubbing_non_existent_method, 'non-existent method', method_signature) do
         !(object.singleton_class.method_exists?(method, true) || object.respond_to?(method.to_sym))
       end
-      check(:stubbing_non_public_method, 'non-public method', object, method) do
+      check(:stubbing_non_public_method, 'non-public method', method_signature) do
         object.singleton_class.method_exists?(method, false)
       end
-      check(:stubbing_method_on_nil, 'method on nil', object, method) { object.nil? }
-      check(:stubbing_method_on_non_mock_object, 'method on non-mock object', object, method)
+      check(:stubbing_method_on_nil, 'method on nil', method_signature) { object.nil? }
+      check(:stubbing_method_on_non_mock_object, 'method on non-mock object', method_signature)
     end
 
     def on_stubbing_method_unnecessarily(expectation)
-      if Mocha::Configuration.prevent?(:stubbing_method_unnecessarily)
-        raise StubbingError.new("stubbing method unnecessarily: #{expectation.method_signature}", expectation.backtrace)
-      end
-      return unless Mocha::Configuration.warn_when?(:stubbing_method_unnecessarily)
-      logger.warn "stubbing method unnecessarily: #{expectation.method_signature}"
+      check(:stubbing_method_unnecessarily, 'method unnecessarily', expectation.method_signature, expectation.backtrace)
     end
 
     attr_writer :logger
@@ -153,10 +150,10 @@ module Mocha
 
     private
 
-    def check(action, description, object, method)
+    def check(action, description, method_signature, backtrace = caller)
       return if Mocha::Configuration.allow?(action) || (block_given? && !yield)
-      stubbing_error = "stubbing #{description}: #{object.mocha_inspect}.#{method}"
-      raise StubbingError.new(stubbing_error, caller) if Mocha::Configuration.prevent?(action)
+      stubbing_error = "stubbing #{description}: #{method_signature}"
+      raise StubbingError.new(stubbing_error, backtrace) if Mocha::Configuration.prevent?(action)
       logger.warn(stubbing_error) if Mocha::Configuration.warn_when?(action)
     end
 
