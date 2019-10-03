@@ -13,10 +13,6 @@ module Mocha
 
     private
 
-    def store_original_method
-      @original_method = original_method_owner.instance_method(method_name)
-    end
-
     def stub_method_definition(method_name)
       proc do |*args, &block|
         self.class.any_instance.mocha.method_missing(method_name, *args, &block)

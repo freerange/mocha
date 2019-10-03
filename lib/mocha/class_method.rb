@@ -95,7 +95,7 @@ module Mocha
     attr_reader :original_method, :original_visibility
 
     def store_original_method
-      @original_method = stubbee._method(method_name)
+      @original_method = original_method_owner.instance_method(method_name)
     end
 
     def store_original_method_visibility
