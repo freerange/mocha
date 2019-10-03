@@ -43,6 +43,28 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     assert_equal :original_return_value, instance.my_instance_method
   end
 
+  def test_should_leave_stubbed_public_method_unchanged_after_test_when_it_was_originally_private_in_owning_module
+    module_with_private_method = Module.new do
+      def my_included_method
+        :original_return_value
+      end
+      private :my_included_method
+    end
+    klass = Class.new do
+      include module_with_private_method
+      public :my_included_method
+    end
+    instance = klass.new
+    assert_snapshot_unchanged(instance) do
+      test_result = run_as_test do
+        klass.any_instance.stubs(:my_included_method).returns(:new_return_value)
+        assert_equal :new_return_value, instance.my_included_method
+      end
+      assert_passed(test_result)
+    end
+    assert_equal :original_return_value, instance.my_included_method
+  end
+
   def test_should_leave_stubbed_protected_method_unchanged_after_test
     klass = Class.new do
       def my_instance_method

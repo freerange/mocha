@@ -77,7 +77,7 @@ module Mocha
         end
       end
       return unless original_visibility
-      Module.instance_method(original_visibility).bind(stubbee.singleton_class).call(method_name)
+      Module.instance_method(original_visibility).bind(original_method_owner).call(method_name)
     end
 
     def matches?(other)
