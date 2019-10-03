@@ -55,7 +55,7 @@ module Mocha
     end
 
     def define_new_method
-      stub_method_owner.class_eval(*stub_method_definition)
+      stub_method_owner.send(:define_method, method_name, stub_method_definition(method_name))
       return unless original_visibility
       Module.instance_method(original_visibility).bind(stub_method_owner).call(method_name)
     end
@@ -66,18 +66,10 @@ module Mocha
 
     def restore_original_method
       return if use_prepended_module_for_stub_method?
-      if stub_method_overwrites_original_method?
-        if PRE_RUBY_V19
-          original_method_in_scope = original_method
-          original_method_owner.send(:define_method, method_name) do |*args, &block|
-            original_method_in_scope.call(*args, &block)
-          end
-        else
-          original_method_owner.send(:define_method, method_name, original_method)
-        end
-      end
+      return unless stub_method_overwrites_original_method?
+      original_method_owner.send(:define_method, method_name, original_method)
       return unless original_visibility
-      Module.instance_method(original_visibility).bind(stubbee.singleton_class).call(method_name)
+      Module.instance_method(original_visibility).bind(original_method_owner).call(method_name)
     end
 
     def matches?(other)
@@ -127,13 +119,10 @@ module Mocha
       original_method_owner.__send__ :prepend, @stub_method_owner
     end
 
-    def stub_method_definition
-      method_implementation = <<-CODE
-      def #{method_name}(*args, &block)
-        mocha.method_missing(:#{method_name}, *args, &block)
+    def stub_method_definition(method_name)
+      proc do |*args, &block|
+        mocha.method_missing(method_name, *args, &block)
       end
-      CODE
-      [method_implementation, __FILE__, __LINE__ - 4]
     end
 
     def stub_method_owner
