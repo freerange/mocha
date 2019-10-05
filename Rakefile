@@ -85,7 +85,7 @@ end
 
 begin
   require 'rubocop/rake_task'
-  if RUBY_VERSION >= '2.2.0'
+  if RUBY_VERSION >= '2.2.0' && (defined?(RUBY_ENGINE) && RUBY_ENGINE == 'ruby') && ENV['MOCHA_RUN_INTEGRATION_TESTS'].nil?
     RuboCop::RakeTask.new
     task 'test' => 'rubocop'
   end
