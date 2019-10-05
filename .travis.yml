@@ -73,7 +73,7 @@ matrix:
       gemfile: Gemfile
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
     - rvm: 1.8.7-p371
-      gemfile: gemfiles/Gemfile.minitest.latest
+      gemfile: gemfiles/Gemfile.minitest.5.11.3
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
     - rvm: 1.8.7-p371
       gemfile: gemfiles/Gemfile.minitest.2.11.2
