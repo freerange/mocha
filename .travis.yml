@@ -12,7 +12,7 @@ rvm:
   - 2.4.4
   - 2.5.1
   - ruby-head
-  - jruby-9.1.17.0
+  - jruby-9.2.8.0
   - jruby-head
   - truffleruby
 gemfile:
@@ -27,7 +27,7 @@ matrix:
     - rvm: jruby-head
       gemfile: gemfiles/Gemfile.minitest.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
-    - rvm: jruby-9.1.17.0
+    - rvm: jruby-9.2.8.0
       gemfile: gemfiles/Gemfile.minitest.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
     - rvm: ruby-head
@@ -102,7 +102,7 @@ matrix:
     - rvm: truffleruby
       gemfile: gemfiles/Gemfile.test-unit.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
-    - rvm: jruby-9.1.17.0
+    - rvm: jruby-9.2.8.0
       gemfile: gemfiles/Gemfile.test-unit.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
     - rvm: jruby-head
