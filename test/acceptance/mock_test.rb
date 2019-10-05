@@ -29,7 +29,7 @@ class MockTest < Mocha::TestCase
     assert_failed(test_result)
   end
 
-  def test_should_build_named_mock_and_explicitly_add_an_expectation_which_is_satisfied
+  def test_should_build_string_named_mock_and_explicitly_add_an_expectation_which_is_satisfied
     test_result = run_as_test do
       foo = mock('foo')
       foo.expects(:bar)
@@ -38,9 +38,26 @@ class MockTest < Mocha::TestCase
     assert_passed(test_result)
   end
 
-  def test_should_build_named_mock_and_explicitly_add_an_expectation_which_is_not_satisfied
+  def test_should_build_symbol_named_mock_and_explicitly_add_an_expectation_which_is_satisfied
+    test_result = run_as_test do
+      foo = mock(:foo)
+      foo.expects(:bar)
+      foo.bar
+    end
+    assert_passed(test_result)
+  end
+
+  def test_should_build_string_named_mock_and_explicitly_add_an_expectation_which_is_not_satisfied
     test_result = run_as_test do
       foo = mock('foo')
+      foo.expects(:bar)
+    end
+    assert_failed(test_result)
+  end
+
+  def test_should_build_symbol_named_mock_and_explicitly_add_an_expectation_which_is_not_satisfied
+    test_result = run_as_test do
+      foo = mock(:foo)
       foo.expects(:bar)
     end
     assert_failed(test_result)
@@ -71,7 +88,7 @@ class MockTest < Mocha::TestCase
     assert_failed(test_result)
   end
 
-  def test_should_build_named_mock_incorporating_two_expectations_which_are_satisifed
+  def test_should_build_string_named_mock_incorporating_two_expectations_which_are_satisifed
     test_result = run_as_test do
       foo = mock('foo', :bar => 'bar', :baz => 'baz')
       foo.bar
@@ -80,7 +97,16 @@ class MockTest < Mocha::TestCase
     assert_passed(test_result)
   end
 
-  def test_should_build_named_mock_incorporating_two_expectations_the_first_of_which_is_not_satisifed
+  def test_should_build_symbol_named_mock_incorporating_two_expectations_which_are_satisifed
+    test_result = run_as_test do
+      foo = mock(:foo, :bar => 'bar', :baz => 'baz')
+      foo.bar
+      foo.baz
+    end
+    assert_passed(test_result)
+  end
+
+  def test_should_build_string_named_mock_incorporating_two_expectations_the_first_of_which_is_not_satisifed
     test_result = run_as_test do
       foo = mock('foo', :bar => 'bar', :baz => 'baz')
       foo.baz
@@ -88,9 +114,25 @@ class MockTest < Mocha::TestCase
     assert_failed(test_result)
   end
 
-  def test_should_build_named_mock_incorporating_two_expectations_the_second_of_which_is_not_satisifed
+  def test_should_build_symbol_named_mock_incorporating_two_expectations_the_first_of_which_is_not_satisifed
+    test_result = run_as_test do
+      foo = mock(:foo, :bar => 'bar', :baz => 'baz')
+      foo.baz
+    end
+    assert_failed(test_result)
+  end
+
+  def test_should_build_string_named_mock_incorporating_two_expectations_the_second_of_which_is_not_satisifed
     test_result = run_as_test do
       foo = mock('foo', :bar => 'bar', :baz => 'baz')
+      foo.bar
+    end
+    assert_failed(test_result)
+  end
+
+  def test_should_build_symbol_named_mock_incorporating_two_expectations_the_second_of_which_is_not_satisifed
+    test_result = run_as_test do
+      foo = mock(:foo, :bar => 'bar', :baz => 'baz')
       foo.bar
     end
     assert_failed(test_result)
