@@ -3,14 +3,6 @@ require 'mocha/class_method'
 
 module Mocha
   class AnyInstanceMethod < ClassMethod
-    def mock
-      mock_owner.mocha
-    end
-
-    def reset_mocha
-      mock_owner.reset_mocha
-    end
-
     private
 
     def mock_owner
