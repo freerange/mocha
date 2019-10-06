@@ -137,7 +137,8 @@ module Mocha
     end
 
     def stub_method_body(method_name)
-      proc { |*args, &block| mocha.method_missing(method_name, *args, &block) }
+      self_in_scope = self
+      proc { |*args, &block| self_in_scope.mock.method_missing(method_name, *args, &block) }
     end
 
     def stub_method_owner
