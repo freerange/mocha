@@ -55,7 +55,11 @@ module Mocha
     end
 
     def define_new_method
-      stub_method_owner.send(:define_method, method_name, stub_method_body(method_name))
+      self_in_scope = self
+      method_name_in_scope = method_name
+      stub_method_owner.send(:define_method, method_name) do |*args, &block|
+        self_in_scope.mock.method_missing(method_name_in_scope, *args, &block)
+      end
       retain_original_visibility(stub_method_owner)
     end
 
@@ -134,11 +138,6 @@ module Mocha
     def use_prepended_module_for_stub_method
       @stub_method_owner = PrependedModule.new
       original_method_owner.__send__ :prepend, @stub_method_owner
-    end
-
-    def stub_method_body(method_name)
-      self_in_scope = self
-      proc { |*args, &block| self_in_scope.mock.method_missing(method_name, *args, &block) }
     end
 
     def stub_method_owner
