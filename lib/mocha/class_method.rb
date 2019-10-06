@@ -28,11 +28,11 @@ module Mocha
     end
 
     def mock
-      stubbee.mocha
+      mock_owner.mocha
     end
 
     def reset_mocha
-      stubbee.reset_mocha
+      mock_owner.reset_mocha
     end
 
     def hide_original_method
@@ -55,9 +55,12 @@ module Mocha
     end
 
     def define_new_method
-      stub_method_owner.class_eval(*stub_method_definition)
-      return unless original_visibility
-      Module.instance_method(original_visibility).bind(stub_method_owner).call(method_name)
+      self_in_scope = self
+      method_name_in_scope = method_name
+      stub_method_owner.send(:define_method, method_name) do |*args, &block|
+        self_in_scope.mock.method_missing(method_name_in_scope, *args, &block)
+      end
+      retain_original_visibility(stub_method_owner)
     end
 
     def remove_new_method
@@ -67,17 +70,9 @@ module Mocha
     def restore_original_method
       return if use_prepended_module_for_stub_method?
       if stub_method_overwrites_original_method?
-        if PRE_RUBY_V19
-          original_method_in_scope = original_method
-          original_method_owner.send(:define_method, method_name) do |*args, &block|
-            original_method_in_scope.call(*args, &block)
-          end
-        else
-          original_method_owner.send(:define_method, method_name, original_method)
-        end
+        original_method_owner.send(:define_method, method_name, original_method_body)
       end
-      return unless original_visibility
-      Module.instance_method(original_visibility).bind(stubbee.singleton_class).call(method_name)
+      retain_original_visibility(original_method_owner)
     end
 
     def matches?(other)
@@ -100,11 +95,12 @@ module Mocha
 
     private
 
-    attr_reader :original_method, :original_visibility
-
-    def store_original_method
-      @original_method = stubbee._method(method_name)
+    def retain_original_visibility(method_owner)
+      return unless original_visibility
+      Module.instance_method(original_visibility).bind(method_owner).call(method_name)
     end
+
+    attr_reader :original_method, :original_visibility
 
     def store_original_method_visibility
       @original_visibility = method_visibility
@@ -127,17 +123,25 @@ module Mocha
       original_method_owner.__send__ :prepend, @stub_method_owner
     end
 
-    def stub_method_definition
-      method_implementation = <<-CODE
-      def #{method_name}(*args, &block)
-        mocha.method_missing(:#{method_name}, *args, &block)
-      end
-      CODE
-      [method_implementation, __FILE__, __LINE__ - 4]
-    end
-
     def stub_method_owner
       @stub_method_owner ||= original_method_owner
+    end
+
+    def mock_owner
+      stubbee
+    end
+
+    def original_method_body
+      if PRE_RUBY_V19
+        original_method_in_scope = original_method
+        proc { |*args, &block| original_method_in_scope.call(*args, &block) }
+      else
+        original_method
+      end
+    end
+
+    def store_original_method
+      @original_method = stubbee._method(method_name)
     end
 
     def original_method_owner
