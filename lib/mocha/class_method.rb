@@ -28,11 +28,11 @@ module Mocha
     end
 
     def mock
-      stubbee.mocha
+      mock_owner.mocha
     end
 
     def reset_mocha
-      stubbee.reset_mocha
+      mock_owner.reset_mocha
     end
 
     def hide_original_method
@@ -90,6 +90,10 @@ module Mocha
     alias_method :method_defined_in_stubbee_or_in_ancestor_chain?, :method_visibility
 
     private
+
+    def mock_owner
+      stubbee
+    end
 
     def retain_original_visibility(method_owner)
       return unless original_visibility
