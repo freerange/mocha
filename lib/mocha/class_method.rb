@@ -69,12 +69,11 @@ module Mocha
       if stub_method_overwrites_original_method?
         if PRE_RUBY_V19
           original_method_in_scope = original_method
-          original_method_owner.send(:define_method, method_name) do |*args, &block|
-            original_method_in_scope.call(*args, &block)
-          end
+          original_method_body = proc { |*args, &block| original_method_in_scope.call(*args, &block) }
         else
-          original_method_owner.send(:define_method, method_name, original_method)
+          original_method_body = original_method
         end
+        original_method_owner.send(:define_method, method_name, original_method_body)
       end
       return unless original_visibility
       Module.instance_method(original_visibility).bind(original_method_owner).call(method_name)
