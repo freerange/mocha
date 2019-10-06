@@ -67,12 +67,6 @@ module Mocha
     def restore_original_method
       return if use_prepended_module_for_stub_method?
       if stub_method_overwrites_original_method?
-        if PRE_RUBY_V19
-          original_method_in_scope = original_method
-          original_method_body = proc { |*args, &block| original_method_in_scope.call(*args, &block) }
-        else
-          original_method_body = original_method
-        end
         original_method_owner.send(:define_method, method_name, original_method_body)
       end
       return unless original_visibility
@@ -98,6 +92,15 @@ module Mocha
     alias_method :method_defined_in_stubbee_or_in_ancestor_chain?, :method_visibility
 
     private
+
+    def original_method_body
+      if PRE_RUBY_V19
+        original_method_in_scope = original_method
+        proc { |*args, &block| original_method_in_scope.call(*args, &block) }
+      else
+        original_method
+      end
+    end
 
     attr_reader :original_method, :original_visibility
 
