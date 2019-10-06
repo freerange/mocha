@@ -56,8 +56,7 @@ module Mocha
 
     def define_new_method
       stub_method_owner.send(:define_method, method_name, stub_method_body(method_name))
-      return unless original_visibility
-      Module.instance_method(original_visibility).bind(stub_method_owner).call(method_name)
+      retain_original_visibility(stub_method_owner)
     end
 
     def remove_new_method
@@ -69,8 +68,7 @@ module Mocha
       if stub_method_overwrites_original_method?
         original_method_owner.send(:define_method, method_name, original_method_body)
       end
-      return unless original_visibility
-      Module.instance_method(original_visibility).bind(original_method_owner).call(method_name)
+      retain_original_visibility(original_method_owner)
     end
 
     def matches?(other)
@@ -92,6 +90,11 @@ module Mocha
     alias_method :method_defined_in_stubbee_or_in_ancestor_chain?, :method_visibility
 
     private
+
+    def retain_original_visibility(method_owner)
+      return unless original_visibility
+      Module.instance_method(original_visibility).bind(method_owner).call(method_name)
+    end
 
     def original_method_body
       if PRE_RUBY_V19
