@@ -55,7 +55,7 @@ module Mocha
     end
 
     def define_new_method
-      stub_method_owner.class_eval(*stub_method_definition)
+      stub_method_owner.send(:define_method, method_name, stub_method_body(method_name))
       return unless original_visibility
       Module.instance_method(original_visibility).bind(stub_method_owner).call(method_name)
     end
@@ -129,13 +129,8 @@ module Mocha
       original_method_owner.__send__ :prepend, @stub_method_owner
     end
 
-    def stub_method_definition
-      method_implementation = <<-CODE
-      def #{method_name}(*args, &block)
-        mocha.method_missing(:#{method_name}, *args, &block)
-      end
-      CODE
-      [method_implementation, __FILE__, __LINE__ - 4]
+    def stub_method_body(method_name)
+      proc { |*args, &block| mocha.method_missing(method_name, *args, &block) }
     end
 
     def stub_method_owner

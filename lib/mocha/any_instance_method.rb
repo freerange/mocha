@@ -21,13 +21,8 @@ module Mocha
       @original_method = original_method_owner.instance_method(method_name)
     end
 
-    def stub_method_definition
-      method_implementation = <<-CODE
-      def #{method_name}(*args, &block)
-        self.class.any_instance.mocha.method_missing(:#{method_name}, *args, &block)
-      end
-      CODE
-      [method_implementation, __FILE__, __LINE__ - 4]
+    def stub_method_body(method_name)
+      proc { |*args, &block| self.class.any_instance.mocha.method_missing(method_name, *args, &block) }
     end
 
     def original_method_owner
