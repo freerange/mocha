@@ -21,7 +21,7 @@ module Mocha
 
     # Builds a new mock object
     #
-    # @param [String] name identifies mock object in error messages.
+    # @param [String, Symbol] name identifies mock object in error messages.
     # @param [Hash] expected_methods_vs_return_values expected method name symbols as keys and corresponding return values as values - these expectations are setup as if {Mock#expects} were called multiple times.
     # @yield optional block to be evaluated in the context of the mock object instance, giving an alternative way to setup stubbed methods.
     # @yield note that the block is evaulated by calling Mock#instance_eval and so things like instance variables declared in the test will not be available within the block.
@@ -50,16 +50,12 @@ module Mocha
     #     # an error will only be raised if Motor#start(100.rpm) has not been called
     #   end
     def mock(*arguments, &block)
-      name = arguments.shift if arguments.first.is_a?(String)
-      expectations = arguments.shift || {}
-      mock = name ? Mockery.instance.named_mock(name, &block) : Mockery.instance.unnamed_mock(&block)
-      mock.expects(expectations)
-      mock
+      create_mock(arguments, block) { |mock, expectations| mock.expects(expectations) }
     end
 
     # Builds a new mock object
     #
-    # @param [String] name identifies mock object in error messages.
+    # @param [String, Symbol] name identifies mock object in error messages.
     # @param [Hash] stubbed_methods_vs_return_values stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if {Mock#stubs} were called multiple times.
     # @yield optional block to be evaluated in the context of the mock object instance, giving an alternative way to setup stubbed methods.
     # @yield note that the block is evaulated by calling Mock#instance_eval and so things like instance variables declared in the test will not be available within the block.
@@ -89,16 +85,12 @@ module Mocha
     #     # an error will only be raised if Motor#start(100.rpm) has not been called
     #   end
     def stub(*arguments, &block)
-      name = arguments.shift if arguments.first.is_a?(String)
-      expectations = arguments.shift || {}
-      stub = name ? Mockery.instance.named_mock(name, &block) : Mockery.instance.unnamed_mock(&block)
-      stub.stubs(expectations)
-      stub
+      create_mock(arguments, block) { |stub, expectations| stub.stubs(expectations) }
     end
 
     # Builds a mock object that accepts calls to any method. By default it will return +nil+ for any method call.
     #
-    # @param [String] name identifies mock object in error messages.
+    # @param [String, Symbol] name identifies mock object in error messages.
     # @param [Hash] stubbed_methods_vs_return_values stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if {Mock#stubs} were called multiple times.
     # @yield optional block to be evaluated in the context of the mock object instance, giving an alternative way to setup stubbed methods.
     # @yield note that the block is evaulated by calling Mock#instance_eval and so things like instance variables declared in the test will not be available within the block.
@@ -117,12 +109,10 @@ module Mocha
     #     assert motor.stop
     #   end
     def stub_everything(*arguments, &block)
-      name = arguments.shift if arguments.first.is_a?(String)
-      expectations = arguments.shift || {}
-      stub = name ? Mockery.instance.named_mock(name, &block) : Mockery.instance.unnamed_mock(&block)
-      stub.stub_everything
-      stub.stubs(expectations)
-      stub
+      create_mock(arguments, block) do |stub, expectations|
+        stub.stub_everything
+        stub.stubs(expectations)
+      end
     end
 
     # Builds a new sequence which can be used to constrain the order in which expectations can occur.
@@ -173,6 +163,16 @@ module Mocha
     #   end
     def states(name)
       Mockery.instance.new_state_machine(name)
+    end
+
+    private
+
+    def create_mock(arguments, block)
+      name = arguments.shift.to_s if arguments.first.is_a?(String) || arguments.first.is_a?(Symbol)
+      expectations = arguments.shift || {}
+      mock = name ? Mockery.instance.named_mock(name, &block) : Mockery.instance.unnamed_mock(&block)
+      yield mock, expectations
+      mock
     end
   end
 end
