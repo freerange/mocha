@@ -95,29 +95,12 @@ module Mocha
 
     private
 
-    def mock_owner
-      stubbee
-    end
-
     def retain_original_visibility(method_owner)
       return unless original_visibility
       Module.instance_method(original_visibility).bind(method_owner).call(method_name)
     end
 
-    def original_method_body
-      if PRE_RUBY_V19
-        original_method_in_scope = original_method
-        proc { |*args, &block| original_method_in_scope.call(*args, &block) }
-      else
-        original_method
-      end
-    end
-
     attr_reader :original_method, :original_visibility
-
-    def store_original_method
-      @original_method = stubbee._method(method_name)
-    end
 
     def store_original_method_visibility
       @original_visibility = method_visibility
@@ -142,6 +125,23 @@ module Mocha
 
     def stub_method_owner
       @stub_method_owner ||= original_method_owner
+    end
+
+    def mock_owner
+      stubbee
+    end
+
+    def original_method_body
+      if PRE_RUBY_V19
+        original_method_in_scope = original_method
+        proc { |*args, &block| original_method_in_scope.call(*args, &block) }
+      else
+        original_method
+      end
+    end
+
+    def store_original_method
+      @original_method = stubbee._method(method_name)
     end
 
     def original_method_owner
