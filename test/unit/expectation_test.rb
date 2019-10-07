@@ -17,18 +17,15 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_match_calls_to_same_method_with_exactly_zero_parameters
-    expectation = new_expectation.with
-    assert expectation.match?(:expected_method)
+    assert new_expectation.with.match?(:expected_method)
   end
 
   def test_should_not_match_calls_to_same_method_with_more_than_zero_parameters
-    expectation = new_expectation.with
-    assert !expectation.match?(:expected_method, 1, 2, 3)
+    assert !new_expectation.with.match?(:expected_method, 1, 2, 3)
   end
 
   def test_should_match_calls_to_same_method_with_expected_parameter_values
-    expectation = new_expectation.with(1, 2, 3)
-    assert expectation.match?(:expected_method, 1, 2, 3)
+    assert new_expectation.with(1, 2, 3).match?(:expected_method, 1, 2, 3)
   end
 
   def test_should_match_calls_to_same_method_with_parameters_constrained_as_expected
@@ -46,18 +43,15 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_not_match_calls_to_same_method_with_too_few_parameters
-    expectation = new_expectation.with(1, 2, 3)
-    assert !expectation.match?(:unexpected_method, 1, 2)
+    assert !new_expectation.with(1, 2, 3).match?(:unexpected_method, 1, 2)
   end
 
   def test_should_not_match_calls_to_same_method_with_too_many_parameters
-    expectation = new_expectation.with(1, 2)
-    assert !expectation.match?(:unexpected_method, 1, 2, 3)
+    assert !new_expectation.with(1, 2).match?(:unexpected_method, 1, 2, 3)
   end
 
   def test_should_not_match_calls_to_same_method_with_unexpected_parameter_values
-    expectation = new_expectation.with(1, 2, 3)
-    assert !expectation.match?(:unexpected_method, 1, 0, 3)
+    assert !new_expectation.with(1, 2, 3).match?(:unexpected_method, 1, 0, 3)
   end
 
   def test_should_not_match_calls_to_same_method_with_parameters_not_constrained_as_expected
@@ -74,21 +68,19 @@ class ExpectationTest < Mocha::TestCase
 
   def test_should_allow_invocations_until_expected_invocation_count_is_two_and_actual_invocation_count_would_be_three
     expectation = new_expectation.times(2)
-    assert expectation.invocations_allowed?
-    expectation.invoke
-    assert expectation.invocations_allowed?
-    expectation.invoke
+    2.times do
+      assert expectation.invocations_allowed?
+      expectation.invoke
+    end
     assert !expectation.invocations_allowed?
   end
 
   def test_should_allow_invocations_until_expected_invocation_count_is_a_range_from_two_to_three_and_actual_invocation_count_would_be_four
     expectation = new_expectation.times(2..3)
-    assert expectation.invocations_allowed?
-    expectation.invoke
-    assert expectation.invocations_allowed?
-    expectation.invoke
-    assert expectation.invocations_allowed?
-    expectation.invoke
+    3.times do
+      assert expectation.invocations_allowed?
+      expectation.invoke
+    end
     assert !expectation.invocations_allowed?
   end
 
@@ -112,16 +104,14 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_yield_no_parameters
-    expectation = new_expectation.yields
     yielded_parameters = nil
-    expectation.invoke { |*parameters| yielded_parameters = parameters }
+    new_expectation.yields.invoke { |*parameters| yielded_parameters = parameters }
     assert_equal [], yielded_parameters
   end
 
   def test_should_yield_with_specified_parameters
-    expectation = new_expectation.yields(1, 2, 3)
     yielded_parameters = nil
-    expectation.invoke { |*parameters| yielded_parameters = parameters }
+    new_expectation.yields(1, 2, 3).invoke { |*parameters| yielded_parameters = parameters }
     assert_equal [1, 2, 3], yielded_parameters
   end
 
@@ -149,8 +139,7 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_return_specified_value
-    expectation = new_expectation.returns(99)
-    assert_equal 99, expectation.invoke
+    assert_equal 99, new_expectation.returns(99).invoke
   end
 
   def test_should_return_same_specified_value_multiple_times
@@ -180,19 +169,16 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_return_nil_if_no_value_specified
-    expectation = new_expectation.returns
-    assert_nil expectation.invoke
+    assert_nil new_expectation.returns.invoke
   end
 
   def test_should_raise_runtime_exception
-    expectation = new_expectation.raises
-    assert_raise(RuntimeError) { expectation.invoke }
+    assert_raise(RuntimeError) { new_expectation.raises.invoke }
   end
 
   def test_should_raise_custom_exception
     exception = Class.new(Exception)
-    expectation = new_expectation.raises(exception)
-    assert_raise(exception) { expectation.invoke }
+    assert_raise(exception) { new_expectation.raises(exception).invoke }
   end
 
   def test_should_raise_same_instance_of_custom_exception
@@ -204,16 +190,14 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_use_the_default_exception_message
-    expectation = new_expectation.raises(Exception)
-    exception = assert_raise(Exception) { expectation.invoke }
+    exception = assert_raise(Exception) { new_expectation.raises(Exception).invoke }
     assert_equal Exception.new.message, exception.message
   end
 
   def test_should_raise_custom_exception_with_message
-    exception_msg = 'exception message'
-    expectation = new_expectation.raises(Exception, exception_msg)
+    expectation = new_expectation.raises(Exception, 'exception message')
     exception = assert_raise(Exception) { expectation.invoke }
-    assert_equal exception_msg, exception.message
+    assert_equal 'exception message', exception.message
   end
 
   def test_should_return_values_then_raise_exception
@@ -232,8 +216,7 @@ class ExpectationTest < Mocha::TestCase
 
   def test_should_respond_with_a_fixed_value
     expectation = new_expectation.responds { 'result' }
-    assert_equal 'result', expectation.invoke
-    assert_equal 'result', expectation.invoke
+    2.times { assert_equal 'result', expectation.invoke }
   end
 
   def test_should_respond_with_a_computed_value_based_on_the_method_arguments
@@ -266,14 +249,12 @@ class ExpectationTest < Mocha::TestCase
 
   def test_should_not_verify_successfully_if_call_expected_once_but_invoked_twice
     expectation = new_expectation.once
-    expectation.invoke
-    expectation.invoke
+    2.times { expectation.invoke }
     assert !expectation.verified?
   end
 
   def test_should_not_verify_successfully_if_call_expected_once_but_not_invoked
-    expectation = new_expectation.once
-    assert !expectation.verified?
+    assert !new_expectation.once.verified?
   end
 
   def test_should_verify_successfully_if_call_expected_once_and_invoked_once
@@ -284,9 +265,7 @@ class ExpectationTest < Mocha::TestCase
 
   def test_should_not_verify_successfully_if_call_expected_twice_and_invoked_three_times
     expectation = new_expectation.twice
-    expectation.invoke
-    expectation.invoke
-    expectation.invoke
+    3.times { expectation.invoke }
     assert !expectation.verified?
   end
 
@@ -298,8 +277,7 @@ class ExpectationTest < Mocha::TestCase
 
   def test_should_verify_successfully_if_call_expected_twice_and_invoked_twice
     expectation = new_expectation.twice
-    expectation.invoke
-    expectation.invoke
+    2.times { expectation.invoke }
     assert expectation.verified?
   end
 
@@ -386,44 +364,35 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_be_in_correct_order_if_all_ordering_constraints_allow_invocation_now
-    constraint_one = FakeConstraint.new(true)
-    constraint_two = FakeConstraint.new(true)
     expectation = Expectation.new(nil, :method_one)
-    expectation.add_ordering_constraint(constraint_one)
-    expectation.add_ordering_constraint(constraint_two)
+    expectation.add_ordering_constraint(FakeConstraint.new(true))
+    expectation.add_ordering_constraint(FakeConstraint.new(true))
     assert expectation.in_correct_order?
   end
 
   def test_should_not_be_in_correct_order_if_one_ordering_constraint_does_not_allow_invocation_now
-    constraint_one = FakeConstraint.new(true)
-    constraint_two = FakeConstraint.new(false)
     expectation = Expectation.new(nil, :method_one)
-    expectation.add_ordering_constraint(constraint_one)
-    expectation.add_ordering_constraint(constraint_two)
+    expectation.add_ordering_constraint(FakeConstraint.new(true))
+    expectation.add_ordering_constraint(FakeConstraint.new(false))
     assert !expectation.in_correct_order?
   end
 
   def test_should_match_if_all_ordering_constraints_allow_invocation_now
-    constraint_one = FakeConstraint.new(true)
-    constraint_two = FakeConstraint.new(true)
     expectation = Expectation.new(nil, :method_one)
-    expectation.add_ordering_constraint(constraint_one)
-    expectation.add_ordering_constraint(constraint_two)
+    expectation.add_ordering_constraint(FakeConstraint.new(true))
+    expectation.add_ordering_constraint(FakeConstraint.new(true))
     assert expectation.match?(:method_one)
   end
 
   def test_should_not_match_if_one_ordering_constraints_does_not_allow_invocation_now
-    constraint_one = FakeConstraint.new(true)
-    constraint_two = FakeConstraint.new(false)
     expectation = Expectation.new(nil, :method_one)
-    expectation.add_ordering_constraint(constraint_one)
-    expectation.add_ordering_constraint(constraint_two)
+    expectation.add_ordering_constraint(FakeConstraint.new(true))
+    expectation.add_ordering_constraint(FakeConstraint.new(false))
     assert !expectation.match?(:method_one)
   end
 
   def test_should_not_be_satisfied_when_required_invocation_has_not_been_made
-    expectation = Expectation.new(nil, :method_one).times(1)
-    assert !expectation.satisfied?
+    assert !Expectation.new(nil, :method_one).times(1).satisfied?
   end
 
   def test_should_be_satisfied_when_required_invocation_has_been_made
@@ -481,11 +450,7 @@ class ExpectationTest < Mocha::TestCase
 
   def test_should_change_state_when_expectation_is_invoked
     state = FakeState.new
-    expectation = Expectation.new(nil, :method_one)
-
-    expectation.then(state)
-
-    expectation.invoke
+    Expectation.new(nil, :method_one).then(state).invoke
     assert state.active?
   end
 
