@@ -5,7 +5,7 @@ module Mocha
       @object = object
     end
 
-    def evaluate
+    def evaluate(*_args)
       throw @tag, @object
     end
   end

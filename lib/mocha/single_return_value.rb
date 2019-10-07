@@ -6,7 +6,7 @@ module Mocha
       @value = value
     end
 
-    def evaluate
+    def evaluate(*_args)
       @value
     end
   end

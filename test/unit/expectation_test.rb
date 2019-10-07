@@ -230,6 +230,34 @@ class ExpectationTest < Mocha::TestCase
     assert_equal 2, expectation.invoke
   end
 
+  def test_should_respond_with_a_fixed_value
+    expectation = new_expectation.responds { 'result' }
+    assert_equal 'result', expectation.invoke
+    assert_equal 'result', expectation.invoke
+  end
+
+  def test_should_respond_with_a_computed_value_based_on_the_method_arguments
+    expectation = new_expectation.responds { |n| n * 2 }
+    assert_equal 2, expectation.invoke(1)
+    assert_equal 4, expectation.invoke(2)
+  end
+
+  def test_should_raise_exception_if_responds_is_chained_with_raises
+    expectation = new_expectation.responds { |n| n }.then.raises
+    assert_equal 1, expectation.invoke(1)
+    assert_raise(RuntimeError) { expectation.invoke }
+  end
+
+  def test_should_respond_ignoring_arguments
+    expectation = new_expectation.responds { 'result' }
+    assert_equal 'result', expectation.invoke('ignored argument')
+  end
+
+  def test_should_respond_using_nil_for_missing_arguments
+    expectation = new_expectation.responds { |a, b| "#{a.class}, #{b.class}" }
+    assert_equal 'String, NilClass', expectation.invoke('provided argument')
+  end
+
   def test_should_verify_successfully_if_expected_call_was_made
     expectation = new_expectation
     expectation.invoke

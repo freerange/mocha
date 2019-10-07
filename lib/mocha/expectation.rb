@@ -3,6 +3,7 @@ require 'mocha/parameters_matcher'
 require 'mocha/expectation_error'
 require 'mocha/return_values'
 require 'mocha/exception_raiser'
+require 'mocha/responder'
 require 'mocha/thrower'
 require 'mocha/yield_parameters'
 require 'mocha/is_a'
@@ -405,6 +406,34 @@ module Mocha
       self
     end
 
+    # Modifies expectation so that when the expected method is called, it returns the result of calling the specified +responding_block+.
+    # @yield block specifying response to called method.
+    # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
+    # @see #then
+    #
+    # @example Return a fixed value on every invocation.
+    #   object = mock()
+    #   object.stubs(:stubbed_method).responds { 'result' }
+    #   object.stubbed_method # => 'result'
+    #   object.stubbed_method # => 'result'
+    #
+    # @example Return a computed value based on the method arguments on consecutive invocations.
+    #   object = mock()
+    #   object.stubs(:stubbed_method).responds { |n| n * 2 }
+    #   object.stubbed_method(1) # => 2
+    #   object.stubbed_method(2) # => 4
+    #
+    # @example May be called in conjunction with {#raises} on the same expectation.
+    #   object = mock()
+    #   object.stubs(:expected_method).responds { |n| n }.then.responds { |n| n }.then.raises(Exception)
+    #   object.expected_method(1) # => 1
+    #   object.expected_method(2) # => 2
+    #   object.expected_method(3) # => raises exception of class Exception1
+    def responds(&responding_block)
+      @return_values += ReturnValues.new(Responder.new(&responding_block))
+      self
+    end
+
     # @overload def then
     #   Used as syntactic sugar to improve readability. It has no effect on state of the expectation.
     # @overload def then(state_machine.is(state_name))
@@ -557,7 +586,7 @@ module Mocha
     end
 
     # @private
-    def invoke
+    def invoke(*args)
       @invocation_count += 1
       perform_side_effects
       if block_given?
@@ -565,7 +594,7 @@ module Mocha
           yield(*yield_parameters)
         end
       end
-      @return_values.next
+      @return_values.next(*args)
     end
 
     # @private
