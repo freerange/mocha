@@ -1,10 +1,10 @@
-require 'mocha/module_method'
+require 'mocha/instance_method'
 
 module Mocha
   # @private
   module ModuleMethods
     def stubba_method
-      Mocha::ModuleMethod
+      Mocha::InstanceMethod
     end
   end
 end
