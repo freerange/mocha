@@ -1,8 +1,8 @@
 require 'mocha/ruby_version'
-require 'mocha/class_method'
+require 'mocha/stubbed_method'
 
 module Mocha
-  class AnyInstanceMethod < ClassMethod
+  class AnyInstanceMethod < StubbedMethod
     private
 
     def mock_owner

@@ -3,7 +3,7 @@ require 'method_definer'
 require 'mocha/mock'
 require 'mocha/singleton_class'
 
-require 'mocha/class_method'
+require 'mocha/stubbed_method'
 
 class ClassMethodTest < Mocha::TestCase
   include Mocha
@@ -12,7 +12,7 @@ class ClassMethodTest < Mocha::TestCase
     def test_should_hide_original_method
       klass = Class.new { def self.method_x; end }
       klass.singleton_class.send(:alias_method, :_method, :method)
-      method = ClassMethod.new(klass, :method_x)
+      method = StubbedMethod.new(klass, :method_x)
 
       method.hide_original_method
 
@@ -22,14 +22,14 @@ class ClassMethodTest < Mocha::TestCase
 
   def test_should_not_raise_error_hiding_method_that_isnt_defined
     klass = Class.new
-    method = ClassMethod.new(klass, :method_x)
+    method = StubbedMethod.new(klass, :method_x)
 
     assert_nothing_raised { method.hide_original_method }
   end
 
   def test_should_not_raise_error_hiding_method_in_class_that_implements_method_called_method
     klass = Class.new { def self.method; end }
-    method = ClassMethod.new(klass, :method)
+    method = StubbedMethod.new(klass, :method)
 
     assert_nothing_raised { method.hide_original_method }
   end
@@ -39,7 +39,7 @@ class ClassMethodTest < Mocha::TestCase
     mocha = build_mock
     klass.define_instance_method(:mocha) { mocha }
     mocha.expects(:method_x).with(:param1, :param2).returns(:result)
-    method = ClassMethod.new(klass, :method_x)
+    method = StubbedMethod.new(klass, :method_x)
 
     method.hide_original_method
     method.define_new_method
@@ -54,12 +54,12 @@ class ClassMethodTest < Mocha::TestCase
     mocha = build_mock
     klass.define_instance_method(:mocha) { mocha }
     mocha.stubs(:method_x).raises(Exception)
-    method = ClassMethod.new(klass, :method_x)
+    method = StubbedMethod.new(klass, :method_x)
 
     method.hide_original_method
     method.define_new_method
 
-    expected_filename = 'class_method.rb'
+    expected_filename = 'stubbed_method.rb'
     expected_line_number = 61
 
     exception = assert_raises(Exception) { klass.method_x }
@@ -73,7 +73,7 @@ class ClassMethodTest < Mocha::TestCase
 
   def test_should_remove_new_method
     klass = Class.new { def self.method_x; end }
-    method = ClassMethod.new(klass, :method_x)
+    method = StubbedMethod.new(klass, :method_x)
 
     method.remove_new_method
 
@@ -87,7 +87,7 @@ class ClassMethodTest < Mocha::TestCase
       end
     end
     klass.singleton_class.send(:alias_method, :_method, :method)
-    method = ClassMethod.new(klass, :method_x)
+    method = StubbedMethod.new(klass, :method_x)
 
     method.hide_original_method
     method.define_new_method
@@ -105,7 +105,7 @@ class ClassMethodTest < Mocha::TestCase
       end
     end
     klass.singleton_class.send(:alias_method, :_method, :method)
-    method = ClassMethod.new(klass, :method_x)
+    method = StubbedMethod.new(klass, :method_x)
 
     method.hide_original_method
     method.define_new_method
@@ -123,7 +123,7 @@ class ClassMethodTest < Mocha::TestCase
         :new_result
       end
     end
-    method = ClassMethod.new(klass, :method_x)
+    method = StubbedMethod.new(klass, :method_x)
 
     method.restore_original_method
 
@@ -132,7 +132,7 @@ class ClassMethodTest < Mocha::TestCase
 
   def test_should_call_hide_original_method
     klass = Class.new { def self.method_x; end }
-    method = ClassMethod.new(klass, :method_x)
+    method = StubbedMethod.new(klass, :method_x)
     method.hide_original_method
     method.define_instance_accessor(:hide_called)
     method.replace_instance_method(:hide_original_method) { self.hide_called = true }
@@ -144,7 +144,7 @@ class ClassMethodTest < Mocha::TestCase
 
   def test_should_call_define_new_method
     klass = Class.new { def self.method_x; end }
-    method = ClassMethod.new(klass, :method_x)
+    method = StubbedMethod.new(klass, :method_x)
     method.define_instance_accessor(:define_called)
     method.replace_instance_method(:define_new_method) { self.define_called = true }
 
@@ -155,7 +155,7 @@ class ClassMethodTest < Mocha::TestCase
 
   def test_should_call_remove_new_method
     klass = Class.new { def self.method_x; end }
-    method = ClassMethod.new(klass, :method_x)
+    method = StubbedMethod.new(klass, :method_x)
     mocha = build_mock
     klass.define_instance_method(:mocha) { mocha }
     method.replace_instance_method(:reset_mocha) {}
@@ -171,7 +171,7 @@ class ClassMethodTest < Mocha::TestCase
     klass = Class.new { def self.method_x; end }
     mocha = build_mock
     klass.define_instance_method(:mocha) { mocha }
-    method = ClassMethod.new(klass, :method_x)
+    method = StubbedMethod.new(klass, :method_x)
     method.replace_instance_method(:reset_mocha) {}
     method.define_instance_accessor(:restore_called)
     method.replace_instance_method(:restore_original_method) { self.restore_called = true }
@@ -183,7 +183,7 @@ class ClassMethodTest < Mocha::TestCase
 
   def test_should_call_mocha_unstub
     klass = Class.new { def self.method_x; end }
-    method = ClassMethod.new(klass, :method_x)
+    method = StubbedMethod.new(klass, :method_x)
     method.replace_instance_method(:restore_original_method) {}
     mocha = Class.new do
       class << self
@@ -202,7 +202,7 @@ class ClassMethodTest < Mocha::TestCase
 
   def test_should_call_stubbee_reset_mocha_if_no_expectations_remaining
     klass = Class.new { def self.method_x; end }
-    method = ClassMethod.new(klass, :method_x)
+    method = StubbedMethod.new(klass, :method_x)
     method.replace_instance_method(:remove_new_method) {}
     method.replace_instance_method(:restore_original_method) {}
     mocha = Class.new
@@ -226,12 +226,12 @@ class ClassMethodTest < Mocha::TestCase
     mocha = Object.new
     stubbee = Object.new
     stubbee.define_instance_method(:mocha) { mocha }
-    method = ClassMethod.new(stubbee, :method_name)
+    method = StubbedMethod.new(stubbee, :method_name)
     assert_equal mocha, method.mock
   end
 
   def test_should_not_match_if_other_object_has_a_different_class
-    class_method = ClassMethod.new(Object.new, :method)
+    class_method = StubbedMethod.new(Object.new, :method)
     other_object = Object.new
     assert !class_method.matches?(other_object)
   end
@@ -239,22 +239,22 @@ class ClassMethodTest < Mocha::TestCase
   def test_should_not_match_if_other_class_method_has_different_stubbee
     stubbee1 = Object.new
     stubbee2 = Object.new
-    class_method1 = ClassMethod.new(stubbee1, :method)
-    class_method2 = ClassMethod.new(stubbee2, :method)
+    class_method1 = StubbedMethod.new(stubbee1, :method)
+    class_method2 = StubbedMethod.new(stubbee2, :method)
     assert !class_method1.matches?(class_method2)
   end
 
   def test_should_not_match_if_other_class_method_has_different_method
     stubbee = Object.new
-    class_method1 = ClassMethod.new(stubbee, :method_1)
-    class_method2 = ClassMethod.new(stubbee, :method_2)
+    class_method1 = StubbedMethod.new(stubbee, :method_1)
+    class_method2 = StubbedMethod.new(stubbee, :method_2)
     assert !class_method1.matches?(class_method2)
   end
 
   def test_should_match_if_other_class_method_has_same_stubbee_and_same_method_so_no_attempt_is_made_to_stub_a_method_twice
     stubbee = Object.new
-    class_method1 = ClassMethod.new(stubbee, :method)
-    class_method2 = ClassMethod.new(stubbee, :method)
+    class_method1 = StubbedMethod.new(stubbee, :method)
+    class_method2 = StubbedMethod.new(stubbee, :method)
     assert class_method1.matches?(class_method2)
   end
 
@@ -264,8 +264,8 @@ class ClassMethodTest < Mocha::TestCase
         false
       end
     end.new
-    class_method1 = ClassMethod.new(stubbee, :method)
-    class_method2 = ClassMethod.new(stubbee, :method)
+    class_method1 = StubbedMethod.new(stubbee, :method)
+    class_method2 = StubbedMethod.new(stubbee, :method)
     assert class_method1.matches?(class_method2)
   end
 

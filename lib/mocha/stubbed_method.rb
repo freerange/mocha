@@ -2,7 +2,7 @@ require 'mocha/ruby_version'
 require 'mocha/singleton_class'
 
 module Mocha
-  class ClassMethod
+  class StubbedMethod
     PrependedModule = Class.new(Module)
 
     attr_reader :stubbee, :method_name

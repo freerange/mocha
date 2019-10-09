@@ -1,6 +1,6 @@
-require 'mocha/class_method'
+require 'mocha/stubbed_method'
 
 module Mocha
-  class InstanceMethod < ClassMethod
+  class InstanceMethod < StubbedMethod
   end
 end
