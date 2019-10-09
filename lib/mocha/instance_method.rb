@@ -9,11 +9,7 @@ module Mocha
     end
 
     def method_body(method)
-      if PRE_RUBY_V19
-        proc { |*args, &block| method.call(*args, &block) }
-      else
-        method
-      end
+      PRE_RUBY_V19 ? proc { |*args, &block| method.call(*args, &block) } : method
     end
 
     def stubbee_method(method_name)
