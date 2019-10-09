@@ -8,16 +8,15 @@ module Mocha
       stubbee
     end
 
-    def original_method_body
+    def method_body(method)
       if PRE_RUBY_V19
-        original_method_in_scope = original_method
-        proc { |*args, &block| original_method_in_scope.call(*args, &block) }
+        proc { |*args, &block| method.call(*args, &block) }
       else
-        original_method
+        method
       end
     end
 
-    def stubbee_method
+    def stubbee_method(method_name)
       stubbee._method(method_name)
     end
 

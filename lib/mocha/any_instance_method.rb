@@ -9,11 +9,11 @@ module Mocha
       stubbee.any_instance
     end
 
-    def original_method_body
-      original_method
+    def method_body(method)
+      method
     end
 
-    def stubbee_method
+    def stubbee_method(method_name)
       stubbee.instance_method(method_name)
     end
 

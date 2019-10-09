@@ -68,13 +68,13 @@ module Mocha
     end
 
     def store_original_method
-      @original_method = stubbee_method
+      @original_method = stubbee_method(method_name)
     end
 
     def restore_original_method
       return if use_prepended_module_for_stub_method?
       if stub_method_overwrites_original_method?
-        original_method_owner.send(:define_method, method_name, original_method_body)
+        original_method_owner.send(:define_method, method_name, method_body(original_method))
       end
       retain_original_visibility(original_method_owner)
     end
