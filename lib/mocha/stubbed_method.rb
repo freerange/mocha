@@ -67,6 +67,10 @@ module Mocha
       stub_method_owner.send(:remove_method, method_name)
     end
 
+    def store_original_method
+      @original_method = stubbee_method
+    end
+
     def restore_original_method
       return if use_prepended_module_for_stub_method?
       if stub_method_overwrites_original_method?

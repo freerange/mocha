@@ -17,8 +17,8 @@ module Mocha
       end
     end
 
-    def store_original_method
-      @original_method = stubbee._method(method_name)
+    def stubbee_method
+      stubbee._method(method_name)
     end
 
     def original_method_owner

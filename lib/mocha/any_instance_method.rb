@@ -13,8 +13,8 @@ module Mocha
       original_method
     end
 
-    def store_original_method
-      @original_method = stubbee.instance_method(method_name)
+    def stubbee_method
+      stubbee.instance_method(method_name)
     end
 
     def original_method_owner
