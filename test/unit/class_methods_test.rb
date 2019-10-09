@@ -51,7 +51,7 @@ class ClassMethodsTest < Mocha::TestCase
   end
 
   def test_should_use_stubba_class_method_for_class
-    assert_equal Mocha::ClassMethod, @klass.stubba_method
+    assert_equal Mocha::InstanceMethod, @klass.stubba_method
   end
 
   def test_should_use_stubba_class_method_for_any_instance

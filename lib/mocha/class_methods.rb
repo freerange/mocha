@@ -1,5 +1,5 @@
 require 'mocha/mockery'
-require 'mocha/class_method'
+require 'mocha/instance_method'
 require 'mocha/any_instance_method'
 
 module Mocha
@@ -7,7 +7,7 @@ module Mocha
   module ClassMethods
     # @private
     def stubba_method
-      Mocha::ClassMethod
+      Mocha::InstanceMethod
     end
 
     # @private
