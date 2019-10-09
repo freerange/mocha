@@ -3,7 +3,6 @@ require 'mocha/hooks'
 require 'mocha/mockery'
 require 'mocha/sequence'
 require 'mocha/object_methods'
-require 'mocha/module_methods'
 require 'mocha/class_methods'
 
 module Mocha
@@ -15,7 +14,6 @@ module Mocha
     # @private
     def self.included(_mod)
       Object.send(:include, Mocha::ObjectMethods)
-      Module.send(:include, Mocha::ModuleMethods)
       Class.send(:include, Mocha::ClassMethods)
     end
 

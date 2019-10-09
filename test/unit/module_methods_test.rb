@@ -1,10 +1,9 @@
 require File.expand_path('../../test_helper', __FILE__)
-require 'mocha/module_methods'
 require 'mocha/object_methods'
 
 class ModuleMethodsTest < Mocha::TestCase
   def setup
-    @module = Module.new.extend(Mocha::ModuleMethods, Mocha::ObjectMethods)
+    @module = Module.new.extend(Mocha::ObjectMethods)
   end
 
   def test_should_use_stubba_module_method_for_module
