@@ -56,5 +56,11 @@ module Mocha
       end
       @any_instance ||= AnyInstance.new(self)
     end
+
+    def method_visibility(method, include_public_methods = true)
+      (include_public_methods && public_method_defined?(method) && :public) ||
+        (protected_method_defined?(method) && :protected) ||
+        (private_method_defined?(method) && :private)
+    end
   end
 end
