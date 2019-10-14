@@ -26,11 +26,11 @@ module Mocha
 
       def method_exists?(method, include_public_methods = true)
         if include_public_methods
-          return true if @stubba_object.public_instance_methods(true).include?(method)
+          return true if @stubba_object.public_method_defined?(method)
           return true if respond_to?(method)
         end
-        return true if @stubba_object.protected_instance_methods(true).include?(method)
-        return true if @stubba_object.private_instance_methods(true).include?(method)
+        return true if @stubba_object.protected_method_defined?(method)
+        return true if @stubba_object.private_method_defined?(method)
         false
       end
 
