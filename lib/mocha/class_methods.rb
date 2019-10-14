@@ -22,16 +22,16 @@ module Mocha
         Mocha::AnyInstanceMethod
       end
 
+      def respond_to?(method)
+        @stubba_object.allocate.respond_to?(method.to_sym)
+      end
+
       attr_reader :stubba_object
 
       private
 
       def singleton_class
         @stubba_object
-      end
-
-      def respond_to?(method)
-        @stubba_object.allocate.respond_to?(method.to_sym)
       end
     end
 
