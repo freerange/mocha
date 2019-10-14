@@ -60,5 +60,6 @@ module Mocha
         (protected_method_defined?(method) && :protected) ||
         (private_method_defined?(method) && :private)
     end
+    alias_method :method_exists?, :method_visibility
   end
 end
