@@ -163,8 +163,9 @@ module Mocha
 
     # @private
     def method_exists?(method, include_public_methods = true)
-      (include_public_methods && singleton_class.public_method_defined?(method)) ||
-        singleton_class.protected_method_defined?(method) || singleton_class.private_method_defined?(method)
+      (include_public_methods && singleton_class.public_method_defined?(method) && :public) ||
+        (singleton_class.protected_method_defined?(method) && :protected) ||
+        (singleton_class.private_method_defined?(method) && :private)
     end
   end
 end
