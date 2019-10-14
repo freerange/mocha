@@ -195,7 +195,7 @@ module Mocha
     private
 
     def method_exists_or_responds_to?(method, object)
-      object.method_exists?(method, true)
+      object.method_exists?(method, true) || object.respond_to?(method.to_sym)
     end
 
     def expectations

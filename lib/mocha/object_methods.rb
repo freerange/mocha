@@ -165,7 +165,6 @@ module Mocha
     def method_exists?(method, include_public_methods = true)
       if include_public_methods
         return true if singleton_class.public_method_defined?(method)
-        return true if respond_to?(method.to_sym)
       end
       singleton_class.protected_method_defined?(method) || singleton_class.private_method_defined?(method)
     end
