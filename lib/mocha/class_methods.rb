@@ -32,13 +32,11 @@ module Mocha
         @stubba_object.allocate.respond_to?(method.to_sym)
       end
 
-      attr_reader :stubba_object
-
-      private
-
       def singleton_class
         @stubba_object
       end
+
+      attr_reader :stubba_object
     end
 
     # @return [Mock] a mock object which will detect calls to any instance of this class.
