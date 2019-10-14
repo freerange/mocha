@@ -86,10 +86,10 @@ module Mocha
       "#{stubbee}.#{method_name}"
     end
 
-    def method_visibility
-      original_method_owner.method_visibility(method_name)
+    def method_exists?
+      original_method_owner.method_exists?(method_name)
     end
-    alias_method :method_defined_in_stubbee_or_in_ancestor_chain?, :method_visibility
+    alias_method :method_defined_in_stubbee_or_in_ancestor_chain?, :method_exists?
 
     private
 
