@@ -105,7 +105,7 @@ module Mocha
     attr_reader :original_method, :original_visibility
 
     def store_original_method_visibility
-      @original_visibility = method_visibility
+      @original_visibility = original_method_owner.method_visibility(method_name)
     end
 
     def stub_method_overwrites_original_method?
