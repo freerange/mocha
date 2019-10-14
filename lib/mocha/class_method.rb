@@ -36,7 +36,7 @@ module Mocha
     end
 
     def hide_original_method
-      return unless method_defined_in_stubbee_or_in_ancestor_chain?
+      return unless method_exists?
       store_original_method_visibility
       if use_prepended_module_for_stub_method?
         use_prepended_module_for_stub_method
@@ -89,7 +89,6 @@ module Mocha
     def method_exists?
       original_method_owner.method_exists?(method_name)
     end
-    alias_method :method_defined_in_stubbee_or_in_ancestor_chain?, :method_exists?
 
     private
 
