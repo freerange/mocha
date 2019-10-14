@@ -160,11 +160,5 @@ module Mocha
         mockery.stubba.unstub(method)
       end
     end
-
-    # @private
-    def method_visibility(method, include_public_methods = true)
-      singleton_class.method_visibility(method, include_public_methods)
-    end
-    alias_method :method_exists?, :method_visibility
   end
 end

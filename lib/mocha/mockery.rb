@@ -133,7 +133,7 @@ module Mocha
         end
       end
       unless Mocha::Configuration.allow?(:stubbing_non_public_method)
-        if object.method_exists?(method, false)
+        if object.singleton_class.method_exists?(method, false)
           on_stubbing_non_public_method(object, method)
         end
       end
@@ -195,7 +195,7 @@ module Mocha
     private
 
     def method_exists_or_responds_to?(method, object)
-      object.method_exists?(method, true) || object.respond_to?(method.to_sym)
+      object.singleton_class.method_exists?(method, true) || object.respond_to?(method.to_sym)
     end
 
     def expectations
