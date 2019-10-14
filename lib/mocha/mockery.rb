@@ -128,7 +128,7 @@ module Mocha
     def on_stubbing(object, method)
       method = PRE_RUBY_V19 ? method.to_s : method.to_sym
       check(:stubbing_non_existent_method, 'non-existent method', object, method) do
-        !method_exists_or_responds_to?(method, object)
+        !(object.singleton_class.method_exists?(method, true) || object.respond_to?(method.to_sym))
       end
       check(:stubbing_non_public_method, 'non-public method', object, method) do
         object.singleton_class.method_exists?(method, false)
@@ -158,10 +158,6 @@ module Mocha
       stubbing_error = "stubbing #{description}: #{object.mocha_inspect}.#{method}"
       raise StubbingError.new(stubbing_error, caller) if Mocha::Configuration.prevent?(action)
       logger.warn(stubbing_error) if Mocha::Configuration.warn_when?(action)
-    end
-
-    def method_exists_or_responds_to?(method, object)
-      object.singleton_class.method_exists?(method, true) || object.respond_to?(method.to_sym)
     end
 
     def expectations
