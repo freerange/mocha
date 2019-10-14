@@ -32,13 +32,17 @@ module Mocha
 
       def method_exists?(method, include_public_methods = true)
         if include_public_methods
-          return true if @stubba_object.public_method_defined?(method)
+          return true if singleton_class.public_method_defined?(method)
           return true if respond_to?(method)
         end
-        @stubba_object.protected_method_defined?(method) || @stubba_object.private_method_defined?(method)
+        singleton_class.protected_method_defined?(method) || singleton_class.private_method_defined?(method)
       end
 
       private
+
+      def singleton_class
+        @stubba_object
+      end
 
       def respond_to?(method)
         @stubba_object.allocate.respond_to?(method.to_sym)
