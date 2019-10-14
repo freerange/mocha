@@ -36,7 +36,7 @@ module Mocha
     end
 
     def hide_original_method
-      return unless method_exists?
+      return unless original_method_owner.method_exists?(method_name)
       store_original_method_visibility
       if use_prepended_module_for_stub_method?
         use_prepended_module_for_stub_method
@@ -88,10 +88,6 @@ module Mocha
 
     def to_s
       "#{stubbee}.#{method_name}"
-    end
-
-    def method_exists?
-      original_method_owner.method_exists?(method_name)
     end
 
     private
