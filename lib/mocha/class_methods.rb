@@ -35,9 +35,7 @@ module Mocha
           return true if @stubba_object.public_method_defined?(method)
           return true if respond_to?(method)
         end
-        return true if @stubba_object.protected_method_defined?(method)
-        return true if @stubba_object.private_method_defined?(method)
-        false
+        @stubba_object.protected_method_defined?(method) || @stubba_object.private_method_defined?(method)
       end
 
       private
