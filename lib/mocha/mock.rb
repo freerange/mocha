@@ -14,8 +14,15 @@ require 'mocha/ruby_version'
 module Mocha
   # Traditional mock object.
   #
-  # All methods return an {Expectation} which can be further modified by
-  # methods on {Expectation}.
+  # {expects} and {stubs} return an {Expectation} which can be further modified
+  # by methods on {Expectation}.
+  #
+  # {responds_like} and {responds_like_instance_of} both return a {Mock}, and
+  # can therefore, be chained to the original creation methods in {API}.
+  # They force the mock to indicate what it is supposed to be mocking, thus
+  # making it a safer verifying mock. They check that the underlying +responder+
+  # will actually respond to the methods being stubbed, throwing a
+  # +NoMethodError+ upon invocation otherwise.
   #
   # Stubs and expectations are basically the same thing. A stub is just an
   # expectation of zero or more invocations. The {#stubs} method is syntactic
