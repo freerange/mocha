@@ -223,7 +223,7 @@ module Mocha
       self
     end
 
-    # Modifies expectation so that when the expected method is called, it yields with the specified +parameters+.
+    # Modifies expectation so that when the expected method is called, it yields with the specified +parameters+ (even if no block is provided, in which case yielding will result in a +LocalJumpError+).
     #
     # May be called multiple times on the same expectation for consecutive invocations.
     #
@@ -252,7 +252,7 @@ module Mocha
       self
     end
 
-    # Modifies expectation so that when the expected method is called, it yields multiple times per invocation with the specified +parameter_groups+.
+    # Modifies expectation so that when the expected method is called, it yields multiple times per invocation with the specified +parameter_groups+ (even if no block is provided, in which case yielding will result in a +LocalJumpError+).
     #
     # @param [*Array<Array>] parameter_groups each element of +parameter_groups+ should iself be an +Array+ representing the parameters to be passed to the block for a single yield.
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
@@ -560,10 +560,8 @@ module Mocha
     def invoke
       @invocation_count += 1
       perform_side_effects
-      if block_given?
-        @yield_parameters.next_invocation.each do |yield_parameters|
-          yield(*yield_parameters)
-        end
+      @yield_parameters.next_invocation.each do |yield_parameters|
+        yield(*yield_parameters)
       end
       @return_values.next
     end

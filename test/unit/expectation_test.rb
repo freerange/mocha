@@ -112,6 +112,11 @@ class ExpectationTest < Mocha::TestCase
     assert_equal [], yielded_parameters
   end
 
+  def test_yield_should_fail_when_the_caller_does_not_provide_a_block
+    expectation = new_expectation.yields(:foo)
+    assert_raise(LocalJumpError) { expectation.invoke }
+  end
+
   def test_should_yield_with_specified_parameters
     expectation = new_expectation.yields(1, 2, 3)
     yielded_parameters = nil
