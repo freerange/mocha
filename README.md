@@ -3,10 +3,13 @@
 
 ### Description
 
-* A Ruby library for mocking and stubbing.
+* A Ruby library for [mocking](http://xunitpatterns.com/Mock%20Object.html) and [stubbing](http://xunitpatterns.com/Test%20Stub.html) - but deliberately not (yet) [faking](http://xunitpatterns.com/Fake%20Object.html) or [spying](http://xunitpatterns.com/Test%20Spy.html).
 * A unified, simple and readable syntax for both full & partial mocking.
 * Built-in support for MiniTest and Test::Unit.
 * Supported by many other test frameworks.
+
+### Intended Usage
+Mocha is intended to be used in unit tests for the [Mock Object](http://xunitpatterns.com/Mock%20Object.html) or [Test Stub](http://xunitpatterns.com/Test%20Stub.html) types of [Test Double](http://xunitpatterns.com/Test%20Double.html), not the [Fake Object](http://xunitpatterns.com/Fake%20Object.html) or [Test Spy](http://xunitpatterns.com/Test%20Spy.html) types. Although it would be possible to extend Mocha to allow the implementation of fakes and spies, we have chosen to keep it focused on mocks and stubs.
 
 ### Installation
 
