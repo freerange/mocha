@@ -1,20 +1,20 @@
 require 'mocha/ruby_version'
-require 'mocha/class_method'
+require 'mocha/stubbed_method'
 
 module Mocha
-  class AnyInstanceMethod < ClassMethod
+  class AnyInstanceMethod < StubbedMethod
     private
 
     def mock_owner
       stubbee.any_instance
     end
 
-    def original_method_body
-      original_method
+    def method_body(method)
+      method
     end
 
-    def store_original_method
-      @original_method = original_method_owner.instance_method(method_name)
+    def stubbee_method(method_name)
+      stubbee.instance_method(method_name)
     end
 
     def original_method_owner

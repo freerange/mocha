@@ -2,7 +2,7 @@ require 'mocha/ruby_version'
 require 'mocha/singleton_class'
 
 module Mocha
-  class ClassMethod
+  class StubbedMethod
     PrependedModule = Class.new(Module)
 
     attr_reader :stubbee, :method_name
@@ -67,10 +67,14 @@ module Mocha
       stub_method_owner.send(:remove_method, method_name)
     end
 
+    def store_original_method
+      @original_method = stubbee_method(method_name)
+    end
+
     def restore_original_method
       return if use_prepended_module_for_stub_method?
       if stub_method_overwrites_original_method?
-        original_method_owner.send(:define_method, method_name, original_method_body)
+        original_method_owner.send(:define_method, method_name, method_body(original_method))
       end
       retain_original_visibility(original_method_owner)
     end
@@ -125,27 +129,6 @@ module Mocha
 
     def stub_method_owner
       @stub_method_owner ||= original_method_owner
-    end
-
-    def mock_owner
-      stubbee
-    end
-
-    def original_method_body
-      if PRE_RUBY_V19
-        original_method_in_scope = original_method
-        proc { |*args, &block| original_method_in_scope.call(*args, &block) }
-      else
-        original_method
-      end
-    end
-
-    def store_original_method
-      @original_method = stubbee._method(method_name)
-    end
-
-    def original_method_owner
-      stubbee.singleton_class
     end
   end
 end

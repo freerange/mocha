@@ -55,7 +55,7 @@ class AnyInstanceMethodTest < Mocha::TestCase
     method.hide_original_method
     method.define_new_method
 
-    expected_filename = 'class_method.rb'
+    expected_filename = 'stubbed_method.rb'
     expected_line_number = 61
 
     exception = assert_raises(Exception) { klass.new.method_x }
