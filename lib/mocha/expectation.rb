@@ -231,22 +231,29 @@ module Mocha
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
     # @see #then
     #
+    # @example Yield when expected method is invoked.
+    #   benchmark = mock()
+    #   benchmark.expects(:measure).yields.then.returns('0.350000   0.400000   0.750000 (  0.835234)')
+    #   yielded = false
+    #   returned_value = benchmark.measure { yielded = true }
+    #   yielded # => true
+    #   returned_value # => '0.350000   0.400000   0.750000 (  0.835234)'
+    #
     # @example Yield parameters when expected method is invoked.
-    #   object = mock()
-    #   object.expects(:expected_method).yields('result')
-    #   yielded_value = nil
-    #   object.expected_method { |value| yielded_value = value }
-    #   yielded_value # => 'result'
+    #   fibonacci = mock()
+    #   fibonacci.expects(:next_pair).yields(0, 1)
+    #   sum = 0
+    #   fibonacci.next_pair { |first, second| sum = first + second }
+    #   sum # => 1
     #
     # @example Yield different parameters on different invocations of the expected method.
-    #   object = mock()
-    #   object.stubs(:expected_method).yields(1).then.yields(2)
-    #   yielded_values_from_first_invocation = []
-    #   yielded_values_from_second_invocation = []
-    #   object.expected_method { |value| yielded_values_from_first_invocation << value } # first invocation
-    #   object.expected_method { |value| yielded_values_from_second_invocation << value } # second invocation
-    #   yielded_values_from_first_invocation # => [1]
-    #   yielded_values_from_second_invocation # => [2]
+    #   fibonacci = mock()
+    #   fibonacci.expects(:next_pair).yields(0, 1).then.yields(1, 1)
+    #   sum = 0
+    #   fibonacci.next_pair { |first, second| sum = first + second }
+    #   sum # => 1
+    #   fibonacci.next_pair { |first, second| sum = first + second }
+    #   sum # => 2
     def yields(*parameters)
       @yield_parameters.add(*parameters)
       self
@@ -258,22 +265,22 @@ module Mocha
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
     # @see #then
     #
-    # @example When the +expected_method+ is called, the stub will invoke the block twice, the first time it passes +'result_1'+, +'result_2'+ as the parameters, and the second time it passes 'result_3' as the parameters.
-    #   object = mock()
-    #   object.expects(:expected_method).multiple_yields(['result_1', 'result_2'], ['result_3'])
-    #   yielded_values = []
-    #   object.expected_method { |*values| yielded_values << values }
-    #   yielded_values # => [['result_1', 'result_2'], ['result_3]]
+    # @example When +foreach+ is called, the stub will invoke the block twice, the first time it passes ['row1_col1', 'row1_col2'] as the parameters, and the second time it passes ['row2_col1', ''] as the parameters.
+    #   csv = mock()
+    #   csv.expects(:foreach).with("path/to/file.csv").multiple_yields(['row1_col1', 'row1_col2'], ['row2_col1', ''])
+    #   rows = []
+    #   csv.foreach { |row| rows << row }
+    #   rows # => [['row1_col1', 'row1_col2'], ['row2_col1', '']]
     #
-    # @example Yield different groups of parameters on different invocations of the expected method.
-    #   object = mock()
-    #   object.stubs(:expected_method).multiple_yields([1, 2], [3]).then.multiple_yields([4], [5, 6])
-    #   yielded_values_from_first_invocation = []
-    #   yielded_values_from_second_invocation = []
-    #   object.expected_method { |*values| yielded_values_from_first_invocation << values } # first invocation
-    #   object.expected_method { |*values| yielded_values_from_second_invocation << values } # second invocation
-    #   yielded_values_from_first_invocation # => [[1, 2], [3]]
-    #   yielded_values_from_second_invocation # => [[4], [5, 6]]
+    # @example Yield different groups of parameters on different invocations of the expected method. Simulating a situation where the CSV file at 'path/to/file.csv' has been modified between the two calls to +foreach+.
+    #   csv = mock()
+    #   csv.stubs(:foreach).with("path/to/file.csv").multiple_yields(['old_row1_col1', 'old_row1_col2'], ['old_row2_col1', '']).then.multiple_yields(['new_row1_col1', ''], ['new_row2_col1', 'new_row2_col2'])
+    #   rows_from_first_invocation = []
+    #   rows_from_second_invocation = []
+    #   csv.foreach { |row| rows_from_first_invocation << row } # first invocation
+    #   csv.foreach { |row| rows_from_second_invocation << row } # second invocation
+    #   rows_from_first_invocation # => [['old_row1_col1', 'old_row1_col2'], ['old_row2_col1', '']]
+    #   rows_from_second_invocation # => [['new_row1_col1', ''], ['new_row2_col1', 'new_row2_col2']]
     def multiple_yields(*parameter_groups)
       @yield_parameters.multiple_add(*parameter_groups)
       self
