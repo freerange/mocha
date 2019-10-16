@@ -1,4 +1,5 @@
 require File.expand_path('../../test_helper', __FILE__)
+require 'method_definer'
 require 'mocha/mock'
 require 'mocha/singleton_class'
 
