@@ -123,8 +123,10 @@ module Mocha
     end
 
     def use_prepended_module_for_stub_method
-      @stub_method_owner = PrependedModule.new
-      original_method_owner.__send__ :prepend, @stub_method_owner
+      unless original_method_owner.ancestors.first.is_a?(PrependedModule)
+        original_method_owner.__send__ :prepend, PrependedModule.new
+      end
+      @stub_method_owner = original_method_owner.ancestors.first
     end
 
     def stub_method_owner

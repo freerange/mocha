@@ -7,7 +7,21 @@ require 'mocha/instance_method'
 class InstanceMethodTest < Mocha::TestCase
   include Mocha
 
-  unless RUBY_V2_PLUS
+  if RUBY_V2_PLUS
+    def test_should_reuse_existing_prepended_module_when_stubbing_multiple_existing_methods
+      klass = Class.new do
+        def self.method_x; end
+
+        def self.method_y; end
+      end
+
+      [:method_x, :method_y].each do |method_name|
+        method = InstanceMethod.new(klass, method_name)
+        method.hide_original_method
+      end
+      assert_equal 1, klass.singleton_class.ancestors.grep(InstanceMethod::PrependedModule).size
+    end
+  else
     def test_should_hide_original_method
       klass = Class.new { def self.method_x; end }
       klass.singleton_class.send(:alias_method, :_method, :method)
