@@ -19,50 +19,58 @@ Install the latest version of the gem with the following command...
 
     $ gem install mocha
 
-Note: If you are intending to use Mocha with Test::Unit or MiniTest, you should only setup Mocha *after* loading the relevant test library...
-
-##### Test::Unit
-
+And activate the Mocha gem in the test file(s) with:
 ```ruby
 require 'rubygems'
 gem 'mocha'
+```
+    
+#### Bundler
+
+Include Mocha in the `Gemfile`
+
+```ruby
+# Gemfile
+gem 'mocha'
+```
+
+If you are intending to use Mocha with Test::Unit or MiniTest, you should only setup Mocha *after* loading the relevant test library...
+
+### Setup
+
+#### Auto-Detect Test::Unit or MiniTest
+
+First, require either Test::Unit using:
+
+```ruby
 require 'test/unit'
+```
+
+or MiniTest using:
+
+```ruby
+require 'minitest/unit'
+```
+
+Then, integrate Mocha with the test library in one of the following ways:
+
+ * To automatically detect and integrate with one of these test libraries (*recommended*):
+
+```ruby
+require 'mocha/setup'
+```
+
+ * To explicitly integrate with Test::Unit
+
+```ruby
+gem 'test-unit' # because the standard library version of Test::Unit is simply a thin wrapper around MiniTest
 require 'mocha/test_unit'
 ```
 
-##### MiniTest
+ * To explicitly integrate with MiniTest
 
 ```ruby
-require 'rubygems'
-gem 'mocha'
-require 'minitest/unit'
 require 'mocha/minitest'
-```
-
-#### Bundler
-
-If you're using Bundler, include Mocha in the `Gemfile` and then setup Mocha later once you know the test library has been loaded...
-
-##### Test::Unit
-
-```ruby
-# Gemfile
-gem "mocha"
-
-# Elsewhere after Bundler has loaded gems e.g. after `require 'bundler/setup'`
-require "test/unit"
-require "mocha/test_unit"
-```
-
-##### MiniTest
-
-```ruby
-# Gemfile
-gem "mocha"
-
-# Elsewhere after Bundler has loaded gems e.g. after `require 'bundler/setup'`
-require "minitest/unit"
-require "mocha/minitest"
 ```
 
 #### Rails
