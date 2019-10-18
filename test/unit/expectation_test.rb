@@ -17,18 +17,15 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_match_calls_to_same_method_with_exactly_zero_parameters
-    expectation = new_expectation.with
-    assert expectation.match?(:expected_method)
+    assert new_expectation.with.match?(:expected_method)
   end
 
   def test_should_not_match_calls_to_same_method_with_more_than_zero_parameters
-    expectation = new_expectation.with
-    assert !expectation.match?(:expected_method, 1, 2, 3)
+    assert !new_expectation.with.match?(:expected_method, 1, 2, 3)
   end
 
   def test_should_match_calls_to_same_method_with_expected_parameter_values
-    expectation = new_expectation.with(1, 2, 3)
-    assert expectation.match?(:expected_method, 1, 2, 3)
+    assert new_expectation.with(1, 2, 3).match?(:expected_method, 1, 2, 3)
   end
 
   def test_should_match_calls_to_same_method_with_parameters_constrained_as_expected
@@ -46,18 +43,15 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_not_match_calls_to_same_method_with_too_few_parameters
-    expectation = new_expectation.with(1, 2, 3)
-    assert !expectation.match?(:unexpected_method, 1, 2)
+    assert !new_expectation.with(1, 2, 3).match?(:unexpected_method, 1, 2)
   end
 
   def test_should_not_match_calls_to_same_method_with_too_many_parameters
-    expectation = new_expectation.with(1, 2)
-    assert !expectation.match?(:unexpected_method, 1, 2, 3)
+    assert !new_expectation.with(1, 2).match?(:unexpected_method, 1, 2, 3)
   end
 
   def test_should_not_match_calls_to_same_method_with_unexpected_parameter_values
-    expectation = new_expectation.with(1, 2, 3)
-    assert !expectation.match?(:unexpected_method, 1, 0, 3)
+    assert !new_expectation.with(1, 2, 3).match?(:unexpected_method, 1, 0, 3)
   end
 
   def test_should_not_match_calls_to_same_method_with_parameters_not_constrained_as_expected
@@ -116,6 +110,11 @@ class ExpectationTest < Mocha::TestCase
     yielded_parameters = nil
     expectation.invoke { |*parameters| yielded_parameters = parameters }
     assert_equal [], yielded_parameters
+  end
+
+  def test_yield_should_fail_when_the_caller_does_not_provide_a_block
+    expectation = new_expectation.yields(:foo)
+    assert_raise(LocalJumpError) { expectation.invoke }
   end
 
   def test_should_yield_with_specified_parameters
