@@ -35,6 +35,11 @@ module Mocha
       self
     end
 
+    # @private
+    def stubba_class
+      singleton_class
+    end
+
     # Adds an expectation that the specified method must be called exactly once with any parameters.
     #
     # The original implementation of the method is replaced during the test and then restored at the end of the test. The temporary replacement method has the same visibility as the original method.
