@@ -22,17 +22,15 @@ module Mocha
         Mocha::AnyInstanceMethod
       end
 
-      attr_reader :stubba_object
-
-      def method_exists?(method, include_public_methods = true)
-        if include_public_methods
-          return true if @stubba_object.public_instance_methods(true).include?(method)
-          return true if @stubba_object.allocate.respond_to?(method.to_sym)
-        end
-        return true if @stubba_object.protected_instance_methods(true).include?(method)
-        return true if @stubba_object.private_instance_methods(true).include?(method)
-        false
+      def respond_to?(method)
+        @stubba_object.allocate.respond_to?(method.to_sym)
       end
+
+      def singleton_class
+        @stubba_object
+      end
+
+      attr_reader :stubba_object
     end
 
     # @return [Mock] a mock object which will detect calls to any instance of this class.
@@ -50,5 +48,12 @@ module Mocha
       end
       @any_instance ||= AnyInstance.new(self)
     end
+
+    def method_visibility(method, include_public_methods = true)
+      (include_public_methods && public_method_defined?(method) && :public) ||
+        (protected_method_defined?(method) && :protected) ||
+        (private_method_defined?(method) && :private)
+    end
+    alias_method :method_exists?, :method_visibility
   end
 end

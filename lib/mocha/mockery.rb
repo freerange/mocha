@@ -127,63 +127,19 @@ module Mocha
 
     def on_stubbing(object, method)
       method = PRE_RUBY_V19 ? method.to_s : method.to_sym
-      unless Mocha::Configuration.allow?(:stubbing_non_existent_method)
-        unless object.method_exists?(method, true)
-          on_stubbing_non_existent_method(object, method)
-        end
+      method_signature = "#{object.mocha_inspect}.#{method}"
+      check(:stubbing_non_existent_method, 'non-existent method', method_signature) do
+        !(object.singleton_class.method_exists?(method, true) || object.respond_to?(method.to_sym))
       end
-      unless Mocha::Configuration.allow?(:stubbing_non_public_method)
-        if object.method_exists?(method, false)
-          on_stubbing_non_public_method(object, method)
-        end
+      check(:stubbing_non_public_method, 'non-public method', method_signature) do
+        object.singleton_class.method_exists?(method, false)
       end
-      unless Mocha::Configuration.allow?(:stubbing_method_on_nil)
-        if object.nil?
-          on_stubbing_method_on_nil(object, method)
-        end
-      end
-      return if Mocha::Configuration.allow?(:stubbing_method_on_non_mock_object)
-      on_stubbing_method_on_non_mock_object(object, method)
-    end
-
-    def on_stubbing_non_existent_method(object, method)
-      if Mocha::Configuration.prevent?(:stubbing_non_existent_method)
-        raise StubbingError.new("stubbing non-existent method: #{object.mocha_inspect}.#{method}", caller)
-      end
-      return unless Mocha::Configuration.warn_when?(:stubbing_non_existent_method)
-      logger.warn "stubbing non-existent method: #{object.mocha_inspect}.#{method}"
-    end
-
-    def on_stubbing_non_public_method(object, method)
-      if Mocha::Configuration.prevent?(:stubbing_non_public_method)
-        raise StubbingError.new("stubbing non-public method: #{object.mocha_inspect}.#{method}", caller)
-      end
-      return unless Mocha::Configuration.warn_when?(:stubbing_non_public_method)
-      logger.warn "stubbing non-public method: #{object.mocha_inspect}.#{method}"
-    end
-
-    def on_stubbing_method_on_nil(object, method)
-      if Mocha::Configuration.prevent?(:stubbing_method_on_nil)
-        raise StubbingError.new("stubbing method on nil: #{object.mocha_inspect}.#{method}", caller)
-      end
-      return unless Mocha::Configuration.warn_when?(:stubbing_method_on_nil)
-      logger.warn "stubbing method on nil: #{object.mocha_inspect}.#{method}"
-    end
-
-    def on_stubbing_method_on_non_mock_object(object, method)
-      if Mocha::Configuration.prevent?(:stubbing_method_on_non_mock_object)
-        raise StubbingError.new("stubbing method on non-mock object: #{object.mocha_inspect}.#{method}", caller)
-      end
-      return unless Mocha::Configuration.warn_when?(:stubbing_method_on_non_mock_object)
-      logger.warn "stubbing method on non-mock object: #{object.mocha_inspect}.#{method}"
+      check(:stubbing_method_on_nil, 'method on nil', method_signature) { object.nil? }
+      check(:stubbing_method_on_non_mock_object, 'method on non-mock object', method_signature)
     end
 
     def on_stubbing_method_unnecessarily(expectation)
-      if Mocha::Configuration.prevent?(:stubbing_method_unnecessarily)
-        raise StubbingError.new("stubbing method unnecessarily: #{expectation.method_signature}", expectation.backtrace)
-      end
-      return unless Mocha::Configuration.warn_when?(:stubbing_method_unnecessarily)
-      logger.warn "stubbing method unnecessarily: #{expectation.method_signature}"
+      check(:stubbing_method_unnecessarily, 'method unnecessarily', expectation.method_signature, expectation.backtrace)
     end
 
     attr_writer :logger
@@ -193,6 +149,13 @@ module Mocha
     end
 
     private
+
+    def check(action, description, method_signature, backtrace = caller)
+      return if Mocha::Configuration.allow?(action) || (block_given? && !yield)
+      stubbing_error = "stubbing #{description}: #{method_signature}"
+      raise StubbingError.new(stubbing_error, backtrace) if Mocha::Configuration.prevent?(action)
+      logger.warn(stubbing_error) if Mocha::Configuration.warn_when?(action)
+    end
 
     def expectations
       mocks.map { |mock| mock.__expectations__.to_a }.flatten

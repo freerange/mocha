@@ -36,7 +36,7 @@ module Mocha
     end
 
     def hide_original_method
-      return unless method_defined_in_stubbee_or_in_ancestor_chain?
+      return unless original_method_owner.method_exists?(method_name)
       store_original_method_visibility
       if use_prepended_module_for_stub_method?
         use_prepended_module_for_stub_method
@@ -90,13 +90,6 @@ module Mocha
       "#{stubbee}.#{method_name}"
     end
 
-    def method_visibility
-      (original_method_owner.public_method_defined?(method_name) && :public) ||
-        (original_method_owner.protected_method_defined?(method_name) && :protected) ||
-        (original_method_owner.private_method_defined?(method_name) && :private)
-    end
-    alias_method :method_defined_in_stubbee_or_in_ancestor_chain?, :method_visibility
-
     private
 
     def retain_original_visibility(method_owner)
@@ -107,7 +100,7 @@ module Mocha
     attr_reader :original_method, :original_visibility
 
     def store_original_method_visibility
-      @original_visibility = method_visibility
+      @original_visibility = original_method_owner.method_visibility(method_name)
     end
 
     def stub_method_overwrites_original_method?
