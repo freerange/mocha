@@ -9,6 +9,7 @@ require 'mocha/is_a'
 require 'mocha/in_state_ordering_constraint'
 require 'mocha/change_state_side_effect'
 require 'mocha/cardinality'
+require 'mocha/raised_exception'
 
 module Mocha
   # Methods on expectations returned from {Mock#expects}, {Mock#stubs}, {ObjectMethods#expects} and {ObjectMethods#stubs}.
@@ -517,7 +518,7 @@ module Mocha
       @return_values = ReturnValues.new
       @yield_parameters = YieldParameters.new
       @backtrace = backtrace || caller
-      @returned_values = []
+      @results = []
     end
 
     # @private
@@ -572,9 +573,13 @@ module Mocha
       @yield_parameters.next_invocation.each do |yield_parameters|
         yield(*yield_parameters)
       end
-      returned_value = @return_values.next
-      @returned_values << returned_value
-      returned_value
+      begin
+        @results << @return_values.next
+      rescue Exception => e # rubocop:disable Lint/RescueException
+        @results << RaisedException.new(e)
+        raise
+      end
+      @results.last
     end
 
     # @private
@@ -619,7 +624,7 @@ module Mocha
     private
 
     def invocations
-      @returned_values.map { |returned_value| "\n  - #{method_signature} # => #{returned_value.mocha_inspect}" }.join
+      @results.map { |result| "\n  - #{method_signature} # => #{result.mocha_inspect}" }.join
     end
   end
 end
