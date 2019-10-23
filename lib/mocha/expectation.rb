@@ -516,6 +516,7 @@ module Mocha
       @return_values = ReturnValues.new
       @yield_parameters = YieldParameters.new
       @backtrace = backtrace || caller
+      @returned_values = []
     end
 
     # @private
@@ -570,7 +571,9 @@ module Mocha
       @yield_parameters.next_invocation.each do |yield_parameters|
         yield(*yield_parameters)
       end
-      @return_values.next
+      returned_value = @return_values.next
+      @returned_values << returned_value
+      returned_value
     end
 
     # @private
@@ -603,12 +606,19 @@ module Mocha
       message << ': '
       message << method_signature
       message << "; #{@ordering_constraints.map(&:mocha_inspect).join('; ')}" unless @ordering_constraints.empty?
+      message << invocations if (ENV['MOCHA_OPTIONS'] || '').split(',').include?('verbose')
       message
     end
 
     # @private
     def method_signature
       "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}#{@parameters_matcher.mocha_inspect}"
+    end
+
+    private
+
+    def invocations
+      @returned_values.map { |returned_value| "\n  - #{method_signature} # => #{returned_value.mocha_inspect}"}.join
     end
   end
 end
