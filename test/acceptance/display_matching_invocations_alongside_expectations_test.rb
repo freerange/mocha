@@ -35,4 +35,26 @@ class DisplayMatchingInvocationsAlongsideExpectationsTest < Mocha::TestCase
       '  - #<Mock:foo>.bar(2) # => "c"'
     ], test_result.failure_message_lines
   end
+
+  def test_should_display_raised_exceptions_of_matching_invocations
+    test_result = run_as_test do
+      foo = mock('foo')
+      foo.expects(:bar).with(1).returns('a')
+      foo.stubs(:bar).with(2).returns('b').then.returns('c').then.raises(StandardError)
+
+      assert_raise(StandardError) { 3.times { foo.bar(2) } }
+      foo.bar(3)
+    end
+    assert_failed(test_result)
+    assert_equal [
+      'unexpected invocation: #<Mock:foo>.bar(3)',
+      'unsatisfied expectations:',
+      '- expected exactly once, not yet invoked: #<Mock:foo>.bar(1)',
+      'satisfied expectations:',
+      '- allowed any number of times, invoked 3 times: #<Mock:foo>.bar(2)',
+      '  - #<Mock:foo>.bar(2) # => "b"',
+      '  - #<Mock:foo>.bar(2) # => "c"',
+      '  - #<Mock:foo>.bar(2) # => raised StandardError'
+    ], test_result.failure_message_lines
+  end
 end
