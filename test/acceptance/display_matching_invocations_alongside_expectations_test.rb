@@ -15,77 +15,14 @@ class DisplayMatchingInvocationsAlongsideExpectationsTest < Mocha::TestCase
     teardown_acceptance_test
   end
 
-  def test_should_display_return_values
+  def test_should_display_results
     test_result = run_as_test do
       foo = mock('foo')
       foo.expects(:bar).with(1).returns('a')
-      foo.stubs(:bar).with(2).returns('b').then.returns('c')
+      foo.stubs(:bar).with(any_parameters).returns('f').raises(StandardError)
 
-      2.times { foo.bar(2) }
-      foo.bar(3)
-    end
-    assert_failed(test_result)
-    assert_equal [
-      'unexpected invocation: #<Mock:foo>.bar(3)',
-      'unsatisfied expectations:',
-      '- expected exactly once, not yet invoked: #<Mock:foo>.bar(1)',
-      'satisfied expectations:',
-      '- allowed any number of times, invoked twice: #<Mock:foo>.bar(2)',
-      '  - #<Mock:foo>.bar(2) # => "b"',
-      '  - #<Mock:foo>.bar(2) # => "c"'
-    ], test_result.failure_message_lines
-  end
-
-  def test_should_display_raised_exceptions
-    test_result = run_as_test do
-      foo = mock('foo')
-      foo.expects(:bar).with(1).returns('a')
-      foo.stubs(:bar).with(2).returns('b').then.returns('c').then.raises(StandardError)
-
-      assert_raise(StandardError) { 3.times { foo.bar(2) } }
-      foo.bar(3)
-    end
-    assert_failed(test_result)
-    assert_equal [
-      'unexpected invocation: #<Mock:foo>.bar(3)',
-      'unsatisfied expectations:',
-      '- expected exactly once, not yet invoked: #<Mock:foo>.bar(1)',
-      'satisfied expectations:',
-      '- allowed any number of times, invoked 3 times: #<Mock:foo>.bar(2)',
-      '  - #<Mock:foo>.bar(2) # => "b"',
-      '  - #<Mock:foo>.bar(2) # => "c"',
-      '  - #<Mock:foo>.bar(2) # => raised StandardError'
-    ], test_result.failure_message_lines
-  end
-
-  def test_should_display_yields
-    test_result = run_as_test do
-      foo = mock('foo')
-      foo.expects(:bar).with(1).returns('a')
-      foo.stubs(:bar).with(2).multiple_yields(%w[b c], %w[d e]).returns('f')
-
-      foo.bar(2) { |yielded| yielded }
-      foo.bar(3)
-    end
-    assert_failed(test_result)
-    assert_equal [
-      'unexpected invocation: #<Mock:foo>.bar(3)',
-      'unsatisfied expectations:',
-      '- expected exactly once, not yet invoked: #<Mock:foo>.bar(1)',
-      'satisfied expectations:',
-      '- allowed any number of times, invoked once: #<Mock:foo>.bar(2)',
-      '  - #<Mock:foo>.bar(2) # => "f" after yielding ("b", "c"), then ("d", "e")'
-    ], test_result.failure_message_lines
-  end
-
-  def test_should_display_arguments
-    test_result = run_as_test do
-      foo = mock('foo')
-      foo.expects(:bar).with(1).returns('a')
-      foo.stubs(:bar).with(any_parameters).returns('b').then.returns('c')
-
-      2.times { foo.bar(2, 3) }
-      foo.bar(3, 2)
+      foo.bar(1, 2)
+      assert_raise(StandardError) { foo.bar(3, 4) }
     end
     assert_failed(test_result)
     assert_equal [
@@ -93,10 +30,30 @@ class DisplayMatchingInvocationsAlongsideExpectationsTest < Mocha::TestCase
       'unsatisfied expectations:',
       '- expected exactly once, not yet invoked: #<Mock:foo>.bar(1)',
       'satisfied expectations:',
-      '- allowed any number of times, invoked 3 times: #<Mock:foo>.bar(any_parameters)',
-      '  - #<Mock:foo>.bar(2, 3) # => "b"',
-      '  - #<Mock:foo>.bar(2, 3) # => "c"',
-      '  - #<Mock:foo>.bar(3, 2) # => "c"'
+      '- allowed any number of times, invoked twice: #<Mock:foo>.bar(any_parameters)',
+      '  - #<Mock:foo>.bar(1, 2) # => "f"',
+      '  - #<Mock:foo>.bar(3, 4) # => raised StandardError'
+    ], test_result.failure_message_lines
+  end
+
+  def test_should_display_yields
+    test_result = run_as_test do
+      foo = mock('foo')
+      foo.expects(:bar).with(1).returns('a')
+      foo.stubs(:bar).with(any_parameters).multiple_yields(%w[b c], %w[d e]).returns('f').raises(StandardError)
+
+      foo.bar(1, 2) { |_ignored| }
+      assert_raise(StandardError) { foo.bar(3, 4) { |_ignored| } }
+    end
+    assert_failed(test_result)
+    assert_equal [
+      'not all expectations were satisfied',
+      'unsatisfied expectations:',
+      '- expected exactly once, not yet invoked: #<Mock:foo>.bar(1)',
+      'satisfied expectations:',
+      '- allowed any number of times, invoked twice: #<Mock:foo>.bar(any_parameters)',
+      '  - #<Mock:foo>.bar(1, 2) # => "f" after yielding ("b", "c"), then ("d", "e")',
+      '  - #<Mock:foo>.bar(3, 4) # => raised StandardError after yielding ("b", "c"), then ("d", "e")'
     ], test_result.failure_message_lines
   end
 
