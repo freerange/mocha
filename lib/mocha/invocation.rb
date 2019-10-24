@@ -3,12 +3,16 @@ require 'mocha/raised_exception'
 module Mocha
   class Invocation
     # @private
-    def initialize(return_values)
+    def initialize(yield_parameters, return_values)
+      @yield_parameters = yield_parameters
       @return_values = return_values
     end
 
     # @private
     def call
+      @yield_parameters.next_invocation.each do |yield_parameters|
+        yield(*yield_parameters)
+      end
       begin
         @result = @return_values.next
         # rubocop:disable Lint/RescueException
