@@ -567,12 +567,12 @@ module Mocha
     end
 
     # @private
-    def invoke
+    def invoke(*arguments)
       @invocation_count += 1
       perform_side_effects
-      invocation = Invocation.new(@yield_parameters, @return_values)
+      invocation = Invocation.new(method_name, @yield_parameters, @return_values)
       @invocations << invocation
-      invocation.call { |*yield_args| yield(*yield_args) }
+      invocation.call(*arguments) { |*yield_args| yield(*yield_args) }
     end
 
     # @private
@@ -611,13 +611,17 @@ module Mocha
 
     # @private
     def method_signature
-      "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}#{@parameters_matcher.mocha_inspect}"
+      "#{method_name}#{@parameters_matcher.mocha_inspect}"
     end
 
     private
 
+    def method_name
+      "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}"
+    end
+
     def invocations
-      @invocations.map { |invocation| "\n  - #{method_signature} # => #{invocation.mocha_inspect}" }.join
+      @invocations.map(&:mocha_inspect).join
     end
   end
 end

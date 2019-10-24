@@ -78,6 +78,28 @@ class DisplayMatchingInvocationsAlongsideExpectationsTest < Mocha::TestCase
     ], test_result.failure_message_lines
   end
 
+  def test_should_display_arguments
+    test_result = run_as_test do
+      foo = mock('foo')
+      foo.expects(:bar).with(1).returns('a')
+      foo.stubs(:bar).with(any_parameters).returns('b').then.returns('c')
+
+      2.times { foo.bar(2, 3) }
+      foo.bar(3, 2)
+    end
+    assert_failed(test_result)
+    assert_equal [
+      'not all expectations were satisfied',
+      'unsatisfied expectations:',
+      '- expected exactly once, not yet invoked: #<Mock:foo>.bar(1)',
+      'satisfied expectations:',
+      '- allowed any number of times, invoked 3 times: #<Mock:foo>.bar(any_parameters)',
+      '  - #<Mock:foo>.bar(2, 3) # => "b"',
+      '  - #<Mock:foo>.bar(2, 3) # => "c"',
+      '  - #<Mock:foo>.bar(3, 2) # => "c"'
+    ], test_result.failure_message_lines
+  end
+
   def test_should_display_empty_yield_and_return
     test_result = run_as_test do
       foo = mock('foo')
@@ -93,7 +115,7 @@ class DisplayMatchingInvocationsAlongsideExpectationsTest < Mocha::TestCase
       '- expected exactly once, not yet invoked: #<Mock:foo>.bar(1)',
       'satisfied expectations:',
       '- allowed any number of times, invoked once: #<Mock:foo>.bar(any_parameters)',
-      '  - #<Mock:foo>.bar(any_parameters) # => nil after yielding ()'
+      '  - #<Mock:foo>.bar(1, 2) # => nil after yielding ()'
     ], test_result.failure_message_lines
   end
 end
