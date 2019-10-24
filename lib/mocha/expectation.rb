@@ -570,12 +570,9 @@ module Mocha
     def invoke
       @invocation_count += 1
       perform_side_effects
-      invocation = Invocation.new(@return_values)
+      invocation = Invocation.new(@yield_parameters, @return_values)
       @invocations << invocation
-      @yield_parameters.next_invocation.each do |yield_parameters|
-        yield(*yield_parameters)
-      end
-      invocation.call
+      invocation.call { |*args| yield(*args) }
     end
 
     # @private
