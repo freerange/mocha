@@ -514,7 +514,6 @@ module Mocha
       @ordering_constraints = []
       @side_effects = []
       @cardinality = Cardinality.exactly(1)
-      @invocation_count = 0
       @return_values = ReturnValues.new
       @yield_parameters = YieldParameters.new
       @backtrace = backtrace || caller
@@ -558,17 +557,16 @@ module Mocha
 
     # @private
     def invocations_allowed?
-      @cardinality.invocations_allowed?(@invocation_count)
+      @cardinality.invocations_allowed?(@invocations.size)
     end
 
     # @private
     def satisfied?
-      @cardinality.satisfied?(@invocation_count)
+      @cardinality.satisfied?(@invocations.size)
     end
 
     # @private
     def invoke(*arguments)
-      @invocation_count += 1
       perform_side_effects
       invocation = Invocation.new(method_name, @yield_parameters, @return_values)
       @invocations << invocation
@@ -578,12 +576,12 @@ module Mocha
     # @private
     def verified?(assertion_counter = nil)
       assertion_counter.increment if assertion_counter && @cardinality.needs_verifying?
-      @cardinality.verified?(@invocation_count)
+      @cardinality.verified?(@invocations.size)
     end
 
     # @private
     def used?
-      @cardinality.used?(@invocation_count)
+      @cardinality.used?(@invocations.size)
     end
 
     # @private
@@ -596,11 +594,11 @@ module Mocha
     # @private
     def mocha_inspect
       message = "#{@cardinality.mocha_inspect}, "
-      message << case @invocation_count
+      message << case @invocations.size
                  when 0 then 'not yet invoked'
                  when 1 then 'invoked once'
                  when 2 then 'invoked twice'
-                 else "invoked #{@invocation_count} times"
+                 else "invoked #{@invocations.size} times"
                  end
       message << ': '
       message << method_signature
