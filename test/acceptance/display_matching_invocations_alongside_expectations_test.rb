@@ -24,16 +24,12 @@ class DisplayMatchingInvocationsAlongsideExpectationsTest < Mocha::TestCase
       foo.bar(1, 2) { |_ignored| }
       assert_raise(StandardError) { foo.bar(3, 4) { |_ignored| } }
     end
-    assert_failed(test_result)
-    assert_equal [
-      'not all expectations were satisfied',
-      'unsatisfied expectations:',
-      '- expected exactly once, not yet invoked: #<Mock:foo>.bar(1)',
-      'satisfied expectations:',
+    assert_invocations(
+      test_result,
       '- allowed any number of times, invoked twice: #<Mock:foo>.bar(any_parameters)',
       '  - #<Mock:foo>.bar(1, 2) # => "f"',
       '  - #<Mock:foo>.bar(3, 4) # => raised StandardError'
-    ], test_result.failure_message_lines
+    )
   end
 
   def test_should_display_yields
@@ -45,16 +41,12 @@ class DisplayMatchingInvocationsAlongsideExpectationsTest < Mocha::TestCase
       foo.bar(1, 2) { |_ignored| }
       assert_raise(StandardError) { foo.bar(3, 4) { |_ignored| } }
     end
-    assert_failed(test_result)
-    assert_equal [
-      'not all expectations were satisfied',
-      'unsatisfied expectations:',
-      '- expected exactly once, not yet invoked: #<Mock:foo>.bar(1)',
-      'satisfied expectations:',
+    assert_invocations(
+      test_result,
       '- allowed any number of times, invoked twice: #<Mock:foo>.bar(any_parameters)',
       '  - #<Mock:foo>.bar(1, 2) # => "f" after yielding ("b", "c"), then ("d", "e")',
       '  - #<Mock:foo>.bar(3, 4) # => raised StandardError after yielding ("b", "c"), then ("d", "e")'
-    ], test_result.failure_message_lines
+    )
   end
 
   def test_should_display_empty_yield_and_return
@@ -65,14 +57,21 @@ class DisplayMatchingInvocationsAlongsideExpectationsTest < Mocha::TestCase
 
       foo.bar(1, 2) { |_ignored| }
     end
+    assert_invocations(
+      test_result,
+      '- allowed any number of times, invoked once: #<Mock:foo>.bar(any_parameters)',
+      '  - #<Mock:foo>.bar(1, 2) # => nil after yielding ()'
+    )
+  end
+
+  def assert_invocations(test_result, *invocations)
     assert_failed(test_result)
     assert_equal [
       'not all expectations were satisfied',
       'unsatisfied expectations:',
       '- expected exactly once, not yet invoked: #<Mock:foo>.bar(1)',
       'satisfied expectations:',
-      '- allowed any number of times, invoked once: #<Mock:foo>.bar(any_parameters)',
-      '  - #<Mock:foo>.bar(1, 2) # => nil after yielding ()'
+      *invocations
     ], test_result.failure_message_lines
   end
 end
