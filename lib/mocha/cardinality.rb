@@ -73,7 +73,7 @@ module Mocha
       end
     end
 
-    def actual_invocations
+    def actual_times
       case @invocations.size
       when 0 then
         'not yet invoked'
@@ -86,7 +86,7 @@ module Mocha
       end
     end
 
-    def invocations
+    def actual_invocations
       @invocations.map(&:mocha_inspect).join
     end
 
