@@ -57,7 +57,7 @@ module Mocha
       (@invocations.size > 0) || maximum.zero?
     end
 
-    def mocha_inspect
+    def expected_times
       if allowed_any_number_of_times?
         'allowed any number of times'
       elsif required.zero? && maximum.zero?
