@@ -54,7 +54,7 @@ module Mocha
     end
 
     def used?
-      (@invocations.size > 0) || maximum.zero?
+      @invocations.any? || maximum.zero?
     end
 
     def anticipated_times
@@ -74,12 +74,7 @@ module Mocha
     end
 
     def invoked_times
-      case @invocations.size
-      when 0 then
-        'not yet invoked'
-      else
-        "invoked #{times(@invocations.size)}"
-      end
+      @invocations.none? ? 'not yet invoked' : "invoked #{times(@invocations.size)}"
     end
 
     def actual_invocations
