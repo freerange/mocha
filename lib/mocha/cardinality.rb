@@ -57,7 +57,7 @@ module Mocha
       (@invocations.size > 0) || maximum.zero?
     end
 
-    def expected_times
+    def anticipated_times
       if allowed_any_number_of_times?
         'allowed any number of times'
       elsif required.zero? && maximum.zero?
@@ -73,7 +73,7 @@ module Mocha
       end
     end
 
-    def actual_times
+    def invoked_times
       case @invocations.size
       when 0 then
         'not yet invoked'
