@@ -592,10 +592,7 @@ module Mocha
 
     # @private
     def mocha_inspect
-      message = "#{@cardinality.anticipated_times}, "
-      message << @cardinality.invoked_times
-      message << ': '
-      message << method_signature
+      message = "#{@cardinality.anticipated_times}, #{@cardinality.invoked_times}: #{method_signature}"
       message << "; #{@ordering_constraints.map(&:mocha_inspect).join('; ')}" unless @ordering_constraints.empty?
       message << @cardinality.actual_invocations if (ENV['MOCHA_OPTIONS'] || '').split(',').include?('verbose')
       message
