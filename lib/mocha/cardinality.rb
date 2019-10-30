@@ -68,6 +68,19 @@ module Mocha
       end
     end
 
+    def actual_invocations(invocation_count)
+      case invocation_count
+      when 0 then
+        'not yet invoked'
+      when 1 then
+        'invoked once'
+      when 2 then
+        'invoked twice'
+      else
+        "invoked #{invocation_count} times"
+      end
+    end
+
     protected
 
     attr_reader :required, :maximum
