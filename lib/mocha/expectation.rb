@@ -596,7 +596,7 @@ module Mocha
       message << ': '
       message << method_signature
       message << "; #{@ordering_constraints.map(&:mocha_inspect).join('; ')}" unless @ordering_constraints.empty?
-      message << invocations if (ENV['MOCHA_OPTIONS'] || '').split(',').include?('verbose')
+      message << @cardinality.invocations if (ENV['MOCHA_OPTIONS'] || '').split(',').include?('verbose')
       message
     end
 
@@ -609,10 +609,6 @@ module Mocha
 
     def method_name
       "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}"
-    end
-
-    def invocations
-      @cardinality.invocations.map(&:mocha_inspect).join
     end
   end
 end

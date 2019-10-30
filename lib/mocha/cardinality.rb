@@ -23,8 +23,6 @@ module Mocha
       end
     end
 
-    attr_reader :invocations
-
     def initialize(required, maximum)
       @required = required
       @maximum = maximum
@@ -86,6 +84,10 @@ module Mocha
       else
         "invoked #{@invocations.size} times"
       end
+    end
+
+    def invocations
+      @invocations.map(&:mocha_inspect).join
     end
 
     protected
