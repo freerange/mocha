@@ -77,12 +77,8 @@ module Mocha
       case @invocations.size
       when 0 then
         'not yet invoked'
-      when 1 then
-        'invoked once'
-      when 2 then
-        'invoked twice'
       else
-        "invoked #{@invocations.size} times"
+        "invoked #{times(@invocations.size)}"
       end
     end
 
