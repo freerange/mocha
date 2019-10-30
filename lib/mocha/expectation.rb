@@ -592,7 +592,7 @@ module Mocha
 
     # @private
     def mocha_inspect
-      message = "#{@cardinality.mocha_inspect}, "
+      message = "#{@cardinality.expected_times}, "
       message << @cardinality.actual_times
       message << ': '
       message << method_signature
