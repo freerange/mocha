@@ -23,9 +23,16 @@ module Mocha
       end
     end
 
+    attr_reader :invocations
+
     def initialize(required, maximum)
       @required = required
       @maximum = maximum
+      @invocations = []
+    end
+
+    def <<(invocation)
+      @invocations << invocation
     end
 
     def invocations_allowed?(invocation_count)

@@ -516,7 +516,6 @@ module Mocha
       @return_values = ReturnValues.new
       @yield_parameters = YieldParameters.new
       @backtrace = backtrace || caller
-      @invocations = []
     end
 
     # @private
@@ -556,12 +555,12 @@ module Mocha
 
     # @private
     def invocations_allowed?
-      @cardinality.invocations_allowed?(@invocations.size)
+      @cardinality.invocations_allowed?(@cardinality.invocations.size)
     end
 
     # @private
     def satisfied?
-      @cardinality.satisfied?(@invocations.size)
+      @cardinality.satisfied?(@cardinality.invocations.size)
     end
 
     # @private
@@ -575,12 +574,12 @@ module Mocha
     # @private
     def verified?(assertion_counter = nil)
       assertion_counter.increment if assertion_counter && @cardinality.needs_verifying?
-      @cardinality.verified?(@invocations.size)
+      @cardinality.verified?(@cardinality.invocations.size)
     end
 
     # @private
     def used?
-      @cardinality.used?(@invocations.size)
+      @cardinality.used?(@cardinality.invocations.size)
     end
 
     # @private
@@ -593,7 +592,7 @@ module Mocha
     # @private
     def mocha_inspect
       message = "#{@cardinality.mocha_inspect}, "
-      message << @cardinality.actual_invocations(@invocations.size)
+      message << @cardinality.actual_invocations(@cardinality.invocations.size)
       message << ': '
       message << method_signature
       message << "; #{@ordering_constraints.map(&:mocha_inspect).join('; ')}" unless @ordering_constraints.empty?
@@ -613,7 +612,7 @@ module Mocha
     end
 
     def invocations
-      @invocations.map(&:mocha_inspect).join
+      @cardinality.invocations.map(&:mocha_inspect).join
     end
   end
 end
