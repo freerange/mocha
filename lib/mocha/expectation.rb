@@ -556,12 +556,12 @@ module Mocha
 
     # @private
     def invocations_allowed?
-      @cardinality.invocations_allowed?(@cardinality.invocations.size)
+      @cardinality.invocations_allowed?
     end
 
     # @private
     def satisfied?
-      @cardinality.satisfied?(@cardinality.invocations.size)
+      @cardinality.satisfied?
     end
 
     # @private
@@ -575,12 +575,12 @@ module Mocha
     # @private
     def verified?(assertion_counter = nil)
       assertion_counter.increment if assertion_counter && @cardinality.needs_verifying?
-      @cardinality.verified?(@cardinality.invocations.size)
+      @cardinality.verified?
     end
 
     # @private
     def used?
-      @cardinality.used?(@cardinality.invocations.size)
+      @cardinality.used?
     end
 
     # @private
@@ -593,7 +593,7 @@ module Mocha
     # @private
     def mocha_inspect
       message = "#{@cardinality.mocha_inspect}, "
-      message << @cardinality.actual_invocations(@cardinality.invocations.size)
+      message << @cardinality.actual_invocations
       message << ': '
       message << method_signature
       message << "; #{@ordering_constraints.map(&:mocha_inspect).join('; ')}" unless @ordering_constraints.empty?

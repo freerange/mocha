@@ -35,28 +35,28 @@ module Mocha
       @invocations << invocation
     end
 
-    def invocations_allowed?(invocation_count)
-      invocation_count < maximum
+    def invocations_allowed?
+      @invocations.size < maximum
     end
 
-    def satisfied?(invocations_so_far)
-      invocations_so_far >= required
+    def satisfied?
+      @invocations.size >= required
     end
 
     def needs_verifying?
       !allowed_any_number_of_times?
     end
 
-    def verified?(invocation_count)
-      (invocation_count >= required) && (invocation_count <= maximum)
+    def verified?
+      (@invocations.size >= required) && (@invocations.size <= maximum)
     end
 
     def allowed_any_number_of_times?
       required.zero? && infinite?(maximum)
     end
 
-    def used?(invocation_count)
-      (invocation_count > 0) || maximum.zero?
+    def used?
+      @invocations.any? || maximum.zero?
     end
 
     def mocha_inspect
@@ -75,8 +75,8 @@ module Mocha
       end
     end
 
-    def actual_invocations(invocation_count)
-      case invocation_count
+    def actual_invocations
+      case @invocations.size
       when 0 then
         'not yet invoked'
       when 1 then
@@ -84,7 +84,7 @@ module Mocha
       when 2 then
         'invoked twice'
       else
-        "invoked #{invocation_count} times"
+        "invoked #{@invocations.size} times"
       end
     end
 
