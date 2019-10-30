@@ -1,23 +1,35 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/cardinality'
+require 'mocha/return_values'
+require 'mocha/yield_parameters'
 
 class CardinalityTest < Mocha::TestCase
   include Mocha
 
+  def new_invocation
+    Invocation.new(:foo, YieldParameters.new, ReturnValues.new)
+  end
+
   def test_should_allow_invocations_if_invocation_count_has_not_yet_reached_maximum
     cardinality = Cardinality.new(2, 3)
-    assert cardinality.invocations_allowed?(0)
-    assert cardinality.invocations_allowed?(1)
-    assert cardinality.invocations_allowed?(2)
-    assert !cardinality.invocations_allowed?(3)
+    assert cardinality.invocations_allowed?
+    cardinality << new_invocation
+    assert cardinality.invocations_allowed?
+    cardinality << new_invocation
+    assert cardinality.invocations_allowed?
+    cardinality << new_invocation
+    assert !cardinality.invocations_allowed?
   end
 
   def test_should_be_satisfied_if_invocations_so_far_have_reached_required_threshold
     cardinality = Cardinality.new(2, 3)
-    assert !cardinality.satisfied?(0)
-    assert !cardinality.satisfied?(1)
-    assert cardinality.satisfied?(2)
-    assert cardinality.satisfied?(3)
+    assert !cardinality.satisfied?
+    cardinality << new_invocation
+    assert !cardinality.satisfied?
+    cardinality << new_invocation
+    assert cardinality.satisfied?
+    cardinality << new_invocation
+    assert cardinality.satisfied?
   end
 
   def test_should_describe_cardinality
