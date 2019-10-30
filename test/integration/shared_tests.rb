@@ -63,7 +63,7 @@ module SharedTests
     assert_equal [
       'not all expectations were satisfied',
       'unsatisfied expectations:',
-      '- expected exactly once, not yet invoked: #<Mock:expecting invocation>.expected(any_parameters)'
+      '- expected exactly once, invoked never: #<Mock:expecting invocation>.expected(any_parameters)'
     ], test_result.failure_message_lines
   end
 
@@ -101,7 +101,7 @@ module SharedTests
     assert_equal [
       'not all expectations were satisfied',
       'unsatisfied expectations:',
-      '- expected exactly once, not yet invoked: #<Mock:expecting invocation>.expected(any_parameters)'
+      '- expected exactly once, invoked never: #<Mock:expecting invocation>.expected(any_parameters)'
     ], test_result.failure_message_lines
   end
 
@@ -151,7 +151,7 @@ module SharedTests
     assert_equal [
       'not all expectations were satisfied',
       'unsatisfied expectations:',
-      "- expected exactly once, not yet invoked: #{object.mocha_inspect}.expected(any_parameters)"
+      "- expected exactly once, invoked never: #{object.mocha_inspect}.expected(any_parameters)"
     ], test_result.failure_message_lines
   end
 

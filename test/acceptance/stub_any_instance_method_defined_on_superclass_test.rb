@@ -59,7 +59,7 @@ class StubAnyInstanceMethodDefinedOnSuperclassTest < Mocha::TestCase
     assert_equal [
       'not all expectations were satisfied',
       'unsatisfied expectations:',
-      '- expected exactly once, not yet invoked: #<AnyInstance:superklass>.my_instance_method(any_parameters)'
+      '- expected exactly once, invoked never: #<AnyInstance:superklass>.my_instance_method(any_parameters)'
     ], test_result.failure_message_lines
   end
 end

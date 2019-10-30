@@ -61,7 +61,7 @@ module Mocha
       if allowed_any_number_of_times?
         'allowed any number of times'
       elsif required.zero? && maximum.zero?
-        'expected never'
+        "expected #{times(maximum)}"
       elsif required == maximum
         "expected exactly #{times(required)}"
       elsif infinite?(maximum)
@@ -74,7 +74,7 @@ module Mocha
     end
 
     def invoked_times
-      @invocations.none? ? 'not yet invoked' : "invoked #{times(@invocations.size)}"
+      "invoked #{times(@invocations.size)}"
     end
 
     def actual_invocations
@@ -87,6 +87,7 @@ module Mocha
 
     def times(number)
       case number
+      when 0 then 'never'
       when 1 then 'once'
       when 2 then 'twice'
       else "#{number} times"
