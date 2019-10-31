@@ -36,14 +36,14 @@ class MockedMethodDispatchTest < Mocha::TestCase
   end
 
   def test_should_keep_finding_later_stub_and_so_never_satisfy_earlier_expectation
+    responses = []
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).returns(1)
       mock.stubs(:method).returns(2)
-      assert_equal 2, mock.method
-      assert_equal 2, mock.method
-      assert_equal 2, mock.method
+      3.times { responses << mock.method }
     end
+    assert_equal [2, 2, 2], responses
     assert_failed(test_result)
   end
 
