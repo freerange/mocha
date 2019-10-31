@@ -284,7 +284,7 @@ Maybe, but probably not. Partial mocking changes the state of objects in the `Ob
 
 Stubs and expectations are basically the same thing. A stub is just an expectation of zero or more invocations. The `Expectation#stubs` method is syntactic sugar to make the intent of the test more explicit.
 
-When a method is invoked on a mock object, the mock object searches through its expectations from newest to oldest to find one that matches the invocation. After the invocation, the matching expectation might stop matching further invocations.
+When a method is invoked on a mock object, the Mockery searches through its expectations from oldest to newest to find one that matches the invocation. After the invocation, the matching expectation might stop matching further invocations.
 
 See the [documentation](https://mocha.jamesmead.org/Mocha/Mock.html) for `Mocha::Mock` for further details.
 
