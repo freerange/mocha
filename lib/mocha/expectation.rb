@@ -484,7 +484,8 @@ module Mocha
     #
     # An expected method can appear in multiple sequences.
     #
-    # @param [*Array<Sequence>] sequences sequences in which expected method should appear.
+    # @param [Sequence] sequence sequence in which expected method should appear.
+    # @param [*Array<Sequence>] sequences more sequences in which expected method should appear.
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
     #
     # @see API#sequence
@@ -496,8 +497,8 @@ module Mocha
     #   egg.expects(:crack).in_sequence(breakfast)
     #   egg.expects(:fry).in_sequence(breakfast)
     #   egg.expects(:eat).in_sequence(breakfast)
-    def in_sequence(*sequences)
-      sequences.each { |sequence| add_in_sequence_ordering_constraint(sequence) }
+    def in_sequence(sequence, *sequences)
+      sequences.unshift(sequence).each { |seq| add_in_sequence_ordering_constraint(seq) }
       self
     end
 
