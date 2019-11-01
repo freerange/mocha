@@ -167,8 +167,10 @@ module Mocha
     #   object.stubbed_method # => :result_one
     #   object.unstub(:stubbed_method)
     #   object.stubbed_method # => unexpected invocation: #<Mock:mock>.stubbed_method()
-    def unstub(method_name)
-      @expectations.remove_all_matching_method(method_name)
+    def unstub(*method_names)
+      method_names.each do |method_name|
+        @expectations.remove_all_matching_method(method_name)
+      end
     end
 
     # Constrains the {Mock} instance so that it can only expect or stub methods to which +responder+ responds. The constraint is only applied at method invocation time.
