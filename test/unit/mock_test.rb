@@ -339,11 +339,14 @@ class MockTest < Mocha::TestCase
     assert mock.respond_to?(:xyz)
   end
 
-  def test_should_remove_expectation_for_unstubbed_method
+  def test_should_remove_expectations_for_unstubbed_methods
     mock = build_mock
     mock.expects(:method1)
-    mock.unstub(:method1)
+    mock.expects(:method2)
+    mock.unstub(:method1, :method2)
     e = assert_raises(ExpectationErrorFactory.exception_class) { mock.method1 }
+    assert_match(/unexpected invocation/, e.message)
+    e = assert_raises(ExpectationErrorFactory.exception_class) { mock.method2 }
     assert_match(/unexpected invocation/, e.message)
   end
 

@@ -157,9 +157,9 @@ module Mocha
       end
     end
 
-    # Removes the specified stubbed method (added by calls to {#expects} or {#stubs}) and all expectations associated with it.
+    # Removes the specified stubbed methods (added by calls to {#expects} or {#stubs}) and all expectations associated with them.
     #
-    # @param [Symbol] method_name name of method to unstub.
+    # @param [Array<Symbol>] method_names names of methods to unstub.
     #
     # @example Invoking an unstubbed method causes error to be raised
     #   object = mock('mock') do
@@ -167,8 +167,18 @@ module Mocha
     #   object.stubbed_method # => :result_one
     #   object.unstub(:stubbed_method)
     #   object.stubbed_method # => unexpected invocation: #<Mock:mock>.stubbed_method()
-    def unstub(method_name)
-      @expectations.remove_all_matching_method(method_name)
+    #
+    # @example Unstubbing multiple methods.
+    #   multiplier.unstub(:double, :triple)
+    #
+    #   # exactly equivalent to
+    #
+    #   multiplier.unstub(:double)
+    #   multiplier.unstub(:triple)
+    def unstub(*method_names)
+      method_names.each do |method_name|
+        @expectations.remove_all_matching_method(method_name)
+      end
     end
 
     # Constrains the {Mock} instance so that it can only expect or stub methods to which +responder+ responds. The constraint is only applied at method invocation time.
