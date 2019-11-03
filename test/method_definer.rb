@@ -1,7 +1,7 @@
 require 'mocha/singleton_class'
 
 module Mocha
-  module ObjectMethods
+  module MethodDefiner
     def define_instance_method(method_symbol, &block)
       singleton_class.send(:define_method, method_symbol, block)
     end
@@ -18,5 +18,5 @@ module Mocha
 end
 
 class Object
-  include Mocha::ObjectMethods
+  include Mocha::MethodDefiner
 end
