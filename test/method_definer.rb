@@ -1,22 +1,16 @@
 require 'mocha/singleton_class'
 
-module Mocha
-  module ObjectMethods
-    def define_instance_method(method_symbol, &block)
-      singleton_class.send(:define_method, method_symbol, block)
-    end
-
-    def replace_instance_method(method_symbol, &block)
-      raise "Cannot replace #{method_symbol} as #{self} does not respond to it." unless respond_to?(method_symbol)
-      define_instance_method(method_symbol, &block)
-    end
-
-    def define_instance_accessor(*symbols)
-      symbols.each { |symbol| singleton_class.send(:attr_accessor, symbol) }
-    end
+module MethodDefiner
+  def define_instance_method(object, method_symbol, &block)
+    object.singleton_class.send(:define_method, method_symbol, block)
   end
-end
 
-class Object
-  include Mocha::ObjectMethods
+  def replace_instance_method(object, method_symbol, &block)
+    raise "Cannot replace #{method_symbol} as #{self} does not respond to it." unless object.respond_to?(method_symbol)
+    define_instance_method(object, method_symbol, &block)
+  end
+
+  def define_instance_accessor(object, *symbols)
+    symbols.each { |symbol| object.singleton_class.send(:attr_accessor, symbol) }
+  end
 end

@@ -4,6 +4,8 @@ require 'mocha/inspect'
 require 'method_definer'
 
 class ObjectInspectTest < Mocha::TestCase
+  include MethodDefiner
+
   def test_should_return_default_string_representation_of_object_not_including_instance_variables
     object = Object.new
     class << object
@@ -26,20 +28,20 @@ class ObjectInspectTest < Mocha::TestCase
     calls = []
     object = Object.new
     if Mocha::PRE_RUBY_V19
-      object.replace_instance_method(:id) do
+      replace_instance_method(object, :id) do
         calls << :id
         return 1
       end
     end
-    object.replace_instance_method(:object_id) do
+    replace_instance_method(object, :object_id) do
       calls << :object_id
       return 1
     end
-    object.replace_instance_method(:__id__) do
+    replace_instance_method(object, :__id__) do
       calls << :__id__
       return 1
     end
-    object.replace_instance_method(:inspect) { 'object-description' }
+    replace_instance_method(object, :inspect) { 'object-description' }
 
     object.mocha_inspect
 

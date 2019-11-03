@@ -5,6 +5,7 @@ require 'mocha/mock'
 require 'mocha/any_instance_method'
 
 class AnyInstanceMethodTest < Mocha::TestCase
+  include MethodDefiner
   include Mocha
 
   def class_with_method(method, result = nil)
@@ -38,8 +39,8 @@ class AnyInstanceMethodTest < Mocha::TestCase
     mocha = build_mock
     mocha.expects(:method_x).with(:param1, :param2).returns(:result)
     any_instance = Object.new
-    any_instance.define_instance_method(:mocha) { mocha }
-    klass.define_instance_method(:any_instance) { any_instance }
+    define_instance_method(any_instance, :mocha) { mocha }
+    define_instance_method(klass, :any_instance) { any_instance }
 
     method.hide_original_method
     method.define_new_method
@@ -57,8 +58,8 @@ class AnyInstanceMethodTest < Mocha::TestCase
     mocha = build_mock
     mocha.stubs(:method_x).raises(Exception)
     any_instance = Object.new
-    any_instance.define_instance_method(:mocha) { mocha }
-    klass.define_instance_method(:any_instance) { any_instance }
+    define_instance_method(any_instance, :mocha) { mocha }
+    define_instance_method(klass, :any_instance) { any_instance }
 
     method.hide_original_method
     method.define_new_method
@@ -104,12 +105,12 @@ class AnyInstanceMethodTest < Mocha::TestCase
     any_instance = build_mock
     any_instance_mocha = build_mock
     any_instance.stubs(:mocha).returns(any_instance_mocha)
-    klass.define_instance_method(:any_instance) { any_instance }
+    define_instance_method(klass, :any_instance) { any_instance }
     method = AnyInstanceMethod.new(klass, :method_x)
-    method.replace_instance_method(:restore_original_method) {}
-    method.replace_instance_method(:reset_mocha) {}
-    method.define_instance_accessor(:remove_called)
-    method.replace_instance_method(:remove_new_method) { self.remove_called = true }
+    replace_instance_method(method, :restore_original_method) {}
+    replace_instance_method(method, :reset_mocha) {}
+    define_instance_accessor(method, :remove_called)
+    replace_instance_method(method, :remove_new_method) { self.remove_called = true }
 
     method.unstub
 
@@ -121,12 +122,12 @@ class AnyInstanceMethodTest < Mocha::TestCase
     any_instance = build_mock
     any_instance_mocha = build_mock
     any_instance.stubs(:mocha).returns(any_instance_mocha)
-    klass.define_instance_method(:any_instance) { any_instance }
+    define_instance_method(klass, :any_instance) { any_instance }
     method = AnyInstanceMethod.new(klass, :method_x)
-    method.replace_instance_method(:remove_new_method) {}
-    method.replace_instance_method(:reset_mocha) {}
-    method.define_instance_accessor(:restore_called)
-    method.replace_instance_method(:restore_original_method) { self.restore_called = true }
+    replace_instance_method(method, :remove_new_method) {}
+    replace_instance_method(method, :reset_mocha) {}
+    define_instance_accessor(method, :restore_called)
+    replace_instance_method(method, :restore_original_method) { self.restore_called = true }
 
     method.unstub
 
@@ -138,8 +139,8 @@ class AnyInstanceMethodTest < Mocha::TestCase
 
     method = AnyInstanceMethod.new(klass, :method_x)
 
-    method.replace_instance_method(:remove_new_method) {}
-    method.replace_instance_method(:restore_original_method) {}
+    replace_instance_method(method, :remove_new_method) {}
+    replace_instance_method(method, :restore_original_method) {}
     mocha = Class.new do
       class << self
         attr_accessor :unstub_method
@@ -148,8 +149,8 @@ class AnyInstanceMethodTest < Mocha::TestCase
         self.unstub_method = method
       end
     end
-    mocha.define_instance_method(:any_expectations?) { true }
-    method.replace_instance_method(:mock) { mocha }
+    define_instance_method(mocha, :any_expectations?) { true }
+    replace_instance_method(method, :mock) { mocha }
 
     method.unstub
 
@@ -159,9 +160,9 @@ class AnyInstanceMethodTest < Mocha::TestCase
   def test_should_return_any_instance_mocha_for_stubbee
     mocha = Object.new
     any_instance = Object.new
-    any_instance.define_instance_method(:mocha) { mocha }
+    define_instance_method(any_instance, :mocha) { mocha }
     stubbee = class_with_method(:method_x)
-    stubbee.define_instance_method(:any_instance) { any_instance }
+    define_instance_method(stubbee, :any_instance) { any_instance }
     method = AnyInstanceMethod.new(stubbee, :method_name)
     assert_equal stubbee.any_instance.mocha, method.mock
   end
