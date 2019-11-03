@@ -2,7 +2,6 @@ require File.expand_path('../../test_helper', __FILE__)
 
 require 'mocha/central'
 require 'mocha/mock'
-require 'method_definer'
 
 class CentralTest < Mocha::TestCase
   include Mocha
