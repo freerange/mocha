@@ -44,7 +44,7 @@ class ObjectMethodsTest < Mocha::TestCase
   end
 
   def test_should_use_stubba_instance_method_for_object
-    assert_equal Mocha::InstanceMethod, Object.new.stubba_method
+    assert_equal Mocha::InstanceMethod, @object.stubba_method
   end
 
   def test_should_stub_self_for_object
@@ -57,6 +57,7 @@ class ObjectMethodsTest < Mocha::TestCase
 
   def test_should_alias_object_method
     klass = Class.new { def self.method_x; end }
+    klass.extend(Mocha::ObjectMethods)
     assert_equal klass._method(:method_x), klass.method(:method_x)
   end
 end
