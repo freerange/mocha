@@ -3,7 +3,7 @@ module Mocha
   module ParameterMatchers; end
 end
 
-require 'mocha/parameter_matchers/object'
+require 'mocha/parameter_matchers/instance_methods'
 
 require 'mocha/parameter_matchers/all_of'
 require 'mocha/parameter_matchers/any_of'

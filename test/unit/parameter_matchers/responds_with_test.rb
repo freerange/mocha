@@ -1,7 +1,7 @@
 require File.expand_path('../../../test_helper', __FILE__)
 
 require 'mocha/parameter_matchers/responds_with'
-require 'mocha/parameter_matchers/object'
+require 'mocha/parameter_matchers/instance_methods'
 require 'mocha/inspect'
 
 class RespondsWithTest < Mocha::TestCase
