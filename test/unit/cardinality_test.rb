@@ -1,5 +1,6 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/cardinality'
+require 'mocha/invocation'
 require 'mocha/return_values'
 require 'mocha/yield_parameters'
 
@@ -7,7 +8,7 @@ class CardinalityTest < Mocha::TestCase
   include Mocha
 
   def new_invocation
-    Invocation.new(:foo, YieldParameters.new, ReturnValues.new)
+    Invocation.new(:irrelevant)
   end
 
   def test_should_allow_invocations_if_invocation_count_has_not_yet_reached_maximum
