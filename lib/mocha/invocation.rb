@@ -1,10 +1,12 @@
 require 'mocha/parameters_matcher'
 require 'mocha/raised_exception'
+require 'mocha/return_values'
+require 'mocha/yield_parameters'
 
 module Mocha
   class Invocation
     # @private
-    def initialize(method_name, yield_parameters, return_values)
+    def initialize(method_name, yield_parameters = YieldParameters.new, return_values = ReturnValues.new)
       @method_name = method_name
       @yield_parameters = yield_parameters
       @return_values = return_values
