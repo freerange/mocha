@@ -8,7 +8,7 @@ class CardinalityTest < Mocha::TestCase
   include Mocha
 
   def new_invocation
-    Invocation.new(:foo, YieldParameters.new, ReturnValues.new)
+    Invocation.new(:irrelevant)
   end
 
   def test_should_allow_invocations_if_invocation_count_has_not_yet_reached_maximum
