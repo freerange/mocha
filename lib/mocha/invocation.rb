@@ -11,6 +11,7 @@ module Mocha
       @yield_parameters = yield_parameters
       @return_values = return_values
       @yields = []
+      @result = nil
     end
 
     # @private
@@ -20,14 +21,17 @@ module Mocha
         @yields << ParametersMatcher.new(yield_parameters)
         yield(*yield_parameters)
       end
-      begin
-        @result = @return_values.next
-        # rubocop:disable Lint/RescueException
-      rescue Exception => e
-        # rubocop:enable Lint/RescueException
-        @result = RaisedException.new(e)
-        raise
-      end
+      @return_values.next(self)
+    end
+
+    # @private
+    def returned(value)
+      @result = value
+    end
+
+    # @private
+    def raised(exception)
+      @result = RaisedException.new(exception)
     end
 
     # @private

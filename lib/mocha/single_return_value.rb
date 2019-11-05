@@ -6,7 +6,8 @@ module Mocha
       @value = value
     end
 
-    def evaluate
+    def evaluate(invocation)
+      invocation.returned(@value)
       @value
     end
   end
