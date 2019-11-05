@@ -19,16 +19,18 @@ class DisplayMatchingInvocationsAlongsideExpectationsTest < Mocha::TestCase
     test_result = run_as_test do
       foo = mock('foo')
       foo.expects(:bar).with(1).returns('a')
-      foo.stubs(:bar).with(any_parameters).returns('f').raises(StandardError)
+      foo.stubs(:bar).with(any_parameters).returns('f').raises(StandardError).throws(:tag, 'value')
 
       foo.bar(1, 2)
       assert_raise(StandardError) { foo.bar(3, 4) }
+      assert_throws(:tag) { foo.bar(5, 6) }
     end
     assert_invocations(
       test_result,
-      '- allowed any number of times, invoked twice: #<Mock:foo>.bar(any_parameters)',
+      '- allowed any number of times, invoked 3 times: #<Mock:foo>.bar(any_parameters)',
       '  - #<Mock:foo>.bar(1, 2) # => "f"',
-      '  - #<Mock:foo>.bar(3, 4) # => raised StandardError'
+      '  - #<Mock:foo>.bar(3, 4) # => raised StandardError',
+      '  - #<Mock:foo>.bar(5, 6) # => threw (:tag, "value")'
     )
   end
 
@@ -36,16 +38,18 @@ class DisplayMatchingInvocationsAlongsideExpectationsTest < Mocha::TestCase
     test_result = run_as_test do
       foo = mock('foo')
       foo.expects(:bar).with(1).returns('a')
-      foo.stubs(:bar).with(any_parameters).multiple_yields(%w[b c], %w[d e]).returns('f').raises(StandardError)
+      foo.stubs(:bar).with(any_parameters).multiple_yields(%w[b c], %w[d e]).returns('f').raises(StandardError).throws(:tag, 'value')
 
       foo.bar(1, 2) { |_ignored| }
       assert_raise(StandardError) { foo.bar(3, 4) { |_ignored| } }
+      assert_throws(:tag) { foo.bar(5, 6) { |_ignored| } }
     end
     assert_invocations(
       test_result,
-      '- allowed any number of times, invoked twice: #<Mock:foo>.bar(any_parameters)',
+      '- allowed any number of times, invoked 3 times: #<Mock:foo>.bar(any_parameters)',
       '  - #<Mock:foo>.bar(1, 2) # => "f" after yielding ("b", "c"), then ("d", "e")',
-      '  - #<Mock:foo>.bar(3, 4) # => raised StandardError after yielding ("b", "c"), then ("d", "e")'
+      '  - #<Mock:foo>.bar(3, 4) # => raised StandardError after yielding ("b", "c"), then ("d", "e")',
+      '  - #<Mock:foo>.bar(5, 6) # => threw (:tag, "value") after yielding ("b", "c"), then ("d", "e")'
     )
   end
 

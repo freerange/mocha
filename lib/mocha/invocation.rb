@@ -1,6 +1,7 @@
 require 'mocha/parameters_matcher'
 require 'mocha/raised_exception'
 require 'mocha/return_values'
+require 'mocha/thrown_object'
 require 'mocha/yield_parameters'
 
 module Mocha
@@ -10,6 +11,7 @@ module Mocha
       @yield_parameters = yield_parameters
       @return_values = return_values
       @yields = []
+      @result = nil
     end
 
     def call(*arguments)
@@ -18,10 +20,19 @@ module Mocha
         @yields << ParametersMatcher.new(yield_parameters)
         yield(*yield_parameters)
       end
-      @result = @return_values.next
-    rescue Exception => e # rubocop:disable Lint/RescueException
-      @result = RaisedException.new(e)
-      raise
+      @return_values.next(self)
+    end
+
+    def returned(value)
+      @result = value
+    end
+
+    def raised(exception)
+      @result = RaisedException.new(exception)
+    end
+
+    def threw(tag, value)
+      @result = ThrownObject.new(tag, value)
     end
 
     def mocha_inspect

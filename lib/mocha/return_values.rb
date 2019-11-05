@@ -12,11 +12,11 @@ module Mocha
       @values = values
     end
 
-    def next
+    def next(invocation)
       case @values.length
       when 0 then nil
-      when 1 then @values.first.evaluate
-      else @values.shift.evaluate
+      when 1 then @values.first.evaluate(invocation)
+      else @values.shift.evaluate(invocation)
       end
     end
 
