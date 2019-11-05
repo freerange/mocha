@@ -1,6 +1,7 @@
 require 'mocha/parameters_matcher'
 require 'mocha/raised_exception'
 require 'mocha/return_values'
+require 'mocha/thrown_object'
 require 'mocha/yield_parameters'
 
 module Mocha
@@ -32,6 +33,11 @@ module Mocha
     # @private
     def raised(exception)
       @result = RaisedException.new(exception)
+    end
+
+    # @private
+    def threw(tag, value)
+      @result = ThrownObject.new(tag, value)
     end
 
     # @private

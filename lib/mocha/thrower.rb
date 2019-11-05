@@ -5,7 +5,8 @@ module Mocha
       @object = object
     end
 
-    def evaluate(_invocation)
+    def evaluate(invocation)
+      invocation.threw(@tag, @object)
       throw @tag, @object
     end
   end
