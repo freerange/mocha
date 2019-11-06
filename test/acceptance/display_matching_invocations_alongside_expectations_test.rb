@@ -70,12 +70,7 @@ class DisplayMatchingInvocationsAlongsideExpectationsTest < Mocha::TestCase
 
   def assert_invocations(test_result, *invocations)
     assert_failed(test_result)
-    assert_equal [
-      'not all expectations were satisfied',
-      'unsatisfied expectations:',
-      '- expected exactly once, invoked never: #<Mock:foo>.bar(1)',
-      'satisfied expectations:',
-      *invocations
-    ], test_result.failure_message_lines
+    assert_equal invocations.unshift('satisfied expectations:'),
+                 test_result.failure_message_lines[-invocations.size..-1]
   end
 end
