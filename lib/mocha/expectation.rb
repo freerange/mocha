@@ -9,6 +9,7 @@ require 'mocha/is_a'
 require 'mocha/in_state_ordering_constraint'
 require 'mocha/change_state_side_effect'
 require 'mocha/cardinality'
+require 'mocha/invocation'
 
 module Mocha
   # Methods on expectations returned from {Mock#expects}, {Mock#stubs}, {ObjectMethods#expects} and {ObjectMethods#stubs}.
@@ -513,10 +514,10 @@ module Mocha
       @ordering_constraints = []
       @side_effects = []
       @cardinality = Cardinality.exactly(1)
-      @invocation_count = 0
       @return_values = ReturnValues.new
       @yield_parameters = YieldParameters.new
       @backtrace = backtrace || caller
+      @invocations = []
     end
 
     # @private
@@ -556,33 +557,31 @@ module Mocha
 
     # @private
     def invocations_allowed?
-      @cardinality.invocations_allowed?(@invocation_count)
+      @cardinality.invocations_allowed?(@invocations.size)
     end
 
     # @private
     def satisfied?
-      @cardinality.satisfied?(@invocation_count)
+      @cardinality.satisfied?(@invocations.size)
     end
 
     # @private
-    def invoke
-      @invocation_count += 1
+    def invoke(*arguments)
       perform_side_effects
-      @yield_parameters.next_invocation.each do |yield_parameters|
-        yield(*yield_parameters)
-      end
-      @return_values.next
+      invocation = Invocation.new(method_name, @yield_parameters, @return_values)
+      @invocations << invocation
+      invocation.call(*arguments) { |*yield_args| yield(*yield_args) }
     end
 
     # @private
     def verified?(assertion_counter = nil)
       assertion_counter.increment if assertion_counter && @cardinality.needs_verifying?
-      @cardinality.verified?(@invocation_count)
+      @cardinality.verified?(@invocations.size)
     end
 
     # @private
     def used?
-      @cardinality.used?(@invocation_count)
+      @cardinality.used?(@invocations.size)
     end
 
     # @private
@@ -595,21 +594,32 @@ module Mocha
     # @private
     def mocha_inspect
       message = "#{@cardinality.mocha_inspect}, "
-      message << case @invocation_count
+      message << case @invocations.size
                  when 0 then 'not yet invoked'
                  when 1 then 'invoked once'
                  when 2 then 'invoked twice'
-                 else "invoked #{@invocation_count} times"
+                 else "invoked #{@invocations.size} times"
                  end
       message << ': '
       message << method_signature
       message << "; #{@ordering_constraints.map(&:mocha_inspect).join('; ')}" unless @ordering_constraints.empty?
+      message << invocations if (ENV['MOCHA_OPTIONS'] || '').split(',').include?('verbose')
       message
     end
 
     # @private
     def method_signature
-      "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}#{@parameters_matcher.mocha_inspect}"
+      "#{method_name}#{@parameters_matcher.mocha_inspect}"
+    end
+
+    private
+
+    def method_name
+      "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}"
+    end
+
+    def invocations
+      @invocations.map(&:mocha_inspect).join
     end
   end
 end
