@@ -572,7 +572,7 @@ module Mocha
       perform_side_effects
       invocation = Invocation.new(@yield_parameters, @return_values)
       @invocations << invocation
-      invocation.call { |*args| yield(*args) }
+      invocation.call { |*yield_args| yield(*yield_args) }
     end
 
     # @private
