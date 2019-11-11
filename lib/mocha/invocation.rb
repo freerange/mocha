@@ -6,21 +6,21 @@ require 'mocha/yield_parameters'
 
 module Mocha
   class Invocation
-    def initialize(method_name, yield_parameters = YieldParameters.new, return_values = ReturnValues.new)
+    attr_reader :method_name, :arguments
+
+    def initialize(method_name, *arguments)
       @method_name = method_name
-      @yield_parameters = yield_parameters
-      @return_values = return_values
+      @arguments = ParametersMatcher.new(arguments)
       @yields = []
       @result = nil
     end
 
-    def call(*arguments)
-      @arguments = ParametersMatcher.new(arguments)
-      @yield_parameters.next_invocation.each do |yield_args|
+    def call(yield_parameters = YieldParameters.new, return_values = ReturnValues.new)
+      yield_parameters.next_invocation.each do |yield_args|
         @yields << ParametersMatcher.new(yield_args)
         yield(*yield_args)
       end
-      @return_values.next(self)
+      return_values.next(self)
     end
 
     def returned(value)
