@@ -6,7 +6,7 @@ require 'mocha/yield_parameters'
 
 module Mocha
   class Invocation
-    attr_reader :method_name, :arguments
+    attr_reader :method_name
 
     def initialize(method_name, *arguments)
       @method_name = method_name
@@ -33,6 +33,10 @@ module Mocha
 
     def threw(tag, value)
       @result = ThrownObject.new(tag, value)
+    end
+
+    def arguments
+      @arguments.dup
     end
 
     def mocha_inspect
