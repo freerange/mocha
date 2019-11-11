@@ -17,8 +17,8 @@ module Mocha
       @expectations.any? { |expectation| expectation.matches_method?(method_name) }
     end
 
-    def match(method_name, *arguments)
-      matching_expectations(Invocation.new(method_name, *arguments)).first
+    def match(invocation)
+      matching_expectations(invocation).first
     end
 
     def match_allowing_invocation(invocation)
