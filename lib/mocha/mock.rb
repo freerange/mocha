@@ -315,9 +315,10 @@ module Mocha
       if @responder && !@responder.respond_to?(symbol)
         raise NoMethodError, "undefined method `#{symbol}' for #{mocha_inspect} which responds like #{@responder.mocha_inspect}"
       end
-      if (matching_expectation_allowing_invocation = all_expectations.match_allowing_invocation(Invocation.new(symbol, *arguments)))
+      invocation = Invocation.new(symbol, *arguments)
+      if (matching_expectation_allowing_invocation = all_expectations.match_allowing_invocation(invocation))
         matching_expectation_allowing_invocation.invoke(*arguments, &block)
-      elsif (matching_expectation = all_expectations.match(Invocation.new(symbol, *arguments))) || (!matching_expectation && !@everything_stubbed)
+      elsif (matching_expectation = all_expectations.match(invocation)) || (!matching_expectation && !@everything_stubbed)
         if @unexpected_invocation.nil?
           @unexpected_invocation = UnexpectedInvocation.new(self, symbol, *arguments)
           matching_expectation.invoke(*arguments, &block) if matching_expectation
