@@ -1,6 +1,7 @@
 require 'mocha/singleton_class'
 require 'mocha/expectation'
 require 'mocha/expectation_list'
+require 'mocha/invocation'
 require 'mocha/names'
 require 'mocha/receivers'
 require 'mocha/method_matcher'
@@ -314,7 +315,7 @@ module Mocha
       if @responder && !@responder.respond_to?(symbol)
         raise NoMethodError, "undefined method `#{symbol}' for #{mocha_inspect} which responds like #{@responder.mocha_inspect}"
       end
-      if (matching_expectation_allowing_invocation = all_expectations.match_allowing_invocation(symbol, *arguments))
+      if (matching_expectation_allowing_invocation = all_expectations.match_allowing_invocation(Invocation.new(symbol, *arguments)))
         matching_expectation_allowing_invocation.invoke(*arguments, &block)
       elsif (matching_expectation = all_expectations.match(symbol, *arguments)) || (!matching_expectation && !@everything_stubbed)
         if @unexpected_invocation.nil?

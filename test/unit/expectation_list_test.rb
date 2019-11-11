@@ -1,6 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/expectation_list'
 require 'mocha/expectation'
+require 'mocha/invocation'
 require 'set'
 require 'method_definer'
 
@@ -54,7 +55,7 @@ class ExpectationListTest < Mocha::TestCase
     define_instance_method(expectation2, :invocations_allowed?) { true }
     expectation_list.add(expectation1)
     expectation_list.add(expectation2)
-    assert_same expectation1, expectation_list.match_allowing_invocation(:my_method, :argument1, :argument2)
+    assert_same expectation1, expectation_list.match_allowing_invocation(Invocation.new(:my_method, :argument1, :argument2))
   end
 
   def test_should_find_most_recent_matching_expectation_allowing_invocation
@@ -65,7 +66,7 @@ class ExpectationListTest < Mocha::TestCase
     define_instance_method(expectation2, :invocations_allowed?) { false }
     expectation_list.add(expectation1)
     expectation_list.add(expectation2)
-    assert_same expectation1, expectation_list.match_allowing_invocation(:my_method)
+    assert_same expectation1, expectation_list.match_allowing_invocation(Invocation.new(:my_method))
   end
 
   def test_should_combine_two_expectation_lists_into_one
