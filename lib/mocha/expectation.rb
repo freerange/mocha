@@ -550,8 +550,8 @@ module Mocha
     end
 
     # @private
-    def match?(actual_method_name, *actual_parameters)
-      @method_matcher.match?(actual_method_name) && @parameters_matcher.match?(actual_parameters) && in_correct_order?
+    def match?(invocation)
+      @method_matcher.match?(invocation.method_name) && @parameters_matcher.match?(invocation.arguments) && in_correct_order?
     end
 
     # @private

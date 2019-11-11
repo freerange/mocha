@@ -1,3 +1,5 @@
+require 'mocha/invocation'
+
 module Mocha
   class ExpectationList
     def initialize(expectations = [])
@@ -52,7 +54,7 @@ module Mocha
     private
 
     def matching_expectations(method_name, *arguments)
-      @expectations.select { |e| e.match?(method_name, *arguments) }
+      @expectations.select { |e| e.match?(Invocation.new(method_name, *arguments)) }
     end
   end
 end
