@@ -1,5 +1,3 @@
-require 'mocha/invocation'
-
 module Mocha
   class ExpectationList
     def initialize(expectations = [])
@@ -23,8 +21,8 @@ module Mocha
       matching_expectations(Invocation.new(method_name, *arguments)).first
     end
 
-    def match_allowing_invocation(method_name, *arguments)
-      matching_expectations(Invocation.new(method_name, *arguments)).detect(&:invocations_allowed?)
+    def match_allowing_invocation(invocation)
+      matching_expectations(invocation).detect(&:invocations_allowed?)
     end
 
     def verified?(assertion_counter = nil)
