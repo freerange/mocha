@@ -317,7 +317,7 @@ module Mocha
       end
       if (matching_expectation_allowing_invocation = all_expectations.match_allowing_invocation(Invocation.new(symbol, *arguments)))
         matching_expectation_allowing_invocation.invoke(*arguments, &block)
-      elsif (matching_expectation = all_expectations.match(symbol, *arguments)) || (!matching_expectation && !@everything_stubbed)
+      elsif (matching_expectation = all_expectations.match(Invocation.new(symbol, *arguments))) || (!matching_expectation && !@everything_stubbed)
         if @unexpected_invocation.nil?
           @unexpected_invocation = UnexpectedInvocation.new(self, symbol, *arguments)
           matching_expectation.invoke(*arguments, &block) if matching_expectation
