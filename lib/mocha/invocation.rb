@@ -3,7 +3,7 @@ require 'mocha/raised_exception'
 
 module Mocha
   class Invocation
-    attr_reader :method_name, :arguments
+    attr_reader :method_name
 
     def initialize(method_name, *arguments)
       @method_name = method_name
@@ -20,6 +20,10 @@ module Mocha
     rescue Exception => e # rubocop:disable Lint/RescueException
       @result = RaisedException.new(e)
       raise
+    end
+
+    def arguments
+      @arguments.dup
     end
 
     def mocha_inspect
