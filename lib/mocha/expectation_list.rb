@@ -20,11 +20,11 @@ module Mocha
     end
 
     def match(method_name, *arguments)
-      matching_expectations(method_name, *arguments).first
+      matching_expectations(Invocation.new(method_name, *arguments)).first
     end
 
     def match_allowing_invocation(method_name, *arguments)
-      matching_expectations(method_name, *arguments).detect(&:invocations_allowed?)
+      matching_expectations(Invocation.new(method_name, *arguments)).detect(&:invocations_allowed?)
     end
 
     def verified?(assertion_counter = nil)
@@ -53,8 +53,8 @@ module Mocha
 
     private
 
-    def matching_expectations(method_name, *arguments)
-      @expectations.select { |e| e.match?(Invocation.new(method_name, *arguments)) }
+    def matching_expectations(invocation)
+      @expectations.select { |e| e.match?(invocation) }
     end
   end
 end
