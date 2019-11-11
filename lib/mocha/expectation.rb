@@ -568,9 +568,9 @@ module Mocha
     # @private
     def invoke(*arguments)
       perform_side_effects
-      invocation = Invocation.new(method_name, @yield_parameters, @return_values)
+      invocation = Invocation.new(method_name, *arguments)
       @invocations << invocation
-      invocation.call(*arguments) { |*yield_args| yield(*yield_args) }
+      invocation.call(@yield_parameters, @return_values) { |*yield_args| yield(*yield_args) }
     end
 
     # @private
