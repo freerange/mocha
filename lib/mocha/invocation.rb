@@ -40,6 +40,16 @@ module Mocha
       @arguments.dup
     end
 
+    def full_description
+      parameters_matcher = ParametersMatcher.new(@arguments)
+      method_signature = "#{@mock.mocha_inspect}.#{@method_name}#{parameters_matcher.mocha_inspect}"
+      "#{method_signature}\n"
+    end
+
+    def short_description
+      "#{@method_name}(#{@arguments.join(', ')})"
+    end
+
     def mocha_inspect
       desc = "\n  - #{@mock.mocha_inspect}.#{@method_name}#{ParametersMatcher.new(@arguments).mocha_inspect}"
       desc << " # => #{@result.mocha_inspect}"
