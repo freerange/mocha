@@ -36,7 +36,7 @@ module Mocha
     end
 
     def full_description
-      desc = "\n  - #{@mock.mocha_inspect}.#{@method_name}#{ParametersMatcher.new(@arguments).mocha_inspect}"
+      desc = "\n  - #{call_description}"
       desc << " # => #{@result.mocha_inspect}"
       desc << " after yielding #{@yields.map(&:mocha_inspect).join(', then ')}" if @yields.any?
       desc
