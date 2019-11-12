@@ -321,9 +321,9 @@ module Mocha
         if @unexpected_invocation.nil?
           @unexpected_invocation = invocation
           matching_expectation.invoke(invocation, &block) if matching_expectation
-          message = "#{@unexpected_invocation.full_description}\n#{@mockery.mocha_inspect}"
+          message = "#{@unexpected_invocation.call_description}\n#{@mockery.mocha_inspect}"
         else
-          message = @unexpected_invocation.short_description
+          message = @unexpected_invocation.short_call_description
         end
         raise ExpectationErrorFactory.build("unexpected invocation: #{message}", caller)
       end

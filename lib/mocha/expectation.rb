@@ -614,7 +614,7 @@ module Mocha
     private
 
     def invocations
-      @invocations.map(&:mocha_inspect).join
+      @invocations.map(&:full_description).join
     end
   end
 end
