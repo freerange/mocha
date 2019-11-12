@@ -8,7 +8,7 @@ class ExceptionRaiserTest < Mocha::TestCase
   include Mocha
 
   def new_invocation
-    Invocation.new(:irrelevant)
+    Invocation.new(:irrelevant, :irrelevant)
   end
 
   def test_should_raise_exception_with_specified_class_and_default_message

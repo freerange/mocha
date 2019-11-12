@@ -567,7 +567,7 @@ module Mocha
     # @private
     def invoke(*arguments)
       perform_side_effects
-      invocation = Invocation.new("#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}", *arguments)
+      invocation = Invocation.new(@mock, @method_matcher.mocha_inspect, *arguments)
       @cardinality << invocation
       invocation.call(@yield_parameters, @return_values) { |*yield_args| yield(*yield_args) }
     end
