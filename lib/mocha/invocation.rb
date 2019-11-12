@@ -28,7 +28,7 @@ module Mocha
     end
 
     def full_description
-      "#{@mock.mocha_inspect}.#{@method_name}#{ParametersMatcher.new(@arguments).mocha_inspect}\n"
+      "#{@mock.mocha_inspect}.#{@method_name}#{ParametersMatcher.new(@arguments).mocha_inspect}"
     end
 
     def short_description
