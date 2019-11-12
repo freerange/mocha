@@ -28,9 +28,7 @@ module Mocha
     end
 
     def full_description
-      parameters_matcher = ParametersMatcher.new(@arguments)
-      method_signature = "#{@mock.mocha_inspect}.#{@method_name}#{parameters_matcher.mocha_inspect}"
-      "#{method_signature}\n"
+      "#{@mock.mocha_inspect}.#{@method_name}#{ParametersMatcher.new(@arguments).mocha_inspect}\n"
     end
 
     def short_description
