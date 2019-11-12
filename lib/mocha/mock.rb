@@ -327,7 +327,7 @@ module Mocha
         else
           message = @unexpected_invocation.short_description
         end
-        raise ExpectationErrorFactory.build(message, caller)
+        raise ExpectationErrorFactory.build("unexpected invocation: #{message}", caller)
       end
     end
     # rubocop:enable Style/MethodMissingSuper
