@@ -6,7 +6,6 @@ require 'mocha/names'
 require 'mocha/receivers'
 require 'mocha/method_matcher'
 require 'mocha/parameters_matcher'
-require 'mocha/unexpected_invocation'
 require 'mocha/argument_iterator'
 require 'mocha/expectation_error_factory'
 require 'mocha/deprecation'
@@ -320,7 +319,7 @@ module Mocha
         matching_expectation_allowing_invocation.invoke(invocation, &block)
       elsif (matching_expectation = all_expectations.match(invocation)) || (!matching_expectation && !@everything_stubbed)
         if @unexpected_invocation.nil?
-          @unexpected_invocation = UnexpectedInvocation.new(self, symbol, *arguments)
+          @unexpected_invocation = invocation
           matching_expectation.invoke(invocation, &block) if matching_expectation
           message = @unexpected_invocation.full_description
           message << @mockery.mocha_inspect
