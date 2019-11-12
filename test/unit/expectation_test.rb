@@ -113,7 +113,7 @@ class ExpectationTest < Mocha::TestCase
 
   def test_yield_should_fail_when_the_caller_does_not_provide_a_block
     expectation = new_expectation.yields(:foo)
-    assert_raise(LocalJumpError) { expectation.invoke }
+    assert_raises(LocalJumpError) { expectation.invoke }
   end
 
   def test_should_yield_with_specified_parameters
@@ -184,33 +184,33 @@ class ExpectationTest < Mocha::TestCase
 
   def test_should_raise_runtime_exception
     expectation = new_expectation.raises
-    assert_raise(RuntimeError) { expectation.invoke }
+    assert_raises(RuntimeError) { expectation.invoke }
   end
 
   def test_should_raise_custom_exception
     exception = Class.new(Exception)
     expectation = new_expectation.raises(exception)
-    assert_raise(exception) { expectation.invoke }
+    assert_raises(exception) { expectation.invoke }
   end
 
   def test_should_raise_same_instance_of_custom_exception
     exception_klass = Class.new(StandardError)
     expected_exception = exception_klass.new
     expectation = new_expectation.raises(expected_exception)
-    actual_exception = assert_raise(exception_klass) { expectation.invoke }
+    actual_exception = assert_raises(exception_klass) { expectation.invoke }
     assert_same expected_exception, actual_exception
   end
 
   def test_should_use_the_default_exception_message
     expectation = new_expectation.raises(Exception)
-    exception = assert_raise(Exception) { expectation.invoke }
+    exception = assert_raises(Exception) { expectation.invoke }
     assert_equal Exception.new.message, exception.message
   end
 
   def test_should_raise_custom_exception_with_message
     exception_msg = 'exception message'
     expectation = new_expectation.raises(Exception, exception_msg)
-    exception = assert_raise(Exception) { expectation.invoke }
+    exception = assert_raises(Exception) { expectation.invoke }
     assert_equal exception_msg, exception.message
   end
 
@@ -218,12 +218,12 @@ class ExpectationTest < Mocha::TestCase
     expectation = new_expectation.returns(1, 2).then.raises
     assert_equal 1, expectation.invoke
     assert_equal 2, expectation.invoke
-    assert_raise(RuntimeError) { expectation.invoke }
+    assert_raises(RuntimeError) { expectation.invoke }
   end
 
   def test_should_raise_exception_then_return_values
     expectation = new_expectation.raises.then.returns(1, 2)
-    assert_raise(RuntimeError) { expectation.invoke }
+    assert_raises(RuntimeError) { expectation.invoke }
     assert_equal 1, expectation.invoke
     assert_equal 2, expectation.invoke
   end

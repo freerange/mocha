@@ -124,7 +124,7 @@ class MockTest < Mocha::TestCase
 
   def test_should_raise_assertion_error_for_unexpected_method_call
     mock = build_mock
-    error = assert_raise(ExpectationErrorFactory.exception_class) do
+    error = assert_raises(ExpectationErrorFactory.exception_class) do
       mock.unexpected_method_called(:my_method, :argument1, :argument2)
     end
     assert_match(/unexpected invocation/, error.message)

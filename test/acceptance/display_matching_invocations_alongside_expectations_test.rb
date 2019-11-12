@@ -22,7 +22,7 @@ class DisplayMatchingInvocationsAlongsideExpectationsTest < Mocha::TestCase
       foo.stubs(:bar).with(any_parameters).returns('f').raises(StandardError)
 
       foo.bar(1, 2)
-      assert_raise(StandardError) { foo.bar(3, 4) }
+      assert_raises(StandardError) { foo.bar(3, 4) }
     end
     assert_invocations(
       test_result,
@@ -39,7 +39,7 @@ class DisplayMatchingInvocationsAlongsideExpectationsTest < Mocha::TestCase
       foo.stubs(:bar).with(any_parameters).multiple_yields(%w[b c], %w[d e]).returns('f').raises(StandardError)
 
       foo.bar(1, 2) { |_ignored| }
-      assert_raise(StandardError) { foo.bar(3, 4) { |_ignored| } }
+      assert_raises(StandardError) { foo.bar(3, 4) { |_ignored| } }
     end
     assert_invocations(
       test_result,
