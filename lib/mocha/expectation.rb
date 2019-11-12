@@ -602,7 +602,7 @@ module Mocha
       message << ': '
       message << method_signature
       message << "; #{@ordering_constraints.map(&:mocha_inspect).join('; ')}" unless @ordering_constraints.empty?
-      message << invocations if (ENV['MOCHA_OPTIONS'] || '').split(',').include?('verbose')
+      message << @invocations.map(&:full_description).join if verbose?
       message
     end
 
@@ -613,8 +613,8 @@ module Mocha
 
     private
 
-    def invocations
-      @invocations.map(&:full_description).join
+    def verbose?
+      (ENV['MOCHA_OPTIONS'] || '').split(',').include?('verbose')
     end
   end
 end
