@@ -35,11 +35,14 @@ module Mocha
       "#{@method_name}(#{@arguments.join(', ')})"
     end
 
-    def full_description
-      desc = "\n  - #{call_description}"
-      desc << " # => #{@result.mocha_inspect}"
+    def result_description
+      desc = "# => #{@result.mocha_inspect}"
       desc << " after yielding #{@yields.map(&:mocha_inspect).join(', then ')}" if @yields.any?
       desc
+    end
+
+    def full_description
+      "\n  - #{call_description} #{result_description}"
     end
   end
 end
