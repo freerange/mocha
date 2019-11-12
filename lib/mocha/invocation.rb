@@ -5,7 +5,8 @@ module Mocha
   class Invocation
     attr_reader :method_name
 
-    def initialize(method_name, *arguments)
+    def initialize(mock, method_name, *arguments)
+      @mock = mock
       @method_name = method_name
       @arguments = arguments
       @yields = []
@@ -27,7 +28,8 @@ module Mocha
     end
 
     def mocha_inspect
-      desc = "\n  - #{@method_name}#{ParametersMatcher.new(@arguments).mocha_inspect} # => #{@result.mocha_inspect}"
+      desc = "\n  - #{@mock.mocha_inspect}.#{@method_name}#{ParametersMatcher.new(@arguments).mocha_inspect}"
+      desc << " # => #{@result.mocha_inspect}"
       desc << " after yielding #{@yields.map(&:mocha_inspect).join(', then ')}" if @yields.any?
       desc
     end
