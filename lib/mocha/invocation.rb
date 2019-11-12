@@ -40,15 +40,15 @@ module Mocha
       @arguments.dup
     end
 
-    def full_description
+    def call_description
       "#{@mock.mocha_inspect}.#{@method_name}#{ParametersMatcher.new(@arguments).mocha_inspect}"
     end
 
-    def short_description
+    def short_call_description
       "#{@method_name}(#{@arguments.join(', ')})"
     end
 
-    def mocha_inspect
+    def full_description
       desc = "\n  - #{@mock.mocha_inspect}.#{@method_name}#{ParametersMatcher.new(@arguments).mocha_inspect}"
       desc << " # => #{@result.mocha_inspect}"
       desc << " after yielding #{@yields.map(&:mocha_inspect).join(', then ')}" if @yields.any?
