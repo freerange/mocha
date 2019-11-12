@@ -593,13 +593,19 @@ module Mocha
     def mocha_inspect
       message = "#{@cardinality.anticipated_times}, #{@cardinality.invoked_times}: #{method_signature}"
       message << "; #{@ordering_constraints.map(&:mocha_inspect).join('; ')}" unless @ordering_constraints.empty?
-      message << @cardinality.actual_invocations if (ENV['MOCHA_OPTIONS'] || '').split(',').include?('verbose')
+      message << @cardinality.actual_invocations if verbose?
       message
     end
 
     # @private
     def method_signature
       "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}#{@parameters_matcher.mocha_inspect}"
+    end
+
+    private
+
+    def verbose?
+      (ENV['MOCHA_OPTIONS'] || '').split(',').include?('verbose')
     end
   end
 end
