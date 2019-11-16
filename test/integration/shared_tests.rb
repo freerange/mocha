@@ -1,6 +1,7 @@
 require 'test_runner'
 require 'execution_point'
 
+# rubocop:disable Metrics/ModuleLength
 module SharedTests
   include TestRunner
 
@@ -174,3 +175,4 @@ module SharedTests
   end
   # rubocop:enable Style/Semicolon
 end
+# rubocop:enable Metrics/ModuleLength
