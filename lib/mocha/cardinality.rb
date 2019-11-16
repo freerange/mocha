@@ -57,6 +57,7 @@ module Mocha
       @invocations.any? || maximum.zero?
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     def anticipated_times
       if allowed_any_number_of_times?
         'allowed any number of times'
@@ -72,6 +73,7 @@ module Mocha
         "expected between #{required} and #{times(maximum)}"
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     def invoked_times
       "invoked #{times(@invocations.size)}"
