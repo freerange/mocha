@@ -14,10 +14,8 @@ module Mocha
         if testcase
           begin
             require 'test/unit/version'
-          # rubocop:disable Lint/HandleExceptions
-          rescue LoadError
+          rescue LoadError # rubocop:disable Lint/HandleExceptions
           end
-          # rubocop:enable Lint/HandleExceptions
           if defined?(::Test::Unit::VERSION)
             version = ::Test::Unit::VERSION
           end

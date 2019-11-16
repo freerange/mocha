@@ -4,7 +4,5 @@ module Mocha
   # Authors of test libraries may use +Mocha::ExpectationErrorFactory+ to have Mocha raise a different exception.
   #
   # @see Mocha::ExpectationErrorFactory
-  # rubocop:disable Lint/InheritException
-  class ExpectationError < Exception; end
-  # rubocop:enable Lint/InheritException
+  class ExpectationError < Exception; end # rubocop:disable Lint/InheritException
 end
