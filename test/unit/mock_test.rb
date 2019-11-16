@@ -44,20 +44,24 @@ class MockTest < Mocha::TestCase
     assert_equal true, mock.eql?(mock)
   end
 
+  PRE_RUBY_V19_EXCLUDED_METHODS = %w[
+    method_missing
+    singleton_method_undefined
+    initialize
+  ].freeze
+
+  RUBY_V19_AND_LATER_EXCLUDED_METHODS = [
+    :object_id,
+    :method_missing,
+    :singleton_method_undefined,
+    :initialize,
+    :String,
+    :singleton_method_added
+  ].freeze
+
   EXCLUDED_METHODS = {
-    true => %w[
-      method_missing
-      singleton_method_undefined
-      initialize
-    ],
-    false => [
-      :object_id,
-      :method_missing,
-      :singleton_method_undefined,
-      :initialize,
-      :String,
-      :singleton_method_added
-    ]
+    true => PRE_RUBY_V19_EXCLUDED_METHODS,
+    false => RUBY_V19_AND_LATER_EXCLUDED_METHODS
   }.freeze
 
   OBJECT_METHODS = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject do |m|
