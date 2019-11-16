@@ -517,7 +517,6 @@ module Mocha
       @return_values = ReturnValues.new
       @yield_parameters = YieldParameters.new
       @backtrace = backtrace || caller
-      @invocations = []
     end
 
     # @private
@@ -557,31 +556,31 @@ module Mocha
 
     # @private
     def invocations_allowed?
-      @cardinality.invocations_allowed?(@invocations.size)
+      @cardinality.invocations_allowed?
     end
 
     # @private
     def satisfied?
-      @cardinality.satisfied?(@invocations.size)
+      @cardinality.satisfied?
     end
 
     # @private
     def invoke(*arguments)
       perform_side_effects
       invocation = Invocation.new(method_name, @yield_parameters, @return_values)
-      @invocations << invocation
+      @cardinality << invocation
       invocation.call(*arguments) { |*yield_args| yield(*yield_args) }
     end
 
     # @private
     def verified?(assertion_counter = nil)
       assertion_counter.increment if assertion_counter && @cardinality.needs_verifying?
-      @cardinality.verified?(@invocations.size)
+      @cardinality.verified?
     end
 
     # @private
     def used?
-      @cardinality.used?(@invocations.size)
+      @cardinality.used?
     end
 
     # @private
@@ -593,17 +592,9 @@ module Mocha
 
     # @private
     def mocha_inspect
-      message = "#{@cardinality.mocha_inspect}, "
-      message << case @invocations.size
-                 when 0 then 'not yet invoked'
-                 when 1 then 'invoked once'
-                 when 2 then 'invoked twice'
-                 else "invoked #{@invocations.size} times"
-                 end
-      message << ': '
-      message << method_signature
+      message = "#{@cardinality.anticipated_times}, #{@cardinality.invoked_times}: #{method_signature}"
       message << "; #{@ordering_constraints.map(&:mocha_inspect).join('; ')}" unless @ordering_constraints.empty?
-      message << invocations if (ENV['MOCHA_OPTIONS'] || '').split(',').include?('verbose')
+      message << @cardinality.actual_invocations if (ENV['MOCHA_OPTIONS'] || '').split(',').include?('verbose')
       message
     end
 
@@ -616,10 +607,6 @@ module Mocha
 
     def method_name
       "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}"
-    end
-
-    def invocations
-      @invocations.map(&:mocha_inspect).join
     end
   end
 end

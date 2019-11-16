@@ -26,37 +26,42 @@ module Mocha
     def initialize(required, maximum)
       @required = required
       @maximum = maximum
+      @invocations = []
     end
 
-    def invocations_allowed?(invocation_count)
-      invocation_count < maximum
+    def <<(invocation)
+      @invocations << invocation
     end
 
-    def satisfied?(invocations_so_far)
-      invocations_so_far >= required
+    def invocations_allowed?
+      @invocations.size < maximum
+    end
+
+    def satisfied?
+      @invocations.size >= required
     end
 
     def needs_verifying?
       !allowed_any_number_of_times?
     end
 
-    def verified?(invocation_count)
-      (invocation_count >= required) && (invocation_count <= maximum)
+    def verified?
+      (@invocations.size >= required) && (@invocations.size <= maximum)
     end
 
     def allowed_any_number_of_times?
       required.zero? && infinite?(maximum)
     end
 
-    def used?(invocation_count)
-      (invocation_count > 0) || maximum.zero?
+    def used?
+      @invocations.any? || maximum.zero?
     end
 
-    def mocha_inspect
+    def anticipated_times
       if allowed_any_number_of_times?
         'allowed any number of times'
       elsif required.zero? && maximum.zero?
-        'expected never'
+        "expected #{times(maximum)}"
       elsif required == maximum
         "expected exactly #{times(required)}"
       elsif infinite?(maximum)
@@ -68,13 +73,21 @@ module Mocha
       end
     end
 
+    def invoked_times
+      "invoked #{times(@invocations.size)}"
+    end
+
+    def actual_invocations
+      @invocations.map(&:mocha_inspect).join
+    end
+
     protected
 
     attr_reader :required, :maximum
 
     def times(number)
       case number
-      when 0 then 'no times'
+      when 0 then 'never'
       when 1 then 'once'
       when 2 then 'twice'
       else "#{number} times"
