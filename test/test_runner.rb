@@ -7,6 +7,7 @@ module TestRunner
     run_as_tests(:test_me => block)
   end
 
+  # rubocop:disable Metrics/AbcSize
   def run_as_tests(methods = {})
     base_class = Mocha::TestCase
     test_class = Class.new(base_class) do
@@ -44,6 +45,7 @@ module TestRunner
 
     test_result
   end
+  # rubocop:enable Metrics/AbcSize
 
   def assert_passed(test_result)
     flunk "Test failed unexpectedly with message: #{test_result.failures}" if test_result.failure_count > 0
