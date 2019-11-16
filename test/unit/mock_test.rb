@@ -59,13 +59,10 @@ class MockTest < Mocha::TestCase
     :singleton_method_added
   ].freeze
 
-  EXCLUDED_METHODS = {
-    true => PRE_RUBY_V19_EXCLUDED_METHODS,
-    false => RUBY_V19_AND_LATER_EXCLUDED_METHODS
-  }.freeze
-
   OBJECT_METHODS = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject do |m|
-    m =~ /^__.*__$/ || EXCLUDED_METHODS[PRE_RUBY_V19].include?(m)
+    (m =~ /^__.*__$/) ||
+      (PRE_RUBY_V19 && PRE_RUBY_V19_EXCLUDED_METHODS.include?(m)) ||
+      (!PRE_RUBY_V19 && RUBY_V19_AND_LATER_EXCLUDED_METHODS.include?(m))
   end
 
   def test_should_be_able_to_mock_standard_object_methods
