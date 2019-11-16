@@ -1,5 +1,6 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/ruby_version'
+require 'mocha/macos_version'
 require 'mocha/mock'
 require 'mocha/expectation_error_factory'
 require 'set'
@@ -44,24 +45,29 @@ class MockTest < Mocha::TestCase
     assert_equal true, mock.eql?(mock)
   end
 
-  EXCLUDED_METHODS = {
-    true => %w[
-      method_missing
-      singleton_method_undefined
-      initialize
-    ],
-    false => [
-      :object_id,
-      :method_missing,
-      :singleton_method_undefined,
-      :initialize,
-      :String,
-      :singleton_method_added
-    ]
-  }.freeze
+  PRE_RUBY_V19_EXCLUDED_METHODS = %w[
+    method_missing
+    singleton_method_undefined
+    initialize
+  ].freeze
+
+  MACOS_EXCLUDED_METHODS =
+    MACOS && MACOS_VERSION >= MACOS_MOJAVE_VERSION ? [:syscall] : []
+
+  RUBY_V19_AND_LATER_EXCLUDED_METHODS = [
+    :object_id,
+    :method_missing,
+    :singleton_method_undefined,
+    :initialize,
+    :String,
+    :singleton_method_added,
+    *MACOS_EXCLUDED_METHODS
+  ].freeze
 
   OBJECT_METHODS = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject do |m|
-    m =~ /^__.*__$/ || EXCLUDED_METHODS[PRE_RUBY_V19].include?(m)
+    (m =~ /^__.*__$/) ||
+      (PRE_RUBY_V19 && PRE_RUBY_V19_EXCLUDED_METHODS.include?(m)) ||
+      (!PRE_RUBY_V19 && RUBY_V19_AND_LATER_EXCLUDED_METHODS.include?(m))
   end
 
   def test_should_be_able_to_mock_standard_object_methods
