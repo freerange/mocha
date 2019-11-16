@@ -20,10 +20,6 @@ Metrics/ClassLength:
 Metrics/MethodLength:
   Max: 31
 
-# Offense count: 4
-Metrics/PerceivedComplexity:
-  Max: 11
-
 # Offense count: 545
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
