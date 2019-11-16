@@ -10,7 +10,7 @@ module Mocha
 
     def initialize(method_name, *arguments)
       @method_name = method_name
-      @arguments = ParametersMatcher.new(arguments)
+      @arguments = arguments
       @yields = []
       @result = nil
     end
@@ -36,7 +36,7 @@ module Mocha
     end
 
     def mocha_inspect
-      desc = "\n  - #{@method_name}#{@arguments.mocha_inspect} # => #{@result.mocha_inspect}"
+      desc = "\n  - #{@method_name}#{ParametersMatcher.new(@arguments).mocha_inspect} # => #{@result.mocha_inspect}"
       desc << " after yielding #{@yields.map(&:mocha_inspect).join(', then ')}" if @yields.any?
       desc
     end
