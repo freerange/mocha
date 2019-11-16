@@ -47,7 +47,7 @@ class CardinalityTest < Mocha::TestCase
     assert_equal 'expected never', Cardinality.exactly(0).anticipated_times
     assert_equal 'expected exactly once', Cardinality.exactly(1).anticipated_times
     assert_equal 'expected exactly twice', Cardinality.exactly(2).anticipated_times
-    assert_equal 'expected exactly 3 times', Cardinality.times(3).anticipated_times
+    assert_equal 'expected exactly 3 times', Cardinality.exactly(3).anticipated_times
 
     assert_equal 'expected between 2 and 4 times', Cardinality.times(2..4).anticipated_times
     assert_equal 'expected between 1 and 3 times', Cardinality.times(1..3).anticipated_times
