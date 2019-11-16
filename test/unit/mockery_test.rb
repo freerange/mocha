@@ -2,11 +2,9 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/mockery'
 require 'mocha/state_machine'
 require 'mocha/expectation_error_factory'
-require 'deprecation_disabler'
 
 class MockeryTest < Mocha::TestCase
   include Mocha
-  include DeprecationDisabler
 
   def setup
     Mockery.setup
@@ -44,20 +42,19 @@ class MockeryTest < Mocha::TestCase
 
   def test_should_raise_expectation_error_because_not_all_expectations_are_satisfied
     mockery = Mockery.new
-    disable_deprecations do
-      mock1 = mockery.named_mock('mock-1') { expects(:method_1) }
-      mock2 = mockery.named_mock('mock-2') { expects(:method_2) }
-      1.times { mock1.method_1 }
-      0.times { mock2.method_2 }
-    end
+    mock1 = mockery.named_mock('mock-1')
+    mock1.expects(:method_1)
+    mock2 = mockery.named_mock('mock-2')
+    mock2.expects(:method_2)
+    1.times { mock1.method_1 }
+    0.times { mock2.method_2 }
     assert_raises(ExpectationErrorFactory.exception_class) { mockery.verify }
   end
 
   def test_should_reset_list_of_mocks_on_teardown
     mockery = Mockery.new
-    disable_deprecations do
-      mockery.unnamed_mock { expects(:my_method) }
-    end
+    mock = mockery.unnamed_mock
+    mock.expects(:my_method)
     mockery.teardown
     assert_nothing_raised(ExpectationErrorFactory.exception_class) { mockery.verify }
   end

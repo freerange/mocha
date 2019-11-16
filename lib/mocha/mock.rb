@@ -8,7 +8,6 @@ require 'mocha/method_matcher'
 require 'mocha/parameters_matcher'
 require 'mocha/argument_iterator'
 require 'mocha/expectation_error_factory'
-require 'mocha/deprecation'
 require 'mocha/ruby_version'
 
 module Mocha
@@ -268,7 +267,7 @@ module Mocha
     end
 
     # @private
-    def initialize(mockery, name = nil, receiver = nil, &block)
+    def initialize(mockery, name = nil, receiver = nil)
       @mockery = mockery
       @name = name || DefaultName.new(self)
       @receiver = receiver || DefaultReceiver.new(self)
@@ -276,9 +275,6 @@ module Mocha
       @everything_stubbed = false
       @responder = nil
       @unexpected_invocation = nil
-      return unless block
-      Deprecation.warning('Passing a block is deprecated. Use Object#tap or define stubs/expectations with an explicit receiver instead.')
-      instance_eval(&block)
     end
 
     # @private
