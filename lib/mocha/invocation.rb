@@ -16,9 +16,9 @@ module Mocha
 
     def call(*arguments)
       @arguments = ParametersMatcher.new(arguments)
-      @yield_parameters.next_invocation.each do |yield_parameters|
-        @yields << ParametersMatcher.new(yield_parameters)
-        yield(*yield_parameters)
+      @yield_parameters.next_invocation.each do |yield_args|
+        @yields << ParametersMatcher.new(yield_args)
+        yield(*yield_args)
       end
       @return_values.next(self)
     end
