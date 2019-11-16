@@ -6,21 +6,22 @@ require 'mocha/yield_parameters'
 
 module Mocha
   class Invocation
-    def initialize(method_name, yield_parameters = YieldParameters.new, return_values = ReturnValues.new)
+    attr_reader :method_name
+
+    def initialize(mock, method_name, *arguments)
+      @mock = mock
       @method_name = method_name
-      @yield_parameters = yield_parameters
-      @return_values = return_values
+      @arguments = arguments
       @yields = []
       @result = nil
     end
 
-    def call(*arguments)
-      @arguments = ParametersMatcher.new(arguments)
-      @yield_parameters.next_invocation.each do |yield_parameters|
-        @yields << ParametersMatcher.new(yield_parameters)
-        yield(*yield_parameters)
+    def call(yield_parameters = YieldParameters.new, return_values = ReturnValues.new)
+      yield_parameters.next_invocation.each do |yield_args|
+        @yields << ParametersMatcher.new(yield_args)
+        yield(*yield_args)
       end
-      @return_values.next(self)
+      return_values.next(self)
     end
 
     def returned(value)
@@ -35,10 +36,26 @@ module Mocha
       @result = ThrownObject.new(tag, value)
     end
 
-    def mocha_inspect
-      desc = "\n  - #{@method_name}#{@arguments.mocha_inspect} # => #{@result.mocha_inspect}"
+    def arguments
+      @arguments.dup
+    end
+
+    def call_description
+      "#{@mock.mocha_inspect}.#{@method_name}#{ParametersMatcher.new(@arguments).mocha_inspect}"
+    end
+
+    def short_call_description
+      "#{@method_name}(#{@arguments.join(', ')})"
+    end
+
+    def result_description
+      desc = "# => #{@result.mocha_inspect}"
       desc << " after yielding #{@yields.map(&:mocha_inspect).join(', then ')}" if @yields.any?
       desc
+    end
+
+    def full_description
+      "\n  - #{call_description} #{result_description}"
     end
   end
 end

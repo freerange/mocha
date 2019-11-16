@@ -1,5 +1,6 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/expectation'
+require 'mocha/invocation'
 require 'mocha/sequence'
 require 'execution_point'
 require 'simple_counter'
@@ -12,50 +13,50 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_match_calls_to_same_method_with_any_parameters
-    assert new_expectation.match?(:expected_method, 1, 2, 3)
+    assert new_expectation.match?(Invocation.new(:irrelevant, :expected_method, 1, 2, 3))
   end
 
   def test_should_match_calls_to_same_method_with_exactly_zero_parameters
-    assert new_expectation.with.match?(:expected_method)
+    assert new_expectation.with.match?(Invocation.new(:irrelevant, :expected_method))
   end
 
   def test_should_not_match_calls_to_same_method_with_more_than_zero_parameters
-    assert !new_expectation.with.match?(:expected_method, 1, 2, 3)
+    assert !new_expectation.with.match?(Invocation.new(:irrelevant, :expected_method, 1, 2, 3))
   end
 
   def test_should_match_calls_to_same_method_with_expected_parameter_values
-    assert new_expectation.with(1, 2, 3).match?(:expected_method, 1, 2, 3)
+    assert new_expectation.with(1, 2, 3).match?(Invocation.new(:irrelevant, :expected_method, 1, 2, 3))
   end
 
   def test_should_match_calls_to_same_method_with_parameters_constrained_as_expected
     expectation = new_expectation.with { |x, y, z| x + y == z }
-    assert expectation.match?(:expected_method, 1, 2, 3)
+    assert expectation.match?(Invocation.new(:irrelevant, :expected_method, 1, 2, 3))
   end
 
   def test_should_not_match_calls_to_different_method_with_parameters_constrained_as_expected
     expectation = new_expectation.with { |x, y, z| x + y == z }
-    assert !expectation.match?(:different_method, 1, 2, 3)
+    assert !expectation.match?(Invocation.new(:irrelevant, :different_method, 1, 2, 3))
   end
 
   def test_should_not_match_calls_to_different_methods_with_no_parameters
-    assert !new_expectation.match?(:unexpected_method)
+    assert !new_expectation.match?(Invocation.new(:irrelevant, :unexpected_method))
   end
 
   def test_should_not_match_calls_to_same_method_with_too_few_parameters
-    assert !new_expectation.with(1, 2, 3).match?(:unexpected_method, 1, 2)
+    assert !new_expectation.with(1, 2, 3).match?(Invocation.new(:irrelevant, :unexpected_method, 1, 2))
   end
 
   def test_should_not_match_calls_to_same_method_with_too_many_parameters
-    assert !new_expectation.with(1, 2).match?(:unexpected_method, 1, 2, 3)
+    assert !new_expectation.with(1, 2).match?(Invocation.new(:irrelevant, :unexpected_method, 1, 2, 3))
   end
 
   def test_should_not_match_calls_to_same_method_with_unexpected_parameter_values
-    assert !new_expectation.with(1, 2, 3).match?(:unexpected_method, 1, 0, 3)
+    assert !new_expectation.with(1, 2, 3).match?(Invocation.new(:irrelevant, :unexpected_method, 1, 0, 3))
   end
 
   def test_should_not_match_calls_to_same_method_with_parameters_not_constrained_as_expected
     expectation = new_expectation.with { |x, y, z| x + y == z }
-    assert !expectation.match?(:expected_method, 1, 0, 3)
+    assert !expectation.match?(Invocation.new(:irrelevant, :expected_method, 1, 0, 3))
   end
 
   def test_should_allow_invocations_until_expected_invocation_count_is_one_and_actual_invocation_count_would_be_two
@@ -379,7 +380,7 @@ class ExpectationTest < Mocha::TestCase
     expectation = Expectation.new(nil, :method_one)
     expectation.add_ordering_constraint(constraint_one)
     expectation.add_ordering_constraint(constraint_two)
-    assert expectation.match?(:method_one)
+    assert expectation.match?(Invocation.new(:irrelevant, :method_one))
   end
 
   def test_should_not_match_if_one_ordering_constraints_does_not_allow_invocation_now
@@ -388,7 +389,7 @@ class ExpectationTest < Mocha::TestCase
     expectation = Expectation.new(nil, :method_one)
     expectation.add_ordering_constraint(constraint_one)
     expectation.add_ordering_constraint(constraint_two)
-    assert !expectation.match?(:method_one)
+    assert !expectation.match?(Invocation.new(:irrelevant, :method_one))
   end
 
   def test_should_not_be_satisfied_when_required_invocation_has_not_been_made
@@ -464,10 +465,10 @@ class ExpectationTest < Mocha::TestCase
     expectation = Expectation.new(nil, :method_one)
 
     expectation.when(state)
-    assert !expectation.match?(:method_one)
+    assert !expectation.match?(Invocation.new(:irrelevant, :method_one))
 
     state.activate
-    assert expectation.match?(:method_one)
+    assert expectation.match?(Invocation.new(:irrelevant, :method_one))
   end
 
   def test_should_include_default_representation_of_object_in_inspect

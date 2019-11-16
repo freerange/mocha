@@ -1,11 +1,11 @@
 require 'mocha/singleton_class'
 require 'mocha/expectation'
 require 'mocha/expectation_list'
+require 'mocha/invocation'
 require 'mocha/names'
 require 'mocha/receivers'
 require 'mocha/method_matcher'
 require 'mocha/parameters_matcher'
-require 'mocha/unexpected_invocation'
 require 'mocha/argument_iterator'
 require 'mocha/expectation_error_factory'
 require 'mocha/deprecation'
@@ -314,18 +314,18 @@ module Mocha
       if @responder && !@responder.respond_to?(symbol)
         raise NoMethodError, "undefined method `#{symbol}' for #{mocha_inspect} which responds like #{@responder.mocha_inspect}"
       end
-      if (matching_expectation_allowing_invocation = all_expectations.match_allowing_invocation(symbol, *arguments))
-        matching_expectation_allowing_invocation.invoke(*arguments, &block)
-      elsif (matching_expectation = all_expectations.match(symbol, *arguments)) || (!matching_expectation && !@everything_stubbed)
+      invocation = Invocation.new(self, symbol, *arguments)
+      if (matching_expectation_allowing_invocation = all_expectations.match_allowing_invocation(invocation))
+        matching_expectation_allowing_invocation.invoke(invocation, &block)
+      elsif (matching_expectation = all_expectations.match(invocation)) || (!matching_expectation && !@everything_stubbed)
         if @unexpected_invocation.nil?
-          @unexpected_invocation = UnexpectedInvocation.new(self, symbol, *arguments)
-          matching_expectation.invoke(*arguments, &block) if matching_expectation
-          message = @unexpected_invocation.full_description
-          message << @mockery.mocha_inspect
+          @unexpected_invocation = invocation
+          matching_expectation.invoke(invocation, &block) if matching_expectation
+          message = "#{@unexpected_invocation.call_description}\n#{@mockery.mocha_inspect}"
         else
-          message = @unexpected_invocation.short_description
+          message = @unexpected_invocation.short_call_description
         end
-        raise ExpectationErrorFactory.build(message, caller)
+        raise ExpectationErrorFactory.build("unexpected invocation: #{message}", caller)
       end
     end
     # rubocop:enable Style/MethodMissingSuper

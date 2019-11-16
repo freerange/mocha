@@ -550,8 +550,8 @@ module Mocha
     end
 
     # @private
-    def match?(actual_method_name, *actual_parameters)
-      @method_matcher.match?(actual_method_name) && @parameters_matcher.match?(actual_parameters) && in_correct_order?
+    def match?(invocation)
+      @method_matcher.match?(invocation.method_name) && @parameters_matcher.match?(invocation.arguments) && in_correct_order?
     end
 
     # @private
@@ -565,11 +565,10 @@ module Mocha
     end
 
     # @private
-    def invoke(*arguments)
+    def invoke(invocation = Invocation.new(@mock, @method_matcher.mocha_inspect))
       perform_side_effects
-      invocation = Invocation.new(method_name, @yield_parameters, @return_values)
       @cardinality << invocation
-      invocation.call(*arguments) { |*yield_args| yield(*yield_args) }
+      invocation.call(@yield_parameters, @return_values) { |*yield_args| yield(*yield_args) }
     end
 
     # @private
@@ -594,19 +593,19 @@ module Mocha
     def mocha_inspect
       message = "#{@cardinality.anticipated_times}, #{@cardinality.invoked_times}: #{method_signature}"
       message << "; #{@ordering_constraints.map(&:mocha_inspect).join('; ')}" unless @ordering_constraints.empty?
-      message << @cardinality.actual_invocations if (ENV['MOCHA_OPTIONS'] || '').split(',').include?('verbose')
+      message << @cardinality.actual_invocations if verbose?
       message
     end
 
     # @private
     def method_signature
-      "#{method_name}#{@parameters_matcher.mocha_inspect}"
+      "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}#{@parameters_matcher.mocha_inspect}"
     end
 
     private
 
-    def method_name
-      "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}"
+    def verbose?
+      (ENV['MOCHA_OPTIONS'] || '').split(',').include?('verbose')
     end
   end
 end

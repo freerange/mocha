@@ -7,7 +7,7 @@ class ThrowerTest < Mocha::TestCase
   include Mocha
 
   def new_invocation
-    Invocation.new(:irrelevant)
+    Invocation.new(:irrelevant, :irrelevant)
   end
 
   def test_should_throw_tag

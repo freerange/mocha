@@ -78,7 +78,7 @@ module Mocha
     end
 
     def actual_invocations
-      @invocations.map(&:mocha_inspect).join
+      @invocations.map(&:full_description).join
     end
 
     protected
