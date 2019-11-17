@@ -44,14 +44,11 @@ module Mocha
     #
     # @param [String, Symbol] name identifies mock object in error messages.
     # @param [Hash] expected_methods_vs_return_values expected method name symbols as keys and corresponding return values as values - these expectations are setup as if {Mock#expects} were called multiple times.
-    # @yield optional block to be evaluated in the context of the mock object instance, giving an alternative way to setup stubbed methods.
-    # @yield note that the block is evaulated by calling Mock#instance_eval and so things like instance variables declared in the test will not be available within the block.
-    # @yield deprecated: use Object#tap or define stubs/expectations with an explicit receiver instead.
     # @return [Mock] a new mock object
     #
-    # @overload def mock(name, &block)
-    # @overload def mock(expected_methods_vs_return_values = {}, &block)
-    # @overload def mock(name, expected_methods_vs_return_values = {}, &block)
+    # @overload def mock(name)
+    # @overload def mock(expected_methods_vs_return_values = {})
+    # @overload def mock(name, expected_methods_vs_return_values = {})
     #
     # @example Using expected_methods_vs_return_values Hash to setup expectations.
     #   def test_motor_starts_and_stops
@@ -60,32 +57,19 @@ module Mocha
     #     assert motor.stop
     #     # an error will be raised unless both Motor#start and Motor#stop have been called
     #   end
-    # @example Using the optional block to setup expectations & stubbed methods [deprecated].
-    #   def test_motor_starts_and_stops
-    #     motor = mock('motor') do
-    #       expects(:start).with(100.rpm).returns(true)
-    #       stubs(:stop).returns(true)
-    #     end
-    #     assert motor.start(100.rpm)
-    #     assert motor.stop
-    #     # an error will only be raised if Motor#start(100.rpm) has not been called
-    #   end
-    def mock(*arguments, &block)
-      create_mock(arguments, block) { |mock, expectations| mock.expects(expectations) }
+    def mock(*arguments)
+      create_mock(arguments) { |mock, expectations| mock.expects(expectations) }
     end
 
     # Builds a new mock object
     #
     # @param [String, Symbol] name identifies mock object in error messages.
     # @param [Hash] stubbed_methods_vs_return_values stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if {Mock#stubs} were called multiple times.
-    # @yield optional block to be evaluated in the context of the mock object instance, giving an alternative way to setup stubbed methods.
-    # @yield note that the block is evaulated by calling Mock#instance_eval and so things like instance variables declared in the test will not be available within the block.
-    # @yield deprecated: use Object#tap or define stubs/expectations with an explicit receiver instead.
     # @return [Mock] a new mock object
     #
-    # @overload def stub(name, &block)
-    # @overload def stub(stubbed_methods_vs_return_values = {}, &block)
-    # @overload def stub(name, stubbed_methods_vs_return_values = {}, &block)
+    # @overload def stub(name)
+    # @overload def stub(stubbed_methods_vs_return_values = {})
+    # @overload def stub(name, stubbed_methods_vs_return_values = {})
     #
     # @example Using stubbed_methods_vs_return_values Hash to setup stubbed methods.
     #   def test_motor_starts_and_stops
@@ -94,33 +78,19 @@ module Mocha
     #     assert motor.stop
     #     # an error will not be raised even if either Motor#start or Motor#stop has not been called
     #   end
-    #
-    # @example Using the optional block to setup expectations & stubbed methods [deprecated].
-    #   def test_motor_starts_and_stops
-    #     motor = stub('motor') do
-    #       expects(:start).with(100.rpm).returns(true)
-    #       stubs(:stop).returns(true)
-    #     end
-    #     assert motor.start(100.rpm)
-    #     assert motor.stop
-    #     # an error will only be raised if Motor#start(100.rpm) has not been called
-    #   end
-    def stub(*arguments, &block)
-      create_mock(arguments, block) { |stub, expectations| stub.stubs(expectations) }
+    def stub(*arguments)
+      create_mock(arguments) { |stub, expectations| stub.stubs(expectations) }
     end
 
     # Builds a mock object that accepts calls to any method. By default it will return +nil+ for any method call.
     #
     # @param [String, Symbol] name identifies mock object in error messages.
     # @param [Hash] stubbed_methods_vs_return_values stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if {Mock#stubs} were called multiple times.
-    # @yield optional block to be evaluated in the context of the mock object instance, giving an alternative way to setup stubbed methods.
-    # @yield note that the block is evaulated by calling Mock#instance_eval and so things like instance variables declared in the test will not be available within the block.
-    # @yield deprecated: use Object#tap or define stubs/expectations with an explicit receiver instead.
     # @return [Mock] a new mock object
     #
-    # @overload def stub_everything(name, &block)
-    # @overload def stub_everything(stubbed_methods_vs_return_values = {}, &block)
-    # @overload def stub_everything(name, stubbed_methods_vs_return_values = {}, &block)
+    # @overload def stub_everything(name)
+    # @overload def stub_everything(stubbed_methods_vs_return_values = {})
+    # @overload def stub_everything(name, stubbed_methods_vs_return_values = {})
     #
     # @example Ignore invocations of irrelevant methods.
     #   def test_motor_stops
@@ -129,8 +99,8 @@ module Mocha
     #     assert_nil motor.irrelevant_method_2 # => no error raised
     #     assert motor.stop
     #   end
-    def stub_everything(*arguments, &block)
-      create_mock(arguments, block) do |stub, expectations|
+    def stub_everything(*arguments)
+      create_mock(arguments) do |stub, expectations|
         stub.stub_everything
         stub.stubs(expectations)
       end
@@ -188,10 +158,10 @@ module Mocha
 
     private
 
-    def create_mock(arguments, block)
+    def create_mock(arguments)
       name = arguments.shift.to_s if arguments.first.is_a?(String) || arguments.first.is_a?(Symbol)
       expectations = arguments.shift || {}
-      mock = name ? Mockery.instance.named_mock(name, &block) : Mockery.instance.unnamed_mock(&block)
+      mock = name ? Mockery.instance.named_mock(name) : Mockery.instance.unnamed_mock
       yield mock, expectations
       mock
     end
