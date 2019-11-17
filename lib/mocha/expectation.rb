@@ -9,7 +9,6 @@ require 'mocha/is_a'
 require 'mocha/in_state_ordering_constraint'
 require 'mocha/change_state_side_effect'
 require 'mocha/cardinality'
-require 'mocha/invocation'
 
 module Mocha
   # Methods on expectations returned from {Mock#expects}, {Mock#stubs}, {ObjectMethods#expects} and {ObjectMethods#stubs}.
@@ -565,7 +564,7 @@ module Mocha
     end
 
     # @private
-    def invoke(invocation = Invocation.new(@mock, @method_matcher.mocha_inspect))
+    def invoke(invocation)
       perform_side_effects
       @cardinality << invocation
       invocation.call(@yield_parameters, @return_values) { |*yield_args| yield(*yield_args) }
