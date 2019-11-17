@@ -43,15 +43,15 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_not_match_calls_to_same_method_with_too_few_parameters
-    assert !new_expectation.with(1, 2, 3).match?(Invocation.new(:irrelevant, :unexpected_method, 1, 2))
+    assert !new_expectation.with(1, 2, 3).match?(Invocation.new(:irrelevant, :expected_method, 1, 2))
   end
 
   def test_should_not_match_calls_to_same_method_with_too_many_parameters
-    assert !new_expectation.with(1, 2).match?(Invocation.new(:irrelevant, :unexpected_method, 1, 2, 3))
+    assert !new_expectation.with(1, 2).match?(Invocation.new(:irrelevant, :expected_method, 1, 2, 3))
   end
 
   def test_should_not_match_calls_to_same_method_with_unexpected_parameter_values
-    assert !new_expectation.with(1, 2, 3).match?(Invocation.new(:irrelevant, :unexpected_method, 1, 0, 3))
+    assert !new_expectation.with(1, 2, 3).match?(Invocation.new(:irrelevant, :expected_method, 1, 0, 3))
   end
 
   def test_should_not_match_calls_to_same_method_with_parameters_not_constrained_as_expected
