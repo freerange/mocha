@@ -86,8 +86,7 @@ class ExpectationTest < Mocha::TestCase
 
   def test_should_store_provided_backtrace
     backtrace = Object.new
-    expectation = Expectation.new(nil, :expected_method, backtrace)
-    assert_equal backtrace, expectation.backtrace
+    assert_equal backtrace, Expectation.new(nil, :expected_method, backtrace).backtrace
   end
 
   # rubocop:disable Style/Semicolon
@@ -104,21 +103,18 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_yield_no_parameters
-    expectation = new_expectation.yields
     yielded_parameters = nil
-    expectation.invoke { |*parameters| yielded_parameters = parameters }
+    new_expectation.yields.invoke { |*parameters| yielded_parameters = parameters }
     assert_equal [], yielded_parameters
   end
 
   def test_yield_should_fail_when_the_caller_does_not_provide_a_block
-    expectation = new_expectation.yields(:foo)
-    assert_raises(LocalJumpError) { expectation.invoke }
+    assert_raises(LocalJumpError) { new_expectation.yields(:foo).invoke }
   end
 
   def test_should_yield_with_specified_parameters
-    expectation = new_expectation.yields(1, 2, 3)
     yielded_parameters = nil
-    expectation.invoke { |*parameters| yielded_parameters = parameters }
+    new_expectation.yields(1, 2, 3).invoke { |*parameters| yielded_parameters = parameters }
     assert_equal [1, 2, 3], yielded_parameters
   end
 
@@ -131,9 +127,8 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_yield_multiple_times_for_single_invocation
-    expectation = new_expectation.multiple_yields([1, 2, 3], [4, 5])
     yielded_parameters = []
-    expectation.invoke { |*parameters| yielded_parameters << parameters }
+    new_expectation.multiple_yields([1, 2, 3], [4, 5]).invoke { |*parameters| yielded_parameters << parameters }
     assert_equal [[1, 2, 3], [4, 5]], yielded_parameters
   end
 
@@ -146,8 +141,7 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_return_specified_value
-    expectation = new_expectation.returns(99)
-    assert_equal 99, expectation.invoke
+    assert_equal 99, new_expectation.returns(99).invoke
   end
 
   def test_should_return_same_specified_value_multiple_times
@@ -177,39 +171,33 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_return_nil_if_no_value_specified
-    expectation = new_expectation.returns
-    assert_nil expectation.invoke
+    assert_nil new_expectation.returns.invoke
   end
 
   def test_should_raise_runtime_exception
-    expectation = new_expectation.raises
-    assert_raises(RuntimeError) { expectation.invoke }
+    assert_raises(RuntimeError) { new_expectation.raises.invoke }
   end
 
   def test_should_raise_custom_exception
     exception = Class.new(Exception)
-    expectation = new_expectation.raises(exception)
-    assert_raises(exception) { expectation.invoke }
+    assert_raises(exception) { new_expectation.raises(exception).invoke }
   end
 
   def test_should_raise_same_instance_of_custom_exception
     exception_klass = Class.new(StandardError)
     expected_exception = exception_klass.new
-    expectation = new_expectation.raises(expected_exception)
-    actual_exception = assert_raises(exception_klass) { expectation.invoke }
+    actual_exception = assert_raises(exception_klass) { new_expectation.raises(expected_exception).invoke }
     assert_same expected_exception, actual_exception
   end
 
   def test_should_use_the_default_exception_message
-    expectation = new_expectation.raises(Exception)
-    exception = assert_raises(Exception) { expectation.invoke }
+    exception = assert_raises(Exception) { new_expectation.raises(Exception).invoke }
     assert_equal Exception.new.message, exception.message
   end
 
   def test_should_raise_custom_exception_with_message
     exception_msg = 'exception message'
-    expectation = new_expectation.raises(Exception, exception_msg)
-    exception = assert_raises(Exception) { expectation.invoke }
+    exception = assert_raises(Exception) { new_expectation.raises(Exception, exception_msg).invoke }
     assert_equal exception_msg, exception.message
   end
 
@@ -241,8 +229,7 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_not_verify_successfully_if_call_expected_once_but_not_invoked
-    expectation = new_expectation.once
-    assert !expectation.verified?
+    assert !new_expectation.once.verified?
   end
 
   def test_should_verify_successfully_if_call_expected_once_and_invoked_once
@@ -312,9 +299,8 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_not_increment_assertion_counter_for_stub_because_it_does_not_need_verifying
-    stub = Expectation.new(nil, :expected_method).at_least(0)
     assertion_counter = SimpleCounter.new
-    stub.verified?(assertion_counter)
+    Expectation.new(nil, :expected_method).at_least(0).verified?(assertion_counter)
     assert_equal 0, assertion_counter.count
   end
 
@@ -391,8 +377,7 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_not_be_satisfied_when_required_invocation_has_not_been_made
-    expectation = Expectation.new(nil, :method_one).times(1)
-    assert !expectation.satisfied?
+    assert !Expectation.new(nil, :method_one).times(1).satisfied?
   end
 
   def test_should_be_satisfied_when_required_invocation_has_been_made
@@ -474,8 +459,7 @@ class ExpectationTest < Mocha::TestCase
     class << object
       define_method(:inspect) { 'mock' }
     end
-    expectation = Expectation.new(object, :method_one)
-    assert_match Regexp.new('^#<Expectation:0x[0-9A-Fa-f]{1,12} .* >$'), expectation.inspect
+    assert_match Regexp.new('^#<Expectation:0x[0-9A-Fa-f]{1,12} .* >$'), Expectation.new(object, :method_one).inspect
   end
 
   def test_should_include_output_of_mocha_inspect_in_inspect
