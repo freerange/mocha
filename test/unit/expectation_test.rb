@@ -68,21 +68,19 @@ class ExpectationTest < Mocha::TestCase
 
   def test_should_allow_invocations_until_expected_invocation_count_is_two_and_actual_invocation_count_would_be_three
     expectation = new_expectation.times(2)
-    assert expectation.invocations_allowed?
-    expectation.invoke
-    assert expectation.invocations_allowed?
-    expectation.invoke
+    2.times do
+      assert expectation.invocations_allowed?
+      expectation.invoke
+    end
     assert !expectation.invocations_allowed?
   end
 
   def test_should_allow_invocations_until_expected_invocation_count_is_a_range_from_two_to_three_and_actual_invocation_count_would_be_four
     expectation = new_expectation.times(2..3)
-    assert expectation.invocations_allowed?
-    expectation.invoke
-    assert expectation.invocations_allowed?
-    expectation.invoke
-    assert expectation.invocations_allowed?
-    expectation.invoke
+    3.times do
+      assert expectation.invocations_allowed?
+      expectation.invoke
+    end
     assert !expectation.invocations_allowed?
   end
 
