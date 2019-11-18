@@ -17,7 +17,8 @@ module Mocha
       :stubbing_method_on_non_mock_object => :allow,
       :stubbing_non_existent_method => :allow,
       :stubbing_non_public_method => :allow,
-      :stubbing_method_on_nil => :prevent
+      :stubbing_method_on_nil => :prevent,
+      :display_matching_invocations_on_failure => false
     }.freeze
 
     attr_reader :options
@@ -184,6 +185,40 @@ module Mocha
     # @private
     def stubbing_method_on_nil
       @options[:stubbing_method_on_nil]
+    end
+
+    # Display matching invocations alongside expectations on Mocha-related test failure.
+    #
+    # @param [Boolean] value +true+ to enable display of matching invocations; disabled by default.
+    #
+    # @example Enable display of matching invocations
+    #   Mocha.configure do |c|
+    #     c.display_matching_invocations_on_failure = true
+    #   end
+    #
+    #   foo = mock('foo')
+    #   foo.expects(:bar)
+    #   foo.stubs(:baz).returns('baz').raises(RuntimeError).throws(:tag, 'value')
+    #
+    #   foo.baz(1, 2)
+    #   assert_raises(RuntimeError) { foo.baz(3, 4) }
+    #   assert_throws(:tag) { foo.baz(5, 6) }
+    #
+    #   not all expectations were satisfied
+    #   unsatisfied expectations:
+    #   - expected exactly once, invoked never: #<Mock:foo>.bar
+    #   satisfied expectations:
+    #   - allowed any number of times, invoked 3 times: #<Mock:foo>.baz(any_parameters)
+    #     - #<Mock:foo>.baz(1, 2) # => "baz"
+    #     - #<Mock:foo>.baz(3, 4) # => raised RuntimeError
+    #     - #<Mock:foo>.baz(5, 6) # => threw (:tag, "value")
+    def display_matching_invocations_on_failure=(value)
+      @options[:display_matching_invocations_on_failure] = value
+    end
+
+    # @private
+    def display_matching_invocations_on_failure?
+      @options[:display_matching_invocations_on_failure]
     end
 
     class << self
