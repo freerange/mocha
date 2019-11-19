@@ -4,7 +4,7 @@ module Mocha
   # Typically the configuration is set globally in a +test_helper.rb+ or +spec_helper.rb+ file.
   #
   # @example Setting multiple configuration options
-  #   Mocha::Configuration.configure do |c|
+  #   Mocha.configure do |c|
   #     c.stubbing_method_unnecessarily = :prevent
   #     c.stubbing_method_on_non_mock_object = :warn
   #     c.stubbing_method_on_nil = :allow
@@ -49,7 +49,7 @@ module Mocha
     # @param [Symbol] value one of +:allow+, +:warn+, +:prevent+.
     #
     # @example Preventing unnecessary stubbing of a method
-    #   Mocha::Configuration.configure do |c|
+    #   Mocha.configure do |c|
     #     c.stubbing_method_unnecessarily = :prevent
     #   end
     #
@@ -73,7 +73,7 @@ module Mocha
     # @param [Symbol] value one of +:allow+, +:warn+, +:prevent+.
     #
     # @example Preventing stubbing of a method on a non-mock object
-    #   Mocha::Configuration.configure do |c|
+    #   Mocha.configure do |c|
     #     c.stubbing_method_on_non_mock_object = :prevent
     #   end
     #
@@ -102,7 +102,7 @@ module Mocha
     #
     # @example Preventing stubbing of a non-existent method
     #
-    #   Mocha::Configuration.configure do |c|
+    #   Mocha.configure do |c|
     #     c.stubbing_non_existent_method = :prevent
     #   end
     #
@@ -129,7 +129,7 @@ module Mocha
     # @param [Symbol] value one of +:allow+, +:warn+, +:prevent+.
     #
     # @example Preventing stubbing of a non-public method
-    #   Mocha::Configuration.configure do |c|
+    #   Mocha.configure do |c|
     #     c.stubbing_non_public_method = :prevent
     #   end
     #
@@ -177,21 +177,6 @@ module Mocha
     end
 
     class << self
-      # Allows setting of configuration options
-      #
-      # @yieldparam configuration [Configuration] the configuration for modification
-      #
-      # @example Setting multiple configuration options
-      #   Mocha::Configuration.configure do |c|
-      #     c.stubbing_method_unnecessarily = :prevent
-      #     c.stubbing_method_on_non_mock_object = :warn
-      #     c.stubbing_method_on_nil = :allow
-      #   end
-      #
-      def configure
-        yield self
-      end
-
       # Allow the specified +action+.
       #
       # @param [Symbol] action one of +:stubbing_method_unnecessarily+, +:stubbing_method_on_non_mock_object+, +:stubbing_non_existent_method+, +:stubbing_non_public_method+, +:stubbing_method_on_nil+.
@@ -256,12 +241,12 @@ module Mocha
         @configuration = original_configuration
       end
 
-      private
-
       # @private
       def configuration
         @configuration ||= new
       end
+
+      private
 
       # @private
       def change_config(action, new_value, &block)
