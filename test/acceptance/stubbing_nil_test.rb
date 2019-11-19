@@ -1,4 +1,5 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
+require 'mocha'
 
 class StubbingNilTest < Mocha::TestCase
   include AcceptanceTest
@@ -13,7 +14,7 @@ class StubbingNilTest < Mocha::TestCase
 
   if RUBY_VERSION < '2.2.0'
     def test_should_allow_stubbing_method_on_nil
-      Mocha::Configuration.allow(:stubbing_method_on_nil)
+      Mocha.configure { |c| c.stubbing_method_on_nil = :allow }
       test_result = run_as_test do
         nil.stubs(:stubbed_method)
       end

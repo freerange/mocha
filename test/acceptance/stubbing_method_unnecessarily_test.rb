@@ -1,4 +1,5 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
+require 'mocha'
 
 class StubbingMethodUnnecessarilyTest < Mocha::TestCase
   include AcceptanceTest
@@ -12,7 +13,7 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_method_unnecessarily
-    Mocha::Configuration.allow(:stubbing_method_unnecessarily)
+    Mocha.configure { |c| c.stubbing_method_unnecessarily = :allow }
     test_result = run_as_test do
       mock = mock('mock')
       mock.stubs(:public_method)

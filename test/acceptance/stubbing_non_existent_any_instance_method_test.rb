@@ -1,4 +1,5 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
+require 'mocha'
 
 class StubbingNonExistentAnyInstanceMethodTest < Mocha::TestCase
   include AcceptanceTest
@@ -12,7 +13,7 @@ class StubbingNonExistentAnyInstanceMethodTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_non_existent_any_instance_method
-    Mocha::Configuration.allow(:stubbing_non_existent_method)
+    Mocha.configure { |c| c.stubbing_non_existent_method = :allow }
     klass = Class.new
     test_result = run_as_test do
       klass.any_instance.stubs(:non_existent_method)

@@ -1,4 +1,5 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
+require 'mocha'
 
 class StubbingNonPublicAnyInstanceMethodTest < Mocha::TestCase
   include AcceptanceTest
@@ -12,7 +13,7 @@ class StubbingNonPublicAnyInstanceMethodTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_private_any_instance_method
-    Mocha::Configuration.allow(:stubbing_non_public_method)
+    Mocha.configure { |c| c.stubbing_non_public_method = :allow }
     klass = Class.new do
       def private_method; end
       private :private_method
@@ -25,7 +26,7 @@ class StubbingNonPublicAnyInstanceMethodTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_protected_any_instance_method
-    Mocha::Configuration.allow(:stubbing_non_public_method)
+    Mocha.configure { |c| c.stubbing_non_public_method = :allow }
     klass = Class.new do
       def protected_method; end
       protected :protected_method

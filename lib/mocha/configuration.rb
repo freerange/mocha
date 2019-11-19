@@ -181,7 +181,18 @@ module Mocha
       #
       # @param [Symbol] action one of +:stubbing_method_unnecessarily+, +:stubbing_method_on_non_mock_object+, +:stubbing_non_existent_method+, +:stubbing_non_public_method+, +:stubbing_method_on_nil+.
       # @yield optional block during which the configuration change will be changed before being returned to its original value at the end of the block.
+      # @deprecated If a block is supplied, call {.override} with a +Hash+ containing an entry with the +action+ as the key and +:allow+ as the value. If no block is supplied, call the appropriate +action+ writer method with +value+ set to +:allow+ via {Mocha.configure}. The writer method will be the one of the following corresponding to the +action+:
+      #   * {#stubbing_method_unnecessarily=}
+      #   * {#stubbing_method_on_non_mock_object=}
+      #   * {#stubbing_non_existent_method=}
+      #   * {#stubbing_non_public_method=}
+      #   * {#stubbing_method_on_nil=}
       def allow(action, &block)
+        if block_given?
+          Deprecation.warning("Use Mocha::Configuration.override(#{action}: :allow) with the same block")
+        else
+          Deprecation.warning("Use Mocha.configure { |c| c.#{action} = :allow }")
+        end
         change_config action, :allow, &block
       end
 

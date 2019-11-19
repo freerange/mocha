@@ -1,4 +1,5 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
+require 'mocha'
 
 class StubbingOnNonMockObjectTest < Mocha::TestCase
   include AcceptanceTest
@@ -12,7 +13,7 @@ class StubbingOnNonMockObjectTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_method_on_non_mock_object
-    Mocha::Configuration.allow(:stubbing_method_on_non_mock_object)
+    Mocha.configure { |c| c.stubbing_method_on_non_mock_object = :allow }
     non_mock_object = Class.new do
       def existing_method; end
     end

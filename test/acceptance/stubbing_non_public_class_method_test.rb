@@ -1,4 +1,5 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
+require 'mocha'
 
 class StubbingNonPublicClassMethodTest < Mocha::TestCase
   include AcceptanceTest
@@ -13,7 +14,7 @@ class StubbingNonPublicClassMethodTest < Mocha::TestCase
 
   # rubocop:disable Lint/DuplicateMethods
   def test_should_allow_stubbing_private_class_method
-    Mocha::Configuration.allow(:stubbing_non_public_method)
+    Mocha.configure { |c| c.stubbing_non_public_method = :allow }
     klass = Class.new do
       class << self
         def private_method; end
@@ -28,7 +29,7 @@ class StubbingNonPublicClassMethodTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_protected_class_method
-    Mocha::Configuration.allow(:stubbing_non_public_method)
+    Mocha.configure { |c| c.stubbing_non_public_method = :allow }
     klass = Class.new do
       class << self
         def protected_method; end
