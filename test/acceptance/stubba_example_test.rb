@@ -1,5 +1,4 @@
 require File.expand_path('../../test_helper', __FILE__)
-require 'mocha/setup'
 
 class Widget
   def model

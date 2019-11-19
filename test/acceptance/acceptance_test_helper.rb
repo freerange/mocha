@@ -3,6 +3,12 @@ require 'test_runner'
 require 'mocha/configuration'
 require 'introspection'
 
+if Mocha::Detection::MiniTest.testcase && (ENV['MOCHA_RUN_INTEGRATION_TESTS'] != 'test-unit')
+  require 'mocha/minitest'
+else
+  require 'mocha/test_unit'
+end
+
 module AcceptanceTest
   class FakeLogger
     attr_reader :warnings

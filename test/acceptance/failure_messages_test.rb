@@ -1,5 +1,4 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
-require 'mocha/setup'
 
 class FailureMessagesTest < Mocha::TestCase
   OBJECT_ADDRESS_PATTERN = '0x[0-9A-Fa-f]{1,12}'.freeze
