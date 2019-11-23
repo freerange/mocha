@@ -17,7 +17,7 @@ class ConfigurationTest < Mocha::TestCase
   def test_prevent_temporarily_changes_config_when_given_block
     Mocha.configure { |c| c.stubbing_method_unnecessarily = :allow }
     yielded = false
-    Mocha::Configuration.prevent(:stubbing_method_unnecessarily) do
+    Mocha::Configuration.override(:stubbing_method_unnecessarily => :prevent) do
       yielded = true
       assert Mocha::Configuration.prevent?(:stubbing_method_unnecessarily)
     end

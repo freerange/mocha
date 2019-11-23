@@ -32,7 +32,7 @@ class StubbingNilTest < Mocha::TestCase
     end
 
     def test_should_prevent_stubbing_method_on_nil
-      Mocha::Configuration.prevent(:stubbing_method_on_nil)
+      Mocha.configure { |c| c.stubbing_method_on_nil = :prevent }
       test_result = run_as_test do
         nil.stubs(:stubbed_method)
       end
@@ -49,7 +49,7 @@ class StubbingNilTest < Mocha::TestCase
     end
 
     def test_should_allow_stubbing_method_on_non_nil_object
-      Mocha::Configuration.prevent(:stubbing_method_on_nil)
+      Mocha.configure { |c| c.stubbing_method_on_nil = :prevent }
       object = Object.new
       test_result = run_as_test do
         object.stubs(:stubbed_method)

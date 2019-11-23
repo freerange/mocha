@@ -33,7 +33,7 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
   end
 
   def test_should_prevent_stubbing_method_unnecessarily
-    Mocha::Configuration.prevent(:stubbing_method_unnecessarily)
+    Mocha.configure { |c| c.stubbing_method_unnecessarily = :prevent }
     test_result = run_as_test do
       mock = mock('mock')
       mock.stubs(:public_method)
@@ -52,7 +52,7 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_method_when_stubbed_method_is_invoked
-    Mocha::Configuration.prevent(:stubbing_method_unnecessarily)
+    Mocha.configure { |c| c.stubbing_method_unnecessarily = :prevent }
     test_result = run_as_test do
       mock = mock('mock')
       mock.stubs(:public_method)
