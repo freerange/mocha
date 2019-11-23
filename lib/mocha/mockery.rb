@@ -151,10 +151,14 @@ module Mocha
     private
 
     def check(action, description, method_signature, backtrace = caller)
-      return if (Mocha.configuration.public_send(action) == :allow) || (block_given? && !yield)
+      return if block_given? && !yield
       stubbing_error = "stubbing #{description}: #{method_signature}"
-      raise StubbingError.new(stubbing_error, backtrace) if Mocha.configuration.public_send(action) == :prevent
-      logger.warn(stubbing_error) if Mocha.configuration.public_send(action) == :warn
+      case Mocha.configuration.public_send(action)
+      when :warn
+        logger.warn(stubbing_error)
+      when :prevent
+        raise StubbingError.new(stubbing_error, backtrace)
+      end
     end
 
     def expectations
