@@ -39,7 +39,7 @@ class StubbingNonPublicInstanceMethodTest < Mocha::TestCase
   end
 
   def test_should_warn_when_stubbing_private_instance_method
-    Mocha::Configuration.warn_when(:stubbing_non_public_method)
+    Mocha.configure { |c| c.stubbing_non_public_method = :warn }
     instance = Class.new do
       def private_method; end
       private :private_method
@@ -52,7 +52,7 @@ class StubbingNonPublicInstanceMethodTest < Mocha::TestCase
   end
 
   def test_should_warn_when_stubbing_protected_instance_method
-    Mocha::Configuration.warn_when(:stubbing_non_public_method)
+    Mocha.configure { |c| c.stubbing_non_public_method = :warn }
     instance = Class.new do
       def protected_method; end
       protected :protected_method

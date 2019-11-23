@@ -25,7 +25,7 @@ class StubbingOnNonMockObjectTest < Mocha::TestCase
   end
 
   def test_should_warn_on_stubbing_method_on_non_mock_object
-    Mocha::Configuration.warn_when(:stubbing_method_on_non_mock_object)
+    Mocha.configure { |c| c.stubbing_method_on_non_mock_object = :warn }
     non_mock_object = Class.new do
       def existing_method; end
     end

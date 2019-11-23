@@ -4,7 +4,7 @@ require 'mocha/configuration'
 
 class ConfigurationTest < Mocha::TestCase
   def test_allow_temporarily_changes_config_when_given_block
-    Mocha::Configuration.warn_when(:stubbing_method_unnecessarily)
+    Mocha.configure { |c| c.stubbing_method_unnecessarily = :warn }
     yielded = false
     Mocha::Configuration.override(:stubbing_method_unnecessarily => :allow) do
       yielded = true
@@ -28,7 +28,7 @@ class ConfigurationTest < Mocha::TestCase
   def test_warn_when_temporarily_changes_config_when_given_block
     Mocha.configure { |c| c.stubbing_method_unnecessarily = :allow }
     yielded = false
-    Mocha::Configuration.warn_when(:stubbing_method_unnecessarily) do
+    Mocha::Configuration.override(:stubbing_method_unnecessarily => :warn) do
       yielded = true
       assert Mocha::Configuration.warn_when?(:stubbing_method_unnecessarily)
     end

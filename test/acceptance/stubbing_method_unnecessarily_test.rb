@@ -23,7 +23,7 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
   end
 
   def test_should_warn_when_stubbing_method_unnecessarily
-    Mocha::Configuration.warn_when(:stubbing_method_unnecessarily)
+    Mocha.configure { |c| c.stubbing_method_unnecessarily = :warn }
     test_result = run_as_test do
       mock = mock('mock')
       mock.stubs(:public_method)

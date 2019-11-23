@@ -23,7 +23,7 @@ class StubbingNonExistentClassMethodTest < Mocha::TestCase
   end
 
   def test_should_warn_when_stubbing_non_existent_class_method
-    Mocha::Configuration.warn_when(:stubbing_non_existent_method)
+    Mocha.configure { |c| c.stubbing_non_existent_method = :warn }
     klass = Class.new
     test_result = run_as_test do
       klass.stubs(:non_existent_method)

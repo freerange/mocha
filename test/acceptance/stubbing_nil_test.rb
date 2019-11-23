@@ -23,7 +23,7 @@ class StubbingNilTest < Mocha::TestCase
     end
 
     def test_should_warn_on_stubbing_method_on_nil
-      Mocha::Configuration.warn_when(:stubbing_method_on_nil)
+      Mocha.configure { |c| c.stubbing_method_on_nil = :warn }
       test_result = run_as_test do
         nil.stubs(:stubbed_method)
       end
