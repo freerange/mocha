@@ -24,13 +24,18 @@ module Mocha
     protected :options
 
     # @private
-    def initialize(options = DEFAULTS.dup)
-      @options = options
+    def initialize(options = {})
+      @options = DEFAULTS.merge(options)
     end
 
     # @private
     def initialize_copy(other)
       @options = other.options.dup
+    end
+
+    # @private
+    def merge(other)
+      self.class.new(@options.merge(other.options))
     end
 
     # Configure whether stubbing methods unnecessarily is allowed.
@@ -229,6 +234,26 @@ module Mocha
       # @private
       def reset_configuration
         @configuration = nil
+      end
+
+      # Temporarily modify {Configuration} options.
+      #
+      # The supplied +temporary_options+ will override the current configuration for the duration of the supplied block.
+      # The configuration will be returned to its original state when the block returns.
+      #
+      # @param [Hash] temporary_options the configuration options to apply for the duration of the block.
+      # @yield block during which the configuration change will be in force.
+      #
+      # @example Temporarily allow stubbing of +nil+
+      #   Mocha::Configuration.override(stubbing_method_on_nil: :allow) do
+      #     nil.stubs(:foo)
+      #   end
+      def override(temporary_options)
+        original_configuration = configuration
+        @configuration = configuration.merge(new(temporary_options))
+        yield
+      ensure
+        @configuration = original_configuration
       end
 
       private
