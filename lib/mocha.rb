@@ -18,6 +18,11 @@ module Mocha
   #   end
   #
   def self.configure
-    yield Configuration.configuration
+    yield configuration
+  end
+
+  # @private
+  def self.configuration
+    Configuration.configuration
   end
 end

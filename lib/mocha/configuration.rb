@@ -62,6 +62,11 @@ module Mocha
       @options[:stubbing_method_unnecessarily] = value
     end
 
+    # @private
+    def stubbing_method_unnecessarily
+      @options[:stubbing_method_unnecessarily]
+    end
+
     # Configure whether stubbing methods on non-mock objects is allowed.
     #
     # If you like the idea of {http://www.jmock.org/oopsla2004.pdf mocking roles not objects} and {http://www.mockobjects.com/2007/04/test-smell-mocking-concrete-classes.html you don't like stubbing concrete classes}, this is the setting for you. However, while this restriction makes a lot of sense in Java with its {http://java.sun.com/docs/books/tutorial/java/concepts/interface.html explicit interfaces}, it may be moot in Ruby where roles are probably best represented as Modules.
@@ -90,6 +95,11 @@ module Mocha
       @options[:stubbing_method_on_non_mock_object] = value
     end
 
+    # @private
+    def stubbing_method_on_non_mock_object
+      @options[:stubbing_method_on_non_mock_object]
+    end
+
     # Configure whether stubbing of non-existent methods is allowed.
     #
     # This is useful if you want to ensure that methods you're mocking really exist. A common criticism of unit tests with mock objects is that such a test may (incorrectly) pass when an equivalent non-mocking test would (correctly) fail. While you should always have some integration tests, particularly for critical business functionality, this Mocha configuration setting should catch scenarios when mocked methods and real methods have become misaligned.
@@ -116,6 +126,11 @@ module Mocha
     #
     def stubbing_non_existent_method=(value)
       @options[:stubbing_non_existent_method] = value
+    end
+
+    # @private
+    def stubbing_non_existent_method
+      @options[:stubbing_non_existent_method]
     end
 
     # Configure whether stubbing of non-public methods is allowed.
@@ -147,6 +162,11 @@ module Mocha
       @options[:stubbing_non_public_method] = value
     end
 
+    # @private
+    def stubbing_non_public_method
+      @options[:stubbing_non_public_method]
+    end
+
     # Configure whether stubbing methods on the +nil+ object is allowed.
     #
     # This is usually done accidentally, but there might be rare cases where it is intended.
@@ -162,18 +182,8 @@ module Mocha
     end
 
     # @private
-    def allow?(action)
-      @options[action] == :allow
-    end
-
-    # @private
-    def warn_when?(action)
-      @options[action] == :warn
-    end
-
-    # @private
-    def prevent?(action)
-      @options[action] == :prevent
+    def stubbing_method_on_nil
+      @options[:stubbing_method_on_nil]
     end
 
     class << self

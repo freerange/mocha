@@ -8,10 +8,10 @@ class ConfigurationTest < Mocha::TestCase
     yielded = false
     Mocha::Configuration.override(:stubbing_method_unnecessarily => :allow) do
       yielded = true
-      assert Mocha::Configuration.allow?(:stubbing_method_unnecessarily)
+      assert_equal :allow, Mocha.configuration.stubbing_method_unnecessarily
     end
     assert yielded
-    assert Mocha::Configuration.warn_when?(:stubbing_method_unnecessarily)
+    assert_equal :warn, Mocha.configuration.stubbing_method_unnecessarily
   end
 
   def test_prevent_temporarily_changes_config_when_given_block
@@ -19,10 +19,10 @@ class ConfigurationTest < Mocha::TestCase
     yielded = false
     Mocha::Configuration.override(:stubbing_method_unnecessarily => :prevent) do
       yielded = true
-      assert Mocha::Configuration.prevent?(:stubbing_method_unnecessarily)
+      assert_equal :prevent, Mocha.configuration.stubbing_method_unnecessarily
     end
     assert yielded
-    assert Mocha::Configuration.allow?(:stubbing_method_unnecessarily)
+    assert_equal :allow, Mocha.configuration.stubbing_method_unnecessarily
   end
 
   def test_warn_when_temporarily_changes_config_when_given_block
@@ -30,9 +30,9 @@ class ConfigurationTest < Mocha::TestCase
     yielded = false
     Mocha::Configuration.override(:stubbing_method_unnecessarily => :warn) do
       yielded = true
-      assert Mocha::Configuration.warn_when?(:stubbing_method_unnecessarily)
+      assert_equal :warn, Mocha.configuration.stubbing_method_unnecessarily
     end
     assert yielded
-    assert Mocha::Configuration.allow?(:stubbing_method_unnecessarily)
+    assert_equal :allow, Mocha.configuration.stubbing_method_unnecessarily
   end
 end

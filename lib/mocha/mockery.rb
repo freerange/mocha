@@ -5,7 +5,7 @@ require 'mocha/names'
 require 'mocha/receivers'
 require 'mocha/state_machine'
 require 'mocha/logger'
-require 'mocha/configuration'
+require 'mocha'
 require 'mocha/stubbing_error'
 require 'mocha/not_initialized_error'
 require 'mocha/expectation_error_factory'
@@ -93,7 +93,7 @@ module Mocha
         raise ExpectationErrorFactory.build(message, backtrace)
       end
       expectations.each do |e|
-        unless Mocha::Configuration.allow?(:stubbing_method_unnecessarily)
+        unless Mocha.configuration.stubbing_method_unnecessarily == :allow
           next if e.used?
           on_stubbing_method_unnecessarily(e)
         end
@@ -151,10 +151,10 @@ module Mocha
     private
 
     def check(action, description, method_signature, backtrace = caller)
-      return if Mocha::Configuration.allow?(action) || (block_given? && !yield)
+      return if (Mocha.configuration.public_send(action) == :allow) || (block_given? && !yield)
       stubbing_error = "stubbing #{description}: #{method_signature}"
-      raise StubbingError.new(stubbing_error, backtrace) if Mocha::Configuration.prevent?(action)
-      logger.warn(stubbing_error) if Mocha::Configuration.warn_when?(action)
+      raise StubbingError.new(stubbing_error, backtrace) if Mocha.configuration.public_send(action) == :prevent
+      logger.warn(stubbing_error) if Mocha.configuration.public_send(action) == :warn
     end
 
     def expectations
