@@ -172,6 +172,8 @@ module Mocha
     #
     # This is usually done accidentally, but there might be rare cases where it is intended.
     #
+    # This option only works for Ruby < v2.2.0. In later versions of Ruby +nil+ is frozen and so a {StubbingError} will be raised if you attempt to stub a method on +nil+.
+    #
     # When +value+ is +:allow+, do nothing.
     # When +value+ is +:warn+, display a warning.
     # When +value+ is +:prevent+, raise a {StubbingError}. This is the default.
