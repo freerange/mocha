@@ -152,12 +152,12 @@ module Mocha
 
     def check(action, description, method_signature, backtrace = caller)
       return if block_given? && !yield
-      stubbing_error = "stubbing #{description}: #{method_signature}"
+      message = "stubbing #{description}: #{method_signature}"
       case Mocha.configuration.public_send(action)
       when :warn
-        logger.warn(stubbing_error)
+        logger.warn(message)
       when :prevent
-        raise StubbingError.new(stubbing_error, backtrace)
+        raise StubbingError.new(message, backtrace)
       end
     end
 
