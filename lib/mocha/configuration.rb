@@ -101,7 +101,7 @@ module Mocha
         configuration[action] == :warn
       end
 
-      # Raise a {StubbingError} if if the specified +action+ is attempted.
+      # Raise a {StubbingError} if the specified +action+ is attempted.
       #
       # @param [Symbol] action one of +:stubbing_method_unnecessarily+, +:stubbing_method_on_non_mock_object+, +:stubbing_non_existent_method+, +:stubbing_non_public_method+, +:stubbing_method_on_nil+.
       # @yield optional block during which the configuration change will be changed before being returned to its original value at the end of the block.
