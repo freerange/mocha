@@ -9,7 +9,7 @@ require 'mocha/is_a'
 require 'mocha/in_state_ordering_constraint'
 require 'mocha/change_state_side_effect'
 require 'mocha/cardinality'
-require 'mocha'
+require 'mocha/configuration'
 
 module Mocha
   # Methods on expectations returned from {Mock#expects}, {Mock#stubs}, {ObjectMethods#expects} and {ObjectMethods#stubs}.

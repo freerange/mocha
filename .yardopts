@@ -1,6 +1,5 @@
 --template-path yard-templates
 --no-private
-lib/mocha.rb
 lib/mocha/api.rb
 lib/mocha/hooks.rb
 lib/mocha/mock.rb
