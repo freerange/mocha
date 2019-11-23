@@ -333,7 +333,7 @@ module Mocha
         if block_given?
           temporarily_change_config action, new_value, &block
         else
-          configuration.public_send("#{action}=".to_sym, new_value)
+          configuration.send("#{action}=".to_sym, new_value)
         end
       end
 
@@ -341,7 +341,7 @@ module Mocha
       def temporarily_change_config(action, new_value)
         original_configuration = configuration
         new_configuration = configuration.dup
-        new_configuration.public_send("#{action}=".to_sym, new_value)
+        new_configuration.send("#{action}=".to_sym, new_value)
         @configuration = new_configuration
         yield
       ensure
