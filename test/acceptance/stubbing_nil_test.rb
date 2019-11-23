@@ -1,4 +1,5 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
+require 'mocha/configuration'
 
 class StubbingNilTest < Mocha::TestCase
   include AcceptanceTest
@@ -13,7 +14,7 @@ class StubbingNilTest < Mocha::TestCase
 
   if RUBY_VERSION < '2.2.0'
     def test_should_allow_stubbing_method_on_nil
-      Mocha::Configuration.allow(:stubbing_method_on_nil)
+      Mocha.configure { |c| c.stubbing_method_on_nil = :allow }
       test_result = run_as_test do
         nil.stubs(:stubbed_method)
       end
@@ -22,7 +23,7 @@ class StubbingNilTest < Mocha::TestCase
     end
 
     def test_should_warn_on_stubbing_method_on_nil
-      Mocha::Configuration.warn_when(:stubbing_method_on_nil)
+      Mocha.configure { |c| c.stubbing_method_on_nil = :warn }
       test_result = run_as_test do
         nil.stubs(:stubbed_method)
       end
@@ -31,7 +32,7 @@ class StubbingNilTest < Mocha::TestCase
     end
 
     def test_should_prevent_stubbing_method_on_nil
-      Mocha::Configuration.prevent(:stubbing_method_on_nil)
+      Mocha.configure { |c| c.stubbing_method_on_nil = :prevent }
       test_result = run_as_test do
         nil.stubs(:stubbed_method)
       end
@@ -48,7 +49,7 @@ class StubbingNilTest < Mocha::TestCase
     end
 
     def test_should_allow_stubbing_method_on_non_nil_object
-      Mocha::Configuration.prevent(:stubbing_method_on_nil)
+      Mocha.configure { |c| c.stubbing_method_on_nil = :prevent }
       object = Object.new
       test_result = run_as_test do
         object.stubs(:stubbed_method)

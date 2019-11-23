@@ -1,4 +1,5 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
+require 'mocha/configuration'
 
 class StubbingMethodUnnecessarilyTest < Mocha::TestCase
   include AcceptanceTest
@@ -12,7 +13,7 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_method_unnecessarily
-    Mocha::Configuration.allow(:stubbing_method_unnecessarily)
+    Mocha.configure { |c| c.stubbing_method_unnecessarily = :allow }
     test_result = run_as_test do
       mock = mock('mock')
       mock.stubs(:public_method)
@@ -22,7 +23,7 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
   end
 
   def test_should_warn_when_stubbing_method_unnecessarily
-    Mocha::Configuration.warn_when(:stubbing_method_unnecessarily)
+    Mocha.configure { |c| c.stubbing_method_unnecessarily = :warn }
     test_result = run_as_test do
       mock = mock('mock')
       mock.stubs(:public_method)
@@ -32,7 +33,7 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
   end
 
   def test_should_prevent_stubbing_method_unnecessarily
-    Mocha::Configuration.prevent(:stubbing_method_unnecessarily)
+    Mocha.configure { |c| c.stubbing_method_unnecessarily = :prevent }
     test_result = run_as_test do
       mock = mock('mock')
       mock.stubs(:public_method)
@@ -51,7 +52,7 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_method_when_stubbed_method_is_invoked
-    Mocha::Configuration.prevent(:stubbing_method_unnecessarily)
+    Mocha.configure { |c| c.stubbing_method_unnecessarily = :prevent }
     test_result = run_as_test do
       mock = mock('mock')
       mock.stubs(:public_method)

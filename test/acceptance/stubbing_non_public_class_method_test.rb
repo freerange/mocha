@@ -1,4 +1,5 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
+require 'mocha/configuration'
 
 class StubbingNonPublicClassMethodTest < Mocha::TestCase
   include AcceptanceTest
@@ -13,7 +14,7 @@ class StubbingNonPublicClassMethodTest < Mocha::TestCase
 
   # rubocop:disable Lint/DuplicateMethods
   def test_should_allow_stubbing_private_class_method
-    Mocha::Configuration.allow(:stubbing_non_public_method)
+    Mocha.configure { |c| c.stubbing_non_public_method = :allow }
     klass = Class.new do
       class << self
         def private_method; end
@@ -28,7 +29,7 @@ class StubbingNonPublicClassMethodTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_protected_class_method
-    Mocha::Configuration.allow(:stubbing_non_public_method)
+    Mocha.configure { |c| c.stubbing_non_public_method = :allow }
     klass = Class.new do
       class << self
         def protected_method; end
@@ -43,7 +44,7 @@ class StubbingNonPublicClassMethodTest < Mocha::TestCase
   end
 
   def test_should_warn_when_stubbing_private_class_method
-    Mocha::Configuration.warn_when(:stubbing_non_public_method)
+    Mocha.configure { |c| c.stubbing_non_public_method = :warn }
     klass = Class.new do
       class << self
         def private_method; end
@@ -58,7 +59,7 @@ class StubbingNonPublicClassMethodTest < Mocha::TestCase
   end
 
   def test_should_warn_when_stubbing_protected_class_method
-    Mocha::Configuration.warn_when(:stubbing_non_public_method)
+    Mocha.configure { |c| c.stubbing_non_public_method = :warn }
     klass = Class.new do
       class << self
         def protected_method; end
@@ -73,7 +74,7 @@ class StubbingNonPublicClassMethodTest < Mocha::TestCase
   end
 
   def test_should_prevent_stubbing_private_class_method
-    Mocha::Configuration.prevent(:stubbing_non_public_method)
+    Mocha.configure { |c| c.stubbing_non_public_method = :prevent }
     klass = Class.new do
       class << self
         def private_method; end
@@ -88,7 +89,7 @@ class StubbingNonPublicClassMethodTest < Mocha::TestCase
   end
 
   def test_should_prevent_stubbing_protected_class_method
-    Mocha::Configuration.prevent(:stubbing_non_public_method)
+    Mocha.configure { |c| c.stubbing_non_public_method = :prevent }
     klass = Class.new do
       class << self
         def protected_method; end
@@ -131,7 +132,7 @@ class StubbingNonPublicClassMethodTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_public_class_method
-    Mocha::Configuration.prevent(:stubbing_non_public_method)
+    Mocha.configure { |c| c.stubbing_non_public_method = :prevent }
     klass = Class.new do
       class << self
         def public_method; end
@@ -146,7 +147,7 @@ class StubbingNonPublicClassMethodTest < Mocha::TestCase
   # rubocop:enable Lint/DuplicateMethods
 
   def test_should_allow_stubbing_method_to_which_class_responds
-    Mocha::Configuration.prevent(:stubbing_non_public_method)
+    Mocha.configure { |c| c.stubbing_non_public_method = :prevent }
     klass = Class.new do
       class << self
         def respond_to?(method, _include_private_methods = false)

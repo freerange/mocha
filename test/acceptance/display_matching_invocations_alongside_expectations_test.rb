@@ -5,13 +5,7 @@ class DisplayMatchingInvocationsAlongsideExpectationsTest < Mocha::TestCase
 
   def setup
     setup_acceptance_test
-    @original_env = ENV.to_hash
-    ENV['MOCHA_OPTIONS'] = 'verbose'
-  end
-
-  def teardown
-    ENV.replace(@original_env)
-    teardown_acceptance_test
+    Mocha.configuration.display_matching_invocations_on_failure = true
   end
 
   def test_should_display_results

@@ -9,6 +9,7 @@ require 'mocha/is_a'
 require 'mocha/in_state_ordering_constraint'
 require 'mocha/change_state_side_effect'
 require 'mocha/cardinality'
+require 'mocha/configuration'
 
 module Mocha
   # Methods on expectations returned from {Mock#expects}, {Mock#stubs}, {ObjectMethods#expects} and {ObjectMethods#stubs}.
@@ -592,19 +593,15 @@ module Mocha
     def mocha_inspect
       message = "#{@cardinality.anticipated_times}, #{@cardinality.invoked_times}: #{method_signature}"
       message << "; #{@ordering_constraints.map(&:mocha_inspect).join('; ')}" unless @ordering_constraints.empty?
-      message << @cardinality.actual_invocations if verbose?
+      if Mocha.configuration.display_matching_invocations_on_failure?
+        message << @cardinality.actual_invocations
+      end
       message
     end
 
     # @private
     def method_signature
       "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}#{@parameters_matcher.mocha_inspect}"
-    end
-
-    private
-
-    def verbose?
-      (ENV['MOCHA_OPTIONS'] || '').split(',').include?('verbose')
     end
   end
 end

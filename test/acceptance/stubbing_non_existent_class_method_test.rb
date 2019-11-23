@@ -1,4 +1,5 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
+require 'mocha/configuration'
 
 class StubbingNonExistentClassMethodTest < Mocha::TestCase
   include AcceptanceTest
@@ -12,7 +13,7 @@ class StubbingNonExistentClassMethodTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_non_existent_class_method
-    Mocha::Configuration.allow(:stubbing_non_existent_method)
+    Mocha.configure { |c| c.stubbing_non_existent_method = :allow }
     klass = Class.new
     test_result = run_as_test do
       klass.stubs(:non_existent_method)
@@ -22,7 +23,7 @@ class StubbingNonExistentClassMethodTest < Mocha::TestCase
   end
 
   def test_should_warn_when_stubbing_non_existent_class_method
-    Mocha::Configuration.warn_when(:stubbing_non_existent_method)
+    Mocha.configure { |c| c.stubbing_non_existent_method = :warn }
     klass = Class.new
     test_result = run_as_test do
       klass.stubs(:non_existent_method)
@@ -32,7 +33,7 @@ class StubbingNonExistentClassMethodTest < Mocha::TestCase
   end
 
   def test_should_prevent_stubbing_non_existent_class_method
-    Mocha::Configuration.prevent(:stubbing_non_existent_method)
+    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
     klass = Class.new
     test_result = run_as_test do
       klass.stubs(:non_existent_method)
@@ -52,7 +53,7 @@ class StubbingNonExistentClassMethodTest < Mocha::TestCase
 
   # rubocop:disable Lint/DuplicateMethods
   def test_should_allow_stubbing_existing_public_class_method
-    Mocha::Configuration.prevent(:stubbing_non_existent_method)
+    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
     klass = Class.new do
       class << self
         def existing_public_method; end
@@ -66,7 +67,7 @@ class StubbingNonExistentClassMethodTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_method_to_which_class_responds
-    Mocha::Configuration.prevent(:stubbing_non_existent_method)
+    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
     klass = Class.new do
       class << self
         def respond_to?(method, _include_private = false)
@@ -81,7 +82,7 @@ class StubbingNonExistentClassMethodTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_existing_protected_class_method
-    Mocha::Configuration.prevent(:stubbing_non_existent_method)
+    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
     klass = Class.new do
       class << self
         def existing_protected_method; end
@@ -95,7 +96,7 @@ class StubbingNonExistentClassMethodTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_existing_private_class_method
-    Mocha::Configuration.prevent(:stubbing_non_existent_method)
+    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
     klass = Class.new do
       class << self
         def existing_private_method; end
@@ -109,7 +110,7 @@ class StubbingNonExistentClassMethodTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_existing_public_superclass_method
-    Mocha::Configuration.prevent(:stubbing_non_existent_method)
+    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
     superklass = Class.new do
       class << self
         def existing_public_method; end
@@ -124,7 +125,7 @@ class StubbingNonExistentClassMethodTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_existing_protected_superclass_method
-    Mocha::Configuration.prevent(:stubbing_non_existent_method)
+    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
     superklass = Class.new do
       class << self
         def existing_protected_method; end
@@ -139,7 +140,7 @@ class StubbingNonExistentClassMethodTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_existing_private_superclass_method
-    Mocha::Configuration.prevent(:stubbing_non_existent_method)
+    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
     superklass = Class.new do
       class << self
         def existing_private_method; end
