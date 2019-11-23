@@ -11,6 +11,8 @@ require 'mocha/integration/test_unit/gem_version_203_to_220'
 require 'mocha/integration/test_unit/gem_version_230_to_250'
 require 'mocha/integration/test_unit/adapter'
 
+require 'mocha/deprecation'
+
 module Mocha
   module Integration
     module TestUnit
@@ -34,6 +36,11 @@ module Mocha
         ].detect { |m| m.applicable_to?(test_unit_version, ruby_version) }
 
         unless ::Test::Unit::TestCase < integration_module
+          unless integration_module == TestUnit::Adapter
+            Deprecation.warning(
+              'Versions of test-unit earlier than v2.5.1 will not be supported in future versions of Mocha.'
+            )
+          end
           Debug.puts "Applying #{integration_module.description}"
           ::Test::Unit::TestCase.send(:include, integration_module)
         end

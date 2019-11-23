@@ -14,6 +14,8 @@ require 'mocha/integration/mini_test/version_2110_to_2111'
 require 'mocha/integration/mini_test/version_2112_to_320'
 require 'mocha/integration/mini_test/adapter'
 
+require 'mocha/deprecation'
+
 module Mocha
   module Integration
     module MiniTest
@@ -39,6 +41,11 @@ module Mocha
 
         target = Detection::MiniTest.testcase
         unless target < integration_module
+          unless integration_module == MiniTest::Adapter
+            Deprecation.warning(
+              'Versions of minitest earlier than v3.3.0 will not be supported in future versions of Mocha.'
+            )
+          end
           Debug.puts "Applying #{integration_module.description}"
           target.send(:include, integration_module)
         end
