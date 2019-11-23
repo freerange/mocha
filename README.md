@@ -95,14 +95,6 @@ end
 
 Note: There is no need to use a require statement to setup Mocha; RSpec does this itself.
 
-#### Rails Plugin
-
-Install the Rails plugin...
-
-    $ rails plugin install git://github.com/freerange/mocha.git
-
-Note: As of version 0.9.8, the Mocha plugin is not automatically setup at plugin load time. Instead it must be manually setup e.g. at the bottom of your `test_helper.rb`.
-
 ##### MiniTest
 
 ```ruby
@@ -118,7 +110,6 @@ require 'mocha/minitest'
 * 0.13.x versions cause a harmless, but annoying, deprecation warning when used with Rails 3.2.0-3.2.12, 3.1.0-3.1.10 & 3.0.0-3.0.19.
 * 0.11.x versions don't work with Rails 3.2.13 (`TypeError: superclass mismatch for class ExpectationError`). See #115.
 * Versions 0.10.2, 0.10.3 & 0.11.0 of the Mocha gem were broken. Please do not use these versions.
-* Versions 0.9.6 & 0.9.7 of the Mocha Rails plugin were broken. Please do not use these versions.
 
 ### Usage
 
