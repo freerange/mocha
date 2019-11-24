@@ -4,7 +4,7 @@ module Mocha
   module ParameterMatchers
     # Matches if any +matchers+ match.
     #
-    # @param [*Array<Base>] parameter_matchers parameter matchers.
+    # @param [*Array<Base>] matchers parameter matchers.
     # @return [AnyOf] parameter matcher.
     #
     # @see Expectation#with
