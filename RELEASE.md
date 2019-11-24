@@ -1,5 +1,53 @@
 # Release Notes
 
+## Unreleased
+
+### External changes
+
+* Remove dependency on metaclass gem (#49, #365)
+* Accept symbol (as well as a string) as mock/stub name - thanks to @nitishr (#347, #353, #377)
+* More realistic examples in documentation for `Expectation#yields` and `#multiple_yields` - thanks to @nitishr (#352, #383)
+* Improve documentation for `Mock#responds_like` & `#responds_like_instance_of` - thanks to @nitishr (#337, #384)
+* Make `Expectation#yields` & `Expectation#multiple_yields` fail when the caller of the stubbed method does not provide a block. This is a change to an undocumented aspect of the public API's behaviour. If this causes your tests to fail, then fix it by removing the unnecessary call to `Expectation#yields` or `Expectation#multiple_yields` - thanks to @nitishr (#382)
+* Document `MOCHA_OPTIONS` in README - thanks to @nitishr (#311, #386)
+* Add documentation to explain how Mocha is intended to be used - thanks to @nitishr (#330, #385)
+* Deprecation warning if integration using 'mocha/test_unit' or 'mocha/minitest' fails - thanks to @nitishr (#229, #389, c6032d0b)
+* Require at least one specified sequence for `Expectation#in_sequence` - thanks to @nitishr (#79, #396, 9020248a)
+* Make signatures of `Mock#unstub` & `ObjectMethods#unstub` consistent - thanks to @nitishr (#397, f04d437)
+* Deprecate requiring 'mocha/setup' (36adf880)
+* Optionally display matching invocations alongside expectations - thanks to @nitishr (#178, #394, 00f0540, #410)
+* Put deprecations into effect (#400, #418):
+  * Remove deprecated 'mocha_standalone.rb' & 'mocha/standalone.rb'
+  * Fail fast if no test library loaded
+  * Removed optional block for `Mocha::API#mock`, `#stub` & `#stub_everything`
+  * Remove deprecated `ParameterMatchers#has_equivalent_query_string` method
+  * Remove deprecated 'mocha/mini_test.rb'
+* Fix typo in docs for `Mocha::Configuration.prevent` (266ce71c)
+* New-style configuration (see documentation for `Mocha::Configuration`) (#407, #421)
+* Deprecate support for Ruby versions earlier than v1.9 (#325, c5f8496d)
+* Deprecate support for versions of test-unit & minitest which need monkey-patching (a34e1a88)
+* Deprecate old-style Rails plugin (#403, 2df77134)
+* Documentation fixes & improvements which also fix YARD warnings (472d5416, a2c0d64a)
+
+### Internal changes
+
+* Pin minitest to v5.11.3 for Ruby v1.8.7 to fix build; minitest no longer supports Ruby v1.8.7 (4a0a580)
+* Upgrade JRuby to v9.2.8.0 in Travis CI builds (aa29b3f)
+* Only run rubocop for MRI Ruby versions & non-integration test builds (8f1c6af)
+* Reduce duplication in any instance method class - thanks to @nitishr (#378)
+* Simplify `AnyInstanceMethod`, `ClassMethod`, `InstanceMethod`, `ModuleMethod` class hierarchy - thanks to @nitishr (#381)
+* Simplify `ClassMethods#method_exists?` & `ObjectMethods#method_exists?` making them consistent - thanks to @nitishr (#270, #362, #370)
+* Don't override definition of `singleton_class` in `ClassMethods` - thanks to @nitishr (#391, #392)
+* Do not include 'method_definer' methods into all objects (#268, #402)
+* Distinguish different `ObjectMethods` modules (#268, #404)
+* Pass invocation to expectation list methods - thanks to @nitishr (#408, #409, #411)
+* Consistently use `assert_raises` - thanks to @nitishr (#405, #412, a66b7bed)
+* Update Ruby & JRuby versions in Travis CI config (18cb1a93, eb061c53)
+* Rubocop improvements (aa16ea67...6f4db70b, 2a1240e6...e95716ae)
+* Fix inconsistency in CardinalityTest (aa10e0a8)
+* Fix test failures on Mac OSX Catalina - thanks to @nitishr (#413, #417, #419, 8a0f2535)
+* Remove default argument in `Expectation#invoke` - thanks to @nitishr (#414, #420)
+
 ## 1.9.0
 
 * Add TruffleRuby to Travis CI build matrix - thanks to @deepj (#354)
