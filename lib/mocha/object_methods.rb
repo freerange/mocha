@@ -44,13 +44,13 @@ module Mocha
     #
     # The original implementation of the method is replaced during the test and then restored at the end of the test. The temporary replacement method has the same visibility as the original method.
     #
-    # @param [Symbol,String] method_name name of expected method
-    # @param [Hash] expected_methods_vs_return_values expected method name symbols as keys and corresponding return values as values - these expectations are setup as if {#expects} were called multiple times.
-    #
-    # @overload def expects(method_name)
-    # @overload def expects(expected_methods_vs_return_values)
     # @return [Expectation] last-built expectation which can be further modified by methods on {Expectation}.
     # @raise [StubbingError] if attempting to stub method which is not allowed.
+    #
+    # @overload def expects(method_name)
+    #   @param [Symbol,String] method_name name of expected method
+    # @overload def expects(expected_methods_vs_return_values)
+    #   @param [Hash] expected_methods_vs_return_values expected method name symbols as keys and corresponding return values as values - these expectations are setup as if {#expects} were called multiple times.
     #
     # @example Setting up an expectation on a non-mock object.
     #   product = Product.new
@@ -93,13 +93,13 @@ module Mocha
     #
     # The original implementation of the method is replaced during the test and then restored at the end of the test. The temporary replacement method has the same visibility as the original method.
     #
-    # @param [Symbol,String] method_name name of stubbed method
-    # @param [Hash] stubbed_methods_vs_return_values stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if {#stubs} were called multiple times.
-    #
-    # @overload def stubs(method_name)
-    # @overload def stubs(stubbed_methods_vs_return_values)
     # @return [Expectation] last-built expectation which can be further modified by methods on {Expectation}.
     # @raise [StubbingError] if attempting to stub method which is not allowed.
+    #
+    # @overload def stubs(method_name)
+    #   @param [Symbol,String] method_name name of stubbed method
+    # @overload def stubs(stubbed_methods_vs_return_values)
+    #   @param [Hash] stubbed_methods_vs_return_values stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if {#stubs} were called multiple times.
     #
     # @example Setting up a stubbed methods on a non-mock object.
     #   product = Product.new

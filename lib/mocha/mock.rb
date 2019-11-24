@@ -76,12 +76,12 @@ module Mocha
   class Mock
     # Adds an expectation that the specified method must be called exactly once with any parameters.
     #
-    # @param [Symbol,String] method_name name of expected method
-    # @param [Hash] expected_methods_vs_return_values expected method name symbols as keys and corresponding return values as values - these expectations are setup as if {#expects} were called multiple times.
+    # @return [Expectation] last-built expectation which can be further modified by methods on {Expectation}.
     #
     # @overload def expects(method_name)
+    #   @param [Symbol,String] method_name name of expected method
     # @overload def expects(expected_methods_vs_return_values)
-    # @return [Expectation] last-built expectation which can be further modified by methods on {Expectation}.
+    #   @param [Hash] expected_methods_vs_return_values expected method name symbols as keys and corresponding return values as values - these expectations are setup as if {#expects} were called multiple times.
     #
     # @example Expected method invoked once so no error raised
     #   object = mock()
@@ -121,12 +121,12 @@ module Mocha
 
     # Adds an expectation that the specified method may be called any number of times with any parameters.
     #
-    # @param [Symbol,String] method_name name of stubbed method
-    # @param [Hash] stubbed_methods_vs_return_values stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if {#stubs} were called multiple times.
+    # @return [Expectation] last-built expectation which can be further modified by methods on {Expectation}.
     #
     # @overload def stubs(method_name)
+    #   @param [Symbol,String] method_name name of stubbed method
     # @overload def stubs(stubbed_methods_vs_return_values)
-    # @return [Expectation] last-built expectation which can be further modified by methods on {Expectation}.
+    #   @param [Hash] stubbed_methods_vs_return_values stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if {#stubs} were called multiple times.
     #
     # @example No error raised however many times stubbed method is invoked
     #   object = mock()
