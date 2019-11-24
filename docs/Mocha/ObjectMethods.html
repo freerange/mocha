@@ -6,7 +6,7 @@
 <title>
   Module: Mocha::ObjectMethods
   
-    &mdash; Mocha 1.9.0
+    &mdash; Mocha 1.10.0.alpha
   
 </title>
 
@@ -78,9 +78,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/mocha/object_methods.rb<span class="defines">,<br />
-  lib/mocha/parameter_matchers/object.rb</span>
-</dd>
+    <dd>lib/mocha/object_methods.rb</dd>
   </dl>
   
 </div>
@@ -88,11 +86,9 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Methods added to all objects to allow mocking and stubbing on real (i.e.
-non-mock) objects.</p>
+<p>Methods added to all objects to allow mocking and stubbing on real (i.e. non-mock) objects.</p>
 
-<p>Both <span class='object_link'><a href="#expects-instance_method" title="Mocha::ObjectMethods#expects (method)">#expects</a></span> and <span class='object_link'><a href="#stubs-instance_method" title="Mocha::ObjectMethods#stubs (method)">#stubs</a></span> return an <span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span> which can be further
-modified by methods on <span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span>.</p>
+<p>Both <span class='object_link'><a href="#expects-instance_method" title="Mocha::ObjectMethods#expects (method)">#expects</a></span> and <span class='object_link'><a href="#stubs-instance_method" title="Mocha::ObjectMethods#stubs (method)">#stubs</a></span> return an <span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span> which can be further modified by methods on <span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span>.</p>
 
 
   </div>
@@ -133,8 +129,7 @@ modified by methods on <span class='object_link'><a href="Expectation.html" titl
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Adds an expectation that the specified method must be called exactly once
-with any parameters.</p>
+<p>Adds an expectation that the specified method must be called exactly once with any parameters.</p>
 </div></span>
   
 </li>
@@ -158,8 +153,7 @@ with any parameters.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Adds an expectation that the specified method may be called any number of
-times with any parameters.</p>
+<p>Adds an expectation that the specified method may be called any number of times with any parameters.</p>
 </div></span>
   
 </li>
@@ -183,8 +177,7 @@ times with any parameters.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Removes the specified stubbed methods (added by calls to <span class='object_link'><a href="#expects-instance_method" title="Mocha::ObjectMethods#expects (method)">#expects</a></span> or
-<span class='object_link'><a href="#stubs-instance_method" title="Mocha::ObjectMethods#stubs (method)">#stubs</a></span>) and all expectations associated with them.</p>
+<p>Removes the specified stubbed methods (added by calls to <span class='object_link'><a href="#expects-instance_method" title="Mocha::ObjectMethods#expects (method)">#expects</a></span> or <span class='object_link'><a href="#stubs-instance_method" title="Mocha::ObjectMethods#stubs (method)">#stubs</a></span>) and all expectations associated with them.</p>
 </div></span>
   
 </li>
@@ -215,12 +208,9 @@ times with any parameters.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Adds an expectation that the specified method must be called exactly once
-with any parameters.</p>
+<p>Adds an expectation that the specified method must be called exactly once with any parameters.</p>
 
-<p>The original implementation of the method is replaced during the test and
-then restored at the end of the test. The temporary replacement method has
-the same visibility as the original method.</p>
+<p>The original implementation of the method is replaced during the test and then restored at the end of the test. The temporary replacement method has the same visibility as the original method.</p>
 
 
   </div>
@@ -254,7 +244,21 @@ the same visibility as the original method.</p>
 <span class='id identifier rubyid_product'>product</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:save</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='kw'>true</span><span class='rparen'>)</span></code></pre>
     
   </div>
-<p class="tag_title">Parameters:</p>
+
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>expects</strong>(method_name)  &#x21d2; <tt><span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span></tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
 <ul class="param">
   
     <li>
@@ -273,6 +277,25 @@ the same visibility as the original method.</p>
       
     </li>
   
+</ul>
+
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>expects</strong>(expected_methods_vs_return_values)  &#x21d2; <tt><span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span></tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
     <li>
       
         <span class='name'>expected_methods_vs_return_values</span>
@@ -284,14 +307,18 @@ the same visibility as the original method.</p>
       
         &mdash;
         <div class='inline'>
-<p>expected method name symbols as keys and corresponding return values as
-values - these expectations are setup as if <span class='object_link'><a href="#expects-instance_method" title="Mocha::ObjectMethods#expects (method)">#expects</a></span> were called multiple
-times.</p>
+<p>expected method name symbols as keys and corresponding return values as values - these expectations are setup as if <span class='object_link'><a href="#expects-instance_method" title="Mocha::ObjectMethods#expects (method)">#expects</a></span> were called multiple times.</p>
 </div>
       
     </li>
   
 </ul>
+
+
+</div>
+      </li>
+    
+  </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
@@ -305,8 +332,7 @@ times.</p>
       
         &mdash;
         <div class='inline'>
-<p>last-built expectation which can be further modified by methods on
-<span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span>.</p>
+<p>last-built expectation which can be further modified by methods on <span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span>.</p>
 </div>
       
     </li>
@@ -344,11 +370,6 @@ times.</p>
       <pre class="lines">
 
 
-66
-67
-68
-69
-70
 71
 72
 73
@@ -363,10 +384,15 @@ times.</p>
 82
 83
 84
-85</pre>
+85
+86
+87
+88
+89
+90</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/object_methods.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/object_methods.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='id identifier rubyid_expected_methods_vs_return_values'>expected_methods_vs_return_values</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_expected_methods_vs_return_values'>expected_methods_vs_return_values</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>the[^a-z]*spanish[^a-z]*inquisition</span><span class='regexp_end'>/i</span></span>
@@ -409,12 +435,9 @@ times.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Adds an expectation that the specified method may be called any number of
-times with any parameters.</p>
+<p>Adds an expectation that the specified method may be called any number of times with any parameters.</p>
 
-<p>The original implementation of the method is replaced during the test and
-then restored at the end of the test. The temporary replacement method has
-the same visibility as the original method.</p>
+<p>The original implementation of the method is replaced during the test and then restored at the end of the test. The temporary replacement method has the same visibility as the original method.</p>
 
 
   </div>
@@ -448,7 +471,21 @@ the same visibility as the original method.</p>
 <span class='id identifier rubyid_product'>product</span><span class='period'>.</span><span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='symbol'>:save</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='kw'>true</span><span class='rparen'>)</span></code></pre>
     
   </div>
-<p class="tag_title">Parameters:</p>
+
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>stubs</strong>(method_name)  &#x21d2; <tt><span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span></tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
 <ul class="param">
   
     <li>
@@ -467,6 +504,25 @@ the same visibility as the original method.</p>
       
     </li>
   
+</ul>
+
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>stubs</strong>(stubbed_methods_vs_return_values)  &#x21d2; <tt><span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span></tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
     <li>
       
         <span class='name'>stubbed_methods_vs_return_values</span>
@@ -478,14 +534,18 @@ the same visibility as the original method.</p>
       
         &mdash;
         <div class='inline'>
-<p>stubbed method name symbols as keys and corresponding return values as
-values - these stubbed methods are setup as if <span class='object_link'><a href="#stubs-instance_method" title="Mocha::ObjectMethods#stubs (method)">#stubs</a></span> were called
-multiple times.</p>
+<p>stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if <span class='object_link'><a href="#stubs-instance_method" title="Mocha::ObjectMethods#stubs (method)">#stubs</a></span> were called multiple times.</p>
 </div>
       
     </li>
   
 </ul>
+
+
+</div>
+      </li>
+    
+  </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
@@ -499,8 +559,7 @@ multiple times.</p>
       
         &mdash;
         <div class='inline'>
-<p>last-built expectation which can be further modified by methods on
-<span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span>.</p>
+<p>last-built expectation which can be further modified by methods on <span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span>.</p>
 </div>
       
     </li>
@@ -538,11 +597,6 @@ multiple times.</p>
       <pre class="lines">
 
 
-115
-116
-117
-118
-119
 120
 121
 122
@@ -554,10 +608,15 @@ multiple times.</p>
 128
 129
 130
-131</pre>
+131
+132
+133
+134
+135
+136</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/object_methods.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/object_methods.rb', line 120</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='id identifier rubyid_stubbed_methods_vs_return_values'>stubbed_methods_vs_return_values</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_frozen?'>frozen?</span>
@@ -593,17 +652,11 @@ multiple times.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Removes the specified stubbed methods (added by calls to <span class='object_link'><a href="#expects-instance_method" title="Mocha::ObjectMethods#expects (method)">#expects</a></span> or
-<span class='object_link'><a href="#stubs-instance_method" title="Mocha::ObjectMethods#stubs (method)">#stubs</a></span>) and all expectations associated with them.</p>
+<p>Removes the specified stubbed methods (added by calls to <span class='object_link'><a href="#expects-instance_method" title="Mocha::ObjectMethods#expects (method)">#expects</a></span> or <span class='object_link'><a href="#stubs-instance_method" title="Mocha::ObjectMethods#stubs (method)">#stubs</a></span>) and all expectations associated with them.</p>
 
-<p>Restores the original behaviour of the methods before they were stubbed.
-This is normally done automatically at the end of each test, but in some
-circumstances you may want to do it <strong>before</strong> the end of the
-test.</p>
+<p>Restores the original behaviour of the methods before they were stubbed. This is normally done automatically at the end of each test, but in some circumstances you may want to do it <strong>before</strong> the end of the test.</p>
 
-<p>WARNING: If you <span class='object_link'><a href="#unstub-instance_method" title="Mocha::ObjectMethods#unstub (method)">#unstub</a></span> a method which still has unsatisfied
-expectations, you may be removing the only way those expectations can be
-satisfied. Use <span class='object_link'><a href="#unstub-instance_method" title="Mocha::ObjectMethods#unstub (method)">#unstub</a></span> with care.</p>
+<p>WARNING: If you <span class='object_link'><a href="#unstub-instance_method" title="Mocha::ObjectMethods#unstub (method)">#unstub</a></span> a method which still has unsatisfied expectations, you may be removing the only way those expectations can be satisfied. Use <span class='object_link'><a href="#unstub-instance_method" title="Mocha::ObjectMethods#unstub (method)">#unstub</a></span> with care.</p>
 
 
   </div>
@@ -666,16 +719,16 @@ satisfied. Use <span class='object_link'><a href="#unstub-instance_method" title
       <pre class="lines">
 
 
-156
-157
-158
-159
-160
 161
-162</pre>
+162
+163
+164
+165
+166
+167</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/object_methods.rb', line 156</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/object_methods.rb', line 161</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unstub'>unstub</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_method_names'>method_names</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_mockery'>mockery</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Mocha.html" title="Mocha (module)">Mocha</a></span></span><span class='op'>::</span><span class='const'>Mockery</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
@@ -702,9 +755,9 @@ satisfied. Use <span class='object_link'><a href="#unstub-instance_method" title
 </div>
 
       <div id="footer">
-  Generated on Mon Jun 17 18:38:43 2019 by
+  Generated on Sun Nov 24 15:26:49 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.19 (ruby-2.5.3).
+  0.9.20 (ruby-2.6.5).
 </div>
 
     </div>

@@ -6,7 +6,7 @@
 <title>
   Class: Mocha::ExpectationErrorFactory
   
-    &mdash; Mocha 1.9.0
+    &mdash; Mocha 1.10.0.alpha
   
 </title>
 
@@ -102,16 +102,11 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>This factory determines what class of exception should be raised when Mocha
-detects a test failure.</p>
+<p>This factory determines what class of exception should be raised when Mocha detects a test failure.</p>
 
-<p>This class should only be used by authors of test libraries and not by
-typical “users” of Mocha.</p>
+<p>This class should only be used by authors of test libraries and not by typical “users” of Mocha.</p>
 
-<p>For example, it is used by
-<code>Mocha::Integration::MiniTest::Adapter</code> in order to have Mocha
-raise a <code>MiniTest::Assertion</code> which can then be sensibly handled
-by <code>MiniTest::Unit::TestCase</code>.</p>
+<p>For example, it is used by <code>Mocha::Integration::MiniTest::Adapter</code> in order to have Mocha raise a <code>MiniTest::Assertion</code> which can then be sensibly handled by <code>MiniTest::Unit::TestCase</code>.</p>
 
 
   </div>
@@ -154,8 +149,7 @@ by <code>MiniTest::Unit::TestCase</code>.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Determines what class of exception should be raised when Mocha detects a
-test failure.</p>
+<p>Determines what class of exception should be raised when Mocha detects a test failure.</p>
 </div></span>
   
 </li>
@@ -184,12 +178,9 @@ test failure.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Determines what class of exception should be raised when Mocha detects a
-test failure.</p>
+<p>Determines what class of exception should be raised when Mocha detects a test failure.</p>
 
-<p>This attribute may be set by authors of test libraries in order to have
-Mocha raise exceptions of a specific class when there is an unexpected
-invocation or an unsatisfied expectation.</p>
+<p>This attribute may be set by authors of test libraries in order to have Mocha raise exceptions of a specific class when there is an unexpected invocation or an unsatisfied expectation.</p>
 
 <p>By default a <code>Mocha::ExpectationError</code> will be raised.</p>
 
@@ -259,9 +250,9 @@ invocation or an unsatisfied expectation.</p>
 </div>
 
       <div id="footer">
-  Generated on Mon Jun 17 18:38:45 2019 by
+  Generated on Sun Nov 24 15:26:50 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.19 (ruby-2.5.3).
+  0.9.20 (ruby-2.6.5).
 </div>
 
     </div>

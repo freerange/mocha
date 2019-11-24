@@ -6,7 +6,7 @@
 <title>
   Class: Mocha::Expectation
   
-    &mdash; Mocha 1.9.0
+    &mdash; Mocha 1.10.0.alpha
   
 </title>
 
@@ -102,8 +102,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Methods on expectations returned from <span class='object_link'><a href="Mock.html#expects-instance_method" title="Mocha::Mock#expects (method)">Mock#expects</a></span>, <span class='object_link'><a href="Mock.html#stubs-instance_method" title="Mocha::Mock#stubs (method)">Mock#stubs</a></span>,
-<span class='object_link'><a href="ObjectMethods.html#expects-instance_method" title="Mocha::ObjectMethods#expects (method)">ObjectMethods#expects</a></span> and <span class='object_link'><a href="ObjectMethods.html#stubs-instance_method" title="Mocha::ObjectMethods#stubs (method)">ObjectMethods#stubs</a></span>.</p>
+<p>Methods on expectations returned from <span class='object_link'><a href="Mock.html#expects-instance_method" title="Mocha::Mock#expects (method)">Mock#expects</a></span>, <span class='object_link'><a href="Mock.html#stubs-instance_method" title="Mocha::Mock#stubs (method)">Mock#stubs</a></span>, <span class='object_link'><a href="ObjectMethods.html#expects-instance_method" title="Mocha::ObjectMethods#expects (method)">ObjectMethods#expects</a></span> and <span class='object_link'><a href="ObjectMethods.html#stubs-instance_method" title="Mocha::ObjectMethods#stubs (method)">ObjectMethods#stubs</a></span>.</p>
 
 
   </div>
@@ -144,8 +143,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Modifies expectation so that the expected method must be called at least a
-<code>minimum_number_of_times</code>.</p>
+<p>Modifies expectation so that the expected method must be called at least a <code>minimum_number_of_times</code>.</p>
 </div></span>
   
 </li>
@@ -169,8 +167,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Modifies expectation so that the expected method must be called at least
-once.</p>
+<p>Modifies expectation so that the expected method must be called at least once.</p>
 </div></span>
   
 </li>
@@ -194,8 +191,7 @@ once.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Modifies expectation so that the expected method must be called at most a
-<code>maximum_number_of_times</code>.</p>
+<p>Modifies expectation so that the expected method must be called at most a <code>maximum_number_of_times</code>.</p>
 </div></span>
   
 </li>
@@ -219,8 +215,7 @@ once.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Modifies expectation so that the expected method must be called at most
-once.</p>
+<p>Modifies expectation so that the expected method must be called at most once.</p>
 </div></span>
   
 </li>
@@ -229,7 +224,7 @@ once.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#in_sequence-instance_method" title="#in_sequence (instance method)">#<strong>in_sequence</strong>(*sequences)  &#x21d2; Expectation </a>
+      <a href="#in_sequence-instance_method" title="#in_sequence (instance method)">#<strong>in_sequence</strong>(sequence, *sequences)  &#x21d2; Expectation </a>
     
 
     
@@ -244,8 +239,7 @@ once.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Constrains the expectation so that it must be invoked at the current point
-in the <code>sequence</code>.</p>
+<p>Constrains the expectation so that it must be invoked at the current point in the <code>sequence</code>.</p>
 </div></span>
   
 </li>
@@ -269,9 +263,7 @@ in the <code>sequence</code>.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Modifies expectation so that when the expected method is called, it yields
-multiple times per invocation with the specified
-<code>parameter_groups</code>.</p>
+<p>Modifies expectation so that when the expected method is called, it yields multiple times per invocation with the specified <code>parameter_groups</code> (even if no block is provided, in which case yielding will result in a <code>LocalJumpError</code>).</p>
 </div></span>
   
 </li>
@@ -319,8 +311,7 @@ multiple times per invocation with the specified
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Modifies expectation so that the expected method must be called exactly
-once.</p>
+<p>Modifies expectation so that the expected method must be called exactly once.</p>
 </div></span>
   
 </li>
@@ -344,9 +335,7 @@ once.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Modifies expectation so that when the expected method is called, it raises
-the specified <code>exception</code> with the specified
-<code>message</code> i.e.</p>
+<p>Modifies expectation so that when the expected method is called, it raises the specified <code>exception</code> with the specified <code>message</code> i.e.</p>
 </div></span>
   
 </li>
@@ -370,8 +359,7 @@ the specified <code>exception</code> with the specified
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Modifies expectation so that when the expected method is called, it returns
-the specified <code>value</code>.</p>
+<p>Modifies expectation so that when the expected method is called, it returns the specified <code>value</code>.</p>
 </div></span>
   
 </li>
@@ -395,8 +383,7 @@ the specified <code>value</code>.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>The same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Expectation</a></span>
-methods to be chained.</p>
+<p>The same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Expectation</a></span> methods to be chained.</p>
 </div></span>
   
 </li>
@@ -420,9 +407,7 @@ methods to be chained.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Modifies expectation so that when the expected method is called, it throws
-the specified <code>tag</code> with the specific return value
-<code>object</code> i.e.</p>
+<p>Modifies expectation so that when the expected method is called, it throws the specified <code>tag</code> with the specific return value <code>object</code> i.e.</p>
 </div></span>
   
 </li>
@@ -446,8 +431,7 @@ the specified <code>tag</code> with the specific return value
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Modifies expectation so that the number of calls to the expected method
-must be within a specific <code>range</code>.</p>
+<p>Modifies expectation so that the number of calls to the expected method must be within a specific <code>range</code>.</p>
 </div></span>
   
 </li>
@@ -471,8 +455,7 @@ must be within a specific <code>range</code>.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Modifies expectation so that the expected method must be called exactly
-twice.</p>
+<p>Modifies expectation so that the expected method must be called exactly twice.</p>
 </div></span>
   
 </li>
@@ -496,9 +479,7 @@ twice.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Constrains the expectation to occur only when the
-<code>state_machine</code> is in the state specified by
-<code>state_name</code>.</p>
+<p>Constrains the expectation to occur only when the <code>state_machine</code> is in the state specified by <code>state_name</code>.</p>
 </div></span>
   
 </li>
@@ -522,8 +503,7 @@ twice.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Modifies expectation so that the expected method must be called with
-<code>expected_parameters</code>.</p>
+<p>Modifies expectation so that the expected method must be called with <code>expected_parameters</code>.</p>
 </div></span>
   
 </li>
@@ -547,8 +527,7 @@ twice.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Modifies expectation so that when the expected method is called, it yields
-with the specified <code>parameters</code>.</p>
+<p>Modifies expectation so that when the expected method is called, it yields with the specified <code>parameters</code> (even if no block is provided, in which case yielding will result in a <code>LocalJumpError</code>).</p>
 </div></span>
   
 </li>
@@ -575,8 +554,7 @@ with the specified <code>parameters</code>.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Modifies expectation so that the expected method must be called at least a
-<code>minimum_number_of_times</code>.</p>
+<p>Modifies expectation so that the expected method must be called at least a <code>minimum_number_of_times</code>.</p>
 
 
   </div>
@@ -635,8 +613,7 @@ with the specified <code>parameters</code>.</p>
       
         &mdash;
         <div class='inline'>
-<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span>
-methods to be chained.</p>
+<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span> methods to be chained.</p>
 </div>
       
     </li>
@@ -649,13 +626,13 @@ methods to be chained.</p>
       <pre class="lines">
 
 
-130
 131
 132
-133</pre>
+133
+134</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 130</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 131</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_at_least'>at_least</span><span class='lparen'>(</span><span class='id identifier rubyid_minimum_number_of_times'>minimum_number_of_times</span><span class='rparen'>)</span>
   <span class='ivar'>@cardinality</span> <span class='op'>=</span> <span class='const'>Cardinality</span><span class='period'>.</span><span class='id identifier rubyid_at_least'>at_least</span><span class='lparen'>(</span><span class='id identifier rubyid_minimum_number_of_times'>minimum_number_of_times</span><span class='rparen'>)</span>
@@ -678,8 +655,7 @@ methods to be chained.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Modifies expectation so that the expected method must be called at least
-once.</p>
+<p>Modifies expectation so that the expected method must be called at least once.</p>
 
 
   </div>
@@ -717,8 +693,7 @@ once.</p>
       
         &mdash;
         <div class='inline'>
-<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span>
-methods to be chained.</p>
+<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span> methods to be chained.</p>
 </div>
       
     </li>
@@ -731,13 +706,13 @@ methods to be chained.</p>
       <pre class="lines">
 
 
-148
 149
 150
-151</pre>
+151
+152</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 148</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 149</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_at_least_once'>at_least_once</span>
   <span class='id identifier rubyid_at_least'>at_least</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
@@ -760,8 +735,7 @@ methods to be chained.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Modifies expectation so that the expected method must be called at most a
-<code>maximum_number_of_times</code>.</p>
+<p>Modifies expectation so that the expected method must be called at most a <code>maximum_number_of_times</code>.</p>
 
 
   </div>
@@ -819,8 +793,7 @@ methods to be chained.</p>
       
         &mdash;
         <div class='inline'>
-<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span>
-methods to be chained.</p>
+<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span> methods to be chained.</p>
 </div>
       
     </li>
@@ -833,13 +806,13 @@ methods to be chained.</p>
       <pre class="lines">
 
 
-167
 168
 169
-170</pre>
+170
+171</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 167</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 168</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_at_most'>at_most</span><span class='lparen'>(</span><span class='id identifier rubyid_maximum_number_of_times'>maximum_number_of_times</span><span class='rparen'>)</span>
   <span class='ivar'>@cardinality</span> <span class='op'>=</span> <span class='const'>Cardinality</span><span class='period'>.</span><span class='id identifier rubyid_at_most'>at_most</span><span class='lparen'>(</span><span class='id identifier rubyid_maximum_number_of_times'>maximum_number_of_times</span><span class='rparen'>)</span>
@@ -862,8 +835,7 @@ methods to be chained.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Modifies expectation so that the expected method must be called at most
-once.</p>
+<p>Modifies expectation so that the expected method must be called at most once.</p>
 
 
   </div>
@@ -901,8 +873,7 @@ once.</p>
       
         &mdash;
         <div class='inline'>
-<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span>
-methods to be chained.</p>
+<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span> methods to be chained.</p>
 </div>
       
     </li>
@@ -915,13 +886,13 @@ methods to be chained.</p>
       <pre class="lines">
 
 
-185
 186
 187
-188</pre>
+188
+189</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 185</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 186</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_at_most_once'>at_most_once</span>
   <span class='id identifier rubyid_at_most'>at_most</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
@@ -935,7 +906,7 @@ methods to be chained.</p>
       <div class="method_details ">
   <h3 class="signature " id="in_sequence-instance_method">
   
-    #<strong>in_sequence</strong>(*sequences)  &#x21d2; <tt><span class='object_link'><a href="" title="Mocha::Expectation (class)">Expectation</a></span></tt> 
+    #<strong>in_sequence</strong>(sequence, *sequences)  &#x21d2; <tt><span class='object_link'><a href="" title="Mocha::Expectation (class)">Expectation</a></span></tt> 
   
 
   
@@ -944,16 +915,13 @@ methods to be chained.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Constrains the expectation so that it must be invoked at the current point
-in the <code>sequence</code>.</p>
+<p>Constrains the expectation so that it must be invoked at the current point in the <code>sequence</code>.</p>
 
-<p>To expect a sequence of invocations, write the expectations in order and
-add the <tt>in_sequence(sequence)</tt> clause to each one.</p>
+<p>To expect a sequence of invocations, write the expectations in order and add the <tt>in_sequence(sequence)</tt> clause to each one.</p>
 
 <p>Expectations in a <code>sequence</code> can have any invocation count.</p>
 
-<p>If an expectation in a sequence is stubbed, rather than expected, it can be
-skipped in the <code>sequence</code>.</p>
+<p>If an expectation in a sequence is stubbed, rather than expected, it can be skipped in the <code>sequence</code>.</p>
 
 <p>An expected method can appear in multiple sequences.</p>
 
@@ -983,6 +951,22 @@ skipped in the <code>sequence</code>.</p>
   
     <li>
       
+        <span class='name'>sequence</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Sequence.html" title="Mocha::Sequence (class)">Sequence</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>sequence in which expected method should appear.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
         <span class='name'>sequences</span>
       
       
@@ -992,7 +976,7 @@ skipped in the <code>sequence</code>.</p>
       
         &mdash;
         <div class='inline'>
-<p>sequences in which expected method should appear.</p>
+<p>more sequences in which expected method should appear.</p>
 </div>
       
     </li>
@@ -1011,8 +995,7 @@ skipped in the <code>sequence</code>.</p>
       
         &mdash;
         <div class='inline'>
-<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span>
-methods to be chained.</p>
+<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span> methods to be chained.</p>
 </div>
       
     </li>
@@ -1032,16 +1015,16 @@ methods to be chained.</p>
       <pre class="lines">
 
 
-492
-493
-494
-495</pre>
+501
+502
+503
+504</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 492</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 501</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_in_sequence'>in_sequence</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_sequences'>sequences</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_sequences'>sequences</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_sequence'>sequence</span><span class='op'>|</span> <span class='id identifier rubyid_add_in_sequence_ordering_constraint'>add_in_sequence_ordering_constraint</span><span class='lparen'>(</span><span class='id identifier rubyid_sequence'>sequence</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_in_sequence'>in_sequence</span><span class='lparen'>(</span><span class='id identifier rubyid_sequence'>sequence</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_sequences'>sequences</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_sequences'>sequences</span><span class='period'>.</span><span class='id identifier rubyid_unshift'>unshift</span><span class='lparen'>(</span><span class='id identifier rubyid_sequence'>sequence</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_seq'>seq</span><span class='op'>|</span> <span class='id identifier rubyid_add_in_sequence_ordering_constraint'>add_in_sequence_ordering_constraint</span><span class='lparen'>(</span><span class='id identifier rubyid_seq'>seq</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
   <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1061,9 +1044,7 @@ methods to be chained.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Modifies expectation so that when the expected method is called, it yields
-multiple times per invocation with the specified
-<code>parameter_groups</code>.</p>
+<p>Modifies expectation so that when the expected method is called, it yields multiple times per invocation with the specified <code>parameter_groups</code> (even if no block is provided, in which case yielding will result in a <code>LocalJumpError</code>).</p>
 
 
   </div>
@@ -1075,32 +1056,28 @@ multiple times per invocation with the specified
     
       
         <p class="example_title"><div class='inline'>
-<p>When the <code>expected_method</code> is called, the stub will invoke the
-block twice, the first time it passes <tt>&#39;result_1&#39;</tt>,
-<tt>&#39;result_2&#39;</tt> as the parameters, and the second time it passes
-&#39;result_3&#39; as the parameters.</p>
+<p>When <code>foreach</code> is called, the stub will invoke the block twice, the first time it passes [&#39;row1_col1&#39;, &#39;row1_col2&#39;] as the parameters, and the second time it passes [&#39;row2_col1&#39;, &#39;&#39;] as the parameters.</p>
 </div></p>
       
-      <pre class="example code"><code><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
-<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:expected_method</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_multiple_yields'>multiple_yields</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>result_1</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>result_2</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>result_3</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
-<span class='id identifier rubyid_yielded_values'>yielded_values</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
-<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expected_method'>expected_method</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='op'>*</span><span class='id identifier rubyid_values'>values</span><span class='op'>|</span> <span class='id identifier rubyid_yielded_values'>yielded_values</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_values'>values</span> <span class='rbrace'>}</span>
-<span class='id identifier rubyid_yielded_values'>yielded_values</span> <span class='comment'># =&gt; [[&#39;result_1&#39;, &#39;result_2&#39;], [&#39;result_3]]</span></code></pre>
+      <pre class="example code"><code><span class='id identifier rubyid_csv'>csv</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_csv'>csv</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:foreach</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_with'>with</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>path/to/file.csv</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_multiple_yields'>multiple_yields</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>row1_col1</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>row1_col2</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>row2_col1</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_rows'>rows</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+<span class='id identifier rubyid_csv'>csv</span><span class='period'>.</span><span class='id identifier rubyid_foreach'>foreach</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_row'>row</span><span class='op'>|</span> <span class='id identifier rubyid_rows'>rows</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_row'>row</span> <span class='rbrace'>}</span>
+<span class='id identifier rubyid_rows'>rows</span> <span class='comment'># =&gt; [[&#39;row1_col1&#39;, &#39;row1_col2&#39;], [&#39;row2_col1&#39;, &#39;&#39;]]</span></code></pre>
     
       
         <p class="example_title"><div class='inline'>
-<p>Yield different groups of parameters on different invocations of the
-expected method.</p>
+<p>Yield different groups of parameters on different invocations of the expected method. Simulating a situation where the CSV file at &#39;path/to/file.csv&#39; has been modified between the two calls to <code>foreach</code>.</p>
 </div></p>
       
-      <pre class="example code"><code><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
-<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='symbol'>:expected_method</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_multiple_yields'>multiple_yields</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='int'>1</span><span class='comma'>,</span> <span class='int'>2</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='int'>3</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_then'>then</span><span class='period'>.</span><span class='id identifier rubyid_multiple_yields'>multiple_yields</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='int'>4</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='int'>5</span><span class='comma'>,</span> <span class='int'>6</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-<span class='id identifier rubyid_yielded_values_from_first_invocation'>yielded_values_from_first_invocation</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
-<span class='id identifier rubyid_yielded_values_from_second_invocation'>yielded_values_from_second_invocation</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
-<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expected_method'>expected_method</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='op'>*</span><span class='id identifier rubyid_values'>values</span><span class='op'>|</span> <span class='id identifier rubyid_yielded_values_from_first_invocation'>yielded_values_from_first_invocation</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_values'>values</span> <span class='rbrace'>}</span> <span class='comment'># first invocation
-</span><span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expected_method'>expected_method</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='op'>*</span><span class='id identifier rubyid_values'>values</span><span class='op'>|</span> <span class='id identifier rubyid_yielded_values_from_second_invocation'>yielded_values_from_second_invocation</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_values'>values</span> <span class='rbrace'>}</span> <span class='comment'># second invocation
-</span><span class='id identifier rubyid_yielded_values_from_first_invocation'>yielded_values_from_first_invocation</span> <span class='comment'># =&gt; [[1, 2], [3]]
-</span><span class='id identifier rubyid_yielded_values_from_second_invocation'>yielded_values_from_second_invocation</span> <span class='comment'># =&gt; [[4], [5, 6]]</span></code></pre>
+      <pre class="example code"><code><span class='id identifier rubyid_csv'>csv</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_csv'>csv</span><span class='period'>.</span><span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='symbol'>:foreach</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_with'>with</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>path/to/file.csv</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_multiple_yields'>multiple_yields</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>old_row1_col1</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>old_row1_col2</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>old_row2_col1</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_then'>then</span><span class='period'>.</span><span class='id identifier rubyid_multiple_yields'>multiple_yields</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>new_row1_col1</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>new_row2_col1</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>new_row2_col2</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_rows_from_first_invocation'>rows_from_first_invocation</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+<span class='id identifier rubyid_rows_from_second_invocation'>rows_from_second_invocation</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+<span class='id identifier rubyid_csv'>csv</span><span class='period'>.</span><span class='id identifier rubyid_foreach'>foreach</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_row'>row</span><span class='op'>|</span> <span class='id identifier rubyid_rows_from_first_invocation'>rows_from_first_invocation</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_row'>row</span> <span class='rbrace'>}</span> <span class='comment'># first invocation
+</span><span class='id identifier rubyid_csv'>csv</span><span class='period'>.</span><span class='id identifier rubyid_foreach'>foreach</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_row'>row</span><span class='op'>|</span> <span class='id identifier rubyid_rows_from_second_invocation'>rows_from_second_invocation</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_row'>row</span> <span class='rbrace'>}</span> <span class='comment'># second invocation
+</span><span class='id identifier rubyid_rows_from_first_invocation'>rows_from_first_invocation</span> <span class='comment'># =&gt; [[&#39;old_row1_col1&#39;, &#39;old_row1_col2&#39;], [&#39;old_row2_col1&#39;, &#39;&#39;]]
+</span><span class='id identifier rubyid_rows_from_second_invocation'>rows_from_second_invocation</span> <span class='comment'># =&gt; [[&#39;new_row1_col1&#39;, &#39;&#39;], [&#39;new_row2_col1&#39;, &#39;new_row2_col2&#39;]]</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -1117,9 +1094,7 @@ expected method.</p>
       
         &mdash;
         <div class='inline'>
-<p>each element of <code>parameter_groups</code> should iself be an
-<code>Array</code> representing the parameters to be passed to the block
-for a single yield.</p>
+<p>each element of <code>parameter_groups</code> should iself be an <code>Array</code> representing the parameters to be passed to the block for a single yield.</p>
 </div>
       
     </li>
@@ -1138,8 +1113,7 @@ for a single yield.</p>
       
         &mdash;
         <div class='inline'>
-<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span>
-methods to be chained.</p>
+<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span> methods to be chained.</p>
 </div>
       
     </li>
@@ -1159,13 +1133,13 @@ methods to be chained.</p>
       <pre class="lines">
 
 
-277
-278
-279
-280</pre>
+285
+286
+287
+288</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 277</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 285</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_multiple_yields'>multiple_yields</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_parameter_groups'>parameter_groups</span><span class='rparen'>)</span>
   <span class='ivar'>@yield_parameters</span><span class='period'>.</span><span class='id identifier rubyid_multiple_add'>multiple_add</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_parameter_groups'>parameter_groups</span><span class='rparen'>)</span>
@@ -1225,8 +1199,7 @@ methods to be chained.</p>
       
         &mdash;
         <div class='inline'>
-<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span>
-methods to be chained.</p>
+<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span> methods to be chained.</p>
 </div>
       
     </li>
@@ -1239,13 +1212,13 @@ methods to be chained.</p>
       <pre class="lines">
 
 
-110
 111
 112
-113</pre>
+113
+114</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 111</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_never'>never</span>
   <span class='ivar'>@cardinality</span> <span class='op'>=</span> <span class='const'>Cardinality</span><span class='period'>.</span><span class='id identifier rubyid_exactly'>exactly</span><span class='lparen'>(</span><span class='int'>0</span><span class='rparen'>)</span>
@@ -1268,11 +1241,9 @@ methods to be chained.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Modifies expectation so that the expected method must be called exactly
-once.</p>
+<p>Modifies expectation so that the expected method must be called exactly once.</p>
 
-<p>Note that this is the default behaviour for an expectation, but you may
-wish to use it for clarity/emphasis.</p>
+<p>Note that this is the default behaviour for an expectation, but you may wish to use it for clarity/emphasis.</p>
 
 
   </div>
@@ -1315,8 +1286,7 @@ wish to use it for clarity/emphasis.</p>
       
         &mdash;
         <div class='inline'>
-<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span>
-methods to be chained.</p>
+<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span> methods to be chained.</p>
 </div>
       
     </li>
@@ -1329,13 +1299,13 @@ methods to be chained.</p>
       <pre class="lines">
 
 
-93
 94
 95
-96</pre>
+96
+97</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 93</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 94</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_once'>once</span>
   <span class='ivar'>@cardinality</span> <span class='op'>=</span> <span class='const'>Cardinality</span><span class='period'>.</span><span class='id identifier rubyid_exactly'>exactly</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
@@ -1364,9 +1334,7 @@ methods to be chained.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Modifies expectation so that when the expected method is called, it raises
-the specified <code>exception</code> with the specified
-<code>message</code> i.e. calls <tt>Kernel#raise(exception, message)</tt>.</p>
+<p>Modifies expectation so that when the expected method is called, it raises the specified <code>exception</code> with the specified <code>message</code> i.e. calls <tt>Kernel#raise(exception, message)</tt>.</p>
 
 
   </div>
@@ -1387,8 +1355,7 @@ the specified <code>exception</code> with the specified
     
       
         <p class="example_title"><div class='inline'>
-<p>Raise custom exception with extra constructor parameters by passing in an
-instance of the exception.</p>
+<p>Raise custom exception with extra constructor parameters by passing in an instance of the exception.</p>
 </div></p>
       
       <pre class="example code"><code><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_stub'>stub</span><span class='lparen'>(</span><span class='rparen'>)</span>
@@ -1397,8 +1364,7 @@ instance of the exception.</p>
     
       
         <p class="example_title"><div class='inline'>
-<p>Raise different exceptions on consecutive invocations of the expected
-method.</p>
+<p>Raise different exceptions on consecutive invocations of the expected method.</p>
 </div></p>
       
       <pre class="example code"><code><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_stub'>stub</span><span class='lparen'>(</span><span class='rparen'>)</span>
@@ -1408,8 +1374,7 @@ method.</p>
     
       
         <p class="example_title"><div class='inline'>
-<p>Raise an exception on first invocation of expected method and then return
-values on subsequent invocations.</p>
+<p>Raise an exception on first invocation of expected method and then return values on subsequent invocations.</p>
 </div></p>
       
       <pre class="example code"><code><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_stub'>stub</span><span class='lparen'>(</span><span class='rparen'>)</span>
@@ -1472,8 +1437,7 @@ values on subsequent invocations.</p>
       
         &mdash;
         <div class='inline'>
-<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span>
-methods to be chained.</p>
+<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span> methods to be chained.</p>
 </div>
       
     </li>
@@ -1495,13 +1459,13 @@ methods to be chained.</p>
       <pre class="lines">
 
 
-364
-365
-366
-367</pre>
+372
+373
+374
+375</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 364</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 372</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_raises'>raises</span><span class='lparen'>(</span><span class='id identifier rubyid_exception'>exception</span> <span class='op'>=</span> <span class='const'>RuntimeError</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='ivar'>@return_values</span> <span class='op'>+=</span> <span class='const'>ReturnValues</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>ExceptionRaiser</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_exception'>exception</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -1528,8 +1492,7 @@ methods to be chained.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Modifies expectation so that when the expected method is called, it returns
-the specified <code>value</code>.</p>
+<p>Modifies expectation so that when the expected method is called, it returns the specified <code>value</code>.</p>
 
 
   </div>
@@ -1583,8 +1546,7 @@ the specified <code>value</code>.</p>
     
       
         <p class="example_title"><div class='inline'>
-<p>Note that in Ruby a method returning multiple values is exactly equivalent
-to a method returning an <code>Array</code> of those values.</p>
+<p>Note that in Ruby a method returning multiple values is exactly equivalent to a method returning an <code>Array</code> of those values.</p>
 </div></p>
       
       <pre class="example code"><code><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
@@ -1682,8 +1644,7 @@ to a method returning an <code>Array</code> of those values.</p>
       
         &mdash;
         <div class='inline'>
-<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span>
-methods to be chained.</p>
+<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span> methods to be chained.</p>
 </div>
       
     </li>
@@ -1703,13 +1664,13 @@ methods to be chained.</p>
       <pre class="lines">
 
 
-324
-325
-326
-327</pre>
+332
+333
+334
+335</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 324</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 332</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
   <span class='ivar'>@return_values</span> <span class='op'>+=</span> <span class='const'>ReturnValues</span><span class='period'>.</span><span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
@@ -1736,8 +1697,7 @@ methods to be chained.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns the same expectation, thereby allowing invocations of other
-<span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span> methods to be chained.</p>
+<p>Returns the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span> methods to be chained.</p>
 
 
   </div>
@@ -1749,8 +1709,7 @@ methods to be chained.</p>
     
       
         <p class="example_title"><div class='inline'>
-<p>Using <span class='object_link'><a href="#then-instance_method" title="Mocha::Expectation#then (method)">#then</a></span> as syntactic sugar when specifying values to be returned and
-exceptions to be raised on consecutive invocations of the expected method.</p>
+<p>Using <span class='object_link'><a href="#then-instance_method" title="Mocha::Expectation#then (method)">#then</a></span> as syntactic sugar when specifying values to be returned and exceptions to be raised on consecutive invocations of the expected method.</p>
 </div></p>
       
       <pre class="example code"><code><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
@@ -1762,8 +1721,7 @@ exceptions to be raised on consecutive invocations of the expected method.</p>
     
       
         <p class="example_title"><div class='inline'>
-<p>Using <span class='object_link'><a href="#then-instance_method" title="Mocha::Expectation#then (method)">#then</a></span> to change the <code>state</code> of a
-<code>state_machine</code> on the invocation of an expected method.</p>
+<p>Using <span class='object_link'><a href="#then-instance_method" title="Mocha::Expectation#then (method)">#then</a></span> to change the <code>state</code> of a <code>state_machine</code> on the invocation of an expected method.</p>
 </div></p>
       
       <pre class="example code"><code><span class='id identifier rubyid_power'>power</span> <span class='op'>=</span> <span class='id identifier rubyid_states'>states</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>power</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_starts_as'>starts_as</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>off</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -1787,8 +1745,7 @@ exceptions to be raised on consecutive invocations of the expected method.</p>
         <div class="docstring">
   <div class="discussion">
     
-<p>Used as syntactic sugar to improve readability. It has no effect on state
-of the expectation.</p>
+<p>Used as syntactic sugar to improve readability. It has no effect on state of the expectation.</p>
 
 
   </div>
@@ -1805,8 +1762,7 @@ of the expectation.</p>
         <div class="docstring">
   <div class="discussion">
     
-<p>Used to change the <code>state_machine</code> to the state specified by
-<code>state_name</code> when the expected invocation occurs.</p>
+<p>Used to change the <code>state_machine</code> to the state specified by <code>state_name</code> when the expected invocation occurs.</p>
 
 
   </div>
@@ -1826,9 +1782,7 @@ of the expectation.</p>
       
         &mdash;
         <div class='inline'>
-<p>provides a mechanism to change the <code>state_machine</code> into the
-state specified by <code>state_name</code> when the expected method is
-invoked.</p>
+<p>provides a mechanism to change the <code>state_machine</code> into the state specified by <code>state_name</code> when the expected method is invoked.</p>
 </div>
       
     </li>
@@ -1864,8 +1818,7 @@ invoked.</p>
       
         &mdash;
         <div class='inline'>
-<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span>
-methods to be chained.</p>
+<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span> methods to be chained.</p>
 </div>
       
     </li>
@@ -1878,16 +1831,16 @@ methods to be chained.</p>
       <pre class="lines">
 
 
-438
-439
-440
-441
-442
-443
-444</pre>
+446
+447
+448
+449
+450
+451
+452</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 438</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 446</span>
 
 <span class='kw'>def</span> <span class='kw'>then</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_parameters'>parameters</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_parameters'>parameters</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>==</span> <span class='int'>1</span>
@@ -1917,9 +1870,7 @@ methods to be chained.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Modifies expectation so that when the expected method is called, it throws
-the specified <code>tag</code> with the specific return value
-<code>object</code> i.e. calls <tt>Kernel#throw(tag, object)</tt>.</p>
+<p>Modifies expectation so that when the expected method is called, it throws the specified <code>tag</code> with the specific return value <code>object</code> i.e. calls <tt>Kernel#throw(tag, object)</tt>.</p>
 
 
   </div>
@@ -1959,8 +1910,7 @@ the specified <code>tag</code> with the specific return value
     
       
         <p class="example_title"><div class='inline'>
-<p>Throw tag on first invocation of expected method and then return values for
-subsequent invocations.</p>
+<p>Throw tag on first invocation of expected method and then return values for subsequent invocations.</p>
 </div></p>
       
       <pre class="example code"><code><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_stub'>stub</span><span class='lparen'>(</span><span class='rparen'>)</span>
@@ -2021,8 +1971,7 @@ subsequent invocations.</p>
       
         &mdash;
         <div class='inline'>
-<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span>
-methods to be chained.</p>
+<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span> methods to be chained.</p>
 </div>
       
     </li>
@@ -2044,13 +1993,13 @@ methods to be chained.</p>
       <pre class="lines">
 
 
-403
-404
-405
-406</pre>
+411
+412
+413
+414</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 403</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 411</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_throws'>throws</span><span class='lparen'>(</span><span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='ivar'>@return_values</span> <span class='op'>+=</span> <span class='const'>ReturnValues</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>Thrower</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -2073,8 +2022,7 @@ methods to be chained.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Modifies expectation so that the number of calls to the expected method
-must be within a specific <code>range</code>.</p>
+<p>Modifies expectation so that the number of calls to the expected method must be within a specific <code>range</code>.</p>
 
 
   </div>
@@ -2148,8 +2096,7 @@ must be within a specific <code>range</code>.</p>
       
         &mdash;
         <div class='inline'>
-<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span>
-methods to be chained.</p>
+<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span> methods to be chained.</p>
 </div>
       
     </li>
@@ -2162,13 +2109,13 @@ methods to be chained.</p>
       <pre class="lines">
 
 
-42
 43
 44
-45</pre>
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_times'>times</span><span class='lparen'>(</span><span class='id identifier rubyid_range'>range</span><span class='rparen'>)</span>
   <span class='ivar'>@cardinality</span> <span class='op'>=</span> <span class='const'>Cardinality</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='lparen'>(</span><span class='id identifier rubyid_range'>range</span><span class='rparen'>)</span>
@@ -2191,8 +2138,7 @@ methods to be chained.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Modifies expectation so that the expected method must be called exactly
-twice.</p>
+<p>Modifies expectation so that the expected method must be called exactly twice.</p>
 
 
   </div>
@@ -2238,8 +2184,7 @@ twice.</p>
       
         &mdash;
         <div class='inline'>
-<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span>
-methods to be chained.</p>
+<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span> methods to be chained.</p>
 </div>
       
     </li>
@@ -2252,13 +2197,13 @@ methods to be chained.</p>
       <pre class="lines">
 
 
-68
 69
 70
-71</pre>
+71
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 69</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_twice'>twice</span>
   <span class='ivar'>@cardinality</span> <span class='op'>=</span> <span class='const'>Cardinality</span><span class='period'>.</span><span class='id identifier rubyid_exactly'>exactly</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span>
@@ -2281,9 +2226,7 @@ methods to be chained.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Constrains the expectation to occur only when the
-<code>state_machine</code> is in the state specified by
-<code>state_name</code>.</p>
+<p>Constrains the expectation to occur only when the <code>state_machine</code> is in the state specified by <code>state_name</code>.</p>
 
 
   </div>
@@ -2295,8 +2238,7 @@ methods to be chained.</p>
     
       
         <p class="example_title"><div class='inline'>
-<p>Using <span class='object_link'><a href="#when-instance_method" title="Mocha::Expectation#when (method)">#when</a></span> to only allow invocation of methods when “power” state
-machine is in the “on” state.</p>
+<p>Using <span class='object_link'><a href="#when-instance_method" title="Mocha::Expectation#when (method)">#when</a></span> to only allow invocation of methods when “power” state machine is in the “on” state.</p>
 </div></p>
       
       <pre class="example code"><code><span class='id identifier rubyid_power'>power</span> <span class='op'>=</span> <span class='id identifier rubyid_states'>states</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>power</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_starts_as'>starts_as</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>off</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -2324,9 +2266,7 @@ machine is in the “on” state.</p>
       
         &mdash;
         <div class='inline'>
-<p>provides a mechanism to determine whether the <code>state_machine</code> is
-in the state specified by <code>state_name</code> when the expected method
-is invoked.</p>
+<p>provides a mechanism to determine whether the <code>state_machine</code> is in the state specified by <code>state_name</code> when the expected method is invoked.</p>
 </div>
       
     </li>
@@ -2345,8 +2285,7 @@ is invoked.</p>
       
         &mdash;
         <div class='inline'>
-<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span>
-methods to be chained.</p>
+<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span> methods to be chained.</p>
 </div>
       
     </li>
@@ -2370,13 +2309,13 @@ methods to be chained.</p>
       <pre class="lines">
 
 
-465
-466
-467
-468</pre>
+473
+474
+475
+476</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 465</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 473</span>
 
 <span class='kw'>def</span> <span class='kw'>when</span><span class='lparen'>(</span><span class='id identifier rubyid_state_predicate'>state_predicate</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_add_ordering_constraint'>add_ordering_constraint</span><span class='lparen'>(</span><span class='const'>InStateOrderingConstraint</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_state_predicate'>state_predicate</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -2399,8 +2338,7 @@ methods to be chained.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Modifies expectation so that the expected method must be called with
-<code>expected_parameters</code>.</p>
+<p>Modifies expectation so that the expected method must be called with <code>expected_parameters</code>.</p>
 
 <p>May be used with parameter matchers in <span class='object_link'><a href="ParameterMatchers.html" title="Mocha::ParameterMatchers (module)">ParameterMatchers</a></span>.</p>
 
@@ -2532,8 +2470,7 @@ methods to be chained.</p>
       
         &mdash;
         <div class='inline'>
-<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span>
-methods to be chained.</p>
+<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span> methods to be chained.</p>
 </div>
       
     </li>
@@ -2546,13 +2483,13 @@ methods to be chained.</p>
       <pre class="lines">
 
 
-221
 222
 223
-224</pre>
+224
+225</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 221</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 222</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_with'>with</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_expected_parameters'>expected_parameters</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_matching_block'>matching_block</span><span class='rparen'>)</span>
   <span class='ivar'>@parameters_matcher</span> <span class='op'>=</span> <span class='const'>ParametersMatcher</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_expected_parameters'>expected_parameters</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_matching_block'>matching_block</span><span class='rparen'>)</span>
@@ -2575,11 +2512,9 @@ methods to be chained.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Modifies expectation so that when the expected method is called, it yields
-with the specified <code>parameters</code>.</p>
+<p>Modifies expectation so that when the expected method is called, it yields with the specified <code>parameters</code> (even if no block is provided, in which case yielding will result in a <code>LocalJumpError</code>).</p>
 
-<p>May be called multiple times on the same expectation for consecutive
-invocations.</p>
+<p>May be called multiple times on the same expectation for consecutive invocations.</p>
 
 
   </div>
@@ -2591,28 +2526,39 @@ invocations.</p>
     
       
         <p class="example_title"><div class='inline'>
+<p>Yield when expected method is invoked.</p>
+</div></p>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_benchmark'>benchmark</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_benchmark'>benchmark</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:measure</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_yields'>yields</span><span class='period'>.</span><span class='id identifier rubyid_then'>then</span><span class='period'>.</span><span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.350000   0.400000   0.750000 (  0.835234)</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_yielded'>yielded</span> <span class='op'>=</span> <span class='kw'>false</span>
+<span class='id identifier rubyid_returned_value'>returned_value</span> <span class='op'>=</span> <span class='id identifier rubyid_benchmark'>benchmark</span><span class='period'>.</span><span class='id identifier rubyid_measure'>measure</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_yielded'>yielded</span> <span class='op'>=</span> <span class='kw'>true</span> <span class='rbrace'>}</span>
+<span class='id identifier rubyid_yielded'>yielded</span> <span class='comment'># =&gt; true
+</span><span class='id identifier rubyid_returned_value'>returned_value</span> <span class='comment'># =&gt; &#39;0.350000   0.400000   0.750000 (  0.835234)&#39;</span></code></pre>
+    
+      
+        <p class="example_title"><div class='inline'>
 <p>Yield parameters when expected method is invoked.</p>
 </div></p>
       
-      <pre class="example code"><code><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
-<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:expected_method</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_yields'>yields</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>result</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
-<span class='id identifier rubyid_yielded_value'>yielded_value</span> <span class='op'>=</span> <span class='kw'>nil</span>
-<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expected_method'>expected_method</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_value'>value</span><span class='op'>|</span> <span class='id identifier rubyid_yielded_value'>yielded_value</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span> <span class='rbrace'>}</span>
-<span class='id identifier rubyid_yielded_value'>yielded_value</span> <span class='comment'># =&gt; &#39;result&#39;</span></code></pre>
+      <pre class="example code"><code><span class='id identifier rubyid_fibonacci'>fibonacci</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_fibonacci'>fibonacci</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:next_pair</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_yields'>yields</span><span class='lparen'>(</span><span class='int'>0</span><span class='comma'>,</span> <span class='int'>1</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_sum'>sum</span> <span class='op'>=</span> <span class='int'>0</span>
+<span class='id identifier rubyid_fibonacci'>fibonacci</span><span class='period'>.</span><span class='id identifier rubyid_next_pair'>next_pair</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_first'>first</span><span class='comma'>,</span> <span class='id identifier rubyid_second'>second</span><span class='op'>|</span> <span class='id identifier rubyid_sum'>sum</span> <span class='op'>=</span> <span class='id identifier rubyid_first'>first</span> <span class='op'>+</span> <span class='id identifier rubyid_second'>second</span> <span class='rbrace'>}</span>
+<span class='id identifier rubyid_sum'>sum</span> <span class='comment'># =&gt; 1</span></code></pre>
     
       
         <p class="example_title"><div class='inline'>
 <p>Yield different parameters on different invocations of the expected method.</p>
 </div></p>
       
-      <pre class="example code"><code><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
-<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='symbol'>:expected_method</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_yields'>yields</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_then'>then</span><span class='period'>.</span><span class='id identifier rubyid_yields'>yields</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span>
-<span class='id identifier rubyid_yielded_values_from_first_invocation'>yielded_values_from_first_invocation</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
-<span class='id identifier rubyid_yielded_values_from_second_invocation'>yielded_values_from_second_invocation</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
-<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expected_method'>expected_method</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_value'>value</span><span class='op'>|</span> <span class='id identifier rubyid_yielded_values_from_first_invocation'>yielded_values_from_first_invocation</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_value'>value</span> <span class='rbrace'>}</span> <span class='comment'># first invocation
-</span><span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expected_method'>expected_method</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_value'>value</span><span class='op'>|</span> <span class='id identifier rubyid_yielded_values_from_second_invocation'>yielded_values_from_second_invocation</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_value'>value</span> <span class='rbrace'>}</span> <span class='comment'># second invocation
-</span><span class='id identifier rubyid_yielded_values_from_first_invocation'>yielded_values_from_first_invocation</span> <span class='comment'># =&gt; [1]
-</span><span class='id identifier rubyid_yielded_values_from_second_invocation'>yielded_values_from_second_invocation</span> <span class='comment'># =&gt; [2]</span></code></pre>
+      <pre class="example code"><code><span class='id identifier rubyid_fibonacci'>fibonacci</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_fibonacci'>fibonacci</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:next_pair</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_yields'>yields</span><span class='lparen'>(</span><span class='int'>0</span><span class='comma'>,</span> <span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_then'>then</span><span class='period'>.</span><span class='id identifier rubyid_yields'>yields</span><span class='lparen'>(</span><span class='int'>1</span><span class='comma'>,</span> <span class='int'>1</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_sum'>sum</span> <span class='op'>=</span> <span class='int'>0</span>
+<span class='id identifier rubyid_fibonacci'>fibonacci</span><span class='period'>.</span><span class='id identifier rubyid_next_pair'>next_pair</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_first'>first</span><span class='comma'>,</span> <span class='id identifier rubyid_second'>second</span><span class='op'>|</span> <span class='id identifier rubyid_sum'>sum</span> <span class='op'>=</span> <span class='id identifier rubyid_first'>first</span> <span class='op'>+</span> <span class='id identifier rubyid_second'>second</span> <span class='rbrace'>}</span>
+<span class='id identifier rubyid_sum'>sum</span> <span class='comment'># =&gt; 1
+</span><span class='id identifier rubyid_fibonacci'>fibonacci</span><span class='period'>.</span><span class='id identifier rubyid_next_pair'>next_pair</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_first'>first</span><span class='comma'>,</span> <span class='id identifier rubyid_second'>second</span><span class='op'>|</span> <span class='id identifier rubyid_sum'>sum</span> <span class='op'>=</span> <span class='id identifier rubyid_first'>first</span> <span class='op'>+</span> <span class='id identifier rubyid_second'>second</span> <span class='rbrace'>}</span>
+<span class='id identifier rubyid_sum'>sum</span> <span class='comment'># =&gt; 2</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -2648,8 +2594,7 @@ invocations.</p>
       
         &mdash;
         <div class='inline'>
-<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span>
-methods to be chained.</p>
+<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span> methods to be chained.</p>
 </div>
       
     </li>
@@ -2669,13 +2614,13 @@ methods to be chained.</p>
       <pre class="lines">
 
 
-250
-251
-252
-253</pre>
+258
+259
+260
+261</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 250</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 258</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_yields'>yields</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_parameters'>parameters</span><span class='rparen'>)</span>
   <span class='ivar'>@yield_parameters</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_parameters'>parameters</span><span class='rparen'>)</span>
@@ -2699,9 +2644,9 @@ methods to be chained.</p>
 </div>
 
       <div id="footer">
-  Generated on Mon Jun 17 18:38:44 2019 by
+  Generated on Sun Nov 24 15:26:50 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.19 (ruby-2.5.3).
+  0.9.20 (ruby-2.6.5).
 </div>
 
     </div>

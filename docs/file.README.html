@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Mocha 1.9.0
+    &mdash; Mocha 1.10.0.alpha
   
 </title>
 
@@ -62,11 +62,15 @@
 <h3>Description</h3>
 
 <ul>
-<li>A Ruby library for mocking and stubbing.</li>
+<li>A Ruby library for <a href="http://xunitpatterns.com/Mock%20Object.html">mocking</a> and <a href="http://xunitpatterns.com/Test%20Stub.html">stubbing</a> - but deliberately not (yet) <a href="http://xunitpatterns.com/Fake%20Object.html">faking</a> or <a href="http://xunitpatterns.com/Test%20Spy.html">spying</a>.</li>
 <li>A unified, simple and readable syntax for both full &amp; partial mocking.</li>
 <li>Built-in support for MiniTest and Test::Unit.</li>
 <li>Supported by many other test frameworks.</li>
 </ul>
+
+<h3>Intended Usage</h3>
+
+<p>Mocha is intended to be used in unit tests for the <a href="http://xunitpatterns.com/Mock%20Object.html">Mock Object</a> or <a href="http://xunitpatterns.com/Test%20Stub.html">Test Stub</a> types of <a href="http://xunitpatterns.com/Test%20Double.html">Test Double</a>, not the <a href="http://xunitpatterns.com/Fake%20Object.html">Fake Object</a> or <a href="http://xunitpatterns.com/Test%20Spy.html">Test Spy</a> types. Although it would be possible to extend Mocha to allow the implementation of fakes and spies, we have chosen to keep it focused on mocks and stubs.</p>
 
 <h3>Installation</h3>
 
@@ -147,15 +151,6 @@
 
 <p>Note: There is no need to use a require statement to setup Mocha; RSpec does this itself.</p>
 
-<h4>Rails Plugin</h4>
-
-<p>Install the Rails plugin...</p>
-
-<pre class="code ruby"><code class="ruby">$ rails plugin install git://github.com/freerange/mocha.git
-</code></pre>
-
-<p>Note: As of version 0.9.8, the Mocha plugin is not automatically setup at plugin load time. Instead it must be manually setup e.g. at the bottom of your <code>test_helper.rb</code>.</p>
-
 <h5>MiniTest</h5>
 
 <pre class="code ruby"><code class="ruby"><span class='comment'># At bottom of test_helper.rb (or at least after `require &#39;rails/test_help&#39;`)
@@ -171,7 +166,6 @@
 <li>0.13.x versions cause a harmless, but annoying, deprecation warning when used with Rails 3.2.0-3.2.12, 3.1.0-3.1.10 &amp; 3.0.0-3.0.19.</li>
 <li>0.11.x versions don&#39;t work with Rails 3.2.13 (<code>TypeError: superclass mismatch for class ExpectationError</code>). See #115.</li>
 <li>Versions 0.10.2, 0.10.3 &amp; 0.11.0 of the Mocha gem were broken. Please do not use these versions.</li>
-<li>Versions 0.9.6 &amp; 0.9.7 of the Mocha Rails plugin were broken. Please do not use these versions.</li>
 </ul>
 
 <h3>Usage</h3>
@@ -341,6 +335,15 @@
 
 <p>See the <a href="https://mocha.jamesmead.org/Mocha/Configuration.html">documentation</a> for <code>Mocha::Configuration</code> for further details.</p>
 
+<h5>MOCHA_OPTIONS</h5>
+
+<p><code>MOCHA_OPTIONS</code> is an environment variable whose value can be set to a comma-separated list, so that we can specify multiple options e.g. <code>MOCHA_OPTIONS=debug,use_test_unit_gem</code>.
+Only the following values are currently recognized and have an effect:</p>
+
+<ul>
+<li><code>debug</code>: Enables a debug mode which will output backtraces for each deprecation warning. This is useful for finding where in the test suite the deprecated calls are.</li>
+</ul>
+
 <h3>Useful Links</h3>
 
 <ul>
@@ -367,7 +370,7 @@
 <li>Commit &amp; push to GitHub</li>
 <li><p>Check Travis CI build is passing - <a href="https://travis-ci.org/freerange/mocha">https://travis-ci.org/freerange/mocha</a></p></li>
 <li><p>Sign in to Google Analytics - <a href="https://analytics.google.com/analytics/web/">https://analytics.google.com/analytics/web/</a></p></li>
-<li><p>Find the web property ID for Go Free Range Ltd &gt; Mocha Documentation (UA-625523-7)</p></li>
+<li><p>Find the web property ID for floehopper (625523) &gt; Mocha Documentation (UA-625523-7)</p></li>
 <li><p>Generate documentation:</p></li>
 </ul>
 
@@ -416,9 +419,9 @@ Pushed mocha 1.2.0 to rubygems.org.
 </div>
 
       <div id="footer">
-  Generated on Mon Jun 17 18:38:43 2019 by
+  Generated on Sun Nov 24 15:26:48 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.19 (ruby-2.5.3).
+  0.9.20 (ruby-2.6.5).
 </div>
 
     </div>

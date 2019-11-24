@@ -6,7 +6,7 @@
 <title>
   Class: Mocha::Mock
   
-    &mdash; Mocha 1.9.0
+    &mdash; Mocha 1.10.0.alpha
   
 </title>
 
@@ -104,56 +104,33 @@
     
 <p>Traditional mock object.</p>
 
-<p>All methods return an <span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span> which can be further modified by
-methods on <span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span>.</p>
+<p><span class='object_link'><a href="#expects-instance_method" title="Mocha::Mock#expects (method)">#expects</a></span> and <span class='object_link'><a href="#stubs-instance_method" title="Mocha::Mock#stubs (method)">#stubs</a></span> return an <span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span> which can be further modified by methods on <span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span>.</p>
 
-<p>Stubs and expectations are basically the same thing. A stub is just an
-expectation of zero or more invocations. The <span class='object_link'><a href="#stubs-instance_method" title="Mocha::Mock#stubs (method)">#stubs</a></span> method is syntactic
-sugar to make the intent of the test more explicit.</p>
+<p><span class='object_link'><a href="#responds_like-instance_method" title="Mocha::Mock#responds_like (method)">#responds_like</a></span> and <span class='object_link'><a href="#responds_like_instance_of-instance_method" title="Mocha::Mock#responds_like_instance_of (method)">#responds_like_instance_of</a></span> both return a <span class='object_link'><a href="" title="Mocha::Mock (class)">Mock</a></span>, and can therefore, be chained to the original creation methods in <span class='object_link'><a href="API.html" title="Mocha::API (module)">API</a></span>. They force the mock to indicate what it is supposed to be mocking, thus making it a safer verifying mock. They check that the underlying <code>responder</code> will actually respond to the methods being stubbed, throwing a <code>NoMethodError</code> upon invocation otherwise.</p>
 
-<p>When a method is invoked on a mock object, the mock object searches through
-its expectations from newest to oldest to find one that matches the
-invocation. After the invocation, the matching expectation might stop
-matching further invocations. For example, an <tt>expects(:foo).once</tt>
-expectation only matches once and will be ignored on future invocations
-while an <tt>expects(:foo).at_least_once</tt> expectation will always be matched
-against invocations.</p>
+<p>Stubs and expectations are basically the same thing. A stub is just an expectation of zero or more invocations. The <span class='object_link'><a href="#stubs-instance_method" title="Mocha::Mock#stubs (method)">#stubs</a></span> method is syntactic sugar to make the intent of the test more explicit.</p>
+
+<p>When a method is invoked on a mock object, the mock object searches through its expectations from newest to oldest to find one that matches the invocation. After the invocation, the matching expectation might stop matching further invocations. For example, an <tt>expects(:foo).once</tt> expectation only matches once and will be ignored on future invocations while an <tt>expects(:foo).at_least_once</tt> expectation will always be matched against invocations.</p>
 
 <p>This scheme allows you to:</p>
 <ul><li>
-<p>Set up default stubs in your the <code>setup</code> method of your test
-class and override some of those stubs in individual tests.</p>
+<p>Set up default stubs in your the <code>setup</code> method of your test class and override some of those stubs in individual tests.</p>
 </li><li>
-<p>Set up different <code>once</code> expectations for the same method with
-different action per invocation. However, it&#39;s better to use the
-<span class='object_link'><a href="Expectation.html#returns-instance_method" title="Mocha::Expectation#returns (method)">Expectation#returns</a></span> method with multiple arguments to do this, as
-described below.</p>
+<p>Set up different <code>once</code> expectations for the same method with different action per invocation. However, it&#39;s better to use the <span class='object_link'><a href="Expectation.html#returns-instance_method" title="Mocha::Expectation#returns (method)">Expectation#returns</a></span> method with multiple arguments to do this, as described below.</p>
 </li></ul>
 
 <p>However, there are some possible “gotchas” caused by this scheme:</p>
 <ul><li>
-<p>if you create an expectation and then a stub for the same method, the stub
-will always override the expectation and the expectation will never be met.</p>
+<p>if you create an expectation and then a stub for the same method, the stub will always override the expectation and the expectation will never be met.</p>
 </li><li>
-<p>if you create a stub and then an expectation for the same method, the
-expectation will match, and when it stops matching the stub will be used
-instead, possibly masking test failures.</p>
+<p>if you create a stub and then an expectation for the same method, the expectation will match, and when it stops matching the stub will be used instead, possibly masking test failures.</p>
 </li><li>
-<p>if you create different expectations for the same method, they will be
-invoked in the opposite order than that in which they were specified,
-rather than the same order.</p>
+<p>if you create different expectations for the same method, they will be invoked in the opposite order than that in which they were specified, rather than the same order.</p>
 </li></ul>
 
-<p>The best thing to do is not set up multiple expectations and stubs for the
-same method with exactly the same matchers. Instead, use the
-<span class='object_link'><a href="Expectation.html#returns-instance_method" title="Mocha::Expectation#returns (method)">Expectation#returns</a></span> method with multiple arguments to create multiple
-actions for a method. You can also chain multiple calls to
-<span class='object_link'><a href="Expectation.html#returns-instance_method" title="Mocha::Expectation#returns (method)">Expectation#returns</a></span> and <span class='object_link'><a href="Expectation.html#raises-instance_method" title="Mocha::Expectation#raises (method)">Expectation#raises</a></span> (along with syntactic sugar
-<span class='object_link'><a href="Expectation.html#then-instance_method" title="Mocha::Expectation#then (method)">Expectation#then</a></span> if desired).</p>
+<p>The best thing to do is not set up multiple expectations and stubs for the same method with exactly the same matchers. Instead, use the <span class='object_link'><a href="Expectation.html#returns-instance_method" title="Mocha::Expectation#returns (method)">Expectation#returns</a></span> method with multiple arguments to create multiple actions for a method. You can also chain multiple calls to <span class='object_link'><a href="Expectation.html#returns-instance_method" title="Mocha::Expectation#returns (method)">Expectation#returns</a></span> and <span class='object_link'><a href="Expectation.html#raises-instance_method" title="Mocha::Expectation#raises (method)">Expectation#raises</a></span> (along with syntactic sugar <span class='object_link'><a href="Expectation.html#then-instance_method" title="Mocha::Expectation#then (method)">Expectation#then</a></span> if desired).</p>
 
-<p>If you want to specify more complex ordering or order invocations across
-different mock objects, use the <span class='object_link'><a href="Expectation.html#in_sequence-instance_method" title="Mocha::Expectation#in_sequence (method)">Expectation#in_sequence</a></span> method to
-explicitly define a total or partial ordering of invocations.</p>
+<p>If you want to specify more complex ordering or order invocations across different mock objects, use the <span class='object_link'><a href="Expectation.html#in_sequence-instance_method" title="Mocha::Expectation#in_sequence (method)">Expectation#in_sequence</a></span> method to explicitly define a total or partial ordering of invocations.</p>
 
 
   </div>
@@ -208,8 +185,7 @@ explicitly define a total or partial ordering of invocations.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Adds an expectation that the specified method must be called exactly once
-with any parameters.</p>
+<p>Adds an expectation that the specified method must be called exactly once with any parameters.</p>
 </div></span>
   
 </li>
@@ -257,8 +233,7 @@ with any parameters.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Constrains the <span class='object_link'><a href="" title="Mocha::Mock (class)">Mock</a></span> instance so that it can only expect or stub methods
-to which <code>responder</code> responds.</p>
+<p>Constrains the <span class='object_link'><a href="" title="Mocha::Mock (class)">Mock</a></span> instance so that it can only expect or stub methods to which <code>responder</code> responds.</p>
 </div></span>
   
 </li>
@@ -284,8 +259,7 @@ to which <code>responder</code> responds.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Constrains the <span class='object_link'><a href="" title="Mocha::Mock (class)">Mock</a></span> instance so that it can only expect or stub methods
-to which an instance of the <code>responder_class</code> responds.</p>
+<p>Constrains the <span class='object_link'><a href="" title="Mocha::Mock (class)">Mock</a></span> instance so that it can only expect or stub methods to which an instance of the <code>responder_class</code> responds.</p>
 </div></span>
   
 </li>
@@ -311,8 +285,7 @@ to which an instance of the <code>responder_class</code> responds.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Adds an expectation that the specified method may be called any number of
-times with any parameters.</p>
+<p>Adds an expectation that the specified method may be called any number of times with any parameters.</p>
 </div></span>
   
 </li>
@@ -321,7 +294,7 @@ times with any parameters.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#unstub-instance_method" title="#unstub (instance method)">#<strong>unstub</strong>(method_name)  &#x21d2; Object </a>
+      <a href="#unstub-instance_method" title="#unstub (instance method)">#<strong>unstub</strong>(*method_names)  &#x21d2; Object </a>
     
 
     
@@ -336,8 +309,7 @@ times with any parameters.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Removes the specified stubbed method (added by calls to <span class='object_link'><a href="#expects-instance_method" title="Mocha::Mock#expects (method)">#expects</a></span> or
-<span class='object_link'><a href="#stubs-instance_method" title="Mocha::Mock#stubs (method)">#stubs</a></span>) and all expectations associated with it.</p>
+<p>Removes the specified stubbed methods (added by calls to <span class='object_link'><a href="#expects-instance_method" title="Mocha::Mock#expects (method)">#expects</a></span> or <span class='object_link'><a href="#stubs-instance_method" title="Mocha::Mock#stubs (method)">#stubs</a></span>) and all expectations associated with them.</p>
 </div></span>
   
 </li>
@@ -365,7 +337,7 @@ times with any parameters.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>rubocop:disable Style/MethodMissingSuper</p>
+<p>rubocop:disable Style/MethodMissingSuper,Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity</p>
 
 
   </div>
@@ -379,44 +351,44 @@ times with any parameters.</p>
       <pre class="lines">
 
 
-294
-295
-296
-297
-298
-299
-300
-301
-302
-303
-304
-305
-306
-307
-308
 309
 310
-311</pre>
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 294</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 309</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='ivar'>@responder</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='ivar'>@responder</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='id identifier rubyid_symbol'>symbol</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NoMethodError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>undefined method `</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_symbol'>symbol</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; for </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_mocha_inspect'>mocha_inspect</span><span class='embexpr_end'>}</span><span class='tstring_content'> which responds like </span><span class='embexpr_beg'>#{</span><span class='ivar'>@responder</span><span class='period'>.</span><span class='id identifier rubyid_mocha_inspect'>mocha_inspect</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
-  <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_matching_expectation_allowing_invocation'>matching_expectation_allowing_invocation</span> <span class='op'>=</span> <span class='id identifier rubyid_all_expectations'>all_expectations</span><span class='period'>.</span><span class='id identifier rubyid_match_allowing_invocation'>match_allowing_invocation</span><span class='lparen'>(</span><span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_matching_expectation_allowing_invocation'>matching_expectation_allowing_invocation</span><span class='period'>.</span><span class='id identifier rubyid_invoke'>invoke</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='kw'>elsif</span> <span class='lparen'>(</span><span class='id identifier rubyid_matching_expectation'>matching_expectation</span> <span class='op'>=</span> <span class='id identifier rubyid_all_expectations'>all_expectations</span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span><span class='lparen'>(</span><span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lparen'>(</span><span class='op'>!</span><span class='id identifier rubyid_matching_expectation'>matching_expectation</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='ivar'>@everything_stubbed</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_invocation'>invocation</span> <span class='op'>=</span> <span class='const'>Invocation</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_matching_expectation_allowing_invocation'>matching_expectation_allowing_invocation</span> <span class='op'>=</span> <span class='id identifier rubyid_all_expectations'>all_expectations</span><span class='period'>.</span><span class='id identifier rubyid_match_allowing_invocation'>match_allowing_invocation</span><span class='lparen'>(</span><span class='id identifier rubyid_invocation'>invocation</span><span class='rparen'>)</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_matching_expectation_allowing_invocation'>matching_expectation_allowing_invocation</span><span class='period'>.</span><span class='id identifier rubyid_invoke'>invoke</span><span class='lparen'>(</span><span class='id identifier rubyid_invocation'>invocation</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='kw'>elsif</span> <span class='lparen'>(</span><span class='id identifier rubyid_matching_expectation'>matching_expectation</span> <span class='op'>=</span> <span class='id identifier rubyid_all_expectations'>all_expectations</span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span><span class='lparen'>(</span><span class='id identifier rubyid_invocation'>invocation</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lparen'>(</span><span class='op'>!</span><span class='id identifier rubyid_matching_expectation'>matching_expectation</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='ivar'>@everything_stubbed</span><span class='rparen'>)</span>
     <span class='kw'>if</span> <span class='ivar'>@unexpected_invocation</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-      <span class='ivar'>@unexpected_invocation</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="UnexpectedInvocation.html" title="Mocha::UnexpectedInvocation (class)">UnexpectedInvocation</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_matching_expectation'>matching_expectation</span><span class='period'>.</span><span class='id identifier rubyid_invoke'>invoke</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_matching_expectation'>matching_expectation</span>
-      <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='ivar'>@unexpected_invocation</span><span class='period'>.</span><span class='id identifier rubyid_full_description'>full_description</span>
-      <span class='id identifier rubyid_message'>message</span> <span class='op'>&lt;&lt;</span> <span class='ivar'>@mockery</span><span class='period'>.</span><span class='id identifier rubyid_mocha_inspect'>mocha_inspect</span>
+      <span class='ivar'>@unexpected_invocation</span> <span class='op'>=</span> <span class='id identifier rubyid_invocation'>invocation</span>
+      <span class='id identifier rubyid_matching_expectation'>matching_expectation</span><span class='period'>.</span><span class='id identifier rubyid_invoke'>invoke</span><span class='lparen'>(</span><span class='id identifier rubyid_invocation'>invocation</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_matching_expectation'>matching_expectation</span>
+      <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@unexpected_invocation</span><span class='period'>.</span><span class='id identifier rubyid_call_description'>call_description</span><span class='embexpr_end'>}</span><span class='tstring_content'>\n</span><span class='embexpr_beg'>#{</span><span class='ivar'>@mockery</span><span class='period'>.</span><span class='id identifier rubyid_mocha_inspect'>mocha_inspect</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
     <span class='kw'>else</span>
-      <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='ivar'>@unexpected_invocation</span><span class='period'>.</span><span class='id identifier rubyid_short_description'>short_description</span>
+      <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='ivar'>@unexpected_invocation</span><span class='period'>.</span><span class='id identifier rubyid_short_call_description'>short_call_description</span>
     <span class='kw'>end</span>
-    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="ExpectationErrorFactory.html" title="Mocha::ExpectationErrorFactory (class)">ExpectationErrorFactory</a></span></span><span class='period'>.</span><span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_caller'>caller</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="ExpectationErrorFactory.html" title="Mocha::ExpectationErrorFactory (class)">ExpectationErrorFactory</a></span></span><span class='period'>.</span><span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>unexpected invocation: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_message'>message</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_caller'>caller</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -451,8 +423,7 @@ times with any parameters.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Adds an expectation that the specified method must be called exactly once
-with any parameters.</p>
+<p>Adds an expectation that the specified method must be called exactly once with any parameters.</p>
 
 
   </div>
@@ -492,8 +463,7 @@ with any parameters.</p>
     
       
         <p class="example_title"><div class='inline'>
-<p>Setup multiple expectations using
-<code>expected_methods_vs_return_values</code>.</p>
+<p>Setup multiple expectations using <code>expected_methods_vs_return_values</code>.</p>
 </div></p>
       
       <pre class="example code"><code><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
@@ -506,7 +476,21 @@ with any parameters.</p>
 <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:expected_method_two</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='symbol'>:result_two</span><span class='rparen'>)</span></code></pre>
     
   </div>
-<p class="tag_title">Parameters:</p>
+
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>expects</strong>(method_name)  &#x21d2; <tt><span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span></tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
 <ul class="param">
   
     <li>
@@ -525,6 +509,25 @@ with any parameters.</p>
       
     </li>
   
+</ul>
+
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>expects</strong>(expected_methods_vs_return_values)  &#x21d2; <tt><span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span></tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
     <li>
       
         <span class='name'>expected_methods_vs_return_values</span>
@@ -536,14 +539,18 @@ with any parameters.</p>
       
         &mdash;
         <div class='inline'>
-<p>expected method name symbols as keys and corresponding return values as
-values - these expectations are setup as if <span class='object_link'><a href="#expects-instance_method" title="Mocha::Mock#expects (method)">#expects</a></span> were called multiple
-times.</p>
+<p>expected method name symbols as keys and corresponding return values as values - these expectations are setup as if <span class='object_link'><a href="#expects-instance_method" title="Mocha::Mock#expects (method)">#expects</a></span> were called multiple times.</p>
 </div>
       
     </li>
   
 </ul>
+
+
+</div>
+      </li>
+    
+  </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
@@ -557,8 +564,7 @@ times.</p>
       
         &mdash;
         <div class='inline'>
-<p>last-built expectation which can be further modified by methods on
-<span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span>.</p>
+<p>last-built expectation which can be further modified by methods on <span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span>.</p>
 </div>
       
     </li>
@@ -571,19 +577,19 @@ times.</p>
       <pre class="lines">
 
 
-105
-106
-107
-108
-109
-110
 111
 112
 113
-114</pre>
+114
+115
+116
+117
+118
+119
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 105</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 111</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name_or_hash'>method_name_or_hash</span><span class='comma'>,</span> <span class='id identifier rubyid_backtrace'>backtrace</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_iterator'>iterator</span> <span class='op'>=</span> <span class='const'>ArgumentIterator</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name_or_hash'>method_name_or_hash</span><span class='rparen'>)</span>
@@ -637,12 +643,12 @@ times.</p>
       <pre class="lines">
 
 
-329
-330
-331</pre>
+344
+345
+346</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 329</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 344</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span> <span class='id identifier rubyid_include_private'>include_private</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_respond_to_missing?'>respond_to_missing?</span><span class='lparen'>(</span><span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span> <span class='id identifier rubyid_include_private'>include_private</span><span class='rparen'>)</span>
@@ -668,16 +674,11 @@ times.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Constrains the <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance so that it can only expect or stub methods
-to which <code>responder</code> responds. The constraint is only applied at
-method invocation time.</p>
+<p>Constrains the <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance so that it can only expect or stub methods to which <code>responder</code> responds. The constraint is only applied at method invocation time.</p>
 
-<p>A <code>NoMethodError</code> will be raised if the <code>responder</code>
-does not <code>#respond_to?</code> a method invocation (even if the method
-has been expected or stubbed).</p>
+<p>A <code>NoMethodError</code> will be raised if the <code>responder</code> does not <code>#respond_to?</code> a method invocation (even if the method has been expected or stubbed).</p>
 
-<p>The <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance will delegate its <code>#respond_to?</code> method to
-the <code>responder</code>.</p>
+<p>The <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance will delegate its <code>#respond_to?</code> method to the <code>responder</code>.</p>
 
 <p>Note that the methods on <code>responder</code> are never actually invoked.</p>
 
@@ -754,8 +755,7 @@ the <code>responder</code>.</p>
       
         &mdash;
         <div class='inline'>
-<p>an object used to determine whether <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance should
-<code>#respond_to?</code> to an invocation.</p>
+<p>an object used to determine whether <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance should <code>#respond_to?</code> to an invocation.</p>
 </div>
       
     </li>
@@ -774,8 +774,7 @@ the <code>responder</code>.</p>
       
         &mdash;
         <div class='inline'>
-<p>the same <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span>
-methods to be chained.</p>
+<p>the same <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> methods to be chained.</p>
 </div>
       
     </li>
@@ -795,13 +794,13 @@ methods to be chained.</p>
       <pre class="lines">
 
 
-216
-217
-218
-219</pre>
+232
+233
+234
+235</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 216</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 232</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_responds_like'>responds_like</span><span class='lparen'>(</span><span class='id identifier rubyid_responder'>responder</span><span class='rparen'>)</span>
   <span class='ivar'>@responder</span> <span class='op'>=</span> <span class='id identifier rubyid_responder'>responder</span>
@@ -828,17 +827,11 @@ methods to be chained.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Constrains the <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance so that it can only expect or stub methods
-to which an instance of the <code>responder_class</code> responds. The
-constraint is only applied at method invocation time. Note that the
-responder instance is instantiated using <tt>Class#allocate</tt>.</p>
+<p>Constrains the <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance so that it can only expect or stub methods to which an instance of the <code>responder_class</code> responds. The constraint is only applied at method invocation time. Note that the responder instance is instantiated using <tt>Class#allocate</tt>.</p>
 
-<p>A <code>NoMethodError</code> will be raised if the responder instance does
-not <code>#respond_to?</code> a method invocation (even if the method has
-been expected or stubbed).</p>
+<p>A <code>NoMethodError</code> will be raised if the responder instance does not <code>#respond_to?</code> a method invocation (even if the method has been expected or stubbed).</p>
 
-<p>The <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance will delegate its <code>#respond_to?</code> method to
-the responder instance.</p>
+<p>The <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance will delegate its <code>#respond_to?</code> method to the responder instance.</p>
 
 <p>Note that the methods on the responder instance are never actually invoked.</p>
 
@@ -886,8 +879,7 @@ the responder instance.</p>
       
         &mdash;
         <div class='inline'>
-<p>a class used to determine whether <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance should
-<code>#respond_to?</code> to an invocation.</p>
+<p>a class used to determine whether <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance should <code>#respond_to?</code> to an invocation.</p>
 </div>
       
     </li>
@@ -906,8 +898,7 @@ the responder instance.</p>
       
         &mdash;
         <div class='inline'>
-<p>the same <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span>
-methods to be chained.</p>
+<p>the same <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> methods to be chained.</p>
 </div>
       
     </li>
@@ -927,12 +918,12 @@ methods to be chained.</p>
       <pre class="lines">
 
 
-249
-250
-251</pre>
+265
+266
+267</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 249</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 265</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_responds_like_instance_of'>responds_like_instance_of</span><span class='lparen'>(</span><span class='id identifier rubyid_responder_class'>responder_class</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_responds_like'>responds_like</span><span class='lparen'>(</span><span class='id identifier rubyid_responder_class'>responder_class</span><span class='period'>.</span><span class='id identifier rubyid_allocate'>allocate</span><span class='rparen'>)</span>
@@ -962,8 +953,7 @@ methods to be chained.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Adds an expectation that the specified method may be called any number of
-times with any parameters.</p>
+<p>Adds an expectation that the specified method may be called any number of times with any parameters.</p>
 
 
   </div>
@@ -986,8 +976,7 @@ times with any parameters.</p>
     
       
         <p class="example_title"><div class='inline'>
-<p>Setup multiple expectations using
-<code>stubbed_methods_vs_return_values</code>.</p>
+<p>Setup multiple expectations using <code>stubbed_methods_vs_return_values</code>.</p>
 </div></p>
       
       <pre class="example code"><code><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
@@ -1000,7 +989,21 @@ times with any parameters.</p>
 <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='symbol'>:stubbed_method_two</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='symbol'>:result_two</span><span class='rparen'>)</span></code></pre>
     
   </div>
-<p class="tag_title">Parameters:</p>
+
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>stubs</strong>(method_name)  &#x21d2; <tt><span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span></tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
 <ul class="param">
   
     <li>
@@ -1019,6 +1022,25 @@ times with any parameters.</p>
       
     </li>
   
+</ul>
+
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>stubs</strong>(stubbed_methods_vs_return_values)  &#x21d2; <tt><span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span></tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
     <li>
       
         <span class='name'>stubbed_methods_vs_return_values</span>
@@ -1030,14 +1052,18 @@ times with any parameters.</p>
       
         &mdash;
         <div class='inline'>
-<p>stubbed method name symbols as keys and corresponding return values as
-values - these stubbed methods are setup as if <span class='object_link'><a href="#stubs-instance_method" title="Mocha::Mock#stubs (method)">#stubs</a></span> were called
-multiple times.</p>
+<p>stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if <span class='object_link'><a href="#stubs-instance_method" title="Mocha::Mock#stubs (method)">#stubs</a></span> were called multiple times.</p>
 </div>
       
     </li>
   
 </ul>
+
+
+</div>
+      </li>
+    
+  </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
@@ -1051,8 +1077,7 @@ multiple times.</p>
       
         &mdash;
         <div class='inline'>
-<p>last-built expectation which can be further modified by methods on
-<span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span>.</p>
+<p>last-built expectation which can be further modified by methods on <span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span>.</p>
 </div>
       
     </li>
@@ -1065,20 +1090,20 @@ multiple times.</p>
       <pre class="lines">
 
 
-141
-142
-143
-144
-145
-146
 147
 148
 149
 150
-151</pre>
+151
+152
+153
+154
+155
+156
+157</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 141</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 147</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name_or_hash'>method_name_or_hash</span><span class='comma'>,</span> <span class='id identifier rubyid_backtrace'>backtrace</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_iterator'>iterator</span> <span class='op'>=</span> <span class='const'>ArgumentIterator</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name_or_hash'>method_name_or_hash</span><span class='rparen'>)</span>
@@ -1099,7 +1124,7 @@ multiple times.</p>
       <div class="method_details ">
   <h3 class="signature " id="unstub-instance_method">
   
-    #<strong>unstub</strong>(method_name)  &#x21d2; <tt><span class='object_link'>Object</span></tt> 
+    #<strong>unstub</strong>(*method_names)  &#x21d2; <tt><span class='object_link'>Object</span></tt> 
   
 
   
@@ -1108,8 +1133,7 @@ multiple times.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Removes the specified stubbed method (added by calls to <span class='object_link'><a href="#expects-instance_method" title="Mocha::Mock#expects (method)">#expects</a></span> or
-<span class='object_link'><a href="#stubs-instance_method" title="Mocha::Mock#stubs (method)">#stubs</a></span>) and all expectations associated with it.</p>
+<p>Removes the specified stubbed methods (added by calls to <span class='object_link'><a href="#expects-instance_method" title="Mocha::Mock#expects (method)">#expects</a></span> or <span class='object_link'><a href="#stubs-instance_method" title="Mocha::Mock#stubs (method)">#stubs</a></span>) and all expectations associated with them.</p>
 
 
   </div>
@@ -1130,22 +1154,34 @@ object.stubbed_method # =&gt; :result_one
 object.unstub(:stubbed_method)
 object.stubbed_method # =&gt; unexpected invocation: #&lt;Mock:mock&gt;.stubbed_method()</code></pre>
     
+      
+        <p class="example_title"><div class='inline'>
+<p>Unstubbing multiple methods.</p>
+</div></p>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_multiplier'>multiplier</span><span class='period'>.</span><span class='id identifier rubyid_unstub'>unstub</span><span class='lparen'>(</span><span class='symbol'>:double</span><span class='comma'>,</span> <span class='symbol'>:triple</span><span class='rparen'>)</span>
+
+<span class='comment'># exactly equivalent to
+</span>
+<span class='id identifier rubyid_multiplier'>multiplier</span><span class='period'>.</span><span class='id identifier rubyid_unstub'>unstub</span><span class='lparen'>(</span><span class='symbol'>:double</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_multiplier'>multiplier</span><span class='period'>.</span><span class='id identifier rubyid_unstub'>unstub</span><span class='lparen'>(</span><span class='symbol'>:triple</span><span class='rparen'>)</span></code></pre>
+    
   </div>
 <p class="tag_title">Parameters:</p>
 <ul class="param">
   
     <li>
       
-        <span class='name'>method_name</span>
+        <span class='name'>method_names</span>
       
       
-        <span class='type'>(<tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>Array&lt;Symbol&gt;</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>name of method to unstub.</p>
+<p>names of methods to unstub.</p>
 </div>
       
     </li>
@@ -1159,15 +1195,19 @@ object.stubbed_method # =&gt; unexpected invocation: #&lt;Mock:mock&gt;.stubbed_
       <pre class="lines">
 
 
-163
-164
-165</pre>
+177
+178
+179
+180
+181</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 163</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 177</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_unstub'>unstub</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name'>method_name</span><span class='rparen'>)</span>
-  <span class='ivar'>@expectations</span><span class='period'>.</span><span class='id identifier rubyid_remove_all_matching_method'>remove_all_matching_method</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name'>method_name</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_unstub'>unstub</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_method_names'>method_names</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_method_names'>method_names</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_method_name'>method_name</span><span class='op'>|</span>
+    <span class='ivar'>@expectations</span><span class='period'>.</span><span class='id identifier rubyid_remove_all_matching_method'>remove_all_matching_method</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name'>method_name</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1187,9 +1227,9 @@ object.stubbed_method # =&gt; unexpected invocation: #&lt;Mock:mock&gt;.stubbed_
 </div>
 
       <div id="footer">
-  Generated on Mon Jun 17 18:38:44 2019 by
+  Generated on Sun Nov 24 15:26:49 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.19 (ruby-2.5.3).
+  0.9.20 (ruby-2.6.5).
 </div>
 
     </div>

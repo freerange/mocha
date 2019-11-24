@@ -6,7 +6,7 @@
 <title>
   File: RELEASE
   
-    &mdash; Mocha 1.9.0
+    &mdash; Mocha 1.10.0.alpha
   
 </title>
 
@@ -58,6 +58,61 @@
       </div>
 
       <div id="content"><div id='filecontents'><h1>Release Notes</h1>
+
+<h2>1.10.0.alpha</h2>
+
+<h3>External changes</h3>
+
+<ul>
+<li>Remove dependency on metaclass gem (#49, #365)</li>
+<li>Accept symbol (as well as a string) as mock/stub name - thanks to @nitishr (#347, #353, #377)</li>
+<li>More realistic examples in documentation for <code>Expectation#yields</code> and <code>#multiple_yields</code> - thanks to @nitishr (#352, #383)</li>
+<li>Improve documentation for <code>Mock#responds_like</code> &amp; <code>#responds_like_instance_of</code> - thanks to @nitishr (#337, #384)</li>
+<li>Make <code>Expectation#yields</code> &amp; <code>Expectation#multiple_yields</code> fail when the caller of the stubbed method does not provide a block. This is a change to an undocumented aspect of the public API&#39;s behaviour. If this causes your tests to fail, then fix it by removing the unnecessary call to <code>Expectation#yields</code> or <code>Expectation#multiple_yields</code> - thanks to @nitishr (#382)</li>
+<li>Document <code>MOCHA_OPTIONS</code> in README - thanks to @nitishr (#311, #386)</li>
+<li>Add documentation to explain how Mocha is intended to be used - thanks to @nitishr (#330, #385)</li>
+<li>Deprecation warning if integration using &#39;mocha/test_unit&#39; or &#39;mocha/minitest&#39; fails - thanks to @nitishr (#229, #389, c6032d0b)</li>
+<li>Require at least one specified sequence for <code>Expectation#in_sequence</code> - thanks to @nitishr (#79, #396, 9020248a)</li>
+<li>Make signatures of <code>Mock#unstub</code> &amp; <code>ObjectMethods#unstub</code> consistent - thanks to @nitishr (#397, f04d437)</li>
+<li>Deprecate requiring &#39;mocha/setup&#39; (36adf880)</li>
+<li>Optionally display matching invocations alongside expectations - thanks to @nitishr (#178, #394, 00f0540, #410)</li>
+<li>Put deprecations into effect (#400, #418):
+
+<ul>
+<li>Remove deprecated &#39;mocha_standalone.rb&#39; &amp; &#39;mocha/standalone.rb&#39;</li>
+<li>Fail fast if no test library loaded</li>
+<li>Removed optional block for <code>Mocha::API#mock</code>, <code>#stub</code> &amp; <code>#stub_everything</code></li>
+<li>Remove deprecated <code>ParameterMatchers#has_equivalent_query_string</code> method</li>
+<li>Remove deprecated &#39;mocha/mini_test.rb&#39;</li>
+</ul></li>
+<li>Fix typo in docs for <code>Mocha::Configuration.prevent</code> (266ce71c)</li>
+<li>New-style configuration (see documentation for <code>Mocha::Configuration</code>) (#407, #421)</li>
+<li>Deprecate support for Ruby versions earlier than v1.9 (#325, c5f8496d)</li>
+<li>Deprecate support for versions of test-unit &amp; minitest which need monkey-patching (a34e1a88)</li>
+<li>Deprecate old-style Rails plugin (#403, 2df77134)</li>
+<li>Documentation fixes &amp; improvements which also fix YARD warnings (472d5416, a2c0d64a)</li>
+</ul>
+
+<h3>Internal changes</h3>
+
+<ul>
+<li>Pin minitest to v5.11.3 for Ruby v1.8.7 to fix build; minitest no longer supports Ruby v1.8.7 (4a0a580)</li>
+<li>Upgrade JRuby to v9.2.8.0 in Travis CI builds (aa29b3f)</li>
+<li>Only run rubocop for MRI Ruby versions &amp; non-integration test builds (8f1c6af)</li>
+<li>Reduce duplication in any instance method class - thanks to @nitishr (#378)</li>
+<li>Simplify <code>AnyInstanceMethod</code>, <code>ClassMethod</code>, <code>InstanceMethod</code>, <code>ModuleMethod</code> class hierarchy - thanks to @nitishr (#381)</li>
+<li>Simplify <code>ClassMethods#method_exists?</code> &amp; <code>ObjectMethods#method_exists?</code> making them consistent - thanks to @nitishr (#270, #362, #370)</li>
+<li>Don&#39;t override definition of <code>singleton_class</code> in <code>ClassMethods</code> - thanks to @nitishr (#391, #392)</li>
+<li>Do not include &#39;method_definer&#39; methods into all objects (#268, #402)</li>
+<li>Distinguish different <code>ObjectMethods</code> modules (#268, #404)</li>
+<li>Pass invocation to expectation list methods - thanks to @nitishr (#408, #409, #411)</li>
+<li>Consistently use <code>assert_raises</code> - thanks to @nitishr (#405, #412, a66b7bed)</li>
+<li>Update Ruby &amp; JRuby versions in Travis CI config (18cb1a93, eb061c53)</li>
+<li>Rubocop improvements (aa16ea67...6f4db70b, 2a1240e6...e95716ae)</li>
+<li>Fix inconsistency in CardinalityTest (aa10e0a8)</li>
+<li>Fix test failures on Mac OSX Catalina - thanks to @nitishr (#413, #417, #419, 8a0f2535)</li>
+<li>Remove default argument in <code>Expectation#invoke</code> - thanks to @nitishr (#414, #420)</li>
+</ul>
 
 <h2>1.9.0</h2>
 
@@ -877,9 +932,9 @@ Hash with wrong number of entries.</li>
 </div>
 
       <div id="footer">
-  Generated on Mon Jun 17 18:38:43 2019 by
+  Generated on Sun Nov 24 15:26:48 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.19 (ruby-2.5.3).
+  0.9.20 (ruby-2.6.5).
 </div>
 
     </div>

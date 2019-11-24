@@ -6,7 +6,7 @@
 <title>
   Module: Mocha::ClassMethods
   
-    &mdash; Mocha 1.9.0
+    &mdash; Mocha 1.10.0.alpha
   
 </title>
 
@@ -86,8 +86,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Methods added to all classes to allow mocking and stubbing on real (i.e.
-non-mock) objects.</p>
+<p>Methods added to all classes to allow mocking and stubbing on real (i.e. non-mock) objects.</p>
 
 
   </div>
@@ -134,6 +133,32 @@ non-mock) objects.</p>
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#method_visibility-instance_method" title="#method_visibility (instance method)">#<strong>method_visibility</strong>(method, include_public_methods = true)  &#x21d2; Object </a>
+    
+
+    
+      (also: #method_exists?)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>rubocop:disable Metrics/CyclomaticComplexity.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -155,8 +180,7 @@ non-mock) objects.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns a mock object which will detect calls to any instance of this
-class.</p>
+<p>Returns a mock object which will detect calls to any instance of this class.</p>
 
 
   </div>
@@ -168,8 +192,7 @@ class.</p>
     
       
         <p class="example_title"><div class='inline'>
-<p>Return false to invocation of <tt>Product#save</tt> for any instance of
-<code>Product</code>.</p>
+<p>Return false to invocation of <tt>Product#save</tt> for any instance of <code>Product</code>.</p>
 </div></p>
       
       <pre class="example code"><code><span class='const'>Product</span><span class='period'>.</span><span class='id identifier rubyid_any_instance'>any_instance</span><span class='period'>.</span><span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='symbol'>:save</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='kw'>false</span><span class='rparen'>)</span>
@@ -223,21 +246,70 @@ class.</p>
       <pre class="lines">
 
 
-53
-54
-55
-56
-57
-58</pre>
+45
+46
+47
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/class_methods.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/class_methods.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_any_instance'>any_instance</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_frozen?'>frozen?</span>
     <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="StubbingError.html" title="Mocha::StubbingError (class)">StubbingError</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>can&#39;t stub method on frozen object: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_mocha_inspect'>mocha_inspect</span><span class='embexpr_end'>}</span><span class='tstring_content'>.any_instance</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_caller'>caller</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
   <span class='ivar'>@any_instance</span> <span class='op'>||=</span> <span class='const'>AnyInstance</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="method_visibility-instance_method">
+  
+    #<strong>method_visibility</strong>(method, include_public_methods = true)  &#x21d2; <tt><span class='object_link'>Object</span></tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='method_exists?-instance_method'>method_exists?</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>rubocop:disable Metrics/CyclomaticComplexity</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+53
+54
+55
+56
+57</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/mocha/class_methods.rb', line 53</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_method_visibility'>method_visibility</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid_include_public_methods'>include_public_methods</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='lparen'>(</span><span class='id identifier rubyid_include_public_methods'>include_public_methods</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_public_method_defined?'>public_method_defined?</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='symbol'>:public</span><span class='rparen'>)</span> <span class='op'>||</span>
+    <span class='lparen'>(</span><span class='id identifier rubyid_protected_method_defined?'>protected_method_defined?</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='symbol'>:protected</span><span class='rparen'>)</span> <span class='op'>||</span>
+    <span class='lparen'>(</span><span class='id identifier rubyid_private_method_defined?'>private_method_defined?</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='symbol'>:private</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -257,9 +329,9 @@ class.</p>
 </div>
 
       <div id="footer">
-  Generated on Mon Jun 17 18:38:43 2019 by
+  Generated on Sun Nov 24 15:26:49 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.19 (ruby-2.5.3).
+  0.9.20 (ruby-2.6.5).
 </div>
 
     </div>

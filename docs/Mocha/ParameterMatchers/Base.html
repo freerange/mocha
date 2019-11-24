@@ -6,7 +6,7 @@
 <title>
   Class: Mocha::ParameterMatchers::Base
   
-    &mdash; Mocha 1.9.0
+    &mdash; Mocha 1.10.0.alpha
   
 </title>
 
@@ -104,10 +104,7 @@
     <div class="note abstract">
   <strong>This class is abstract.</strong>
   <div class='inline'>
-<p>Subclass and implement <code>#matches?</code> and
-<code>#mocha_inspect</code> to define a custom matcher. Also add a suitably
-named instance method to <span class='object_link'><a href="../ParameterMatchers.html" title="Mocha::ParameterMatchers (module)">Mocha::ParameterMatchers</a></span> to build an instance of the
-new matcher c.f. <span class='object_link'><a href="../ParameterMatchers.html#equals-instance_method" title="Mocha::ParameterMatchers#equals (method)">#equals</a></span>.</p>
+<p>Subclass and implement <code>#matches?</code> and <code>#mocha_inspect</code> to define a custom matcher. Also add a suitably named instance method to <span class='object_link'><a href="../ParameterMatchers.html" title="Mocha::ParameterMatchers (module)">Mocha::ParameterMatchers</a></span> to build an instance of the new matcher c.f. <span class='object_link'><a href="../ParameterMatchers.html#equals-instance_method" title="Mocha::ParameterMatchers#equals (method)">#equals</a></span>.</p>
 </div>
 </div>
 
@@ -207,11 +204,9 @@ new matcher c.f. <span class='object_link'><a href="../ParameterMatchers.html#eq
     
 <p>A shorthand way of combining two matchers when both must match.</p>
 
-<p>Returns a new <span class='object_link'><a href="AllOf.html" title="Mocha::ParameterMatchers::AllOf (class)">AllOf</a></span> parameter matcher combining two matchers using a
-logical AND.</p>
+<p>Returns a new <span class='object_link'><a href="AllOf.html" title="Mocha::ParameterMatchers::AllOf (class)">AllOf</a></span> parameter matcher combining two matchers using a logical AND.</p>
 
-<p>This shorthand will not work with an implicit equals match. Instead, an
-explicit <span class='object_link'><a href="Equals.html" title="Mocha::ParameterMatchers::Equals (class)">Equals</a></span> matcher should be used.</p>
+<p>This shorthand will not work with an implicit equals match. Instead, an explicit <span class='object_link'><a href="Equals.html" title="Mocha::ParameterMatchers::Equals (class)">Equals</a></span> matcher should be used.</p>
 
 
   </div>
@@ -318,11 +313,9 @@ object.run(:foo =&gt; &#39;foovalue&#39;, :bar =&gt; &#39;barvalue)</code></pre>
     
 <p>A shorthand way of combining two matchers when at least one must match.</p>
 
-<p>Returns a new <code>AnyOf</code> parameter matcher combining two matchers
-using a logical OR.</p>
+<p>Returns a new <code>AnyOf</code> parameter matcher combining two matchers using a logical OR.</p>
 
-<p>This shorthand will not work with an implicit equals match. Instead, an
-explicit <span class='object_link'><a href="Equals.html" title="Mocha::ParameterMatchers::Equals (class)">Equals</a></span> matcher should be used.</p>
+<p>This shorthand will not work with an implicit equals match. Instead, an explicit <span class='object_link'><a href="Equals.html" title="Mocha::ParameterMatchers::Equals (class)">Equals</a></span> matcher should be used.</p>
 
 
   </div>
@@ -438,9 +431,9 @@ explicit <span class='object_link'><a href="Equals.html" title="Mocha::Parameter
 </div>
 
       <div id="footer">
-  Generated on Mon Jun 17 18:38:44 2019 by
+  Generated on Sun Nov 24 15:26:50 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.19 (ruby-2.5.3).
+  0.9.20 (ruby-2.6.5).
 </div>
 
     </div>
