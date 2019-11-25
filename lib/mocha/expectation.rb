@@ -481,11 +481,8 @@ module Mocha
     #   radio.expects(:select_channel).with('BBC World Service').when(power.is('on'))
     #   radio.expects(:adjust_volume).with(-5).when(power.is('on'))
     #   radio.expects(:switch_off).then(power.is('off'))
-    def then(*parameters)
-      if parameters.length == 1
-        state = parameters.first
-        add_side_effect(ChangeStateSideEffect.new(state))
-      end
+    def then(state = nil)
+      add_side_effect(ChangeStateSideEffect.new(state)) if state
       self
     end
 
