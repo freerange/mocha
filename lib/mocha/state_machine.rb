@@ -5,10 +5,11 @@ module Mocha
     # Provides a mechanism to change the state of a {StateMachine} at some point in the future.
     class State
       # @private
-      def initialize(state_machine, state, description)
+      def initialize(state_machine, state, description, &active_check)
         @state_machine = state_machine
         @state = state
         @description = description
+        @active_check = active_check
       end
 
       # @private
@@ -18,7 +19,7 @@ module Mocha
 
       # @private
       def active?
-        @state_machine.current_state == @state
+        @active_check.call(@state_machine.current_state, @state)
       end
 
       # @private
@@ -30,15 +31,16 @@ module Mocha
     # Provides the ability to determine whether a {StateMachine} is in a specified state at some point in the future.
     class StatePredicate
       # @private
-      def initialize(state_machine, state, description)
+      def initialize(state_machine, state, description, &active_check)
         @state_machine = state_machine
         @state = state
         @description = description
+        @active_check = active_check
       end
 
       # @private
       def active?
-        @state_machine.current_state != @state
+        @active_check.call(@state_machine.current_state, @state)
       end
 
       # @private
@@ -82,13 +84,13 @@ module Mocha
     # @param [String] state_name name of new state
     # @return [State] state which, when activated, will change the {StateMachine} into the state with the specified +state_name+.
     def is(state_name)
-      State.new(self, state_name, "is")
+      State.new(self, state_name, 'is') { |current, given| current == given }
     end
 
     # Provides a mechanism to determine whether the {StateMachine} is not in the state specified by +state_name+ at some point in the future.
     # rubocop:disable Naming/PredicateName
     def is_not(state_name)
-      StatePredicate.new(self, state_name, "is not")
+      StatePredicate.new(self, state_name, 'is not') { |current, given| current != given }
     end
     # rubocop:enable Naming/PredicateName
 
