@@ -24,28 +24,10 @@ module Mocha
     end
 
     # Provides a mechanism to change the state of a {StateMachine} at some point in the future.
-    class State
-      # @private
-      def initialize(state_machine, state, description, &active_check)
-        @state_machine = state_machine
-        @state = state
-        @description = description
-        @active_check = active_check
-      end
-
+    class State < StatePredicate
       # @private
       def activate
         @state_machine.current_state = @state
-      end
-
-      # @private
-      def active?
-        @active_check.call(@state_machine.current_state, @state)
-      end
-
-      # @private
-      def mocha_inspect
-        "#{@state_machine.name} #{@description} #{@state.mocha_inspect}"
       end
     end
 
