@@ -453,9 +453,9 @@ module Mocha
 
     # @overload def then
     #   Used as syntactic sugar to improve readability. It has no effect on state of the expectation.
-    # @overload def then(state_machine.is(state_name))
-    #   Used to change the +state_machine+ to the state specified by +state_name+ when the expected invocation occurs.
-    #   @param [StateMachine::State] state_machine.is(state_name) provides a mechanism to change the +state_machine+ into the state specified by +state_name+ when the expected method is invoked.
+    # @overload def then(state)
+    #   Used to change the +state_machine+ to the specified state when the expected invocation occurs.
+    #   @param [StateMachine::State] state state_machine.is(state_name) provides a mechanism to change the +state_machine+ into the state specified by +state_name+ when the expected method is invoked.
     #
     #   @see API#states
     #   @see StateMachine
@@ -489,9 +489,9 @@ module Mocha
       self
     end
 
-    # Constrains the expectation to occur only when the +state_machine+ is in the state specified by +state_name+.
+    # Constrains the expectation to occur only when the +state_machine+ is in the state specified by +state_predicate+.
     #
-    # @param [StateMachine::StatePredicate] state_machine.is(state_name) provides a mechanism to determine whether the +state_machine+ is in the state specified by +state_name+ when the expected method is invoked.
+    # @param [StateMachine::StatePredicate] state_predicate state_machine.is(state_name) provides a mechanism to determine whether the +state_machine+ is in the state specified by +state_predicate+ when the expected method is invoked.
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
     #
     # @see API#states
