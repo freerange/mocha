@@ -5,9 +5,10 @@ module Mocha
     # Provides a mechanism to change the state of a {StateMachine} at some point in the future.
     class State
       # @private
-      def initialize(state_machine, state)
+      def initialize(state_machine, state, description)
         @state_machine = state_machine
         @state = state
+        @description = description
       end
 
       # @private
@@ -22,16 +23,17 @@ module Mocha
 
       # @private
       def mocha_inspect
-        "#{@state_machine.name} is #{@state.mocha_inspect}"
+        "#{@state_machine.name} #{@description} #{@state.mocha_inspect}"
       end
     end
 
     # Provides the ability to determine whether a {StateMachine} is in a specified state at some point in the future.
     class StatePredicate
       # @private
-      def initialize(state_machine, state)
+      def initialize(state_machine, state, description)
         @state_machine = state_machine
         @state = state
+        @description = description
       end
 
       # @private
@@ -41,7 +43,7 @@ module Mocha
 
       # @private
       def mocha_inspect
-        "#{@state_machine.name} is not #{@state.mocha_inspect}"
+        "#{@state_machine.name} #{@description} #{@state.mocha_inspect}"
       end
     end
 
@@ -80,13 +82,13 @@ module Mocha
     # @param [String] state_name name of new state
     # @return [State] state which, when activated, will change the {StateMachine} into the state with the specified +state_name+.
     def is(state_name)
-      State.new(self, state_name)
+      State.new(self, state_name, "is")
     end
 
     # Provides a mechanism to determine whether the {StateMachine} is not in the state specified by +state_name+ at some point in the future.
     # rubocop:disable Naming/PredicateName
     def is_not(state_name)
-      StatePredicate.new(self, state_name)
+      StatePredicate.new(self, state_name, "is not")
     end
     # rubocop:enable Naming/PredicateName
 
