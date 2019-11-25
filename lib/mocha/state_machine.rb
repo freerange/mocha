@@ -70,11 +70,9 @@ module Mocha
     end
 
     # Provides a mechanism to determine whether the {StateMachine} is not in the state specified by +state_name+ at some point in the future.
-    # rubocop:disable Naming/PredicateName
-    def is_not(state_name)
+    def is_not(state_name) # rubocop:disable Naming/PredicateName
       StatePredicate.new(self, state_name, 'is not') { |current, given| current != given }
     end
-    # rubocop:enable Naming/PredicateName
 
     # @private
     def mocha_inspect
