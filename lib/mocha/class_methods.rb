@@ -57,6 +57,6 @@ module Mocha
         (private_method_defined?(method) && :private)
     end
     # rubocop:enable Metrics/CyclomaticComplexity
-    alias_method :method_exists?, :__method_visibility__
+    alias_method :__method_exists__?, :__method_visibility__
   end
 end
