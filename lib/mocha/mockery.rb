@@ -129,10 +129,10 @@ module Mocha
       method = PRE_RUBY_V19 ? method.to_s : method.to_sym
       method_signature = "#{object.mocha_inspect}.#{method}"
       check(:stubbing_non_existent_method, 'non-existent method', method_signature) do
-        !(object.stubba_class.method_exists?(method, true) || object.respond_to?(method.to_sym))
+        !(object.stubba_class.__method_exists__?(method, true) || object.respond_to?(method.to_sym))
       end
       check(:stubbing_non_public_method, 'non-public method', method_signature) do
-        object.stubba_class.method_exists?(method, false)
+        object.stubba_class.__method_exists__?(method, false)
       end
       check(:stubbing_method_on_nil, 'method on nil', method_signature) { object.nil? }
       check(:stubbing_method_on_non_mock_object, 'method on non-mock object', method_signature)

@@ -36,7 +36,7 @@ module Mocha
     end
 
     def hide_original_method
-      return unless original_method_owner.method_exists?(method_name)
+      return unless original_method_owner.__method_exists__?(method_name)
       store_original_method_visibility
       if use_prepended_module_for_stub_method?
         use_prepended_module_for_stub_method
@@ -100,7 +100,7 @@ module Mocha
     attr_reader :original_method, :original_visibility
 
     def store_original_method_visibility
-      @original_visibility = original_method_owner.method_visibility(method_name)
+      @original_visibility = original_method_owner.__method_visibility__(method_name)
     end
 
     def stub_method_overwrites_original_method?
