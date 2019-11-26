@@ -49,6 +49,7 @@ module Mocha
       @any_instance ||= AnyInstance.new(self)
     end
 
+    # @private
     # rubocop:disable Metrics/CyclomaticComplexity
     def method_visibility(method, include_public_methods = true)
       (include_public_methods && public_method_defined?(method) && :public) ||
