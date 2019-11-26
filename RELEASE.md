@@ -1,5 +1,9 @@
 # Release Notes
 
+## 1.10.0.beta.1
+
+* Hide `ClassMethods#method_visibility` & `#method_exists?` methods to avoid clash with Rails (#428)
+
 ## 1.10.0.alpha
 
 ### External changes
