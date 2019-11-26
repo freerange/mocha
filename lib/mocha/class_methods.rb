@@ -51,12 +51,12 @@ module Mocha
 
     # @private
     # rubocop:disable Metrics/CyclomaticComplexity
-    def method_visibility(method, include_public_methods = true)
+    def __method_visibility__(method, include_public_methods = true)
       (include_public_methods && public_method_defined?(method) && :public) ||
         (protected_method_defined?(method) && :protected) ||
         (private_method_defined?(method) && :private)
     end
     # rubocop:enable Metrics/CyclomaticComplexity
-    alias_method :method_exists?, :method_visibility
+    alias_method :method_exists?, :__method_visibility__
   end
 end
