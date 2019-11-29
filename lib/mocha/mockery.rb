@@ -83,7 +83,7 @@ module Mocha
     end
 
     def stub_method(object, method_name)
-      on_stubbing(object, method_name)
+      check_stubbing(object, method_name)
       stubba.stub(object.stubbed_method(method_name))
     end
 
@@ -100,7 +100,7 @@ module Mocha
       expectations.each do |e|
         unless Mocha.configuration.stubbing_method_unnecessarily == :allow
           next if e.used?
-          on_stubbing_method_unnecessarily(e)
+          check_stubbing_method_unnecessarily(e)
         end
       end
     end
@@ -138,7 +138,7 @@ module Mocha
 
     private
 
-    def on_stubbing(object, method)
+    def check_stubbing(object, method)
       method = PRE_RUBY_V19 ? method.to_s : method.to_sym
       method_signature = "#{object.mocha_inspect}.#{method}"
       check(:stubbing_non_existent_method, 'non-existent method', method_signature) do
@@ -151,7 +151,7 @@ module Mocha
       check(:stubbing_method_on_non_mock_object, 'method on non-mock object', method_signature)
     end
 
-    def on_stubbing_method_unnecessarily(expectation)
+    def check_stubbing_method_unnecessarily(expectation)
       check(:stubbing_method_unnecessarily, 'method unnecessarily', expectation.method_signature, expectation.backtrace)
     end
 
