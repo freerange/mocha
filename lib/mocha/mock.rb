@@ -143,8 +143,7 @@ module Mocha
     def stubs(method_name_or_hash, backtrace = nil)
       iterator = ArgumentIterator.new(method_name_or_hash)
       iterator.each do |*args|
-        expectation = add_expectation(args, backtrace)
-        expectation.at_least(0)
+        add_expectation(args, backtrace).at_least(0)
       end
     end
 
