@@ -149,12 +149,16 @@ module Mocha
       iterator = ArgumentIterator.new(methods_vs_return_values)
       iterator.each do |*args|
         method_name = args.shift
-        mockery.on_stubbing(self, method_name)
-        mockery.stubba.stub(stubba_method.new(stubba_object, method_name))
+        stub_method(mockery, method_name)
         expectation = yield method_name, caller
         expectation.returns(args.shift) unless args.empty?
       end
       expectation
+    end
+
+    def stub_method(mockery, method_name)
+      mockery.on_stubbing(self, method_name)
+      mockery.stubba.stub(stubba_method.new(stubba_object, method_name))
     end
   end
 end
