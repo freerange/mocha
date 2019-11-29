@@ -109,8 +109,7 @@ module Mocha
     #   object.expects(:expected_method_one).returns(:result_one)
     #   object.expects(:expected_method_two).returns(:result_two)
     def expects(method_name_or_hash, backtrace = nil)
-      iterator = ArgumentIterator.new(method_name_or_hash)
-      iterator.each do |*args|
+      ArgumentIterator.new(method_name_or_hash).each do |*args|
         add_expectation(args, backtrace)
       end
     end
@@ -141,8 +140,7 @@ module Mocha
     #   object.stubs(:stubbed_method_one).returns(:result_one)
     #   object.stubs(:stubbed_method_two).returns(:result_two)
     def stubs(method_name_or_hash, backtrace = nil)
-      iterator = ArgumentIterator.new(method_name_or_hash)
-      iterator.each do |*args|
+      ArgumentIterator.new(method_name_or_hash).each do |*args|
         add_expectation(args, backtrace).at_least(0)
       end
     end
