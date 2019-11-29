@@ -40,6 +40,11 @@ module Mocha
       singleton_class
     end
 
+    # @private
+    def stubbed_method(method_name)
+      stubba_method.new(stubba_object, method_name)
+    end
+
     # Adds an expectation that the specified method must be called exactly once with any parameters.
     #
     # The original implementation of the method is replaced during the test and then restored at the end of the test. The temporary replacement method has the same visibility as the original method.
@@ -133,8 +138,7 @@ module Mocha
     def unstub(*method_names)
       mockery = Mocha::Mockery.instance
       method_names.each do |method_name|
-        method = stubba_method.new(stubba_object, method_name)
-        mockery.stubba.unstub(method)
+        mockery.stubba.unstub(stubbed_method(method_name))
       end
     end
 
@@ -158,7 +162,7 @@ module Mocha
 
     def stub_method(mockery, method_name)
       mockery.on_stubbing(self, method_name)
-      mockery.stubba.stub(stubba_method.new(stubba_object, method_name))
+      mockery.stubba.stub(stubbed_method(method_name))
     end
   end
 end
