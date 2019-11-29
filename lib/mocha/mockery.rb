@@ -82,6 +82,11 @@ module Mocha
       add_state_machine(StateMachine.new(name))
     end
 
+    def stub_method(object, method_name)
+      on_stubbing(object, method_name)
+      stubba.stub(object.stubbed_method(method_name))
+    end
+
     def verify(assertion_counter = nil)
       unless mocks.all? { |mock| mock.__verified__?(assertion_counter) }
         message = "not all expectations were satisfied\n#{mocha_inspect}"
