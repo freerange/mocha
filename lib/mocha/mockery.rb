@@ -130,6 +130,14 @@ module Mocha
       message
     end
 
+    attr_writer :logger
+
+    def logger
+      @logger ||= Logger.new($stderr)
+    end
+
+    private
+
     def on_stubbing(object, method)
       method = PRE_RUBY_V19 ? method.to_s : method.to_sym
       method_signature = "#{object.mocha_inspect}.#{method}"
@@ -146,14 +154,6 @@ module Mocha
     def on_stubbing_method_unnecessarily(expectation)
       check(:stubbing_method_unnecessarily, 'method unnecessarily', expectation.method_signature, expectation.backtrace)
     end
-
-    attr_writer :logger
-
-    def logger
-      @logger ||= Logger.new($stderr)
-    end
-
-    private
 
     def check(action, description, method_signature, backtrace = caller)
       return if block_given? && !yield
