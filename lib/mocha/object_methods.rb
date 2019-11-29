@@ -72,21 +72,7 @@ module Mocha
       if expected_methods_vs_return_values.to_s =~ /the[^a-z]*spanish[^a-z]*inquisition/i
         raise ExpectationErrorFactory.build('NOBODY EXPECTS THE SPANISH INQUISITION!')
       end
-      if frozen?
-        raise StubbingError.new("can't stub method on frozen object: #{mocha_inspect}", caller)
-      end
-      expectation = nil
-      mockery = Mocha::Mockery.instance
-      iterator = ArgumentIterator.new(expected_methods_vs_return_values)
-      iterator.each do |*args|
-        method_name = args.shift
-        mockery.on_stubbing(self, method_name)
-        method = stubba_method.new(stubba_object, method_name)
-        mockery.stubba.stub(method)
-        expectation = mocha.expects(method_name, caller)
-        expectation.returns(args.shift) unless args.empty?
-      end
-      expectation
+      anticipates(expected_methods_vs_return_values) { |method_name, caller| mocha.expects(method_name, caller) }
     end
 
     # Adds an expectation that the specified method may be called any number of times with any parameters.
@@ -118,21 +104,7 @@ module Mocha
     #
     # @see Mock#stubs
     def stubs(stubbed_methods_vs_return_values)
-      if frozen?
-        raise StubbingError.new("can't stub method on frozen object: #{mocha_inspect}", caller)
-      end
-      expectation = nil
-      mockery = Mocha::Mockery.instance
-      iterator = ArgumentIterator.new(stubbed_methods_vs_return_values)
-      iterator.each do |*args|
-        method_name = args.shift
-        mockery.on_stubbing(self, method_name)
-        method = stubba_method.new(stubba_object, method_name)
-        mockery.stubba.stub(method)
-        expectation = mocha.stubs(method_name, caller)
-        expectation.returns(args.shift) unless args.empty?
-      end
-      expectation
+      anticipates(stubbed_methods_vs_return_values) { |method_name, caller| mocha.stubs(method_name, caller) }
     end
 
     # Removes the specified stubbed methods (added by calls to {#expects} or {#stubs}) and all expectations associated with them.
@@ -164,6 +136,26 @@ module Mocha
         method = stubba_method.new(stubba_object, method_name)
         mockery.stubba.unstub(method)
       end
+    end
+
+    private
+
+    def anticipates(methods_vs_return_values)
+      if frozen?
+        raise StubbingError.new("can't stub method on frozen object: #{mocha_inspect}", caller)
+      end
+      expectation = nil
+      mockery = Mocha::Mockery.instance
+      iterator = ArgumentIterator.new(methods_vs_return_values)
+      iterator.each do |*args|
+        method_name = args.shift
+        mockery.on_stubbing(self, method_name)
+        method = stubba_method.new(stubba_object, method_name)
+        mockery.stubba.stub(method)
+        expectation = yield method_name, caller
+        expectation.returns(args.shift) unless args.empty?
+      end
+      expectation
     end
   end
 end
