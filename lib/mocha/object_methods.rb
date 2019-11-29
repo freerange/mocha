@@ -150,8 +150,7 @@ module Mocha
       end
       expectation = nil
       mockery = Mocha::Mockery.instance
-      iterator = ArgumentIterator.new(methods_vs_return_values)
-      iterator.each do |*args|
+      ArgumentIterator.each(methods_vs_return_values) do |*args|
         method_name = args.shift
         mockery.stub_method(self, method_name)
         expectation = yield method_name, caller
