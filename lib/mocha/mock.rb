@@ -111,11 +111,7 @@ module Mocha
     def expects(method_name_or_hash, backtrace = nil)
       iterator = ArgumentIterator.new(method_name_or_hash)
       iterator.each do |*args|
-        method_name = args.shift
-        ensure_method_not_already_defined(method_name)
-        expectation = Expectation.new(self, method_name, backtrace)
-        expectation.returns(args.shift) unless args.empty?
-        @expectations.add(expectation)
+        add_expectation(args, backtrace)
       end
     end
 
@@ -147,11 +143,7 @@ module Mocha
     def stubs(method_name_or_hash, backtrace = nil)
       iterator = ArgumentIterator.new(method_name_or_hash)
       iterator.each do |*args|
-        method_name = args.shift
-        ensure_method_not_already_defined(method_name)
-        expectation = Expectation.new(self, method_name, backtrace)
-        expectation.returns(args.shift) unless args.empty?
-        @expectations.add(expectation)
+        expectation = add_expectation(args, backtrace)
         expectation.at_least(0)
       end
     end
@@ -369,6 +361,17 @@ module Mocha
     # @private
     def any_expectations?
       @expectations.any?
+    end
+
+    private
+
+    def add_expectation(args, backtrace)
+      method_name = args.shift
+      ensure_method_not_already_defined(method_name)
+      expectation = Expectation.new(self, method_name, backtrace)
+      expectation.returns(args.shift) unless args.empty?
+      @expectations.add(expectation)
+      expectation
     end
   end
 end
