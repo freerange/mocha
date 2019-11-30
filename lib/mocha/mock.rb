@@ -360,19 +360,14 @@ module Mocha
 
     def anticipates(method_name_or_hash, backtrace, &block)
       ArgumentIterator.each(method_name_or_hash) do |*args|
-        expectation = add_expectation(args, backtrace)
-        block[expectation] if block
+        method_name = args.shift
+        ensure_method_not_already_defined(method_name)
+        expectation = Expectation.new(self, method_name, backtrace)
+        expectation.returns(args.shift) unless args.empty?
+        @expectations.add(expectation)
+        yield expectation if block
         expectation
       end
-    end
-
-    def add_expectation(args, backtrace)
-      method_name = args.shift
-      ensure_method_not_already_defined(method_name)
-      expectation = Expectation.new(self, method_name, backtrace)
-      expectation.returns(args.shift) unless args.empty?
-      @expectations.add(expectation)
-      expectation
     end
   end
 end
