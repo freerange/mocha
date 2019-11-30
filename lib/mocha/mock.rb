@@ -109,9 +109,7 @@ module Mocha
     #   object.expects(:expected_method_one).returns(:result_one)
     #   object.expects(:expected_method_two).returns(:result_two)
     def expects(method_name_or_hash, backtrace = nil)
-      ArgumentIterator.each(method_name_or_hash) do |*args|
-        add_expectation(args, backtrace)
-      end
+      anticipates(method_name_or_hash, backtrace)
     end
 
     # Adds an expectation that the specified method may be called any number of times with any parameters.
@@ -140,9 +138,7 @@ module Mocha
     #   object.stubs(:stubbed_method_one).returns(:result_one)
     #   object.stubs(:stubbed_method_two).returns(:result_two)
     def stubs(method_name_or_hash, backtrace = nil)
-      ArgumentIterator.each(method_name_or_hash) do |*args|
-        add_expectation(args, backtrace).at_least(0)
-      end
+      anticipates(method_name_or_hash, backtrace) { |expectation| expectation.at_least(0) }
     end
 
     # Removes the specified stubbed methods (added by calls to {#expects} or {#stubs}) and all expectations associated with them.
@@ -361,6 +357,14 @@ module Mocha
     end
 
     private
+
+    def anticipates(method_name_or_hash, backtrace, &block)
+      ArgumentIterator.each(method_name_or_hash) do |*args|
+        expectation = add_expectation(args, backtrace)
+        block[expectation] if block
+        expectation
+      end
+    end
 
     def add_expectation(args, backtrace)
       method_name = args.shift
