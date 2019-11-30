@@ -77,7 +77,7 @@ module Mocha
       if expected_methods_vs_return_values.to_s =~ /the[^a-z]*spanish[^a-z]*inquisition/i
         raise ExpectationErrorFactory.build('NOBODY EXPECTS THE SPANISH INQUISITION!')
       end
-      anticipates(expected_methods_vs_return_values) { |method_name, caller| mocha.expects(method_name, caller) }
+      anticipates(expected_methods_vs_return_values) { |method_name| mocha.expects(method_name, caller) }
     end
 
     # Adds an expectation that the specified method may be called any number of times with any parameters.
@@ -109,7 +109,7 @@ module Mocha
     #
     # @see Mock#stubs
     def stubs(stubbed_methods_vs_return_values)
-      anticipates(stubbed_methods_vs_return_values) { |method_name, caller| mocha.stubs(method_name, caller) }
+      anticipates(stubbed_methods_vs_return_values) { |method_name| mocha.stubs(method_name, caller) }
     end
 
     # Removes the specified stubbed methods (added by calls to {#expects} or {#stubs}) and all expectations associated with them.
@@ -153,7 +153,7 @@ module Mocha
       ArgumentIterator.each(methods_vs_return_values) do |*args|
         method_name = args.shift
         mockery.stub_method(self, method_name)
-        expectation = yield method_name, caller
+        expectation = yield method_name
         expectation.returns(args.shift) unless args.empty?
       end
       expectation
