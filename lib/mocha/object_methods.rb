@@ -41,7 +41,7 @@ module Mocha
     end
 
     # @private
-    def stubbed_method(method_name)
+    def stubba_method_for(method_name)
       stubba_method.new(stubba_object, method_name)
     end
 
@@ -140,7 +140,7 @@ module Mocha
     def unstub(*method_names)
       mockery = Mocha::Mockery.instance
       method_names.each do |method_name|
-        mockery.stubba.unstub(stubbed_method(method_name))
+        mockery.stubba.unstub(stubba_method_for(method_name))
       end
     end
 

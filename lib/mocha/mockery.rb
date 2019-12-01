@@ -84,7 +84,7 @@ module Mocha
 
     def stub_method(object, method_name)
       check_stubbing(object, method_name)
-      stubba.stub(object.stubbed_method(method_name))
+      stubba.stub(object.stubba_method_for(method_name))
     end
 
     def verify(assertion_counter = nil)
