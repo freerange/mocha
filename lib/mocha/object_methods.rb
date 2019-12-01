@@ -151,10 +151,8 @@ module Mocha
       ArgumentIterator.each(methods_vs_return_values) do |*args|
         method_name = args.shift
         Mocha::Mockery.instance.stub_method(self, method_name)
-        expectation = yield method_name
-        expectation.returns(args.shift) unless args.empty?
-        expectation
       end
+      yield methods_vs_return_values
     end
   end
 end
