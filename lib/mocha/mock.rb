@@ -364,9 +364,8 @@ module Mocha
         ensure_method_not_already_defined(method_name)
         expectation = Expectation.new(self, method_name, backtrace)
         expectation.returns(args.shift) unless args.empty?
-        @expectations.add(expectation)
         yield expectation if block
-        expectation
+        @expectations.add(expectation)
       end
     end
   end
