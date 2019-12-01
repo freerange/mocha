@@ -356,11 +356,11 @@ module Mocha
       @expectations.any?
     end
 
-    private
-
-    def anticipates(method_name_or_hash, backtrace, &block)
+    # @private
+    def anticipates(method_name_or_hash, backtrace = nil, object = Mock.new(@mockery), &block)
       ArgumentIterator.each(method_name_or_hash) do |*args|
         method_name = args.shift
+        Mockery.instance.stub_method(object, method_name) unless object.is_a?(Mock)
         ensure_method_not_already_defined(method_name)
         expectation = Expectation.new(self, method_name, backtrace)
         expectation.returns(args.shift) unless args.empty?
