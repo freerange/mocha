@@ -149,8 +149,7 @@ module Mocha
         raise StubbingError.new("can't stub method on frozen object: #{mocha_inspect}", caller)
       end
       ArgumentIterator.each(methods_vs_return_values) do |*args|
-        method_name = args.shift
-        Mocha::Mockery.instance.stub_method(self, method_name)
+        Mocha::Mockery.instance.stub_method(self, args.shift)
       end
       yield methods_vs_return_values
     end
