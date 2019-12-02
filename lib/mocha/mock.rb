@@ -357,7 +357,8 @@ module Mocha
 
     # @private
     def anticipates(method_name_or_hash, backtrace = nil, object = Mock.new(@mockery), &block)
-      each_argument(method_name_or_hash) do |*args|
+      Array(method_name_or_hash).map do |*args|
+        args = args.flatten
         method_name = args.shift
         Mockery.instance.stub_method(object, method_name) unless object.is_a?(Mock)
         ensure_method_not_already_defined(method_name)
@@ -365,13 +366,7 @@ module Mocha
         expectation.returns(args.shift) unless args.empty?
         yield expectation if block
         @expectations.add(expectation)
-      end
-    end
-
-    private
-
-    def each_argument(argument)
-      Array(argument).map { |*args| yield *(args.flatten) }.last
+      end.last
     end
   end
 end
