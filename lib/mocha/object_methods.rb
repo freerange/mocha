@@ -144,14 +144,10 @@ module Mocha
     private
 
     def anticipates(expected_methods_vs_return_values, &block)
-      error_if_frozen
-      mocha.anticipates(expected_methods_vs_return_values, caller, self, &block)
-    end
-
-    def error_if_frozen
       if frozen?
         raise StubbingError.new("can't stub method on frozen object: #{mocha_inspect}", caller)
       end
+      mocha.anticipates(expected_methods_vs_return_values, caller, self, &block)
     end
   end
 end
