@@ -102,6 +102,25 @@ Note: There is no need to use a require statement to setup Mocha; RSpec does thi
 require 'mocha/minitest'
 ```
 
+##### Cucumber
+
+```ruby
+# In e.g. features/support/mocha.rb
+require 'mocha/api'
+
+World(Mocha::API)
+
+Around do |scenario, block|
+  begin
+    mocha_setup
+    block.call
+    mocha_verify
+  ensure
+    mocha_teardown
+  end
+end
+```
+
 #### Known Issues
 
 * In Mocha v1.2.0 there is a scenario where stubbing a class method originally defined in a module hangs the Ruby interpreter due to [a bug in Ruby v2.3.1](https://bugs.ruby-lang.org/issues/12832). See #272. This was fixed in Mocha v1.2.1.
