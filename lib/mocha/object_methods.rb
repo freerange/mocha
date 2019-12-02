@@ -76,8 +76,7 @@ module Mocha
       if expected_methods_vs_return_values.to_s =~ /the[^a-z]*spanish[^a-z]*inquisition/i
         raise ExpectationErrorFactory.build('NOBODY EXPECTS THE SPANISH INQUISITION!')
       end
-      error_if_frozen
-      mocha.anticipates(expected_methods_vs_return_values, caller, self)
+      anticipates(expected_methods_vs_return_values)
     end
 
     # Adds an expectation that the specified method may be called any number of times with any parameters.
@@ -109,8 +108,7 @@ module Mocha
     #
     # @see Mock#stubs
     def stubs(stubbed_methods_vs_return_values)
-      error_if_frozen
-      mocha.anticipates(stubbed_methods_vs_return_values, caller, self) { |expectation| expectation.at_least(0) }
+      anticipates(stubbed_methods_vs_return_values) { |expectation| expectation.at_least(0) }
     end
 
     # Removes the specified stubbed methods (added by calls to {#expects} or {#stubs}) and all expectations associated with them.
@@ -144,6 +142,11 @@ module Mocha
     end
 
     private
+
+    def anticipates(expected_methods_vs_return_values, &block)
+      error_if_frozen
+      mocha.anticipates(expected_methods_vs_return_values, caller, self, &block)
+    end
 
     def error_if_frozen
       if frozen?
