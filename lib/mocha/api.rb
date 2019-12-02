@@ -46,6 +46,7 @@ module Mocha
     #
     # @overload def mock(name)
     #   @param [String, Symbol] name identifies mock object in error messages.
+    #   @note Prior to v1.10.0 when +name+ was a +Symbol+, this method returned an unnamed +Mock+ that stubbed the method identified by +name+. This was undocumented behaviour and it no longer exists.
     # @overload def mock(expected_methods_vs_return_values = {})
     #   @param [Hash] expected_methods_vs_return_values expected method name symbols as keys and corresponding return values as values - these expectations are setup as if {Mock#expects} were called multiple times.
     # @overload def mock(name, expected_methods_vs_return_values = {})
@@ -69,6 +70,7 @@ module Mocha
     #
     # @overload def stub(name)
     #   @param [String, Symbol] name identifies mock object in error messages.
+    #   @note Prior to v1.10.0 when +name+ was a +Symbol+, this method returned an unnamed +Mock+ that stubbed the method identified by +name+. This was undocumented behaviour and it no longer exists.
     # @overload def stub(stubbed_methods_vs_return_values = {})
     #   @param [Hash] stubbed_methods_vs_return_values stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if {Mock#stubs} were called multiple times.
     # @overload def stub(name, stubbed_methods_vs_return_values = {})
@@ -91,6 +93,7 @@ module Mocha
     #
     # @overload def stub_everything(name)
     #   @param [String, Symbol] name identifies mock object in error messages.
+    #   @note Prior to v1.10.0 when +name+ was a +Symbol+, this method returned an unnamed +Mock+ that stubbed everything. This was undocumented behaviour and it no longer exists.
     # @overload def stub_everything(stubbed_methods_vs_return_values = {})
     #   @param [Hash] stubbed_methods_vs_return_values stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if {Mock#stubs} were called multiple times.
     # @overload def stub_everything(name, stubbed_methods_vs_return_values = {})
