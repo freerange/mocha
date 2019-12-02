@@ -1,5 +1,11 @@
 # Release Notes
 
+## 1.10.0
+
+* Improve deprecation warning when requiring 'mocha/setup' (388f44d7)
+* Add documentation for Cucumber integration (13ab797b)
+* Add documentation about an undocumented feature of `API#mock`, `API#stub` & `API#stub_everything` being changed (7ed2e4e7, d30c1717)
+
 ## 1.10.0.beta.1
 
 * Hide `ClassMethods#method_visibility` & `#method_exists?` methods to avoid clash with Rails (#428)
