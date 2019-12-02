@@ -1,6 +1,5 @@
 require 'mocha/mockery'
 require 'mocha/instance_method'
-require 'mocha/argument_iterator'
 require 'mocha/expectation_error_factory'
 
 module Mocha

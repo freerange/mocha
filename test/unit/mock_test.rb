@@ -49,6 +49,7 @@ class MockTest < Mocha::TestCase
     method_missing
     singleton_method_undefined
     initialize
+    Array
   ].freeze
 
   MACOS_EXCLUDED_METHODS =
@@ -60,6 +61,7 @@ class MockTest < Mocha::TestCase
     :singleton_method_undefined,
     :initialize,
     :String,
+    :Array,
     :singleton_method_added,
     *MACOS_EXCLUDED_METHODS
   ].freeze

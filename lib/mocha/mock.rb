@@ -6,7 +6,6 @@ require 'mocha/names'
 require 'mocha/receivers'
 require 'mocha/method_matcher'
 require 'mocha/parameters_matcher'
-require 'mocha/argument_iterator'
 require 'mocha/expectation_error_factory'
 require 'mocha/ruby_version'
 
@@ -358,7 +357,7 @@ module Mocha
 
     # @private
     def anticipates(method_name_or_hash, backtrace = nil, object = Mock.new(@mockery), &block)
-      ArgumentIterator.each(method_name_or_hash) do |*args|
+      each_argument(method_name_or_hash) do |*args|
         method_name = args.shift
         Mockery.instance.stub_method(object, method_name) unless object.is_a?(Mock)
         ensure_method_not_already_defined(method_name)
@@ -367,6 +366,12 @@ module Mocha
         yield expectation if block
         @expectations.add(expectation)
       end
+    end
+
+    private
+
+    def each_argument(argument)
+      Array(argument).map { |*args| yield *(args.flatten) }.last
     end
   end
 end
