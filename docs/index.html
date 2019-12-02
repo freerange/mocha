@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Mocha 1.10.0.beta.1
+    &mdash; Mocha 1.10.0
   
 </title>
 
@@ -157,9 +157,28 @@
 </span><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mocha/minitest</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
 
+<h5>Cucumber</h5>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># In e.g. features/support/mocha.rb
+</span><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mocha/api</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='const'>World</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="Mocha.html" title="Mocha (module)">Mocha</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Mocha/API.html" title="Mocha::API (module)">API</a></span></span><span class='rparen'>)</span>
+
+<span class='const'>Around</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_scenario'>scenario</span><span class='comma'>,</span> <span class='id identifier rubyid_block'>block</span><span class='op'>|</span>
+  <span class='kw'>begin</span>
+    <span class='id identifier rubyid_mocha_setup'>mocha_setup</span>
+    <span class='id identifier rubyid_block'>block</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span>
+    <span class='id identifier rubyid_mocha_verify'>mocha_verify</span>
+  <span class='kw'>ensure</span>
+    <span class='id identifier rubyid_mocha_teardown'>mocha_teardown</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
 <h4>Known Issues</h4>
 
 <ul>
+<li>In Mocha v1.10.0 an undocumented feature of <code>API#mock</code>, <code>API#stub</code> &amp; <code>API#stub_everything</code> was changed. Previously when these methods were passed a single symbol, they returned a mock object that responded to the method identified by the symbol. Now Passing a single symbol is equivalent to passing a single string, i.e. it now defines the &quot;name&quot; of the mock object.</li>
 <li>In Mocha v1.2.0 there is a scenario where stubbing a class method originally defined in a module hangs the Ruby interpreter due to <a href="https://bugs.ruby-lang.org/issues/12832">a bug in Ruby v2.3.1</a>. See #272. This was fixed in Mocha v1.2.1.</li>
 <li>Since v1.1.0 Mocha has used prepended modules internally for stubbing methods. There is <a href="https://bugs.ruby-lang.org/issues/12876">an obscure Ruby bug</a> in many (but not all) versions of Ruby between v2.0 &amp; v2.3 which under certain circumstances may cause your Ruby interpreter to hang. See the Ruby bug report for more details. The bug has been fixed in Ruby v2.3.3 &amp; v2.4.0.</li>
 <li>Stubbing an aliased class method, where the original method is defined in a module that&#39;s used to <code>extend</code> the class doesn&#39;t work in Ruby 1.8.x. See stub_method_defined_on_module_and_aliased_test.rb for an example of this behaviour.</li>
@@ -419,7 +438,7 @@ Pushed mocha 1.2.0 to rubygems.org.
 </div>
 
       <div id="footer">
-  Generated on Tue Nov 26 21:53:01 2019 by
+  Generated on Mon Dec  2 17:48:39 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.20 (ruby-2.6.5).
 </div>

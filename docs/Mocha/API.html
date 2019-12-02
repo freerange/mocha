@@ -6,7 +6,7 @@
 <title>
   Module: Mocha::API
   
-    &mdash; Mocha 1.10.0.beta.1
+    &mdash; Mocha 1.10.0
   
 </title>
 
@@ -348,6 +348,14 @@
         <div class="docstring">
   <div class="discussion">
     
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>Prior to v1.10.0 when <code>name</code> was a <code>Symbol</code>, this method returned an unnamed <code>Mock</code> that stubbed the method identified by <code>name</code>. This was undocumented behaviour and it no longer exists.</p>
+</div>
+  </div>
+
+
 
   </div>
 </div>
@@ -494,12 +502,12 @@
       <pre class="lines">
 
 
-62
 63
-64</pre>
+64
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_create_mock'>create_mock</span><span class='lparen'>(</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_mock'>mock</span><span class='comma'>,</span> <span class='id identifier rubyid_expectations'>expectations</span><span class='op'>|</span> <span class='id identifier rubyid_mock'>mock</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='id identifier rubyid_expectations'>expectations</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
@@ -580,12 +588,12 @@
       <pre class="lines">
 
 
-130
-131
-132</pre>
+133
+134
+135</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 130</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 133</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sequence'>sequence</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="Sequence.html" title="Mocha::Sequence (class)">Sequence</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -679,12 +687,12 @@
       <pre class="lines">
 
 
-160
-161
-162</pre>
+163
+164
+165</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 160</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 163</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_states'>states</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='const'>Mockery</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span><span class='period'>.</span><span class='id identifier rubyid_new_state_machine'>new_state_machine</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -745,6 +753,14 @@
         <div class="docstring">
   <div class="discussion">
     
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>Prior to v1.10.0 when <code>name</code> was a <code>Symbol</code>, this method returned an unnamed <code>Mock</code> that stubbed the method identified by <code>name</code>. This was undocumented behaviour and it no longer exists.</p>
+</div>
+  </div>
+
+
 
   </div>
 </div>
@@ -873,12 +889,12 @@
       <pre class="lines">
 
 
-84
-85
-86</pre>
+86
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stub'>stub</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_create_mock'>create_mock</span><span class='lparen'>(</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_stub'>stub</span><span class='comma'>,</span> <span class='id identifier rubyid_expectations'>expectations</span><span class='op'>|</span> <span class='id identifier rubyid_stub'>stub</span><span class='period'>.</span><span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='id identifier rubyid_expectations'>expectations</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
@@ -939,6 +955,14 @@
         <div class="docstring">
   <div class="discussion">
     
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>Prior to v1.10.0 when <code>name</code> was a <code>Symbol</code>, this method returned an unnamed <code>Mock</code> that stubbed everything. This was undocumented behaviour and it no longer exists.</p>
+</div>
+  </div>
+
+
 
   </div>
 </div>
@@ -1085,15 +1109,15 @@
       <pre class="lines">
 
 
-107
-108
-109
 110
 111
-112</pre>
+112
+113
+114
+115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 107</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 110</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stub_everything'>stub_everything</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_create_mock'>create_mock</span><span class='lparen'>(</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_stub'>stub</span><span class='comma'>,</span> <span class='id identifier rubyid_expectations'>expectations</span><span class='op'>|</span>
@@ -1119,7 +1143,7 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Nov 26 21:53:01 2019 by
+  Generated on Mon Dec  2 17:48:40 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.20 (ruby-2.6.5).
 </div>
