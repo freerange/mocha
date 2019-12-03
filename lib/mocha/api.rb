@@ -40,6 +40,11 @@ module Mocha
       Class.send(:include, Mocha::ClassMethods)
     end
 
+    # @private
+    def self.extended(mod)
+      included(mod)
+    end
+
     # Builds a new mock object
     #
     # @return [Mock] a new mock object
