@@ -1,5 +1,10 @@
 # Release Notes
 
+## 1.10.1
+
+* Ensure ObjectMethods & ClassMethods included when API extended (43778756)
+* Fix regression in `any_instance` stubbing of methods on object which has an implementation of `#respond_to?` that depends on the object's internal state - thanks to @rafaelfranca for reporting & @nitishr for fixing (#432, #434, 469d4b17)
+
 ## 1.10.0
 
 * Improve deprecation warning when requiring 'mocha/setup' (388f44d7)
