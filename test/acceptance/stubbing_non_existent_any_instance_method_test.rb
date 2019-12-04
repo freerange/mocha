@@ -76,6 +76,22 @@ class StubbingNonExistentAnyInstanceMethodTest < Mocha::TestCase
     assert_passed(test_result)
   end
 
+  def test_should_default_to_allowing_stubbing_method_if_responds_to_depends_on_calling_initialize
+    klass = Class.new do
+      def initialize(attrs = {})
+        @attributes = attrs
+      end
+
+      def respond_to?(method, _include_private = false)
+        @attributes.key?(method) ? @attributes[method] : super
+      end
+    end
+    test_result = run_as_test do
+      klass.any_instance.stubs(:foo)
+    end
+    assert_passed(test_result)
+  end
+
   def test_should_allow_stubbing_existing_protected_any_instance_method
     Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
     klass = Class.new do
