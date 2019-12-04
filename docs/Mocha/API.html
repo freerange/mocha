@@ -6,7 +6,7 @@
 <title>
   Module: Mocha::API
   
-    &mdash; Mocha 1.10.0
+    &mdash; Mocha 1.10.1
   
 </title>
 
@@ -502,12 +502,12 @@
       <pre class="lines">
 
 
-63
-64
-65</pre>
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_create_mock'>create_mock</span><span class='lparen'>(</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_mock'>mock</span><span class='comma'>,</span> <span class='id identifier rubyid_expectations'>expectations</span><span class='op'>|</span> <span class='id identifier rubyid_mock'>mock</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='id identifier rubyid_expectations'>expectations</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
@@ -588,12 +588,12 @@
       <pre class="lines">
 
 
-133
-134
-135</pre>
+138
+139
+140</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 133</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 138</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sequence'>sequence</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="Sequence.html" title="Mocha::Sequence (class)">Sequence</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -687,12 +687,12 @@
       <pre class="lines">
 
 
-163
-164
-165</pre>
+168
+169
+170</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 163</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 168</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_states'>states</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='const'>Mockery</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span><span class='period'>.</span><span class='id identifier rubyid_new_state_machine'>new_state_machine</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -889,12 +889,12 @@
       <pre class="lines">
 
 
-86
-87
-88</pre>
+91
+92
+93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stub'>stub</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_create_mock'>create_mock</span><span class='lparen'>(</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_stub'>stub</span><span class='comma'>,</span> <span class='id identifier rubyid_expectations'>expectations</span><span class='op'>|</span> <span class='id identifier rubyid_stub'>stub</span><span class='period'>.</span><span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='id identifier rubyid_expectations'>expectations</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
@@ -1109,15 +1109,15 @@
       <pre class="lines">
 
 
-110
-111
-112
-113
-114
-115</pre>
+115
+116
+117
+118
+119
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 115</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stub_everything'>stub_everything</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_create_mock'>create_mock</span><span class='lparen'>(</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_stub'>stub</span><span class='comma'>,</span> <span class='id identifier rubyid_expectations'>expectations</span><span class='op'>|</span>
@@ -1143,7 +1143,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Dec  2 17:48:40 2019 by
+  Generated on Wed Dec  4 09:20:47 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.20 (ruby-2.6.5).
 </div>
