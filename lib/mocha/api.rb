@@ -66,7 +66,11 @@ module Mocha
     #     # an error will be raised unless both Motor#start and Motor#stop have been called
     #   end
     def mock(*arguments)
-      create_mock(arguments) { |mock, expectations| mock.expects(expectations) }
+      name = arguments.shift.to_s if arguments.first.is_a?(String) || arguments.first.is_a?(Symbol)
+      expectations = arguments.shift || {}
+      mock = name ? Mockery.instance.named_mock(name) : Mockery.instance.unnamed_mock
+      mock.expects(expectations)
+      mock
     end
 
     # Builds a new mock object
@@ -89,7 +93,11 @@ module Mocha
     #     # an error will not be raised even if either Motor#start or Motor#stop has not been called
     #   end
     def stub(*arguments)
-      create_mock(arguments) { |stub, expectations| stub.stubs(expectations) }
+      name = arguments.shift.to_s if arguments.first.is_a?(String) || arguments.first.is_a?(Symbol)
+      expectations = arguments.shift || {}
+      stub = name ? Mockery.instance.named_mock(name) : Mockery.instance.unnamed_mock
+      stub.stubs(expectations)
+      stub
     end
 
     # Builds a mock object that accepts calls to any method. By default it will return +nil+ for any method call.
@@ -113,10 +121,12 @@ module Mocha
     #     assert motor.stop
     #   end
     def stub_everything(*arguments)
-      create_mock(arguments) do |stub, expectations|
-        stub.stub_everything
-        stub.stubs(expectations)
-      end
+      name = arguments.shift.to_s if arguments.first.is_a?(String) || arguments.first.is_a?(Symbol)
+      expectations = arguments.shift || {}
+      stub = name ? Mockery.instance.named_mock(name) : Mockery.instance.unnamed_mock
+      stub.stub_everything
+      stub.stubs(expectations)
+      stub
     end
 
     # Builds a new sequence which can be used to constrain the order in which expectations can occur.
@@ -167,16 +177,6 @@ module Mocha
     #   end
     def states(name)
       Mockery.instance.new_state_machine(name)
-    end
-
-    private
-
-    def create_mock(arguments)
-      name = arguments.shift.to_s if arguments.first.is_a?(String) || arguments.first.is_a?(Symbol)
-      expectations = arguments.shift || {}
-      mock = name ? Mockery.instance.named_mock(name) : Mockery.instance.unnamed_mock
-      yield mock, expectations
-      mock
     end
   end
 end
