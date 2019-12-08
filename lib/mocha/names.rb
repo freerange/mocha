@@ -21,7 +21,7 @@ module Mocha
 
   class Name
     def initialize(name)
-      @name = name.to_s
+      @name = name
     end
 
     def mocha_inspect

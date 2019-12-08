@@ -50,12 +50,11 @@ module Mocha
     # @return [Mock] a new mock object
     #
     # @overload def mock(name)
-    #   @param [String, Symbol] name identifies mock object in error messages.
-    #   @note Prior to v1.10.0 when +name+ was a +Symbol+, this method returned an unnamed +Mock+ that stubbed the method identified by +name+. This was undocumented behaviour and it no longer exists.
+    #   @param [String] name identifies mock object in error messages.
     # @overload def mock(expected_methods_vs_return_values = {})
     #   @param [Hash] expected_methods_vs_return_values expected method name symbols as keys and corresponding return values as values - these expectations are setup as if {Mock#expects} were called multiple times.
     # @overload def mock(name, expected_methods_vs_return_values = {})
-    #   @param [String, Symbol] name identifies mock object in error messages.
+    #   @param [String] name identifies mock object in error messages.
     #   @param [Hash] expected_methods_vs_return_values expected method name symbols as keys and corresponding return values as values - these expectations are setup as if {Mock#expects} were called multiple times.
     #
     # @example Using expected_methods_vs_return_values Hash to setup expectations.
@@ -74,12 +73,11 @@ module Mocha
     # @return [Mock] a new mock object
     #
     # @overload def stub(name)
-    #   @param [String, Symbol] name identifies mock object in error messages.
-    #   @note Prior to v1.10.0 when +name+ was a +Symbol+, this method returned an unnamed +Mock+ that stubbed the method identified by +name+. This was undocumented behaviour and it no longer exists.
+    #   @param [String] name identifies mock object in error messages.
     # @overload def stub(stubbed_methods_vs_return_values = {})
     #   @param [Hash] stubbed_methods_vs_return_values stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if {Mock#stubs} were called multiple times.
     # @overload def stub(name, stubbed_methods_vs_return_values = {})
-    #   @param [String, Symbol] name identifies mock object in error messages.
+    #   @param [String] name identifies mock object in error messages.
     #
     # @example Using stubbed_methods_vs_return_values Hash to setup stubbed methods.
     #   def test_motor_starts_and_stops
@@ -97,12 +95,11 @@ module Mocha
     # @return [Mock] a new mock object
     #
     # @overload def stub_everything(name)
-    #   @param [String, Symbol] name identifies mock object in error messages.
-    #   @note Prior to v1.10.0 when +name+ was a +Symbol+, this method returned an unnamed +Mock+ that stubbed everything. This was undocumented behaviour and it no longer exists.
+    #   @param [String] name identifies mock object in error messages.
     # @overload def stub_everything(stubbed_methods_vs_return_values = {})
     #   @param [Hash] stubbed_methods_vs_return_values stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if {Mock#stubs} were called multiple times.
     # @overload def stub_everything(name, stubbed_methods_vs_return_values = {})
-    #   @param [String, Symbol] name identifies mock object in error messages.
+    #   @param [String] name identifies mock object in error messages.
     #   @param [Hash] stubbed_methods_vs_return_values stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if {Mock#stubs} were called multiple times.
     #
     # @example Ignore invocations of irrelevant methods.
@@ -172,7 +169,7 @@ module Mocha
     private
 
     def create_mock(arguments)
-      name = arguments.shift.to_s if arguments.first.is_a?(String) || arguments.first.is_a?(Symbol)
+      name = arguments.shift if arguments.first.is_a?(String)
       expectations = arguments.shift || {}
       mock = name ? Mockery.instance.named_mock(name) : Mockery.instance.unnamed_mock
       yield mock, expectations
