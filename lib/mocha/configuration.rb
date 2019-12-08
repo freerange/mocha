@@ -250,9 +250,33 @@ module Mocha
 
     # Reinstate undocumented behaviour from v1.9
     #
+    # Previously when {API#mock}, {API#stub}, or {API#stub_everything} were called with the first argument being a symbol, they built an *unnamed* mock object *and* expected or stubbed the method identified by the symbol argument; subsequent arguments were ignored.
+    # Now these methods build a *named* mock with the name specified by the symbol argument; *no* methods are expected or stubbed and subsequent arguments *are* taken into account.
+    #
     # Enabling this configuration option reinstates the previous behaviour, but displays a deprecation warning.
     #
     # @param [Boolean] value +true+ to reinstate undocumented behaviour; disabled by default.
+    #
+    # @example Reinstate undocumented behaviour for {API#mock}
+    #   Mocha.configure do |c|
+    #     c.reinstate_undocumented_behaviour_from_v1_9 = true
+    #   end
+    #
+    #   foo = mock(:bar)
+    #   foo.inspect # => #<Mock>
+    #
+    #   not all expectations were satisfied
+    #   unsatisfied expectations:
+    #   - expected exactly once, invoked never: #<Mock>.foo
+    #
+    # @example Reinstate undocumented behaviour for {API#stub}
+    #   Mocha.configure do |c|
+    #     c.reinstate_undocumented_behaviour_from_v1_9 = true
+    #   end
+    #
+    #   foo = stub(:bar)
+    #   foo.inspect # => #<Mock>
+    #   foo.bar # => nil
     def reinstate_undocumented_behaviour_from_v1_9=(value)
       @options[:reinstate_undocumented_behaviour_from_v1_9] = value
     end

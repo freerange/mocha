@@ -51,7 +51,7 @@ module Mocha
     #
     # @overload def mock(name)
     #   @param [String, Symbol] name identifies mock object in error messages.
-    #   @note Prior to v1.10.0 when +name+ was a +Symbol+, this method returned an unnamed +Mock+ that stubbed the method identified by +name+. This was undocumented behaviour and it no longer exists.
+    #   @note Prior to v1.10.0 when +name+ was a +Symbol+, this method returned an unnamed +Mock+ that expected the method identified by +name+. This was undocumented behaviour and it will be removed in the future, but for the moment it can be reinstated using {Configuration#reinstate_undocumented_behaviour_from_v1_9=}.
     # @overload def mock(expected_methods_vs_return_values = {})
     #   @param [Hash] expected_methods_vs_return_values expected method name symbols as keys and corresponding return values as values - these expectations are setup as if {Mock#expects} were called multiple times.
     # @overload def mock(name, expected_methods_vs_return_values = {})
@@ -65,13 +65,33 @@ module Mocha
     #     assert motor.stop
     #     # an error will be raised unless both Motor#start and Motor#stop have been called
     #   end
+    # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
     def mock(*arguments)
-      name = arguments.shift.to_s if arguments.first.is_a?(String) || arguments.first.is_a?(Symbol)
+      if Mocha.configuration.reinstate_undocumented_behaviour_from_v1_9?
+        if arguments.first.is_a?(Symbol)
+          method_name = arguments[0]
+          Deprecation.warning([
+            "Explicitly include `#{method_name}` in Hash of expected methods vs return values,",
+            "e.g. `mock(:#{method_name} => nil)`."
+          ].join(' '))
+          if arguments[1]
+            Deprecation.warning([
+              "In this case the 2nd argument for `mock(:##{method_name}, ...)` is ignored,",
+              'but in the future a Hash of expected methods vs return values will be respected.'
+            ].join(' '))
+          end
+        elsif arguments.first.is_a?(String)
+          name = arguments.shift
+        end
+      elsif arguments.first.is_a?(String) || arguments.first.is_a?(Symbol)
+        name = arguments.shift
+      end
       expectations = arguments.shift || {}
       mock = name ? Mockery.instance.named_mock(name) : Mockery.instance.unnamed_mock
       mock.expects(expectations)
       mock
     end
+    # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
 
     # Builds a new mock object
     #
@@ -79,7 +99,7 @@ module Mocha
     #
     # @overload def stub(name)
     #   @param [String, Symbol] name identifies mock object in error messages.
-    #   @note Prior to v1.10.0 when +name+ was a +Symbol+, this method returned an unnamed +Mock+ that stubbed the method identified by +name+. This was undocumented behaviour and it no longer exists.
+    #   @note Prior to v1.10.0 when +name+ was a +Symbol+, this method returned an unnamed +Mock+ that stubbed the method identified by +name+. This was undocumented behaviour and it will be removed in the future, but for the moment it can be reinstated using {Configuration#reinstate_undocumented_behaviour_from_v1_9=}.
     # @overload def stub(stubbed_methods_vs_return_values = {})
     #   @param [Hash] stubbed_methods_vs_return_values stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if {Mock#stubs} were called multiple times.
     # @overload def stub(name, stubbed_methods_vs_return_values = {})
@@ -92,13 +112,33 @@ module Mocha
     #     assert motor.stop
     #     # an error will not be raised even if either Motor#start or Motor#stop has not been called
     #   end
+    # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
     def stub(*arguments)
-      name = arguments.shift.to_s if arguments.first.is_a?(String) || arguments.first.is_a?(Symbol)
+      if Mocha.configuration.reinstate_undocumented_behaviour_from_v1_9?
+        if arguments.first.is_a?(Symbol)
+          method_name = arguments[0]
+          Deprecation.warning([
+            "Explicitly include `#{method_name}` in Hash of stubbed methods vs return values,",
+            "e.g. `stub(:#{method_name} => nil)`."
+          ].join(' '))
+          if arguments[1]
+            Deprecation.warning([
+              "In this case the 2nd argument for `stub(:##{method_name}, ...)` is ignored,",
+              'but in the future a Hash of stubbed methods vs return values will be respected.'
+            ].join(' '))
+          end
+        elsif arguments.first.is_a?(String)
+          name = arguments.shift
+        end
+      elsif arguments.first.is_a?(String) || arguments.first.is_a?(Symbol)
+        name = arguments.shift
+      end
       expectations = arguments.shift || {}
       stub = name ? Mockery.instance.named_mock(name) : Mockery.instance.unnamed_mock
       stub.stubs(expectations)
       stub
     end
+    # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
 
     # Builds a mock object that accepts calls to any method. By default it will return +nil+ for any method call.
     #
@@ -106,7 +146,7 @@ module Mocha
     #
     # @overload def stub_everything(name)
     #   @param [String, Symbol] name identifies mock object in error messages.
-    #   @note Prior to v1.10.0 when +name+ was a +Symbol+, this method returned an unnamed +Mock+ that stubbed everything. This was undocumented behaviour and it no longer exists.
+    #   @note Prior to v1.10.0 when +name+ was a +Symbol+, this method returned an unnamed +Mock+ that stubbed the method identified by +name+. This was undocumented behaviour and it will be removed in the future, but for the moment it can be reinstated using {Configuration#reinstate_undocumented_behaviour_from_v1_9=}.
     # @overload def stub_everything(stubbed_methods_vs_return_values = {})
     #   @param [Hash] stubbed_methods_vs_return_values stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if {Mock#stubs} were called multiple times.
     # @overload def stub_everything(name, stubbed_methods_vs_return_values = {})
@@ -120,14 +160,34 @@ module Mocha
     #     assert_nil motor.irrelevant_method_2 # => no error raised
     #     assert motor.stop
     #   end
+    # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/AbcSize
     def stub_everything(*arguments)
-      name = arguments.shift.to_s if arguments.first.is_a?(String) || arguments.first.is_a?(Symbol)
+      if Mocha.configuration.reinstate_undocumented_behaviour_from_v1_9?
+        if arguments.first.is_a?(Symbol)
+          method_name = arguments[0]
+          Deprecation.warning([
+            "Explicitly include `#{method_name}` in Hash of stubbed methods vs return values,",
+            "e.g. `stub_everything(:#{method_name} => nil)`."
+          ].join(' '))
+          if arguments[1]
+            Deprecation.warning([
+              "In this case the 2nd argument for `stub_everything(:##{method_name}, ...)` is ignored,",
+              'but in the future a Hash of stubbed methods vs return values will be respected.'
+            ].join(' '))
+          end
+        elsif arguments.first.is_a?(String)
+          name = arguments.shift
+        end
+      elsif arguments.first.is_a?(String) || arguments.first.is_a?(Symbol)
+        name = arguments.shift
+      end
       expectations = arguments.shift || {}
       stub = name ? Mockery.instance.named_mock(name) : Mockery.instance.unnamed_mock
       stub.stub_everything
       stub.stubs(expectations)
       stub
     end
+    # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/AbcSize
 
     # Builds a new sequence which can be used to constrain the order in which expectations can occur.
     #
