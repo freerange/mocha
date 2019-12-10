@@ -250,6 +250,9 @@ module Mocha
 
     # Retain undocumented behaviour from v1.9
     #
+    # Previously if {Expectation#yields} or {Expectation#multiple_yields} was called on an expectation, but no block was given when the method was invoked, the instruction to yield was ignored.
+    # Now a LocalJumpError is raised.
+    #
     # Enabling this configuration option retains the previous behaviour, but displays a deprecation warning.
     #
     # @param [Boolean] value +true+ to retain undocumented behaviour; disabled by default.

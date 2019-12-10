@@ -2,8 +2,10 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/expectation'
 require 'mocha/invocation'
 require 'mocha/sequence'
+require 'mocha/deprecation'
 require 'execution_point'
 require 'simple_counter'
+require 'deprecation_disabler'
 
 class ExpectationTest < Mocha::TestCase
   include Mocha
@@ -114,6 +116,18 @@ class ExpectationTest < Mocha::TestCase
 
   def test_yield_should_fail_when_the_caller_does_not_provide_a_block
     assert_raises(LocalJumpError) { invoke(new_expectation.yields(:foo)) }
+  end
+
+  def test_yield_should_display_warning_when_caller_does_not_provide_block_and_behaviour_from_v1_9_retained
+    Mocha::Configuration.override(:retain_undocumented_behaviour_from_v1_9 => true) do
+      DeprecationDisabler.disable_deprecations do
+        invoke(new_expectation.yields(:foo, 1, [2, 3]))
+      end
+    end
+    assert message = Deprecation.messages.last
+    assert message.include?('Stubbed method was instructed to yield (:foo, 1, [2, 3])')
+    assert message.include?('but no block was given by invocation: :irrelevant.expected_method()')
+    assert message.include?('This will raise a LocalJumpError in the future.')
   end
 
   def test_should_yield_with_specified_parameters
