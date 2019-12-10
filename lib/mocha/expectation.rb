@@ -568,7 +568,7 @@ module Mocha
     def invoke(invocation)
       perform_side_effects
       @cardinality << invocation
-      invocation.call(@yield_parameters, @return_values) { |*yield_args| yield(*yield_args) }
+      invocation.call(@yield_parameters, @return_values)
     end
 
     # @private

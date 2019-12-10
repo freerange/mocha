@@ -13,7 +13,7 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def invoke(expectation, &block)
-    expectation.invoke(Invocation.new(:irrelevant, :expected_method), &block)
+    expectation.invoke(Invocation.new(:irrelevant, :expected_method, &block))
   end
 
   def test_should_match_calls_to_same_method_with_any_parameters

@@ -8,10 +8,11 @@ module Mocha
   class Invocation
     attr_reader :method_name
 
-    def initialize(mock, method_name, *arguments)
+    def initialize(mock, method_name, *arguments, &block)
       @mock = mock
       @method_name = method_name
       @arguments = arguments
+      @block = block
       @yields = []
       @result = nil
     end
@@ -19,7 +20,8 @@ module Mocha
     def call(yield_parameters = YieldParameters.new, return_values = ReturnValues.new)
       yield_parameters.next_invocation.each do |yield_args|
         @yields << ParametersMatcher.new(yield_args)
-        yield(*yield_args)
+        raise LocalJumpError unless @block
+        @block.call(*yield_args)
       end
       return_values.next(self)
     end
