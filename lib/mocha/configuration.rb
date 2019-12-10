@@ -42,7 +42,8 @@ module Mocha
       :stubbing_non_existent_method => :allow,
       :stubbing_non_public_method => :allow,
       :stubbing_method_on_nil => :prevent,
-      :display_matching_invocations_on_failure => false
+      :display_matching_invocations_on_failure => false,
+      :retain_undocumented_behaviour_from_v1_9 => false
     }.freeze
 
     attr_reader :options
@@ -245,6 +246,20 @@ module Mocha
     # @private
     def display_matching_invocations_on_failure?
       @options[:display_matching_invocations_on_failure]
+    end
+
+    # Retain undocumented behaviour from v1.9
+    #
+    # Enabling this configuration option retains the previous behaviour, but displays a deprecation warning.
+    #
+    # @param [Boolean] value +true+ to retain undocumented behaviour; disabled by default.
+    def retain_undocumented_behaviour_from_v1_9=(value)
+      @options[:retain_undocumented_behaviour_from_v1_9] = value
+    end
+
+    # @private
+    def retain_undocumented_behaviour_from_v1_9?
+      @options[:retain_undocumented_behaviour_from_v1_9]
     end
 
     class << self
