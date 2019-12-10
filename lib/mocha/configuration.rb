@@ -253,6 +253,9 @@ module Mocha
     # Previously when {API#mock}, {API#stub}, or {API#stub_everything} were called with the first argument being a symbol, they built an *unnamed* mock object *and* expected or stubbed the method identified by the symbol argument; subsequent arguments were ignored.
     # Now these methods build a *named* mock with the name specified by the symbol argument; *no* methods are expected or stubbed and subsequent arguments *are* taken into account.
     #
+    # Previously if {Expectation#yields} or {Expectation#multiple_yields} was called on an expectation, but no block was given when the method was invoked, the instruction to yield was ignored.
+    # Now a +LocalJumpError+ is raised.
+    #
     # Enabling this configuration option reinstates the previous behaviour, but displays a deprecation warning.
     #
     # @param [Boolean] value +true+ to reinstate undocumented behaviour; disabled by default.
@@ -277,6 +280,20 @@ module Mocha
     #   foo = stub(:bar)
     #   foo.inspect # => #<Mock>
     #   foo.bar # => nil
+    #
+    # @example Reinstate undocumented behaviour for {Expectation#yields}
+    #   foo = mock('foo')
+    #   foo.stubs(:my_method).yields(1, 2)
+    #   foo.my_method # => raises LocalJumpError when no block is supplied
+    #
+    #   Mocha.configure do |c|
+    #     c.reinstate_undocumented_behaviour_from_v1_9 = true
+    #   end
+    #
+    #   foo = mock('foo')
+    #   foo.stubs(:my_method).yields(1, 2)
+    #   foo.my_method # => does *not* raise LocalJumpError when no block is supplied
+    #
     def reinstate_undocumented_behaviour_from_v1_9=(value)
       @options[:reinstate_undocumented_behaviour_from_v1_9] = value
     end
