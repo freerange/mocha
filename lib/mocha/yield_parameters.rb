@@ -17,7 +17,7 @@ module Mocha
     end
 
     def add(*parameters)
-      @parameter_groups << SingleYield.new(*parameters)
+      multiple_add(parameters)
     end
 
     def multiple_add(*parameter_groups)

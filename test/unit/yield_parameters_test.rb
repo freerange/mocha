@@ -17,8 +17,7 @@ class YieldParametersTest < Mocha::TestCase
     yield_parameters = YieldParameters.new
     yield_parameters.add(1, 2, 3)
     parameter_group = yield_parameters.next_invocation
-    assert parameter_group.is_a?(SingleYield)
-    assert_equal [1, 2, 3], parameter_group.parameters
+    assert_equal [[1, 2, 3]], parameter_group.parameter_groups
   end
 
   def test_should_keep_returning_single_yield_parameter_group
@@ -26,11 +25,9 @@ class YieldParametersTest < Mocha::TestCase
     yield_parameters.add(1, 2, 3)
     yield_parameters.next_invocation
     parameter_group = yield_parameters.next_invocation
-    assert parameter_group.is_a?(SingleYield)
-    assert_equal [1, 2, 3], parameter_group.parameters
+    assert_equal [[1, 2, 3]], parameter_group.parameter_groups
     parameter_group = yield_parameters.next_invocation
-    assert parameter_group.is_a?(SingleYield)
-    assert_equal [1, 2, 3], parameter_group.parameters
+    assert_equal [[1, 2, 3]], parameter_group.parameter_groups
   end
 
   def test_should_return_consecutive_single_yield_parameter_groups
@@ -38,11 +35,9 @@ class YieldParametersTest < Mocha::TestCase
     yield_parameters.add(1, 2, 3)
     yield_parameters.add(4, 5)
     parameter_group = yield_parameters.next_invocation
-    assert parameter_group.is_a?(SingleYield)
-    assert_equal [1, 2, 3], parameter_group.parameters
+    assert_equal [[1, 2, 3]], parameter_group.parameter_groups
     parameter_group = yield_parameters.next_invocation
-    assert parameter_group.is_a?(SingleYield)
-    assert_equal [4, 5], parameter_group.parameters
+    assert_equal [[4, 5]], parameter_group.parameter_groups
   end
 
   def test_should_return_multiple_yield_parameter_group
@@ -82,8 +77,7 @@ class YieldParametersTest < Mocha::TestCase
     yield_parameters.add(1, 2, 3)
     yield_parameters.multiple_add([4, 5, 6], [7, 8])
     parameter_group = yield_parameters.next_invocation
-    assert parameter_group.is_a?(SingleYield)
-    assert_equal [1, 2, 3], parameter_group.parameters
+    assert_equal [[1, 2, 3]], parameter_group.parameter_groups
     parameter_group = yield_parameters.next_invocation
     assert parameter_group.is_a?(MultipleYields)
     assert_equal [[4, 5, 6], [7, 8]], parameter_group.parameter_groups
