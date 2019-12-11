@@ -7,8 +7,7 @@ class YieldParametersTest < Mocha::TestCase
   include Mocha
 
   def test_should_return_null_yield_parameter_group_by_default
-    yield_parameters = YieldParameters.new
-    assert_next_invocation_yields(yield_parameters, [])
+    assert_next_invocation_yields(YieldParameters.new, [])
   end
 
   def test_should_return_single_yield_parameter_group
@@ -20,7 +19,6 @@ class YieldParametersTest < Mocha::TestCase
   def test_should_keep_returning_single_yield_parameter_group
     yield_parameters = YieldParameters.new
     yield_parameters.multiple_add([1, 2, 3])
-    yield_parameters.next_invocation
     assert_next_invocation_yields(yield_parameters, [[1, 2, 3]])
     assert_next_invocation_yields(yield_parameters, [[1, 2, 3]])
   end
@@ -42,7 +40,6 @@ class YieldParametersTest < Mocha::TestCase
   def test_should_keep_returning_multiple_yield_parameter_group
     yield_parameters = YieldParameters.new
     yield_parameters.multiple_add([1, 2, 3], [4, 5])
-    yield_parameters.next_invocation
     assert_next_invocation_yields(yield_parameters, [[1, 2, 3], [4, 5]])
     assert_next_invocation_yields(yield_parameters, [[1, 2, 3], [4, 5]])
   end
@@ -66,7 +63,6 @@ class YieldParametersTest < Mocha::TestCase
   private
 
   def assert_next_invocation_yields(yield_parameters, expected)
-    parameter_group = yield_parameters.next_invocation
-    assert_equal expected, parameter_group.parameter_groups
+    assert_equal expected, yield_parameters.next_invocation.parameter_groups
   end
 end
