@@ -9,7 +9,7 @@ class YieldParametersTest < Mocha::TestCase
 
   def test_should_return_null_yield_parameter_group_by_default
     yield_parameters = YieldParameters.new
-    assert yield_parameters.next_invocation.is_a?(NoYields)
+    assert_equal [], yield_parameters.next_invocation.parameter_groups
   end
 
   def test_should_return_single_yield_parameter_group
