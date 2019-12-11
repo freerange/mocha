@@ -1,7 +1,6 @@
 require File.expand_path('../../test_helper', __FILE__)
 
 require 'mocha/yield_parameters'
-require 'mocha/multiple_yields'
 
 class YieldParametersTest < Mocha::TestCase
   include Mocha
@@ -63,6 +62,6 @@ class YieldParametersTest < Mocha::TestCase
   private
 
   def assert_next_invocation_yields(yield_parameters, expected)
-    assert_equal expected, yield_parameters.next_invocation.parameter_groups
+    assert_equal expected, yield_parameters.next_invocation
   end
 end
