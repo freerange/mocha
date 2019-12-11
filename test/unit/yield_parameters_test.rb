@@ -2,7 +2,6 @@ require File.expand_path('../../test_helper', __FILE__)
 
 require 'mocha/yield_parameters'
 require 'mocha/no_yields'
-require 'mocha/single_yield'
 require 'mocha/multiple_yields'
 
 class YieldParametersTest < Mocha::TestCase
