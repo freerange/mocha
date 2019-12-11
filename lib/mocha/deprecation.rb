@@ -5,7 +5,8 @@ module Mocha
     class << self
       attr_accessor :mode, :messages
 
-      def warning(message)
+      def warning(*messages)
+        message = messages.join
         @messages << message
         return if mode == :disabled
         filter = BacktraceFilter.new

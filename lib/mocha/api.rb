@@ -70,15 +70,15 @@ module Mocha
       if Mocha.configuration.reinstate_undocumented_behaviour_from_v1_9?
         if arguments.first.is_a?(Symbol)
           method_name = arguments[0]
-          Deprecation.warning([
+          Deprecation.warning(
             "Explicitly include `#{method_name}` in Hash of expected methods vs return values,",
-            "e.g. `mock(:#{method_name} => nil)`."
-          ].join(' '))
+            " e.g. `mock(:#{method_name} => nil)`."
+          )
           if arguments[1]
-            Deprecation.warning([
+            Deprecation.warning(
               "In this case the 2nd argument for `mock(:##{method_name}, ...)` is ignored,",
-              'but in the future a Hash of expected methods vs return values will be respected.'
-            ].join(' '))
+              ' but in the future a Hash of expected methods vs return values will be respected.'
+            )
           end
         elsif arguments.first.is_a?(String)
           name = arguments.shift
@@ -117,15 +117,15 @@ module Mocha
       if Mocha.configuration.reinstate_undocumented_behaviour_from_v1_9?
         if arguments.first.is_a?(Symbol)
           method_name = arguments[0]
-          Deprecation.warning([
+          Deprecation.warning(
             "Explicitly include `#{method_name}` in Hash of stubbed methods vs return values,",
-            "e.g. `stub(:#{method_name} => nil)`."
-          ].join(' '))
+            " e.g. `stub(:#{method_name} => nil)`."
+          )
           if arguments[1]
-            Deprecation.warning([
+            Deprecation.warning(
               "In this case the 2nd argument for `stub(:##{method_name}, ...)` is ignored,",
-              'but in the future a Hash of stubbed methods vs return values will be respected.'
-            ].join(' '))
+              ' but in the future a Hash of stubbed methods vs return values will be respected.'
+            )
           end
         elsif arguments.first.is_a?(String)
           name = arguments.shift
@@ -160,20 +160,20 @@ module Mocha
     #     assert_nil motor.irrelevant_method_2 # => no error raised
     #     assert motor.stop
     #   end
-    # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/AbcSize
+    # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
     def stub_everything(*arguments)
       if Mocha.configuration.reinstate_undocumented_behaviour_from_v1_9?
         if arguments.first.is_a?(Symbol)
           method_name = arguments[0]
-          Deprecation.warning([
+          Deprecation.warning(
             "Explicitly include `#{method_name}` in Hash of stubbed methods vs return values,",
-            "e.g. `stub_everything(:#{method_name} => nil)`."
-          ].join(' '))
+            " e.g. `stub_everything(:#{method_name} => nil)`."
+          )
           if arguments[1]
-            Deprecation.warning([
+            Deprecation.warning(
               "In this case the 2nd argument for `stub_everything(:##{method_name}, ...)` is ignored,",
-              'but in the future a Hash of stubbed methods vs return values will be respected.'
-            ].join(' '))
+              ' but in the future a Hash of stubbed methods vs return values will be respected.'
+            )
           end
         elsif arguments.first.is_a?(String)
           name = arguments.shift
@@ -187,7 +187,7 @@ module Mocha
       stub.stubs(expectations)
       stub
     end
-    # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/AbcSize
+    # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
 
     # Builds a new sequence which can be used to constrain the order in which expectations can occur.
     #
