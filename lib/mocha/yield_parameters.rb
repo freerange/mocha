@@ -1,4 +1,3 @@
-require 'mocha/no_yields'
 require 'mocha/multiple_yields'
 
 module Mocha
