@@ -16,10 +16,6 @@ module Mocha
       end
     end
 
-    def add(*parameters)
-      multiple_add(parameters)
-    end
-
     def multiple_add(*parameter_groups)
       @parameter_groups << MultipleYields.new(*parameter_groups)
     end
