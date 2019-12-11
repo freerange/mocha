@@ -42,7 +42,6 @@ class YieldParametersTest < Mocha::TestCase
     yield_parameters = YieldParameters.new
     yield_parameters.multiple_add([1, 2, 3], [4, 5])
     parameter_group = yield_parameters.next_invocation
-    assert parameter_group.is_a?(MultipleYields)
     assert_equal [[1, 2, 3], [4, 5]], parameter_group.parameter_groups
   end
 
@@ -51,10 +50,8 @@ class YieldParametersTest < Mocha::TestCase
     yield_parameters.multiple_add([1, 2, 3], [4, 5])
     yield_parameters.next_invocation
     parameter_group = yield_parameters.next_invocation
-    assert parameter_group.is_a?(MultipleYields)
     assert_equal [[1, 2, 3], [4, 5]], parameter_group.parameter_groups
     parameter_group = yield_parameters.next_invocation
-    assert parameter_group.is_a?(MultipleYields)
     assert_equal [[1, 2, 3], [4, 5]], parameter_group.parameter_groups
   end
 
@@ -63,10 +60,8 @@ class YieldParametersTest < Mocha::TestCase
     yield_parameters.multiple_add([1, 2, 3], [4, 5])
     yield_parameters.multiple_add([6, 7], [8, 9, 0])
     parameter_group = yield_parameters.next_invocation
-    assert parameter_group.is_a?(MultipleYields)
     assert_equal [[1, 2, 3], [4, 5]], parameter_group.parameter_groups
     parameter_group = yield_parameters.next_invocation
-    assert parameter_group.is_a?(MultipleYields)
     assert_equal [[6, 7], [8, 9, 0]], parameter_group.parameter_groups
   end
 
@@ -77,7 +72,6 @@ class YieldParametersTest < Mocha::TestCase
     parameter_group = yield_parameters.next_invocation
     assert_equal [[1, 2, 3]], parameter_group.parameter_groups
     parameter_group = yield_parameters.next_invocation
-    assert parameter_group.is_a?(MultipleYields)
     assert_equal [[4, 5, 6], [7, 8]], parameter_group.parameter_groups
   end
 end
