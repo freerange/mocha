@@ -310,13 +310,13 @@ module Mocha
       if @responder && !@responder.respond_to?(symbol)
         raise NoMethodError, "undefined method `#{symbol}' for #{mocha_inspect} which responds like #{@responder.mocha_inspect}"
       end
-      invocation = Invocation.new(self, symbol, *arguments)
+      invocation = Invocation.new(self, symbol, *arguments, &block)
       if (matching_expectation_allowing_invocation = all_expectations.match_allowing_invocation(invocation))
-        matching_expectation_allowing_invocation.invoke(invocation, &block)
+        matching_expectation_allowing_invocation.invoke(invocation)
       elsif (matching_expectation = all_expectations.match(invocation)) || (!matching_expectation && !@everything_stubbed)
         if @unexpected_invocation.nil?
           @unexpected_invocation = invocation
-          matching_expectation.invoke(invocation, &block) if matching_expectation
+          matching_expectation.invoke(invocation) if matching_expectation
           message = "#{@unexpected_invocation.call_description}\n#{@mockery.mocha_inspect}"
         else
           message = @unexpected_invocation.short_call_description
