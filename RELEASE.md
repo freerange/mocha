@@ -1,5 +1,11 @@
 # Release Notes
 
+## 1.10.2
+
+* Optionally reinstate undocumented behaviour from v1.9. This introduces a new configuration option (`reinstate_undocumented_behaviour_from_v1_9`) to reinstate a couple of bits of undocumented behaviour from v1.9 which were changed in v1.10 without any prior deprecation warning (#438):
+  * The behaviour of `API#mock`, `API#stub` and `API#stub_everything` when called with a symbol as the first argument.
+  * The behaviour of `Expectation#yields` and `Expectation#multiple_yields` when the stubbed method is called without a block.
+
 ## 1.10.1
 
 * Ensure ObjectMethods & ClassMethods included when API extended (43778756)
