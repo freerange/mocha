@@ -6,7 +6,7 @@
 <title>
   Class: Mocha::Configuration
   
-    &mdash; Mocha 1.10.1
+    &mdash; Mocha 1.10.2
   
 </title>
 
@@ -308,6 +308,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#reinstate_undocumented_behaviour_from_v1_9=-instance_method" title="#reinstate_undocumented_behaviour_from_v1_9= (instance method)">#<strong>reinstate_undocumented_behaviour_from_v1_9=</strong>(value)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Reinstate undocumented behaviour from v1.9.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#stubbing_method_on_nil=-instance_method" title="#stubbing_method_on_nil= (instance method)">#<strong>stubbing_method_on_nil=</strong>(value)  &#x21d2; Object </a>
     
 
@@ -512,17 +536,17 @@
       <pre class="lines">
 
 
-261
-262
-263
-264
-265
-266
-267
-268</pre>
+317
+318
+319
+320
+321
+322
+323
+324</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 261</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 317</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_allow'>allow</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -617,16 +641,16 @@
       <pre class="lines">
 
 
-340
-341
-342
-343
-344
-345
-346</pre>
+396
+397
+398
+399
+400
+401
+402</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 340</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 396</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_override'>override</span><span class='lparen'>(</span><span class='id identifier rubyid_temporary_options'>temporary_options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_original_configuration'>original_configuration</span> <span class='op'>=</span> <span class='id identifier rubyid_configuration'>configuration</span>
@@ -718,17 +742,17 @@
       <pre class="lines">
 
 
-309
-310
-311
-312
-313
-314
-315
-316</pre>
+365
+366
+367
+368
+369
+370
+371
+372</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 309</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 365</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_prevent'>prevent</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -821,17 +845,17 @@
       <pre class="lines">
 
 
-285
-286
-287
-288
-289
-290
-291
-292</pre>
+341
+342
+343
+344
+345
+346
+347
+348</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 285</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 341</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_warn_when'>warn_when</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -929,15 +953,133 @@ satisfied expectations:
       <pre class="lines">
 
 
-241
 242
-243</pre>
+243
+244</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 241</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 242</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_display_matching_invocations_on_failure='>display_matching_invocations_on_failure=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:display_matching_invocations_on_failure</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="reinstate_undocumented_behaviour_from_v1_9=-instance_method">
+  
+    #<strong>reinstate_undocumented_behaviour_from_v1_9=</strong>(value)  &#x21d2; <tt><span class='object_link'>Object</span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Reinstate undocumented behaviour from v1.9</p>
+
+<p>Previously when <span class='object_link'><a href="API.html#mock-instance_method" title="Mocha::API#mock (method)">API#mock</a></span>, <span class='object_link'><a href="API.html#stub-instance_method" title="Mocha::API#stub (method)">API#stub</a></span>, or <span class='object_link'><a href="API.html#stub_everything-instance_method" title="Mocha::API#stub_everything (method)">API#stub_everything</a></span> were called with the first argument being a symbol, they built an <strong>unnamed</strong> mock object <strong>and</strong> expected or stubbed the method identified by the symbol argument; subsequent arguments were ignored. Now these methods build a <strong>named</strong> mock with the name specified by the symbol argument; <strong>no</strong> methods are expected or stubbed and subsequent arguments <strong>are</strong> taken into account.</p>
+
+<p>Previously if <span class='object_link'><a href="Expectation.html#yields-instance_method" title="Mocha::Expectation#yields (method)">Expectation#yields</a></span> or <span class='object_link'><a href="Expectation.html#multiple_yields-instance_method" title="Mocha::Expectation#multiple_yields (method)">Expectation#multiple_yields</a></span> was called on an expectation, but no block was given when the method was invoked, the instruction to yield was ignored. Now a <code>LocalJumpError</code> is raised.</p>
+
+<p>Enabling this configuration option reinstates the previous behaviour, but displays a deprecation warning.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Reinstate undocumented behaviour for <span class='object_link'><a href="API.html#mock-instance_method" title="Mocha::API#mock (method)">API#mock</a></span></p>
+</div></p>
+      
+      <pre class="example code"><code>Mocha.configure do |c|
+  c.reinstate_undocumented_behaviour_from_v1_9 = true
+end
+
+foo = mock(:bar)
+foo.inspect # =&gt; #&lt;Mock&gt;
+
+not all expectations were satisfied
+unsatisfied expectations:
+- expected exactly once, invoked never: #&lt;Mock&gt;.foo</code></pre>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Reinstate undocumented behaviour for <span class='object_link'><a href="API.html#stub-instance_method" title="Mocha::API#stub (method)">API#stub</a></span></p>
+</div></p>
+      
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../Mocha.html" title="Mocha (module)">Mocha</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configure'><span class='object_link'><a href="../Mocha.html#configure-class_method" title="Mocha.configure (method)">configure</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span>
+  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_reinstate_undocumented_behaviour_from_v1_9'>reinstate_undocumented_behaviour_from_v1_9</span> <span class='op'>=</span> <span class='kw'>true</span>
+<span class='kw'>end</span>
+
+<span class='id identifier rubyid_foo'>foo</span> <span class='op'>=</span> <span class='id identifier rubyid_stub'>stub</span><span class='lparen'>(</span><span class='symbol'>:bar</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_foo'>foo</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span> <span class='comment'># =&gt; #&lt;Mock&gt;
+</span><span class='id identifier rubyid_foo'>foo</span><span class='period'>.</span><span class='id identifier rubyid_bar'>bar</span> <span class='comment'># =&gt; nil</span></code></pre>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Reinstate undocumented behaviour for <span class='object_link'><a href="Expectation.html#yields-instance_method" title="Mocha::Expectation#yields (method)">Expectation#yields</a></span></p>
+</div></p>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_foo'>foo</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>foo</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_foo'>foo</span><span class='period'>.</span><span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='symbol'>:my_method</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_yields'>yields</span><span class='lparen'>(</span><span class='int'>1</span><span class='comma'>,</span> <span class='int'>2</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_foo'>foo</span><span class='period'>.</span><span class='id identifier rubyid_my_method'>my_method</span> <span class='comment'># =&gt; raises LocalJumpError when no block is supplied
+</span>
+<span class='const'><span class='object_link'><a href="../Mocha.html" title="Mocha (module)">Mocha</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configure'><span class='object_link'><a href="../Mocha.html#configure-class_method" title="Mocha.configure (method)">configure</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span>
+  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_reinstate_undocumented_behaviour_from_v1_9'>reinstate_undocumented_behaviour_from_v1_9</span> <span class='op'>=</span> <span class='kw'>true</span>
+<span class='kw'>end</span>
+
+<span class='id identifier rubyid_foo'>foo</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>foo</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_foo'>foo</span><span class='period'>.</span><span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='symbol'>:my_method</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_yields'>yields</span><span class='lparen'>(</span><span class='int'>1</span><span class='comma'>,</span> <span class='int'>2</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_foo'>foo</span><span class='period'>.</span><span class='id identifier rubyid_my_method'>my_method</span> <span class='comment'># =&gt; does *not* raise LocalJumpError when no block is supplied</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p><code>true</code> to reinstate undocumented behaviour; disabled by default.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+297
+298
+299</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 297</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_reinstate_undocumented_behaviour_from_v1_9='>reinstate_undocumented_behaviour_from_v1_9=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+  <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:reinstate_undocumented_behaviour_from_v1_9</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -996,12 +1138,12 @@ satisfied expectations:
       <pre class="lines">
 
 
-207
 208
-209</pre>
+209
+210</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 207</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 208</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubbing_method_on_nil='>stubbing_method_on_nil=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:stubbing_method_on_nil</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
@@ -1084,12 +1226,12 @@ satisfied expectations:
       <pre class="lines">
 
 
-119
 120
-121</pre>
+121
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 119</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 120</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubbing_method_on_non_mock_object='>stubbing_method_on_non_mock_object=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:stubbing_method_on_non_mock_object</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
@@ -1168,12 +1310,12 @@ satisfied expectations:
       <pre class="lines">
 
 
-86
 87
-88</pre>
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 87</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubbing_method_unnecessarily='>stubbing_method_unnecessarily=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:stubbing_method_unnecessarily</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
@@ -1256,12 +1398,12 @@ satisfied expectations:
       <pre class="lines">
 
 
-152
 153
-154</pre>
+154
+155</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 152</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 153</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubbing_non_existent_method='>stubbing_non_existent_method=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:stubbing_non_existent_method</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
@@ -1345,12 +1487,12 @@ satisfied expectations:
       <pre class="lines">
 
 
-186
 187
-188</pre>
+188
+189</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 186</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 187</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubbing_non_public_method='>stubbing_non_public_method=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:stubbing_non_public_method</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
@@ -1373,7 +1515,7 @@ satisfied expectations:
 </div>
 
       <div id="footer">
-  Generated on Wed Dec  4 09:20:48 2019 by
+  Generated on Thu Dec 12 10:57:48 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.20 (ruby-2.6.5).
 </div>

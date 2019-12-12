@@ -6,7 +6,7 @@
 <title>
   File: RELEASE
   
-    &mdash; Mocha 1.10.1
+    &mdash; Mocha 1.10.2
   
 </title>
 
@@ -58,6 +58,17 @@
       </div>
 
       <div id="content"><div id='filecontents'><h1>Release Notes</h1>
+
+<h2>1.10.2</h2>
+
+<ul>
+<li>Optionally reinstate undocumented behaviour from v1.9. This introduces a new configuration option (<code>reinstate_undocumented_behaviour_from_v1_9</code>) to reinstate a couple of bits of undocumented behaviour from v1.9 which were changed in v1.10 without any prior deprecation warning (#438):
+
+<ul>
+<li>The behaviour of <code>API#mock</code>, <code>API#stub</code> and <code>API#stub_everything</code> when called with a symbol as the first argument.</li>
+<li>The behaviour of <code>Expectation#yields</code> and <code>Expectation#multiple_yields</code> when the stubbed method is called without a block.</li>
+</ul></li>
+</ul>
 
 <h2>1.10.1</h2>
 
@@ -953,7 +964,7 @@ Hash with wrong number of entries.</li>
 </div>
 
       <div id="footer">
-  Generated on Wed Dec  4 09:20:46 2019 by
+  Generated on Thu Dec 12 10:57:46 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.20 (ruby-2.6.5).
 </div>
