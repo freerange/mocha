@@ -29,7 +29,9 @@ module Mocha
           yield_args_description = ParametersMatcher.new(yield_args).mocha_inspect
           Deprecation.warning(
             "Stubbed method was instructed to yield #{yield_args_description}, but no block was given by invocation: #{call_description}.",
-            ' This will raise a LocalJumpError in the future.'
+            ' This will raise a LocalJumpError in the future.',
+            ' Use Expectation#with_block_given to constrain this expectation to match invocations supplying a block.',
+            ' And, if necessary, add another expectation to match invocations not supplying a block.'
           )
         end
       end
