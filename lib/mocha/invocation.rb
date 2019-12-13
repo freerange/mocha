@@ -27,10 +27,10 @@ module Mocha
         else
           raise LocalJumpError unless Mocha.configuration.reinstate_undocumented_behaviour_from_v1_9?
           yield_args_description = ParametersMatcher.new(yield_args).mocha_inspect
-          Deprecation.warning([
+          Deprecation.warning(
             "Stubbed method was instructed to yield #{yield_args_description}, but no block was given by invocation: #{call_description}.",
-            'This will raise a LocalJumpError in the future.'
-          ].join(' '))
+            ' This will raise a LocalJumpError in the future.'
+          )
         end
       end
       return_values.next(self)
