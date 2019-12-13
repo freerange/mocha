@@ -40,9 +40,9 @@ class DisplayMatchingInvocationsAlongsideExpectationsTest < Mocha::TestCase
     assert_invocations(
       test_result,
       '- allowed any number of times, invoked 3 times: #<Mock:foo>.bar(any_parameters)',
-      '  - #<Mock:foo>.bar(1, 2) # => "f" after yielding ("bc"), then ("d", "e")',
-      '  - #<Mock:foo>.bar(3, 4) # => raised StandardError after yielding ("bc"), then ("d", "e")',
-      '  - #<Mock:foo>.bar(5, 6) # => threw (:tag, "value") after yielding ("bc"), then ("d", "e")'
+      '  - #<Mock:foo>.bar(1, 2) { ... } # => "f" after yielding ("bc"), then ("d", "e")',
+      '  - #<Mock:foo>.bar(3, 4) { ... } # => raised StandardError after yielding ("bc"), then ("d", "e")',
+      '  - #<Mock:foo>.bar(5, 6) { ... } # => threw (:tag, "value") after yielding ("bc"), then ("d", "e")'
     )
   end
 
@@ -57,7 +57,7 @@ class DisplayMatchingInvocationsAlongsideExpectationsTest < Mocha::TestCase
     assert_invocations(
       test_result,
       '- allowed any number of times, invoked once: #<Mock:foo>.bar(any_parameters)',
-      '  - #<Mock:foo>.bar(1, 2) # => nil after yielding ()'
+      '  - #<Mock:foo>.bar(1, 2) { ... } # => nil after yielding ()'
     )
   end
 

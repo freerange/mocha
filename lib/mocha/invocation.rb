@@ -53,7 +53,9 @@ module Mocha
     end
 
     def call_description
-      "#{@mock.mocha_inspect}.#{@method_name}#{ParametersMatcher.new(@arguments).mocha_inspect}"
+      description = "#{@mock.mocha_inspect}.#{@method_name}#{ParametersMatcher.new(@arguments).mocha_inspect}"
+      description << ' { ... }' unless @block.nil?
+      description
     end
 
     def short_call_description
