@@ -256,8 +256,7 @@ module Mocha
     #   fibonacci.next_pair { |first, second| sum = first + second }
     #   sum # => 2
     def yields(*parameters)
-      @yield_parameters.add(*parameters)
-      self
+      multiple_yields(parameters)
     end
 
     # Modifies expectation so that when the expected method is called, it yields multiple times per invocation with the specified +parameter_groups+ (even if no block is provided, in which case yielding will result in a +LocalJumpError+).
@@ -283,7 +282,7 @@ module Mocha
     #   rows_from_first_invocation # => [['old_row1_col1', 'old_row1_col2'], ['old_row2_col1', '']]
     #   rows_from_second_invocation # => [['new_row1_col1', ''], ['new_row2_col1', 'new_row2_col2']]
     def multiple_yields(*parameter_groups)
-      @yield_parameters.multiple_add(*parameter_groups)
+      @yield_parameters.add(*parameter_groups)
       self
     end
 
