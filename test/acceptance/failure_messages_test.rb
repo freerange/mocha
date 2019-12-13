@@ -58,4 +58,20 @@ class FailureMessagesTest < Mocha::TestCase
     end
     assert_match Regexp.new(%("Foo")), test_result.failures[0].message
   end
+
+  def test_should_display_that_block_was_expected
+    test_result = run_as_test do
+      foo = mock
+      foo.expects(:bar).with_block_given
+    end
+    assert_match Regexp.new(' with block given$'), test_result.failures[0].message
+  end
+
+  def test_should_display_that_block_was_not_expected
+    test_result = run_as_test do
+      foo = mock
+      foo.expects(:bar).with_no_block_given
+    end
+    assert_match Regexp.new(' with no block given$'), test_result.failures[0].message
+  end
 end

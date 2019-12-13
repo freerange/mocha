@@ -8,7 +8,7 @@ require 'mocha/deprecation'
 
 module Mocha
   class Invocation
-    attr_reader :method_name
+    attr_reader :method_name, :block
 
     def initialize(mock, method_name, *arguments, &block)
       @mock = mock
