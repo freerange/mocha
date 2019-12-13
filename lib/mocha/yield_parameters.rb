@@ -12,7 +12,7 @@ module Mocha
       end
     end
 
-    def multiple_add(*parameter_groups)
+    def add(*parameter_groups)
       @parameter_groups << parameter_groups
     end
   end

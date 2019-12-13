@@ -282,7 +282,7 @@ module Mocha
     #   rows_from_first_invocation # => [['old_row1_col1', 'old_row1_col2'], ['old_row2_col1', '']]
     #   rows_from_second_invocation # => [['new_row1_col1', ''], ['new_row2_col1', 'new_row2_col2']]
     def multiple_yields(*parameter_groups)
-      @yield_parameters.multiple_add(*parameter_groups)
+      @yield_parameters.add(*parameter_groups)
       self
     end
 
