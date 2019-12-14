@@ -102,6 +102,7 @@ module Mocha
 
     def teardown
       stubba.unstub_all
+      mocks.each(&:__disallow_further_usage__)
       reset
     end
 

@@ -275,6 +275,7 @@ module Mocha
       @everything_stubbed = false
       @responder = nil
       @unexpected_invocation = nil
+      @expired = false
     end
 
     # @private
@@ -307,6 +308,7 @@ module Mocha
     # @private
     # rubocop:disable Style/MethodMissingSuper,Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
     def method_missing(symbol, *arguments, &block)
+      forbid_usage_after_expiry
       if @responder && !@responder.respond_to?(symbol)
         raise NoMethodError, "undefined method `#{symbol}' for #{mocha_inspect} which responds like #{@responder.mocha_inspect}"
       end
@@ -352,6 +354,11 @@ module Mocha
     end
 
     # @private
+    def __disallow_further_usage__
+      @expired = true
+    end
+
+    # @private
     def mocha_inspect
       @name.mocha_inspect
     end
@@ -369,6 +376,15 @@ module Mocha
     # @private
     def any_expectations?
       @expectations.any?
+    end
+
+    private
+
+    def forbid_usage_after_expiry
+      if @expired # rubocop:disable Style/GuardClause
+        raise StubbingError, "#{mocha_inspect} was originally created in one test but has leaked into another test. "\
+          'This can lead to flaky tests. Ensure that your tests correctly clean up their state after themselves.'
+      end
     end
   end
 end

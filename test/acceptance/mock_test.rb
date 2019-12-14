@@ -152,4 +152,30 @@ class MockTest < Mocha::TestCase
     end
     assert_failed(test_result)
   end
+
+  class Foo
+    class << self
+      attr_accessor :logger
+    end
+
+    def use_the_mock
+      self.class.logger.log('Foo was here')
+    end
+  end
+
+  def test_should_not_allow_mock_to_be_reused_in_another_test
+    use_mock_test_result = run_as_test do
+      Foo.logger = mock('Logger')
+      Foo.logger.expects(:log).with('Foo was here')
+      Foo.new.use_the_mock
+    end
+    assert_passed(use_mock_test_result)
+
+    reuse_mock_test_result = run_as_test { Foo.new.use_the_mock }
+    assert_failed(reuse_mock_test_result)
+    assert reuse_mock_test_result.error_messages.include?(
+      'Mocha::StubbingError: #<Mock:Logger> was originally created in one test but has leaked into another test. '\
+      'This can lead to flaky tests. Ensure that your tests correctly clean up their state after themselves.'
+    )
+  end
 end
