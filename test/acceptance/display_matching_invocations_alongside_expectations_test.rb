@@ -31,7 +31,7 @@ class DisplayMatchingInvocationsAlongsideExpectationsTest < Mocha::TestCase
     test_result = run_as_test do
       foo = mock('foo')
       foo.expects(:bar).with(1).returns('a')
-      foo.stubs(:bar).with(any_parameters).multiple_yields(%w[b c], %w[d e]).returns('f').raises(StandardError).throws(:tag, 'value')
+      foo.stubs(:bar).with(any_parameters).multiple_yields('bc', %w[d e]).returns('f').raises(StandardError).throws(:tag, 'value')
 
       foo.bar(1, 2) { |_ignored| }
       assert_raises(StandardError) { foo.bar(3, 4) { |_ignored| } }
@@ -40,9 +40,9 @@ class DisplayMatchingInvocationsAlongsideExpectationsTest < Mocha::TestCase
     assert_invocations(
       test_result,
       '- allowed any number of times, invoked 3 times: #<Mock:foo>.bar(any_parameters)',
-      '  - #<Mock:foo>.bar(1, 2) # => "f" after yielding ("b", "c"), then ("d", "e")',
-      '  - #<Mock:foo>.bar(3, 4) # => raised StandardError after yielding ("b", "c"), then ("d", "e")',
-      '  - #<Mock:foo>.bar(5, 6) # => threw (:tag, "value") after yielding ("b", "c"), then ("d", "e")'
+      '  - #<Mock:foo>.bar(1, 2) # => "f" after yielding ("bc"), then ("d", "e")',
+      '  - #<Mock:foo>.bar(3, 4) # => raised StandardError after yielding ("bc"), then ("d", "e")',
+      '  - #<Mock:foo>.bar(5, 6) # => threw (:tag, "value") after yielding ("bc"), then ("d", "e")'
     )
   end
 

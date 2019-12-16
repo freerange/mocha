@@ -261,7 +261,7 @@ module Mocha
 
     # Modifies expectation so that when the expected method is called, it yields multiple times per invocation with the specified +parameter_groups+ (even if no block is provided, in which case yielding will result in a +LocalJumpError+).
     #
-    # @param [*Array<Array>] parameter_groups each element of +parameter_groups+ should iself be an +Array+ representing the parameters to be passed to the block for a single yield.
+    # @param [*Array<Array>] parameter_groups each element of +parameter_groups+ should iself be an +Array+ representing the parameters to be passed to the block for a single yield. Any element of +parameter_groups+ that is not an +Array+ is wrapped in an +Array+.
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
     # @see #then
     #

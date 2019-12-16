@@ -36,6 +36,12 @@ class YieldParametersTest < Mocha::TestCase
     assert_next_invocation_yields(yield_parameters, [[1, 2, 3], [4, 5]])
   end
 
+  def test_should_return_multiple_yield_parameter_group_when_arguments_are_not_arrays
+    yield_parameters = YieldParameters.new
+    yield_parameters.add(1, { :b => 2 }, 3)
+    assert_next_invocation_yields(yield_parameters, [[1], [{ :b => 2 }], [3]])
+  end
+
   def test_should_keep_returning_multiple_yield_parameter_group
     yield_parameters = YieldParameters.new
     yield_parameters.add([1, 2, 3], [4, 5])
