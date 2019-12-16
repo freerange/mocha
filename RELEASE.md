@@ -1,5 +1,23 @@
 # Release Notes
 
+## 1.11.0
+
+### External changes
+
+* Add `Expectation#with_block_given` & `Expectation#with_no_block_given` (#441).
+  * Allows non-deprecated solution for #382. Thanks to @yemartin for reporting and to @techbelly & @nitishr for feedback.
+* Fix issue with non-Array arguments passed to `Expectation#multiple_yields` (#444).
+  * The undocumented behaviour is now properly supported and documented.
+
+### Internal changes
+
+* Move static YARD options from Rake task to `.yardopts` file - thanks to @nitishr (#429)
+* Simplify implementation of yielding functionality - thanks to @nitishr (#439)
+* Add missing require statement to `acceptance_test_helper.rb` (1070fc02)
+* Add some baseline acceptance tests for yielding behaviour (c2cac911)
+* Display a sponsor button on GitHub repo page (9fc5911b)
+* Use new Deprecation.warning behaviour in `Invocation#call` (932d1166)
+
 ## 1.10.2
 
 * Optionally reinstate undocumented behaviour from v1.9. This introduces a new configuration option (`reinstate_undocumented_behaviour_from_v1_9`) to reinstate a couple of bits of undocumented behaviour from v1.9 which were changed in v1.10 without any prior deprecation warning (#438):
