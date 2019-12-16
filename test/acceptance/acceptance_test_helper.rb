@@ -1,6 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'test_runner'
 require 'mocha/configuration'
+require 'mocha/mockery'
 require 'introspection'
 
 if Mocha::Detection::MiniTest.testcase && (ENV['MOCHA_RUN_INTEGRATION_TESTS'] != 'test-unit')
