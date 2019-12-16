@@ -6,7 +6,7 @@
 <title>
   Class: Mocha::Expectation
   
-    &mdash; Mocha 1.10.2
+    &mdash; Mocha 1.11.0
   
 </title>
 
@@ -512,6 +512,54 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#with_block_given-instance_method" title="#with_block_given (instance method)">#<strong>with_block_given</strong>  &#x21d2; Expectation </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Modifies expectation so that the expected method must be called with a block.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#with_no_block_given-instance_method" title="#with_no_block_given (instance method)">#<strong>with_no_block_given</strong>  &#x21d2; Expectation </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Modifies expectation so that the expected method must be called without a block.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#yields-instance_method" title="#yields (instance method)">#<strong>yields</strong>(*parameters)  &#x21d2; Expectation </a>
     
 
@@ -626,13 +674,13 @@
       <pre class="lines">
 
 
-131
 132
 133
-134</pre>
+134
+135</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 131</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 132</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_at_least'>at_least</span><span class='lparen'>(</span><span class='id identifier rubyid_minimum_number_of_times'>minimum_number_of_times</span><span class='rparen'>)</span>
   <span class='ivar'>@cardinality</span> <span class='op'>=</span> <span class='const'>Cardinality</span><span class='period'>.</span><span class='id identifier rubyid_at_least'>at_least</span><span class='lparen'>(</span><span class='id identifier rubyid_minimum_number_of_times'>minimum_number_of_times</span><span class='rparen'>)</span>
@@ -706,13 +754,13 @@
       <pre class="lines">
 
 
-149
 150
 151
-152</pre>
+152
+153</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 149</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 150</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_at_least_once'>at_least_once</span>
   <span class='id identifier rubyid_at_least'>at_least</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
@@ -806,13 +854,13 @@
       <pre class="lines">
 
 
-168
 169
 170
-171</pre>
+171
+172</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 168</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 169</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_at_most'>at_most</span><span class='lparen'>(</span><span class='id identifier rubyid_maximum_number_of_times'>maximum_number_of_times</span><span class='rparen'>)</span>
   <span class='ivar'>@cardinality</span> <span class='op'>=</span> <span class='const'>Cardinality</span><span class='period'>.</span><span class='id identifier rubyid_at_most'>at_most</span><span class='lparen'>(</span><span class='id identifier rubyid_maximum_number_of_times'>maximum_number_of_times</span><span class='rparen'>)</span>
@@ -886,13 +934,13 @@
       <pre class="lines">
 
 
-186
 187
 188
-189</pre>
+189
+190</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 186</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 187</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_at_most_once'>at_most_once</span>
   <span class='id identifier rubyid_at_most'>at_most</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
@@ -1015,13 +1063,13 @@
       <pre class="lines">
 
 
-501
-502
-503
-504</pre>
+539
+540
+541
+542</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 501</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 539</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_in_sequence'>in_sequence</span><span class='lparen'>(</span><span class='id identifier rubyid_sequence'>sequence</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_sequences'>sequences</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_sequences'>sequences</span><span class='period'>.</span><span class='id identifier rubyid_unshift'>unshift</span><span class='lparen'>(</span><span class='id identifier rubyid_sequence'>sequence</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_seq'>seq</span><span class='op'>|</span> <span class='id identifier rubyid_add_in_sequence_ordering_constraint'>add_in_sequence_ordering_constraint</span><span class='lparen'>(</span><span class='id identifier rubyid_seq'>seq</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
@@ -1094,7 +1142,7 @@
       
         &mdash;
         <div class='inline'>
-<p>each element of <code>parameter_groups</code> should iself be an <code>Array</code> representing the parameters to be passed to the block for a single yield.</p>
+<p>each element of <code>parameter_groups</code> should iself be an <code>Array</code> representing the parameters to be passed to the block for a single yield. Any element of <code>parameter_groups</code> that is not an <code>Array</code> is wrapped in an <code>Array</code>.</p>
 </div>
       
     </li>
@@ -1133,16 +1181,16 @@
       <pre class="lines">
 
 
-285
-286
-287
-288</pre>
+323
+324
+325
+326</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 285</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 323</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_multiple_yields'>multiple_yields</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_parameter_groups'>parameter_groups</span><span class='rparen'>)</span>
-  <span class='ivar'>@yield_parameters</span><span class='period'>.</span><span class='id identifier rubyid_multiple_add'>multiple_add</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_parameter_groups'>parameter_groups</span><span class='rparen'>)</span>
+  <span class='ivar'>@yield_parameters</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_parameter_groups'>parameter_groups</span><span class='rparen'>)</span>
   <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1212,13 +1260,13 @@
       <pre class="lines">
 
 
-111
 112
 113
-114</pre>
+114
+115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 111</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 112</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_never'>never</span>
   <span class='ivar'>@cardinality</span> <span class='op'>=</span> <span class='const'>Cardinality</span><span class='period'>.</span><span class='id identifier rubyid_exactly'>exactly</span><span class='lparen'>(</span><span class='int'>0</span><span class='rparen'>)</span>
@@ -1299,13 +1347,13 @@
       <pre class="lines">
 
 
-94
 95
 96
-97</pre>
+97
+98</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 94</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 95</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_once'>once</span>
   <span class='ivar'>@cardinality</span> <span class='op'>=</span> <span class='const'>Cardinality</span><span class='period'>.</span><span class='id identifier rubyid_exactly'>exactly</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
@@ -1459,13 +1507,13 @@
       <pre class="lines">
 
 
-372
-373
-374
-375</pre>
+410
+411
+412
+413</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 372</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 410</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_raises'>raises</span><span class='lparen'>(</span><span class='id identifier rubyid_exception'>exception</span> <span class='op'>=</span> <span class='const'>RuntimeError</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='ivar'>@return_values</span> <span class='op'>+=</span> <span class='const'>ReturnValues</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>ExceptionRaiser</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_exception'>exception</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -1664,13 +1712,13 @@
       <pre class="lines">
 
 
-332
-333
-334
-335</pre>
+370
+371
+372
+373</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 332</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 370</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
   <span class='ivar'>@return_values</span> <span class='op'>+=</span> <span class='const'>ReturnValues</span><span class='period'>.</span><span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
@@ -1831,16 +1879,16 @@
       <pre class="lines">
 
 
-446
-447
-448
-449
-450
-451
-452</pre>
+484
+485
+486
+487
+488
+489
+490</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 446</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 484</span>
 
 <span class='kw'>def</span> <span class='kw'>then</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_parameters'>parameters</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_parameters'>parameters</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>==</span> <span class='int'>1</span>
@@ -1993,13 +2041,13 @@
       <pre class="lines">
 
 
-411
-412
-413
-414</pre>
+449
+450
+451
+452</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 411</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 449</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_throws'>throws</span><span class='lparen'>(</span><span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='ivar'>@return_values</span> <span class='op'>+=</span> <span class='const'>ReturnValues</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>Thrower</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -2109,13 +2157,13 @@
       <pre class="lines">
 
 
-43
 44
 45
-46</pre>
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_times'>times</span><span class='lparen'>(</span><span class='id identifier rubyid_range'>range</span><span class='rparen'>)</span>
   <span class='ivar'>@cardinality</span> <span class='op'>=</span> <span class='const'>Cardinality</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='lparen'>(</span><span class='id identifier rubyid_range'>range</span><span class='rparen'>)</span>
@@ -2197,13 +2245,13 @@
       <pre class="lines">
 
 
-69
 70
 71
-72</pre>
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 70</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_twice'>twice</span>
   <span class='ivar'>@cardinality</span> <span class='op'>=</span> <span class='const'>Cardinality</span><span class='period'>.</span><span class='id identifier rubyid_exactly'>exactly</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span>
@@ -2309,13 +2357,13 @@
       <pre class="lines">
 
 
-473
-474
-475
-476</pre>
+511
+512
+513
+514</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 473</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 511</span>
 
 <span class='kw'>def</span> <span class='kw'>when</span><span class='lparen'>(</span><span class='id identifier rubyid_state_predicate'>state_predicate</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_add_ordering_constraint'>add_ordering_constraint</span><span class='lparen'>(</span><span class='const'>InStateOrderingConstraint</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_state_predicate'>state_predicate</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -2483,16 +2531,178 @@
       <pre class="lines">
 
 
-222
 223
 224
-225</pre>
+225
+226</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 222</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 223</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_with'>with</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_expected_parameters'>expected_parameters</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_matching_block'>matching_block</span><span class='rparen'>)</span>
   <span class='ivar'>@parameters_matcher</span> <span class='op'>=</span> <span class='const'>ParametersMatcher</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_expected_parameters'>expected_parameters</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_matching_block'>matching_block</span><span class='rparen'>)</span>
+  <span class='kw'>self</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="with_block_given-instance_method">
+  
+    #<strong>with_block_given</strong>  &#x21d2; <tt><span class='object_link'><a href="" title="Mocha::Expectation (class)">Expectation</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Modifies expectation so that the expected method must be called with a block.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Expected method must be called with a block.</p>
+</div></p>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:expected_method</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_with_block_given'>with_block_given</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expected_method'>expected_method</span> <span class='lbrace'>{</span> <span class='int'>1</span> <span class='op'>+</span> <span class='int'>1</span> <span class='rbrace'>}</span>
+<span class='comment'># =&gt; verify succeeds
+</span>
+<span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:expected_method</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_with_block_given'>with_block_given</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expected_method'>expected_method</span>
+<span class='comment'># =&gt; verify fails</span></code></pre>
+    
+  </div>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Mocha::Expectation (class)">Expectation</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span> methods to be chained.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+242
+243
+244
+245</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 242</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_with_block_given'>with_block_given</span>
+  <span class='ivar'>@block_matcher</span> <span class='op'>=</span> <span class='const'>BlockMatchers</span><span class='op'>::</span><span class='const'>BlockGiven</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='kw'>self</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="with_no_block_given-instance_method">
+  
+    #<strong>with_no_block_given</strong>  &#x21d2; <tt><span class='object_link'><a href="" title="Mocha::Expectation (class)">Expectation</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Modifies expectation so that the expected method must be called without a block.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Expected method must be called without a block.</p>
+</div></p>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:expected_method</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_with_no_block_given'>with_no_block_given</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expected_method'>expected_method</span>
+<span class='comment'># =&gt; verify succeeds
+</span>
+<span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:expected_method</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_with_block_given'>with_block_given</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expected_method'>expected_method</span> <span class='lbrace'>{</span> <span class='int'>1</span> <span class='op'>+</span> <span class='int'>1</span> <span class='rbrace'>}</span>
+<span class='comment'># =&gt; verify fails</span></code></pre>
+    
+  </div>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Mocha::Expectation (class)">Expectation</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span> methods to be chained.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+261
+262
+263
+264</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 261</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_with_no_block_given'>with_no_block_given</span>
+  <span class='ivar'>@block_matcher</span> <span class='op'>=</span> <span class='const'>BlockMatchers</span><span class='op'>::</span><span class='const'>NoBlockGiven</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
   <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2614,17 +2824,15 @@
       <pre class="lines">
 
 
-258
-259
-260
-261</pre>
+297
+298
+299</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 258</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 297</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_yields'>yields</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_parameters'>parameters</span><span class='rparen'>)</span>
-  <span class='ivar'>@yield_parameters</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_parameters'>parameters</span><span class='rparen'>)</span>
-  <span class='kw'>self</span>
+  <span class='id identifier rubyid_multiple_yields'>multiple_yields</span><span class='lparen'>(</span><span class='id identifier rubyid_parameters'>parameters</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2644,7 +2852,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Dec 12 10:57:48 2019 by
+  Generated on Mon Dec 16 18:49:51 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.20 (ruby-2.6.5).
 </div>

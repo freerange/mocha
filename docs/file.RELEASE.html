@@ -6,7 +6,7 @@
 <title>
   File: RELEASE
   
-    &mdash; Mocha 1.10.2
+    &mdash; Mocha 1.11.0
   
 </title>
 
@@ -58,6 +58,34 @@
       </div>
 
       <div id="content"><div id='filecontents'><h1>Release Notes</h1>
+
+<h2>1.11.0</h2>
+
+<h3>External changes</h3>
+
+<ul>
+<li>Add <code>Expectation#with_block_given</code> &amp; <code>Expectation#with_no_block_given</code> (#441).
+
+<ul>
+<li>Allows non-deprecated solution for #382. Thanks to @yemartin for reporting and to @techbelly &amp; @nitishr for feedback.</li>
+</ul></li>
+<li>Fix issue with non-Array arguments passed to <code>Expectation#multiple_yields</code> (#444).
+
+<ul>
+<li>The undocumented behaviour is now properly supported and documented.</li>
+</ul></li>
+</ul>
+
+<h3>Internal changes</h3>
+
+<ul>
+<li>Move static YARD options from Rake task to <code>.yardopts</code> file - thanks to @nitishr (#429)</li>
+<li>Simplify implementation of yielding functionality - thanks to @nitishr (#439)</li>
+<li>Add missing require statement to <code>acceptance_test_helper.rb</code> (1070fc02)</li>
+<li>Add some baseline acceptance tests for yielding behaviour (c2cac911)</li>
+<li>Display a sponsor button on GitHub repo page (9fc5911b)</li>
+<li>Use new Deprecation.warning behaviour in <code>Invocation#call</code> (932d1166)</li>
+</ul>
 
 <h2>1.10.2</h2>
 
@@ -964,7 +992,7 @@ Hash with wrong number of entries.</li>
 </div>
 
       <div id="footer">
-  Generated on Thu Dec 12 10:57:46 2019 by
+  Generated on Mon Dec 16 18:49:50 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.20 (ruby-2.6.5).
 </div>
