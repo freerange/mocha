@@ -31,6 +31,28 @@ class YieldingTest < Mocha::TestCase
     assert_passed(test_result)
   end
 
+  def test_yields_when_block_expected_and_block_given
+    test_result = run_as_test do
+      m = mock('m')
+      m.stubs(:foo).with_block_given.yields
+      m.stubs(:foo).with_no_block_given.returns(:bar)
+      yielded = false
+      m.foo { yielded = true }
+      assert yielded
+    end
+    assert_passed(test_result)
+  end
+
+  def test_returns_when_no_block_expected_and_no_block_given
+    test_result = run_as_test do
+      m = mock('m')
+      m.stubs(:foo).with_block_given.yields
+      m.stubs(:foo).with_no_block_given.returns(:bar)
+      assert_equal :bar, m.foo
+    end
+    assert_passed(test_result)
+  end
+
   def test_yields_values_when_stubbed_method_is_invoked
     test_result = run_as_test do
       m = mock('m')

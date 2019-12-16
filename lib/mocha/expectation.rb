@@ -10,6 +10,7 @@ require 'mocha/in_state_ordering_constraint'
 require 'mocha/change_state_side_effect'
 require 'mocha/cardinality'
 require 'mocha/configuration'
+require 'mocha/block_matcher'
 
 module Mocha
   # Methods on expectations returned from {Mock#expects}, {Mock#stubs}, {ObjectMethods#expects} and {ObjectMethods#stubs}.
@@ -221,6 +222,44 @@ module Mocha
     #   # => verify fails
     def with(*expected_parameters, &matching_block)
       @parameters_matcher = ParametersMatcher.new(expected_parameters, &matching_block)
+      self
+    end
+
+    # Modifies expectation so that the expected method must be called with a block.
+    #
+    # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
+    #
+    # @example Expected method must be called with a block.
+    #   object = mock()
+    #   object.expects(:expected_method).with_block_given
+    #   object.expected_method { 1 + 1 }
+    #   # => verify succeeds
+    #
+    #   object = mock()
+    #   object.expects(:expected_method).with_block_given
+    #   object.expected_method
+    #   # => verify fails
+    def with_block_given
+      @block_matcher = BlockMatchers::BlockGiven.new
+      self
+    end
+
+    # Modifies expectation so that the expected method must be called without a block.
+    #
+    # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
+    #
+    # @example Expected method must be called without a block.
+    #   object = mock()
+    #   object.expects(:expected_method).with_no_block_given
+    #   object.expected_method
+    #   # => verify succeeds
+    #
+    #   object = mock()
+    #   object.expects(:expected_method).with_block_given
+    #   object.expected_method { 1 + 1 }
+    #   # => verify fails
+    def with_no_block_given
+      @block_matcher = BlockMatchers::NoBlockGiven.new
       self
     end
 
@@ -510,6 +549,7 @@ module Mocha
       @mock = mock
       @method_matcher = MethodMatcher.new(expected_method_name.to_sym)
       @parameters_matcher = ParametersMatcher.new
+      @block_matcher = BlockMatchers::OptionalBlock.new
       @ordering_constraints = []
       @side_effects = []
       @cardinality = Cardinality.exactly(1)
@@ -550,7 +590,7 @@ module Mocha
 
     # @private
     def match?(invocation)
-      @method_matcher.match?(invocation.method_name) && @parameters_matcher.match?(invocation.arguments) && in_correct_order?
+      @method_matcher.match?(invocation.method_name) && @parameters_matcher.match?(invocation.arguments) && @block_matcher.match?(invocation.block) && in_correct_order?
     end
 
     # @private
@@ -600,7 +640,9 @@ module Mocha
 
     # @private
     def method_signature
-      "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}#{@parameters_matcher.mocha_inspect}"
+      signature = "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}#{@parameters_matcher.mocha_inspect}"
+      signature << " #{@block_matcher.mocha_inspect}" if @block_matcher.mocha_inspect
+      signature
     end
   end
 end
