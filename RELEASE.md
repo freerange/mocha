@@ -1,5 +1,11 @@
 # Release Notes
 
+## 1.11.1
+
+### External changes
+
+* The `reinstate_undocumented_behaviour_from_v1_9` configuration option is now enabled by default to give people a chance to see and fix the relevant deprecation warnings before the behaviour is removed in a future release (b91b1c9e)
+
 ## 1.11.0
 
 ### External changes
