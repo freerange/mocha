@@ -49,20 +49,19 @@ class MockTest < Mocha::TestCase
     method_missing
     singleton_method_undefined
     initialize
+    Array
   ].freeze
 
   MACOS_EXCLUDED_METHODS =
     MACOS && MACOS_VERSION >= MACOS_MOJAVE_VERSION ? [:syscall] : []
 
-  RUBY_V19_AND_LATER_EXCLUDED_METHODS = [
-    :object_id,
-    :method_missing,
-    :singleton_method_undefined,
-    :initialize,
-    :String,
-    :singleton_method_added,
-    *MACOS_EXCLUDED_METHODS
-  ].freeze
+  RUBY_V19_AND_LATER_EXCLUDED_METHODS =
+    (PRE_RUBY_V19_EXCLUDED_METHODS.map(&:to_sym) + [
+      :object_id,
+      :String,
+      :singleton_method_added,
+      *MACOS_EXCLUDED_METHODS
+    ]).freeze
 
   OBJECT_METHODS = STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS.reject do |m|
     (m =~ /^__.*__$/) ||

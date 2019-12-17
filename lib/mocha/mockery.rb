@@ -82,6 +82,11 @@ module Mocha
       add_state_machine(StateMachine.new(name))
     end
 
+    def stub_method(object, method_name)
+      check_stubbing(object, method_name)
+      stubba.stub(object.stubba_method_for(method_name))
+    end
+
     def verify(assertion_counter = nil)
       unless mocks.all? { |mock| mock.__verified__?(assertion_counter) }
         message = "not all expectations were satisfied\n#{mocha_inspect}"
@@ -95,7 +100,7 @@ module Mocha
       expectations.each do |e|
         unless Mocha.configuration.stubbing_method_unnecessarily == :allow
           next if e.used?
-          on_stubbing_method_unnecessarily(e)
+          check_stubbing_method_unnecessarily(e)
         end
       end
     end
@@ -125,7 +130,15 @@ module Mocha
       message
     end
 
-    def on_stubbing(object, method)
+    attr_writer :logger
+
+    def logger
+      @logger ||= Logger.new($stderr)
+    end
+
+    private
+
+    def check_stubbing(object, method)
       method = PRE_RUBY_V19 ? method.to_s : method.to_sym
       method_signature = "#{object.mocha_inspect}.#{method}"
       check(:stubbing_non_existent_method, 'non-existent method', method_signature) do
@@ -138,17 +151,9 @@ module Mocha
       check(:stubbing_method_on_non_mock_object, 'method on non-mock object', method_signature)
     end
 
-    def on_stubbing_method_unnecessarily(expectation)
+    def check_stubbing_method_unnecessarily(expectation)
       check(:stubbing_method_unnecessarily, 'method unnecessarily', expectation.method_signature, expectation.backtrace)
     end
-
-    attr_writer :logger
-
-    def logger
-      @logger ||= Logger.new($stderr)
-    end
-
-    private
 
     def check(action, description, method_signature, backtrace = caller)
       treatment = Mocha.configuration.send(action)

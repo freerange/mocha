@@ -6,7 +6,6 @@ require 'mocha/names'
 require 'mocha/receivers'
 require 'mocha/method_matcher'
 require 'mocha/parameters_matcher'
-require 'mocha/argument_iterator'
 require 'mocha/expectation_error_factory'
 require 'mocha/ruby_version'
 
@@ -109,14 +108,7 @@ module Mocha
     #   object.expects(:expected_method_one).returns(:result_one)
     #   object.expects(:expected_method_two).returns(:result_two)
     def expects(method_name_or_hash, backtrace = nil)
-      iterator = ArgumentIterator.new(method_name_or_hash)
-      iterator.each do |*args|
-        method_name = args.shift
-        ensure_method_not_already_defined(method_name)
-        expectation = Expectation.new(self, method_name, backtrace)
-        expectation.returns(args.shift) unless args.empty?
-        @expectations.add(expectation)
-      end
+      anticipates(method_name_or_hash, backtrace)
     end
 
     # Adds an expectation that the specified method may be called any number of times with any parameters.
@@ -145,15 +137,7 @@ module Mocha
     #   object.stubs(:stubbed_method_one).returns(:result_one)
     #   object.stubs(:stubbed_method_two).returns(:result_two)
     def stubs(method_name_or_hash, backtrace = nil)
-      iterator = ArgumentIterator.new(method_name_or_hash)
-      iterator.each do |*args|
-        method_name = args.shift
-        ensure_method_not_already_defined(method_name)
-        expectation = Expectation.new(self, method_name, backtrace)
-        expectation.at_least(0)
-        expectation.returns(args.shift) unless args.empty?
-        @expectations.add(expectation)
-      end
+      anticipates(method_name_or_hash, backtrace) { |expectation| expectation.at_least(0) }
     end
 
     # Removes the specified stubbed methods (added by calls to {#expects} or {#stubs}) and all expectations associated with them.
@@ -369,6 +353,20 @@ module Mocha
     # @private
     def any_expectations?
       @expectations.any?
+    end
+
+    # @private
+    def anticipates(method_name_or_hash, backtrace = nil, object = Mock.new(@mockery), &block)
+      Array(method_name_or_hash).map do |*args|
+        args = args.flatten
+        method_name = args.shift
+        Mockery.instance.stub_method(object, method_name) unless object.is_a?(Mock)
+        ensure_method_not_already_defined(method_name)
+        expectation = Expectation.new(self, method_name, backtrace)
+        expectation.returns(args.shift) unless args.empty?
+        yield expectation if block
+        @expectations.add(expectation)
+      end.last
     end
   end
 end
