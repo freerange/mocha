@@ -43,7 +43,7 @@ module Mocha
       :stubbing_non_public_method => :allow,
       :stubbing_method_on_nil => :prevent,
       :display_matching_invocations_on_failure => false,
-      :reinstate_undocumented_behaviour_from_v1_9 => false
+      :reinstate_undocumented_behaviour_from_v1_9 => true
     }.freeze
 
     attr_reader :options
@@ -258,7 +258,7 @@ module Mocha
     #
     # Enabling this configuration option reinstates the previous behaviour, but displays a deprecation warning.
     #
-    # @param [Boolean] value +true+ to reinstate undocumented behaviour; disabled by default.
+    # @param [Boolean] value +true+ to reinstate undocumented behaviour; enabled by default.
     #
     # @example Reinstate undocumented behaviour for {API#mock}
     #   Mocha.configure do |c|

@@ -6,7 +6,6 @@ class MockBuiltWithFirstArgumentTypeBeingStringTest < Mocha::TestCase
 
   def setup
     setup_acceptance_test
-    Mocha.configure { |c| c.reinstate_undocumented_behaviour_from_v1_9 = true }
   end
 
   def teardown

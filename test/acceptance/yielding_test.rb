@@ -24,9 +24,11 @@ class YieldingTest < Mocha::TestCase
 
   def test_raises_local_jump_error_if_instructed_to_yield_but_no_block_given
     test_result = run_as_test do
-      m = mock('m')
-      m.stubs(:foo).yields
-      assert_raises(LocalJumpError) { m.foo }
+      Mocha::Configuration.override(:reinstate_undocumented_behaviour_from_v1_9 => false) do
+        m = mock('m')
+        m.stubs(:foo).yields
+        assert_raises(LocalJumpError) { m.foo }
+      end
     end
     assert_passed(test_result)
   end
