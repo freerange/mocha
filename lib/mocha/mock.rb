@@ -306,25 +306,16 @@ module Mocha
     end
 
     # @private
-    # rubocop:disable Style/MethodMissingSuper,Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
-    def method_missing(symbol, *arguments, &block)
+    def method_missing(symbol, *arguments, &block) # rubocop:disable Style/MethodMissingSuper
       forbid_usage_after_expiry
       check_responder_responds_to(symbol)
       invocation = Invocation.new(self, symbol, *arguments, &block)
       if (matching_expectation_allowing_invocation = all_expectations.match_allowing_invocation(invocation))
         matching_expectation_allowing_invocation.invoke(invocation)
       elsif (matching_expectation = all_expectations.match(invocation)) || (!matching_expectation && !@everything_stubbed)
-        if @unexpected_invocation.nil?
-          @unexpected_invocation = invocation
-          matching_expectation.invoke(invocation) if matching_expectation
-          message = "#{@unexpected_invocation.call_description}\n#{@mockery.mocha_inspect}"
-        else
-          message = @unexpected_invocation.short_call_description
-        end
-        raise ExpectationErrorFactory.build("unexpected invocation: #{message}", caller)
+        unexpected_invocation(invocation, matching_expectation)
       end
     end
-    # rubocop:enable Style/MethodMissingSuper,Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
 
     # @private
     def respond_to_missing?(symbol, include_private = false)
@@ -377,6 +368,17 @@ module Mocha
     end
 
     private
+
+    def unexpected_invocation(invocation, matching_expectation)
+      if @unexpected_invocation.nil?
+        @unexpected_invocation = invocation
+        matching_expectation.invoke(invocation) if matching_expectation
+        message = "#{@unexpected_invocation.call_description}\n#{@mockery.mocha_inspect}"
+      else
+        message = @unexpected_invocation.short_call_description
+      end
+      raise ExpectationErrorFactory.build("unexpected invocation: #{message}", caller)
+    end
 
     def check_responder_responds_to(symbol)
       if @responder && !@responder.respond_to?(symbol) # rubocop:disable Style/GuardClause
