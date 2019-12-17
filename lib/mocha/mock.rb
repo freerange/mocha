@@ -309,9 +309,7 @@ module Mocha
     # rubocop:disable Style/MethodMissingSuper,Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
     def method_missing(symbol, *arguments, &block)
       check_expiry
-      if @responder && !@responder.respond_to?(symbol)
-        raise NoMethodError, "undefined method `#{symbol}' for #{mocha_inspect} which responds like #{@responder.mocha_inspect}"
-      end
+      check_responder_responds_to(symbol)
       invocation = Invocation.new(self, symbol, *arguments, &block)
       if (matching_expectation_allowing_invocation = all_expectations.match_allowing_invocation(invocation))
         matching_expectation_allowing_invocation.invoke(invocation)
@@ -379,6 +377,12 @@ module Mocha
     end
 
     private
+
+    def check_responder_responds_to(symbol)
+      if @responder && !@responder.respond_to?(symbol) # rubocop:disable Style/GuardClause
+        raise NoMethodError, "undefined method `#{symbol}' for #{mocha_inspect} which responds like #{@responder.mocha_inspect}"
+      end
+    end
 
     def check_expiry
       if @expired # rubocop:disable Style/GuardClause
