@@ -1,9 +1,11 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/configuration'
+require 'mocha/deprecation'
 require 'deprecation_disabler'
 
 class MockTest < Mocha::TestCase
   include AcceptanceTest
+  include Mocha
 
   def setup
     setup_acceptance_test
@@ -171,11 +173,16 @@ class MockTest < Mocha::TestCase
     end
     assert_passed(use_mock_test_result)
 
-    reuse_mock_test_result = run_as_test { Foo.new.use_the_mock }
-    assert_failed(reuse_mock_test_result)
-    assert reuse_mock_test_result.error_messages.include?(
-      'Mocha::StubbingError: #<Mock:Logger> was originally created in one test but has leaked into another test. '\
-      'This can lead to flaky tests. Ensure that your tests correctly clean up their state after themselves.'
-    )
+    reuse_mock_test_result = run_as_test do
+      DeprecationDisabler.disable_deprecations do
+        Foo.logger.expects(:log).with('Foo was here')
+        Foo.new.use_the_mock
+      end
+    end
+    assert_passed(reuse_mock_test_result)
+    expected_warning = '#<Mock:Logger> was originally created in one test but has leaked into another test. '\
+      'This can lead to flaky tests. Ensure that your tests correctly clean up their state after themselves. '\
+      'This will raise a Mocha::StubbingError in the future.'
+    assert_equal expected_warning, Deprecation.messages.last
   end
 end

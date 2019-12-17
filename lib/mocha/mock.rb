@@ -388,8 +388,11 @@ module Mocha
 
     def forbid_usage_after_expiry
       if @expired # rubocop:disable Style/GuardClause
-        raise StubbingError, "#{mocha_inspect} was originally created in one test but has leaked into another test. "\
-          'This can lead to flaky tests. Ensure that your tests correctly clean up their state after themselves.'
+        Deprecation.warning(
+          "#{mocha_inspect} was originally created in one test but has leaked into another test. ",
+          'This can lead to flaky tests. Ensure that your tests correctly clean up their state after themselves. ',
+          'This will raise a Mocha::StubbingError in the future.'
+        )
       end
     end
   end
