@@ -275,6 +275,7 @@ module Mocha
       @everything_stubbed = false
       @responder = nil
       @unexpected_invocation = nil
+      @expired = false
     end
 
     # @private
@@ -305,26 +306,16 @@ module Mocha
     end
 
     # @private
-    # rubocop:disable Style/MethodMissingSuper,Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
-    def method_missing(symbol, *arguments, &block)
-      if @responder && !@responder.respond_to?(symbol)
-        raise NoMethodError, "undefined method `#{symbol}' for #{mocha_inspect} which responds like #{@responder.mocha_inspect}"
-      end
+    def method_missing(symbol, *arguments, &block) # rubocop:disable Style/MethodMissingSuper
+      check_expiry
+      check_responder_responds_to(symbol)
       invocation = Invocation.new(self, symbol, *arguments, &block)
       if (matching_expectation_allowing_invocation = all_expectations.match_allowing_invocation(invocation))
         matching_expectation_allowing_invocation.invoke(invocation)
       elsif (matching_expectation = all_expectations.match(invocation)) || (!matching_expectation && !@everything_stubbed)
-        if @unexpected_invocation.nil?
-          @unexpected_invocation = invocation
-          matching_expectation.invoke(invocation) if matching_expectation
-          message = "#{@unexpected_invocation.call_description}\n#{@mockery.mocha_inspect}"
-        else
-          message = @unexpected_invocation.short_call_description
-        end
-        raise ExpectationErrorFactory.build("unexpected invocation: #{message}", caller)
+        raise_unexpected_invocation_error(invocation, matching_expectation)
       end
     end
-    # rubocop:enable Style/MethodMissingSuper,Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
 
     # @private
     def respond_to_missing?(symbol, include_private = false)
@@ -352,6 +343,11 @@ module Mocha
     end
 
     # @private
+    def __expire__
+      @expired = true
+    end
+
+    # @private
     def mocha_inspect
       @name.mocha_inspect
     end
@@ -369,6 +365,36 @@ module Mocha
     # @private
     def any_expectations?
       @expectations.any?
+    end
+
+    private
+
+    def raise_unexpected_invocation_error(invocation, matching_expectation)
+      if @unexpected_invocation.nil?
+        @unexpected_invocation = invocation
+        matching_expectation.invoke(invocation) if matching_expectation
+        message = "#{@unexpected_invocation.call_description}\n#{@mockery.mocha_inspect}"
+      else
+        message = @unexpected_invocation.short_call_description
+      end
+      raise ExpectationErrorFactory.build("unexpected invocation: #{message}", caller)
+    end
+
+    def check_responder_responds_to(symbol)
+      if @responder && !@responder.respond_to?(symbol) # rubocop:disable Style/GuardClause
+        raise NoMethodError, "undefined method `#{symbol}' for #{mocha_inspect} which responds like #{@responder.mocha_inspect}"
+      end
+    end
+
+    def check_expiry
+      if @expired # rubocop:disable Style/GuardClause
+        Deprecation.warning(
+          "#{mocha_inspect} was instantiated in one test but it is receiving invocations within another test.",
+          ' This can lead to unintended interactions between tests and hence unexpected test failures.',
+          ' Ensure that every test correctly cleans up any state that it introduces.',
+          ' A Mocha::StubbingError will be raised in this scenario in the future.'
+        )
+      end
     end
   end
 end
