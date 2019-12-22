@@ -59,20 +59,30 @@ module Mocha
       @current_state = next_state_name
     end
 
-    # Provides a mechanism to change the {StateMachine} into the state specified by +state_name+ at some point in the future.
+    # Provides mechanisms to (a) determine whether the {StateMachine} is in a given state; or (b) to change the {StateMachine} into the given state.
     #
-    # Or provides a mechanism to determine whether the {StateMachine} is in the state specified by +state_name+ at some point in the future.
+    # @param [String] state_name name of expected/desired state.
+    # @return [StatePredicate,State] (a) state predicate which, when queried, will indicate whether the {StateMachine} is in the given state; or (b) state which, when activated, will change the {StateMachine} into the given state.
     #
-    # @param [String] state_name name of new state
-    # @return [State] state which, when activated, will change the {StateMachine} into the state with the specified +state_name+.
+    # @overload def is(expected_state_name)
+    #   Provides a mechanism to determine whether the {StateMachine} is in the state specified by +expected_state_name+ at some point in the future
+    #   @param [String] expected_state_name name of expected state.
+    #   @return [StatePredicate] state predicate which, when queried, will indicate whether the {StateMachine} is in the state specified by +expected_state_name+
+    #
+    # @overload def is(desired_state_name)
+    #   Provides a mechanism to change the {StateMachine} into the state specified by +desired_state_name+ at some point in the future.
+    #   @param [String] desired_state_name name of desired new state.
+    #   @return [State] state which, when activated, will change the {StateMachine} into the state with the specified +desired_state_name+.
     def is(state_name)
       State.new(self, state_name, 'is') { |current, given| current == given }
     end
 
-    # Provides a mechanism to determine whether the {StateMachine} is not in the state specified by +state_name+ at some point in the future.
+    # Provides a mechanism to determine whether the {StateMachine} is *not* in the state specified by +unexpected_state_name+ at some point in the future.
     #
-    def is_not(state_name) # rubocop:disable Naming/PredicateName
-      StatePredicate.new(self, state_name, 'is not') { |current, given| current != given }
+    # @param [String] unexpected_state_name name of unexpected state.
+    # @return [StatePredicate] state predicate which, when queried, will indicate whether the {StateMachine} is *not* in the state specified by +unexpected_state_name+.
+    def is_not(unexpected_state_name) # rubocop:disable Naming/PredicateName
+      StatePredicate.new(self, unexpected_state_name, 'is not') { |current, given| current != given }
     end
 
     # @private
