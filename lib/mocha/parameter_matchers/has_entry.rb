@@ -39,8 +39,8 @@ module Mocha
     #   object.expects(:method_1).with(has_entry('key_1' => 1))
     #   object.method_1('key_1' => 2, 'key_2' => 1)
     #   # error raised, because method_1 was not called with Hash containing entry: 'key_1' => 1
-    # rubocop:disable Naming/PredicateName
-    def has_entry(*options)
+    #
+    def has_entry(*options) # rubocop:disable Naming/PredicateName
       case options.length
       when 1
         case options[0]
@@ -63,7 +63,6 @@ module Mocha
       end
       HasEntry.new(key, value)
     end
-    # rubocop:enable Naming/PredicateName
 
     # Parameter matcher which matches when actual parameter contains expected +Hash+ entry.
     class HasEntry < Base

@@ -20,11 +20,10 @@ module Mocha
     #   object.expects(:method_1).with(has_key('key_1'))
     #   object.method_1('key_2' => 2)
     #   # error raised, because method_1 was not called with Hash containing key: 'key_1'
-    # rubocop:disable Naming/PredicateName
-    def has_key(key)
+    #
+    def has_key(key) # rubocop:disable Naming/PredicateName
       HasKey.new(key)
     end
-    # rubocop:enable Naming/PredicateName
 
     # Parameter matcher which matches when actual parameter contains +Hash+ entry with expected key.
     class HasKey < Base

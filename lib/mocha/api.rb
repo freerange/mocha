@@ -65,8 +65,8 @@ module Mocha
     #     assert motor.stop
     #     # an error will be raised unless both Motor#start and Motor#stop have been called
     #   end
-    # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
-    def mock(*arguments)
+    #
+    def mock(*arguments) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
       if Mocha.configuration.reinstate_undocumented_behaviour_from_v1_9?
         if arguments.first.is_a?(Symbol)
           method_name = arguments[0]
@@ -91,7 +91,6 @@ module Mocha
       mock.expects(expectations)
       mock
     end
-    # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
 
     # Builds a new mock object
     #
