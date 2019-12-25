@@ -80,10 +80,8 @@ module Mocha
         backtrace = unsatisfied_expectations.empty? ? caller : unsatisfied_expectations[0].backtrace
         raise ExpectationErrorFactory.build("not all expectations were satisfied\n#{mocha_inspect}", backtrace)
       end
-      unless Mocha.configuration.stubbing_method_unnecessarily == :allow
-        expectations.reject(&:used?).each do |e|
-          check(:stubbing_method_unnecessarily, 'method unnecessarily', e.method_signature, e.backtrace)
-        end
+      expectations.reject(&:used?).each do |e|
+        check(:stubbing_method_unnecessarily, 'method unnecessarily', e.method_signature, e.backtrace)
       end
     end
 
