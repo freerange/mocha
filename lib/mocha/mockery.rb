@@ -52,7 +52,6 @@ module Mocha
         instance.teardown
       ensure
         @instances.pop
-        @instances = nil if instances.empty?
       end
 
       private
