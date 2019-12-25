@@ -28,8 +28,7 @@ module Mocha
       private
 
       def raise_not_initialized_error
-        message = 'Mocha methods cannot be used outside the context of a test'
-        raise NotInitializedError.new(message, caller)
+        raise NotInitializedError.new('Mocha methods cannot be used outside the context of a test', caller)
       end
     end
 
@@ -84,13 +83,12 @@ module Mocha
 
     def verify(assertion_counter = nil)
       unless mocks.all? { |mock| mock.__verified__?(assertion_counter) }
-        message = "not all expectations were satisfied\n#{mocha_inspect}"
         backtrace = if unsatisfied_expectations.empty?
                       caller
                     else
                       unsatisfied_expectations[0].backtrace
                     end
-        raise ExpectationErrorFactory.build(message, backtrace)
+        raise ExpectationErrorFactory.build("not all expectations were satisfied\n#{mocha_inspect}", backtrace)
       end
       expectations.each do |e|
         unless Mocha.configuration.stubbing_method_unnecessarily == :allow
