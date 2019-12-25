@@ -105,9 +105,12 @@ module Mocha
 
     def mocha_inspect
       message = ''
-      message << "unsatisfied expectations:\n- #{unsatisfied_expectations.map(&:mocha_inspect).join("\n- ")}\n" unless unsatisfied_expectations.empty?
-      message << "satisfied expectations:\n- #{satisfied_expectations.map(&:mocha_inspect).join("\n- ")}\n" unless satisfied_expectations.empty?
-      message << "states:\n- #{state_machines.map(&:mocha_inspect).join("\n- ")}\n" unless state_machines.empty?
+      [
+        ['unsatisfied expectations', unsatisfied_expectations], ['satisfied expectations', satisfied_expectations],
+        ['states', state_machines]
+      ].each do |label, list|
+        message << "#{label}:\n- #{list.map(&:mocha_inspect).join("\n- ")}\n" unless list.empty?
+      end
       message
     end
 
