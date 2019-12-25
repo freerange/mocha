@@ -104,14 +104,10 @@ module Mocha
     end
 
     def mocha_inspect
-      message = ''
       [
         ['unsatisfied expectations', unsatisfied_expectations], ['satisfied expectations', satisfied_expectations],
         ['states', state_machines]
-      ].each do |label, list|
-        message << "#{label}:\n- #{list.map(&:mocha_inspect).join("\n- ")}\n" unless list.empty?
-      end
-      message
+      ].map { |label, list| "#{label}:\n- #{list.map(&:mocha_inspect).join("\n- ")}\n" unless list.empty? }.join
     end
 
     def on_stubbing(object, method)
