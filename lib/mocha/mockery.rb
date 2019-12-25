@@ -86,8 +86,8 @@ module Mocha
                     end
         raise ExpectationErrorFactory.build(message, backtrace)
       end
-      expectations.each do |e|
-        unless Mocha.configuration.stubbing_method_unnecessarily == :allow
+      unless Mocha.configuration.stubbing_method_unnecessarily == :allow
+        expectations.each do |e|
           next if e.used?
           on_stubbing_method_unnecessarily(e)
         end
