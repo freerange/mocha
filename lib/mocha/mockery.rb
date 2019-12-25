@@ -81,7 +81,9 @@ module Mocha
         raise ExpectationErrorFactory.build("not all expectations were satisfied\n#{mocha_inspect}", backtrace)
       end
       unless Mocha.configuration.stubbing_method_unnecessarily == :allow
-        expectations.reject(&:used?).each { |e| on_stubbing_method_unnecessarily(e) }
+        expectations.reject(&:used?).each do |e|
+          check(:stubbing_method_unnecessarily, 'method unnecessarily', e.method_signature, e.backtrace)
+        end
       end
     end
 
@@ -121,10 +123,6 @@ module Mocha
       end
       check(:stubbing_method_on_nil, 'method on nil', method_signature) { object.nil? }
       check(:stubbing_method_on_non_mock_object, 'method on non-mock object', method_signature)
-    end
-
-    def on_stubbing_method_unnecessarily(expectation)
-      check(:stubbing_method_unnecessarily, 'method unnecessarily', expectation.method_signature, expectation.backtrace)
     end
 
     attr_writer :logger
