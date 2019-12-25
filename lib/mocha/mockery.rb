@@ -107,7 +107,7 @@ module Mocha
       [
         ['unsatisfied expectations', unsatisfied_expectations], ['satisfied expectations', satisfied_expectations],
         ['states', state_machines]
-      ].map { |label, list| "#{label}:\n- #{list.map(&:mocha_inspect).join("\n- ")}\n" unless list.empty? }.join
+      ].map { |label, list| "#{label}:\n- #{list.map(&:mocha_inspect).join("\n- ")}\n" if list.any? }.join
     end
 
     def on_stubbing(object, method)
