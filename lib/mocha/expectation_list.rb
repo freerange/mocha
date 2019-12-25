@@ -1,3 +1,5 @@
+require 'mocha/deprecation'
+
 module Mocha
   class ExpectationList
     def initialize(expectations = [])
@@ -5,6 +7,13 @@ module Mocha
     end
 
     def add(expectation)
+      if @expectations.any?
+        Deprecation.warning(
+          'Expectations are currently searched from newest to oldest to find one that matches the invocation.',
+          ' This search order will be reversed in the future, such that expectations are searched from oldest to newest to find one that matches the invocation.',
+          ' This means you will have to reverse the order of `expects` and `stubs` calls on the same object if you want to retain the current behavior.'
+        )
+      end
       @expectations.unshift(expectation)
       expectation
     end
