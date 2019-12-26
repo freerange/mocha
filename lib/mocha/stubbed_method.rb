@@ -74,7 +74,7 @@ module Mocha
     def restore_original_method
       return if use_prepended_module_for_stub_method?
       if stub_method_overwrites_original_method?
-        original_method_owner.send(:define_method, method_name, method_body(original_method))
+        original_method_owner.send(:define_method, method_name, method_body(@original_method))
       end
       retain_original_visibility(original_method_owner)
     end
@@ -93,18 +93,16 @@ module Mocha
     private
 
     def retain_original_visibility(method_owner)
-      return unless original_visibility
-      Module.instance_method(original_visibility).bind(method_owner).call(method_name)
+      return unless @original_visibility
+      Module.instance_method(@original_visibility).bind(method_owner).call(method_name)
     end
-
-    attr_reader :original_method, :original_visibility
 
     def store_original_method_visibility
       @original_visibility = original_method_owner.__method_visibility__(method_name)
     end
 
     def stub_method_overwrites_original_method?
-      original_method && original_method.owner == original_method_owner
+      @original_method && @original_method.owner == original_method_owner
     end
 
     def remove_original_method_from_stubbee
