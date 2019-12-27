@@ -1,7 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/receivers'
 
-class ObjectReceiverTest < Mocha::TestCase
+class InstanceReceiverTest < Mocha::TestCase
   include Mocha
 
   class FakeObject
@@ -37,7 +37,7 @@ class ObjectReceiverTest < Mocha::TestCase
 
   def test_mocks_returns_mock_for_object
     object = FakeObject.new(:mocha)
-    receiver = ObjectReceiver.new(object)
+    receiver = InstanceReceiver.new(object)
     assert_equal [:mocha], receiver.mocks
   end
 
@@ -45,7 +45,7 @@ class ObjectReceiverTest < Mocha::TestCase
     grandparent = FakeClass.new(nil, :grandparent_mocha)
     parent = FakeClass.new(grandparent, :parent_mocha)
     klass = FakeClass.new(parent, :mocha)
-    receiver = ObjectReceiver.new(klass)
+    receiver = InstanceReceiver.new(klass)
     assert_equal [:mocha, :parent_mocha, :grandparent_mocha], receiver.mocks
   end
 end

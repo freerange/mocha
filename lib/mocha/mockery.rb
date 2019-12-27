@@ -71,7 +71,7 @@ module Mocha
     end
 
     def mock_impersonating(object)
-      add_mock(Mock.new(self, ImpersonatingName.new(object), ObjectReceiver.new(object)))
+      add_mock(Mock.new(self, ImpersonatingName.new(object), InstanceReceiver.new(object)))
     end
 
     def mock_impersonating_any_instance_of(klass)

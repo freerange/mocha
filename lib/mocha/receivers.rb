@@ -16,7 +16,7 @@ module Mocha
     end
   end
 
-  class ObjectReceiver < StubbedReceiver
+  class InstanceReceiver < StubbedReceiver
     def mock_owner(object)
       object
     end
