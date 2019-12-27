@@ -8,11 +8,15 @@ module Mocha
       object = @object
       mocks = []
       while object
-        mocha = object.mocha(false)
+        mocha = mock_owner(object).mocha(false)
         mocks << mocha if mocha
         object = object.is_a?(Class) ? object.superclass : nil
       end
       mocks
+    end
+
+    def mock_owner(object)
+      object
     end
   end
 
@@ -25,11 +29,15 @@ module Mocha
       klass = @klass
       mocks = []
       while klass
-        mocha = klass.any_instance.mocha(false)
+        mocha = mock_owner(klass).mocha(false)
         mocks << mocha if mocha
         klass = klass.is_a?(Class) ? klass.superclass : nil
       end
       mocks
+    end
+
+    def mock_owner(klass)
+      klass.any_instance
     end
   end
 
