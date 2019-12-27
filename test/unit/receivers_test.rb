@@ -74,6 +74,10 @@ class AnyInstanceReceiverTest < Mocha::TestCase
     def any_instance
       AnyInstance.new(@mocha)
     end
+
+    def is_a?(_klass)
+      true
+    end
   end
 
   def test_mocks_returns_mocks_for_class_and_its_superclasses

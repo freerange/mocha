@@ -27,7 +27,7 @@ module Mocha
       while klass
         mocha = klass.any_instance.mocha(false)
         mocks << mocha if mocha
-        klass = klass.superclass
+        klass = klass.is_a?(Class) ? klass.superclass : nil
       end
       mocks
     end
