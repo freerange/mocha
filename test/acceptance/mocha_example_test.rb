@@ -1,6 +1,16 @@
-require File.expand_path('../../test_helper', __FILE__)
+require File.expand_path('../acceptance_test_helper', __FILE__)
 
 class MochaExampleTest < Mocha::TestCase
+  include AcceptanceTest
+
+  def setup
+    setup_acceptance_test
+  end
+
+  def teardown
+    teardown_acceptance_test
+  end
+
   class Rover
     def initialize(left_track, right_track, steps_per_metre, steps_per_degree)
       @left_track = left_track
