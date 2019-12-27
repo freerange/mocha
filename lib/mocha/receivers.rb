@@ -1,5 +1,5 @@
 module Mocha
-  class ObjectReceiver
+  class StubbedReceiver
     def initialize(object)
       @object = object
     end
@@ -14,28 +14,15 @@ module Mocha
       end
       mocks
     end
+  end
 
+  class ObjectReceiver < StubbedReceiver
     def mock_owner(object)
       object
     end
   end
 
-  class AnyInstanceReceiver
-    def initialize(klass)
-      @klass = klass
-    end
-
-    def mocks
-      klass = @klass
-      mocks = []
-      while klass
-        mocha = mock_owner(klass).mocha(false)
-        mocks << mocha if mocha
-        klass = klass.is_a?(Class) ? klass.superclass : nil
-      end
-      mocks
-    end
-
+  class AnyInstanceReceiver < StubbedReceiver
     def mock_owner(klass)
       klass.any_instance
     end
