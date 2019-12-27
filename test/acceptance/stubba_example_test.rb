@@ -1,4 +1,4 @@
-require File.expand_path('../../test_helper', __FILE__)
+require File.expand_path('../acceptance_test_helper', __FILE__)
 
 class Widget
   def model
@@ -23,6 +23,16 @@ module Thingy
 end
 
 class StubbaExampleTest < Mocha::TestCase
+  include AcceptanceTest
+
+  def setup
+    setup_acceptance_test
+  end
+
+  def teardown
+    teardown_acceptance_test
+  end
+
   def test_should_stub_instance_method
     widget = Widget.new
     widget.expects(:model).returns('different_model')
