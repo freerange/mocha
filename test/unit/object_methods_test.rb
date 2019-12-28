@@ -19,7 +19,7 @@ class ObjectMethodsTest < Mocha::TestCase
     mocha = @object.mocha
     assert_not_nil mocha
     assert mocha.is_a?(Mocha::Mock)
-    expected_name = Mocha::ImpersonatingName.new(@object).mocha_inspect
+    expected_name = Mocha::ImpersonatingInstanceName.new(@object).mocha_inspect
     assert_equal expected_name, mocha.mocha_inspect
   end
 
