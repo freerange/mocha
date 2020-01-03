@@ -14,37 +14,27 @@ class StubInstanceMethodDefinedOnKernelModuleTest < Mocha::TestCase
   end
 
   def test_should_stub_public_method_and_leave_it_unchanged_after_test
-    assert_snapshot_unchanged_on_stubbing(:public)
+    assert_snapshot_unchanged_on_stubbing_method(:public, Class.new.new)
   end
 
   def test_should_stub_protected_method_and_leave_it_unchanged_after_test
-    assert_snapshot_unchanged_on_stubbing(:protected)
+    assert_snapshot_unchanged_on_stubbing_method(:protected, Class.new.new)
   end
 
   def test_should_stub_private_method_and_leave_it_unchanged_after_test
-    assert_snapshot_unchanged_on_stubbing(:private)
+    assert_snapshot_unchanged_on_stubbing_method(:private, Class.new.new)
   end
 
   def test_should_stub_public_module_method_and_leave_it_unchanged_after_test
-    assert_snapshot_unchanged_on_stubbing_module_method(:public)
+    assert_snapshot_unchanged_on_stubbing_method(:public, Module.new)
   end
 
   def test_should_stub_protected_module_method_and_leave_it_unchanged_after_test
-    assert_snapshot_unchanged_on_stubbing_module_method(:protected)
+    assert_snapshot_unchanged_on_stubbing_method(:protected, Module.new)
   end
 
   def test_should_stub_private_module_method_and_leave_it_unchanged_after_test
-    assert_snapshot_unchanged_on_stubbing_module_method(:private)
-  end
-
-  private
-
-  def assert_snapshot_unchanged_on_stubbing_module_method(visibility)
-    assert_snapshot_unchanged_on_stubbing_method(visibility, Module.new)
-  end
-
-  def assert_snapshot_unchanged_on_stubbing(visibility)
-    assert_snapshot_unchanged_on_stubbing_method(visibility, Class.new.new)
+    assert_snapshot_unchanged_on_stubbing_method(:private, Module.new)
   end
 
   def assert_snapshot_unchanged_on_stubbing_method(visibility, instance)
