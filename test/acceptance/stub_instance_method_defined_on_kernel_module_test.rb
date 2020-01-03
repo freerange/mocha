@@ -29,17 +29,18 @@ class StubInstanceMethodDefinedOnKernelModuleTest < Mocha::TestCase
   end
 
   def test_should_stub_public_module_method_and_leave_it_unchanged_after_test
-    Kernel.send(:public, :my_instance_method)
+    visibility = :public
+    Kernel.send(visibility, :my_instance_method)
     mod = Module.new
     assert_snapshot_unchanged(mod) do
       test_result = run_as_test do
         mod.stubs(:my_instance_method).returns(:new_return_value)
-        assert_method_visibility mod, :my_instance_method, :public
-        assert_equal :new_return_value, mod.my_instance_method
+        assert_method_visibility mod, :my_instance_method, visibility
+        assert_equal :new_return_value, mod.send(:my_instance_method)
       end
       assert_passed(test_result)
     end
-    assert_equal :original_return_value, mod.my_instance_method
+    assert_equal :original_return_value, mod.send(:my_instance_method)
   end
 
   def test_should_stub_protected_module_method_and_leave_it_unchanged_after_test
