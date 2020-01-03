@@ -9,6 +9,7 @@ module StubInstanceMethodSharedTests
   end
 
   def teardown
+    method_owner.send(:remove_method, :my_aliased_method) if method_owner.method_defined?(:my_aliased_method)
     method_owner.send(:remove_method, :my_instance_method)
     teardown_acceptance_test
   end
@@ -27,15 +28,21 @@ module StubInstanceMethodSharedTests
 
   def assert_snapshot_unchanged_on_stubbing(visibility)
     method_owner.send(visibility, :my_instance_method)
+    method_owner.send(:alias_method, :my_aliased_method, :my_instance_method) if stub_aliased_method
     instance = stubbed_instance
+    method = stub_aliased_method ? :my_aliased_method : :my_instance_method
     assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
-        instance.stubs(:my_instance_method).returns(:new_return_value)
-        assert_method_visibility instance, :my_instance_method, visibility
-        assert_equal :new_return_value, instance.send(:my_instance_method)
+        instance.stubs(method).returns(:new_return_value)
+        assert_method_visibility instance, method, visibility
+        assert_equal :new_return_value, instance.send(method)
       end
       assert_passed(test_result)
     end
-    assert_equal :original_return_value, instance.send(:my_instance_method)
+    assert_equal :original_return_value, instance.send(method)
+  end
+
+  def stub_aliased_method
+    false
   end
 end
