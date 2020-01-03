@@ -5,22 +5,16 @@ class StubInstanceMethodDefinedOnKernelModuleTest < Mocha::TestCase
 
   def setup
     setup_acceptance_test
-    Kernel.module_eval do
-      def my_instance_method
-        :original_return_value
-      end
-    end
+    Kernel.send(:define_method, :my_instance_method) { :original_return_value }
   end
 
   def teardown
-    Kernel.module_eval { remove_method :my_instance_method }
+    Kernel.send(:remove_method, :my_instance_method)
     teardown_acceptance_test
   end
 
   def test_should_stub_public_method_and_leave_it_unchanged_after_test
-    Kernel.module_eval do
-      public :my_instance_method
-    end
+    Kernel.send(:public, :my_instance_method)
     instance = Class.new.new
     assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
@@ -33,9 +27,7 @@ class StubInstanceMethodDefinedOnKernelModuleTest < Mocha::TestCase
   end
 
   def test_should_stub_protected_method_and_leave_it_unchanged_after_test
-    Kernel.module_eval do
-      protected :my_instance_method
-    end
+    Kernel.send(:protected, :my_instance_method)
     instance = Class.new.new
     assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
@@ -48,9 +40,7 @@ class StubInstanceMethodDefinedOnKernelModuleTest < Mocha::TestCase
   end
 
   def test_should_stub_private_method_and_leave_it_unchanged_after_test
-    Kernel.module_eval do
-      private :my_instance_method
-    end
+    Kernel.send(:private, :my_instance_method)
     instance = Class.new.new
     assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
@@ -63,9 +53,7 @@ class StubInstanceMethodDefinedOnKernelModuleTest < Mocha::TestCase
   end
 
   def test_should_stub_public_module_method_and_leave_it_unchanged_after_test
-    Kernel.module_eval do
-      public :my_instance_method
-    end
+    Kernel.send(:public, :my_instance_method)
     mod = Module.new
     assert_snapshot_unchanged(mod) do
       test_result = run_as_test do
@@ -79,9 +67,7 @@ class StubInstanceMethodDefinedOnKernelModuleTest < Mocha::TestCase
   end
 
   def test_should_stub_protected_module_method_and_leave_it_unchanged_after_test
-    Kernel.module_eval do
-      protected :my_instance_method
-    end
+    Kernel.send(:protected, :my_instance_method)
     mod = Module.new
     assert_snapshot_unchanged(mod) do
       test_result = run_as_test do
@@ -95,9 +81,7 @@ class StubInstanceMethodDefinedOnKernelModuleTest < Mocha::TestCase
   end
 
   def test_should_stub_private_module_method_and_leave_it_unchanged_after_test
-    Kernel.module_eval do
-      private :my_instance_method
-    end
+    Kernel.send(:private, :my_instance_method)
     mod = Module.new
     assert_snapshot_unchanged(mod) do
       test_result = run_as_test do
