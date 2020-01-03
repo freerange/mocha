@@ -1,16 +1,16 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
 
-module StubInstanceMethodSharedTests
+module StubMethodSharedTests
   include AcceptanceTest
 
   def setup
     setup_acceptance_test
-    method_owner.send(:define_method, :my_instance_method) { :original_return_value }
+    method_owner.send(:define_method, :my_method) { :original_return_value }
   end
 
   def teardown
     method_owner.send(:remove_method, :my_aliased_method) if method_owner.method_defined?(:my_aliased_method)
-    method_owner.send(:remove_method, :my_instance_method)
+    method_owner.send(:remove_method, :my_method)
     teardown_acceptance_test
   end
 
@@ -27,10 +27,10 @@ module StubInstanceMethodSharedTests
   end
 
   def assert_snapshot_unchanged_on_stubbing(visibility)
-    method_owner.send(visibility, :my_instance_method)
-    method_owner.send(:alias_method, :my_aliased_method, :my_instance_method) if stub_aliased_method
+    method_owner.send(visibility, :my_method)
+    method_owner.send(:alias_method, :my_aliased_method, :my_method) if stub_aliased_method
     instance = stubbed_instance
-    method = stub_aliased_method ? :my_aliased_method : :my_instance_method
+    method = stub_aliased_method ? :my_aliased_method : :my_method
     assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
         instance.stubs(method).returns(:new_return_value)
