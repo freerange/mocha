@@ -7,7 +7,7 @@ class StubInstanceMethodDefinedOnClassTest < Mocha::TestCase
     @method_owner ||= Class.new
   end
 
-  def stubbed_class
-    method_owner
+  def stubbed_instance
+    method_owner.new
   end
 end
