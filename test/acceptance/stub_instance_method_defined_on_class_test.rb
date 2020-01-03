@@ -11,3 +11,9 @@ class StubInstanceMethodDefinedOnClassTest < Mocha::TestCase
     method_owner.new
   end
 end
+
+class StubInstanceMethodDefinedOnClassAndAliasedTest < StubInstanceMethodDefinedOnClassTest
+  def alias_method?
+    true
+  end
+end
