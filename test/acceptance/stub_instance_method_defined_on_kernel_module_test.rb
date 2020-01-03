@@ -15,41 +15,17 @@ class StubInstanceMethodDefinedOnKernelModuleTest < Mocha::TestCase
 
   def test_should_stub_public_method_and_leave_it_unchanged_after_test
     Kernel.send(:public, :my_instance_method)
-    instance = Class.new.new
-    assert_snapshot_unchanged(instance) do
-      test_result = run_as_test do
-        instance.stubs(:my_instance_method).returns(:new_return_value)
-        assert_equal :new_return_value, instance.send(:my_instance_method)
-      end
-      assert_passed(test_result)
-    end
-    assert_equal :original_return_value, instance.send(:my_instance_method)
+    assert_snapshot_unchanged_on_stubbing
   end
 
   def test_should_stub_protected_method_and_leave_it_unchanged_after_test
     Kernel.send(:protected, :my_instance_method)
-    instance = Class.new.new
-    assert_snapshot_unchanged(instance) do
-      test_result = run_as_test do
-        instance.stubs(:my_instance_method).returns(:new_return_value)
-        assert_equal :new_return_value, instance.send(:my_instance_method)
-      end
-      assert_passed(test_result)
-    end
-    assert_equal :original_return_value, instance.send(:my_instance_method)
+    assert_snapshot_unchanged_on_stubbing
   end
 
   def test_should_stub_private_method_and_leave_it_unchanged_after_test
     Kernel.send(:private, :my_instance_method)
-    instance = Class.new.new
-    assert_snapshot_unchanged(instance) do
-      test_result = run_as_test do
-        instance.stubs(:my_instance_method).returns(:new_return_value)
-        assert_equal :new_return_value, instance.send(:my_instance_method)
-      end
-      assert_passed(test_result)
-    end
-    assert_equal :original_return_value, instance.send(:my_instance_method)
+    assert_snapshot_unchanged_on_stubbing
   end
 
   def test_should_stub_public_module_method_and_leave_it_unchanged_after_test
@@ -92,5 +68,19 @@ class StubInstanceMethodDefinedOnKernelModuleTest < Mocha::TestCase
       assert_passed(test_result)
     end
     assert_equal :original_return_value, mod.send(:my_instance_method)
+  end
+
+  private
+
+  def assert_snapshot_unchanged_on_stubbing
+    instance = Class.new.new
+    assert_snapshot_unchanged(instance) do
+      test_result = run_as_test do
+        instance.stubs(:my_instance_method).returns(:new_return_value)
+        assert_equal :new_return_value, instance.send(:my_instance_method)
+      end
+      assert_passed(test_result)
+    end
+    assert_equal :original_return_value, instance.send(:my_instance_method)
   end
 end
