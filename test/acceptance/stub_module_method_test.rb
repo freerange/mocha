@@ -1,81 +1,17 @@
-require File.expand_path('../acceptance_test_helper', __FILE__)
+require File.expand_path('../stub_method_shared_tests', __FILE__)
 
 class StubModuleMethodTest < Mocha::TestCase
-  include AcceptanceTest
+  include StubMethodSharedTests
 
-  def setup
-    setup_acceptance_test
+  def method_owner
+    stubbed_instance.singleton_class
   end
 
-  def teardown
-    teardown_acceptance_test
+  def stubbed_instance
+    @stubbed_instance ||= Module.new
   end
 
   # rubocop:disable Lint/DuplicateMethods
-  def test_should_stub_method_within_test
-    mod = Module.new do
-      def self.my_module_method
-        :original_return_value
-      end
-    end
-    test_result = run_as_test do
-      mod.stubs(:my_module_method).returns(:new_return_value)
-      assert_equal :new_return_value, mod.my_module_method
-    end
-    assert_passed(test_result)
-  end
-
-  def test_should_leave_stubbed_public_method_unchanged_after_test
-    mod = Module.new do
-      class << self
-        def my_module_method
-          :original_return_value
-        end
-        public :my_module_method
-      end
-    end
-    run_as_test do
-      mod.stubs(:my_module_method).returns(:new_return_value)
-    end
-    assert(mod.public_methods(false).any? { |m| m.to_s == 'my_module_method' })
-    assert_equal :original_return_value, mod.my_module_method
-  end
-
-  def test_should_leave_stubbed_protected_method_unchanged_after_test
-    mod = Module.new do
-      class << self
-        def my_module_method
-          :original_return_value
-        end
-        protected :my_module_method
-        def my_unprotected_module_method
-          my_module_method
-        end
-      end
-    end
-    run_as_test do
-      mod.stubs(:my_module_method).returns(:new_return_value)
-    end
-    assert(mod.protected_methods(false).any? { |m| m.to_s == 'my_module_method' })
-    assert_equal :original_return_value, mod.my_unprotected_module_method
-  end
-
-  def test_should_leave_stubbed_private_method_unchanged_after_test
-    mod = Module.new do
-      class << self
-        def my_module_method
-          :original_return_value
-        end
-        private :my_module_method
-      end
-    end
-    run_as_test do
-      mod.stubs(:my_module_method).returns(:new_return_value)
-    end
-    assert(mod.private_methods(false).any? { |m| m.to_s == 'my_module_method' })
-    assert_equal :original_return_value, mod.send(:my_module_method)
-  end
-
   def test_should_reset_expectations_after_test
     mod = Module.new do
       def self.my_module_method
