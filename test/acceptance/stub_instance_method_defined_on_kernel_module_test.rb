@@ -40,21 +40,14 @@ class StubInstanceMethodDefinedOnKernelModuleTest < Mocha::TestCase
   private
 
   def assert_snapshot_unchanged_on_stubbing_module_method(visibility)
-    mod = Module.new
-    Kernel.send(visibility, :my_instance_method)
-    assert_snapshot_unchanged(mod) do
-      test_result = run_as_test do
-        mod.stubs(:my_instance_method).returns(:new_return_value)
-        assert_method_visibility mod, :my_instance_method, visibility
-        assert_equal :new_return_value, mod.send(:my_instance_method)
-      end
-      assert_passed(test_result)
-    end
-    assert_equal :original_return_value, mod.send(:my_instance_method)
+    assert_snapshot_unchanged_on_stubbing_method(visibility, Module.new)
   end
 
   def assert_snapshot_unchanged_on_stubbing(visibility)
-    instance = Class.new.new
+    assert_snapshot_unchanged_on_stubbing_method(visibility, Class.new.new)
+  end
+
+  def assert_snapshot_unchanged_on_stubbing_method(visibility, instance)
     Kernel.send(visibility, :my_instance_method)
     assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
