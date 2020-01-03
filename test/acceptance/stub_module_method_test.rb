@@ -12,19 +12,6 @@ class StubModuleMethodTest < Mocha::TestCase
   end
 
   # rubocop:disable Lint/DuplicateMethods
-  def test_should_stub_method_within_test
-    mod = Module.new do
-      def self.my_module_method
-        :original_return_value
-      end
-    end
-    test_result = run_as_test do
-      mod.stubs(:my_module_method).returns(:new_return_value)
-      assert_equal :new_return_value, mod.my_module_method
-    end
-    assert_passed(test_result)
-  end
-
   def test_should_reset_expectations_after_test
     mod = Module.new do
       def self.my_module_method
