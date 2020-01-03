@@ -14,18 +14,18 @@ module StubInstanceMethodSharedTests
   end
 
   def test_should_stub_public_method_and_leave_it_unchanged_after_test
-    assert_snapshot_unchanged_on_stubbing(:public, Class.new.new)
+    assert_snapshot_unchanged_on_stubbing(:public)
   end
 
   def test_should_stub_protected_method_and_leave_it_unchanged_after_test
-    assert_snapshot_unchanged_on_stubbing(:protected, Class.new.new)
+    assert_snapshot_unchanged_on_stubbing(:protected)
   end
 
   def test_should_stub_private_method_and_leave_it_unchanged_after_test
-    assert_snapshot_unchanged_on_stubbing(:private, Class.new.new)
+    assert_snapshot_unchanged_on_stubbing(:private)
   end
 
-  def assert_snapshot_unchanged_on_stubbing(visibility, instance)
+  def assert_snapshot_unchanged_on_stubbing(visibility, instance=stubbed_class.new)
     stubbed_module.send(visibility, :my_instance_method)
     assert_snapshot_unchanged(instance) do
       test_result = run_as_test do

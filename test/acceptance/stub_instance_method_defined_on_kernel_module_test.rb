@@ -7,6 +7,10 @@ class StubInstanceMethodDefinedOnKernelModuleTest < Mocha::TestCase
     Kernel
   end
 
+  def stubbed_class
+    Class.new
+  end
+
   def test_should_stub_public_module_method_and_leave_it_unchanged_after_test
     assert_snapshot_unchanged_on_stubbing(:public, Module.new)
   end
