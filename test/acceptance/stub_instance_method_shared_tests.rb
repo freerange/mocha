@@ -25,8 +25,9 @@ module StubInstanceMethodSharedTests
     assert_snapshot_unchanged_on_stubbing(:private)
   end
 
-  def assert_snapshot_unchanged_on_stubbing(visibility, instance=stubbed_class.new)
+  def assert_snapshot_unchanged_on_stubbing(visibility)
     method_owner.send(visibility, :my_instance_method)
+    instance = stubbed_class.new
     assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
         instance.stubs(:my_instance_method).returns(:new_return_value)
