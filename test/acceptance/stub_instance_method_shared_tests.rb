@@ -5,11 +5,11 @@ module StubInstanceMethodSharedTests
 
   def setup
     setup_acceptance_test
-    stubbed_module.send(:define_method, :my_instance_method) { :original_return_value }
+    method_owner.send(:define_method, :my_instance_method) { :original_return_value }
   end
 
   def teardown
-    stubbed_module.send(:remove_method, :my_instance_method)
+    method_owner.send(:remove_method, :my_instance_method)
     teardown_acceptance_test
   end
 
@@ -26,7 +26,7 @@ module StubInstanceMethodSharedTests
   end
 
   def assert_snapshot_unchanged_on_stubbing(visibility, instance=stubbed_class.new)
-    stubbed_module.send(visibility, :my_instance_method)
+    method_owner.send(visibility, :my_instance_method)
     assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
         instance.stubs(:my_instance_method).returns(:new_return_value)
