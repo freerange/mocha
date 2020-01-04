@@ -6,7 +6,7 @@
 <title>
   Class: Mocha::StateMachine
   
-    &mdash; Mocha 1.11.1
+    &mdash; Mocha 1.11.2
   
 </title>
 
@@ -394,7 +394,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Provides a mechanism to determine whether the <span class='object_link'><a href="" title="Mocha::StateMachine (class)">Mocha::StateMachine</a></span> is not in the state specified by <code>state_name</code> at some point in the future. rubocop:disable Naming/PredicateName</p>
+<p>Provides a mechanism to determine whether the <span class='object_link'><a href="" title="Mocha::StateMachine (class)">Mocha::StateMachine</a></span> is not in the state specified by <code>state_name</code> at some point in the future.</p>
 
 
   </div>
@@ -415,8 +415,8 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/mocha/state_machine.rb', line 88</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_is_not'>is_not</span><span class='lparen'>(</span><span class='id identifier rubyid_state_name'>state_name</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="StateMachine/StatePredicate.html" title="Mocha::StateMachine::StatePredicate (class)">StatePredicate</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_state_name'>state_name</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_is_not'>is_not</span><span class='lparen'>(</span><span class='id identifier rubyid_state_name'>state_name</span><span class='rparen'>)</span> <span class='comment'># rubocop:disable Naming/PredicateName
+</span>  <span class='const'><span class='object_link'><a href="StateMachine/StatePredicate.html" title="Mocha::StateMachine::StatePredicate (class)">StatePredicate</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_state_name'>state_name</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -517,7 +517,7 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Dec 17 12:49:36 2019 by
+  Generated on Sat Jan  4 17:36:48 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.20 (ruby-2.6.5).
 </div>

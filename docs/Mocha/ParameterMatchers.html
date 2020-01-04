@@ -6,7 +6,7 @@
 <title>
   Module: Mocha::ParameterMatchers
   
-    &mdash; Mocha 1.11.1
+    &mdash; Mocha 1.11.2
   
 </title>
 
@@ -1230,8 +1230,6 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
     
 <p>Matches <code>Hash</code> containing all <code>entries</code>.</p>
 
-<p>rubocop:disable Naming/PredicateName</p>
-
 
   </div>
 </div>
@@ -1321,8 +1319,8 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
     <td>
       <pre class="code"><span class="info file"># File 'lib/mocha/parameter_matchers/has_entries.rb', line 26</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_has_entries'>has_entries</span><span class='lparen'>(</span><span class='id identifier rubyid_entries'>entries</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="ParameterMatchers/HasEntries.html" title="Mocha::ParameterMatchers::HasEntries (class)">HasEntries</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_entries'>entries</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_has_entries'>has_entries</span><span class='lparen'>(</span><span class='id identifier rubyid_entries'>entries</span><span class='rparen'>)</span> <span class='comment'># rubocop:disable Naming/PredicateName
+</span>  <span class='const'><span class='object_link'><a href="ParameterMatchers/HasEntries.html" title="Mocha::ParameterMatchers::HasEntries (class)">HasEntries</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_entries'>entries</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1346,8 +1344,6 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
   <div class="discussion">
     
 <p>Matches <code>Hash</code> containing entry with <code>key</code> and <code>value</code>.</p>
-
-<p>rubocop:disable Naming/PredicateName</p>
 
 
   </div>
@@ -1568,8 +1564,8 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
     <td>
       <pre class="code"><span class="info file"># File 'lib/mocha/parameter_matchers/has_entry.rb', line 43</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_has_entry'>has_entry</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='kw'>case</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_has_entry'>has_entry</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span> <span class='comment'># rubocop:disable Naming/PredicateName
+</span>  <span class='kw'>case</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span>
   <span class='kw'>when</span> <span class='int'>1</span>
     <span class='kw'>case</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
     <span class='kw'>when</span> <span class='const'>Hash</span>
@@ -1609,8 +1605,6 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
   <div class="discussion">
     
 <p>Matches <code>Hash</code> containing <code>key</code>.</p>
-
-<p>rubocop:disable Naming/PredicateName</p>
 
 
   </div>
@@ -1701,8 +1695,8 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
     <td>
       <pre class="code"><span class="info file"># File 'lib/mocha/parameter_matchers/has_key.rb', line 24</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_has_key'>has_key</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="ParameterMatchers/HasKey.html" title="Mocha::ParameterMatchers::HasKey (class)">HasKey</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_has_key'>has_key</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span> <span class='comment'># rubocop:disable Naming/PredicateName
+</span>  <span class='const'><span class='object_link'><a href="ParameterMatchers/HasKey.html" title="Mocha::ParameterMatchers::HasKey (class)">HasKey</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1722,8 +1716,6 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
   <div class="discussion">
     
 <p>Matches <code>Hash</code> containing <code>value</code>.</p>
-
-<p>rubocop:disable Naming/PredicateName</p>
 
 
   </div>
@@ -1814,8 +1806,8 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
     <td>
       <pre class="code"><span class="info file"># File 'lib/mocha/parameter_matchers/has_value.rb', line 24</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_has_value'>has_value</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="ParameterMatchers/HasValue.html" title="Mocha::ParameterMatchers::HasValue (class)">HasValue</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_has_value'>has_value</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span> <span class='comment'># rubocop:disable Naming/PredicateName
+</span>  <span class='const'><span class='object_link'><a href="ParameterMatchers/HasValue.html" title="Mocha::ParameterMatchers::HasValue (class)">HasValue</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2130,8 +2122,6 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
     
 <p>Matches any object that is a <code>klass</code>.</p>
 
-<p>rubocop:disable Naming/PredicateName</p>
-
 
   </div>
 </div>
@@ -2223,8 +2213,8 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
     <td>
       <pre class="code"><span class="info file"># File 'lib/mocha/parameter_matchers/is_a.rb', line 25</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_is_a'>is_a</span><span class='lparen'>(</span><span class='id identifier rubyid_klass'>klass</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="ParameterMatchers/IsA.html" title="Mocha::ParameterMatchers::IsA (class)">IsA</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_klass'>klass</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_is_a'>is_a</span><span class='lparen'>(</span><span class='id identifier rubyid_klass'>klass</span><span class='rparen'>)</span> <span class='comment'># rubocop:disable Naming/PredicateName
+</span>  <span class='const'><span class='object_link'><a href="ParameterMatchers/IsA.html" title="Mocha::ParameterMatchers::IsA (class)">IsA</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_klass'>klass</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2358,8 +2348,6 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
     
 <p>Matches if <code>matcher</code> does <strong>not</strong> match.</p>
 
-<p>rubocop:disable Naming/MethodName</p>
-
 
   </div>
 </div>
@@ -2449,8 +2437,8 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
     <td>
       <pre class="code"><span class="info file"># File 'lib/mocha/parameter_matchers/not.rb', line 24</span>
 
-<span class='kw'>def</span> <span class='const'><span class='object_link'><a href="ParameterMatchers/Not.html" title="Mocha::ParameterMatchers::Not (class)">Not</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_matcher'>matcher</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="ParameterMatchers/Not.html" title="Mocha::ParameterMatchers::Not (class)">Not</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_matcher'>matcher</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='const'><span class='object_link'><a href="ParameterMatchers/Not.html" title="Mocha::ParameterMatchers::Not (class)">Not</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_matcher'>matcher</span><span class='rparen'>)</span> <span class='comment'># rubocop:disable Naming/MethodName
+</span>  <span class='const'><span class='object_link'><a href="ParameterMatchers/Not.html" title="Mocha::ParameterMatchers::Not (class)">Not</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_matcher'>matcher</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2951,7 +2939,7 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
 </div>
 
       <div id="footer">
-  Generated on Tue Dec 17 12:49:35 2019 by
+  Generated on Sat Jan  4 17:36:47 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.20 (ruby-2.6.5).
 </div>

@@ -6,7 +6,7 @@
 <title>
   Module: Mocha::API
   
-    &mdash; Mocha 1.11.1
+    &mdash; Mocha 1.11.2
   
 </title>
 
@@ -317,8 +317,6 @@
     
 <p>Builds a new mock object</p>
 
-<p>rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity</p>
-
 
   </div>
 </div>
@@ -533,8 +531,8 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 69</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../Mocha.html" title="Mocha (module)">Mocha</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configuration'>configuration</span><span class='period'>.</span><span class='id identifier rubyid_reinstate_undocumented_behaviour_from_v1_9?'>reinstate_undocumented_behaviour_from_v1_9?</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span> <span class='comment'># rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+</span>  <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../Mocha.html" title="Mocha (module)">Mocha</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configuration'>configuration</span><span class='period'>.</span><span class='id identifier rubyid_reinstate_undocumented_behaviour_from_v1_9?'>reinstate_undocumented_behaviour_from_v1_9?</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_arguments'>arguments</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Symbol</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_method_name'>method_name</span> <span class='op'>=</span> <span class='id identifier rubyid_arguments'>arguments</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
       <span class='const'>Deprecation</span><span class='period'>.</span><span class='id identifier rubyid_warning'>warning</span><span class='lparen'>(</span>
@@ -634,12 +632,12 @@
       <pre class="lines">
 
 
+207
 208
-209
-210</pre>
+209</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 208</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 207</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sequence'>sequence</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="Sequence.html" title="Mocha::Sequence (class)">Sequence</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -733,12 +731,12 @@
       <pre class="lines">
 
 
+237
 238
-239
-240</pre>
+239</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 238</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 237</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_states'>states</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='const'>Mockery</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span><span class='period'>.</span><span class='id identifier rubyid_new_state_machine'>new_state_machine</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -937,6 +935,7 @@
       <pre class="lines">
 
 
+115
 116
 117
 118
@@ -960,11 +959,10 @@
 136
 137
 138
-139
-140</pre>
+139</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 116</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 115</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stub'>stub</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../Mocha.html" title="Mocha (module)">Mocha</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configuration'>configuration</span><span class='period'>.</span><span class='id identifier rubyid_reinstate_undocumented_behaviour_from_v1_9?'>reinstate_undocumented_behaviour_from_v1_9?</span>
@@ -1203,6 +1201,7 @@
       <pre class="lines">
 
 
+163
 164
 165
 166
@@ -1227,11 +1226,10 @@
 185
 186
 187
-188
-189</pre>
+188</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 164</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/api.rb', line 163</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stub_everything'>stub_everything</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../Mocha.html" title="Mocha (module)">Mocha</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configuration'>configuration</span><span class='period'>.</span><span class='id identifier rubyid_reinstate_undocumented_behaviour_from_v1_9?'>reinstate_undocumented_behaviour_from_v1_9?</span>
@@ -1277,7 +1275,7 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Dec 17 12:49:35 2019 by
+  Generated on Sat Jan  4 17:36:47 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.20 (ruby-2.6.5).
 </div>

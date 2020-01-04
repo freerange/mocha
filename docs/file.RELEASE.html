@@ -6,7 +6,7 @@
 <title>
   File: RELEASE
   
-    &mdash; Mocha 1.11.1
+    &mdash; Mocha 1.11.2
   
 </title>
 
@@ -58,6 +58,24 @@
       </div>
 
       <div id="content"><div id='filecontents'><h1>Release Notes</h1>
+
+<h2>1.11.2</h2>
+
+<h3>External changes</h3>
+
+<ul>
+<li>Fix regression introduced in v1.10.0 that meant <code>Object#inspect</code> was called unnecessarily (368abd98)</li>
+<li>Warn when mock object receives invocations in another test - thanks to @nitishr (#442)</li>
+<li>Avoid rubocop comments appearing in YARD-generated docs (d8019eed)</li>
+</ul>
+
+<h3>Internal changes</h3>
+
+<ul>
+<li>Replace <code>StubbedMethod#original_method</code> &amp; <code>#original_visibility</code> attribute reader methods with instance variables - thanks to @nitishr (d917f332)</li>
+<li>Set up <code>MochaExampleTest</code> &amp; <code>StubbaExampleTest</code> as acceptance tests - thanks to @nitishr (4881cc58)</li>
+<li>Delete unused <code>PrettyParameters</code> class - thanks to @nitishr (314ea922)</li>
+</ul>
 
 <h2>1.11.1</h2>
 
@@ -1000,7 +1018,7 @@ Hash with wrong number of entries.</li>
 </div>
 
       <div id="footer">
-  Generated on Tue Dec 17 12:49:34 2019 by
+  Generated on Sat Jan  4 17:36:46 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.20 (ruby-2.6.5).
 </div>
