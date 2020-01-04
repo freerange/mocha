@@ -1,5 +1,19 @@
 # Release Notes
 
+## 1.11.2
+
+### External changes
+
+* Fix regression introduced in v1.10.0 that meant `Object#inspect` was called unnecessarily (368abd98)
+* Warn when mock object receives invocations in another test - thanks to @nitishr (#442)
+* Avoid rubocop comments appearing in YARD-generated docs (d8019eed)
+
+### Internal changes
+
+* Replace `StubbedMethod#original_method` & `#original_visibility` attribute reader methods with instance variables - thanks to @nitishr (d917f332)
+* Set up `MochaExampleTest` & `StubbaExampleTest` as acceptance tests - thanks to @nitishr (4881cc58)
+* Delete unused `PrettyParameters` class - thanks to @nitishr (314ea922)
+
 ## 1.11.1
 
 ### External changes
