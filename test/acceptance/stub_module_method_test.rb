@@ -1,4 +1,4 @@
-require 'stub_method_shared_tests'
+require File.expand_path('../stub_method_shared_tests', __FILE__)
 
 class StubModuleMethodTest < Mocha::TestCase
   include StubMethodSharedTests
