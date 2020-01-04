@@ -128,19 +128,20 @@ module Mocha
 
     def on_stubbing(object, method)
       method = PRE_RUBY_V19 ? method.to_s : method.to_sym
-      method_signature = "#{object.mocha_inspect}.#{method}"
-      check(:stubbing_non_existent_method, 'non-existent method', method_signature) do
+      signature_proc = lambda { "#{object.mocha_inspect}.#{method}" }
+      check(:stubbing_non_existent_method, 'non-existent method', signature_proc) do
         !(object.stubba_class.__method_exists__?(method, true) || object.respond_to?(method.to_sym))
       end
-      check(:stubbing_non_public_method, 'non-public method', method_signature) do
+      check(:stubbing_non_public_method, 'non-public method', signature_proc) do
         object.stubba_class.__method_exists__?(method, false)
       end
-      check(:stubbing_method_on_nil, 'method on nil', method_signature) { object.nil? }
-      check(:stubbing_method_on_non_mock_object, 'method on non-mock object', method_signature)
+      check(:stubbing_method_on_nil, 'method on nil', signature_proc) { object.nil? }
+      check(:stubbing_method_on_non_mock_object, 'method on non-mock object', signature_proc)
     end
 
     def on_stubbing_method_unnecessarily(expectation)
-      check(:stubbing_method_unnecessarily, 'method unnecessarily', expectation.method_signature, expectation.backtrace)
+      signature_proc = lambda { expectation.method_signature }
+      check(:stubbing_method_unnecessarily, 'method unnecessarily', signature_proc, expectation.backtrace)
     end
 
     attr_writer :logger
@@ -151,9 +152,10 @@ module Mocha
 
     private
 
-    def check(action, description, method_signature, backtrace = caller)
+    def check(action, description, signature_proc, backtrace = caller)
       treatment = Mocha.configuration.send(action)
       return if (treatment == :allow) || (block_given? && !yield)
+      method_signature = signature_proc.call
       message = "stubbing #{description}: #{method_signature}"
       raise StubbingError.new(message, backtrace) if treatment == :prevent
       logger.warn(message) if treatment == :warn
