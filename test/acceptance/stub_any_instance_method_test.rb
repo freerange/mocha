@@ -15,26 +15,6 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     method_owner.any_instance
   end
 
-  def test_should_leave_stubbed_public_method_unchanged_after_test_when_it_was_originally_private_in_owning_module
-    module_with_private_method = Module.new do
-      def my_included_method
-        :original_return_value
-      end
-      private :my_included_method
-    end
-    klass = Class.new do
-      include module_with_private_method
-      public :my_included_method
-    end
-    instance = klass.new
-    test_result = run_as_test do
-      klass.any_instance.stubs(:my_included_method).returns(:new_return_value)
-      assert_equal :new_return_value, instance.my_included_method
-    end
-    assert_passed(test_result)
-    assert_equal :original_return_value, instance.my_included_method
-  end
-
   def test_should_reset_expectations_after_test
     klass = Class.new do
       def my_instance_method
@@ -199,4 +179,27 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     assert_passed(test_result)
   end
   # rubocop:enable Lint/DuplicateMethods
+end
+
+class StubAnyInstanceMethodOriginallyPrivateInOwningModuleTest < Mocha::TestCase
+  include StubMethodSharedTests
+
+  def method_owner
+    @method_owner ||= Class.new.send(:include, module_with_private_method)
+  end
+
+  def stubbed_instance
+    method_owner.new
+  end
+
+  def stub_owner
+    method_owner.any_instance
+  end
+
+  def module_with_private_method
+    mod = Module.new
+    mod.send(:define_method, stubbed_method_name) { :private_module_method_return_value }
+    mod.send(:private, stubbed_method_name)
+    mod
+  end
 end
