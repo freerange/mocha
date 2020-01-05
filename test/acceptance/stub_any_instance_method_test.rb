@@ -1,45 +1,18 @@
-require File.expand_path('../acceptance_test_helper', __FILE__)
+require File.expand_path('../stub_method_shared_tests', __FILE__)
 
 class StubAnyInstanceMethodTest < Mocha::TestCase
-  include AcceptanceTest
+  include StubMethodSharedTests
 
-  def setup
-    setup_acceptance_test
+  def method_owner
+    @method_owner ||= Class.new
   end
 
-  def teardown
-    teardown_acceptance_test
+  def stubbed_instance
+    method_owner.new
   end
 
-  def test_should_stub_public_method_within_test
-    klass = Class.new do
-      def my_instance_method
-        :original_return_value
-      end
-    end
-    instance = klass.new
-    test_result = run_as_test do
-      klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
-      assert_method_visibility instance, :my_instance_method, :public
-      assert_equal :new_return_value, instance.my_instance_method
-    end
-    assert_passed(test_result)
-  end
-
-  def test_should_leave_stubbed_public_method_unchanged_after_test
-    klass = Class.new do
-      def my_instance_method
-        :original_return_value
-      end
-      public :my_instance_method
-      def self.public(*args); end
-    end
-    instance = klass.new
-    run_as_test do
-      klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
-    end
-    assert(instance.public_methods(false).any? { |m| m.to_s == 'my_instance_method' })
-    assert_equal :original_return_value, instance.my_instance_method
+  def stub_owner
+    method_owner.any_instance
   end
 
   def test_should_leave_stubbed_public_method_unchanged_after_test_when_it_was_originally_private_in_owning_module
@@ -60,78 +33,6 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     end
     assert_passed(test_result)
     assert_equal :original_return_value, instance.my_included_method
-  end
-
-  def test_should_leave_stubbed_protected_method_unchanged_after_test
-    klass = Class.new do
-      def my_instance_method
-        :original_return_value
-      end
-      protected :my_instance_method
-      def self.protected(*args); end
-
-      def my_unprotected_instance_method
-        my_instance_method
-      end
-    end
-    instance = klass.new
-    run_as_test do
-      klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
-    end
-    assert(instance.protected_methods(false).any? { |m| m.to_s == 'my_instance_method' })
-    assert_equal :original_return_value, instance.my_unprotected_instance_method
-  end
-
-  def test_should_stub_protected_method_within_test
-    klass = Class.new do
-      def my_instance_method
-        :original_return_value
-      end
-      protected :my_instance_method
-      def self.protected(*args); end
-
-      def my_unprotected_instance_method
-        my_instance_method
-      end
-    end
-    instance = klass.new
-    test_result = run_as_test do
-      klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
-      assert_method_visibility instance, :my_instance_method, :protected
-    end
-    assert_passed(test_result)
-  end
-
-  def test_should_leave_stubbed_private_method_unchanged_after_test
-    klass = Class.new do
-      def my_instance_method
-        :original_return_value
-      end
-      private :my_instance_method
-      def self.private(*args); end
-    end
-    instance = klass.new
-    run_as_test do
-      klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
-    end
-    assert(instance.private_methods(false).any? { |m| m.to_s == 'my_instance_method' })
-    assert_equal :original_return_value, instance.send(:my_instance_method)
-  end
-
-  def test_should_stub_private_method_within_test
-    klass = Class.new do
-      def my_instance_method
-        :original_return_value
-      end
-      private :my_instance_method
-      def self.private(*args); end
-    end
-    instance = klass.new
-    test_result = run_as_test do
-      klass.any_instance.stubs(:my_instance_method).returns(:new_return_value)
-      assert_method_visibility instance, :my_instance_method, :private
-    end
-    assert_passed(test_result)
   end
 
   def test_should_reset_expectations_after_test
