@@ -30,10 +30,11 @@ module StubInstanceMethodSharedTests
     method_owner.send(visibility, :my_instance_method)
     method_owner.send(:alias_method, :my_aliased_method, :my_instance_method) if alias_method?
     instance = stubbed_instance
+    stub_owner_in_scope = stub_owner || instance
     method = alias_method? ? :my_aliased_method : :my_instance_method
     assert_snapshot_unchanged(instance) do
       test_result = run_as_test do
-        instance.stubs(method).returns(:new_return_value)
+        stub_owner_in_scope.stubs(method).returns(:new_return_value)
         assert_method_visibility instance, method, visibility
         assert_equal :new_return_value, instance.send(method)
       end
@@ -44,5 +45,9 @@ module StubInstanceMethodSharedTests
 
   def alias_method?
     false
+  end
+
+  def stub_owner
+    nil
   end
 end
