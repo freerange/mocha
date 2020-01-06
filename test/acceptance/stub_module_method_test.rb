@@ -24,25 +24,6 @@ class StubModuleMethodTest < Mocha::TestCase
     assert_equal 0, mod.mocha.__expectations__.length
   end
 
-  def test_should_be_able_to_stub_a_superclass_method
-    supermod = Module.new do
-      def self.my_superclass_method
-        :original_return_value
-      end
-    end
-    mod = Module.new do
-      include supermod
-    end
-    test_result = run_as_test do
-      mod.stubs(:my_superclass_method).returns(:new_return_value)
-      assert_equal :new_return_value, mod.my_superclass_method
-    end
-    assert_passed(test_result)
-    assert(supermod.public_methods.any? { |m| m.to_s == 'my_superclass_method' })
-    assert(mod.public_methods(false).none? { |m| m.to_s == 'my_superclass_method' })
-    assert_equal :original_return_value, supermod.my_superclass_method
-  end
-
   def test_should_be_able_to_stub_method_if_ruby18_public_methods_include_method_but_method_does_not_actually_exist_like_active_record_association_proxy
     ruby18_mod = Module.new do
       class << self
