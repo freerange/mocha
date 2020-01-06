@@ -32,13 +32,10 @@ module StubMethodSharedTests
     instance = stubbed_instance
     stub_owner_in_scope = stub_owner || instance
     method = alias_method? ? :my_aliased_method : stubbed_method_name
-    assert_snapshot_unchanged(instance) do
-      test_result = run_as_test do
-        stub_owner_in_scope.stubs(method).returns(:new_return_value)
-        assert_method_visibility instance, method, visibility
-        assert_equal :new_return_value, instance.send(method)
-      end
-      assert_passed(test_result)
+    assert_passed_with_snapshot_unchanged(instance) do
+      stub_owner_in_scope.stubs(method).returns(:new_return_value)
+      assert_method_visibility instance, method, visibility
+      assert_equal :new_return_value, instance.send(method)
     end
     assert_equal :original_return_value, instance.send(method)
   end
