@@ -1,18 +1,18 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/configuration'
 
-class StubbingNilTest < Mocha::TestCase
-  include AcceptanceTest
+if RUBY_VERSION < '2.2.0'
+  class StubbingNilTest < Mocha::TestCase
+    include AcceptanceTest
 
-  def setup
-    setup_acceptance_test
-  end
+    def setup
+      setup_acceptance_test
+    end
 
-  def teardown
-    teardown_acceptance_test
-  end
+    def teardown
+      teardown_acceptance_test
+    end
 
-  if RUBY_VERSION < '2.2.0'
     def test_should_allow_stubbing_method_on_nil
       Mocha.configure { |c| c.stubbing_method_on_nil = :allow }
       test_result = run_as_test do
