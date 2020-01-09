@@ -37,9 +37,8 @@ if RUBY_VERSION < '2.2.0'
 
     def test_should_allow_stubbing_method_on_non_nil_object
       Mocha.configure { |c| c.stubbing_method_on_nil = :prevent }
-      object = Object.new
       test_result = run_as_test do
-        object.stubs(:stubbed_method)
+        Object.new.stubs(:stubbed_method)
       end
       assert_passed(test_result)
     end
