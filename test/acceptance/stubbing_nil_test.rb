@@ -14,38 +14,25 @@ if RUBY_VERSION < '2.2.0'
     end
 
     def test_should_allow_stubbing_method_on_nil
-      Mocha.configure { |c| c.stubbing_method_on_nil = :allow }
-      test_result = run_as_test do
-        nil.stubs(:stubbed_method)
-      end
-      assert_passed(test_result)
-      assert !@logger.warnings.include?('stubbing method on nil: nil.stubbed_method')
+      assert_passed(stub_method_on_nil(:allow))
+      assert !@logger.warnings.include?(violation_message)
     end
 
     def test_should_warn_on_stubbing_method_on_nil
-      Mocha.configure { |c| c.stubbing_method_on_nil = :warn }
-      test_result = run_as_test do
-        nil.stubs(:stubbed_method)
-      end
-      assert_passed(test_result)
-      assert @logger.warnings.include?('stubbing method on nil: nil.stubbed_method')
+      assert_passed(stub_method_on_nil(:warn))
+      assert @logger.warnings.include?(violation_message)
     end
 
     def test_should_prevent_stubbing_method_on_nil
-      Mocha.configure { |c| c.stubbing_method_on_nil = :prevent }
-      test_result = run_as_test do
-        nil.stubs(:stubbed_method)
-      end
+      test_result = stub_method_on_nil(:prevent)
       assert_failed(test_result)
-      assert test_result.error_messages.include?('Mocha::StubbingError: stubbing method on nil: nil.stubbed_method')
+      assert test_result.error_messages.include?("Mocha::StubbingError: #{violation_message}")
     end
 
     def test_should_default_to_prevent_stubbing_method_on_non_mock_object
-      test_result = run_as_test do
-        nil.stubs(:stubbed_method)
-      end
+      test_result = stub_method_on_nil
       assert_failed(test_result)
-      assert test_result.error_messages.include?('Mocha::StubbingError: stubbing method on nil: nil.stubbed_method')
+      assert test_result.error_messages.include?("Mocha::StubbingError: #{violation_message}")
     end
 
     def test_should_allow_stubbing_method_on_non_nil_object
@@ -55,6 +42,17 @@ if RUBY_VERSION < '2.2.0'
         object.stubs(:stubbed_method)
       end
       assert_passed(test_result)
+    end
+
+    def stub_method_on_nil(treatment = :default)
+      Mocha.configure { |c| c.stubbing_method_on_nil = treatment } unless treatment == :default
+      run_as_test do
+        nil.stubs(:stubbed_method)
+      end
+    end
+
+    def violation_message
+      'stubbing method on nil: nil.stubbed_method'
     end
   end
 end
