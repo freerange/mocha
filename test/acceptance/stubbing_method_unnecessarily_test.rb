@@ -31,10 +31,7 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
   end
 
   def test_should_default_to_allow_stubbing_method_unnecessarily
-    test_result = run_as_test do
-      mock = mock('mock')
-      mock.stubs(:public_method)
-    end
+    test_result = stub_method_unnecessarily
     assert_passed(test_result)
     assert !@logger.warnings.include?(violation_message)
   end
@@ -49,8 +46,8 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
     assert_passed(test_result)
   end
 
-  def stub_method_unnecessarily(treatment)
-    Mocha.configure { |c| c.stubbing_method_unnecessarily = treatment }
+  def stub_method_unnecessarily(treatment = :default)
+    Mocha.configure { |c| c.stubbing_method_unnecessarily = treatment } unless treatment == :default
     run_as_test do
       mock = mock('mock')
       mock.stubs(:public_method)
