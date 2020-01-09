@@ -13,14 +13,12 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_method_unnecessarily
-    test_result = stub_method_unnecessarily(:allow)
-    assert_passed(test_result)
+    assert_passed(stub_method_unnecessarily(:allow))
     assert !@logger.warnings.include?(violation_message)
   end
 
   def test_should_warn_when_stubbing_method_unnecessarily
-    test_result = stub_method_unnecessarily(:warn)
-    assert_passed(test_result)
+    assert_passed(stub_method_unnecessarily(:warn))
     assert @logger.warnings.include?(violation_message)
   end
 
@@ -31,8 +29,7 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
   end
 
   def test_should_default_to_allow_stubbing_method_unnecessarily
-    test_result = stub_method_unnecessarily
-    assert_passed(test_result)
+    assert_passed(stub_method_unnecessarily)
     assert !@logger.warnings.include?(violation_message)
   end
 
