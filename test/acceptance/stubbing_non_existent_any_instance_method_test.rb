@@ -21,8 +21,7 @@ class StubbingNonExistentAnyInstanceMethodTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_existing_public_any_instance_method
-    klass = class_with_method(:public)
-    assert_allows_stubbing_existing_any_instance_method(klass)
+    assert_allows_stubbing_existing_any_instance_method(class_with_method(:public))
   end
 
   def test_should_allow_stubbing_method_to_which_any_instance_responds
@@ -55,28 +54,23 @@ class StubbingNonExistentAnyInstanceMethodTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_existing_protected_any_instance_method
-    klass = class_with_method(:protected)
-    assert_allows_stubbing_existing_any_instance_method(klass)
+    assert_allows_stubbing_existing_any_instance_method(class_with_method(:protected))
   end
 
   def test_should_allow_stubbing_existing_private_any_instance_method
-    klass = class_with_method(:private)
-    assert_allows_stubbing_existing_any_instance_method(klass)
+    assert_allows_stubbing_existing_any_instance_method(class_with_method(:private))
   end
 
   def test_should_allow_stubbing_existing_public_any_instance_superclass_method
-    superklass = class_with_method(:public)
-    assert_allows_stubbing_existing_any_instance_method(Class.new(superklass))
+    assert_allows_stubbing_existing_any_instance_method(Class.new(class_with_method(:public)))
   end
 
   def test_should_allow_stubbing_existing_protected_any_instance_superclass_method
-    superklass = class_with_method(:protected)
-    assert_allows_stubbing_existing_any_instance_method(Class.new(superklass))
+    assert_allows_stubbing_existing_any_instance_method(Class.new(class_with_method(:protected)))
   end
 
   def test_should_allow_stubbing_existing_private_any_instance_superclass_method
-    superklass = class_with_method(:private)
-    assert_allows_stubbing_existing_any_instance_method(Class.new(superklass))
+    assert_allows_stubbing_existing_any_instance_method(Class.new(class_with_method(:private)))
   end
 
   def assert_allows_stubbing_existing_any_instance_method(klass)
