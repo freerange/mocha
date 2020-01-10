@@ -36,18 +36,21 @@ if RUBY_VERSION < '2.2.0'
     end
 
     def test_should_allow_stubbing_method_on_non_nil_object
-      Mocha.configure { |c| c.stubbing_method_on_nil = :prevent }
-      test_result = run_as_test do
+      test_result = run_test_with_check(:prevent) do
         Object.new.stubs(:stubbed_method)
       end
       assert_passed(test_result)
     end
 
     def stub_method_on_nil(treatment = :default)
-      Mocha.configure { |c| c.stubbing_method_on_nil = treatment } unless treatment == :default
-      run_as_test do
+      run_test_with_check(treatment) do
         nil.stubs(:stubbed_method)
       end
+    end
+
+    def run_test_with_check(treatment = :default, &block)
+      Mocha.configure { |c| c.stubbing_method_on_nil = treatment } unless treatment == :default
+      run_as_test(&block)
     end
 
     def violation_message
