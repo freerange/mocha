@@ -1,33 +1,8 @@
-require File.expand_path('../acceptance_test_helper', __FILE__)
-require 'mocha/configuration'
+require File.expand_path('../stubbing_with_potential_violation_shared_tests', __FILE__)
 
 if RUBY_VERSION < '2.2.0'
   class StubbingNilTest < Mocha::TestCase
-    include AcceptanceTest
-
-    def setup
-      setup_acceptance_test
-    end
-
-    def teardown
-      teardown_acceptance_test
-    end
-
-    def test_should_allow_stubbing_with_potential_violation
-      assert_passed(stub_with_potential_violation(:allow))
-      assert !@logger.warnings.include?(violation_message)
-    end
-
-    def test_should_warn_on_stubbing_with_potential_violation
-      assert_passed(stub_with_potential_violation(:warn))
-      assert @logger.warnings.include?(violation_message)
-    end
-
-    def test_should_prevent_stubbing_with_potential_violation
-      test_result = stub_with_potential_violation(:prevent)
-      assert_failed(test_result)
-      assert test_result.error_messages.include?("Mocha::StubbingError: #{violation_message}")
-    end
+    include StubbingWithPotentialViolationSharedTests
 
     def test_should_default_to_prevent_stubbing_method_on_nil
       test_result = stub_with_potential_violation
@@ -40,15 +15,6 @@ if RUBY_VERSION < '2.2.0'
         Object.new.stubs(:stubbed_method)
       end
       assert_passed(test_result)
-    end
-
-    def stub_with_potential_violation(treatment = :default)
-      run_test_with_check(treatment, &method(:potential_violation))
-    end
-
-    def run_test_with_check(treatment = :default, &block)
-      Mocha.configure { |c| configure_violation(c, treatment) } unless treatment == :default
-      run_as_test(&block)
     end
 
     def violation_message
