@@ -43,9 +43,7 @@ if RUBY_VERSION < '2.2.0'
     end
 
     def stub_with_potential_violation(treatment = :default)
-      run_test_with_check(treatment) do
-        nil.stubs(:stubbed_method)
-      end
+      run_test_with_check(treatment, &method(:potential_violation))
     end
 
     def run_test_with_check(treatment = :default, &block)
@@ -55,6 +53,10 @@ if RUBY_VERSION < '2.2.0'
 
     def violation_message
       'stubbing method on nil: nil.stubbed_method'
+    end
+
+    def potential_violation
+      nil.stubs(:stubbed_method)
     end
   end
 end

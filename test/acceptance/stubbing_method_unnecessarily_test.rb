@@ -43,10 +43,7 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
   end
 
   def stub_with_potential_violation(treatment = :default)
-    run_test_with_check(treatment) do
-      mock = mock('mock')
-      mock.stubs(:public_method)
-    end
+    run_test_with_check(treatment, &method(:potential_violation))
   end
 
   def run_test_with_check(treatment = :default, &block)
@@ -56,5 +53,10 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
 
   def violation_message
     'stubbing method unnecessarily: #<Mock:mock>.public_method(any_parameters)'
+  end
+
+  def potential_violation
+    mock = mock('mock')
+    mock.stubs(:public_method)
   end
 end
