@@ -53,10 +53,8 @@ module AllowStubbingExistingAnyInstanceMethodSharedTests
   end
 
   def class_with_method(visibility)
-    klass = Class.new do
-      def existing_method;
-      end
-    end
+    klass = Class.new
+    klass.send(:define_method, :existing_method) {}
     klass.send(visibility, :existing_method)
     klass
   end
