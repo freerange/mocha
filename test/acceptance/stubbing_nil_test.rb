@@ -29,7 +29,7 @@ if RUBY_VERSION < '2.2.0'
       assert test_result.error_messages.include?("Mocha::StubbingError: #{violation_message}")
     end
 
-    def test_should_default_to_prevent_stubbing_method_on_non_mock_object
+    def test_should_default_to_prevent_stubbing_method_on_nil
       test_result = stub_with_potential_violation
       assert_failed(test_result)
       assert test_result.error_messages.include?("Mocha::StubbingError: #{violation_message}")
