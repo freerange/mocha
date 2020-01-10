@@ -25,11 +25,7 @@ class StubbingNonExistentAnyInstanceMethodTest < Mocha::TestCase
       def existing_method; end
     end
     klass.send(:public, :existing_method)
-    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
-    test_result = run_as_test do
-      klass.any_instance.stubs(:existing_method)
-    end
-    assert_passed(test_result)
+    assert_allows_stubbing_existing_any_instance_method(klass)
   end
 
   def test_should_allow_stubbing_method_to_which_any_instance_responds
@@ -66,11 +62,7 @@ class StubbingNonExistentAnyInstanceMethodTest < Mocha::TestCase
       def existing_method; end
     end
     klass.send(:protected, :existing_method)
-    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
-    test_result = run_as_test do
-      klass.any_instance.stubs(:existing_method)
-    end
-    assert_passed(test_result)
+    assert_allows_stubbing_existing_any_instance_method(klass)
   end
 
   def test_should_allow_stubbing_existing_private_any_instance_method
@@ -78,11 +70,7 @@ class StubbingNonExistentAnyInstanceMethodTest < Mocha::TestCase
       def existing_method; end
     end
     klass.send(:private, :existing_method)
-    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
-    test_result = run_as_test do
-      klass.any_instance.stubs(:existing_method)
-    end
-    assert_passed(test_result)
+    assert_allows_stubbing_existing_any_instance_method(klass)
   end
 
   def test_should_allow_stubbing_existing_public_any_instance_superclass_method
@@ -90,12 +78,7 @@ class StubbingNonExistentAnyInstanceMethodTest < Mocha::TestCase
       def existing_method; end
     end
     superklass.send(:public, :existing_method)
-    klass = Class.new(superklass)
-    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
-    test_result = run_as_test do
-      klass.any_instance.stubs(:existing_method)
-    end
-    assert_passed(test_result)
+    assert_allows_stubbing_existing_any_instance_method(Class.new(superklass))
   end
 
   def test_should_allow_stubbing_existing_protected_any_instance_superclass_method
@@ -103,12 +86,7 @@ class StubbingNonExistentAnyInstanceMethodTest < Mocha::TestCase
       def existing_method; end
     end
     superklass.send(:protected, :existing_method)
-    klass = Class.new(superklass)
-    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
-    test_result = run_as_test do
-      klass.any_instance.stubs(:existing_method)
-    end
-    assert_passed(test_result)
+    assert_allows_stubbing_existing_any_instance_method(Class.new(superklass))
   end
 
   def test_should_allow_stubbing_existing_private_any_instance_superclass_method
@@ -116,7 +94,10 @@ class StubbingNonExistentAnyInstanceMethodTest < Mocha::TestCase
       def existing_method; end
     end
     superklass.send(:private, :existing_method)
-    klass = Class.new(superklass)
+    assert_allows_stubbing_existing_any_instance_method(Class.new(superklass))
+  end
+
+  def assert_allows_stubbing_existing_any_instance_method(klass)
     Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
     test_result = run_as_test do
       klass.any_instance.stubs(:existing_method)
