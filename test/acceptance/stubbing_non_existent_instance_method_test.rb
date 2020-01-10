@@ -1,54 +1,27 @@
-require File.expand_path('../acceptance_test_helper', __FILE__)
-require 'mocha/configuration'
+require File.expand_path('../stubbing_with_potential_violation_shared_tests', __FILE__)
 
 class StubbingNonExistentInstanceMethodTest < Mocha::TestCase
-  include AcceptanceTest
+  include StubbingWithPotentialViolationSharedTests
 
   def setup
-    setup_acceptance_test
+    super
+    @instance = Class.new.new
   end
 
-  def teardown
-    teardown_acceptance_test
+  def configure_violation(config, treatment)
+    config.stubbing_non_existent_method = treatment
   end
 
-  def test_should_allow_stubbing_non_existent_instance_method
-    Mocha.configure { |c| c.stubbing_non_existent_method = :allow }
-    instance = Class.new.new
-    test_result = run_as_test do
-      instance.stubs(:non_existent_method)
-    end
-    assert !@logger.warnings.include?("stubbing non-existent method: #{instance.mocha_inspect}.non_existent_method")
-    assert_passed(test_result)
+  def potential_violation
+    @instance.stubs(:non_existent_method)
   end
 
-  def test_should_warn_when_stubbing_non_existent_instance_method
-    Mocha.configure { |c| c.stubbing_non_existent_method = :warn }
-    instance = Class.new.new
-    test_result = run_as_test do
-      instance.stubs(:non_existent_method)
-    end
-    assert_passed(test_result)
-    assert @logger.warnings.include?("stubbing non-existent method: #{instance.mocha_inspect}.non_existent_method")
-  end
-
-  def test_should_prevent_stubbing_non_existent_instance_method
-    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
-    instance = Class.new.new
-    test_result = run_as_test do
-      instance.stubs(:non_existent_method)
-    end
-    assert_failed(test_result)
-    assert test_result.error_messages.include?("Mocha::StubbingError: stubbing non-existent method: #{instance.mocha_inspect}.non_existent_method")
+  def message_on_violation
+    "stubbing non-existent method: #{@instance.mocha_inspect}.non_existent_method"
   end
 
   def test_should_default_to_allow_stubbing_non_existent_instance_method
-    instance = Class.new.new
-    test_result = run_as_test do
-      instance.stubs(:non_existent_method)
-    end
-    assert !@logger.warnings.include?("stubbing non-existent method: #{instance.mocha_inspect}.non_existent_method")
-    assert_passed(test_result)
+    assert_defaults_to_allow_stubbing_with_potential_violation
   end
 
   def test_should_allow_stubbing_existing_public_instance_method
