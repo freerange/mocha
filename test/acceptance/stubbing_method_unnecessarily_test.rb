@@ -17,8 +17,7 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
   end
 
   def test_should_default_to_allow_stubbing_method_unnecessarily
-    assert_passed(stub_with_potential_violation)
-    assert !@logger.warnings.include?(message_on_violation)
+    assert_defaults_to_allow_stubbing_with_potential_violation
   end
 
   def test_should_allow_stubbing_method_when_stubbed_method_is_invoked

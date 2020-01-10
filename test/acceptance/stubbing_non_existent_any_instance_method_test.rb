@@ -21,8 +21,7 @@ class StubbingNonExistentAnyInstanceMethodTest < Mocha::TestCase
   end
 
   def test_should_default_to_allow_stubbing_non_existent_any_instance_method
-    assert_passed(stub_with_potential_violation)
-    assert !@logger.warnings.include?("stubbing non-existent method: #{klass.any_instance.mocha_inspect}.non_existent_method")
+    assert_defaults_to_allow_stubbing_with_potential_violation
   end
 
   def test_should_allow_stubbing_existing_public_any_instance_method
