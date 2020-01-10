@@ -33,19 +33,20 @@ module AllowStubbingExistingAnyInstanceMethodSharedTests
   end
 
   def test_should_allow_stubbing_existing_public_any_instance_method
-    assert_allows_stubbing_existing_any_instance_method(stubbee_with_method(:public))
+    assert_allows_stubbing_existing_any_instance_method(:public)
   end
 
   def test_should_allow_stubbing_existing_protected_any_instance_method
-    assert_allows_stubbing_existing_any_instance_method(stubbee_with_method(:protected))
+    assert_allows_stubbing_existing_any_instance_method(:protected)
   end
 
   def test_should_allow_stubbing_existing_private_any_instance_method
-    assert_allows_stubbing_existing_any_instance_method(stubbee_with_method(:private))
+    assert_allows_stubbing_existing_any_instance_method(:private)
   end
 
-  def assert_allows_stubbing_existing_any_instance_method(klass)
+  def assert_allows_stubbing_existing_any_instance_method(visibility)
     Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
+    klass = stubbee_with_method(visibility)
     test_result = run_as_test do
       klass.any_instance.stubs(:existing_method)
     end
