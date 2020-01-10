@@ -105,15 +105,15 @@ class AllowStubbingExistingAnyInstanceSuperclassMethodTest < Mocha::TestCase
     teardown_acceptance_test
   end
 
-  def test_should_allow_stubbing_existing_public_any_instance_superclass_method
+  def test_should_allow_stubbing_existing_public_any_instance_method
     assert_allows_stubbing_existing_any_instance_method(stubbee_with_method(:public))
   end
 
-  def test_should_allow_stubbing_existing_protected_any_instance_superclass_method
+  def test_should_allow_stubbing_existing_protected_any_instance_method
     assert_allows_stubbing_existing_any_instance_method(stubbee_with_method(:protected))
   end
 
-  def test_should_allow_stubbing_existing_private_any_instance_superclass_method
+  def test_should_allow_stubbing_existing_private_any_instance_method
     assert_allows_stubbing_existing_any_instance_method(stubbee_with_method(:private))
   end
 
