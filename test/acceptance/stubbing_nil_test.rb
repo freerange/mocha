@@ -13,24 +13,24 @@ if RUBY_VERSION < '2.2.0'
       teardown_acceptance_test
     end
 
-    def test_should_allow_stubbing_method_on_nil
-      assert_passed(stub_method_on_nil(:allow))
+    def test_should_allow_stubbing_with_potential_violation
+      assert_passed(stub_with_potential_violation(:allow))
       assert !@logger.warnings.include?(violation_message)
     end
 
-    def test_should_warn_on_stubbing_method_on_nil
-      assert_passed(stub_method_on_nil(:warn))
+    def test_should_warn_on_stubbing_with_potential_violation
+      assert_passed(stub_with_potential_violation(:warn))
       assert @logger.warnings.include?(violation_message)
     end
 
-    def test_should_prevent_stubbing_method_on_nil
-      test_result = stub_method_on_nil(:prevent)
+    def test_should_prevent_stubbing_with_potential_violation
+      test_result = stub_with_potential_violation(:prevent)
       assert_failed(test_result)
       assert test_result.error_messages.include?("Mocha::StubbingError: #{violation_message}")
     end
 
     def test_should_default_to_prevent_stubbing_method_on_non_mock_object
-      test_result = stub_method_on_nil
+      test_result = stub_with_potential_violation
       assert_failed(test_result)
       assert test_result.error_messages.include?("Mocha::StubbingError: #{violation_message}")
     end
@@ -42,7 +42,7 @@ if RUBY_VERSION < '2.2.0'
       assert_passed(test_result)
     end
 
-    def stub_method_on_nil(treatment = :default)
+    def stub_with_potential_violation(treatment = :default)
       run_test_with_check(treatment) do
         nil.stubs(:stubbed_method)
       end
