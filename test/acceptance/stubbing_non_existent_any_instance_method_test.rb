@@ -19,6 +19,18 @@ class StubbingNonExistentAnyInstanceMethodTest < Mocha::TestCase
   def message_on_violation
     "stubbing non-existent method: #{@klass.any_instance.mocha_inspect}.non_existent_method"
   end
+end
+
+class AllowStubbingExistingAnyInstanceMethodTest < Mocha::TestCase
+  include AcceptanceTest
+
+  def setup
+    setup_acceptance_test
+  end
+
+  def teardown
+    teardown_acceptance_test
+  end
 
   def test_should_allow_stubbing_existing_public_any_instance_method
     assert_allows_stubbing_existing_any_instance_method(class_with_method(:public))
@@ -59,6 +71,34 @@ class StubbingNonExistentAnyInstanceMethodTest < Mocha::TestCase
 
   def test_should_allow_stubbing_existing_private_any_instance_method
     assert_allows_stubbing_existing_any_instance_method(class_with_method(:private))
+  end
+
+  def assert_allows_stubbing_existing_any_instance_method(klass)
+    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
+    test_result = run_as_test do
+      klass.any_instance.stubs(:existing_method)
+    end
+    assert_passed(test_result)
+  end
+
+  def class_with_method(visibility)
+    klass = Class.new do
+      def existing_method; end
+    end
+    klass.send(visibility, :existing_method)
+    klass
+  end
+end
+
+class AllowStubbingExistingAnyInstanceSuperclassMethodTest < Mocha::TestCase
+  include AcceptanceTest
+
+  def setup
+    setup_acceptance_test
+  end
+
+  def teardown
+    teardown_acceptance_test
   end
 
   def test_should_allow_stubbing_existing_public_any_instance_superclass_method
