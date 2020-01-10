@@ -1,54 +1,27 @@
-require File.expand_path('../acceptance_test_helper', __FILE__)
-require 'mocha/configuration'
+require File.expand_path('../stubbing_with_potential_violation_shared_tests', __FILE__)
 
 class StubbingNonExistentClassMethodTest < Mocha::TestCase
-  include AcceptanceTest
+  include StubbingWithPotentialViolationSharedTests
 
   def setup
-    setup_acceptance_test
+    super
+    @klass = Class.new
   end
 
-  def teardown
-    teardown_acceptance_test
+  def configure_violation(config, treatment)
+    config.stubbing_non_existent_method = treatment
   end
 
-  def test_should_allow_stubbing_non_existent_class_method
-    Mocha.configure { |c| c.stubbing_non_existent_method = :allow }
-    klass = Class.new
-    test_result = run_as_test do
-      klass.stubs(:non_existent_method)
-    end
-    assert !@logger.warnings.include?("stubbing non-existent method: #{klass.mocha_inspect}.non_existent_method")
-    assert_passed(test_result)
+  def potential_violation
+    @klass.stubs(:non_existent_method)
   end
 
-  def test_should_warn_when_stubbing_non_existent_class_method
-    Mocha.configure { |c| c.stubbing_non_existent_method = :warn }
-    klass = Class.new
-    test_result = run_as_test do
-      klass.stubs(:non_existent_method)
-    end
-    assert_passed(test_result)
-    assert @logger.warnings.include?("stubbing non-existent method: #{klass.mocha_inspect}.non_existent_method")
-  end
-
-  def test_should_prevent_stubbing_non_existent_class_method
-    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
-    klass = Class.new
-    test_result = run_as_test do
-      klass.stubs(:non_existent_method)
-    end
-    assert_failed(test_result)
-    assert test_result.error_messages.include?("Mocha::StubbingError: stubbing non-existent method: #{klass.mocha_inspect}.non_existent_method")
+  def message_on_violation
+    "stubbing non-existent method: #{@klass.mocha_inspect}.non_existent_method"
   end
 
   def test_should_default_to_allow_stubbing_non_existent_class_method
-    klass = Class.new
-    test_result = run_as_test do
-      klass.stubs(:non_existent_method)
-    end
-    assert !@logger.warnings.include?("stubbing non-existent method: #{klass.mocha_inspect}.non_existent_method")
-    assert_passed(test_result)
+    assert_defaults_to_allow_stubbing_with_potential_violation
   end
 
   # rubocop:disable Lint/DuplicateMethods
