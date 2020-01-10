@@ -47,7 +47,7 @@ if RUBY_VERSION < '2.2.0'
     end
 
     def run_test_with_check(treatment = :default, &block)
-      Mocha.configure { |c| c.stubbing_method_on_nil = treatment } unless treatment == :default
+      Mocha.configure { |c| configure_violation(c, treatment) } unless treatment == :default
       run_as_test(&block)
     end
 
@@ -57,6 +57,10 @@ if RUBY_VERSION < '2.2.0'
 
     def potential_violation
       nil.stubs(:stubbed_method)
+    end
+
+    def configure_violation(config, treatment)
+      config.stubbing_method_on_nil = treatment
     end
   end
 end

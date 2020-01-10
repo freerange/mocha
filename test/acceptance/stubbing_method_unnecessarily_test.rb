@@ -47,7 +47,7 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
   end
 
   def run_test_with_check(treatment = :default, &block)
-    Mocha.configure { |c| c.stubbing_method_unnecessarily = treatment } unless treatment == :default
+    Mocha.configure { |c| configure_violation(c, treatment) } unless treatment == :default
     run_as_test(&block)
   end
 
@@ -58,5 +58,9 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
   def potential_violation
     mock = mock('mock')
     mock.stubs(:public_method)
+  end
+
+  def configure_violation(config, treatment)
+    config.stubbing_method_unnecessarily = treatment
   end
 end
