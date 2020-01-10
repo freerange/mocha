@@ -3,6 +3,19 @@ require File.expand_path('../stubbing_with_potential_violation_shared_tests', __
 class StubbingMethodUnnecessarilyTest < Mocha::TestCase
   include StubbingWithPotentialViolationSharedTests
 
+  def configure_violation(config, treatment)
+    config.stubbing_method_unnecessarily = treatment
+  end
+
+  def potential_violation
+    mock = mock('mock')
+    mock.stubs(:public_method)
+  end
+
+  def violation_message
+    'stubbing method unnecessarily: #<Mock:mock>.public_method(any_parameters)'
+  end
+
   def test_should_default_to_allow_stubbing_method_unnecessarily
     assert_passed(stub_with_potential_violation)
     assert !@logger.warnings.include?(violation_message)
@@ -15,18 +28,5 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
       mock.public_method
     end
     assert_passed(test_result)
-  end
-
-  def violation_message
-    'stubbing method unnecessarily: #<Mock:mock>.public_method(any_parameters)'
-  end
-
-  def potential_violation
-    mock = mock('mock')
-    mock.stubs(:public_method)
-  end
-
-  def configure_violation(config, treatment)
-    config.stubbing_method_unnecessarily = treatment
   end
 end
