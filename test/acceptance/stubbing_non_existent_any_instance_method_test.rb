@@ -33,7 +33,7 @@ class AllowStubbingExistingAnyInstanceMethodTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_existing_public_any_instance_method
-    assert_allows_stubbing_existing_any_instance_method(class_with_method(:public))
+    assert_allows_stubbing_existing_any_instance_method(stubbee_with_method(:public))
   end
 
   def test_should_allow_stubbing_method_to_which_any_instance_responds
@@ -66,11 +66,11 @@ class AllowStubbingExistingAnyInstanceMethodTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_existing_protected_any_instance_method
-    assert_allows_stubbing_existing_any_instance_method(class_with_method(:protected))
+    assert_allows_stubbing_existing_any_instance_method(stubbee_with_method(:protected))
   end
 
   def test_should_allow_stubbing_existing_private_any_instance_method
-    assert_allows_stubbing_existing_any_instance_method(class_with_method(:private))
+    assert_allows_stubbing_existing_any_instance_method(stubbee_with_method(:private))
   end
 
   def assert_allows_stubbing_existing_any_instance_method(klass)
@@ -87,6 +87,10 @@ class AllowStubbingExistingAnyInstanceMethodTest < Mocha::TestCase
     end
     klass.send(visibility, :existing_method)
     klass
+  end
+
+  def stubbee_with_method(visibility)
+    class_with_method(visibility)
   end
 end
 
@@ -102,15 +106,15 @@ class AllowStubbingExistingAnyInstanceSuperclassMethodTest < Mocha::TestCase
   end
 
   def test_should_allow_stubbing_existing_public_any_instance_superclass_method
-    assert_allows_stubbing_existing_any_instance_method(Class.new(class_with_method(:public)))
+    assert_allows_stubbing_existing_any_instance_method(stubbee_with_method(:public))
   end
 
   def test_should_allow_stubbing_existing_protected_any_instance_superclass_method
-    assert_allows_stubbing_existing_any_instance_method(Class.new(class_with_method(:protected)))
+    assert_allows_stubbing_existing_any_instance_method(stubbee_with_method(:protected))
   end
 
   def test_should_allow_stubbing_existing_private_any_instance_superclass_method
-    assert_allows_stubbing_existing_any_instance_method(Class.new(class_with_method(:private)))
+    assert_allows_stubbing_existing_any_instance_method(stubbee_with_method(:private))
   end
 
   def assert_allows_stubbing_existing_any_instance_method(klass)
@@ -127,5 +131,9 @@ class AllowStubbingExistingAnyInstanceSuperclassMethodTest < Mocha::TestCase
     end
     klass.send(visibility, :existing_method)
     klass
+  end
+
+  def stubbee_with_method(visibility)
+    Class.new(class_with_method(visibility))
   end
 end
