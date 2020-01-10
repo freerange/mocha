@@ -1,7 +1,7 @@
 require File.expand_path('../stubbing_with_potential_violation_shared_tests', __FILE__)
 
 class StubbingOnNonMockObjectTest < Mocha::TestCase
-  include StubbingWithPotentialViolationSharedTests
+  include StubbingWithPotentialViolationDefaultingToAllowedSharedTests
 
   def setup
     super
@@ -20,10 +20,6 @@ class StubbingOnNonMockObjectTest < Mocha::TestCase
 
   def message_on_violation
     "stubbing method on non-mock object: #{@non_mock_object.mocha_inspect}.existing_method"
-  end
-
-  def test_should_default_to_allow_stubbing_method_on_non_mock_object
-    assert_defaults_to_allow_stubbing_with_potential_violation
   end
 
   def test_should_allow_stubbing_method_on_mock_object

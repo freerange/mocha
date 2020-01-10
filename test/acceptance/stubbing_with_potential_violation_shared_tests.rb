@@ -28,11 +28,6 @@ module StubbingWithPotentialViolationSharedTests
     assert test_result.error_messages.include?("Mocha::StubbingError: #{message_on_violation}")
   end
 
-  def assert_defaults_to_allow_stubbing_with_potential_violation
-    assert_passed(stub_with_potential_violation)
-    assert !@logger.warnings.include?(message_on_violation)
-  end
-
   def stub_with_potential_violation(treatment = :default)
     run_test_with_check(treatment, &method(:potential_violation))
   end
@@ -40,5 +35,14 @@ module StubbingWithPotentialViolationSharedTests
   def run_test_with_check(treatment = :default, &block)
     Mocha.configure { |c| configure_violation(c, treatment) } unless treatment == :default
     run_as_test(&block)
+  end
+end
+
+module StubbingWithPotentialViolationDefaultingToAllowedSharedTests
+  include StubbingWithPotentialViolationSharedTests
+
+  def test_should_default_to_allow_stubbing_with_potential_violation
+    assert_passed(stub_with_potential_violation)
+    assert !@logger.warnings.include?(message_on_violation)
   end
 end
