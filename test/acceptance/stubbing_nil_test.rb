@@ -12,14 +12,14 @@ if RUBY_VERSION < '2.2.0'
       nil.stubs(:stubbed_method)
     end
 
-    def violation_message
+    def message_on_violation
       'stubbing method on nil: nil.stubbed_method'
     end
 
     def test_should_default_to_prevent_stubbing_method_on_nil
       test_result = stub_with_potential_violation
       assert_failed(test_result)
-      assert test_result.error_messages.include?("Mocha::StubbingError: #{violation_message}")
+      assert test_result.error_messages.include?("Mocha::StubbingError: #{message_on_violation}")
     end
 
     def test_should_allow_stubbing_method_on_non_nil_object

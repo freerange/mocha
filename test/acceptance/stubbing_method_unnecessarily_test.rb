@@ -12,13 +12,13 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
     mock.stubs(:public_method)
   end
 
-  def violation_message
+  def message_on_violation
     'stubbing method unnecessarily: #<Mock:mock>.public_method(any_parameters)'
   end
 
   def test_should_default_to_allow_stubbing_method_unnecessarily
     assert_passed(stub_with_potential_violation)
-    assert !@logger.warnings.include?(violation_message)
+    assert !@logger.warnings.include?(message_on_violation)
   end
 
   def test_should_allow_stubbing_method_when_stubbed_method_is_invoked
