@@ -24,14 +24,14 @@ class StubbingNonPublicAnyInstanceMethodTest < Mocha::TestCase
   end
 end
 
-class StubbingPrivateAnyInstanceMethodTest < Mocha::TestCase
+module StubbingNonPublicAnyInstanceMethodSharedTests
   include StubbingWithPotentialViolationDefaultingToAllowedSharedTests
 
   def setup
     super
     @klass = Class.new
     @klass.send(:define_method, :non_public_method) {}
-    @klass.send(:private, :non_public_method)
+    @klass.send(visibility, :non_public_method)
   end
 
   def configure_violation(config, treatment)
@@ -47,25 +47,18 @@ class StubbingPrivateAnyInstanceMethodTest < Mocha::TestCase
   end
 end
 
+class StubbingPrivateAnyInstanceMethodTest < Mocha::TestCase
+  include StubbingNonPublicAnyInstanceMethodSharedTests
+
+  def visibility
+    :private
+  end
+end
+
 class StubbingProtectedAnyInstanceMethodTest < Mocha::TestCase
-  include StubbingWithPotentialViolationDefaultingToAllowedSharedTests
+  include StubbingNonPublicAnyInstanceMethodSharedTests
 
-  def setup
-    super
-    @klass = Class.new
-    @klass.send(:define_method, :non_public_method) {}
-    @klass.send(:protected, :non_public_method)
-  end
-
-  def configure_violation(config, treatment)
-    config.stubbing_non_public_method = treatment
-  end
-
-  def potential_violation
-    @klass.any_instance.stubs(:non_public_method)
-  end
-
-  def message_on_violation
-    "stubbing non-public method: #{@klass.any_instance.mocha_inspect}.non_public_method"
+  def visibility
+    :protected
   end
 end
