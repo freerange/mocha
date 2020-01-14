@@ -1,4 +1,5 @@
 require File.expand_path('../stubbing_with_potential_violation_shared_tests', __FILE__)
+require File.expand_path('../allow_stubbing_existing_method_shared_tests', __FILE__)
 
 class StubbingNonExistentClassMethodTest < Mocha::TestCase
   include StubbingWithPotentialViolationDefaultingToAllowedSharedTests
@@ -19,20 +20,17 @@ class StubbingNonExistentClassMethodTest < Mocha::TestCase
   def message_on_violation
     "stubbing non-existent method: #{@klass.mocha_inspect}.non_existent_method"
   end
+end
 
-  # rubocop:disable Lint/DuplicateMethods
-  def test_should_allow_stubbing_existing_public_class_method
-    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
-    klass = Class.new do
-      class << self
-        def existing_public_method; end
-        public :existing_public_method
-      end
-    end
-    test_result = run_as_test do
-      klass.stubs(:existing_public_method)
-    end
-    assert_passed(test_result)
+class AllowStubbingExistingClassMethodTest < Mocha::TestCase
+  include AllowStubbingExistingMethodSharedTests
+
+  def method_owner
+    stub_owner.singleton_class
+  end
+
+  def stub_owner
+    @stub_owner ||= Class.new
   end
 
   def test_should_allow_stubbing_method_to_which_class_responds
@@ -49,78 +47,16 @@ class StubbingNonExistentClassMethodTest < Mocha::TestCase
     end
     assert_passed(test_result)
   end
+end
 
-  def test_should_allow_stubbing_existing_protected_class_method
-    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
-    klass = Class.new do
-      class << self
-        def existing_protected_method; end
-        protected :existing_protected_method
-      end
-    end
-    test_result = run_as_test do
-      klass.stubs(:existing_protected_method)
-    end
-    assert_passed(test_result)
+class AllowStubbingExistingSuperclassMethodTest < Mocha::TestCase
+  include AllowStubbingExistingMethodSharedTests
+
+  def method_owner
+    stub_owner.superclass.singleton_class
   end
 
-  def test_should_allow_stubbing_existing_private_class_method
-    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
-    klass = Class.new do
-      class << self
-        def existing_private_method; end
-        private :existing_private_method
-      end
-    end
-    test_result = run_as_test do
-      klass.stubs(:existing_private_method)
-    end
-    assert_passed(test_result)
+  def stub_owner
+    @stub_owner ||= Class.new(Class.new)
   end
-
-  def test_should_allow_stubbing_existing_public_superclass_method
-    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
-    superklass = Class.new do
-      class << self
-        def existing_public_method; end
-        public :existing_public_method
-      end
-    end
-    klass = Class.new(superklass)
-    test_result = run_as_test do
-      klass.stubs(:existing_public_method)
-    end
-    assert_passed(test_result)
-  end
-
-  def test_should_allow_stubbing_existing_protected_superclass_method
-    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
-    superklass = Class.new do
-      class << self
-        def existing_protected_method; end
-        protected :existing_protected_method
-      end
-    end
-    klass = Class.new(superklass)
-    test_result = run_as_test do
-      klass.stubs(:existing_protected_method)
-    end
-    assert_passed(test_result)
-  end
-
-  def test_should_allow_stubbing_existing_private_superclass_method
-    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
-    superklass = Class.new do
-      class << self
-        def existing_private_method; end
-        protected :existing_private_method
-      end
-    end
-    klass = Class.new(superklass)
-    test_result = run_as_test do
-      klass.stubs(:existing_private_method)
-    end
-    assert_passed(test_result)
-  end
-  # rubocop:enable Lint/DuplicateMethods
 end
