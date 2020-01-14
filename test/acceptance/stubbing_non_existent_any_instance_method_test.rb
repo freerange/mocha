@@ -21,7 +21,7 @@ class StubbingNonExistentAnyInstanceMethodTest < Mocha::TestCase
   end
 end
 
-module AllowStubbingExistingAnyInstanceMethodSharedTests
+module AllowStubbingExistingMethodSharedTests
   include AcceptanceTest
 
   def setup
@@ -32,19 +32,19 @@ module AllowStubbingExistingAnyInstanceMethodSharedTests
     teardown_acceptance_test
   end
 
-  def test_should_allow_stubbing_existing_public_any_instance_method
-    assert_allows_stubbing_existing_any_instance_method(:public)
+  def test_should_allow_stubbing_existing_public_method
+    assert_allows_stubbing_existing_method(:public)
   end
 
-  def test_should_allow_stubbing_existing_protected_any_instance_method
-    assert_allows_stubbing_existing_any_instance_method(:protected)
+  def test_should_allow_stubbing_existing_protected_method
+    assert_allows_stubbing_existing_method(:protected)
   end
 
-  def test_should_allow_stubbing_existing_private_any_instance_method
-    assert_allows_stubbing_existing_any_instance_method(:private)
+  def test_should_allow_stubbing_existing_private_method
+    assert_allows_stubbing_existing_method(:private)
   end
 
-  def assert_allows_stubbing_existing_any_instance_method(visibility)
+  def assert_allows_stubbing_existing_method(visibility)
     Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
     method_owner.send(:define_method, :existing_method) {}
     method_owner.send(visibility, :existing_method)
@@ -57,7 +57,7 @@ module AllowStubbingExistingAnyInstanceMethodSharedTests
 end
 
 class AllowStubbingExistingAnyInstanceMethodTest < Mocha::TestCase
-  include AllowStubbingExistingAnyInstanceMethodSharedTests
+  include AllowStubbingExistingMethodSharedTests
 
   def method_owner
     stubbed_instance
@@ -102,7 +102,7 @@ class AllowStubbingExistingAnyInstanceMethodTest < Mocha::TestCase
 end
 
 class AllowStubbingExistingAnyInstanceSuperclassMethodTest < Mocha::TestCase
-  include AllowStubbingExistingAnyInstanceMethodSharedTests
+  include AllowStubbingExistingMethodSharedTests
 
   def method_owner
     stubbed_instance.superclass
