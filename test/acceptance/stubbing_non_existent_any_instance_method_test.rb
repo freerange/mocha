@@ -48,9 +48,9 @@ module AllowStubbingExistingAnyInstanceMethodSharedTests
     Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
     method_owner.send(:define_method, :existing_method) {}
     method_owner.send(visibility, :existing_method)
-    stubbee_in_scope = stubbee
+    stub_owner_in_scope = stub_owner
     test_result = run_as_test do
-      stubbee_in_scope.any_instance.stubs(:existing_method)
+      stub_owner_in_scope.stubs(:existing_method)
     end
     assert_passed(test_result)
   end
@@ -60,11 +60,15 @@ class AllowStubbingExistingAnyInstanceMethodTest < Mocha::TestCase
   include AllowStubbingExistingAnyInstanceMethodSharedTests
 
   def method_owner
-    stubbee
+    stubbed_instance
   end
 
-  def stubbee
-    @stubbee ||= Class.new
+  def stub_owner
+    stubbed_instance.any_instance
+  end
+
+  def stubbed_instance
+    @stubbed_instance ||= Class.new
   end
 
   def test_should_allow_stubbing_method_to_which_any_instance_responds
@@ -101,10 +105,14 @@ class AllowStubbingExistingAnyInstanceSuperclassMethodTest < Mocha::TestCase
   include AllowStubbingExistingAnyInstanceMethodSharedTests
 
   def method_owner
-    stubbee.superclass
+    stubbed_instance.superclass
   end
 
-  def stubbee
-    @stubbee ||= Class.new(Class.new)
+  def stub_owner
+    stubbed_instance.any_instance
+  end
+
+  def stubbed_instance
+    @stubbed_instance ||= Class.new(Class.new)
   end
 end
