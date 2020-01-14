@@ -1,5 +1,5 @@
 require File.expand_path('../stubbing_with_potential_violation_shared_tests', __FILE__)
-require File.expand_path('../allow_stubbing_existing_method_shared_tests', __FILE__)
+require File.expand_path('../stubbing_existing_method_is_allowed_shared_tests', __FILE__)
 
 class StubbingNonExistentClassMethodTest < Mocha::TestCase
   include StubbingWithPotentialViolationDefaultingToAllowedSharedTests
@@ -22,8 +22,8 @@ class StubbingNonExistentClassMethodTest < Mocha::TestCase
   end
 end
 
-class AllowStubbingExistingClassMethodTest < Mocha::TestCase
-  include AllowStubbingExistingMethodSharedTests
+class StubbingExistingClassMethodIsAllowedTest < Mocha::TestCase
+  include StubbingExistingMethodIsAllowedSharedTests
 
   def method_owner
     stub_owner.singleton_class
@@ -34,8 +34,8 @@ class AllowStubbingExistingClassMethodTest < Mocha::TestCase
   end
 end
 
-class AllowStubbingExistingSuperclassMethodTest < Mocha::TestCase
-  include AllowStubbingExistingMethodSharedTests
+class StubbingExistingSuperclassMethodIsAllowedTest < Mocha::TestCase
+  include StubbingExistingMethodIsAllowedSharedTests
 
   def method_owner
     stub_owner.superclass.singleton_class

@@ -1,6 +1,6 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
 
-module AllowStubbingExistingMethodSharedTests
+module StubbingExistingMethodIsAllowedSharedTests
   include AcceptanceTest
 
   def setup
