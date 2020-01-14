@@ -32,21 +32,6 @@ class AllowStubbingExistingClassMethodTest < Mocha::TestCase
   def stub_owner
     @stub_owner ||= Class.new
   end
-
-  def test_should_allow_stubbing_method_to_which_class_responds
-    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
-    klass = Class.new do
-      class << self
-        def respond_to?(method, _include_private = false)
-          (method == :method_to_which_class_responds)
-        end
-      end
-    end
-    test_result = run_as_test do
-      klass.stubs(:method_to_which_class_responds)
-    end
-    assert_passed(test_result)
-  end
 end
 
 class AllowStubbingExistingSuperclassMethodTest < Mocha::TestCase

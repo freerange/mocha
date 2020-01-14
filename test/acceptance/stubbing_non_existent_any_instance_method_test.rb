@@ -37,19 +37,6 @@ class AllowStubbingExistingAnyInstanceMethodTest < Mocha::TestCase
     @stubbed_instance ||= Class.new
   end
 
-  def test_should_allow_stubbing_method_to_which_any_instance_responds
-    klass = Class.new do
-      def respond_to?(method, _include_private = false)
-        (method == :method_to_which_instance_responds)
-      end
-    end
-    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
-    test_result = run_as_test do
-      klass.any_instance.stubs(:method_to_which_instance_responds)
-    end
-    assert_passed(test_result)
-  end
-
   def test_should_default_to_allowing_stubbing_method_if_responds_to_depends_on_calling_initialize
     klass = Class.new do
       def initialize(attrs = {})
