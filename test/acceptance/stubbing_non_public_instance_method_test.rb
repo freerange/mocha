@@ -1,39 +1,15 @@
 require File.expand_path('../stubbing_non_public_method_shared_tests', __FILE__)
+require File.expand_path('../stubbing_public_method_is_allowed_shared_tests', __FILE__)
 
 class StubbingNonPublicInstanceMethodTest < Mocha::TestCase
-  include AcceptanceTest
+  include StubbingPublicMethodIsAllowedSharedTests
 
-  def setup
-    setup_acceptance_test
+  def stub_owner
+    @stub_owner ||= Class.new.new
   end
 
-  def teardown
-    teardown_acceptance_test
-  end
-
-  def test_should_allow_stubbing_public_instance_method
-    Mocha.configure { |c| c.stubbing_non_public_method = :prevent }
-    instance = Class.new do
-      def public_method; end
-      public :public_method
-    end.new
-    test_result = run_as_test do
-      instance.stubs(:public_method)
-    end
-    assert_passed(test_result)
-  end
-
-  def test_should_allow_stubbing_method_to_which_instance_responds
-    Mocha.configure { |c| c.stubbing_non_public_method = :prevent }
-    instance = Class.new do
-      def respond_to?(method, _include_private_methods = false)
-        (method == :method_to_which_instance_responds)
-      end
-    end.new
-    test_result = run_as_test do
-      instance.stubs(:method_to_which_instance_responds)
-    end
-    assert_passed(test_result)
+  def method_owner
+    stub_owner.class
   end
 end
 
