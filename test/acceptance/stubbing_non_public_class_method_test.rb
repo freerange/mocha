@@ -1,28 +1,15 @@
 require File.expand_path('../stubbing_non_public_method_shared_tests', __FILE__)
 require File.expand_path('../stubbing_public_method_is_allowed_shared_tests', __FILE__)
+require File.expand_path('../stubbing_class_method_helper', __FILE__)
 
 class StubbingNonPublicClassMethodTest < Mocha::TestCase
   include StubbingPublicMethodIsAllowedSharedTests
-
-  def stub_owner
-    @stub_owner ||= Class.new
-  end
-
-  def method_owner
-    stub_owner.singleton_class
-  end
+  include StubbingClassMethodHelper
 end
 
 module StubbingNonPublicClassMethodSharedTests
   include StubbingNonPublicMethodSharedTests
-
-  def method_owner
-    stub_owner.singleton_class
-  end
-
-  def stub_owner
-    @stub_owner ||= Class.new
-  end
+  include StubbingClassMethodHelper
 end
 
 class StubbingPrivateClassMethodTest < Mocha::TestCase
