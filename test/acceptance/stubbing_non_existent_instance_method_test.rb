@@ -1,5 +1,6 @@
 require File.expand_path('../stubbing_with_potential_violation_shared_tests', __FILE__)
 require File.expand_path('../stubbing_existing_method_is_allowed_shared_tests', __FILE__)
+require File.expand_path('../stubbing_instance_method_helper', __FILE__)
 
 class StubbingNonExistentInstanceMethodTest < Mocha::TestCase
   include StubbingWithPotentialViolationDefaultingToAllowedSharedTests
@@ -24,14 +25,7 @@ end
 
 class StubbingExistingInstanceMethodIsAllowedTest < Mocha::TestCase
   include StubbingExistingMethodIsAllowedSharedTests
-
-  def method_owner
-    stub_owner.class
-  end
-
-  def stub_owner
-    @stub_owner ||= Class.new.new
-  end
+  include StubbingInstanceMethodHelper
 end
 
 class StubbingExistingInstanceSuperclassMethodIsAllowedTest < Mocha::TestCase
