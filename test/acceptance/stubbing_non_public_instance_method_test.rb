@@ -7,13 +7,9 @@ class StubbingNonPublicInstanceMethodTest < Mocha::TestCase
   include StubbingInstanceMethodHelper
 end
 
-module StubbingNonPublicInstanceMethodSharedTests
+class StubbingPrivateInstanceMethodTest < Mocha::TestCase
   include StubbingNonPublicMethodSharedTests
   include StubbingInstanceMethodHelper
-end
-
-class StubbingPrivateInstanceMethodTest < Mocha::TestCase
-  include StubbingNonPublicInstanceMethodSharedTests
 
   def visibility
     :private
@@ -21,7 +17,8 @@ class StubbingPrivateInstanceMethodTest < Mocha::TestCase
 end
 
 class StubbingProtectedInstanceMethodTest < Mocha::TestCase
-  include StubbingNonPublicInstanceMethodSharedTests
+  include StubbingNonPublicMethodSharedTests
+  include StubbingInstanceMethodHelper
 
   def visibility
     :protected
