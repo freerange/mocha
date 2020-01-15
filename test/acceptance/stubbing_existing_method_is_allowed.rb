@@ -37,11 +37,15 @@ module StubbingExistingMethodIsAllowed
   end
 
   def assert_allows_stubbing_method(stubbed_method)
-    Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
+    Mocha.configure { |c| configure_violation(c, :prevent) }
     stub_owner_in_scope = stub_owner
     test_result = run_as_test do
       stub_owner_in_scope.stubs(stubbed_method)
     end
     assert_passed(test_result)
+  end
+
+  def configure_violation(config, treatment)
+    config.stubbing_non_existent_method = treatment
   end
 end
