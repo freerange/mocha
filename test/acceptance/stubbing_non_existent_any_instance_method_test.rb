@@ -4,22 +4,18 @@ require File.expand_path('../stubbing_any_instance_method_helper', __FILE__)
 
 class StubbingNonExistentAnyInstanceMethodTest < Mocha::TestCase
   include StubbingWithPotentialViolationDefaultingToAllowedSharedTests
-
-  def setup
-    super
-    @klass = Class.new
-  end
+  include StubbingAnyInstanceMethodHelper
 
   def configure_violation(config, treatment)
     config.stubbing_non_existent_method = treatment
   end
 
   def potential_violation
-    @klass.any_instance.stubs(:non_existent_method)
+    stub_owner.stubs(:non_existent_method)
   end
 
   def message_on_violation
-    "stubbing non-existent method: #{@klass.any_instance.mocha_inspect}.non_existent_method"
+    "stubbing non-existent method: #{stub_owner.mocha_inspect}.non_existent_method"
   end
 end
 
