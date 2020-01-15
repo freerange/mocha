@@ -26,15 +26,11 @@ class StubbingExistingAnyInstanceMethodIsAllowedTest < Mocha::TestCase
   include StubbingExistingMethodIsAllowedSharedTests
 
   def method_owner
-    stubbed_instance
+    @method_owner ||= Class.new
   end
 
   def stub_owner
-    stubbed_instance.any_instance
-  end
-
-  def stubbed_instance
-    @stubbed_instance ||= Class.new
+    method_owner.any_instance
   end
 
   def test_should_default_to_allowing_stubbing_method_if_responds_to_depends_on_calling_initialize

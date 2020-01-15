@@ -4,24 +4,24 @@ require File.expand_path('../stubbing_public_method_is_allowed_shared_tests', __
 class StubbingNonPublicInstanceMethodTest < Mocha::TestCase
   include StubbingPublicMethodIsAllowedSharedTests
 
-  def stub_owner
-    @stub_owner ||= Class.new.new
-  end
-
   def method_owner
     stub_owner.class
+  end
+
+  def stub_owner
+    @stub_owner ||= Class.new.new
   end
 end
 
 module StubbingNonPublicInstanceMethodSharedTests
   include StubbingNonPublicMethodSharedTests
 
-  def stub_owner
-    @stub_owner ||= Class.new.new
-  end
-
   def method_owner
     stub_owner.class
+  end
+
+  def stub_owner
+    @stub_owner ||= Class.new.new
   end
 end
 
