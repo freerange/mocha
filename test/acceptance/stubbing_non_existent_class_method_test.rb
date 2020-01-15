@@ -1,22 +1,10 @@
-require File.expand_path('../stubbing_with_potential_violation_shared_tests', __FILE__)
+require File.expand_path('../stubbing_non_existent_method_shared_tests', __FILE__)
 require File.expand_path('../stubbing_existing_method_is_allowed_shared_tests', __FILE__)
 require File.expand_path('../stubbing_class_method_helper', __FILE__)
 
 class StubbingNonExistentClassMethodTest < Mocha::TestCase
-  include StubbingWithPotentialViolationDefaultingToAllowedSharedTests
+  include StubbingNonExistentMethodSharedTests
   include StubbingClassMethodHelper
-
-  def configure_violation(config, treatment)
-    config.stubbing_non_existent_method = treatment
-  end
-
-  def potential_violation
-    stub_owner.stubs(:non_existent_method)
-  end
-
-  def message_on_violation
-    "stubbing non-existent method: #{stub_owner.mocha_inspect}.non_existent_method"
-  end
 end
 
 class StubbingExistingClassMethodIsAllowedTest < Mocha::TestCase
