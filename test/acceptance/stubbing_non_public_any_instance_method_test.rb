@@ -1,15 +1,15 @@
-require File.expand_path('../stubbing_non_public_method_shared_tests', __FILE__)
-require File.expand_path('../stubbing_public_method_is_allowed_shared_tests', __FILE__)
-require File.expand_path('../stubbing_any_instance_method_helper', __FILE__)
+require File.expand_path('../stubbing_non_public_method_is_checked', __FILE__)
+require File.expand_path('../stubbing_public_method_is_allowed', __FILE__)
+require File.expand_path('../stubbing_any_instance_method', __FILE__)
 
 class StubbingNonPublicAnyInstanceMethodTest < Mocha::TestCase
-  include StubbingPublicMethodIsAllowedSharedTests
-  include StubbingAnyInstanceMethodHelper
+  include StubbingPublicMethodIsAllowed
+  include StubbingAnyInstanceMethod
 end
 
 class StubbingPrivateAnyInstanceMethodTest < Mocha::TestCase
-  include StubbingNonPublicMethodSharedTests
-  include StubbingAnyInstanceMethodHelper
+  include StubbingNonPublicMethodIsChecked
+  include StubbingAnyInstanceMethod
 
   def visibility
     :private
@@ -17,8 +17,8 @@ class StubbingPrivateAnyInstanceMethodTest < Mocha::TestCase
 end
 
 class StubbingProtectedAnyInstanceMethodTest < Mocha::TestCase
-  include StubbingNonPublicMethodSharedTests
-  include StubbingAnyInstanceMethodHelper
+  include StubbingNonPublicMethodIsChecked
+  include StubbingAnyInstanceMethod
 
   def visibility
     :protected

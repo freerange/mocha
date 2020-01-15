@@ -1,19 +1,19 @@
-require File.expand_path('../stubbing_non_existent_method_shared_tests', __FILE__)
-require File.expand_path('../stubbing_existing_method_is_allowed_shared_tests', __FILE__)
-require File.expand_path('../stubbing_instance_method_helper', __FILE__)
+require File.expand_path('../stubbing_non_existent_method_is_checked', __FILE__)
+require File.expand_path('../stubbing_existing_method_is_allowed', __FILE__)
+require File.expand_path('../stubbing_instance_method', __FILE__)
 
 class StubbingNonExistentInstanceMethodTest < Mocha::TestCase
-  include StubbingNonExistentMethodSharedTests
-  include StubbingInstanceMethodHelper
+  include StubbingNonExistentMethodIsChecked
+  include StubbingInstanceMethod
 end
 
 class StubbingExistingInstanceMethodIsAllowedTest < Mocha::TestCase
-  include StubbingExistingMethodIsAllowedSharedTests
-  include StubbingInstanceMethodHelper
+  include StubbingExistingMethodIsAllowed
+  include StubbingInstanceMethod
 end
 
 class StubbingExistingInstanceSuperclassMethodIsAllowedTest < Mocha::TestCase
-  include StubbingExistingMethodIsAllowedSharedTests
+  include StubbingExistingMethodIsAllowed
 
   def method_owner
     stub_owner.class.superclass

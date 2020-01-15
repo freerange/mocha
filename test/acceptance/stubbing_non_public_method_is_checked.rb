@@ -1,7 +1,7 @@
-require File.expand_path('../stubbing_with_potential_violation_shared_tests', __FILE__)
+require File.expand_path('../stubbing_with_potential_violation_is_checked', __FILE__)
 
-module StubbingNonPublicMethodSharedTests
-  include StubbingWithPotentialViolationDefaultingToAllowedSharedTests
+module StubbingNonPublicMethodIsChecked
+  include StubbingWithPotentialViolationIsCheckedAndAllowedByDefault
 
   def setup
     super

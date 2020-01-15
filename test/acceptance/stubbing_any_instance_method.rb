@@ -1,4 +1,4 @@
-module StubbingAnyInstanceMethodHelper
+module StubbingAnyInstanceMethod
   def method_owner
     @method_owner ||= Class.new
   end

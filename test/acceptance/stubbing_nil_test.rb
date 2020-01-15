@@ -1,8 +1,8 @@
-require File.expand_path('../stubbing_with_potential_violation_shared_tests', __FILE__)
+require File.expand_path('../stubbing_with_potential_violation_is_checked', __FILE__)
 
 if RUBY_VERSION < '2.2.0'
   class StubbingNilTest < Mocha::TestCase
-    include StubbingWithPotentialViolationSharedTests
+    include StubbingWithPotentialViolationIsChecked
 
     def configure_violation(config, treatment)
       config.stubbing_method_on_nil = treatment

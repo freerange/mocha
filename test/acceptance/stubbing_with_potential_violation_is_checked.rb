@@ -1,7 +1,7 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/configuration'
 
-module StubbingWithPotentialViolationSharedTests
+module StubbingWithPotentialViolationIsChecked
   include AcceptanceTest
 
   def setup
@@ -38,8 +38,8 @@ module StubbingWithPotentialViolationSharedTests
   end
 end
 
-module StubbingWithPotentialViolationDefaultingToAllowedSharedTests
-  include StubbingWithPotentialViolationSharedTests
+module StubbingWithPotentialViolationIsCheckedAndAllowedByDefault
+  include StubbingWithPotentialViolationIsChecked
 
   def test_should_default_to_allow_stubbing_with_potential_violation
     assert_passed(stub_with_potential_violation)

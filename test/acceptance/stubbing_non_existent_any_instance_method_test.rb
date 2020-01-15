@@ -1,15 +1,15 @@
-require File.expand_path('../stubbing_non_existent_method_shared_tests', __FILE__)
-require File.expand_path('../stubbing_existing_method_is_allowed_shared_tests', __FILE__)
-require File.expand_path('../stubbing_any_instance_method_helper', __FILE__)
+require File.expand_path('../stubbing_non_existent_method_is_checked', __FILE__)
+require File.expand_path('../stubbing_existing_method_is_allowed', __FILE__)
+require File.expand_path('../stubbing_any_instance_method', __FILE__)
 
 class StubbingNonExistentAnyInstanceMethodTest < Mocha::TestCase
-  include StubbingNonExistentMethodSharedTests
-  include StubbingAnyInstanceMethodHelper
+  include StubbingNonExistentMethodIsChecked
+  include StubbingAnyInstanceMethod
 end
 
 class StubbingExistingAnyInstanceMethodIsAllowedTest < Mocha::TestCase
-  include StubbingExistingMethodIsAllowedSharedTests
-  include StubbingAnyInstanceMethodHelper
+  include StubbingExistingMethodIsAllowed
+  include StubbingAnyInstanceMethod
 
   def test_should_default_to_allowing_stubbing_method_if_responds_to_depends_on_calling_initialize
     klass = Class.new do
@@ -29,7 +29,7 @@ class StubbingExistingAnyInstanceMethodIsAllowedTest < Mocha::TestCase
 end
 
 class StubbingExistingAnyInstanceSuperclassMethodIsAllowedTest < Mocha::TestCase
-  include StubbingExistingMethodIsAllowedSharedTests
+  include StubbingExistingMethodIsAllowed
 
   def method_owner
     stubbed_instance.superclass

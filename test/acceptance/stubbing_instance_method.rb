@@ -1,4 +1,4 @@
-module StubbingInstanceMethodHelper
+module StubbingInstanceMethod
   def method_owner
     stub_owner.class
   end

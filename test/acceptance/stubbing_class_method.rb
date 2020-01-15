@@ -1,4 +1,4 @@
-module StubbingClassMethodHelper
+module StubbingClassMethod
   def method_owner
     stub_owner.singleton_class
   end
