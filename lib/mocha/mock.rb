@@ -312,7 +312,7 @@ module Mocha
       invocation = Invocation.new(self, symbol, *arguments, &block)
       if (matching_expectation_allowing_invocation = all_expectations.match_allowing_invocation(invocation))
         matching_expectation_allowing_invocation.invoke(invocation)
-      elsif (matching_expectation = all_expectations.match(invocation)) || (!matching_expectation && !@everything_stubbed)
+      elsif all_expectations.any? && (matching_expectation = all_expectations.match(invocation)) || (!matching_expectation && !@everything_stubbed)
         raise_unexpected_invocation_error(invocation, matching_expectation)
       end
     end
