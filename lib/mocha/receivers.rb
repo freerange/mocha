@@ -8,7 +8,7 @@ module Mocha
       object = @object
       mocks = []
       while object
-        mocha = mock_owner(object).mocha(false)
+        mocha = stubbee(object).mocha(false)
         mocks << mocha if mocha
         object = object.is_a?(Class) ? object.superclass : nil
       end
@@ -17,13 +17,13 @@ module Mocha
   end
 
   class InstanceReceiver < StubbedReceiver
-    def mock_owner(object)
+    def stubbee(object)
       object
     end
   end
 
   class AnyInstanceReceiver < StubbedReceiver
-    def mock_owner(klass)
+    def stubbee(klass)
       klass.any_instance
     end
   end
