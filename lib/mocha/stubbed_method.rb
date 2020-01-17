@@ -5,10 +5,10 @@ module Mocha
   class StubbedMethod
     PrependedModule = Class.new(Module)
 
-    attr_reader :stubbee, :method_name
+    attr_reader :stubba_object, :method_name
 
-    def initialize(stubbee, method_name)
-      @stubbee = stubbee
+    def initialize(stubba_object, method_name)
+      @stubba_object = stubba_object
       @original_method = nil
       @original_visibility = nil
       @method_name = PRE_RUBY_V19 ? method_name.to_s : method_name.to_sym
@@ -28,11 +28,11 @@ module Mocha
     end
 
     def mock
-      mock_owner.mocha
+      stubbee.mocha
     end
 
     def reset_mocha
-      mock_owner.reset_mocha
+      stubbee.reset_mocha
     end
 
     def hide_original_method
@@ -81,13 +81,13 @@ module Mocha
 
     def matches?(other)
       return false unless other.class == self.class
-      (stubbee.object_id == other.stubbee.object_id) && (method_name == other.method_name)
+      (stubba_object.object_id == other.stubba_object.object_id) && (method_name == other.method_name)
     end
 
     alias_method :==, :eql?
 
     def to_s
-      "#{stubbee}.#{method_name}"
+      "#{stubba_object}.#{method_name}"
     end
 
     private
