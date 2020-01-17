@@ -7,7 +7,7 @@ class StubClassMethodDefinedOnModuleTest < Mocha::TestCase
     @method_owner ||= Module.new
   end
 
-  def stubbed_instance
+  def callee
     Class.new.extend(method_owner)
   end
 end

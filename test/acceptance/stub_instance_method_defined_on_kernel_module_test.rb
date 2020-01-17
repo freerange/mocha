@@ -5,7 +5,7 @@ class StubInstanceMethodDefinedOnKernelStubbedOnAnObjectTest < Mocha::TestCase
     Kernel
   end
 
-  def stubbed_instance
+  def callee
     Class.new.new
   end
 end
@@ -15,7 +15,7 @@ class StubInstanceMethodDefinedOnKernelStubbedOnAModuleTest < Mocha::TestCase
     Kernel
   end
 
-  def stubbed_instance
+  def callee
     Module.new
   end
 end

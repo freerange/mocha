@@ -8,7 +8,7 @@ unless Mocha::PRE_RUBY_V19
       @method_owner ||= Module.new
     end
 
-    def stubbed_instance
+    def callee
       Class.new.extend(method_owner)
     end
 

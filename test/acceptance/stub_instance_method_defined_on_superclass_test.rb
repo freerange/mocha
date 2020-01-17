@@ -7,7 +7,7 @@ class StubInstanceMethodDefinedOnSuperclassTest < Mocha::TestCase
     @method_owner ||= Class.new
   end
 
-  def stubbed_instance
+  def callee
     Class.new(method_owner).new
   end
 end

@@ -29,22 +29,22 @@ module StubMethodSharedTests
   def assert_snapshot_unchanged_on_stubbing(visibility)
     method_owner.send(visibility, stubbed_method_name)
     method_owner.send(:alias_method, :my_aliased_method, stubbed_method_name) if alias_method?
-    instance = stubbed_instance
-    stub_owner_in_scope = stub_owner || instance
+    callee_in_scope = callee
+    stubbee_in_scope = stubbee || callee_in_scope
     method = alias_method? ? :my_aliased_method : stubbed_method_name
-    assert_passed_with_snapshot_unchanged(instance) do
-      stub_owner_in_scope.stubs(method).returns(:new_return_value)
-      assert_method_visibility instance, method, visibility
-      assert_equal :new_return_value, instance.send(method)
+    assert_passed_with_snapshot_unchanged(callee_in_scope) do
+      stubbee_in_scope.stubs(method).returns(:new_return_value)
+      assert_method_visibility callee_in_scope, method, visibility
+      assert_equal :new_return_value, callee_in_scope.send(method)
     end
-    assert_equal :original_return_value, instance.send(method)
+    assert_equal :original_return_value, callee_in_scope.send(method)
   end
 
   def alias_method?
     false
   end
 
-  def stub_owner
+  def stubbee
     nil
   end
 

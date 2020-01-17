@@ -4,11 +4,11 @@ class StubModuleMethodTest < Mocha::TestCase
   include StubMethodSharedTests
 
   def method_owner
-    stubbed_instance.singleton_class
+    callee.singleton_class
   end
 
-  def stubbed_instance
-    @stubbed_instance ||= Module.new
+  def callee
+    @callee ||= Module.new
   end
 
   # rubocop:disable Lint/DuplicateMethods

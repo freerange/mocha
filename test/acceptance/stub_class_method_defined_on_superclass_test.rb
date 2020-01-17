@@ -4,11 +4,11 @@ class StubClassMethodDefinedOnSuperclassTest < Mocha::TestCase
   include StubMethodSharedTests
 
   def method_owner
-    stubbed_instance.superclass.singleton_class
+    callee.superclass.singleton_class
   end
 
-  def stubbed_instance
-    @stubbed_instance ||= Class.new(Class.new)
+  def callee
+    @callee ||= Class.new(Class.new)
   end
 
   def test_stub_on_earliest_receiver_should_take_priority
@@ -65,14 +65,14 @@ class StubSuperclassClassMethodDefinedOnSuperclassTest < Mocha::TestCase
   include StubMethodSharedTests
 
   def method_owner
-    stubbed_instance.superclass.singleton_class
+    callee.superclass.singleton_class
   end
 
-  def stubbed_instance
-    @stubbed_instance ||= Class.new(Class.new)
+  def callee
+    @callee ||= Class.new(Class.new)
   end
 
-  def stub_owner
-    stubbed_instance.superclass
+  def stubbee
+    callee.superclass
   end
 end

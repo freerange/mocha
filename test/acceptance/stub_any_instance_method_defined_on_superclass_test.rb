@@ -4,15 +4,15 @@ class StubAnyInstanceMethodDefinedOnSuperclassTest < Mocha::TestCase
   include StubMethodSharedTests
 
   def method_owner
-    stubbed_instance.class.superclass
+    callee.class.superclass
   end
 
-  def stubbed_instance
-    @stubbed_instance ||= Class.new(Class.new).new
+  def callee
+    @callee ||= Class.new(Class.new).new
   end
 
-  def stub_owner
-    stubbed_instance.class.any_instance
+  def stubbee
+    callee.class.any_instance
   end
 
   def test_expect_method_on_any_instance_of_superclass_even_if_preceded_by_test_expecting_method_on_any_instance_of_subclass
@@ -52,14 +52,14 @@ class StubSuperclassAnyInstanceMethodDefinedOnSuperclassTest < Mocha::TestCase
   include StubMethodSharedTests
 
   def method_owner
-    stubbed_instance.class.superclass
+    callee.class.superclass
   end
 
-  def stubbed_instance
-    @stubbed_instance ||= Class.new(Class.new).new
+  def callee
+    @callee ||= Class.new(Class.new).new
   end
 
-  def stub_owner
+  def stubbee
     method_owner.any_instance
   end
 end

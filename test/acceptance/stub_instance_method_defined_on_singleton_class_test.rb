@@ -4,10 +4,10 @@ class StubInstanceMethodDefinedOnSingletonClassTest < Mocha::TestCase
   include StubMethodSharedTests
 
   def method_owner
-    stubbed_instance.singleton_class
+    callee.singleton_class
   end
 
-  def stubbed_instance
-    @stubbed_instance ||= Class.new.new
+  def callee
+    @callee ||= Class.new.new
   end
 end

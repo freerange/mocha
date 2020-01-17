@@ -7,11 +7,11 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     @method_owner ||= Class.new
   end
 
-  def stubbed_instance
+  def callee
     method_owner.new
   end
 
-  def stub_owner
+  def stubbee
     method_owner.any_instance
   end
 
@@ -128,11 +128,11 @@ class StubAnyInstanceMethodOriginallyPrivateInOwningModuleTest < Mocha::TestCase
     @method_owner ||= Class.new.send(:include, module_with_private_method)
   end
 
-  def stubbed_instance
+  def callee
     method_owner.new
   end
 
-  def stub_owner
+  def stubbee
     method_owner.any_instance
   end
 
