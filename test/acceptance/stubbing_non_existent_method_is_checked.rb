@@ -8,10 +8,10 @@ module StubbingNonExistentMethodIsChecked
   end
 
   def potential_violation
-    stub_owner.stubs(:non_existent_method)
+    stubbee.stubs(:non_existent_method)
   end
 
   def message_on_violation
-    "stubbing non-existent method: #{stub_owner.mocha_inspect}.non_existent_method"
+    "stubbing non-existent method: #{stubbee.mocha_inspect}.non_existent_method"
   end
 end

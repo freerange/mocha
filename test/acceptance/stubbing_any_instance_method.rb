@@ -3,7 +3,7 @@ module StubbingAnyInstanceMethod
     @method_owner ||= Class.new
   end
 
-  def stub_owner
+  def stubbee
     method_owner.any_instance
   end
 end

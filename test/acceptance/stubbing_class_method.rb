@@ -1,9 +1,9 @@
 module StubbingClassMethod
   def method_owner
-    stub_owner.singleton_class
+    stubbee.singleton_class
   end
 
-  def stub_owner
-    @stub_owner ||= Class.new
+  def stubbee
+    @stubbee ||= Class.new
   end
 end

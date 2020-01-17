@@ -1,9 +1,9 @@
 module StubbingInstanceMethod
   def method_owner
-    stub_owner.class
+    stubbee.class
   end
 
-  def stub_owner
-    @stub_owner ||= Class.new.new
+  def stubbee
+    @stubbee ||= Class.new.new
   end
 end

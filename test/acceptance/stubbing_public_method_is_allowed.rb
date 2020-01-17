@@ -26,9 +26,9 @@ module StubbingPublicMethodIsAllowed
 
   def assert_allows_stubbing_method(stubbed_method)
     Mocha.configure { |c| configure_violation(c, :prevent) }
-    stub_owner_in_scope = stub_owner
+    stubbee_in_scope = stubbee
     test_result = run_as_test do
-      stub_owner_in_scope.stubs(stubbed_method)
+      stubbee_in_scope.stubs(stubbed_method)
     end
     assert_passed(test_result)
   end

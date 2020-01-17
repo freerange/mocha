@@ -16,10 +16,10 @@ class StubbingExistingInstanceSuperclassMethodIsAllowedTest < Mocha::TestCase
   include StubbingExistingMethodIsAllowed
 
   def method_owner
-    stub_owner.class.superclass
+    stubbee.class.superclass
   end
 
-  def stub_owner
-    @stub_owner ||= Class.new(Class.new).new
+  def stubbee
+    @stubbee ||= Class.new(Class.new).new
   end
 end

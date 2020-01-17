@@ -14,10 +14,10 @@ module StubbingNonPublicMethodIsChecked
   end
 
   def potential_violation
-    stub_owner.stubs(:non_public_method)
+    stubbee.stubs(:non_public_method)
   end
 
   def message_on_violation
-    "stubbing non-public method: #{stub_owner.mocha_inspect}.non_public_method"
+    "stubbing non-public method: #{stubbee.mocha_inspect}.non_public_method"
   end
 end
