@@ -71,6 +71,8 @@ If you're loading Mocha using Bundler within a Rails application, you should set
 
 ##### MiniTest
 
+Note that since Rails v4 (at least), `ActiveSupport::TestCase` has inherited from `Minitest::Test` or its earlier equivalents. Thus unless you are *explicitly* using Test::Unit, you are likely to be using MiniTest.
+
 ```ruby
 # Gemfile in Rails app
 gem 'mocha'
