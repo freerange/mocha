@@ -95,13 +95,6 @@ end
 
 Note: There is no need to use a require statement to setup Mocha; RSpec does this itself.
 
-##### MiniTest
-
-```ruby
-# At bottom of test_helper.rb (or at least after `require 'rails/test_help'`)
-require 'mocha/minitest'
-```
-
 ##### Cucumber
 
 ```ruby
