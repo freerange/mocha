@@ -116,6 +116,10 @@ gem 'mocha'
 require 'mocha/minitest'
 ```
 
+##### Other Test Framework
+
+Follow the instructions for the relevant test framework in the [Bundler](#bundler) section, but ensure that the relevant Mocha file (`mocha/minitest`, `mocha/test_unit`, or `mocha/api`) is required **after** the test framework has been loaded, e.g. at the bottom of `test_helper.rb` or `spec_helper.rb`, or at least after `rails/test_help` has been required.
+
 #### Known Issues
 
 * In Mocha v1.10.0 an undocumented feature of `API#mock`, `API#stub` & `API#stub_everything` was changed. Previously when these methods were passed a single symbol, they returned a mock object that responded to the method identified by the symbol. Now Passing a single symbol is equivalent to passing a single string, i.e. it now defines the "name" of the mock object.
