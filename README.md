@@ -65,22 +65,6 @@ require "minitest/unit"
 require "mocha/minitest"
 ```
 
-#### Rails
-
-If you're loading Mocha using Bundler within a Rails application, you should setup Mocha manually e.g. at the bottom of your `test_helper.rb`.
-
-##### MiniTest
-
-Note that since Rails v4 (at least), `ActiveSupport::TestCase` has inherited from `Minitest::Test` or its earlier equivalents. Thus unless you are *explicitly* using Test::Unit, you are likely to be using MiniTest.
-
-```ruby
-# Gemfile in Rails app
-gem 'mocha'
-
-# At bottom of test_helper.rb (or at least after `require 'rails/test_help'`)
-require 'mocha/minitest'
-```
-
 ##### RSpec
 
 RSpec includes a mocha adapter. Just tell RSpec you want to mock with `:mocha`:
@@ -114,6 +98,22 @@ Around do |scenario, block|
     mocha_teardown
   end
 end
+```
+
+#### Rails
+
+If you're loading Mocha using Bundler within a Rails application, you should setup Mocha manually e.g. at the bottom of your `test_helper.rb`.
+
+##### MiniTest
+
+Note that since Rails v4 (at least), `ActiveSupport::TestCase` has inherited from `Minitest::Test` or its earlier equivalents. Thus unless you are *explicitly* using Test::Unit, you are likely to be using MiniTest.
+
+```ruby
+# Gemfile in Rails app
+gem 'mocha'
+
+# At bottom of test_helper.rb (or at least after `require 'rails/test_help'`)
+require 'mocha/minitest'
 ```
 
 #### Known Issues
