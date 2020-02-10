@@ -35,12 +35,13 @@ module Mocha
 
     class << self
       def instance
-        instances.last || Null.new
+        @instances.last || Null.new
       end
 
       def setup
+        @instances ||= []
         mockery = new
-        mockery.logger = instance.logger unless instances.empty?
+        mockery.logger = instance.logger unless @instances.empty?
         @instances.push(mockery)
       end
 
@@ -52,13 +53,6 @@ module Mocha
         instance.teardown
       ensure
         @instances.pop
-        @instances = nil if instances.empty?
-      end
-
-      private
-
-      def instances
-        @instances ||= []
       end
     end
 
@@ -92,11 +86,9 @@ module Mocha
                     end
         raise ExpectationErrorFactory.build(message, backtrace)
       end
-      expectations.each do |e|
-        unless Mocha.configuration.stubbing_method_unnecessarily == :allow
-          next if e.used?
-          on_stubbing_method_unnecessarily(e)
-        end
+      expectations.reject(&:used?).each do |expectation|
+        signature_proc = lambda { expectation.method_signature }
+        check(:stubbing_method_unnecessarily, 'method unnecessarily', signature_proc, expectation.backtrace)
       end
     end
 
@@ -120,9 +112,9 @@ module Mocha
 
     def mocha_inspect
       message = ''
-      message << "unsatisfied expectations:\n- #{unsatisfied_expectations.map(&:mocha_inspect).join("\n- ")}\n" unless unsatisfied_expectations.empty?
-      message << "satisfied expectations:\n- #{satisfied_expectations.map(&:mocha_inspect).join("\n- ")}\n" unless satisfied_expectations.empty?
-      message << "states:\n- #{state_machines.map(&:mocha_inspect).join("\n- ")}" unless state_machines.empty?
+      message << "unsatisfied expectations:\n- #{unsatisfied_expectations.map(&:mocha_inspect).join("\n- ")}\n" if unsatisfied_expectations.any?
+      message << "satisfied expectations:\n- #{satisfied_expectations.map(&:mocha_inspect).join("\n- ")}\n" if satisfied_expectations.any?
+      message << "states:\n- #{state_machines.map(&:mocha_inspect).join("\n- ")}\n" if state_machines.any?
       message
     end
 
@@ -137,11 +129,6 @@ module Mocha
       end
       check(:stubbing_method_on_nil, 'method on nil', signature_proc) { object.nil? }
       check(:stubbing_method_on_non_mock_object, 'method on non-mock object', signature_proc)
-    end
-
-    def on_stubbing_method_unnecessarily(expectation)
-      signature_proc = lambda { expectation.method_signature }
-      check(:stubbing_method_unnecessarily, 'method unnecessarily', signature_proc, expectation.backtrace)
     end
 
     attr_writer :logger

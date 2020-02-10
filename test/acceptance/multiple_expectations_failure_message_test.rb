@@ -63,4 +63,20 @@ class FailureMessageTest < Mocha::TestCase
       '- expected exactly once, invoked once: #<Mock:mock>.method_one(any_parameters)'
     ], test_result.failure_message_lines
   end
+
+  def test_should_include_state_in_unsatisfied_expectation_message
+    test_result = run_as_test do
+      mock = mock('mock')
+      readiness = states('readiness')
+      mock.expects(:method_one).once.then(readiness.is('ready'))
+    end
+    assert_failed(test_result)
+    assert_equal [
+      'not all expectations were satisfied',
+      'unsatisfied expectations:',
+      '- expected exactly once, invoked never: #<Mock:mock>.method_one(any_parameters)',
+      'states:',
+      '- readiness has no current state'
+    ], test_result.failure_message_lines
+  end
 end
