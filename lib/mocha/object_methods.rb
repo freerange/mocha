@@ -108,7 +108,7 @@ module Mocha
     #
     # @see Mock#stubs
     def stubs(stubbed_methods_vs_return_values)
-      anticipates(stubbed_methods_vs_return_values) { |expectation| expectation.at_least(0) }
+      anticipates(stubbed_methods_vs_return_values).at_least(0)
     end
 
     # Removes the specified stubbed methods (added by calls to {#expects} or {#stubs}) and all expectations associated with them.
@@ -143,11 +143,11 @@ module Mocha
 
     private
 
-    def anticipates(expected_methods_vs_return_values, &block)
+    def anticipates(expected_methods_vs_return_values)
       if frozen?
         raise StubbingError.new("can't stub method on frozen object: #{mocha_inspect}", caller)
       end
-      mocha.anticipates(expected_methods_vs_return_values, caller, self, &block)
+      mocha.anticipates(expected_methods_vs_return_values, caller, self)
     end
   end
 end

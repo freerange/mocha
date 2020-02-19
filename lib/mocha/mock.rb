@@ -1,6 +1,7 @@
 require 'mocha/singleton_class'
 require 'mocha/expectation'
 require 'mocha/expectation_list'
+require 'mocha/expectation_setting'
 require 'mocha/invocation'
 require 'mocha/names'
 require 'mocha/receivers'
@@ -137,7 +138,7 @@ module Mocha
     #   object.stubs(:stubbed_method_one).returns(:result_one)
     #   object.stubs(:stubbed_method_two).returns(:result_two)
     def stubs(method_name_or_hash, backtrace = nil)
-      anticipates(method_name_or_hash, backtrace) { |expectation| expectation.at_least(0) }
+      anticipates(method_name_or_hash, backtrace).at_least(0)
     end
 
     # Removes the specified stubbed methods (added by calls to {#expects} or {#stubs}) and all expectations associated with them.
@@ -356,17 +357,16 @@ module Mocha
     end
 
     # @private
-    def anticipates(method_name_or_hash, backtrace = nil, object = Mock.new(@mockery), &block)
-      Array(method_name_or_hash).map do |*args|
+    def anticipates(method_name_or_hash, backtrace = nil, object = Mock.new(@mockery))
+      ExpectationSetting.new(Array(method_name_or_hash).map do |*args|
         args = args.flatten
         method_name = args.shift
         Mockery.instance.stub_method(object, method_name) unless object.is_a?(Mock)
         ensure_method_not_already_defined(method_name)
         expectation = Expectation.new(self, method_name, backtrace)
         expectation.returns(args.shift) unless args.empty?
-        yield expectation if block
         @expectations.add(expectation)
-      end.last
+      end)
     end
   end
 end
