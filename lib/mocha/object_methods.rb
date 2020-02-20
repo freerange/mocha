@@ -147,7 +147,9 @@ module Mocha
       if frozen?
         raise StubbingError.new("can't stub method on frozen object: #{mocha_inspect}", caller)
       end
-      mocha.anticipates(expected_methods_vs_return_values, caller, self)
+      mocha.anticipates(expected_methods_vs_return_values, caller) do |method_name|
+        Mockery.instance.stub_method(self, method_name)
+      end
     end
   end
 end

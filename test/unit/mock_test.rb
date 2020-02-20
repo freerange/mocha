@@ -50,6 +50,7 @@ class MockTest < Mocha::TestCase
     singleton_method_undefined
     initialize
     Array
+    block_given?
   ].freeze
 
   MACOS_EXCLUDED_METHODS =
