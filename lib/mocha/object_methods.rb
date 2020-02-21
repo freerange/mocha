@@ -73,7 +73,12 @@ module Mocha
     #
     # @see Mock#expects
     def expects(expected_methods_vs_return_values)
-      anticipates(expected_methods_vs_return_values)
+      if frozen?
+        raise StubbingError.new("can't stub method on frozen object: #{mocha_inspect}", caller)
+      end
+      mocha.expects(expected_methods_vs_return_values, caller) do |method_name|
+        Mockery.instance.stub_method(self, method_name)
+      end
     end
 
     # Adds an expectation that the specified method may be called any number of times with any parameters.
@@ -105,7 +110,7 @@ module Mocha
     #
     # @see Mock#stubs
     def stubs(stubbed_methods_vs_return_values)
-      anticipates(stubbed_methods_vs_return_values).at_least(0)
+      expects(stubbed_methods_vs_return_values).at_least(0)
     end
 
     # Removes the specified stubbed methods (added by calls to {#expects} or {#stubs}) and all expectations associated with them.
@@ -135,17 +140,6 @@ module Mocha
       mockery = Mocha::Mockery.instance
       method_names.each do |method_name|
         mockery.stubba.unstub(stubba_method_for(method_name))
-      end
-    end
-
-    private
-
-    def anticipates(expected_methods_vs_return_values)
-      if frozen?
-        raise StubbingError.new("can't stub method on frozen object: #{mocha_inspect}", caller)
-      end
-      mocha.anticipates(expected_methods_vs_return_values, caller) do |method_name|
-        Mockery.instance.stub_method(self, method_name)
       end
     end
   end
