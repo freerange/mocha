@@ -1,7 +1,7 @@
 require 'mocha/singleton_class'
 require 'mocha/expectation'
 require 'mocha/expectation_list'
-require 'mocha/expectation_setting'
+require 'mocha/composite_expectation'
 require 'mocha/invocation'
 require 'mocha/names'
 require 'mocha/receivers'
@@ -109,7 +109,7 @@ module Mocha
     #   object.expects(:expected_method_one).returns(:result_one)
     #   object.expects(:expected_method_two).returns(:result_two)
     def expects(method_name_or_hash, backtrace = nil)
-      ExpectationSetting.new(Array(method_name_or_hash).map do |*args|
+      CompositeExpectation.new(Array(method_name_or_hash).map do |*args|
         args = args.flatten
         method_name = args.shift
         yield method_name if block_given?

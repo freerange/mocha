@@ -1,5 +1,5 @@
 module Mocha
-  class ExpectationSetting
+  class CompositeExpectation
     attr_reader :expectations
 
     def initialize(expectations)
@@ -11,7 +11,7 @@ module Mocha
       with yields multiple_yields returns raises throws then when in_sequence
     ].each do |method_name|
       define_method(method_name) do |*args, &block|
-        ExpectationSetting.new(@expectations.map { |e| e.send(method_name, *args, &block) })
+        CompositeExpectation.new(@expectations.map { |e| e.send(method_name, *args, &block) })
       end
     end
   end
