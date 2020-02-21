@@ -51,10 +51,6 @@ class ObjectMethodsTest < Mocha::TestCase
     assert_equal @object, @object.stubba_object
   end
 
-  def test_nobody_expects_the_spanish_inquisition
-    assert_raises(Mocha::ExpectationErrorFactory.exception_class) { @object.expects(:the_spanish_inquisition) }
-  end
-
   def test_should_alias_object_method
     klass = Class.new { def self.method_x; end }
     klass.extend(Mocha::ObjectMethods)

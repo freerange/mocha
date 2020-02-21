@@ -73,9 +73,6 @@ module Mocha
     #
     # @see Mock#expects
     def expects(expected_methods_vs_return_values)
-      if expected_methods_vs_return_values.to_s =~ /the[^a-z]*spanish[^a-z]*inquisition/i
-        raise ExpectationErrorFactory.build('NOBODY EXPECTS THE SPANISH INQUISITION!')
-      end
       anticipates(expected_methods_vs_return_values)
     end
 
