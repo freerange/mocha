@@ -149,7 +149,6 @@ module Mocha
     #   # => verify fails
     def at_least_once
       at_least(1)
-      self
     end
 
     # Modifies expectation so that the expected method must be called at most a +maximum_number_of_times+.
@@ -186,7 +185,6 @@ module Mocha
     #   2.times { object.expected_method } # => unexpected invocation
     def at_most_once
       at_most(1)
-      self
     end
 
     # Modifies expectation so that the expected method must be called with +expected_parameters+.
