@@ -62,21 +62,21 @@ module Mocha
       if allowed_any_number_of_times?
         'allowed any number of times'
       elsif required.zero? && maximum.zero?
-        "expected #{times(maximum)}"
+        "expected #{count(maximum)}"
       elsif required == maximum
-        "expected exactly #{times(required)}"
+        "expected exactly #{count(required)}"
       elsif infinite?(maximum)
-        "expected at least #{times(required)}"
+        "expected at least #{count(required)}"
       elsif required.zero?
-        "expected at most #{times(maximum)}"
+        "expected at most #{count(maximum)}"
       else
-        "expected between #{required} and #{times(maximum)}"
+        "expected between #{required} and #{count(maximum)}"
       end
     end
     # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
 
     def invoked_times
-      "invoked #{times(@invocations.size)}"
+      "invoked #{count(@invocations.size)}"
     end
 
     def actual_invocations
@@ -87,7 +87,7 @@ module Mocha
 
     attr_reader :required, :maximum
 
-    def times(number)
+    def count(number)
       case number
       when 0 then 'never'
       when 1 then 'once'
