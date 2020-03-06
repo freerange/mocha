@@ -1,8 +1,10 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/parameters_matcher'
+require 'mocha/parameter_matchers'
 
 class ParametersMatcherTest < Mocha::TestCase
   include Mocha
+  include ParameterMatchers
 
   def test_should_match_any_actual_parameters_if_no_expected_parameters_specified
     parameters_matcher = ParametersMatcher.new
@@ -110,6 +112,36 @@ class ParametersMatcherTest < Mocha::TestCase
     params = [1, { :a => 1 }]
     parameters_matcher = ParametersMatcher.new(params)
     assert_equal '(1, {:a => 1})', parameters_matcher.mocha_inspect
+  end
+
+  def test_should_match_keyword_argument
+    params = [1, { :a => 1 }]
+    parameters_matcher = ParametersMatcher.new(params)
+    assert parameters_matcher.match?([1, { :a => 1 }])
+  end
+
+  def test_should_match_keyword_arguments_disregarding_order
+    params = [1, { :a => 1, :b => 2 }]
+    parameters_matcher = ParametersMatcher.new(params)
+    assert parameters_matcher.match?([1, { :b => 2, :a => 1 }])
+  end
+
+  def test_should_not_match_with_non_matching_keyword_argument
+    params = [1, { :a => 1 }]
+    parameters_matcher = ParametersMatcher.new(params)
+    assert !parameters_matcher.match?([1, { :b => 1 }])
+  end
+
+  def test_should_not_match_with_extra_keyword_argument
+    params = [1, { :a => 1 }]
+    parameters_matcher = ParametersMatcher.new(params)
+    assert !parameters_matcher.match?([1, { :a => 1, :b => 2 }])
+  end
+
+  def test_should_match_keyword_argument_with_anything
+    params = [1, { :a => anything }]
+    parameters_matcher = ParametersMatcher.new(params)
+    assert parameters_matcher.match?([1, { :a => 1 }])
   end
 
   def test_should_indicate_that_matcher_will_match_any_actual_parameters
