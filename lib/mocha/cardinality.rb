@@ -2,31 +2,28 @@ module Mocha
   class Cardinality
     INFINITY = 1 / 0.0
 
-    class << self
-      def exactly(count)
-        new(count, count)
-      end
-
-      def at_least(count)
-        new(count, INFINITY)
-      end
-
-      def at_most(count)
-        new(0, count)
-      end
-
-      def times(range_or_count)
-        case range_or_count
-        when Range then new(range_or_count.first, range_or_count.last)
-        else new(range_or_count, range_or_count)
-        end
-      end
+    def initialize(required = 0, maximum = INFINITY)
+      update(required, maximum)
+      @invocations = []
     end
 
-    def initialize(required, maximum)
-      @required = required
-      @maximum = maximum
-      @invocations = []
+    def exactly(count)
+      update(count, count)
+    end
+
+    def at_least(count)
+      update(count, INFINITY)
+    end
+
+    def at_most(count)
+      update(0, count)
+    end
+
+    def times(range_or_count)
+      case range_or_count
+      when Range then update(range_or_count.first, range_or_count.last)
+      else update(range_or_count, range_or_count)
+      end
     end
 
     def <<(invocation)
@@ -94,6 +91,12 @@ module Mocha
       when 2 then 'twice'
       else "#{number} times"
       end
+    end
+
+    def update(required, maximum)
+      @required = required
+      @maximum = maximum
+      self
     end
 
     def infinite?(number)

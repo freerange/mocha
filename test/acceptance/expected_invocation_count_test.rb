@@ -226,4 +226,15 @@ class ExpectedInvocationCountTest < Mocha::TestCase
       '- expected exactly once, invoked never: #<Mock:mock>.method(1)'
     ], test_result.failure_message_lines
   end
+
+  def test_should_pass_if_cardinality_is_satisfied_using_calls_made_both_before_and_after_updating_cardinality
+    test_result = run_as_test do
+      mock = mock('mock')
+      expectation = mock.expects(:method)
+      mock.method
+      expectation.twice
+      mock.method
+    end
+    assert_passed(test_result)
+  end
 end

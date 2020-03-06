@@ -42,7 +42,7 @@ module Mocha
     #   object.expected_method
     #   # => verify fails
     def times(range)
-      @cardinality = Cardinality.times(range)
+      @cardinality.times(range)
       self
     end
 
@@ -68,7 +68,7 @@ module Mocha
     #   object.expected_method
     #   # => verify fails
     def twice
-      @cardinality = Cardinality.exactly(2)
+      @cardinality.exactly(2)
       self
     end
 
@@ -93,7 +93,7 @@ module Mocha
     #   object.expects(:expected_method).once
     #   # => verify fails
     def once
-      @cardinality = Cardinality.exactly(1)
+      @cardinality.exactly(1)
       self
     end
 
@@ -110,7 +110,7 @@ module Mocha
     #   object.expects(:expected_method).never
     #   # => verify succeeds
     def never
-      @cardinality = Cardinality.exactly(0)
+      @cardinality.exactly(0)
       self
     end
 
@@ -130,7 +130,7 @@ module Mocha
     #   object.expected_method
     #   # => verify fails
     def at_least(minimum_number_of_times)
-      @cardinality = Cardinality.at_least(minimum_number_of_times)
+      @cardinality.at_least(minimum_number_of_times)
       self
     end
 
@@ -167,7 +167,7 @@ module Mocha
     #   object.expects(:expected_method).at_most(2)
     #   3.times { object.expected_method } # => unexpected invocation
     def at_most(maximum_number_of_times)
-      @cardinality = Cardinality.at_most(maximum_number_of_times)
+      @cardinality.at_most(maximum_number_of_times)
       self
     end
 
@@ -549,7 +549,7 @@ module Mocha
       @block_matcher = BlockMatchers::OptionalBlock.new
       @ordering_constraints = []
       @side_effects = []
-      @cardinality = Cardinality.exactly(1)
+      @cardinality = Cardinality.new.exactly(1)
       @return_values = ReturnValues.new
       @yield_parameters = YieldParameters.new
       @backtrace = backtrace || caller
