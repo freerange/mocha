@@ -2,31 +2,28 @@ module Mocha
   class Cardinality
     INFINITY = 1 / 0.0
 
-    class << self
-      def exactly(count)
-        new(count, count)
-      end
-
-      def at_least(count)
-        new(count, INFINITY)
-      end
-
-      def at_most(count)
-        new(0, count)
-      end
-
-      def times(range_or_count)
-        case range_or_count
-        when Range then new(range_or_count.first, range_or_count.last)
-        else new(range_or_count, range_or_count)
-        end
-      end
+    def initialize(required = 0, maximum = INFINITY)
+      update(required, maximum)
+      @invocations = []
     end
 
-    def initialize(required, maximum)
-      @required = required
-      @maximum = maximum
-      @invocations = []
+    def exactly(count)
+      update(count, count)
+    end
+
+    def at_least(count)
+      update(count, INFINITY)
+    end
+
+    def at_most(count)
+      update(0, count)
+    end
+
+    def times(range_or_count)
+      case range_or_count
+      when Range then update(range_or_count.first, range_or_count.last)
+      else update(range_or_count, range_or_count)
+      end
     end
 
     def <<(invocation)
@@ -62,21 +59,21 @@ module Mocha
       if allowed_any_number_of_times?
         'allowed any number of times'
       elsif required.zero? && maximum.zero?
-        "expected #{times(maximum)}"
+        "expected #{count(maximum)}"
       elsif required == maximum
-        "expected exactly #{times(required)}"
+        "expected exactly #{count(required)}"
       elsif infinite?(maximum)
-        "expected at least #{times(required)}"
+        "expected at least #{count(required)}"
       elsif required.zero?
-        "expected at most #{times(maximum)}"
+        "expected at most #{count(maximum)}"
       else
-        "expected between #{required} and #{times(maximum)}"
+        "expected between #{required} and #{count(maximum)}"
       end
     end
     # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
 
     def invoked_times
-      "invoked #{times(@invocations.size)}"
+      "invoked #{count(@invocations.size)}"
     end
 
     def actual_invocations
@@ -87,13 +84,19 @@ module Mocha
 
     attr_reader :required, :maximum
 
-    def times(number)
+    def count(number)
       case number
       when 0 then 'never'
       when 1 then 'once'
       when 2 then 'twice'
       else "#{number} times"
       end
+    end
+
+    def update(required, maximum)
+      @required = required
+      @maximum = maximum
+      self
     end
 
     def infinite?(number)
