@@ -486,7 +486,7 @@ module Mocha
 
     # Constrains the expectation to occur only when the +state_machine+ is in the state specified by +state_predicate+.
     #
-    # @param [StateMachine::StatePredicate] state_predicate state_machine.is(state_name) provides a mechanism to determine whether the +state_machine+ is in the state specified by +state_predicate+ when the expected method is invoked.
+    # @param state_predicate [StateMachine::StatePredicate] +state_machine.is(state_name)+ provides a mechanism to determine whether the +state_machine+ is in the state specified by +state_predicate+ when the expected method is invoked.
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
     #
     # @see API#states
