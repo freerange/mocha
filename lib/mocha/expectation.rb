@@ -68,8 +68,7 @@ module Mocha
     #   object.expected_method
     #   # => verify fails
     def twice
-      @cardinality.exactly(2)
-      self
+      times(2)
     end
 
     # Modifies expectation so that the expected method must be called exactly once.
@@ -93,8 +92,7 @@ module Mocha
     #   object.expects(:expected_method).once
     #   # => verify fails
     def once
-      @cardinality.exactly(1)
-      self
+      times(1)
     end
 
     # Modifies expectation so that the expected method must never be called.
@@ -110,8 +108,7 @@ module Mocha
     #   object.expects(:expected_method).never
     #   # => verify succeeds
     def never
-      @cardinality.exactly(0)
-      self
+      times(0)
     end
 
     # Modifies expectation so that the expected method must be called at least a +minimum_number_of_times+.
@@ -166,8 +163,7 @@ module Mocha
     #   object.expects(:expected_method).at_most(2)
     #   3.times { object.expected_method } # => unexpected invocation
     def at_most(maximum_number_of_times)
-      @cardinality.at_most(maximum_number_of_times)
-      self
+      times(0..maximum_number_of_times)
     end
 
     # Modifies expectation so that the expected method must be called at most once.
