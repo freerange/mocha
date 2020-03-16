@@ -330,8 +330,8 @@ module Mocha
       end
     end
 
-    # @private
     if PRE_RUBY_V19
+      # @private
       def respond_to?(symbol, include_private = false)
         respond_to_missing?(symbol, include_private)
       end
