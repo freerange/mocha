@@ -51,20 +51,20 @@ module Mocha
       if allowed_any_number_of_times?
         'allowed any number of times'
       elsif required.zero? && maximum.zero?
-        "expected #{count(maximum)}"
+        "expected #{times(maximum)}"
       elsif required == maximum
-        "expected exactly #{count(required)}"
+        "expected exactly #{times(required)}"
       elsif infinite?(maximum)
-        "expected at least #{count(required)}"
+        "expected at least #{times(required)}"
       elsif required.zero?
-        "expected at most #{count(maximum)}"
+        "expected at most #{times(maximum)}"
       else
-        "expected between #{required} and #{count(maximum)}"
+        "expected between #{required} and #{times(maximum)}"
       end
     end
 
     def invoked_times
-      "invoked #{count(@invocations.size)}"
+      "invoked #{times(@invocations.size)}"
     end
 
     def actual_invocations
@@ -75,7 +75,7 @@ module Mocha
 
     attr_reader :required, :maximum
 
-    def count(number)
+    def times(number)
       case number
       when 0 then 'never'
       when 1 then 'once'
