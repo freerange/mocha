@@ -63,8 +63,8 @@ class CardinalityTest < Mocha::TestCase
   end
 
   def test_should_describe_cardinality_defined_using_times_with_range
-    assert_equal 'expected between 2 and 4 times', Cardinality.new.times(2..4).anticipated_times
-    assert_equal 'expected between 1 and 3 times', Cardinality.new.times(1..3).anticipated_times
+    assert_equal 'expected between 2 and 4 times', Cardinality.new.times(2, 4).anticipated_times
+    assert_equal 'expected between 1 and 3 times', Cardinality.new.times(1, 3).anticipated_times
   end
 
   def test_should_need_verifying
@@ -72,7 +72,7 @@ class CardinalityTest < Mocha::TestCase
     assert Cardinality.new.at_least(3).needs_verifying?
     assert Cardinality.new.at_most(2).needs_verifying?
     assert Cardinality.new.times(4).needs_verifying?
-    assert Cardinality.new.times(2..4).needs_verifying?
+    assert Cardinality.new.times(2, 4).needs_verifying?
   end
 
   def test_should_not_need_verifying
