@@ -9,21 +9,9 @@ module Mocha
       @invocations = []
     end
 
-    def exactly(count)
-      range(count, count)
-    end
-
-    def at_least(count)
-      range(count, INFINITY)
-    end
-
-    def at_most(count)
-      range(0, count)
-    end
-
-    def range(required = 0, maximum = INFINITY)
-      @required = required
-      @maximum = maximum
+    def range(at_least = 0, at_most = INFINITY)
+      @required = at_least
+      @maximum = at_most
       self
     end
 
