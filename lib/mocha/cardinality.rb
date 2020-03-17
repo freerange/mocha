@@ -21,11 +21,8 @@ module Mocha
       update(0, count)
     end
 
-    def times(range_or_count)
-      case range_or_count
-      when Range then update(range_or_count.first, range_or_count.last)
-      else update(range_or_count, range_or_count)
-      end
+    def times(required = 0, maximum = INFINITY)
+      update(required, maximum)
     end
 
     def <<(invocation)
