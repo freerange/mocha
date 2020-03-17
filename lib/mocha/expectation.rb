@@ -44,7 +44,7 @@ module Mocha
     def times(range)
       case range
       when Range then @cardinality.range(range.first, range.last)
-      else @cardinality.exactly(range)
+      else @cardinality.range(range, range)
       end
       self
     end
@@ -130,7 +130,7 @@ module Mocha
     #   object.expected_method
     #   # => verify fails
     def at_least(minimum_number_of_times)
-      @cardinality.at_least(minimum_number_of_times)
+      @cardinality.range(minimum_number_of_times)
       self
     end
 
@@ -546,7 +546,7 @@ module Mocha
       @block_matcher = BlockMatchers::OptionalBlock.new
       @ordering_constraints = []
       @side_effects = []
-      @cardinality = Cardinality.new.exactly(1)
+      @cardinality = Cardinality.new.range(1, 1)
       @return_values = ReturnValues.new
       @yield_parameters = YieldParameters.new
       @backtrace = backtrace || caller
