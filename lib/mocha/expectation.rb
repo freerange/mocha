@@ -46,7 +46,7 @@ module Mocha
     #   # => verify fails
     def times(range_or_number)
       case range_or_number
-      when Range then @cardinality.times(range_or_number.first, range_or_number.last)
+      when Range then @cardinality.update(range_or_number.first, range_or_number.last)
       else @cardinality.exactly(range_or_number)
       end
       self
