@@ -42,7 +42,10 @@ module Mocha
     #   object.expected_method
     #   # => verify fails
     def times(range)
-      @cardinality.times(range)
+      case range
+      when Range then @cardinality.times(range.first, range.last)
+      else @cardinality.exactly(range)
+      end
       self
     end
 
