@@ -5,23 +5,23 @@ module Mocha
     INFINITY = 1 / 0.0
 
     def initialize(required = 0, maximum = INFINITY)
-      update(required, maximum)
+      range(required, maximum)
       @invocations = []
     end
 
     def exactly(count)
-      update(count, count)
+      range(count, count)
     end
 
     def at_least(count)
-      update(count, INFINITY)
+      range(count, INFINITY)
     end
 
     def at_most(count)
-      update(0, count)
+      range(0, count)
     end
 
-    def update(required = 0, maximum = INFINITY)
+    def range(required = 0, maximum = INFINITY)
       @required = required
       @maximum = maximum
       self
