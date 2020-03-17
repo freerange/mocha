@@ -19,8 +19,10 @@ module Mocha
       update(0, count)
     end
 
-    def times(required = 0, maximum = INFINITY)
-      update(required, maximum)
+    def update(required = 0, maximum = INFINITY)
+      @required = required
+      @maximum = maximum
+      self
     end
 
     def <<(invocation)
@@ -88,12 +90,6 @@ module Mocha
       when 2 then 'twice'
       else "#{number} times"
       end
-    end
-
-    def update(required, maximum)
-      @required = required
-      @maximum = maximum
-      self
     end
 
     def infinite?(number)
