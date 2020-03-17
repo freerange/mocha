@@ -45,10 +45,8 @@ module Mocha
     #   object.expected_method
     #   # => verify fails
     def times(range_or_number)
-      case range_or_number
-      when Range then @cardinality.range(range_or_number.first, range_or_number.last)
-      else @cardinality.range(range_or_number, range_or_number)
-      end
+      range_or_number = range_or_number..range_or_number unless range_or_number.is_a?(Range)
+      @cardinality.range(range_or_number.first, range_or_number.last)
       self
     end
 
