@@ -10,11 +10,11 @@
   
 </title>
 
-  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "README";
   relpath = '';
 </script>
@@ -57,9 +57,9 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'><h2>Mocha <a href="https://travis-ci.org/freerange/mocha"><img src="https://travis-ci.org/freerange/mocha.svg?branch=master" alt="Build Status"></a> <a href="http://badge.fury.io/rb/mocha"><img src="https://badge.fury.io/rb/mocha.svg" alt="Gem Version"></a> <a href="https://dependabot.com/compatibility-score.html?dependency-name=mocha&package-manager=bundler&version-scheme=semver"><img src="https://api.dependabot.com/badges/compatibility_score?dependency-name=mocha&package-manager=bundler&version-scheme=semver" alt="SemVer"></a></h2>
+      <div id="content"><div id='filecontents'><h2 id="mocha">Mocha <a href="https://travis-ci.org/freerange/mocha"><img src="https://travis-ci.org/freerange/mocha.svg?branch=main" alt="Build Status"></a> <a href="http://badge.fury.io/rb/mocha"><img src="https://badge.fury.io/rb/mocha.svg" alt="Gem Version"></a> <a href="https://dependabot.com/compatibility-score.html?dependency-name=mocha&package-manager=bundler&version-scheme=semver"><img src="https://api.dependabot.com/badges/compatibility_score?dependency-name=mocha&package-manager=bundler&version-scheme=semver" alt="SemVer"></a></h2>
 
-<h3>Description</h3>
+<h3 id="description">Description</h3>
 
 <ul>
 <li>A Ruby library for <a href="http://xunitpatterns.com/Mock%20Object.html">mocking</a> and <a href="http://xunitpatterns.com/Test%20Stub.html">stubbing</a> - but deliberately not (yet) <a href="http://xunitpatterns.com/Fake%20Object.html">faking</a> or <a href="http://xunitpatterns.com/Test%20Spy.html">spying</a>.</li>
@@ -68,13 +68,13 @@
 <li>Supported by many other test frameworks.</li>
 </ul>
 
-<h3>Intended Usage</h3>
+<h3 id="intended-usage">Intended Usage</h3>
 
 <p>Mocha is intended to be used in unit tests for the <a href="http://xunitpatterns.com/Mock%20Object.html">Mock Object</a> or <a href="http://xunitpatterns.com/Test%20Stub.html">Test Stub</a> types of <a href="http://xunitpatterns.com/Test%20Double.html">Test Double</a>, not the <a href="http://xunitpatterns.com/Fake%20Object.html">Fake Object</a> or <a href="http://xunitpatterns.com/Test%20Spy.html">Test Spy</a> types. Although it would be possible to extend Mocha to allow the implementation of fakes and spies, we have chosen to keep it focused on mocks and stubs.</p>
 
-<h3>Installation</h3>
+<h3 id="installation">Installation</h3>
 
-<h4>Gem</h4>
+<h4 id="gem">Gem</h4>
 
 <p>Install the latest version of the gem with the following command...</p>
 
@@ -83,7 +83,7 @@
 
 <p>Note: If you are intending to use Mocha with Test::Unit or MiniTest, you should only setup Mocha <em>after</em> loading the relevant test library...</p>
 
-<h5>Test::Unit</h5>
+<h5 id="test-unit">Test::Unit</h5>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rubygems</span><span class='tstring_end'>&#39;</span></span>
 <span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mocha</span><span class='tstring_end'>&#39;</span></span>
@@ -91,7 +91,7 @@
 <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mocha/test_unit</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
 
-<h5>MiniTest</h5>
+<h5 id="minitest">MiniTest</h5>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rubygems</span><span class='tstring_end'>&#39;</span></span>
 <span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mocha</span><span class='tstring_end'>&#39;</span></span>
@@ -99,44 +99,31 @@
 <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mocha/minitest</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
 
-<h4>Bundler</h4>
+<h4 id="bundler">Bundler</h4>
 
 <p>If you&#39;re using Bundler, include Mocha in the <code>Gemfile</code> and then setup Mocha later once you know the test library has been loaded...</p>
 
-<h5>Test::Unit</h5>
+<h5 id="test-unit">Test::Unit</h5>
 
 <pre class="code ruby"><code class="ruby"><span class='comment'># Gemfile
-</span><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mocha</span><span class='tstring_end'>&quot;</span></span>
-
-<span class='comment'># Elsewhere after Bundler has loaded gems e.g. after `require &#39;bundler/setup&#39;`
-</span><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test/unit</span><span class='tstring_end'>&quot;</span></span>
-<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mocha/test_unit</span><span class='tstring_end'>&quot;</span></span>
-</code></pre>
-
-<h5>MiniTest</h5>
-
-<pre class="code ruby"><code class="ruby"><span class='comment'># Gemfile
-</span><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mocha</span><span class='tstring_end'>&quot;</span></span>
-
-<span class='comment'># Elsewhere after Bundler has loaded gems e.g. after `require &#39;bundler/setup&#39;`
-</span><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>minitest/unit</span><span class='tstring_end'>&quot;</span></span>
-<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mocha/minitest</span><span class='tstring_end'>&quot;</span></span>
-</code></pre>
-
-<h4>Rails</h4>
-
-<p>If you&#39;re loading Mocha using Bundler within a Rails application, you should setup Mocha manually e.g. at the bottom of your <code>test_helper.rb</code>.</p>
-
-<h5>MiniTest</h5>
-
-<pre class="code ruby"><code class="ruby"><span class='comment'># Gemfile in Rails app
 </span><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mocha</span><span class='tstring_end'>&#39;</span></span>
 
-<span class='comment'># At bottom of test_helper.rb (or at least after `require &#39;rails/test_help&#39;`)
-</span><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mocha/minitest</span><span class='tstring_end'>&#39;</span></span>
+<span class='comment'># Elsewhere after Bundler has loaded gems e.g. after `require &#39;bundler/setup&#39;`
+</span><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>test/unit</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mocha/test_unit</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
 
-<h5>RSpec</h5>
+<h5 id="minitest">MiniTest</h5>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># Gemfile
+</span><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mocha</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='comment'># Elsewhere after Bundler has loaded gems e.g. after `require &#39;bundler/setup&#39;`
+</span><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>minitest/unit</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mocha/minitest</span><span class='tstring_end'>&#39;</span></span>
+</code></pre>
+
+<h5 id="rspec">RSpec</h5>
 
 <p>RSpec includes a mocha adapter. Just tell RSpec you want to mock with <code>:mocha</code>:</p>
 
@@ -151,13 +138,7 @@
 
 <p>Note: There is no need to use a require statement to setup Mocha; RSpec does this itself.</p>
 
-<h5>MiniTest</h5>
-
-<pre class="code ruby"><code class="ruby"><span class='comment'># At bottom of test_helper.rb (or at least after `require &#39;rails/test_help&#39;`)
-</span><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mocha/minitest</span><span class='tstring_end'>&#39;</span></span>
-</code></pre>
-
-<h5>Cucumber</h5>
+<h5 id="cucumber">Cucumber</h5>
 
 <pre class="code ruby"><code class="ruby"><span class='comment'># In e.g. features/support/mocha.rb
 </span><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mocha/api</span><span class='tstring_end'>&#39;</span></span>
@@ -175,10 +156,29 @@
 <span class='kw'>end</span>
 </code></pre>
 
-<h4>Known Issues</h4>
+<h4 id="rails">Rails</h4>
+
+<p>If you&#39;re loading Mocha using Bundler within a Rails application, you should setup Mocha manually e.g. at the bottom of your <code>test_helper.rb</code>.</p>
+
+<h5 id="minitest">MiniTest</h5>
+
+<p>Note that since Rails v4 (at least), <code>ActiveSupport::TestCase</code> has inherited from <code>Minitest::Test</code> or its earlier equivalents. Thus unless you are <em>explicitly</em> using Test::Unit, you are likely to be using MiniTest.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># Gemfile in Rails app
+</span><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mocha</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='comment'># At bottom of test_helper.rb (or at least after `require &#39;rails/test_help&#39;`)
+</span><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mocha/minitest</span><span class='tstring_end'>&#39;</span></span>
+</code></pre>
+
+<h5 id="other-test-framework">Other Test Framework</h5>
+
+<p>Follow the instructions for the relevant test framework in the <a href="#bundler">Bundler</a> section, but ensure that the relevant Mocha file (<code>mocha/minitest</code>, <code>mocha/test_unit</code>, or <code>mocha/api</code>) is required <strong>after</strong> the test framework has been loaded, e.g. at the bottom of <code>test_helper.rb</code> or <code>spec_helper.rb</code>, or at least after <code>rails/test_help</code> has been required.</p>
+
+<h4 id="known-issues">Known Issues</h4>
 
 <ul>
-<li>In Mocha v1.10.0 an undocumented feature of <code>API#mock</code>, <code>API#stub</code> &amp; <code>API#stub_everything</code> was changed. Previously when these methods were passed a single symbol, they returned a mock object that responded to the method identified by the symbol. Now Passing a single symbol is equivalent to passing a single string, i.e. it now defines the &quot;name&quot; of the mock object.</li>
+<li>In Mocha v1.10.0 an undocumented feature of <code>API#mock</code>, <code>API#stub</code> &amp; <code>API#stub_everything</code> was changed. Previously when these methods were passed a single symbol, they returned a mock object that responded to the method identified by the symbol. Now Passing a single symbol is equivalent to passing a single string, i.e. it now defines the &#39;name&#39; of the mock object.</li>
 <li>In Mocha v1.2.0 there is a scenario where stubbing a class method originally defined in a module hangs the Ruby interpreter due to <a href="https://bugs.ruby-lang.org/issues/12832">a bug in Ruby v2.3.1</a>. See #272. This was fixed in Mocha v1.2.1.</li>
 <li>Since v1.1.0 Mocha has used prepended modules internally for stubbing methods. There is <a href="https://bugs.ruby-lang.org/issues/12876">an obscure Ruby bug</a> in many (but not all) versions of Ruby between v2.0 &amp; v2.3 which under certain circumstances may cause your Ruby interpreter to hang. See the Ruby bug report for more details. The bug has been fixed in Ruby v2.3.3 &amp; v2.4.0.</li>
 <li>Stubbing an aliased class method, where the original method is defined in a module that&#39;s used to <code>extend</code> the class doesn&#39;t work in Ruby 1.8.x. See stub_method_defined_on_module_and_aliased_test.rb for an example of this behaviour.</li>
@@ -187,9 +187,9 @@
 <li>Versions 0.10.2, 0.10.3 &amp; 0.11.0 of the Mocha gem were broken. Please do not use these versions.</li>
 </ul>
 
-<h3>Usage</h3>
+<h3 id="usage">Usage</h3>
 
-<h4>Quick Start</h4>
+<h4 id="quick-start">Quick Start</h4>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>test/unit</span><span class='tstring_end'>&#39;</span></span>
 <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mocha/test_unit</span><span class='tstring_end'>&#39;</span></span>
@@ -234,7 +234,7 @@
 <span class='kw'>end</span>
 </code></pre>
 
-<h4>Mock Objects</h4>
+<h4 id="mock-objects">Mock Objects</h4>
 
 <pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>Enterprise</span>
   <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_dilithium'>dilithium</span><span class='rparen'>)</span>
@@ -259,7 +259,7 @@
 <span class='kw'>end</span>
 </code></pre>
 
-<h4>Partial Mocking</h4>
+<h4 id="partial-mocking">Partial Mocking</h4>
 
 <pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>Order</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:shipped_on</span>
@@ -321,19 +321,19 @@
 <span class='kw'>end</span>
 </code></pre>
 
-<h3>Thread safety</h3>
+<h3 id="thread-safety">Thread safety</h3>
 
 <p>Mocha currently <em>does not</em> attempt to be thread-safe.</p>
 
-<h4>Can I test multi-threaded code with Mocha?</h4>
+<h4 id="can-i-test-multi-threaded-code-with-mocha">Can I test multi-threaded code with Mocha?</h4>
 
 <p>The short answer is no. In multi-threaded code Mocha exceptions may be raised in a thread other than the one which is running the test and thus a Mocha exception may not be correctly intercepted by Mocha exception handling code.</p>
 
-<h4>Can I run my tests across multiple threads?</h4>
+<h4 id="can-i-run-my-tests-across-multiple-threads">Can I run my tests across multiple threads?</h4>
 
 <p>Maybe, but probably not. Partial mocking changes the state of objects in the <code>ObjectSpace</code> which is shared across all threads in the Ruby process and this access to what is effectively global state is not synchronized. So, for example, if two tests are running concurrently and one uses <code>#any_instance</code> to modify a class, both tests will see those changes immediately.</p>
 
-<h3>Expectation matching / invocation order</h3>
+<h3 id="expectation-matching-invocation-order">Expectation matching / invocation order</h3>
 
 <p>Stubs and expectations are basically the same thing. A stub is just an expectation of zero or more invocations. The <code>Expectation#stubs</code> method is syntactic sugar to make the intent of the test more explicit.</p>
 
@@ -341,7 +341,7 @@
 
 <p>See the <a href="https://mocha.jamesmead.org/Mocha/Mock.html">documentation</a> for <code>Mocha::Mock</code> for further details.</p>
 
-<h3>Configuration</h3>
+<h3 id="configuration">Configuration</h3>
 
 <p>If you want, Mocha can generate a warning or raise an exception when:</p>
 
@@ -354,7 +354,7 @@
 
 <p>See the <a href="https://mocha.jamesmead.org/Mocha/Configuration.html">documentation</a> for <code>Mocha::Configuration</code> for further details.</p>
 
-<h5>MOCHA_OPTIONS</h5>
+<h5 id="mocha_options">MOCHA_OPTIONS</h5>
 
 <p><code>MOCHA_OPTIONS</code> is an environment variable whose value can be set to a comma-separated list, so that we can specify multiple options e.g. <code>MOCHA_OPTIONS=debug,use_test_unit_gem</code>.
 Only the following values are currently recognized and have an effect:</p>
@@ -363,7 +363,7 @@ Only the following values are currently recognized and have an effect:</p>
 <li><code>debug</code>: Enables a debug mode which will output backtraces for each deprecation warning. This is useful for finding where in the test suite the deprecated calls are.</li>
 </ul>
 
-<h3>Useful Links</h3>
+<h3 id="useful-links">Useful Links</h3>
 
 <ul>
 <li><a href="https://mocha.jamesmead.org">Official Documentation</a></li>
@@ -377,11 +377,11 @@ Only the following values are currently recognized and have an effect:</p>
 <li><a href="http://www.jmock.org/">jMock</a></li>
 </ul>
 
-<h3>Contributors</h3>
+<h3 id="contributors">Contributors</h3>
 
 <p>See this <a href="https://github.com/freerange/mocha/graphs/contributors">list of contributors</a>.</p>
 
-<h3>Releasing a new version</h3>
+<h3 id="releasing-a-new-version">Releasing a new version</h3>
 
 <ul>
 <li>Update the RELEASE.md file with a summary of changes</li>
@@ -418,11 +418,11 @@ Pushed git commits and tags.
 Pushed mocha 1.2.0 to rubygems.org.
 </code></pre>
 
-<h3>History</h3>
+<h3 id="history">History</h3>
 
 <p>Mocha was initially harvested from projects at <a href="http://www.reevoo.com/">Reevoo</a>. It&#39;s syntax is heavily based on that of <a href="http://www.jmock.org">jMock</a>.</p>
 
-<h3>License</h3>
+<h3 id="license">License</h3>
 
 <p>&copy; Copyright Revieworld Ltd. 2006</p>
 
@@ -438,9 +438,9 @@ Pushed mocha 1.2.0 to rubygems.org.
 </div>
 
       <div id="footer">
-  Generated on Sat Jan  4 17:36:46 2020 by
+  Generated on Thu Sep 24 09:51:26 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.20 (ruby-2.6.5).
+  0.9.25 (ruby-2.7.0).
 </div>
 
     </div>

@@ -10,11 +10,11 @@
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Mocha::StateMachine";
   relpath = '../';
 </script>
@@ -162,7 +162,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#is-instance_method" title="#is (instance method)">#<strong>is</strong>(state_name)  &#x21d2; State </a>
+      <a href="#is-instance_method" title="#is (instance method)">#<strong>is</strong>(state_name)  &#x21d2; StatePredicate, State </a>
     
 
     
@@ -177,7 +177,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Provides a mechanism to change the <span class='object_link'><a href="" title="Mocha::StateMachine (class)">StateMachine</a></span> into the state specified by <code>state_name</code> at some point in the future.</p>
+<p>Provides mechanisms to (a) determine whether the <span class='object_link'><a href="" title="Mocha::StateMachine (class)">StateMachine</a></span> is in a given state; or (b) to change the <span class='object_link'><a href="" title="Mocha::StateMachine (class)">StateMachine</a></span> into the given state.</p>
 </div></span>
   
 </li>
@@ -186,7 +186,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#is_not-instance_method" title="#is_not (instance method)">#<strong>is_not</strong>(state_name)  &#x21d2; Object </a>
+      <a href="#is_not-instance_method" title="#is_not (instance method)">#<strong>is_not</strong>(unexpected_state_name)  &#x21d2; StatePredicate </a>
     
 
     
@@ -201,7 +201,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Provides a mechanism to determine whether the <span class='object_link'><a href="" title="Mocha::StateMachine (class)">StateMachine</a></span> is not in the state specified by <code>state_name</code> at some point in the future.</p>
+<p>Provides a mechanism to determine whether the <span class='object_link'><a href="" title="Mocha::StateMachine (class)">StateMachine</a></span> is <strong>not</strong> in the state specified by <code>unexpected_state_name</code> at some point in the future.</p>
 </div></span>
   
 </li>
@@ -286,12 +286,12 @@
       <pre class="lines">
 
 
-72
-73
-74</pre>
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/state_machine.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/state_machine.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_become'>become</span><span class='lparen'>(</span><span class='id identifier rubyid_next_state_name'>next_state_name</span><span class='rparen'>)</span>
   <span class='ivar'>@current_state</span> <span class='op'>=</span> <span class='id identifier rubyid_next_state_name'>next_state_name</span>
@@ -304,7 +304,11 @@
       <div class="method_details ">
   <h3 class="signature " id="is-instance_method">
   
-    #<strong>is</strong>(state_name)  &#x21d2; <tt><span class='object_link'><a href="StateMachine/State.html" title="Mocha::StateMachine::State (class)">State</a></span></tt> 
+    
+      <span class="overload">#<strong>is</strong>(expected_state_name)  &#x21d2; <tt><span class='object_link'><a href="StateMachine/StatePredicate.html" title="Mocha::StateMachine::StatePredicate (class)">StatePredicate</a></span></tt> </span>
+    
+      <span class="overload">#<strong>is</strong>(desired_state_name)  &#x21d2; <tt><span class='object_link'><a href="StateMachine/State.html" title="Mocha::StateMachine::State (class)">State</a></span></tt> </span>
+    
   
 
   
@@ -313,9 +317,23 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Provides a mechanism to change the <span class='object_link'><a href="" title="Mocha::StateMachine (class)">Mocha::StateMachine</a></span> into the state specified by <code>state_name</code> at some point in the future.</p>
+<p>Provides mechanisms to (a) determine whether the <span class='object_link'><a href="" title="Mocha::StateMachine (class)">Mocha::StateMachine</a></span> is in a given state; or (b) to change the <span class='object_link'><a href="" title="Mocha::StateMachine (class)">Mocha::StateMachine</a></span> into the given state.</p>
 
-<p>Or provides a mechanism to determine whether the <span class='object_link'><a href="" title="Mocha::StateMachine (class)">Mocha::StateMachine</a></span> is in the state specified by <code>state_name</code> at some point in the future.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>is</strong>(expected_state_name)  &#x21d2; <tt><span class='object_link'><a href="StateMachine/StatePredicate.html" title="Mocha::StateMachine::StatePredicate (class)">StatePredicate</a></span></tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+<p>Provides a mechanism to determine whether the <span class='object_link'><a href="" title="Mocha::StateMachine (class)">Mocha::StateMachine</a></span> is in the state specified by <code>expected_state_name</code> at some point in the future</p>
 
 
   </div>
@@ -326,7 +344,7 @@
   
     <li>
       
-        <span class='name'>state_name</span>
+        <span class='name'>expected_state_name</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -335,7 +353,62 @@
       
         &mdash;
         <div class='inline'>
-<p>name of new state</p>
+<p>name of expected state.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="StateMachine/StatePredicate.html" title="Mocha::StateMachine::StatePredicate (class)">StatePredicate</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>state predicate which, when queried, will indicate whether the <span class='object_link'><a href="" title="Mocha::StateMachine (class)">Mocha::StateMachine</a></span> is in the state specified by <code>expected_state_name</code></p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>is</strong>(desired_state_name)  &#x21d2; <tt><span class='object_link'><a href="StateMachine/State.html" title="Mocha::StateMachine::State (class)">State</a></span></tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+<p>Provides a mechanism to change the <span class='object_link'><a href="" title="Mocha::StateMachine (class)">Mocha::StateMachine</a></span> into the state specified by <code>desired_state_name</code> at some point in the future.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>desired_state_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>name of desired new state.</p>
 </div>
       
     </li>
@@ -354,7 +427,51 @@
       
         &mdash;
         <div class='inline'>
-<p>state which, when activated, will change the <span class='object_link'><a href="" title="Mocha::StateMachine (class)">Mocha::StateMachine</a></span> into the state with the specified <code>state_name</code>.</p>
+<p>state which, when activated, will change the <span class='object_link'><a href="" title="Mocha::StateMachine (class)">Mocha::StateMachine</a></span> into the state with the specified <code>desired_state_name</code>.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>state_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>name of expected/desired state.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="StateMachine/StatePredicate.html" title="Mocha::StateMachine::StatePredicate (class)">StatePredicate</a></span></tt>, <tt><span class='object_link'><a href="StateMachine/State.html" title="Mocha::StateMachine::State (class)">State</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>(a) state predicate which, when queried, will indicate whether the <span class='object_link'><a href="" title="Mocha::StateMachine (class)">Mocha::StateMachine</a></span> is in the given state; or (b) state which, when activated, will change the <span class='object_link'><a href="" title="Mocha::StateMachine (class)">Mocha::StateMachine</a></span> into the given state.</p>
 </div>
       
     </li>
@@ -367,15 +484,15 @@
       <pre class="lines">
 
 
-82
-83
-84</pre>
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/state_machine.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/state_machine.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_is'>is</span><span class='lparen'>(</span><span class='id identifier rubyid_state_name'>state_name</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="StateMachine/State.html" title="Mocha::StateMachine::State (class)">State</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_state_name'>state_name</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="StateMachine/State.html" title="Mocha::StateMachine::State (class)">State</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_state_name'>state_name</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>is</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_current'>current</span><span class='comma'>,</span> <span class='id identifier rubyid_given'>given</span><span class='op'>|</span> <span class='id identifier rubyid_current'>current</span> <span class='op'>==</span> <span class='id identifier rubyid_given'>given</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -385,7 +502,7 @@
       <div class="method_details ">
   <h3 class="signature " id="is_not-instance_method">
   
-    #<strong>is_not</strong>(state_name)  &#x21d2; <tt><span class='object_link'>Object</span></tt> 
+    #<strong>is_not</strong>(unexpected_state_name)  &#x21d2; <tt><span class='object_link'><a href="StateMachine/StatePredicate.html" title="Mocha::StateMachine::StatePredicate (class)">StatePredicate</a></span></tt> 
   
 
   
@@ -394,13 +511,51 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Provides a mechanism to determine whether the <span class='object_link'><a href="" title="Mocha::StateMachine (class)">Mocha::StateMachine</a></span> is not in the state specified by <code>state_name</code> at some point in the future.</p>
+<p>Provides a mechanism to determine whether the <span class='object_link'><a href="" title="Mocha::StateMachine (class)">Mocha::StateMachine</a></span> is <strong>not</strong> in the state specified by <code>unexpected_state_name</code> at some point in the future.</p>
 
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>unexpected_state_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>name of unexpected state.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="StateMachine/StatePredicate.html" title="Mocha::StateMachine::StatePredicate (class)">StatePredicate</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>state predicate which, when queried, will indicate whether the <span class='object_link'><a href="" title="Mocha::StateMachine (class)">Mocha::StateMachine</a></span> is <strong>not</strong> in the state specified by <code>unexpected_state_name</code>.</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -408,15 +563,15 @@
       <pre class="lines">
 
 
-88
-89
-90</pre>
+84
+85
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/state_machine.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/state_machine.rb', line 84</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_is_not'>is_not</span><span class='lparen'>(</span><span class='id identifier rubyid_state_name'>state_name</span><span class='rparen'>)</span> <span class='comment'># rubocop:disable Naming/PredicateName
-</span>  <span class='const'><span class='object_link'><a href="StateMachine/StatePredicate.html" title="Mocha::StateMachine::StatePredicate (class)">StatePredicate</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_state_name'>state_name</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_is_not'>is_not</span><span class='lparen'>(</span><span class='id identifier rubyid_unexpected_state_name'>unexpected_state_name</span><span class='rparen'>)</span> <span class='comment'># rubocop:disable Naming/PredicateName
+</span>  <span class='const'><span class='object_link'><a href="StateMachine/StatePredicate.html" title="Mocha::StateMachine::StatePredicate (class)">StatePredicate</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_unexpected_state_name'>unexpected_state_name</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>is not</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_current'>current</span><span class='comma'>,</span> <span class='id identifier rubyid_given'>given</span><span class='op'>|</span> <span class='id identifier rubyid_current'>current</span> <span class='op'>!=</span> <span class='id identifier rubyid_given'>given</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -487,13 +642,13 @@
       <pre class="lines">
 
 
-64
-65
-66
-67</pre>
+50
+51
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/state_machine.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/state_machine.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_starts_as'>starts_as</span><span class='lparen'>(</span><span class='id identifier rubyid_initial_state_name'>initial_state_name</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_become'>become</span><span class='lparen'>(</span><span class='id identifier rubyid_initial_state_name'>initial_state_name</span><span class='rparen'>)</span>
@@ -517,9 +672,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jan  4 17:36:48 2020 by
+  Generated on Thu Sep 24 09:51:28 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.20 (ruby-2.6.5).
+  0.9.25 (ruby-2.7.0).
 </div>
 
     </div>
