@@ -145,8 +145,12 @@ if ENV['MOCHA_GENERATE_DOCS']
     `git checkout docs/CNAME`
   end
 
+  task 'checkout_docs_jquery' do
+    `git checkout docs/js/jquery.js`
+  end
+
   desc 'Generate documentation'
-  task 'generate_docs' => %w[clobber_yardoc yardoc checkout_docs_cname]
+  task 'generate_docs' => %w[clobber_yardoc yardoc checkout_docs_cname checkout_docs_jquery]
 end
 
 task 'release' => 'default'
