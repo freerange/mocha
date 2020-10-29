@@ -265,6 +265,8 @@ module Mocha
     #
     # May be called multiple times on the same expectation for consecutive invocations.
     #
+    # If no +parameters+ are given then it will yield the block provided.
+    #
     # @param [*Array] parameters parameters to be yielded.
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
     # @see #then
@@ -292,6 +294,13 @@ module Mocha
     #   sum # => 1
     #   fibonacci.next_pair { |first, second| sum = first + second }
     #   sum # => 2
+    #
+    # @example Yield the provided block
+    #   object = mock()
+    #   object.expects(:log).yields
+    #   messages = ""
+    #   object.log { messages += "log called" }
+    #   messages # => "log called"
     def yields(*parameters)
       multiple_yields(parameters)
     end
