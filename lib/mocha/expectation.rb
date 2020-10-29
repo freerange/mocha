@@ -261,7 +261,11 @@ module Mocha
       self
     end
 
-    # Modifies expectation so that when the expected method is called, it yields with the specified +parameters+ (even if no block is provided, in which case yielding will result in a +LocalJumpError+).
+    # Modifies expectation so that when the expected method is called, it yields to the block with the specified +parameters+.
+    #
+    # If no +parameters+ are specified, it yields to the block without any parameters.
+    #
+    # If no block is provided, the method will still attempt to yield resulting in a +LocalJumpError+. Note that this is what would happen if a "real" (non-mock) method implementation tried to yield to a non-existent block.
     #
     # May be called multiple times on the same expectation for consecutive invocations.
     #
@@ -271,11 +275,10 @@ module Mocha
     #
     # @example Yield when expected method is invoked.
     #   benchmark = mock()
-    #   benchmark.expects(:measure).yields.then.returns('0.350000   0.400000   0.750000 (  0.835234)')
+    #   benchmark.expects(:measure).yields
     #   yielded = false
-    #   returned_value = benchmark.measure { yielded = true }
+    #   benchmark.measure { yielded = true }
     #   yielded # => true
-    #   returned_value # => '0.350000   0.400000   0.750000 (  0.835234)'
     #
     # @example Yield parameters when expected method is invoked.
     #   fibonacci = mock()
@@ -296,7 +299,9 @@ module Mocha
       multiple_yields(parameters)
     end
 
-    # Modifies expectation so that when the expected method is called, it yields multiple times per invocation with the specified +parameter_groups+ (even if no block is provided, in which case yielding will result in a +LocalJumpError+).
+    # Modifies expectation so that when the expected method is called, it yields multiple times per invocation with the specified +parameter_groups+.
+    #
+    # If no block is provided, the method will still attempt to yield resulting in a +LocalJumpError+. Note that this is what would happen if a "real" (non-mock) method implementation tried to yield to a non-existent block.
     #
     # @param [*Array<Array>] parameter_groups each element of +parameter_groups+ should iself be an +Array+ representing the parameters to be passed to the block for a single yield. Any element of +parameter_groups+ that is not an +Array+ is wrapped in an +Array+.
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
