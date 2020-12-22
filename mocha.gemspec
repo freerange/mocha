@@ -12,7 +12,9 @@ Gem::Specification.new do |s| # rubocop:disable Metrics/BlockLength
   s.description = 'Mocking and stubbing library with JMock/SchMock syntax, which allows mocking and stubbing of methods on real (non-mock) classes.'
   s.email = 'mocha-developer@googlegroups.com'
 
-  s.files = `git ls-files`.split("\n")
+  s.files = Dir.chdir(File.expand_path('..', __FILE__)) do
+    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(docs|test)/}) }
+  end
   s.files.delete('.travis.yml')
   s.files.delete('.gitignore')
 
