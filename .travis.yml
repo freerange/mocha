@@ -14,7 +14,7 @@ rvm:
   - 2.6.5
   - 2.7.0
   - ruby-head
-  - jruby-9.2.9.0
+  - jruby-9.2.14.0
   - jruby-head
   - truffleruby
 gemfile:
