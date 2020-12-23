@@ -171,6 +171,7 @@ matrix:
       gemfile: Gemfile
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=test-unit
   allow_failures:
+    - rvm: 1.8.7-p371
     - rvm: truffleruby
     - rvm: ruby-head
     - rvm: jruby-head
