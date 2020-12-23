@@ -1,5 +1,30 @@
 # Release Notes
 
+## 1.12.0
+
+### External changes
+
+* Various improvements to README inspired by #207 and #390 - thanks to @nitishr for his work on #390 (fed0eee6)
+* Improve documentation related to `StateMachine` classes - thanks to @nitishr (#425 & #427)
+* Fix regression in cardinality introduced in v1.10.0 (59454a8) and reported in #473 - thanks to @srvance for reporting and @nitishr for fixing (#474)
+* Fix documentation for `Mocha::Expectation#when` - thanks to @olleolleolle (b4f59daa & #477)
+* Remove `Mocha::Mock#respond_to?` from documentation - thanks to @nitishr (#480)
+* Improvements to documentation for `Expectation#yields` & `#multiple_yields` - thanks to @andyw8 for reporting in #495 (1b6571c)
+* Remove documentation & tests from gem to reduce its size by over 50% - thanks to @gabetax (#500)
+* Update documentation to point to travis-ci.com instead of travis-ci.org
+
+### Internal changes
+
+* Refactor `StateMachine`-related classes - thanks to @nitishr (#425 & #427)
+* Remove redundant test - thanks to @nitishr (8e4f1a7c)
+* Add Ruby 2.7 to Travis CI matrix - thanks to @bastelfreak (fc5ea2f2)
+* Simplify `Mockery` - thanks to @nitishr (#449)
+* Update Travis CI badge to point to main vs master branch (bd8028f8)
+* Generate docs using newer version of yard (v0.9.25) (c619afac)
+* Manually upgrade jquery in docs from v1.7.1 -> v1.9.0 to fix CVE-2017-16011 (211098a5, dd5eeedb & 1b76e4d5; also see #492)
+* Remove reference to non-existent jquery source map to fix error in Chrome developer tools (20156555)
+* Temporarily ignore Ruby v1.8.7 build failures (e5b9feef)
+
 ## 1.11.2
 
 ### External changes
