@@ -6,7 +6,7 @@
 <title>
   File: RELEASE
   
-    &mdash; Mocha 1.11.2
+    &mdash; Mocha 1.12.0
   
 </title>
 
@@ -58,6 +58,35 @@
       </div>
 
       <div id="content"><div id='filecontents'><h1 id="release-notes">Release Notes</h1>
+
+<h2 id="1-12-0">1.12.0</h2>
+
+<h3 id="external-changes">External changes</h3>
+
+<ul>
+<li>Various improvements to README inspired by #207 and #390 - thanks to @nitishr for his work on #390 (fed0eee6)</li>
+<li>Improve documentation related to <code>StateMachine</code> classes - thanks to @nitishr (#425 &amp; #427)</li>
+<li>Fix regression in cardinality introduced in v1.10.0 (59454a8) and reported in #473 - thanks to @srvance for reporting and @nitishr for fixing (#474)</li>
+<li>Fix documentation for <code>Mocha::Expectation#when</code> - thanks to @olleolleolle (b4f59daa &amp; #477)</li>
+<li>Remove <code>Mocha::Mock#respond_to?</code> from documentation - thanks to @nitishr (#480)</li>
+<li>Improvements to documentation for <code>Expectation#yields</code> &amp; <code>#multiple_yields</code> - thanks to @andyw8 for reporting in #495 (1b6571c)</li>
+<li>Remove documentation &amp; tests from gem to reduce its size by over 50% - thanks to @gabetax (#500)</li>
+<li>Update documentation to point to travis-ci.com instead of travis-ci.org</li>
+</ul>
+
+<h3 id="internal-changes">Internal changes</h3>
+
+<ul>
+<li>Refactor <code>StateMachine</code>-related classes - thanks to @nitishr (#425 &amp; #427)</li>
+<li>Remove redundant test - thanks to @nitishr (8e4f1a7c)</li>
+<li>Add Ruby 2.7 to Travis CI matrix - thanks to @bastelfreak (fc5ea2f2)</li>
+<li>Simplify <code>Mockery</code> - thanks to @nitishr (#449)</li>
+<li>Update Travis CI badge to point to main vs master branch (bd8028f8)</li>
+<li>Generate docs using newer version of yard (v0.9.25) (c619afac)</li>
+<li>Manually upgrade jquery in docs from v1.7.1 -&gt; v1.9.0 to fix CVE-2017-16011 (211098a5, dd5eeedb &amp; 1b76e4d5; also see #492)</li>
+<li>Remove reference to non-existent jquery source map to fix error in Chrome developer tools (20156555)</li>
+<li>Temporarily ignore Ruby v1.8.7 build failures (e5b9feef)</li>
+</ul>
 
 <h2 id="1-11-2">1.11.2</h2>
 
@@ -1018,7 +1047,7 @@ Hash with wrong number of entries.</li>
 </div>
 
       <div id="footer">
-  Generated on Thu Sep 24 09:51:26 2020 by
+  Generated on Wed Dec 23 15:11:50 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.7.0).
 </div>

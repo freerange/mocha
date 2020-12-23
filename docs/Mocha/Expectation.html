@@ -6,7 +6,7 @@
 <title>
   Class: Mocha::Expectation
   
-    &mdash; Mocha 1.11.2
+    &mdash; Mocha 1.12.0
   
 </title>
 
@@ -263,7 +263,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Modifies expectation so that when the expected method is called, it yields multiple times per invocation with the specified <code>parameter_groups</code> (even if no block is provided, in which case yielding will result in a <code>LocalJumpError</code>).</p>
+<p>Modifies expectation so that when the expected method is called, it yields multiple times per invocation with the specified <code>parameter_groups</code>.</p>
 </div></span>
   
 </li>
@@ -575,7 +575,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Modifies expectation so that when the expected method is called, it yields with the specified <code>parameters</code> (even if no block is provided, in which case yielding will result in a <code>LocalJumpError</code>).</p>
+<p>Modifies expectation so that when the expected method is called, it yields to the block with the specified <code>parameters</code>.</p>
 </div></span>
   
 </li>
@@ -1059,13 +1059,13 @@
       <pre class="lines">
 
 
-534
-535
-536
-537</pre>
+539
+540
+541
+542</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 534</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 539</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_in_sequence'>in_sequence</span><span class='lparen'>(</span><span class='id identifier rubyid_sequence'>sequence</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_sequences'>sequences</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_sequences'>sequences</span><span class='period'>.</span><span class='id identifier rubyid_unshift'>unshift</span><span class='lparen'>(</span><span class='id identifier rubyid_sequence'>sequence</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_seq'>seq</span><span class='op'>|</span> <span class='id identifier rubyid_add_in_sequence_ordering_constraint'>add_in_sequence_ordering_constraint</span><span class='lparen'>(</span><span class='id identifier rubyid_seq'>seq</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
@@ -1088,7 +1088,9 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Modifies expectation so that when the expected method is called, it yields multiple times per invocation with the specified <code>parameter_groups</code> (even if no block is provided, in which case yielding will result in a <code>LocalJumpError</code>).</p>
+<p>Modifies expectation so that when the expected method is called, it yields multiple times per invocation with the specified <code>parameter_groups</code>.</p>
+
+<p>If no block is provided, the method will still attempt to yield resulting in a <code>LocalJumpError</code>. Note that this is what would happen if a “real” (non-mock) method implementation tried to yield to a non-existent block.</p>
 
 
   </div>
@@ -1177,13 +1179,13 @@
       <pre class="lines">
 
 
-321
-322
-323
-324</pre>
+326
+327
+328
+329</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 321</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 326</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_multiple_yields'>multiple_yields</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_parameter_groups'>parameter_groups</span><span class='rparen'>)</span>
   <span class='ivar'>@yield_parameters</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_parameter_groups'>parameter_groups</span><span class='rparen'>)</span>
@@ -1503,13 +1505,13 @@
       <pre class="lines">
 
 
-408
-409
-410
-411</pre>
+413
+414
+415
+416</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 408</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 413</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_raises'>raises</span><span class='lparen'>(</span><span class='id identifier rubyid_exception'>exception</span> <span class='op'>=</span> <span class='const'>RuntimeError</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='ivar'>@return_values</span> <span class='op'>+=</span> <span class='const'>ReturnValues</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>ExceptionRaiser</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_exception'>exception</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -1708,13 +1710,13 @@
       <pre class="lines">
 
 
-368
-369
-370
-371</pre>
+373
+374
+375
+376</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 368</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 373</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
   <span class='ivar'>@return_values</span> <span class='op'>+=</span> <span class='const'>ReturnValues</span><span class='period'>.</span><span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
@@ -1875,13 +1877,13 @@
       <pre class="lines">
 
 
-482
-483
-484
-485</pre>
+487
+488
+489
+490</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 482</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 487</span>
 
 <span class='kw'>def</span> <span class='kw'>then</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_add_side_effect'>add_side_effect</span><span class='lparen'>(</span><span class='const'>ChangeStateSideEffect</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_state'>state</span>
@@ -2031,13 +2033,13 @@
       <pre class="lines">
 
 
-447
-448
-449
-450</pre>
+452
+453
+454
+455</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 447</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 452</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_throws'>throws</span><span class='lparen'>(</span><span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='ivar'>@return_values</span> <span class='op'>+=</span> <span class='const'>ReturnValues</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>Thrower</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -2347,13 +2349,13 @@
       <pre class="lines">
 
 
-506
-507
-508
-509</pre>
+511
+512
+513
+514</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 506</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 511</span>
 
 <span class='kw'>def</span> <span class='kw'>when</span><span class='lparen'>(</span><span class='id identifier rubyid_state_predicate'>state_predicate</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_add_ordering_constraint'>add_ordering_constraint</span><span class='lparen'>(</span><span class='const'>InStateOrderingConstraint</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_state_predicate'>state_predicate</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -2712,7 +2714,11 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Modifies expectation so that when the expected method is called, it yields with the specified <code>parameters</code> (even if no block is provided, in which case yielding will result in a <code>LocalJumpError</code>).</p>
+<p>Modifies expectation so that when the expected method is called, it yields to the block with the specified <code>parameters</code>.</p>
+
+<p>If no <code>parameters</code> are specified, it yields to the block without any parameters.</p>
+
+<p>If no block is provided, the method will still attempt to yield resulting in a <code>LocalJumpError</code>. Note that this is what would happen if a “real” (non-mock) method implementation tried to yield to a non-existent block.</p>
 
 <p>May be called multiple times on the same expectation for consecutive invocations.</p>
 
@@ -2730,11 +2736,10 @@
 </div></p>
       
       <pre class="example code"><code><span class='id identifier rubyid_benchmark'>benchmark</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
-<span class='id identifier rubyid_benchmark'>benchmark</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:measure</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_yields'>yields</span><span class='period'>.</span><span class='id identifier rubyid_then'>then</span><span class='period'>.</span><span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.350000   0.400000   0.750000 (  0.835234)</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_benchmark'>benchmark</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:measure</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_yields'>yields</span>
 <span class='id identifier rubyid_yielded'>yielded</span> <span class='op'>=</span> <span class='kw'>false</span>
-<span class='id identifier rubyid_returned_value'>returned_value</span> <span class='op'>=</span> <span class='id identifier rubyid_benchmark'>benchmark</span><span class='period'>.</span><span class='id identifier rubyid_measure'>measure</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_yielded'>yielded</span> <span class='op'>=</span> <span class='kw'>true</span> <span class='rbrace'>}</span>
-<span class='id identifier rubyid_yielded'>yielded</span> <span class='comment'># =&gt; true
-</span><span class='id identifier rubyid_returned_value'>returned_value</span> <span class='comment'># =&gt; &#39;0.350000   0.400000   0.750000 (  0.835234)&#39;</span></code></pre>
+<span class='id identifier rubyid_benchmark'>benchmark</span><span class='period'>.</span><span class='id identifier rubyid_measure'>measure</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_yielded'>yielded</span> <span class='op'>=</span> <span class='kw'>true</span> <span class='rbrace'>}</span>
+<span class='id identifier rubyid_yielded'>yielded</span> <span class='comment'># =&gt; true</span></code></pre>
     
       
         <p class="example_title"><div class='inline'>
@@ -2814,12 +2819,12 @@
       <pre class="lines">
 
 
-295
-296
-297</pre>
+298
+299
+300</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 295</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 298</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_yields'>yields</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_parameters'>parameters</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_multiple_yields'>multiple_yields</span><span class='lparen'>(</span><span class='id identifier rubyid_parameters'>parameters</span><span class='rparen'>)</span>
@@ -2842,7 +2847,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Sep 24 09:51:27 2020 by
+  Generated on Wed Dec 23 15:11:51 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.7.0).
 </div>
