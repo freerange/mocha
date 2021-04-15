@@ -5,8 +5,8 @@ module Mocha
   class AnyInstanceMethod < StubbedMethod
     private
 
-    def mock_owner
-      stubbee.any_instance
+    def stubbee
+      stubba_object.any_instance
     end
 
     def method_body(method)
@@ -14,11 +14,11 @@ module Mocha
     end
 
     def stubbee_method(method_name)
-      stubbee.instance_method(method_name)
+      stubba_object.instance_method(method_name)
     end
 
     def original_method_owner
-      stubbee
+      stubba_object
     end
   end
 end
