@@ -29,7 +29,7 @@ matrix:
     - rvm: jruby-head
       gemfile: gemfiles/Gemfile.minitest.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
-    - rvm: jruby-9.2.9.0
+    - rvm: jruby-9.2.14.0
       gemfile: gemfiles/Gemfile.minitest.latest
       env: MOCHA_OPTIONS=debug MOCHA_RUN_INTEGRATION_TESTS=minitest
     - rvm: ruby-head
