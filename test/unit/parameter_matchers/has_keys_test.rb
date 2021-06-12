@@ -24,7 +24,7 @@ class HasKeysTest < Mocha::TestCase
 
   def test_should_describe_matcher
     matcher = has_keys(:key_1, :key_2)
-    assert_equal 'has_keys([:key_1, :key_2])', matcher.mocha_inspect
+    assert_equal 'has_keys(:key_1, :key_2)', matcher.mocha_inspect
   end
 
   def test_should_match_hash_including_specified_key_with_nested_key_matcher

@@ -44,7 +44,7 @@ module Mocha
 
       # @private
       def mocha_inspect
-        "has_keys(#{@keys.mocha_inspect})"
+        "has_keys(#{@keys.mocha_inspect[1...-1]})"
       end
     end
   end
