@@ -92,6 +92,11 @@ class HasEntryTest < Mocha::TestCase
     assert_equal 'Argument has no entries.', e.message
   end
 
+  def test_should_raise_argument_error_if_no_arguments_are_supplied
+    e = assert_raises(ArgumentError) { has_entry }
+    assert_equal 'No arguments. Expecting at least one.', e.message
+  end
+
   def test_should_raise_argument_error_if_multiple_entries_are_supplied
     e = assert_raises(ArgumentError) do
       has_entry(:key_1 => 'value_1', :key_2 => 'value_2')
