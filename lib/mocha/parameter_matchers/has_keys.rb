@@ -29,6 +29,8 @@ module Mocha
     class HasKeys < Base
       # @private
       def initialize(*keys)
+        raise ArgumentError, 'Argument has no keys.' if keys.empty?
+
         @keys = keys
       end
 

@@ -56,4 +56,9 @@ class HasKeysTest < Mocha::TestCase
     matcher = has_keys(:key_1, :key_2)
     assert !matcher.matches?([:key_1])
   end
+
+  def test_should_raise_argument_error_if_no_keys_are_supplied
+    e = assert_raises(ArgumentError) { has_keys }
+    assert_equal 'Argument has no keys.', e.message
+  end
 end
