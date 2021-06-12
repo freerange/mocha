@@ -42,6 +42,8 @@ module Mocha
     #
     def has_entry(*options) # rubocop:disable Naming/PredicateName
       case options.length
+      when 0
+        raise ArgumentError, 'Argument has no entries.'
       when 1
         case options[0]
         when Hash
