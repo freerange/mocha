@@ -46,7 +46,7 @@ Gem::Specification.new do |s| # rubocop:disable Metrics/BlockLength
     # No test libraries in standard library
     s.add_development_dependency('minitest')
   end
-  if RUBY_VERSION >= '1.9.2'
+  if RUBY_VERSION >= '2.2.0'
     s.add_development_dependency('rubocop', '<= 0.58.2')
   end
   if ENV['MOCHA_GENERATE_DOCS']
