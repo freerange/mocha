@@ -1,5 +1,5 @@
 module Mocha
-  class ImpersonatingName
+  class ImpersonatingInstanceName
     def initialize(object)
       @object = object
     end
