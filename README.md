@@ -1,4 +1,4 @@
-## Mocha [![Build Status](https://travis-ci.com/freerange/mocha.svg?branch=main)](https://travis-ci.com/github/freerange/mocha) [![Gem Version](https://badge.fury.io/rb/mocha.svg)](http://badge.fury.io/rb/mocha) [![SemVer](https://api.dependabot.com/badges/compatibility_score?dependency-name=mocha&package-manager=bundler&version-scheme=semver)](https://dependabot.com/compatibility-score.html?dependency-name=mocha&package-manager=bundler&version-scheme=semver)
+## Mocha [![CircleCI status of freerange/mocha](https://circleci.com/gh/freerange/mocha.svg?style=shield)](https://app.circleci.com/pipelines/github/freerange/mocha) [![Gem Version](https://badge.fury.io/rb/mocha.svg)](http://badge.fury.io/rb/mocha) [![SemVer](https://api.dependabot.com/badges/compatibility_score?dependency-name=mocha&package-manager=bundler&version-scheme=semver)](https://dependabot.com/compatibility-score.html?dependency-name=mocha&package-manager=bundler&version-scheme=semver)
 
 ### Description
 
@@ -323,7 +323,7 @@ See this [list of contributors](https://github.com/freerange/mocha/graphs/contri
 * Update the RELEASE.md file with a summary of changes
 * Bump the version in `lib/mocha/version.rb`
 * Commit & push to GitHub
-* Check Travis CI build is passing - https://travis-ci.com/github/freerange/mocha
+* Check CircleCI build is passing - https://app.circleci.com/pipelines/github/freerange/mocha
 
 * Sign in to Google Analytics - https://analytics.google.com/analytics/web/
 * Find the web property ID for floehopper (625523) > Mocha Documentation (UA-625523-7)
