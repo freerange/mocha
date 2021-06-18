@@ -15,7 +15,6 @@ Gem::Specification.new do |s| # rubocop:disable Metrics/BlockLength
   s.files = Dir.chdir(File.expand_path('..', __FILE__)) do
     `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(docs|test)/}) }
   end
-  s.files.delete('.travis.yml')
   s.files.delete('.circleci/config.yml')
   s.files.delete('.gitignore')
 
