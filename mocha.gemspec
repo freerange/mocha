@@ -15,7 +15,7 @@ Gem::Specification.new do |s| # rubocop:disable Metrics/BlockLength
   s.files = Dir.chdir(File.expand_path('..', __FILE__)) do
     `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(docs|test)/}) }
   end
-  s.files.delete('.travis.yml')
+  s.files.delete('.circleci/config.yml')
   s.files.delete('.gitignore')
 
   s.homepage = 'https://mocha.jamesmead.org'
@@ -30,18 +30,22 @@ Gem::Specification.new do |s| # rubocop:disable Metrics/BlockLength
     end
   end
 
-  if RUBY_VERSION >= '1.9.3'
-    s.add_development_dependency('rake')
+  if RUBY_VERSION < '1.9.3'
+    s.add_development_dependency 'rake', '~> 10.0'
+  elsif RUBY_VERSION < '2'
+    s.add_development_dependency 'rake', '~> 12.2.1'
+  elsif RUBY_VERSION < '2.2'
+    s.add_development_dependency 'rake', '~> 12.3.3'
   else
-    # Rake >= v11 does not support Ruby < v1.9.3 so use
-    s.add_development_dependency('rake', '~> 10.0')
+    s.add_development_dependency 'rake'
   end
+
   s.add_development_dependency('introspection', '~> 0.0.1')
   if RUBY_VERSION >= '2.2.0'
     # No test libraries in standard library
     s.add_development_dependency('minitest')
   end
-  if RUBY_VERSION >= '1.9.2'
+  if RUBY_VERSION >= '2.2.0'
     s.add_development_dependency('rubocop', '<= 0.58.2')
   end
   if ENV['MOCHA_GENERATE_DOCS']

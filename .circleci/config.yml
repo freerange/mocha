@@ -1,0 +1,79 @@
+version: 2.1
+
+jobs:
+  build:
+    parameters:
+      docker-image:
+        type: string
+      gemfile:
+        type: string
+    docker:
+      - image: << parameters.docker-image >>
+    environment:
+      MOCHA_OPTIONS=debug
+    steps:
+      - checkout
+      - run: ruby --version
+      - when:
+          condition:
+            equal: [ "ruby:1.9", << parameters.docker-image >>]
+          steps:
+            - run: gem update --system 2.7.8
+            - run: gem install bundler -v1.17.3
+      - when:
+          condition:
+            equal: [ "jruby:latest", << parameters.docker-image >>]
+          steps:
+            - run: apt-get update
+            - run: apt-get install -y git
+      - run: gem --version
+      - run: bundle --version
+      - run: bundle install --gemfile=<< parameters.gemfile >>
+      - when:
+          condition:
+            equal: [ "Gemfile", << parameters.gemfile >>]
+          steps:
+            - run: bundle exec rake test
+      - when:
+          condition:
+            matches:
+              pattern: ".*minitest.*"
+              value: << parameters.gemfile >>
+          steps:
+            - run: MOCHA_RUN_INTEGRATION_TESTS=minitest bundle exec --gemfile=<< parameters.gemfile >> rake test
+      - when:
+          condition:
+            matches:
+              pattern: ".*test-unit.*"
+              value: << parameters.gemfile >>
+          steps:
+            - run: MOCHA_RUN_INTEGRATION_TESTS=test-unit bundle exec --gemfile=<< parameters.gemfile >> rake test
+
+workflows:
+  build-all:
+    jobs:
+      - build:
+          matrix:
+            parameters:
+              docker-image:
+                - ruby:1.9
+                - ruby:2.0
+                - ruby:2.1
+                - ruby:2.2
+                - ruby:2.3
+                - ruby:2.4
+                - ruby:2.5
+                - ruby:2.6
+                - ruby:2.7
+                - ruby:latest
+                - jruby:latest
+              gemfile:
+                - Gemfile
+      - build:
+          matrix:
+            parameters:
+              docker-image:
+                - ruby:latest
+              gemfile:
+                - gemfiles/Gemfile.minitest.latest
+                - gemfiles/Gemfile.test-unit.latest
