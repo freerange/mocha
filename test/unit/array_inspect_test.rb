@@ -7,6 +7,11 @@ class ArrayInspectTest < Mocha::TestCase
     assert_equal array.inspect, array.mocha_inspect
   end
 
+  def test_should_return_unwrapped_array_when_wrapped_is_false
+    array = [1, 2]
+    assert_equal '1, 2', array.mocha_inspect(false)
+  end
+
   def test_should_use_mocha_inspect_on_each_item
     array = [1, 2, 'chris']
     assert_equal %([1, 2, "chris"]), array.mocha_inspect

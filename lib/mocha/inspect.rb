@@ -11,14 +11,16 @@ module Mocha
     end
 
     module ArrayMethods
-      def mocha_inspect
-        "[#{collect(&:mocha_inspect).join(', ')}]"
+      def mocha_inspect(wrapped = true)
+        unwrapped = collect(&:mocha_inspect).join(', ')
+        wrapped ? "[#{unwrapped}]" : unwrapped
       end
     end
 
     module HashMethods
-      def mocha_inspect
-        "{#{collect { |key, value| "#{key.mocha_inspect} => #{value.mocha_inspect}" }.join(', ')}}"
+      def mocha_inspect(wrapped = true)
+        unwrapped = collect { |key, value| "#{key.mocha_inspect} => #{value.mocha_inspect}" }.join(', ')
+        wrapped ? "{#{unwrapped}}" : unwrapped
       end
     end
 
