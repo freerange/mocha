@@ -59,8 +59,8 @@ class FailureMessageTest < Mocha::TestCase
       'unsatisfied expectations:',
       '- expected exactly 3 times, invoked twice: #<Mock:mock>.method_three(any_parameters)',
       'satisfied expectations:',
-      '- expected exactly twice, invoked twice: #<Mock:mock>.method_two(any_parameters)',
-      '- expected exactly once, invoked once: #<Mock:mock>.method_one(any_parameters)'
+      '- expected exactly once, invoked once: #<Mock:mock>.method_one(any_parameters)',
+      '- expected exactly twice, invoked twice: #<Mock:mock>.method_two(any_parameters)'
     ], test_result.failure_message_lines
   end
 

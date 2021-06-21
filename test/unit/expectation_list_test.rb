@@ -38,13 +38,13 @@ class ExpectationListTest < Mocha::TestCase
     assert_same expectation3, expectation_list.match(Invocation.new(:irrelevant, :method_two))
   end
 
-  def test_should_find_most_recent_matching_expectation
+  def test_should_find_oldest_matching_expectation
     expectation_list = ExpectationList.new
     expectation1 = Expectation.new(nil, :my_method).with(:argument1, :argument2)
     expectation2 = Expectation.new(nil, :my_method).with(:argument1, :argument2)
     expectation_list.add(expectation1)
     expectation_list.add(expectation2)
-    assert_same expectation2, expectation_list.match(Invocation.new(:irrelevant, :my_method, :argument1, :argument2))
+    assert_same expectation1, expectation_list.match(Invocation.new(:irrelevant, :my_method, :argument1, :argument2))
   end
 
   def test_should_find_matching_expectation_allowing_invocation

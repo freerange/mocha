@@ -5,7 +5,7 @@ module Mocha
     end
 
     def add(expectation)
-      @expectations.unshift(expectation)
+      @expectations.push(expectation)
       expectation
     end
 
