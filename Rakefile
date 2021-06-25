@@ -138,7 +138,7 @@ if ENV['MOCHA_GENERATE_DOCS']
 
   desc 'Generate documentation'
   YARD::Rake::YardocTask.new('yardoc' => 'docs_environment') do |task|
-    task.options = ['--title', "Mocha #{Mocha::VERSION}"]
+    task.options = ['--title', "Mocha #{Mocha::VERSION}", '--fail-on-warning']
   end
 
   task 'checkout_docs_cname' do
