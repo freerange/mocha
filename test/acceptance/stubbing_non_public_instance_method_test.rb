@@ -1,141 +1,26 @@
-require File.expand_path('../acceptance_test_helper', __FILE__)
-require 'mocha/configuration'
+require File.expand_path('../stubbing_non_public_method_is_checked', __FILE__)
+require File.expand_path('../stubbing_public_method_is_allowed', __FILE__)
+require File.expand_path('../stubbing_instance_method', __FILE__)
 
 class StubbingNonPublicInstanceMethodTest < Mocha::TestCase
-  include AcceptanceTest
+  include StubbingPublicMethodIsAllowed
+  include StubbingInstanceMethod
+end
 
-  def setup
-    setup_acceptance_test
+class StubbingPrivateInstanceMethodTest < Mocha::TestCase
+  include StubbingNonPublicMethodIsChecked
+  include StubbingInstanceMethod
+
+  def visibility
+    :private
   end
+end
 
-  def teardown
-    teardown_acceptance_test
-  end
+class StubbingProtectedInstanceMethodTest < Mocha::TestCase
+  include StubbingNonPublicMethodIsChecked
+  include StubbingInstanceMethod
 
-  def test_should_allow_stubbing_private_instance_method
-    Mocha.configure { |c| c.stubbing_non_public_method = :allow }
-    instance = Class.new do
-      def private_method; end
-      private :private_method
-    end.new
-    test_result = run_as_test do
-      instance.stubs(:private_method)
-    end
-    assert_passed(test_result)
-    assert !@logger.warnings.include?("stubbing non-public method: #{instance.mocha_inspect}.private_method")
-  end
-
-  def test_should_allow_stubbing_protected_instance_method
-    Mocha.configure { |c| c.stubbing_non_public_method = :allow }
-    instance = Class.new do
-      def protected_method; end
-      protected :protected_method
-    end.new
-    test_result = run_as_test do
-      instance.stubs(:protected_method)
-    end
-    assert_passed(test_result)
-    assert !@logger.warnings.include?("stubbing non-public method: #{instance.mocha_inspect}.protected_method")
-  end
-
-  def test_should_warn_when_stubbing_private_instance_method
-    Mocha.configure { |c| c.stubbing_non_public_method = :warn }
-    instance = Class.new do
-      def private_method; end
-      private :private_method
-    end.new
-    test_result = run_as_test do
-      instance.stubs(:private_method)
-    end
-    assert_passed(test_result)
-    assert @logger.warnings.include?("stubbing non-public method: #{instance.mocha_inspect}.private_method")
-  end
-
-  def test_should_warn_when_stubbing_protected_instance_method
-    Mocha.configure { |c| c.stubbing_non_public_method = :warn }
-    instance = Class.new do
-      def protected_method; end
-      protected :protected_method
-    end.new
-    test_result = run_as_test do
-      instance.stubs(:protected_method)
-    end
-    assert_passed(test_result)
-    assert @logger.warnings.include?("stubbing non-public method: #{instance.mocha_inspect}.protected_method")
-  end
-
-  def test_should_prevent_stubbing_private_instance_method
-    Mocha.configure { |c| c.stubbing_non_public_method = :prevent }
-    instance = Class.new do
-      def private_method; end
-      private :private_method
-    end.new
-    test_result = run_as_test do
-      instance.stubs(:private_method)
-    end
-    assert_failed(test_result)
-    assert test_result.error_messages.include?("Mocha::StubbingError: stubbing non-public method: #{instance.mocha_inspect}.private_method")
-  end
-
-  def test_should_prevent_stubbing_protected_instance_method
-    Mocha.configure { |c| c.stubbing_non_public_method = :prevent }
-    instance = Class.new do
-      def protected_method; end
-      protected :protected_method
-    end.new
-    test_result = run_as_test do
-      instance.stubs(:protected_method)
-    end
-    assert_failed(test_result)
-    assert test_result.error_messages.include?("Mocha::StubbingError: stubbing non-public method: #{instance.mocha_inspect}.protected_method")
-  end
-
-  def test_should_default_to_allow_stubbing_private_instance_method
-    instance = Class.new do
-      def private_method; end
-      private :private_method
-    end.new
-    test_result = run_as_test do
-      instance.stubs(:private_method)
-    end
-    assert_passed(test_result)
-    assert !@logger.warnings.include?("stubbing non-public method: #{instance.mocha_inspect}.private_method")
-  end
-
-  def test_should_default_to_allow_stubbing_protected_instance_method
-    instance = Class.new do
-      def protected_method; end
-      protected :protected_method
-    end.new
-    test_result = run_as_test do
-      instance.stubs(:protected_method)
-    end
-    assert_passed(test_result)
-    assert !@logger.warnings.include?("stubbing non-public method: #{instance.mocha_inspect}.protected_method")
-  end
-
-  def test_should_allow_stubbing_public_instance_method
-    Mocha.configure { |c| c.stubbing_non_public_method = :prevent }
-    instance = Class.new do
-      def public_method; end
-      public :public_method
-    end.new
-    test_result = run_as_test do
-      instance.stubs(:public_method)
-    end
-    assert_passed(test_result)
-  end
-
-  def test_should_allow_stubbing_method_to_which_instance_responds
-    Mocha.configure { |c| c.stubbing_non_public_method = :prevent }
-    instance = Class.new do
-      def respond_to?(method, _include_private_methods = false)
-        (method == :method_to_which_instance_responds)
-      end
-    end.new
-    test_result = run_as_test do
-      instance.stubs(:method_to_which_instance_responds)
-    end
-    assert_passed(test_result)
+  def visibility
+    :protected
   end
 end
