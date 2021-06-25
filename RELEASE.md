@@ -1,5 +1,29 @@
 # Release Notes
 
+## 1.13.0
+
+### External changes
+
+* Add `ParameterMatchers#has_keys` - thanks to @cstyles for #512 (18d8104)
+* Fix misleading exception message in `ParameterMatchers#has_entry` - thanks to @cstyles for #513 (9c4ef13)
+* Only add dependency on rubocop if we're actually going to use it (f2f879f)
+* Fix rake dependency constraints for older Ruby versions (7ce5f29)
+
+### Internal changes
+
+* Check documentation can be generated as part of CircleCI build (b30d9a9)
+* Add --fail-on-warning option to yard rake task (53a6ee3)
+* Add a weekly scheduled build to the CircleCI build (fd2a4c6)
+* Add Ruby v1.8 to the CircleCI build matrix (818ca03)
+* Add API token to fix CircleCI badge in README (607c5aa)
+* Provide wrapped option for #mocha_inspect on hashes & arrays (d8f44bc)
+* Use CircleCI instead of TravisCI for automated builds (c98c6ec)
+* Switch to newer default Travis CI build env (c78f75c)
+* Use latest Ruby versions in Travis CI builds (9e0043a)
+* Use latest JRuby v9.2.18 in Travis CI builds (8c99a1b)
+* Use consistent JRuby versions in Travis CI builds (0f849aa)
+* Use more recent version of JRuby in Travis CI build matrix (58653db)
+
 ## 1.12.0
 
 ### External changes
