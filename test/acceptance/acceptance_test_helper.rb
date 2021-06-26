@@ -38,5 +38,9 @@ module AcceptanceTest
     Mocha::Configuration.reset_configuration
   end
 
+  def assert_passed_with_snapshot_unchanged(object, &block)
+    assert_snapshot_unchanged(object) { assert_passed(run_as_test(&block)) }
+  end
+
   include Introspection::Assertions
 end
