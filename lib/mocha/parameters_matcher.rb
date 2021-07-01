@@ -4,7 +4,9 @@ require 'mocha/parameter_matchers'
 module Mocha
   class ParametersMatcher
     def initialize(expected_parameters = [ParameterMatchers::AnyParameters.new], &matching_block)
-      @expected_parameters = expected_parameters
+      @expected_parameters = expected_parameters.dup
+      last_arg = @expected_parameters.last
+      @expected_parameters[-1] = ParameterMatchers::KeywordParameters.new(last_arg) if last_arg.is_a?(Hash)
       @matching_block = matching_block
     end
 
