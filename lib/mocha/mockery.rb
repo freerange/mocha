@@ -157,7 +157,7 @@ module Mocha
     end
 
     def satisfied_expectations
-      expectations.select(&:verified?)
+      expectations.select(&:verified?).reject(&:quiet?)
     end
 
     def add_mock(mock)

@@ -64,6 +64,26 @@ class FailureMessageTest < Mocha::TestCase
     ], test_result.failure_message_lines
   end
 
+  def test_should_not_report_quietly_satisfied_expectations
+    test_result = run_as_test do
+      mock = mock('mock')
+      mock.stubs(:method_one).quietly
+      mock.expects(:method_two).twice
+      mock.expects(:method_three).times(3)
+      1.times { mock.method_one }
+      2.times { mock.method_two }
+      2.times { mock.method_three }
+    end
+    assert_failed(test_result)
+    assert_equal [
+      'not all expectations were satisfied',
+      'unsatisfied expectations:',
+      '- expected exactly 3 times, invoked twice: #<Mock:mock>.method_three(any_parameters)',
+      'satisfied expectations:',
+      '- expected exactly twice, invoked twice: #<Mock:mock>.method_two(any_parameters)',
+    ], test_result.failure_message_lines
+  end
+
   def test_should_include_state_in_unsatisfied_expectation_message
     test_result = run_as_test do
       mock = mock('mock')

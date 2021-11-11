@@ -541,6 +541,18 @@ module Mocha
       self
     end
 
+    # Modifies expectation so that it will not be reported in test output, if it is satisfied.
+    #
+    # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
+    #
+    # @example Satisfied expectation will not be reported in test output.
+    #   object = mock()
+    #   object.stubs(:expected_method).quietly
+    def quietly
+      @quiet = true
+      self
+    end
+
     # @private
     attr_reader :backtrace
 
@@ -556,6 +568,7 @@ module Mocha
       @return_values = ReturnValues.new
       @yield_parameters = YieldParameters.new
       @backtrace = backtrace || caller
+      @quiet = false
     end
 
     # @private
@@ -643,6 +656,11 @@ module Mocha
       signature = "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}#{@parameters_matcher.mocha_inspect}"
       signature << " #{@block_matcher.mocha_inspect}" if @block_matcher.mocha_inspect
       signature
+    end
+
+    # @private
+    def quiet?
+      @quiet
     end
   end
 end
