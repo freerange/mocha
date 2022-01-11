@@ -41,6 +41,12 @@ Gem::Specification.new do |s| # rubocop:disable Metrics/BlockLength
   end
 
   s.add_development_dependency('introspection', '~> 0.0.1')
+
+  # Avoid breaking change in psych v4 (https://bugs.ruby-lang.org/issues/17866)
+  if RUBY_VERSION >= '3.1.0'
+    s.add_development_dependency('psych', '< 4')
+  end
+
   if RUBY_VERSION >= '2.2.0'
     # No test libraries in standard library
     s.add_development_dependency('minitest')
