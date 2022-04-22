@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gemspec :path=>"../"
 
 group :development do
+  gem "rake"
   if RUBY_VERSION < '1.9'
     gem "test-unit", "~> 2"
   else

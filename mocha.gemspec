@@ -2,7 +2,7 @@ lib = File.expand_path('../lib/', __FILE__)
 $LOAD_PATH.unshift lib unless $LOAD_PATH.include?(lib)
 require 'mocha/version'
 
-Gem::Specification.new do |s| # rubocop:disable Metrics/BlockLength
+Gem::Specification.new do |s|
   s.name = 'mocha'
   s.version = Mocha::VERSION
   s.licenses = ['MIT', 'BSD-2-Clause']
@@ -21,41 +21,4 @@ Gem::Specification.new do |s| # rubocop:disable Metrics/BlockLength
   s.homepage = 'https://mocha.jamesmead.org'
   s.require_paths = ['lib']
   s.summary = 'Mocking and stubbing library'
-
-  unless s.respond_to?(:add_development_dependency)
-    class << s
-      def add_development_dependency(*args)
-        add_dependency(*args)
-      end
-    end
-  end
-
-  if RUBY_VERSION < '1.9.3'
-    s.add_development_dependency 'rake', '~> 10.0'
-  elsif RUBY_VERSION < '2'
-    s.add_development_dependency 'rake', '~> 12.2.1'
-  elsif RUBY_VERSION < '2.2'
-    s.add_development_dependency 'rake', '~> 12.3.3'
-  else
-    s.add_development_dependency 'rake'
-  end
-
-  s.add_development_dependency('introspection', '~> 0.0.1')
-
-  # Avoid breaking change in psych v4 (https://bugs.ruby-lang.org/issues/17866)
-  if RUBY_VERSION >= '3.1.0'
-    s.add_development_dependency('psych', '< 4')
-  end
-
-  if RUBY_VERSION >= '2.2.0'
-    # No test libraries in standard library
-    s.add_development_dependency('minitest')
-  end
-  if RUBY_VERSION >= '2.2.0'
-    s.add_development_dependency('rubocop', '<= 0.58.2')
-  end
-  if ENV['MOCHA_GENERATE_DOCS']
-    s.add_development_dependency('redcarpet')
-    s.add_development_dependency('yard')
-  end
 end
