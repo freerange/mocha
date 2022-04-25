@@ -2,3 +2,4 @@ TODO
 Gemfile*.lock
 pkg
 tmp
+.yardoc
