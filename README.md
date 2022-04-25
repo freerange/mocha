@@ -338,7 +338,7 @@ $ MOCHA_GENERATE_DOCS=true GOOGLE_ANALYTICS_WEB_PROPERTY_ID=UA-625523-7 rake gen
 * Sign in to rubygems.org and find API key - https://rubygems.org/profile/edit
 
 ```bash
-$ curl -u james@floehopper.org https://rubygems.org/api/v1/api_key.yaml > ~/.gem/credentials; chmod 0600 ~/.gem/credentials
+$ curl -u <email-address> -H 'OTP:<one-time-password>' https://rubygems.org/api/v1/api_key.yaml > ~/.gem/credentials; chmod 0600 ~/.gem/credentials
 ```
 
 * Release gem to Rubygems:
