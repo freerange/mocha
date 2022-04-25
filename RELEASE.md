@@ -1,5 +1,18 @@
 # Release Notes
 
+## 1.14.0
+
+### External changes
+
+* Mock#expects,#stubs should return last expectation - thanks to @vlad-pisanov for #524 (b6b637db)
+
+### Internal changes
+
+* Avoid breaking change in psych v4 in ruby v3.1 (08b9f4ca)
+* Remove broken Dependabot badge from README (d446657a)
+* Add Ruby 3.0 to the CI matrix - thanks to @mishina2228 for #526 (65bc626e)
+* Move development dependencies from gemspec to Gemfile - thanks to @mishina2228 for #527 (dd127f7b)
+
 ## 1.13.0
 
 ### External changes
