@@ -322,7 +322,7 @@ module Mocha
     end
 
     # @private
-    def respond_to_missing?(symbol, include_private = false)
+    def respond_to_missing?(symbol, include_private)
       if @responder
         @responder.respond_to?(symbol, include_private)
       else
