@@ -67,7 +67,7 @@ class StubbingNonExistentInstanceMethodTest < Mocha::TestCase
   def test_should_allow_stubbing_method_to_which_instance_responds
     Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
     klass = Class.new do
-      def respond_to?(method, _include_private = false)
+      def respond_to?(method, _include_all = false)
         (method == :method_to_which_instance_responds)
       end
     end
