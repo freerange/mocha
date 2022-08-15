@@ -26,8 +26,8 @@ module Mocha
         @stubba_object
       end
 
-      def respond_to?(method)
-        @stubba_object.allocate.respond_to?(method.to_sym)
+      def respond_to?(symbol, include_private = false)
+        @stubba_object.allocate.respond_to?(symbol.to_sym, include_private)
       end
 
       attr_reader :stubba_object
