@@ -165,7 +165,7 @@ module Mocha
     # @param [Array<Symbol>] method_names names of methods to unstub.
     #
     # @example Invoking an unstubbed method causes error to be raised
-    #   object = mock('mock') do
+    #   object = mock('mock')
     #   object.stubs(:stubbed_method).returns(:result_one)
     #   object.stubbed_method # => :result_one
     #   object.unstub(:stubbed_method)

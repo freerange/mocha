@@ -199,11 +199,10 @@ module Mocha
     # @example Ensure methods on egg are invoked in correct order.
     #   breakfast = sequence('breakfast')
     #
-    #   egg = mock('egg') do
-    #     expects(:crack).in_sequence(breakfast)
-    #     expects(:fry).in_sequence(breakfast)
-    #     expects(:eat).in_sequence(breakfast)
-    #   end
+    #   egg = mock('egg')
+    #   egg.expects(:crack).in_sequence(breakfast)
+    #   egg.expects(:fry).in_sequence(breakfast)
+    #   egg.expects(:eat).in_sequence(breakfast)
     def sequence(name)
       Sequence.new(name)
     end
@@ -226,14 +225,13 @@ module Mocha
     # @example Constrain expected invocations to occur in particular states.
     #   power = states('power').starts_as('off')
     #
-    #   radio = mock('radio') do
-    #     expects(:switch_on).then(power.is('on'))
-    #     expects(:select_channel).with('BBC Radio 4').when(power.is('on'))
-    #     expects(:adjust_volume).with(+5).when(power.is('on'))
-    #     expects(:select_channel).with('BBC World Service').when(power.is('on'))
-    #     expects(:adjust_volume).with(-5).when(power.is('on'))
-    #     expects(:switch_off).then(power.is('off'))
-    #   end
+    #   radio = mock('radio')
+    #   radio.expects(:switch_on).then(power.is('on'))
+    #   radio.expects(:select_channel).with('BBC Radio 4').when(power.is('on'))
+    #   radio.expects(:adjust_volume).with(+5).when(power.is('on'))
+    #   radio.expects(:select_channel).with('BBC World Service').when(power.is('on'))
+    #   radio.expects(:adjust_volume).with(-5).when(power.is('on'))
+    #   radio.expects(:switch_off).then(power.is('off'))
     def states(name)
       Mockery.instance.new_state_machine(name)
     end
