@@ -203,6 +203,18 @@ module Mocha
     #   egg.expects(:crack).in_sequence(breakfast)
     #   egg.expects(:fry).in_sequence(breakfast)
     #   egg.expects(:eat).in_sequence(breakfast)
+    #
+    # @example Ensure methods across multiple objects are invoked in correct order.
+    #   sequence = sequence(:task_order)
+    #
+    #   task_one = mock("task_one")
+    #   task_two = mock("task_two")
+    #
+    #   task_one.expects(:execute).in_sequence(sequence)
+    #   task_two.expects(:execute).in_sequence(sequence)
+    #
+    #   task_one.execute
+    #   task_two.execute
     def sequence(name)
       Sequence.new(name)
     end
