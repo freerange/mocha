@@ -41,3 +41,7 @@ Style/SymbolArray:
 # I'm not keen on this cop, because it's easy to miss the while/until
 Style/WhileUntilModifier:
   Enabled: false
+
+# Allow long comment lines, e.g. YARD documentation
+Layout/LineLength:
+  AllowedPatterns: ['\A\s*#']
