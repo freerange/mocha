@@ -1,7 +1,7 @@
 inherit_from: .rubocop_todo.yml
 
 AllCops:
-  TargetRubyVersion: 2.2 # closest to required_ruby_version of '>= 1.8.6'
+  TargetRubyVersion: 2.5 # earliest supported by Rubocop v0.68 onwards
   NewCops: enable
 
 # It's not possible to set TargetRubyVersion to Ruby < v2.2
