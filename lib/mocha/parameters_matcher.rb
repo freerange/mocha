@@ -1,5 +1,6 @@
 require 'mocha/inspect'
 require 'mocha/parameter_matchers'
+require 'mocha/parameter_matchers/last_positional_hash'
 
 module Mocha
   class ParametersMatcher
@@ -28,7 +29,11 @@ module Mocha
     end
 
     def matchers
-      @expected_parameters.map(&:to_matcher)
+      if (last_parameter = @expected_parameters.last).is_a?(Hash)
+        @expected_parameters[0...-1].map(&:to_matcher) + [ParameterMatchers::LastPositionalHash.new(last_parameter)]
+      else
+        @expected_parameters.map(&:to_matcher)
+      end
     end
   end
 end

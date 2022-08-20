@@ -222,6 +222,7 @@ module Mocha
       @parameters_matcher = ParametersMatcher.new(expected_parameters, &matching_block)
       self
     end
+    ruby2_keywords(:with) if Module.respond_to?(:ruby2_keywords, true)
 
     # Modifies expectation so that the expected method must be called with a block.
     #
