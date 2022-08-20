@@ -11,6 +11,10 @@ Style/Alias:
 Style/Documentation:
   Enabled: false
 
+# Useful for distinuishing between positional & keyword arguments
+Style/BracesAroundHashParameters:
+  Enabled: false
+
 # Enumerable#each_with_object only available since Ruby v1.9
 Style/EachWithObject:
   Enabled: false

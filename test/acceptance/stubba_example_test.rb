@@ -88,9 +88,9 @@ class StubbaExampleTest < Mocha::TestCase
     found_widgets = [Widget.new]
     created_widget = Widget.new
     Widget.expects(:find).with(:all).returns(found_widgets)
-    Widget.expects(:create).with({:model => 'wombat'}).returns(created_widget)
+    Widget.expects(:create).with({ :model => 'wombat' }).returns(created_widget)
     assert_equal found_widgets, Widget.find(:all)
-    assert_equal created_widget, Widget.create({:model => 'wombat'})
+    assert_equal created_widget, Widget.create({ :model => 'wombat' })
   end
 
   def should_stub_instance_method_on_any_instance_of_a_class
