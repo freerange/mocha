@@ -113,14 +113,6 @@ Style/ExplicitBlockArgument:
   Exclude:
     - 'lib/mocha/argument_iterator.rb'
 
-# Offense count: 4
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: literals, strict
-Style/MutableConstant:
-  Exclude:
-    - 'test/mini_test_result.rb'
-
 # Offense count: 37
 # Configuration parameters: AllowedMethods.
 # AllowedMethods: respond_to_missing?
