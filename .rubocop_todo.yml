@@ -114,15 +114,6 @@ Style/ExplicitBlockArgument:
     - 'lib/mocha/argument_iterator.rb'
 
 # Offense count: 4
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: line_count_dependent, lambda, literal
-Style/Lambda:
-  Exclude:
-    - 'lib/mocha/mockery.rb'
-    - 'test/acceptance/parameter_matcher_test.rb'
-
-# Offense count: 4
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: literals, strict

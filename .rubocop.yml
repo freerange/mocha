@@ -29,3 +29,7 @@ Style/HashSyntax:
 # I think the results are particularly unhelpful when Metrics/LineLength is big
 Style/IfUnlessModifier:
   Enabled: false
+
+# Lambda literal syntax has only been supported since Ruby v2.0
+Style/Lambda:
+  EnforcedStyle: lambda
