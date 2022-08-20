@@ -147,13 +147,6 @@ Style/StringConcatenation:
     - 'test/acceptance/prepend_test.rb'
     - 'test/unit/backtrace_filter_test.rb'
 
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-Style/WhileUntilModifier:
-  Exclude:
-    - 'lib/mocha/central.rb'
-    - 'lib/mocha/parameter_matchers/any_parameters.rb'
-
 # Offense count: 174
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, AllowedPatterns, IgnoredPatterns.
