@@ -36,8 +36,8 @@ module Mocha
 
     # @private
     def self.included(_mod)
-      Object.send(:include, Mocha::ObjectMethods)
-      Class.send(:include, Mocha::ClassMethods)
+      Object.include Mocha::ObjectMethods
+      Class.include Mocha::ClassMethods
     end
 
     # @private
