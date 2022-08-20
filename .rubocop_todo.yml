@@ -102,14 +102,6 @@ Style/CaseLikeIf:
   Exclude:
     - 'lib/mocha/api.rb'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowedMethods, AllowedPatterns, IgnoredMethods.
-# AllowedMethods: ==, equal?, eql?
-Style/ClassEqualityComparison:
-  Exclude:
-    - 'lib/mocha/stubbed_method.rb'
-
 # Offense count: 2
 Style/CombinableLoops:
   Exclude:
