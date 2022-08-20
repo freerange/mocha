@@ -13,3 +13,7 @@ Style/Alias:
 # Enumerable#each_with_object only available since Ruby v1.9
 Style/EachWithObject:
   Enabled: false
+
+# Kernel#__dir__ has only been available since Ruby v2.0
+Style/ExpandPathArguments:
+  Enabled: false

@@ -112,11 +112,6 @@ Style/CombinableLoops:
 Style/Documentation:
   Enabled: false
 
-# Offense count: 123
-# This cop supports safe autocorrection (--autocorrect).
-Style/ExpandPathArguments:
-  Enabled: false
-
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 Style/ExplicitBlockArgument:
