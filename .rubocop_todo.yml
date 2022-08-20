@@ -133,13 +133,6 @@ Style/OptionalBooleanParameter:
     - 'test/acceptance/stubbing_non_public_instance_method_test.rb'
     - 'test/unit/sequence_test.rb'
 
-# Offense count: 14
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantRegexpEscape:
-  Exclude:
-    - 'test/acceptance/mock_built_with_first_argument_type_being_string_test.rb'
-    - 'test/mini_test_result.rb'
-
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowMultipleReturnValues.

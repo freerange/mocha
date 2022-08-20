@@ -4,12 +4,12 @@ require 'minitest/unit'
 class MiniTestResult
   minitest_version = Gem::Version.new(::MiniTest::Unit::VERSION)
   if Gem::Requirement.new('<= 4.6.1').satisfied_by?(minitest_version)
-    FAILURE_PATTERN = /(Failure)\:\n([^\(]+)\(([^\)]+)\) \[([^\]]+)\]\:\n(.*)\n/m.freeze
-    ERROR_PATTERN   = /(Error)\:\n([^\(]+)\(([^\)]+)\)\:\n(.+?)\n/m.freeze
+    FAILURE_PATTERN = /(Failure):\n([^(]+)\(([^)]+)\) \[([^\]]+)\]:\n(.*)\n/m.freeze
+    ERROR_PATTERN   = /(Error):\n([^(]+)\(([^)]+)\):\n(.+?)\n/m.freeze
     PATTERN_INDICES = { :method => 2, :testcase => 3 }.freeze
   else
-    FAILURE_PATTERN = /(Failure)\:\n.([^#]+)\#([^ ]+) \[([^\]]+)\]\:\n(.*)\n/m.freeze
-    ERROR_PATTERN   = /(Error)\:\n.([^#]+)\#([^ ]+)\:\n(.+?)\n/m.freeze
+    FAILURE_PATTERN = /(Failure):\n.([^#]+)\#([^ ]+) \[([^\]]+)\]:\n(.*)\n/m.freeze
+    ERROR_PATTERN   = /(Error):\n.([^#]+)\#([^ ]+):\n(.+?)\n/m.freeze
     PATTERN_INDICES = { :method => 3, :testcase => 2 }.freeze
   end
 

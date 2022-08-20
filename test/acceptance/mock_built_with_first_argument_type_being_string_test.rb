@@ -32,7 +32,7 @@ class MockBuiltWithFirstArgumentTypeBeingStringTest < Mocha::TestCase
     end
     assert_failed(test_result)
     assert(test_result.failure_message_lines.any? do |line|
-      line[/expected exactly once, invoked never\: #<Mock\:0x[0-9a-f]+>\.my_method\(any_parameters\)/]
+      line[/expected exactly once, invoked never: #<Mock:0x[0-9a-f]+>\.my_method\(any_parameters\)/]
     end)
   end
 
