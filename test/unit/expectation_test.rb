@@ -72,14 +72,18 @@ class ExpectationTest < Mocha::TestCase
     assert expectation.match?(Invocation.new(:irrelevant, :expected_method, 1, { a: 1 }))
   end
 
-  def test_should_match_keyword_args
-    expectation = new_expectation.with(1, a: 1)
-    assert expectation.match?(Invocation.new(:irrelevant, :expected_method, 1, Hash.ruby2_keywords_hash({ a: 1 })))
+  if Hash.respond_to?(:ruby2_keywords_hash)
+    def test_should_match_keyword_args
+      expectation = new_expectation.with(1, a: 1)
+      assert expectation.match?(Invocation.new(:irrelevant, :expected_method, 1, Hash.ruby2_keywords_hash({ a: 1 })))
+    end
   end
 
-  def test_should_not_match_keyword_args_with_last_positional_hashes
-    expectation = new_expectation.with(1, a: 1)
-    assert !expectation.match?(Invocation.new(:irrelevant, :expected_method, 1, { a: 1 }))
+  if Module.respond_to?(:ruby2_keywords, true)
+    def test_should_not_match_keyword_args_with_last_positional_hashes
+      expectation = new_expectation.with(1, a: 1)
+      assert !expectation.match?(Invocation.new(:irrelevant, :expected_method, 1, { a: 1 }))
+    end
   end
 
   def test_should_allow_invocations_until_expected_invocation_count_is_one_and_actual_invocation_count_would_be_two
