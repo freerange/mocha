@@ -96,19 +96,6 @@ Metrics/PerceivedComplexity:
 Naming/VariableNumber:
   Enabled: false
 
-# Offense count: 13
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: prefer_alias, prefer_alias_method
-Style/Alias:
-  Exclude:
-    - 'lib/mocha/class_methods.rb'
-    - 'lib/mocha/is_a.rb'
-    - 'lib/mocha/mock.rb'
-    - 'lib/mocha/object_methods.rb'
-    - 'lib/mocha/stubbed_method.rb'
-    - 'test/test_helper.rb'
-
 # Offense count: 3
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Style/CaseLikeIf:
