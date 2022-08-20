@@ -26,7 +26,7 @@ if RUBY_VERSION >= '2.2.0'
   gem 'minitest'
 end
 if RUBY_VERSION >= '2.2.0'
-  gem 'rubocop', '<= 0.58.2'
+  gem 'rubocop', :require => false
 end
 if ENV['MOCHA_GENERATE_DOCS']
   gem 'redcarpet'
