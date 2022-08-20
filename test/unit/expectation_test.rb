@@ -68,21 +68,21 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_match_last_positional_hash
-    expectation = new_expectation.with(1, { a: 1 })
-    assert expectation.match?(Invocation.new(:irrelevant, :expected_method, 1, { a: 1 }))
+    expectation = new_expectation.with(1, { :a => 1 })
+    assert expectation.match?(Invocation.new(:irrelevant, :expected_method, 1, { :a => 1 }))
   end
 
   if Hash.respond_to?(:ruby2_keywords_hash)
     def test_should_match_keyword_args
-      expectation = new_expectation.with(1, a: 1)
-      assert expectation.match?(Invocation.new(:irrelevant, :expected_method, 1, Hash.ruby2_keywords_hash({ a: 1 })))
+      expectation = new_expectation.with(1, Hash.ruby2_keywords_hash({ :a => 1 }))
+      assert expectation.match?(Invocation.new(:irrelevant, :expected_method, 1, Hash.ruby2_keywords_hash({ :a => 1 })))
     end
   end
 
   if Module.respond_to?(:ruby2_keywords, true)
     def test_should_not_match_keyword_args_with_last_positional_hashes
-      expectation = new_expectation.with(1, a: 1)
-      assert !expectation.match?(Invocation.new(:irrelevant, :expected_method, 1, { a: 1 }))
+      expectation = new_expectation.with(1, Hash.ruby2_keywords_hash({ :a => 1 }))
+      assert !expectation.match?(Invocation.new(:irrelevant, :expected_method, 1, { :a => 1 }))
     end
   end
 
