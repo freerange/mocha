@@ -30,6 +30,7 @@ class MiniTestResult
 
   class Failure
     attr_reader :method, :test_case, :location, :message
+
     def initialize(method, test_case, location, message)
       @method = method
       @test_case = test_case
@@ -41,6 +42,7 @@ class MiniTestResult
   class Error
     class Exception
       attr_reader :message, :backtrace
+
       def initialize(message, location)
         @message = message
         @backtrace = location
@@ -48,6 +50,7 @@ class MiniTestResult
     end
 
     attr_reader :method, :test_case, :exception
+
     def initialize(method, test_case, message, backtrace)
       @method = method
       @test_case = test_case
