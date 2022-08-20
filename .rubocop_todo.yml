@@ -133,13 +133,6 @@ Style/OptionalBooleanParameter:
     - 'test/acceptance/stubbing_non_public_instance_method_test.rb'
     - 'test/unit/sequence_test.rb'
 
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowMultipleReturnValues.
-Style/RedundantReturn:
-  Exclude:
-    - 'lib/mocha/parameter_matchers/includes.rb'
-
 # Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Style/SelectByRegexp:
