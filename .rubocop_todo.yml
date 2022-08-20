@@ -107,11 +107,6 @@ Style/CombinableLoops:
   Exclude:
     - 'test/unit/mock_test.rb'
 
-# Offense count: 104
-# Configuration parameters: AllowedConstants.
-Style/Documentation:
-  Enabled: false
-
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 Style/ExplicitBlockArgument:
