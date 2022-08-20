@@ -20,3 +20,7 @@ Style/EachWithObject:
 # Kernel#__dir__ has only been available since Ruby v2.0
 Style/ExpandPathArguments:
   Enabled: false
+
+# ruby19 style has only been supported since Ruby v1.9
+Style/HashSyntax:
+  EnforcedStyle: hash_rockets

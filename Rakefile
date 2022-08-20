@@ -9,7 +9,7 @@ task 'default' => ['test', 'test:performance']
 
 desc 'Run tests'
 task 'test' do
-  if (test_library = ENV['MOCHA_RUN_INTEGRATION_TESTS'])
+  if (test_library = ENV.fetch('MOCHA_RUN_INTEGRATION_TESTS', nil))
     Rake::Task["test:integration:#{test_library}"].invoke
   else
     Rake::Task['test:units'].invoke
