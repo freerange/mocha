@@ -113,20 +113,6 @@ Style/ExplicitBlockArgument:
   Exclude:
     - 'lib/mocha/argument_iterator.rb'
 
-# Offense count: 13
-# This cop supports safe autocorrection (--autocorrect).
-Style/IfUnlessModifier:
-  Exclude:
-    - 'Gemfile'
-    - 'Rakefile'
-    - 'lib/mocha/class_methods.rb'
-    - 'lib/mocha/detection/test_unit.rb'
-    - 'lib/mocha/expectation.rb'
-    - 'lib/mocha/mock.rb'
-    - 'lib/mocha/object_methods.rb'
-    - 'lib/mocha/stubbed_method.rb'
-    - 'test/test_helper.rb'
-
 # Offense count: 4
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle.

@@ -24,3 +24,8 @@ Style/ExpandPathArguments:
 # ruby19 style has only been supported since Ruby v1.9
 Style/HashSyntax:
   EnforcedStyle: hash_rockets
+
+# I'm not keen on this cop, because it's easy to miss the conditional
+# I think the results are particularly unhelpful when Metrics/LineLength is big
+Style/IfUnlessModifier:
+  Enabled: false
