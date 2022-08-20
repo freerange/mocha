@@ -322,13 +322,9 @@ module Mocha
     end
 
     # @private
-    def respond_to_missing?(symbol, include_private = false)
+    def respond_to_missing?(symbol, include_all)
       if @responder
-        if @responder.method(:respond_to?).arity > 1
-          @responder.respond_to?(symbol, include_private)
-        else
-          @responder.respond_to?(symbol)
-        end
+        @responder.respond_to?(symbol, include_all)
       else
         @everything_stubbed || all_expectations.matches_method?(symbol)
       end
@@ -336,8 +332,8 @@ module Mocha
 
     if PRE_RUBY_V19
       # @private
-      def respond_to?(symbol, include_private = false)
-        respond_to_missing?(symbol, include_private)
+      def respond_to?(symbol, include_all = false)
+        respond_to_missing?(symbol, include_all)
       end
     end
 

@@ -247,7 +247,7 @@ class MockTest < Mocha::TestCase
 
   def test_should_respond_to_methods_which_the_responder_does_responds_to
     instance = Class.new do
-      define_method(:respond_to?) { |_symbol| true }
+      define_method(:invoked_method) {}
     end.new
     mock = build_mock
     mock.responds_like(instance)
@@ -255,9 +255,7 @@ class MockTest < Mocha::TestCase
   end
 
   def test_should_not_respond_to_methods_which_the_responder_does_not_responds_to
-    instance = Class.new do
-      define_method(:respond_to?) { |_symbol| false }
-    end.new
+    instance = Class.new.new
     mock = build_mock
     mock.responds_like(instance)
     assert_equal false, mock.respond_to?(:invoked_method)
@@ -265,7 +263,7 @@ class MockTest < Mocha::TestCase
 
   def test_should_respond_to_methods_which_the_responder_instance_does_responds_to
     klass = Class.new do
-      define_method(:respond_to?) { |_symbol| true }
+      define_method(:invoked_method) {}
     end
     mock = build_mock
     mock.responds_like_instance_of(klass)
@@ -273,9 +271,7 @@ class MockTest < Mocha::TestCase
   end
 
   def test_should_not_respond_to_methods_which_the_responder_instance_does_not_responds_to
-    klass = Class.new do
-      define_method(:respond_to?) { |_symbol| false }
-    end
+    klass = Class.new
     mock = build_mock
     mock.responds_like_instance_of(klass)
     assert_equal false, mock.respond_to?(:invoked_method)
@@ -299,7 +295,7 @@ class MockTest < Mocha::TestCase
 
   def test_should_not_raise_no_method_error_if_responder_does_respond_to_invoked_method
     instance = Class.new do
-      define_method(:respond_to?) { |_symbol| true }
+      define_method(:invoked_method) {}
     end.new
     mock = build_mock
     mock.responds_like(instance)
@@ -309,7 +305,6 @@ class MockTest < Mocha::TestCase
 
   def test_should_raise_no_method_error_if_responder_does_not_respond_to_invoked_method
     instance = Class.new do
-      define_method(:respond_to?) { |_symbol| false }
       define_method(:mocha_inspect) { 'mocha_inspect' }
     end.new
     mock = build_mock
@@ -320,7 +315,6 @@ class MockTest < Mocha::TestCase
 
   def test_should_raise_no_method_error_with_message_indicating_that_mock_is_constrained_to_respond_like_responder
     instance = Class.new do
-      define_method(:respond_to?) { |_symbol| false }
       define_method(:mocha_inspect) { 'mocha_inspect' }
     end.new
     mock = build_mock
