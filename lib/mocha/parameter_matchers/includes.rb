@@ -76,6 +76,7 @@ module Mocha
       def matches?(available_parameters)
         parameter = available_parameters.shift
         return false unless parameter.respond_to?(:include?)
+
         if @items.size == 1
           # rubocop:disable Style/GuardClause
           if parameter.respond_to?(:any?) && !parameter.is_a?(String)

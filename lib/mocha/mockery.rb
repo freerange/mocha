@@ -142,9 +142,11 @@ module Mocha
     def check(action, description, signature_proc, backtrace = caller)
       treatment = Mocha.configuration.send(action)
       return if (treatment == :allow) || (block_given? && !yield)
+
       method_signature = signature_proc.call
       message = "stubbing #{description}: #{method_signature}"
       raise StubbingError.new(message, backtrace) if treatment == :prevent
+
       logger.warn(message) if treatment == :warn
     end
 

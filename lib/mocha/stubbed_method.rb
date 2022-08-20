@@ -24,6 +24,7 @@ module Mocha
       restore_original_method
       mock.unstub(method_name.to_sym)
       return if mock.any_expectations?
+
       reset_mocha
     end
 
@@ -37,6 +38,7 @@ module Mocha
 
     def hide_original_method
       return unless original_method_owner.__method_exists__?(method_name)
+
       store_original_method_visibility
       if use_prepended_module_for_stub_method?
         use_prepended_module_for_stub_method
@@ -73,6 +75,7 @@ module Mocha
 
     def restore_original_method
       return if use_prepended_module_for_stub_method?
+
       if stub_method_overwrites_original_method?
         original_method_owner.send(:define_method, method_name, method_body(@original_method))
       end
@@ -81,6 +84,7 @@ module Mocha
 
     def matches?(other)
       return false unless other.class == self.class
+
       (stubbee.object_id == other.stubbee.object_id) && (method_name == other.method_name)
     end
 
@@ -94,6 +98,7 @@ module Mocha
 
     def retain_original_visibility(method_owner)
       return unless @original_visibility
+
       Module.instance_method(@original_visibility).bind(method_owner).call(method_name)
     end
 

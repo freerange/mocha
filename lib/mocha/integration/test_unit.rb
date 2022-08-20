@@ -18,6 +18,7 @@ module Mocha
     module TestUnit
       def self.activate
         return false unless Detection::TestUnit.testcase
+
         test_unit_version = Gem::Version.new(Detection::TestUnit.version)
         ruby_version = Gem::Version.new(RUBY_VERSION.dup)
 

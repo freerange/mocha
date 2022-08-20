@@ -21,6 +21,7 @@ module Mocha
     module MiniTest
       def self.activate
         return false unless Detection::MiniTest.testcase
+
         mini_test_version = Gem::Version.new(Detection::MiniTest.version)
 
         Debug.puts "Detected MiniTest version: #{mini_test_version}"
