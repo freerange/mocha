@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gemspec
 
-# rubocop:disable Bundler/DuplicatedGem
 if RUBY_VERSION < '1.9.3'
   gem 'rake', '~> 10.0'
 elsif RUBY_VERSION < '2'
@@ -12,8 +11,6 @@ elsif RUBY_VERSION < '2.2'
 else
   gem 'rake'
 end
-# rubocop:enable Bundler/DuplicatedGem
-
 gem 'introspection', '~> 0.0.1'
 
 # Avoid breaking change in psych v4 (https://bugs.ruby-lang.org/issues/17866)

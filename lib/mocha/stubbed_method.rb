@@ -45,11 +45,9 @@ module Mocha
       else
         begin
           store_original_method
-        # rubocop:disable Lint/HandleExceptions
         rescue NameError
           # deal with nasties like ActiveRecord::Associations::AssociationProxy
         end
-        # rubocop:enable Lint/HandleExceptions
         if stub_method_overwrites_original_method?
           remove_original_method_from_stubbee
         end

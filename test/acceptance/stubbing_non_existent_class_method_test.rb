@@ -51,7 +51,6 @@ class StubbingNonExistentClassMethodTest < Mocha::TestCase
     assert_passed(test_result)
   end
 
-  # rubocop:disable Lint/DuplicateMethods
   def test_should_allow_stubbing_existing_public_class_method
     Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
     klass = Class.new do
@@ -153,5 +152,4 @@ class StubbingNonExistentClassMethodTest < Mocha::TestCase
     end
     assert_passed(test_result)
   end
-  # rubocop:enable Lint/DuplicateMethods
 end

@@ -66,7 +66,7 @@ module Mocha
     #     # an error will be raised unless both Motor#start and Motor#stop have been called
     #   end
     #
-    def mock(*arguments) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+    def mock(*arguments)
       if Mocha.configuration.reinstate_undocumented_behaviour_from_v1_9?
         if arguments.first.is_a?(Symbol)
           method_name = arguments[0]
@@ -111,7 +111,6 @@ module Mocha
     #     assert motor.stop
     #     # an error will not be raised even if either Motor#start or Motor#stop has not been called
     #   end
-    # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
     def stub(*arguments)
       if Mocha.configuration.reinstate_undocumented_behaviour_from_v1_9?
         if arguments.first.is_a?(Symbol)
@@ -137,7 +136,6 @@ module Mocha
       stub.stubs(expectations)
       stub
     end
-    # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
 
     # Builds a mock object that accepts calls to any method. By default it will return +nil+ for any method call.
     #
@@ -159,7 +157,6 @@ module Mocha
     #     assert_nil motor.irrelevant_method_2 # => no error raised
     #     assert motor.stop
     #   end
-    # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
     def stub_everything(*arguments)
       if Mocha.configuration.reinstate_undocumented_behaviour_from_v1_9?
         if arguments.first.is_a?(Symbol)
@@ -186,7 +183,6 @@ module Mocha
       stub.stubs(expectations)
       stub
     end
-    # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
 
     # Builds a new sequence which can be used to constrain the order in which expectations can occur.
     #

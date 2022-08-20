@@ -47,11 +47,6 @@ Lint/InheritException:
 Lint/MissingSuper:
   Enabled: false
 
-# Offense count: 19
-# This cop supports safe autocorrection (--autocorrect).
-Lint/RedundantCopDisableDirective:
-  Enabled: false
-
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
 Lint/SendWithMixinArgument:

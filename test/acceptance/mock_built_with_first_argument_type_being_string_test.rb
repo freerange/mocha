@@ -90,7 +90,7 @@ class MockBuiltWithFirstArgumentTypeBeingStringTest < Mocha::TestCase
         s = stub_everything(:my_method, :another_method => 123)
         assert_nil s.my_method
       end
-      expected_warning = 'In this case the 2nd argument for `stub_everything(:#my_method, ...)` is ignored, but in the future a Hash of stubbed methods vs return values will be respected.' # rubocop:disable Layout/LineLength
+      expected_warning = 'In this case the 2nd argument for `stub_everything(:#my_method, ...)` is ignored, but in the future a Hash of stubbed methods vs return values will be respected.'
       assert Mocha::Deprecation.messages.last(2).include?(expected_warning)
     end
     assert_passed(test_result)

@@ -12,7 +12,6 @@ class StubbingNonPublicClassMethodTest < Mocha::TestCase
     teardown_acceptance_test
   end
 
-  # rubocop:disable Lint/DuplicateMethods
   def test_should_allow_stubbing_private_class_method
     Mocha.configure { |c| c.stubbing_non_public_method = :allow }
     klass = Class.new do
@@ -144,7 +143,6 @@ class StubbingNonPublicClassMethodTest < Mocha::TestCase
     end
     assert_passed(test_result)
   end
-  # rubocop:enable Lint/DuplicateMethods
 
   def test_should_allow_stubbing_method_to_which_class_responds
     Mocha.configure { |c| c.stubbing_non_public_method = :prevent }
