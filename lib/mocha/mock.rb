@@ -1,4 +1,3 @@
-require 'mocha/singleton_class'
 require 'mocha/expectation'
 require 'mocha/expectation_list'
 require 'mocha/invocation'
@@ -8,7 +7,6 @@ require 'mocha/method_matcher'
 require 'mocha/parameters_matcher'
 require 'mocha/argument_iterator'
 require 'mocha/expectation_error_factory'
-require 'mocha/ruby_version'
 
 module Mocha
   # Traditional mock object.
@@ -327,13 +325,6 @@ module Mocha
         @responder.respond_to?(symbol, include_all)
       else
         @everything_stubbed || all_expectations.matches_method?(symbol)
-      end
-    end
-
-    if PRE_RUBY_V19
-      # @private
-      def respond_to?(symbol, include_all = false)
-        respond_to_missing?(symbol, include_all)
       end
     end
 

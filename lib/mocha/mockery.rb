@@ -1,4 +1,3 @@
-require 'mocha/ruby_version'
 require 'mocha/central'
 require 'mocha/mock'
 require 'mocha/names'
@@ -119,7 +118,7 @@ module Mocha
     end
 
     def on_stubbing(object, method)
-      method = PRE_RUBY_V19 ? method.to_s : method.to_sym
+      method = method.to_sym
       signature_proc = lambda { "#{object.mocha_inspect}.#{method}" }
       check(:stubbing_non_existent_method, 'non-existent method', signature_proc) do
         !(object.stubba_class.__method_exists__?(method, true) || object.respond_to?(method.to_sym))

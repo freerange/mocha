@@ -1,5 +1,4 @@
 require 'mocha/ruby_version'
-require 'mocha/singleton_class'
 
 module Mocha
   class StubbedMethod
@@ -11,7 +10,7 @@ module Mocha
       @stubbee = stubbee
       @original_method = nil
       @original_visibility = nil
-      @method_name = PRE_RUBY_V19 ? method_name.to_s : method_name.to_sym
+      @method_name = method_name.to_sym
     end
 
     def stub

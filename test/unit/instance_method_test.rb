@@ -1,8 +1,8 @@
 require File.expand_path('../../test_helper', __FILE__)
+require 'mocha/ruby_version'
 require 'method_definer'
 require 'mocha/class_methods'
 require 'mocha/mock'
-require 'mocha/singleton_class'
 
 require 'mocha/instance_method'
 
@@ -70,7 +70,7 @@ class InstanceMethodTest < Mocha::TestCase
     method.define_new_method
 
     expected_filename = 'stubbed_method.rb'
-    expected_line_number = 61
+    expected_line_number = 60
 
     exception = assert_raises(Exception) { klass.method_x }
     matching_line = exception.backtrace.find do |line|

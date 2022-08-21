@@ -4,9 +4,5 @@ gemspec :path=>"../"
 
 group :development do
   gem "rake"
-  if RUBY_VERSION < '1.9'
-    gem "test-unit", "~> 2"
-  else
-    gem "test-unit"
-  end
+  gem "test-unit"
 end
