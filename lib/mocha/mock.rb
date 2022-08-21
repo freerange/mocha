@@ -1,3 +1,4 @@
+require 'mocha/ruby_version'
 require 'mocha/expectation'
 require 'mocha/expectation_list'
 require 'mocha/invocation'
@@ -318,7 +319,7 @@ module Mocha
         raise_unexpected_invocation_error(invocation, matching_expectation)
       end
     end
-    ruby2_keywords(:method_missing) if Module.respond_to?(:ruby2_keywords, true)
+    ruby2_keywords(:method_missing) if RUBY_V3_PLUS
 
     # @private
     def respond_to_missing?(symbol, include_all)

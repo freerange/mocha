@@ -1,3 +1,4 @@
+require 'mocha/ruby_version'
 require 'mocha/method_matcher'
 require 'mocha/parameters_matcher'
 require 'mocha/expectation_error'
@@ -222,7 +223,7 @@ module Mocha
       @parameters_matcher = ParametersMatcher.new(expected_parameters, &matching_block)
       self
     end
-    ruby2_keywords(:with) if Module.respond_to?(:ruby2_keywords, true)
+    ruby2_keywords(:with) if RUBY_V3_PLUS
 
     # Modifies expectation so that the expected method must be called with a block.
     #
