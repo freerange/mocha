@@ -1,4 +1,5 @@
 require 'mocha/parameter_matchers/base'
+require 'mocha/ruby_version'
 
 module Mocha
   module ParameterMatchers
@@ -10,7 +11,7 @@ module Mocha
 
       def matches?(available_parameters)
         parameter = available_parameters.shift
-        if Hash.respond_to?(:ruby2_keywords_hash?)
+        if RUBY_V3_PLUS
           return false if Hash.ruby2_keywords_hash?(@value) && !Hash.ruby2_keywords_hash?(parameter)
         end
 
