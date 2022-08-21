@@ -1,5 +1,3 @@
-require 'mocha/singleton_class'
-
 module MethodDefiner
   def define_instance_method(object, method_symbol, &block)
     object.singleton_class.send(:define_method, method_symbol, block)

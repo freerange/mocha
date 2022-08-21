@@ -1,4 +1,3 @@
-require 'mocha/ruby_version'
 require 'mocha/stubbed_method'
 
 module Mocha

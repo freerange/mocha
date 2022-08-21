@@ -3,9 +3,7 @@ source 'https://rubygems.org'
 gemspec
 
 # rubocop:disable Bundler/DuplicatedGem
-if RUBY_VERSION < '1.9.3'
-  gem 'rake', '~> 10.0'
-elsif RUBY_VERSION < '2'
+if RUBY_VERSION < '2'
   gem 'rake', '~> 12.2.1'
 elsif RUBY_VERSION < '2.2'
   gem 'rake', '~> 12.3.3'

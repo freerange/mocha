@@ -3,7 +3,6 @@ require 'mocha/debug'
 require 'mocha/detection/test_unit'
 
 require 'mocha/integration/test_unit/nothing'
-require 'mocha/integration/test_unit/ruby_version_185_and_below'
 require 'mocha/integration/test_unit/ruby_version_186_and_above'
 require 'mocha/integration/test_unit/gem_version_200'
 require 'mocha/integration/test_unit/gem_version_201_to_202'
@@ -31,7 +30,6 @@ module Mocha
           TestUnit::GemVersion201To202,
           TestUnit::GemVersion200,
           TestUnit::RubyVersion186AndAbove,
-          TestUnit::RubyVersion185AndBelow,
           TestUnit::Nothing
         ].detect { |m| m.applicable_to?(test_unit_version, ruby_version) }
 

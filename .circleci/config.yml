@@ -64,7 +64,6 @@ workflows:
           matrix:
             parameters:
               docker-image:
-                - mudge/re2-ci:1.8
                 - ruby:1.9
                 - ruby:2.0
                 - ruby:2.1
