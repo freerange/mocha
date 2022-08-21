@@ -8,10 +8,6 @@ module Mocha
       stubbee
     end
 
-    def method_body(method)
-      method
-    end
-
     def stubbee_method(method_name)
       stubbee._method(method_name)
     end
