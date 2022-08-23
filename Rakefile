@@ -93,6 +93,7 @@ def benchmark_test_case(klass, iterations)
   if defined?(MiniTest)
     minitest_version = Gem::Version.new(Mocha::Detection::MiniTest.version)
     if Gem::Requirement.new('>= 5.0.0').satisfied_by?(minitest_version)
+      Minitest.seed = 1
       result = Benchmark.realtime { iterations.times { |_i| klass.run(MiniTest::CompositeReporter.new) } }
       MiniTest::Runnable.runnables.delete(klass)
       result
