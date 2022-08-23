@@ -12,7 +12,7 @@ module Mocha
       def matches?(available_parameters)
         parameter = available_parameters.shift
         if RUBY_V3_PLUS
-          return false if Hash.ruby2_keywords_hash?(@value) && !Hash.ruby2_keywords_hash?(parameter)
+          return false unless Hash.ruby2_keywords_hash?(@value) == Hash.ruby2_keywords_hash?(parameter)
         end
 
         parameter == @value
