@@ -1,5 +1,7 @@
 require 'bundler'
-Bundler::GemHelper.install_tasks
+namespace 'rubygems' do
+  Bundler::GemHelper.install_tasks
+end
 require 'bundler/setup'
 
 require 'rake/testtask'
@@ -145,4 +147,4 @@ if ENV['MOCHA_GENERATE_DOCS']
   task 'generate_docs' => %w[clobber_yardoc yardoc checkout_docs_cname checkout_docs_js]
 end
 
-task 'release' => 'default'
+task 'release' => ['default', 'rubygems:release']
