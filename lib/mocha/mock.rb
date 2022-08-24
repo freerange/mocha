@@ -72,40 +72,45 @@ module Mocha
   # different mock objects, use the {Expectation#in_sequence} method to
   # explicitly define a total or partial ordering of invocations.
   class Mock
-    # Adds an expectation that the specified method must be called exactly once with any parameters.
-    #
-    # @return [Expectation] last-built expectation which can be further modified by methods on {Expectation}.
+    # Adds one or more expectations that a given method must be called {Expectation#once exactly once} with {ParameterMatchers#any_parameters any parameters}.
     #
     # @overload def expects(method_name)
+    #   Adds a single expectation that the +method_name+ method will be called {Expectation#once exactly once}.
+    #
     #   @param [Symbol,String] method_name name of expected method
+    #   @return [Expectation] the expectation which can be further modified by methods on {Expectation}.
+    #
+    #   @example Expected method invoked once so no error raised
+    #     object = mock()
+    #     object.expects(:expected_method)
+    #     object.expected_method
+    #
+    #   @example Expected method not invoked so error raised
+    #     object = mock()
+    #     object.expects(:expected_method)
+    #     # error raised when test completes, because expected_method not called exactly once
+    #
+    #   @example Expected method invoked twice so error raised
+    #     object = mock()
+    #     object.expects(:expected_method)
+    #     object.expected_method
+    #     object.expected_method # => error raised when expected method invoked second time
+    #
     # @overload def expects(expected_methods_vs_return_values)
-    #   @param [Hash] expected_methods_vs_return_values expected method name symbols as keys and corresponding return values as values - these expectations are setup as if {#expects} were called multiple times.
+    #   Adds an expectation for each entry in +expected_methods_vs_return_values+ where the key is the name of the expected method and the value is the value {Expectation#returns returned} by the stubbed method. These expectations are setup as if {#expects} were called multiple times with a single +method_name+.
     #
-    # @example Expected method invoked once so no error raised
-    #   object = mock()
-    #   object.expects(:expected_method)
-    #   object.expected_method
+    #   @param [Hash] expected_methods_vs_return_values expected method name symbols as keys and corresponding return values as values.
+    #   @return [Expectation] last-built expectation which can be further modified by methods on {Expectation}.
     #
-    # @example Expected method not invoked so error raised
-    #   object = mock()
-    #   object.expects(:expected_method)
-    #   # error raised when test completes, because expected_method not called exactly once
+    #   @example Setup multiple expectations using +expected_methods_vs_return_values+.
+    #     object = mock()
+    #     object.expects(:expected_method_one => :result_one, :expected_method_two => :result_two)
     #
-    # @example Expected method invoked twice so error raised
-    #   object = mock()
-    #   object.expects(:expected_method)
-    #   object.expected_method
-    #   object.expected_method # => error raised when expected method invoked second time
+    #     # is exactly equivalent to
     #
-    # @example Setup multiple expectations using +expected_methods_vs_return_values+.
-    #   object = mock()
-    #   object.expects(:expected_method_one => :result_one, :expected_method_two => :result_two)
-    #
-    #   # is exactly equivalent to
-    #
-    #   object = mock()
-    #   object.expects(:expected_method_one).returns(:result_one)
-    #   object.expects(:expected_method_two).returns(:result_two)
+    #     object = mock()
+    #     object.expects(:expected_method_one).returns(:result_one)
+    #     object.expects(:expected_method_two).returns(:result_two)
     def expects(method_name_or_hash, backtrace = nil)
       expectation = nil
       iterator = ArgumentIterator.new(method_name_or_hash)
