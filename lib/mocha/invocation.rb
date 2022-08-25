@@ -18,6 +18,7 @@ module Mocha
       @yields = []
       @result = nil
     end
+    ruby2_keywords(:initialize) if RUBY_V3_PLUS
 
     def call(yield_parameters = YieldParameters.new, return_values = ReturnValues.new)
       yield_parameters.next_invocation.each do |yield_args|
