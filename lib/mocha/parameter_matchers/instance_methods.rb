@@ -5,8 +5,16 @@ module Mocha
     # @private
     module InstanceMethods
       # @private
-      def to_matcher(*)
+      def to_matcher
         Mocha::ParameterMatchers::Equals.new(self)
+      end
+
+      def mark_last_argument
+        @is_last_argument = true
+      end
+
+      def is_last_argument?
+        !!@is_last_argument
       end
     end
   end
@@ -19,8 +27,9 @@ end
 
 # @private
 class Hash
-  def to_matcher(last_argument: false)
-    return Mocha::ParameterMatchers::LastPositionalHash.new(self) if last_argument
+  # @private
+  def to_matcher
+    return Mocha::ParameterMatchers::LastPositionalHash.new(self) if is_last_argument?
 
     super
   end
