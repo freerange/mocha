@@ -29,8 +29,7 @@ module Mocha
     end
 
     def matchers
-      @expected_parameters.last.mark_last_argument
-      @expected_parameters.map(&:to_matcher)
+      @expected_parameters[0...-1].map(&:to_matcher) + [@expected_parameters.last.to_matcher(last_argument: true)]
     end
   end
 end
