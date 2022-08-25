@@ -16,7 +16,7 @@ module Stub
       "matcher(#{@matches})"
     end
 
-    def to_matcher(*)
+    def to_matcher
       self
     end
   end

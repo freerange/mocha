@@ -29,7 +29,11 @@ module Mocha
     end
 
     def matchers
-      @expected_parameters[0...-1].map(&:to_matcher) + [@expected_parameters.last.to_matcher(last_argument: true)]
+      if (last_parameter = @expected_parameters.last).is_a?(Hash)
+        @expected_parameters[0...-1].map(&:to_matcher) + [ParameterMatchers::LastPositionalHash.new(last_parameter)]
+      else
+        @expected_parameters.map(&:to_matcher)
+      end
     end
   end
 end
