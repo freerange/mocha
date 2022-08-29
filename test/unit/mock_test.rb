@@ -191,32 +191,32 @@ class MockTest < Mocha::TestCase
     assert_equal 1, mock.method1
   end
 
-  def test_should_match_most_recent_call_to_expects
+  def test_should_match_oldest_call_to_expects
     mock = build_mock
     mock.expects(:method1).returns(0)
     mock.expects(:method1).returns(1)
-    assert_equal 1, mock.method1
+    assert_equal 0, mock.method1
   end
 
-  def test_should_match_most_recent_call_to_stubs
+  def test_should_match_oldest_call_to_stubs
     mock = build_mock
     mock.stubs(:method1).returns(0)
     mock.stubs(:method1).returns(1)
-    assert_equal 1, mock.method1
+    assert_equal 0, mock.method1
   end
 
-  def test_should_match_most_recent_call_to_stubs_or_expects
+  def test_should_match_oldest_call_to_stubs_or_expects
     mock = build_mock
     mock.stubs(:method1).returns(0)
     mock.expects(:method1).returns(1)
-    assert_equal 1, mock.method1
+    assert_equal 0, mock.method1
   end
 
-  def test_should_match_most_recent_call_to_expects_or_stubs
+  def test_should_match_oldest_call_to_expects_or_stubs
     mock = build_mock
     mock.expects(:method1).returns(0)
     mock.stubs(:method1).returns(1)
-    assert_equal 1, mock.method1
+    assert_equal 0, mock.method1
   end
 
   def test_should_respond_to_expected_method
