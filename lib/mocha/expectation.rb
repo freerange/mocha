@@ -220,7 +220,7 @@ module Mocha
     #   # => verify fails
     def with(*expected_parameters, &matching_block)
       # FUTURE: parse expected_parameters into positional and keyword args
-      # Depends a little on how we want to handle https://github.com/freerange/mocha/issues/446#issuecomment-1232952693
+      # Depends a little on how we want to handle https://github.com/freerange/mocha/pull/534#discussion_r959743155
       @parameters_matcher = ParametersMatcher.new(expected_parameters, &matching_block)
       self
     end
