@@ -3,17 +3,17 @@ require 'mocha/inspect'
 
 class HashInspectTest < Mocha::TestCase
   def test_should_keep_spacing_between_key_value
-    hash = { :a => true }
+    hash = { a: true }
     assert_equal '{:a => true}', hash.mocha_inspect
   end
 
   def test_should_return_unwrapped_hash_when_wrapped_is_false
-    hash = { :a => true }
+    hash = { a: true }
     assert_equal ':a => true', hash.mocha_inspect(false)
   end
 
   def test_should_use_mocha_inspect_on_each_item
-    hash = { :a => 'mocha' }
+    hash = { a: 'mocha' }
     assert_equal %({:a => "mocha"}), hash.mocha_inspect
   end
 end

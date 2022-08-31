@@ -51,7 +51,7 @@ module Mocha
       # @private
       def explode(uri)
         query_hash = CGI.parse(uri.query || '')
-        URI::Generic::COMPONENT.inject({}) { |h, k| h.merge(k => uri.__send__(k)) }.merge(:query => query_hash)
+        URI::Generic::COMPONENT.inject({}) { |h, k| h.merge(k => uri.__send__(k)) }.merge(query: query_hash)
       end
     end
   end

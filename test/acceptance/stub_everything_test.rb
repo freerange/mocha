@@ -33,7 +33,7 @@ class StubEverythingTest < Mocha::TestCase
 
   def test_should_build_stub_incorporating_two_expectations
     test_result = run_as_test do
-      foo = stub_everything(:bar => 'bar', :baz => 'baz')
+      foo = stub_everything(bar: 'bar', baz: 'baz')
       foo.bar
       foo.baz
       foo.unexpected_invocation
@@ -43,7 +43,7 @@ class StubEverythingTest < Mocha::TestCase
 
   def test_should_build_named_stub_incorporating_two_expectations
     test_result = run_as_test do
-      foo = stub_everything('foo', :bar => 'bar', :baz => 'baz')
+      foo = stub_everything('foo', bar: 'bar', baz: 'baz')
       foo.bar
       foo.baz
       foo.unexpected_invocation

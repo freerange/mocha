@@ -51,7 +51,7 @@ class MockBuiltWithFirstArgumentTypeBeingStringTest < Mocha::TestCase
   def test_mock_built_with_first_argument_a_symbol_and_second_argument_a_hash
     test_result = run_as_test do
       DeprecationDisabler.disable_deprecations do
-        s = mock(:my_method, :another_method => 123)
+        s = mock(:my_method, another_method: 123)
         assert_nil s.my_method
       end
       expected_warning = 'In this case the 2nd argument for `mock(:#my_method, ...)` is ignored, but in the future a Hash of expected methods vs return values will be respected.'
@@ -63,7 +63,7 @@ class MockBuiltWithFirstArgumentTypeBeingStringTest < Mocha::TestCase
   def test_stub_built_with_first_argument_a_symbol_and_second_argument_a_hash
     test_result = run_as_test do
       DeprecationDisabler.disable_deprecations do
-        s = stub(:my_method, :another_method => 123)
+        s = stub(:my_method, another_method: 123)
         assert_nil s.my_method
       end
       expected_warning = 'In this case the 2nd argument for `stub(:#my_method, ...)` is ignored, but in the future a Hash of stubbed methods vs return values will be respected.'
@@ -87,7 +87,7 @@ class MockBuiltWithFirstArgumentTypeBeingStringTest < Mocha::TestCase
   def test_stub_everything_built_with_first_argument_a_symbol_and_second_argument_a_hash
     test_result = run_as_test do
       DeprecationDisabler.disable_deprecations do
-        s = stub_everything(:my_method, :another_method => 123)
+        s = stub_everything(:my_method, another_method: 123)
         assert_nil s.my_method
       end
       expected_warning = 'In this case the 2nd argument for `stub_everything(:#my_method, ...)` is ignored, but in the future a Hash of stubbed methods vs return values will be respected.' # rubocop:disable Metrics/LineLength

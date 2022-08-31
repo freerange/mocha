@@ -19,11 +19,11 @@ class StubbingSameClassMethodOnParentAndChildClassTest < Mocha::TestCase
     end
     child_class = Class.new(parent_class)
     test_result = run_as_tests(
-      :test_1 => lambda {
+      test_1: lambda {
         parent_class.stubs(:foo).returns('stubbed Parent.foo')
         child_class.stubs(:foo).returns('stubbed Child.foo')
       },
-      :test_2 => lambda {
+      test_2: lambda {
         parent_class.foo
         child_class.foo
       }

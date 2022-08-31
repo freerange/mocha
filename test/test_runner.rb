@@ -4,7 +4,7 @@ require 'mocha/detection/mini_test'
 
 module TestRunner
   def run_as_test(&block)
-    run_as_tests(:test_me => block)
+    run_as_tests(test_me: block)
   end
 
   # rubocop:disable Metrics/AbcSize

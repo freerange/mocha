@@ -10,22 +10,22 @@ class HasEntryTest < Mocha::TestCase
 
   def test_should_match_hash_including_specified_key_value_pair
     matcher = has_entry(:key_1, 'value_1')
-    assert matcher.matches?([{ :key_1 => 'value_1', :key_2 => 'value_2' }])
+    assert matcher.matches?([{ key_1: 'value_1', key_2: 'value_2' }])
   end
 
   def test_should_not_match_hash_not_including_specified_key_value_pair
     matcher = has_entry(:key_1, 'value_2')
-    assert !matcher.matches?([{ :key_1 => 'value_1', :key_2 => 'value_2' }])
+    assert !matcher.matches?([{ key_1: 'value_1', key_2: 'value_2' }])
   end
 
   def test_should_match_hash_including_specified_entry
-    matcher = has_entry(:key_1 => 'value_1')
-    assert matcher.matches?([{ :key_1 => 'value_1', :key_2 => 'value_2' }])
+    matcher = has_entry(key_1: 'value_1')
+    assert matcher.matches?([{ key_1: 'value_1', key_2: 'value_2' }])
   end
 
   def test_should_not_match_hash_not_including_specified_entry
-    matcher = has_entry(:key_1 => 'value_2')
-    assert !matcher.matches?([{ :key_1 => 'value_1', :key_2 => 'value_2' }])
+    matcher = has_entry(key_1: 'value_2')
+    assert !matcher.matches?([{ key_1: 'value_1', key_2: 'value_2' }])
   end
 
   def test_should_describe_matcher_with_key_value_pair
@@ -34,32 +34,32 @@ class HasEntryTest < Mocha::TestCase
   end
 
   def test_should_describe_matcher_with_entry
-    matcher = has_entry(:key_1 => 'value_1')
+    matcher = has_entry(key_1: 'value_1')
     assert_equal %{has_entry(:key_1 => "value_1")}, matcher.mocha_inspect
   end
 
   def test_should_match_hash_including_specified_entry_with_nested_key_matcher
     matcher = has_entry(equals(:key_1) => 'value_1')
-    assert matcher.matches?([{ :key_1 => 'value_1', :key_2 => 'value_2' }])
+    assert matcher.matches?([{ key_1: 'value_1', key_2: 'value_2' }])
   end
 
   def test_should_match_hash_including_specified_entry_with_nested_value_matcher
-    matcher = has_entry(:key_1 => equals('value_1'))
-    assert matcher.matches?([{ :key_1 => 'value_1', :key_2 => 'value_2' }])
+    matcher = has_entry(key_1: equals('value_1'))
+    assert matcher.matches?([{ key_1: 'value_1', key_2: 'value_2' }])
   end
 
   def test_should_not_match_hash_not_including_specified_entry_with_nested_key_matcher
     matcher = has_entry(equals(:key_1) => 'value_2')
-    assert !matcher.matches?([{ :key_1 => 'value_1', :key_2 => 'value_2' }])
+    assert !matcher.matches?([{ key_1: 'value_1', key_2: 'value_2' }])
   end
 
   def test_should_not_match_hash_not_including_specified_entry_with_nested_value_matcher
-    matcher = has_entry(:key_1 => equals('value_2'))
-    assert !matcher.matches?([{ :key_1 => 'value_1', :key_2 => 'value_2' }])
+    matcher = has_entry(key_1: equals('value_2'))
+    assert !matcher.matches?([{ key_1: 'value_1', key_2: 'value_2' }])
   end
 
   def test_should_not_match_object_that_doesnt_respond_to_keys
-    matcher = has_entry(:key_1 => equals('value_2'))
+    matcher = has_entry(key_1: equals('value_2'))
     object = Class.new do
       def [](_key)
         'value_2'
@@ -69,7 +69,7 @@ class HasEntryTest < Mocha::TestCase
   end
 
   def test_should_not_match_object_that_doesnt_respond_to_square_bracket
-    matcher = has_entry(:key_1 => equals('value_2'))
+    matcher = has_entry(key_1: equals('value_2'))
     object = Class.new do
       def keys
         [:key_1]
@@ -99,7 +99,7 @@ class HasEntryTest < Mocha::TestCase
 
   def test_should_raise_argument_error_if_multiple_entries_are_supplied
     e = assert_raises(ArgumentError) do
-      has_entry(:key_1 => 'value_1', :key_2 => 'value_2')
+      has_entry(key_1: 'value_1', key_2: 'value_2')
     end
     assert_equal 'Argument has multiple entries. Use Mocha::ParameterMatchers#has_entries instead.', e.message
   end
@@ -117,17 +117,17 @@ class HasEntryTest < Mocha::TestCase
   end
 
   def test_should_match_array_as_value
-    matcher = has_entry(:key_1 => %w[value_1 value_2])
-    assert matcher.matches?([{ :key_1 => %w[value_1 value_2] }])
+    matcher = has_entry(key_1: %w[value_1 value_2])
+    assert matcher.matches?([{ key_1: %w[value_1 value_2] }])
   end
 
   def test_should_match_hash_as_value_and_key
-    matcher = has_entry({ :key_1 => 'value_1', :key_2 => 'value_2' } => { :key_3 => 'value_3', :key_4 => 'value_4' })
-    assert matcher.matches?([{ { :key_1 => 'value_1', :key_2 => 'value_2' } => { :key_3 => 'value_3', :key_4 => 'value_4' }, :key_5 => 'value_5' }])
+    matcher = has_entry({ key_1: 'value_1', key_2: 'value_2' } => { key_3: 'value_3', key_4: 'value_4' })
+    assert matcher.matches?([{ { key_1: 'value_1', key_2: 'value_2' } => { key_3: 'value_3', key_4: 'value_4' }, :key_5 => 'value_5' }])
   end
 
   def test_should_match_matcher_as_value_and_key
-    matcher = has_entry(has_entry(:key_1 => 'value_1') => has_entry(:key_3 => 'value_3'))
-    assert matcher.matches?([{ { :key_1 => 'value_1', :key_2 => 'value_2' } => { :key_3 => 'value_3', :key_4 => 'value_4' }, :key_5 => 'value_5' }])
+    matcher = has_entry(has_entry(key_1: 'value_1') => has_entry(key_3: 'value_3'))
+    assert matcher.matches?([{ { key_1: 'value_1', key_2: 'value_2' } => { key_3: 'value_3', key_4: 'value_4' }, :key_5 => 'value_5' }])
   end
 end
