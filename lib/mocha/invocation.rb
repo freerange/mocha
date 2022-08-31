@@ -55,7 +55,7 @@ module Mocha
     end
 
     def call_description
-      description = "#{@mock.mocha_inspect}.#{@method_name}#{ParametersMatcher.new(@arguments).mocha_inspect}"
+      description = "#{@mock.mocha_inspect}.#{@method_name}#{argument_description}"
       description << ' { ... }' unless @block.nil?
       description
     end
@@ -72,6 +72,15 @@ module Mocha
 
     def full_description
       "\n  - #{call_description} #{result_description}"
+    end
+
+    private
+
+    def argument_description
+      signature = arguments.mocha_inspect
+      signature = signature.gsub(/^\[|\]$/, '')
+      signature = signature.gsub(/^\{|\}$/, '') if arguments.length == 1
+      "(#{signature})"
     end
   end
 end
