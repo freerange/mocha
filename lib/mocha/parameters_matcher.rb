@@ -11,8 +11,10 @@ module Mocha
     def match?(invocation)
       actual_parameters = invocation.arguments
       if @matching_block
+        # FUTURE: @matching_block.call(*invocation.positional_arguments, **invocation.keyword_arguments)
         @matching_block.call(*actual_parameters)
       else
+        # FUTURE: check against invocation.positional_arguments and invocation.keyword_arguments
         parameters_match?(actual_parameters)
       end
     end
