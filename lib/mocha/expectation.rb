@@ -590,7 +590,7 @@ module Mocha
 
     # @private
     def match?(invocation)
-      @method_matcher.match?(invocation.method_name) && @parameters_matcher.match?(invocation.arguments) && @block_matcher.match?(invocation.block) && in_correct_order?
+      @method_matcher.match?(invocation.method_name) && @parameters_matcher.match?(invocation) && @block_matcher.match?(invocation.block) && in_correct_order?
     end
 
     # @private

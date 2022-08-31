@@ -8,7 +8,8 @@ module Mocha
       @matching_block = matching_block
     end
 
-    def match?(actual_parameters = [])
+    def match?(invocation)
+      actual_parameters = invocation.arguments
       if @matching_block
         @matching_block.call(*actual_parameters)
       else
