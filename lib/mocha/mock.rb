@@ -311,10 +311,14 @@ module Mocha
     def method_missing(symbol, *arguments, &block) # rubocop:disable Style/MethodMissingSuper
       handle_method_call(symbol, arguments, block)
     end
+    # FUTURE: ruby2_keywords(:method_missing)
 
     def handle_method_call(symbol, arguments, block)
       check_expiry
       check_responder_responds_to(symbol)
+      # FUTURE: split arguments into args and kwargs e.g.:
+      # args, kwargs = split_ruby2_args(arguments)
+      # invocation = Invocation.new(self, symbol, args, kwargs, block)
       invocation = Invocation.new(self, symbol, arguments, block)
       if (matching_expectation_allowing_invocation = all_expectations.match_allowing_invocation(invocation))
         matching_expectation_allowing_invocation.invoke(invocation)
