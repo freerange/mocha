@@ -623,9 +623,7 @@ module Mocha
 
     # @private
     def inspect
-      address = __id__ * 2
-      address += 0x100000000 if address < 0
-      "#<Expectation:0x#{format('%<address>x', address: address)} #{mocha_inspect} >"
+      Inspect.describe(self, " #{mocha_inspect} ")
     end
 
     # @private

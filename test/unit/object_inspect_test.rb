@@ -34,7 +34,6 @@ class ObjectInspectTest < Mocha::TestCase
       calls << :__id__
       return 1
     end
-    replace_instance_method(object, :inspect) { 'object-description' }
 
     object.mocha_inspect
 

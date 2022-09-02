@@ -2,11 +2,15 @@ require 'date'
 
 module Mocha
   module Inspect
+    def self.describe(object, desc = '')
+      address = object.__id__ * 2
+      address += 0x100000000 if address < 0
+      "#<#{object.class.to_s.delete_prefix('Mocha::')}:0x#{format('%<address>x', address: address)}#{desc}>"
+    end
+
     module ObjectMethods
       def mocha_inspect
-        address = __id__ * 2
-        address += 0x100000000 if address < 0
-        inspect =~ /#</ ? "#<#{self.class}:0x#{Kernel.format('%<address>x', address: address)}>" : inspect
+        inspect =~ /#</ ? Inspect.describe(self) : inspect
       end
     end
 
