@@ -21,7 +21,7 @@ class ExpectationListTest < Mocha::TestCase
     expectation2 = Expectation.new(nil, :my_method).with(:argument3, :argument4)
     expectation_list.add(expectation1)
     expectation_list.add(expectation2)
-    assert_same expectation1, expectation_list.match(Invocation.new(:irrelevant, :my_method, :argument1, :argument2))
+    assert_same expectation1, expectation_list.match(Invocation.new(:irrelevant, :my_method, [:argument1, :argument2]))
   end
 
   def test_should_remove_all_expectations_matching_method_name
@@ -44,7 +44,7 @@ class ExpectationListTest < Mocha::TestCase
     expectation2 = Expectation.new(nil, :my_method).with(:argument1, :argument2)
     expectation_list.add(expectation1)
     expectation_list.add(expectation2)
-    assert_same expectation2, expectation_list.match(Invocation.new(:irrelevant, :my_method, :argument1, :argument2))
+    assert_same expectation2, expectation_list.match(Invocation.new(:irrelevant, :my_method, [:argument1, :argument2]))
   end
 
   def test_should_find_matching_expectation_allowing_invocation
@@ -55,7 +55,7 @@ class ExpectationListTest < Mocha::TestCase
     define_instance_method(expectation2, :invocations_allowed?) { true }
     expectation_list.add(expectation1)
     expectation_list.add(expectation2)
-    assert_same expectation1, expectation_list.match_allowing_invocation(Invocation.new(:irrelevant, :my_method, :argument1, :argument2))
+    assert_same expectation1, expectation_list.match_allowing_invocation(Invocation.new(:irrelevant, :my_method, [:argument1, :argument2]))
   end
 
   def test_should_find_most_recent_matching_expectation_allowing_invocation

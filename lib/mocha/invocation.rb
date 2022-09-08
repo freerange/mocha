@@ -10,7 +10,7 @@ module Mocha
   class Invocation
     attr_reader :method_name, :block
 
-    def initialize(mock, method_name, *arguments, &block)
+    def initialize(mock, method_name, arguments = [], block = nil)
       @mock = mock
       @method_name = method_name
       @arguments = arguments
