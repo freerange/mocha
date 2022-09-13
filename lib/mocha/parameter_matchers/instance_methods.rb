@@ -1,4 +1,5 @@
 require 'mocha/parameter_matchers/equals'
+require 'mocha/parameter_matchers/hash'
 
 module Mocha
   module ParameterMatchers
@@ -15,4 +16,10 @@ end
 # @private
 class Object
   include Mocha::ParameterMatchers::InstanceMethods
+end
+
+class Hash
+  def to_matcher
+    Mocha::ParameterMatchers::Hash.new(self)
+  end
 end
