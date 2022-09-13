@@ -10,7 +10,6 @@ module Mocha
   class Invocation
     attr_reader :method_name, :block
 
-    # FUTURE: def initialize(mock, method_name, positional_arguments, keyword_arguments, block)
     def initialize(mock, method_name, arguments, block)
       @mock = mock
       @method_name = method_name
@@ -22,8 +21,7 @@ module Mocha
 
     def call(yield_parameters = YieldParameters.new, return_values = ReturnValues.new)
       yield_parameters.next_invocation.each do |yield_args|
-        # FUTURE: depending on future API for matching kwargs,
-        # may need to tweak the call here. See Expectation#with.
+        # need to check how keyword args factors into this
         @yields << ParametersMatcher.new(yield_args)
         if @block
           @block.call(*yield_args)
