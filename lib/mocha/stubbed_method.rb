@@ -57,7 +57,7 @@ module Mocha
       self_in_scope = self
       method_name_in_scope = method_name
       stub_method_owner.send(:define_method, method_name) do |*args, &block|
-        self_in_scope.mock.method_missing(method_name_in_scope, *args, &block)
+        self_in_scope.mock.handle_method_call(method_name_in_scope, args, block)
       end
       retain_original_visibility(stub_method_owner)
     end

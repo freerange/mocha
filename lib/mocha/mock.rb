@@ -309,6 +309,11 @@ module Mocha
 
     # @private
     def method_missing(symbol, *arguments, &block) # rubocop:disable Style/MethodMissingSuper
+      handle_method_call(symbol, arguments, block)
+    end
+
+    # @private
+    def handle_method_call(symbol, arguments, block)
       check_expiry
       check_responder_responds_to(symbol)
       invocation = Invocation.new(self, symbol, arguments, block)
