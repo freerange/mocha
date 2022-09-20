@@ -1,3 +1,5 @@
+require 'mocha/ruby_version'
+
 module Mocha
   # Allows setting of configuration options. See {Configuration} for the available options.
   #
@@ -43,7 +45,8 @@ module Mocha
       :stubbing_non_public_method => :allow,
       :stubbing_method_on_nil => :prevent,
       :display_matching_invocations_on_failure => false,
-      :reinstate_undocumented_behaviour_from_v1_9 => true
+      :reinstate_undocumented_behaviour_from_v1_9 => true,
+      :strict_keyword_argument_matching => false
     }.freeze
 
     attr_reader :options
@@ -301,6 +304,57 @@ module Mocha
     # @private
     def reinstate_undocumented_behaviour_from_v1_9?
       @options[:reinstate_undocumented_behaviour_from_v1_9]
+    end
+
+    # Configure whether to perform strict keyword argument comparision. Only supported in Ruby >= 2.7.
+    #
+    # Without this option, positional hash and keyword arguments are treated the same during comparison, which can lead to false
+    # negatives in Ruby >= 3.0 (see examples below). For more details on keyword arguments in Ruby 3, refer to the relevant
+    # {https://www.ruby-lang.org/en/news/2019/12/12/separation-of-positional-and-keyword-arguments-in-ruby-3-0 blog post}.
+    #
+    # Note that Hash matchers such as +has_value+ or +has_key+ will still treat positional hash and keyword arguments the same,
+    # so false negatives are still possible when they are used.
+    #
+    # This is turned off by default to enable gradual adoption, and may be turned on by default in the future.
+    #
+    # When +value+ is +true+, strict keyword argument matching will be enabled.
+    # When +value+ is +false+, strict keyword argument matching is disabled. This is the default.
+    #
+    # @param [Symbol] value one of +true+, +false+.
+    #
+    # @example Loose keyword argument matching (default)
+    #
+    #   class Example
+    #     def foo(a, bar:); end
+    #   end
+    #
+    #   example = Example.new
+    #   example.expects(:foo).with('a', bar: 'b')
+    #   example.foo('a', { bar: 'b' })
+    #   # This passes the test, but would result in an ArgumentError in practice
+    #
+    # @example Strict keyword argument matching
+    #
+    #   Mocha.configure do |c|
+    #     c.strict_keyword_argument_matching = true
+    #   end
+    #
+    #   class Example
+    #     def foo(a, bar:); end
+    #   end
+    #
+    #   example = Example.new
+    #   example.expects(:foo).with('a', bar: 'b')
+    #   example.foo('a', { bar: 'b' })
+    #   # This now fails as expected
+    def strict_keyword_argument_matching=(value)
+      raise 'Strict keyword argument matching requires Ruby 2.7 and above.' unless Mocha::RUBY_V27_PLUS
+      @options[:strict_keyword_argument_matching] = value
+    end
+
+    # @private
+    def strict_keyword_argument_matching?
+      @options[:strict_keyword_argument_matching]
     end
 
     class << self
