@@ -1,3 +1,4 @@
+require 'mocha/ruby_version'
 require 'mocha/integration/test_unit'
 require 'mocha/deprecation'
 

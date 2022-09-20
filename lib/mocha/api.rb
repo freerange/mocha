@@ -1,3 +1,4 @@
+require 'mocha/ruby_version'
 require 'mocha/parameter_matchers'
 require 'mocha/hooks'
 require 'mocha/mockery'
