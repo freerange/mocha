@@ -1,3 +1,5 @@
+require 'mocha/ruby_version'
+
 module Mocha
   # Allows setting of configuration options. See {Configuration} for the available options.
   #
@@ -43,7 +45,8 @@ module Mocha
       :stubbing_non_public_method => :allow,
       :stubbing_method_on_nil => :prevent,
       :display_matching_invocations_on_failure => false,
-      :reinstate_undocumented_behaviour_from_v1_9 => true
+      :reinstate_undocumented_behaviour_from_v1_9 => true,
+      :strict_keyword_argument_matching => false
     }.freeze
 
     attr_reader :options
@@ -301,6 +304,17 @@ module Mocha
     # @private
     def reinstate_undocumented_behaviour_from_v1_9?
       @options[:reinstate_undocumented_behaviour_from_v1_9]
+    end
+
+    # @private
+    def strict_keyword_argument_matching=(value)
+      raise "Strict keyword argument matching requires Ruby 2.7 and above." unless Mocha::RUBY_V27_PLUS
+      @options[:strict_keyword_argument_matching] = !!value
+    end
+
+    # @private
+    def strict_keyword_argument_matching?
+      @options[:strict_keyword_argument_matching]
     end
 
     class << self
