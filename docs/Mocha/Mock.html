@@ -6,7 +6,7 @@
 <title>
   Class: Mocha::Mock
   
-    &mdash; Mocha 1.14.0
+    &mdash; Mocha 1.15.0
   
 </title>
 
@@ -318,29 +318,15 @@
       <pre class="lines">
 
 
-313
-314
-315
-316
-317
-318
-319
-320
-321
-322</pre>
+311
+312
+313</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 313</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 311</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span> <span class='comment'># rubocop:disable Style/MethodMissingSuper
-</span>  <span class='id identifier rubyid_check_expiry'>check_expiry</span>
-  <span class='id identifier rubyid_check_responder_responds_to'>check_responder_responds_to</span><span class='lparen'>(</span><span class='id identifier rubyid_symbol'>symbol</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_invocation'>invocation</span> <span class='op'>=</span> <span class='const'>Invocation</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_matching_expectation_allowing_invocation'>matching_expectation_allowing_invocation</span> <span class='op'>=</span> <span class='id identifier rubyid_all_expectations'>all_expectations</span><span class='period'>.</span><span class='id identifier rubyid_match_allowing_invocation'>match_allowing_invocation</span><span class='lparen'>(</span><span class='id identifier rubyid_invocation'>invocation</span><span class='rparen'>)</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_matching_expectation_allowing_invocation'>matching_expectation_allowing_invocation</span><span class='period'>.</span><span class='id identifier rubyid_invoke'>invoke</span><span class='lparen'>(</span><span class='id identifier rubyid_invocation'>invocation</span><span class='rparen'>)</span>
-  <span class='kw'>elsif</span> <span class='lparen'>(</span><span class='id identifier rubyid_matching_expectation'>matching_expectation</span> <span class='op'>=</span> <span class='id identifier rubyid_all_expectations'>all_expectations</span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span><span class='lparen'>(</span><span class='id identifier rubyid_invocation'>invocation</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lparen'>(</span><span class='op'>!</span><span class='id identifier rubyid_matching_expectation'>matching_expectation</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='ivar'>@everything_stubbed</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_raise_unexpected_invocation_error'>raise_unexpected_invocation_error</span><span class='lparen'>(</span><span class='id identifier rubyid_invocation'>invocation</span><span class='comma'>,</span> <span class='id identifier rubyid_matching_expectation'>matching_expectation</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
+</span>  <span class='id identifier rubyid_handle_method_call'>handle_method_call</span><span class='lparen'>(</span><span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span> <span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -528,6 +514,8 @@
       <pre class="lines">
 
 
+109
+110
 111
 112
 113
@@ -537,12 +525,10 @@
 117
 118
 119
-120
-121
-122</pre>
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 111</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 109</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name_or_hash'>method_name_or_hash</span><span class='comma'>,</span> <span class='id identifier rubyid_backtrace'>backtrace</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_expectation'>expectation</span> <span class='op'>=</span> <span class='kw'>nil</span>
@@ -697,13 +683,13 @@
       <pre class="lines">
 
 
+234
+235
 236
-237
-238
-239</pre>
+237</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 236</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 234</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_responds_like'>responds_like</span><span class='lparen'>(</span><span class='id identifier rubyid_responder'>responder</span><span class='rparen'>)</span>
   <span class='ivar'>@responder</span> <span class='op'>=</span> <span class='id identifier rubyid_responder'>responder</span>
@@ -821,12 +807,12 @@
       <pre class="lines">
 
 
-269
-270
-271</pre>
+267
+268
+269</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 269</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 267</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_responds_like_instance_of'>responds_like_instance_of</span><span class='lparen'>(</span><span class='id identifier rubyid_responder_class'>responder_class</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_responds_like'>responds_like</span><span class='lparen'>(</span><span class='id identifier rubyid_responder_class'>responder_class</span><span class='period'>.</span><span class='id identifier rubyid_allocate'>allocate</span><span class='rparen'>)</span>
@@ -993,6 +979,8 @@
       <pre class="lines">
 
 
+147
+148
 149
 150
 151
@@ -1003,12 +991,10 @@
 156
 157
 158
-159
-160
-161</pre>
+159</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 149</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 147</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name_or_hash'>method_name_or_hash</span><span class='comma'>,</span> <span class='id identifier rubyid_backtrace'>backtrace</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_expectation'>expectation</span> <span class='op'>=</span> <span class='kw'>nil</span>
@@ -1055,11 +1041,11 @@
 <p>Invoking an unstubbed method causes error to be raised</p>
 </div></p>
       
-      <pre class="example code"><code>object = mock(&#39;mock&#39;) do
-object.stubs(:stubbed_method).returns(:result_one)
-object.stubbed_method # =&gt; :result_one
-object.unstub(:stubbed_method)
-object.stubbed_method # =&gt; unexpected invocation: #&lt;Mock:mock&gt;.stubbed_method()</code></pre>
+      <pre class="example code"><code><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mock</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='symbol'>:stubbed_method</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='symbol'>:result_one</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_stubbed_method'>stubbed_method</span> <span class='comment'># =&gt; :result_one
+</span><span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_unstub'>unstub</span><span class='lparen'>(</span><span class='symbol'>:stubbed_method</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_stubbed_method'>stubbed_method</span> <span class='comment'># =&gt; unexpected invocation: #&lt;Mock:mock&gt;.stubbed_method()</span></code></pre>
     
       
         <p class="example_title"><div class='inline'>
@@ -1102,14 +1088,14 @@ object.stubbed_method # =&gt; unexpected invocation: #&lt;Mock:mock&gt;.stubbed_
       <pre class="lines">
 
 
+179
+180
 181
 182
-183
-184
-185</pre>
+183</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 181</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 179</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unstub'>unstub</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_method_names'>method_names</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_method_names'>method_names</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_method_name'>method_name</span><span class='op'>|</span>
@@ -1134,9 +1120,9 @@ object.stubbed_method # =&gt; unexpected invocation: #&lt;Mock:mock&gt;.stubbed_
 </div>
 
       <div id="footer">
-  Generated on Mon Apr 25 15:32:08 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.0.2).
+  Generated on Wed Sep 21 19:13:39 2022 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-2.7.5).
 </div>
 
     </div>

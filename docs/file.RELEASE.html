@@ -6,7 +6,7 @@
 <title>
   File: RELEASE
   
-    &mdash; Mocha 1.14.0
+    &mdash; Mocha 1.15.0
   
 </title>
 
@@ -58,6 +58,30 @@
       </div>
 
       <div id="content"><div id='filecontents'><h1 id="release-notes">Release Notes</h1>
+
+<h2 id="1-15-0">1.15.0</h2>
+
+<h3 id="external-changes">External changes</h3>
+
+<ul>
+<li>Fix examples using mock constructor with block (1cc17667)</li>
+<li>Add another example for <code>API#sequence</code> (b7a7d233, #59)</li>
+<li>Remove support for Ruby v1.8 (ddb5d672)</li>
+<li>Deprecate support for Ruby versions earlier than v2.0 - thanks to @wasabigeek (#553, #555)</li>
+</ul>
+
+<h3 id="internal-changes">Internal changes</h3>
+
+<ul>
+<li>Update instructions for obtaining Rubygems API key (ed9c040a)</li>
+<li>Consistent definitions for <code>respond_to?</code> methods (#533)</li>
+<li>Run test tasks before release tasks (92a1bc6e, #447)</li>
+<li>Fix test:performance Rake task (#538, #539)</li>
+<li>Tidying following removal of support for Ruby v1.8 - thanks to @nitishr (#542)</li>
+<li>Remove <code>ParametersMatcher</code> from <code>Invocation#call_description</code> - thanks to @wasabigeek (#543)</li>
+<li>Remove unnecessary splatting in Invocation - thanks to @wasabigeek (#549)</li>
+<li>Extract <code>handle_method_call</code> from <code>method_missing</code> - thanks to @wasabigeek (#550)</li>
+</ul>
 
 <h2 id="1-14-0">1.14.0</h2>
 
@@ -1092,9 +1116,9 @@ Hash with wrong number of entries.</li>
 </div>
 
       <div id="footer">
-  Generated on Mon Apr 25 15:32:08 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.0.2).
+  Generated on Wed Sep 21 19:13:39 2022 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-2.7.5).
 </div>
 
     </div>
