@@ -1,5 +1,25 @@
 # Release Notes
 
+## 1.15.0
+
+### External changes
+
+* Fix examples using mock constructor with block (1cc17667)
+* Add another example for `API#sequence` (b7a7d233, #59)
+* Remove support for Ruby v1.8 (ddb5d672)
+* Deprecate support for Ruby versions earlier than v2.0 - thanks to @wasabigeek (#553, #555)
+
+### Internal changes
+
+* Update instructions for obtaining Rubygems API key (ed9c040a)
+* Consistent definitions for `respond_to?` methods (#533)
+* Run test tasks before release tasks (92a1bc6e, #447)
+* Fix test:performance Rake task (#538, #539)
+* Tidying following removal of support for Ruby v1.8 - thanks to @nitishr (#542)
+* Remove `ParametersMatcher` from `Invocation#call_description` - thanks to @wasabigeek (#543)
+* Remove unnecessary splatting in Invocation - thanks to @wasabigeek (#549)
+* Extract `handle_method_call` from `method_missing` - thanks to @wasabigeek (#550)
+
 ## 1.14.0
 
 ### External changes
