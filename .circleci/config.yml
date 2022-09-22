@@ -33,6 +33,11 @@ jobs:
           condition:
             equal: [ "Gemfile", << parameters.gemfile >>]
           steps:
+            - run: bundle exec rake lint
+      - when:
+          condition:
+            equal: [ "Gemfile", << parameters.gemfile >>]
+          steps:
             - run: bundle exec rake test
       - when:
           condition:
