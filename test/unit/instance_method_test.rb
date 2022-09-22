@@ -70,7 +70,7 @@ class InstanceMethodTest < Mocha::TestCase
     method.define_new_method
 
     expected_filename = 'stubbed_method.rb'
-    expected_line_number = 60
+    expected_line_number = 46
 
     exception = assert_raises(Exception) { klass.method_x }
     matching_line = exception.backtrace.find do |line|
@@ -98,7 +98,6 @@ class InstanceMethodTest < Mocha::TestCase
     method.hide_original_method
     method.define_new_method
     method.remove_new_method
-    method.restore_original_method
 
     assert klass.respond_to?(:method_x)
     assert_equal :original_result, klass.method_x
@@ -118,20 +117,10 @@ class InstanceMethodTest < Mocha::TestCase
     method.hide_original_method
     method.define_new_method
     method.remove_new_method
-    method.restore_original_method
 
     block_called = false
     klass.method_x { block_called = true }
     assert block_called
-  end
-
-  def test_should_not_restore_original_method_if_none_was_defined_in_first_place
-    klass = class_with_method(:method_x, :new_result)
-    method = InstanceMethod.new(klass, :method_x)
-
-    method.restore_original_method
-
-    assert_equal :new_result, klass.method_x
   end
 
   def test_should_call_hide_original_method
@@ -171,24 +160,9 @@ class InstanceMethodTest < Mocha::TestCase
     assert method.remove_called
   end
 
-  def test_should_call_restore_original_method
-    klass = class_with_method(:method_x)
-    mocha = build_mock
-    define_instance_method(klass, :mocha) { mocha }
-    method = InstanceMethod.new(klass, :method_x)
-    replace_instance_method(method, :reset_mocha) {}
-    define_instance_accessor(method, :restore_called)
-    replace_instance_method(method, :restore_original_method) { self.restore_called = true }
-
-    method.unstub
-
-    assert method.restore_called
-  end
-
   def test_should_call_mocha_unstub
     klass = class_with_method(:method_x)
     method = InstanceMethod.new(klass, :method_x)
-    replace_instance_method(method, :restore_original_method) {}
     mocha = Class.new do
       class << self
         attr_accessor :unstub_method
@@ -208,7 +182,6 @@ class InstanceMethodTest < Mocha::TestCase
     klass = class_with_method(:method_x)
     method = InstanceMethod.new(klass, :method_x)
     replace_instance_method(method, :remove_new_method) {}
-    replace_instance_method(method, :restore_original_method) {}
     mocha = Class.new
     define_instance_method(mocha, :unstub) { |method_name| }
     define_instance_method(mocha, :any_expectations?) { false }
