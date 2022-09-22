@@ -6,8 +6,8 @@ require 'bundler/setup'
 
 require 'rake/testtask'
 
-desc 'Run all tests'
-task 'default' => ['test', 'test:performance']
+desc 'Run all linters and tests'
+task 'default' => ['lint', 'test', 'test:performance']
 
 desc 'Run tests'
 task 'test' do
@@ -76,13 +76,15 @@ namespace 'test' do # rubocop:disable Metrics/BlockLength
   end
 end
 
-begin
-  require 'rubocop/rake_task'
-  if RUBY_VERSION >= '2.2.0' && (defined?(RUBY_ENGINE) && RUBY_ENGINE == 'ruby') && ENV['MOCHA_RUN_INTEGRATION_TESTS'].nil?
-    RuboCop::RakeTask.new
-    task 'test' => 'rubocop'
+task 'lint' do
+  begin
+    require 'rubocop/rake_task'
+    if RUBY_VERSION >= '2.2.0' && (defined?(RUBY_ENGINE) && RUBY_ENGINE == 'ruby') && ENV['MOCHA_RUN_INTEGRATION_TESTS'].nil?
+      RuboCop::RakeTask.new
+      Rake::Task['rubocop'].invoke
+    end
+  rescue LoadError # rubocop:disable Lint/HandleExceptions
   end
-rescue LoadError # rubocop:disable Lint/HandleExceptions
 end
 
 # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
