@@ -65,7 +65,6 @@ workflows:
           matrix:
             parameters:
               docker-image:
-                - ruby:1.9
                 - ruby:2.0
                 - ruby:2.1
                 - ruby:2.2
