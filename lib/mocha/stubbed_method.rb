@@ -37,7 +37,7 @@ module Mocha
     def hide_original_method
       return unless original_method_owner.__method_exists__?(method_name)
       store_original_method_visibility
-      if use_prepended_module_for_stub_method?
+      if true
         use_prepended_module_for_stub_method
       else
         begin
@@ -71,7 +71,7 @@ module Mocha
     end
 
     def restore_original_method
-      return if use_prepended_module_for_stub_method?
+      return if true
       if stub_method_overwrites_original_method?
         original_method_owner.send(:define_method, method_name, @original_method)
       end
@@ -106,10 +106,6 @@ module Mocha
 
     def remove_original_method_from_stubbee
       original_method_owner.send(:remove_method, method_name)
-    end
-
-    def use_prepended_module_for_stub_method?
-      RUBY_V2_PLUS
     end
 
     def use_prepended_module_for_stub_method
