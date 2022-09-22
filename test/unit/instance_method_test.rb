@@ -18,18 +18,6 @@ class InstanceMethodTest < Mocha::TestCase
     end
   end
 
-  unless RUBY_V2_PLUS
-    def test_should_hide_original_method
-      klass = class_with_method(:method_x)
-      klass.singleton_class.send(:alias_method, :_method, :method)
-      method = InstanceMethod.new(klass, :method_x)
-
-      method.hide_original_method
-
-      assert_equal false, klass.respond_to?(:method_x)
-    end
-  end
-
   def test_should_not_raise_error_hiding_method_that_isnt_defined
     klass = class_with_method(:irrelevant)
     method = InstanceMethod.new(klass, :method_x)
