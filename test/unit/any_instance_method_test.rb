@@ -66,7 +66,7 @@ class AnyInstanceMethodTest < Mocha::TestCase
     method.define_new_method
 
     expected_filename = 'stubbed_method.rb'
-    expected_line_number = 47
+    expected_line_number = 46
 
     exception = assert_raises(Exception) { klass.new.method_x }
     matching_line = exception.backtrace.find do |line|
@@ -84,21 +84,10 @@ class AnyInstanceMethodTest < Mocha::TestCase
     method.hide_original_method
     method.define_new_method
     method.remove_new_method
-    method.restore_original_method
 
     instance = klass.new
     assert instance.respond_to?(:method_x)
     assert_equal :original_result, instance.method_x
-  end
-
-  def test_should_not_restore_original_method_if_none_was_defined_in_first_place
-    klass = class_with_method(:method_x, :new_result)
-    method = AnyInstanceMethod.new(klass, :method_x)
-
-    method.restore_original_method
-
-    instance = klass.new
-    assert_equal :new_result, instance.method_x
   end
 
   def test_should_call_remove_new_method
@@ -108,7 +97,6 @@ class AnyInstanceMethodTest < Mocha::TestCase
     any_instance.stubs(:mocha).returns(any_instance_mocha)
     define_instance_method(klass, :any_instance) { any_instance }
     method = AnyInstanceMethod.new(klass, :method_x)
-    replace_instance_method(method, :restore_original_method) {}
     replace_instance_method(method, :reset_mocha) {}
     define_instance_accessor(method, :remove_called)
     replace_instance_method(method, :remove_new_method) { self.remove_called = true }
@@ -118,30 +106,12 @@ class AnyInstanceMethodTest < Mocha::TestCase
     assert method.remove_called
   end
 
-  def test_should_call_restore_original_method
-    klass = class_with_method(:method_x)
-    any_instance = build_mock
-    any_instance_mocha = build_mock
-    any_instance.stubs(:mocha).returns(any_instance_mocha)
-    define_instance_method(klass, :any_instance) { any_instance }
-    method = AnyInstanceMethod.new(klass, :method_x)
-    replace_instance_method(method, :remove_new_method) {}
-    replace_instance_method(method, :reset_mocha) {}
-    define_instance_accessor(method, :restore_called)
-    replace_instance_method(method, :restore_original_method) { self.restore_called = true }
-
-    method.unstub
-
-    assert method.restore_called
-  end
-
   def test_should_call_mock_unstub
     klass = class_with_method(:method_x)
 
     method = AnyInstanceMethod.new(klass, :method_x)
 
     replace_instance_method(method, :remove_new_method) {}
-    replace_instance_method(method, :restore_original_method) {}
     mocha = Class.new do
       class << self
         attr_accessor :unstub_method

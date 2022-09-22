@@ -20,7 +20,6 @@ module Mocha
 
     def unstub
       remove_new_method
-      restore_original_method
       mock.unstub(method_name.to_sym)
       return if mock.any_expectations?
       reset_mocha
@@ -51,10 +50,6 @@ module Mocha
 
     def remove_new_method
       stub_method_owner.send(:remove_method, method_name)
-    end
-
-    def restore_original_method
-      nil
     end
 
     def matches?(other)
