@@ -54,11 +54,7 @@ module Mocha
     end
 
     def restore_original_method
-      return if true
-      if stub_method_overwrites_original_method?
-        original_method_owner.send(:define_method, method_name, @original_method)
-      end
-      retain_original_visibility(original_method_owner)
+      nil
     end
 
     def matches?(other)
@@ -81,10 +77,6 @@ module Mocha
 
     def store_original_method_visibility
       @original_visibility = original_method_owner.__method_visibility__(method_name)
-    end
-
-    def stub_method_overwrites_original_method?
-      @original_method && @original_method.owner == original_method_owner
     end
 
     def use_prepended_module_for_stub_method
