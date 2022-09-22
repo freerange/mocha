@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name = 'mocha'
   s.version = Mocha::VERSION
   s.licenses = ['MIT', 'BSD-2-Clause']
-  s.required_ruby_version = '>= 1.9'
+  s.required_ruby_version = '>= 2.0'
 
   s.authors = ['James Mead']
   s.description = 'Mocking and stubbing library with JMock/SchMock syntax, which allows mocking and stubbing of methods on real (non-mock) classes.'
