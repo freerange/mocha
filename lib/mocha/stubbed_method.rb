@@ -37,20 +37,7 @@ module Mocha
     def hide_original_method
       return unless original_method_owner.__method_exists__?(method_name)
       store_original_method_visibility
-      if true
-        use_prepended_module_for_stub_method
-      else
-        begin
-          store_original_method
-        # rubocop:disable Lint/HandleExceptions
-        rescue NameError
-          # deal with nasties like ActiveRecord::Associations::AssociationProxy
-        end
-        # rubocop:enable Lint/HandleExceptions
-        if stub_method_overwrites_original_method?
-          remove_original_method_from_stubbee
-        end
-      end
+      use_prepended_module_for_stub_method
     end
 
     def define_new_method
@@ -102,10 +89,6 @@ module Mocha
 
     def stub_method_overwrites_original_method?
       @original_method && @original_method.owner == original_method_owner
-    end
-
-    def remove_original_method_from_stubbee
-      original_method_owner.send(:remove_method, method_name)
     end
 
     def use_prepended_module_for_stub_method
