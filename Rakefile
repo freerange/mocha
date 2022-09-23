@@ -5,6 +5,11 @@ end
 require 'bundler/setup'
 
 require 'rake/testtask'
+begin
+  # Only available with default Gemfile and in Ruby >= v2.2
+  require 'rubocop/rake_task'
+rescue LoadError # rubocop:disable Lint/HandleExceptions
+end
 
 desc 'Run all linters and tests'
 task 'default' => ['lint', 'test', 'test:performance']
@@ -77,13 +82,11 @@ namespace 'test' do # rubocop:disable Metrics/BlockLength
 end
 
 task 'lint' do
-  begin
-    require 'rubocop/rake_task'
-    if RUBY_VERSION >= '2.2.0' && (defined?(RUBY_ENGINE) && RUBY_ENGINE == 'ruby') && ENV['MOCHA_RUN_INTEGRATION_TESTS'].nil?
-      RuboCop::RakeTask.new
-      Rake::Task['rubocop'].invoke
-    end
-  rescue LoadError # rubocop:disable Lint/HandleExceptions
+  if defined?(RuboCop::RakeTask)
+    RuboCop::RakeTask.new
+    Rake::Task['rubocop'].invoke
+  else
+    puts 'RuboCop not available - skipping linting'
   end
 end
 
