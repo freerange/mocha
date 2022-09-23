@@ -5,3 +5,5 @@
 * Open a pull request based on a branch on your fork.
 * Wait for your pull request build to pass on [Circle CI](https://app.circleci.com/pipelines/github/freerange/mocha).
 * Pull requests with failing tests will not be accepted.
+
+TEST
