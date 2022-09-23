@@ -52,10 +52,6 @@ module Mocha
       stub_method_owner.send(:remove_method, method_name)
     end
 
-    def store_original_method
-      @original_method = stubbee_method(method_name)
-    end
-
     def matches?(other)
       return false unless other.class == self.class
       (stubbee.object_id == other.stubbee.object_id) && (method_name == other.method_name)
