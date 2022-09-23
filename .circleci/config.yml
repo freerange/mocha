@@ -33,11 +33,6 @@ jobs:
           condition:
             equal: [ "Gemfile", << parameters.gemfile >>]
           steps:
-            - run: bundle exec rake lint
-      - when:
-          condition:
-            equal: [ "Gemfile", << parameters.gemfile >>]
-          steps:
             - run: bundle exec rake test
       - when:
           condition:
@@ -62,6 +57,15 @@ jobs:
             - run: bundle exec rake test:performance
             - run: MOCHA_GENERATE_DOCS=1 bundle install --gemfile=<< parameters.gemfile >>
             - run: MOCHA_GENERATE_DOCS=1 GOOGLE_ANALYTICS_WEB_PROPERTY_ID=dummy rake yardoc
+  lint:
+    docker:
+      - image: ruby:2.2
+    environment:
+      MOCHA_OPTIONS=debug
+    steps:
+      - checkout
+      - run: ruby --version
+      - run: bundle exec rake lint
 
 workflows:
   build-all:
@@ -92,6 +96,7 @@ workflows:
               gemfile:
                 - gemfiles/Gemfile.minitest.latest
                 - gemfiles/Gemfile.test-unit.latest
+      - lint
   weekly:
     triggers:
       - schedule:
