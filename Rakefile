@@ -6,6 +6,7 @@ require 'bundler/setup'
 
 require 'rake/testtask'
 begin
+  # only available in Ruby >= 2.2
   require 'rubocop/rake_task'
 rescue LoadError # rubocop:disable Lint/HandleExceptions
 end
