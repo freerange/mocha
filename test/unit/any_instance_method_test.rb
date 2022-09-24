@@ -77,7 +77,7 @@ class AnyInstanceMethodTest < Mocha::TestCase
     assert_not_nil matching_line, "Expected to find #{expected_filename}:#{expected_line_number} in the backtrace:\n #{exception.backtrace.join("\n")}"
   end
 
-  def test_should_restore_original_method
+  def test_remove_new_method_restores_original_method
     klass = class_with_method(:method_x, :original_result)
     method = AnyInstanceMethod.new(klass, :method_x)
 

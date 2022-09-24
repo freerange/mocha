@@ -90,7 +90,7 @@ class InstanceMethodTest < Mocha::TestCase
     assert_equal false, klass.respond_to?(:method_x)
   end
 
-  def test_should_restore_original_method
+  def test_remove_new_method_restores_original_method
     klass = class_with_method(:method_x, :original_result)
     klass.singleton_class.send(:alias_method, :_method, :method)
     method = InstanceMethod.new(klass, :method_x)
@@ -103,7 +103,7 @@ class InstanceMethodTest < Mocha::TestCase
     assert_equal :original_result, klass.method_x
   end
 
-  def test_should_restore_original_method_accepting_a_block_parameter
+  def test_remove_new_method_restores_original_method_accepting_a_block_parameter
     klass = Class.new do
       extend ClassMethods
       singleton_class.extend(ClassMethods)
