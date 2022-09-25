@@ -1,3 +1,4 @@
+require 'ruby2_keywords'
 require 'mocha/expectation'
 require 'mocha/expectation_list'
 require 'mocha/invocation'
@@ -308,9 +309,12 @@ module Mocha
     end
 
     # @private
-    def method_missing(symbol, *arguments, &block) # rubocop:disable Style/MethodMissingSuper
+    # rubocop:disable Style/MethodMissingSuper
+    def method_missing(symbol, *arguments, &block)
       handle_method_call(symbol, arguments, block)
     end
+    ruby2_keywords(:method_missing)
+    # rubocop:enable Style/MethodMissingSuper
 
     # @private
     def handle_method_call(symbol, arguments, block)

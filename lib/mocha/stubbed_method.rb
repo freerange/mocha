@@ -1,3 +1,4 @@
+require 'ruby2_keywords'
 require 'mocha/ruby_version'
 
 module Mocha
@@ -45,6 +46,7 @@ module Mocha
       stub_method_owner.send(:define_method, method_name) do |*args, &block|
         self_in_scope.mock.handle_method_call(method_name_in_scope, args, block)
       end
+      stub_method_owner.send(:ruby2_keywords, method_name)
       retain_original_visibility(stub_method_owner)
     end
 
