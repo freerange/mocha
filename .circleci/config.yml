@@ -16,12 +16,6 @@ jobs:
       - run: ruby --version
       - when:
           condition:
-            equal: [ "ruby:1.9", << parameters.docker-image >>]
-          steps:
-            - run: gem update --system 2.7.8
-            - run: gem install bundler -v1.17.3
-      - when:
-          condition:
             equal: [ "jruby:latest", << parameters.docker-image >>]
           steps:
             - run: apt-get update
@@ -76,7 +70,6 @@ workflows:
           matrix:
             parameters:
               docker-image:
-                - ruby:1.9
                 - ruby:2.0
                 - ruby:2.1
                 - ruby:2.2

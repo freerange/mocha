@@ -20,7 +20,6 @@ module Mocha
 
     def unstub
       remove_new_method
-      restore_original_method
       mock.unstub(method_name.to_sym)
       return if mock.any_expectations?
       reset_mocha
@@ -37,20 +36,7 @@ module Mocha
     def hide_original_method
       return unless original_method_owner.__method_exists__?(method_name)
       store_original_method_visibility
-      if use_prepended_module_for_stub_method?
-        use_prepended_module_for_stub_method
-      else
-        begin
-          store_original_method
-        # rubocop:disable Lint/HandleExceptions
-        rescue NameError
-          # deal with nasties like ActiveRecord::Associations::AssociationProxy
-        end
-        # rubocop:enable Lint/HandleExceptions
-        if stub_method_overwrites_original_method?
-          remove_original_method_from_stubbee
-        end
-      end
+      use_prepended_module_for_stub_method
     end
 
     def define_new_method
@@ -64,18 +50,6 @@ module Mocha
 
     def remove_new_method
       stub_method_owner.send(:remove_method, method_name)
-    end
-
-    def store_original_method
-      @original_method = stubbee_method(method_name)
-    end
-
-    def restore_original_method
-      return if use_prepended_module_for_stub_method?
-      if stub_method_overwrites_original_method?
-        original_method_owner.send(:define_method, method_name, @original_method)
-      end
-      retain_original_visibility(original_method_owner)
     end
 
     def matches?(other)
@@ -98,18 +72,6 @@ module Mocha
 
     def store_original_method_visibility
       @original_visibility = original_method_owner.__method_visibility__(method_name)
-    end
-
-    def stub_method_overwrites_original_method?
-      @original_method && @original_method.owner == original_method_owner
-    end
-
-    def remove_original_method_from_stubbee
-      original_method_owner.send(:remove_method, method_name)
-    end
-
-    def use_prepended_module_for_stub_method?
-      RUBY_V2_PLUS
     end
 
     def use_prepended_module_for_stub_method
