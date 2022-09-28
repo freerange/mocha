@@ -20,6 +20,19 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
     assert_passed(test_result)
   end
 
+  if Mocha::RUBY_V27_PLUS
+    def test_should_not_match_hash_parameter_with_keyword_args_when_strict_keyword_matching_is_enabled
+      test_result = run_as_test do
+        mock = mock()
+        mock.expects(:method).with(:key => 42)
+        Mocha::Configuration.override(:strict_keyword_argument_matching => true) do
+          mock.method({ :key => 42 }) # rubocop:disable Style/BracesAroundHashParameters
+        end
+      end
+      assert_failed(test_result)
+    end
+  end
+
   def test_should_match_hash_parameter_with_splatted_keyword_args
     test_result = run_as_test do
       mock = mock()
@@ -27,6 +40,19 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
       mock.method({ :key => 42 }) # rubocop:disable Style/BracesAroundHashParameters
     end
     assert_passed(test_result)
+  end
+
+  if Mocha::RUBY_V27_PLUS
+    def test_should_not_match_hash_parameter_with_splatted_keyword_args_when_strict_keyword_matching_is_enabled
+      test_result = run_as_test do
+        mock = mock()
+        mock.expects(:method).with(**{ :key => 42 })
+        Mocha::Configuration.override(:strict_keyword_argument_matching => true) do
+          mock.method({ :key => 42 }) # rubocop:disable Style/BracesAroundHashParameters
+        end
+      end
+      assert_failed(test_result)
+    end
   end
 
   def test_should_match_splatted_hash_parameter_with_keyword_args
@@ -56,6 +82,19 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
     assert_passed(test_result)
   end
 
+  if Mocha::RUBY_V27_PLUS
+    def test_should_not_match_positional_and_keyword_args_with_last_positional_hash_when_strict_keyword_args_is_enabled
+      test_result = run_as_test do
+        mock = mock()
+        mock.expects(:method).with(1, { :key => 42 }) # rubocop:disable Style/BracesAroundHashParameters
+        Mocha::Configuration.override(:strict_keyword_argument_matching => true) do
+          mock.method(1, :key => 42)
+        end
+      end
+      assert_failed(test_result)
+    end
+  end
+
   def test_should_match_last_positional_hash_with_keyword_args
     test_result = run_as_test do
       mock = mock()
@@ -63,6 +102,19 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
       mock.method(1, { :key => 42 }) # rubocop:disable Style/BracesAroundHashParameters
     end
     assert_passed(test_result)
+  end
+
+  if Mocha::RUBY_V27_PLUS
+    def test_should_not_match_last_positional_hash_with_keyword_args_when_strict_keyword_args_is_enabled
+      test_result = run_as_test do
+        mock = mock()
+        mock.expects(:method).with(1, :key => 42)
+        Mocha::Configuration.override(:strict_keyword_argument_matching => true) do
+          mock.method(1, { :key => 42 }) # rubocop:disable Style/BracesAroundHashParameters
+        end
+      end
+      assert_failed(test_result)
+    end
   end
 
   def test_should_match_positional_and_keyword_args_with_keyword_args
@@ -108,5 +160,18 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
       mock.method(1, { :key => 42 }) # rubocop:disable Style/BracesAroundHashParameters
     end
     assert_passed(test_result)
+  end
+
+  if Mocha::RUBY_V27_PLUS
+    def test_should_not_match_non_hash_args_with_keyword_args
+      test_result = run_as_test do
+        mock = mock()
+        mock.expects(:method).with(**{ :key => 1 })
+        Mocha::Configuration.override(:strict_keyword_argument_matching => true) do
+          mock.method([2])
+        end
+      end
+      assert_failed(test_result)
+    end
   end
 end
