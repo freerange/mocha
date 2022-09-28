@@ -11,8 +11,8 @@ module Mocha
 
       # @private
       def matches?(available_parameters)
-        parameter = available_parameters.shift
-        if Mocha.configuration.strict_keyword_argument_matching? && available_parameters.empty?
+        parameter, is_last_parameter = extract_parameter(available_parameters)
+        if is_last_parameter && Mocha.configuration.strict_keyword_argument_matching?
           return false unless ::Hash.ruby2_keywords_hash?(parameter) == ::Hash.ruby2_keywords_hash?(@value)
         end
         parameter == @value
@@ -21,6 +21,12 @@ module Mocha
       # @private
       def mocha_inspect
         @value.mocha_inspect
+      end
+
+      private
+
+      def extract_parameter(available_parameters)
+        [available_parameters.shift, available_parameters.empty?]
       end
     end
   end
