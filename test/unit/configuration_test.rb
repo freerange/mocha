@@ -47,7 +47,7 @@ class ConfigurationTest < Mocha::TestCase
   if Mocha::RUBY_V27_PLUS
     def test_enabling_strict_keyword_argument_matching_works_in_ruby_2_7_and_above
       Mocha.configure { |c| c.strict_keyword_argument_matching = true }
-      assert_equal true, Mocha.configuration.strict_keyword_argument_matching?
+      assert Mocha.configuration.strict_keyword_argument_matching?
     end
   else
     def test_enabling_strict_keyword_argument_matching_raises_error_if_below_ruby_2_7
