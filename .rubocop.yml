@@ -59,8 +59,3 @@ Metrics/LineLength:
 # It's not possible to set TargetRubyVersion to Ruby < v2.2
 Gemspec/RequiredRubyVersion:
   Enabled: false
-
-Style/BracesAroundHashParameters:
-  Exclude:
-    # we specifically want to test hash parameters
-    - 'test/acceptance/keyword_arguments_test.rb'
