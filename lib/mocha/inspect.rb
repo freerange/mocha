@@ -18,8 +18,9 @@ module Mocha
     end
 
     module HashMethods
-      def mocha_inspect(wrapped = true)
+      def mocha_inspect(placeholder = nil)
         unwrapped = collect { |key, value| "#{key.mocha_inspect} => #{value.mocha_inspect}" }.join(', ')
+        wrapped = !Hash.ruby2_keywords_hash?(self)
         wrapped ? "{#{unwrapped}}" : unwrapped
       end
     end
