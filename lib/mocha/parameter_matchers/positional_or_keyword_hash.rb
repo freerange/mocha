@@ -3,13 +3,12 @@ require 'mocha/parameter_matchers/base'
 
 module Mocha
   module ParameterMatchers
+    # @private
     class PositionalOrKeywordHash < Base
-      # @private
       def initialize(value)
         @value = value
       end
 
-      # @private
       def matches?(available_parameters)
         parameter, is_last_parameter = extract_parameter(available_parameters)
         if is_last_parameter && Mocha.configuration.strict_keyword_argument_matching?
@@ -18,7 +17,6 @@ module Mocha
         parameter == @value
       end
 
-      # @private
       def mocha_inspect
         @value.mocha_inspect
       end
