@@ -325,6 +325,7 @@ module Mocha
     # @example Loose keyword argument matching (default)
     #
     #   class Example
+    #     def foo(a, bar:); end
     #   end
     #
     #   example = Example.new
@@ -339,6 +340,7 @@ module Mocha
     #   end
     #
     #   class Example
+    #     def foo(a, bar:); end
     #   end
     #
     #   example = Example.new
