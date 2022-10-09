@@ -79,7 +79,6 @@ module Mocha
     def argument_description
       signature = arguments.mocha_inspect
       signature = signature.gsub(/^\[|\]$/, '')
-      signature = signature.gsub(/^\{|\}$/, '') if arguments.length == 1
       "(#{signature})"
     end
   end

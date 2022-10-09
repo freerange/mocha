@@ -16,9 +16,9 @@ class PositionalAndKeywordHashInspectTest < Mocha::TestCase
       mock.method({ :key => 42 }) # rubocop:disable Style/BracesAroundHashParameters
     end
     assert_equal [
-      'unexpected invocation: #<Mock:mock>.method(:key => 42)',
+      'unexpected invocation: #<Mock:mock>.method({:key => 42})',
       'unsatisfied expectations:',
-      '- expected exactly once, invoked never: #<Mock:mock>.method(:foo => 42)'
+      '- expected exactly once, invoked never: #<Mock:mock>.method({:foo => 42})'
     ], test_result.failure_message_lines
   end
 
@@ -29,9 +29,9 @@ class PositionalAndKeywordHashInspectTest < Mocha::TestCase
       mock.method(:key => 42)
     end
     assert_equal [
-      'unexpected invocation: #<Mock:mock>.method(:key => 42)',
+      'unexpected invocation: #<Mock:mock>.method({:key => 42})',
       'unsatisfied expectations:',
-      '- expected exactly once, invoked never: #<Mock:mock>.method(:foo => 42)'
+      '- expected exactly once, invoked never: #<Mock:mock>.method({:foo => 42})'
     ], test_result.failure_message_lines
   end
 
