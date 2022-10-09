@@ -7,11 +7,6 @@ class HashInspectTest < Mocha::TestCase
     assert_equal '{:a => true}', hash.mocha_inspect
   end
 
-  def test_should_return_unwrapped_hash_when_wrapped_is_false
-    hash = { :a => true }
-    assert_equal ':a => true', hash.mocha_inspect(false)
-  end
-
   def test_should_use_mocha_inspect_on_each_item
     hash = { :a => 'mocha' }
     assert_equal %({:a => "mocha"}), hash.mocha_inspect

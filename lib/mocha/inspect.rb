@@ -18,9 +18,9 @@ module Mocha
     end
 
     module HashMethods
-      def mocha_inspect(wrapped = true)
+      def mocha_inspect
         unwrapped = collect { |key, value| "#{key.mocha_inspect} => #{value.mocha_inspect}" }.join(', ')
-        wrapped ? "{#{unwrapped}}" : unwrapped
+        "{#{unwrapped}}"
       end
     end
 
