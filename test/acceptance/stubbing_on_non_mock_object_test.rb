@@ -44,7 +44,7 @@ class StubbingOnNonMockObjectTest < Mocha::TestCase
     test_result = run_as_test do
       non_mock_object.stubs(:existing_method)
     end
-    assert_failed(test_result)
+    assert_errored(test_result)
     assert test_result.error_messages.include?("Mocha::StubbingError: stubbing method on non-mock object: #{non_mock_object.mocha_inspect}.existing_method")
   end
 

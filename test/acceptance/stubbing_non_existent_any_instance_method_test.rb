@@ -38,7 +38,7 @@ class StubbingNonExistentAnyInstanceMethodTest < Mocha::TestCase
     test_result = run_as_test do
       klass.any_instance.stubs(:non_existent_method)
     end
-    assert_failed(test_result)
+    assert_errored(test_result)
     assert test_result.error_messages.include?("Mocha::StubbingError: stubbing non-existent method: #{klass.any_instance.mocha_inspect}.non_existent_method")
   end
 

@@ -38,7 +38,7 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
       mock = mock('mock')
       mock.stubs(:public_method)
     end
-    assert_failed(test_result)
+    assert_errored(test_result)
     assert test_result.error_messages.include?('Mocha::StubbingError: stubbing method unnecessarily: #<Mock:mock>.public_method(any_parameters)')
   end
 

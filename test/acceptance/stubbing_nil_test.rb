@@ -36,7 +36,7 @@ class StubbingNilTest < Mocha::TestCase
       test_result = run_as_test do
         nil.stubs(:stubbed_method)
       end
-      assert_failed(test_result)
+      assert_errored(test_result)
       assert test_result.error_messages.include?('Mocha::StubbingError: stubbing method on nil: nil.stubbed_method')
     end
 
@@ -44,7 +44,7 @@ class StubbingNilTest < Mocha::TestCase
       test_result = run_as_test do
         nil.stubs(:stubbed_method)
       end
-      assert_failed(test_result)
+      assert_errored(test_result)
       assert test_result.error_messages.include?('Mocha::StubbingError: stubbing method on nil: nil.stubbed_method')
     end
 

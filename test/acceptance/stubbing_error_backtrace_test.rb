@@ -20,7 +20,7 @@ class StubbingErrorBacktraceTest < Mocha::TestCase
     test_result = run_as_test do
       execution_point = ExecutionPoint.current; object.stubs(:non_existent_method)
     end
-    assert_equal 1, test_result.error_count
+    assert_errored(test_result)
     assert_equal execution_point, ExecutionPoint.new(test_result.errors[0].exception.backtrace)
   end
 
@@ -34,7 +34,7 @@ class StubbingErrorBacktraceTest < Mocha::TestCase
     test_result = run_as_test do
       execution_point = ExecutionPoint.current; object.stubs(:non_public_method)
     end
-    assert_equal 1, test_result.error_count
+    assert_errored(test_result)
     assert_equal execution_point, ExecutionPoint.new(test_result.errors[0].exception.backtrace)
   end
 
@@ -45,7 +45,7 @@ class StubbingErrorBacktraceTest < Mocha::TestCase
     test_result = run_as_test do
       execution_point = ExecutionPoint.current; object.stubs(:any_method)
     end
-    assert_equal 1, test_result.error_count
+    assert_errored(test_result)
     assert_equal execution_point, ExecutionPoint.new(test_result.errors[0].exception.backtrace)
   end
 
@@ -56,7 +56,7 @@ class StubbingErrorBacktraceTest < Mocha::TestCase
     test_result = run_as_test do
       execution_point = ExecutionPoint.current; object.stubs(:unused_method)
     end
-    assert_equal 1, test_result.error_count
+    assert_errored(test_result)
     assert_equal execution_point, ExecutionPoint.new(test_result.errors[0].exception.backtrace)
   end
   # rubocop:enable Style/Semicolon

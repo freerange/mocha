@@ -20,8 +20,7 @@ class StubbingFrozenObjectTest < Mocha::TestCase
     test_result = run_as_test do
       execution_point = ExecutionPoint.current; object.stubs(:stubbed_method)
     end
-    assert_failed(test_result)
-    assert_equal 1, test_result.error_count
+    assert_errored(test_result)
     assert_equal execution_point, ExecutionPoint.new(test_result.errors[0].exception.backtrace)
   end
 
@@ -32,8 +31,7 @@ class StubbingFrozenObjectTest < Mocha::TestCase
     test_result = run_as_test do
       execution_point = ExecutionPoint.current; object.expects(:stubbed_method)
     end
-    assert_failed(test_result)
-    assert_equal 1, test_result.error_count
+    assert_errored(test_result)
     assert_equal execution_point, ExecutionPoint.new(test_result.errors[0].exception.backtrace)
   end
 
@@ -44,8 +42,7 @@ class StubbingFrozenObjectTest < Mocha::TestCase
     test_result = run_as_test do
       execution_point = ExecutionPoint.current; klass.stubs(:stubbed_method)
     end
-    assert_failed(test_result)
-    assert_equal 1, test_result.error_count
+    assert_errored(test_result)
     assert_equal execution_point, ExecutionPoint.new(test_result.errors[0].exception.backtrace)
   end
 
@@ -56,8 +53,7 @@ class StubbingFrozenObjectTest < Mocha::TestCase
     test_result = run_as_test do
       execution_point = ExecutionPoint.current; klass.expects(:stubbed_method)
     end
-    assert_failed(test_result)
-    assert_equal 1, test_result.error_count
+    assert_errored(test_result)
     assert_equal execution_point, ExecutionPoint.new(test_result.errors[0].exception.backtrace)
   end
 
@@ -68,8 +64,7 @@ class StubbingFrozenObjectTest < Mocha::TestCase
     test_result = run_as_test do
       execution_point = ExecutionPoint.current; klass.any_instance.stubs(:stubbed_method)
     end
-    assert_failed(test_result)
-    assert_equal 1, test_result.error_count
+    assert_errored(test_result)
     assert_equal execution_point, ExecutionPoint.new(test_result.errors[0].exception.backtrace)
   end
 
@@ -80,8 +75,7 @@ class StubbingFrozenObjectTest < Mocha::TestCase
     test_result = run_as_test do
       execution_point = ExecutionPoint.current; klass.any_instance.expects(:stubbed_method)
     end
-    assert_failed(test_result)
-    assert_equal 1, test_result.error_count
+    assert_errored(test_result)
     assert_equal execution_point, ExecutionPoint.new(test_result.errors[0].exception.backtrace)
   end
   # rubocop:enable Style/Semicolon

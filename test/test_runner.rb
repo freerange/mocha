@@ -48,11 +48,16 @@ module TestRunner
   # rubocop:enable Metrics/AbcSize
 
   def assert_passed(test_result)
+    flunk "Test errored unexpectedly with message: #{test_result.errors.map(&:exception)}" if test_result.error_count > 0
     flunk "Test failed unexpectedly with message: #{test_result.failures}" if test_result.failure_count > 0
-    flunk "Test failed unexpectedly with message: #{test_result.errors.map(&:exception)}" if test_result.error_count > 0
   end
 
   def assert_failed(test_result)
-    flunk 'Test passed unexpectedly' unless test_result.failure_count + test_result.error_count > 0
+    flunk "Test errored unexpectedly with message: #{test_result.errors.map(&:exception)}" if test_result.error_count > 0
+    flunk 'Test passed unexpectedly' unless test_result.failure_count > 0
+  end
+
+  def assert_errored(test_result)
+    flunk 'Test did not error as expected' unless test_result.error_count > 0
   end
 end

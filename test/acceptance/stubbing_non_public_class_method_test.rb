@@ -84,7 +84,7 @@ class StubbingNonPublicClassMethodTest < Mocha::TestCase
     test_result = run_as_test do
       klass.stubs(:private_method)
     end
-    assert_failed(test_result)
+    assert_errored(test_result)
     assert test_result.error_messages.include?("Mocha::StubbingError: stubbing non-public method: #{klass.mocha_inspect}.private_method")
   end
 
@@ -99,7 +99,7 @@ class StubbingNonPublicClassMethodTest < Mocha::TestCase
     test_result = run_as_test do
       klass.stubs(:protected_method)
     end
-    assert_failed(test_result)
+    assert_errored(test_result)
     assert test_result.error_messages.include?("Mocha::StubbingError: stubbing non-public method: #{klass.mocha_inspect}.protected_method")
   end
 
