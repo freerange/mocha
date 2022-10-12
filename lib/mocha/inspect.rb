@@ -20,7 +20,7 @@ module Mocha
     module HashMethods
       def mocha_inspect
         unwrapped = collect { |key, value| "#{key.mocha_inspect} => #{value.mocha_inspect}" }.join(', ')
-        "{#{unwrapped}}"
+        Hash.ruby2_keywords_hash?(self) ? unwrapped : "{#{unwrapped}}"
       end
     end
 
