@@ -1,5 +1,8 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
 
+require 'deprecation_disabler'
+require 'mocha/deprecation'
+
 class KeywordArgumentMatchingTest < Mocha::TestCase
   include AcceptanceTest
 
@@ -15,7 +18,12 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(:key => 42)
-      mock.method({ :key => 42 }) # rubocop:disable Style/BracesAroundHashParameters
+      DeprecationDisabler.disable_deprecations do
+        mock.method({ :key => 42 }) # rubocop:disable Style/BracesAroundHashParameters
+      end
+      if Mocha::RUBY_V27_PLUS
+        assert_includes Mocha::Deprecation.messages.last, 'Expected keyword arguments (:key => 42), but received positional hash ({:key => 42}).'
+      end
     end
     assert_passed(test_result)
   end
@@ -37,7 +45,12 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(**{ :key => 42 })
-      mock.method({ :key => 42 }) # rubocop:disable Style/BracesAroundHashParameters
+      DeprecationDisabler.disable_deprecations do
+        mock.method({ :key => 42 }) # rubocop:disable Style/BracesAroundHashParameters
+      end
+      if Mocha::RUBY_V27_PLUS
+        assert_includes Mocha::Deprecation.messages.last, 'Expected keyword arguments (:key => 42), but received positional hash ({:key => 42}).'
+      end
     end
     assert_passed(test_result)
   end
@@ -77,7 +90,12 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(1, { :key => 42 }) # rubocop:disable Style/BracesAroundHashParameters
-      mock.method(1, :key => 42)
+      DeprecationDisabler.disable_deprecations do
+        mock.method(1, :key => 42)
+      end
+      if Mocha::RUBY_V27_PLUS
+        assert_includes Mocha::Deprecation.messages.last, 'Expected positional hash ({:key => 42}), but received keyword arguments (:key => 42).'
+      end
     end
     assert_passed(test_result)
   end
@@ -99,7 +117,12 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(1, :key => 42)
-      mock.method(1, { :key => 42 }) # rubocop:disable Style/BracesAroundHashParameters
+      DeprecationDisabler.disable_deprecations do
+        mock.method(1, { :key => 42 }) # rubocop:disable Style/BracesAroundHashParameters
+      end
+      if Mocha::RUBY_V27_PLUS
+        assert_includes Mocha::Deprecation.messages.last, 'Expected keyword arguments (:key => 42), but received positional hash ({:key => 42}).'
+      end
     end
     assert_passed(test_result)
   end

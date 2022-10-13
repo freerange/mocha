@@ -1,5 +1,6 @@
 require File.expand_path('../../../test_helper', __FILE__)
 
+require 'deprecation_disabler'
 require 'mocha/parameter_matchers/positional_or_keyword_hash'
 require 'mocha/parameter_matchers/instance_methods'
 require 'mocha/inspect'
@@ -32,14 +33,30 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
     assert matcher.matches?([Hash.ruby2_keywords_hash({ :key_1 => 1, :key_2 => 2 })]) # rubocop:disable Style/BracesAroundHashParameters
   end
 
-  def test_should_match_hash_arg_with_keyword_args
+  def test_should_match_hash_arg_with_keyword_args_but_display_deprecation_warning_if_appropriate
     matcher = Hash.ruby2_keywords_hash({ :key_1 => 1, :key_2 => 2 }).to_matcher # rubocop:disable Style/BracesAroundHashParameters
-    assert matcher.matches?([{ :key_1 => 1, :key_2 => 2 }])
+    DeprecationDisabler.disable_deprecations do
+      assert matcher.matches?([{ :key_1 => 1, :key_2 => 2 }])
+    end
+    return unless Mocha::RUBY_V27_PLUS
+
+    message = Mocha::Deprecation.messages.last
+    assert_includes message, 'Expected keyword arguments (:key_1 => 1, :key_2 => 2), but received positional hash ({:key_1 => 1, :key_2 => 2}).'
+    assert_includes message, 'These will stop matching when strict keyword argument matching is enabled.'
+    assert_includes message, 'See the documentation for Mocha::Configuration#strict_keyword_argument_matching=.'
   end
 
-  def test_should_match_keyword_args_with_hash_arg
+  def test_should_match_keyword_args_with_hash_arg_but_display_deprecation_warning_if_appropriate
     matcher = { :key_1 => 1, :key_2 => 2 }.to_matcher
-    assert matcher.matches?([Hash.ruby2_keywords_hash({ :key_1 => 1, :key_2 => 2 })]) # rubocop:disable Style/BracesAroundHashParameters
+    DeprecationDisabler.disable_deprecations do
+      assert matcher.matches?([Hash.ruby2_keywords_hash({ :key_1 => 1, :key_2 => 2 })]) # rubocop:disable Style/BracesAroundHashParameters
+    end
+    return unless Mocha::RUBY_V27_PLUS
+
+    message = Mocha::Deprecation.messages.last
+    assert_includes message, 'Expected positional hash ({:key_1 => 1, :key_2 => 2}), but received keyword arguments (:key_1 => 1, :key_2 => 2).'
+    assert_includes message, 'These will stop matching when strict keyword argument matching is enabled.'
+    assert_includes message, 'See the documentation for Mocha::Configuration#strict_keyword_argument_matching=.'
   end
 
   if Mocha::RUBY_V27_PLUS
