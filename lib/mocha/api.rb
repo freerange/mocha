@@ -104,6 +104,7 @@ module Mocha
     #   @param [Hash] stubbed_methods_vs_return_values stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if {Mock#stubs} were called multiple times.
     # @overload def stub(name, stubbed_methods_vs_return_values = {})
     #   @param [String, Symbol] name identifies mock object in error messages.
+    #   @param [Hash] stubbed_methods_vs_return_values stubbed method name symbols as keys and corresponding return values as values - these stubbed methods are setup as if {Mock#stubs} were called multiple times.
     #
     # @example Using stubbed_methods_vs_return_values Hash to setup stubbed methods.
     #   def test_motor_starts_and_stops
