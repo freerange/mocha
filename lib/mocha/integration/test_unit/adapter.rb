@@ -12,7 +12,7 @@ module Mocha
         include Mocha::API
 
         # @private
-        def self.applicable_to?(test_unit_version, _ruby_version = nil)
+        def self.applicable_to?(test_unit_version)
           Gem::Requirement.new('>= 2.5.1').satisfied_by?(test_unit_version)
         end
 
