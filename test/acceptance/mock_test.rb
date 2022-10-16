@@ -1,6 +1,4 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
-require 'mocha/deprecation'
-require 'deprecation_disabler'
 
 class MockTest < Mocha::TestCase
   include AcceptanceTest
@@ -150,8 +148,7 @@ class MockTest < Mocha::TestCase
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
-  def test_should_display_deprecation_warning_if_mock_receives_invocations_in_another_test
+  def test_should_raise_stubbing_error_if_mock_receives_invocations_in_another_test
     use_mock_test_result = run_as_test do
       Foo.logger = mock('Logger')
       Foo.logger.expects(:log).with('Foo was here')
@@ -160,17 +157,12 @@ class MockTest < Mocha::TestCase
     assert_passed(use_mock_test_result)
 
     reuse_mock_test_result = run_as_test do
-      DeprecationDisabler.disable_deprecations do
-        Foo.logger.expects(:log).with('Foo was here')
-        Foo.new.use_the_mock
-      end
+      Foo.logger.expects(:log).with('Foo was here')
+      e = assert_raises(Mocha::StubbingError) { Foo.new.use_the_mock }
+      assert e.message.include?('#<Mock:Logger> was instantiated in one test but it is receiving invocations within another test.')
+      assert e.message.include?('This can lead to unintended interactions between tests and hence unexpected test failures.')
+      assert e.message.include?('Ensure that every test correctly cleans up any state that it introduces.')
     end
     assert_passed(reuse_mock_test_result)
-    assert message = Deprecation.messages.last
-    assert message.include?('#<Mock:Logger> was instantiated in one test but it is receiving invocations within another test.')
-    assert message.include?('This can lead to unintended interactions between tests and hence unexpected test failures.')
-    assert message.include?('Ensure that every test correctly cleans up any state that it introduces.')
-    assert message.include?('A Mocha::StubbingError will be raised in this scenario in the future.')
   end
-  # rubocop:enable Metrics/AbcSize
 end

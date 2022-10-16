@@ -8,7 +8,6 @@ require 'mocha/method_matcher'
 require 'mocha/parameters_matcher'
 require 'mocha/argument_iterator'
 require 'mocha/expectation_error_factory'
-require 'mocha/deprecation'
 
 module Mocha
   # Traditional mock object.
@@ -388,14 +387,14 @@ module Mocha
     end
 
     def check_expiry
-      if @expired # rubocop:disable Style/GuardClause
-        Deprecation.warning(
-          "#{mocha_inspect} was instantiated in one test but it is receiving invocations within another test.",
-          ' This can lead to unintended interactions between tests and hence unexpected test failures.',
-          ' Ensure that every test correctly cleans up any state that it introduces.',
-          ' A Mocha::StubbingError will be raised in this scenario in the future.'
-        )
-      end
+      return unless @expired
+
+      sentences = [
+        "#{mocha_inspect} was instantiated in one test but it is receiving invocations within another test.",
+        'This can lead to unintended interactions between tests and hence unexpected test failures.',
+        'Ensure that every test correctly cleans up any state that it introduces.'
+      ]
+      raise StubbingError.new(sentences.join(' '), caller)
     end
   end
 end
