@@ -1,7 +1,6 @@
 require 'mocha/debug'
 require 'mocha/detection/test_unit'
 require 'mocha/integration/test_unit/adapter'
-require 'mocha/deprecation'
 
 module Mocha
   module Integration
