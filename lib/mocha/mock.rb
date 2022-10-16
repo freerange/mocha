@@ -8,6 +8,7 @@ require 'mocha/method_matcher'
 require 'mocha/parameters_matcher'
 require 'mocha/argument_iterator'
 require 'mocha/expectation_error_factory'
+require 'mocha/deprecation'
 
 module Mocha
   # Traditional mock object.
