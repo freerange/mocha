@@ -45,7 +45,6 @@ module Mocha
       :stubbing_non_public_method => :allow,
       :stubbing_method_on_nil => :prevent,
       :display_matching_invocations_on_failure => false,
-      :reinstate_undocumented_behaviour_from_v1_9 => true,
       :strict_keyword_argument_matching => false
     }.freeze
 
@@ -249,61 +248,6 @@ module Mocha
     # @private
     def display_matching_invocations_on_failure?
       @options[:display_matching_invocations_on_failure]
-    end
-
-    # Reinstate undocumented behaviour from v1.9
-    #
-    # Previously when {API#mock}, {API#stub}, or {API#stub_everything} were called with the first argument being a symbol, they built an *unnamed* mock object *and* expected or stubbed the method identified by the symbol argument; subsequent arguments were ignored.
-    # Now these methods build a *named* mock with the name specified by the symbol argument; *no* methods are expected or stubbed and subsequent arguments *are* taken into account.
-    #
-    # Previously if {Expectation#yields} or {Expectation#multiple_yields} was called on an expectation, but no block was given when the method was invoked, the instruction to yield was ignored.
-    # Now a +LocalJumpError+ is raised.
-    #
-    # Enabling this configuration option reinstates the previous behaviour, but displays a deprecation warning.
-    #
-    # @param [Boolean] value +true+ to reinstate undocumented behaviour; enabled by default.
-    #
-    # @example Reinstate undocumented behaviour for {API#mock}
-    #   Mocha.configure do |c|
-    #     c.reinstate_undocumented_behaviour_from_v1_9 = true
-    #   end
-    #
-    #   foo = mock(:bar)
-    #   foo.inspect # => #<Mock>
-    #
-    #   not all expectations were satisfied
-    #   unsatisfied expectations:
-    #   - expected exactly once, invoked never: #<Mock>.foo
-    #
-    # @example Reinstate undocumented behaviour for {API#stub}
-    #   Mocha.configure do |c|
-    #     c.reinstate_undocumented_behaviour_from_v1_9 = true
-    #   end
-    #
-    #   foo = stub(:bar)
-    #   foo.inspect # => #<Mock>
-    #   foo.bar # => nil
-    #
-    # @example Reinstate undocumented behaviour for {Expectation#yields}
-    #   foo = mock('foo')
-    #   foo.stubs(:my_method).yields(1, 2)
-    #   foo.my_method # => raises LocalJumpError when no block is supplied
-    #
-    #   Mocha.configure do |c|
-    #     c.reinstate_undocumented_behaviour_from_v1_9 = true
-    #   end
-    #
-    #   foo = mock('foo')
-    #   foo.stubs(:my_method).yields(1, 2)
-    #   foo.my_method # => does *not* raise LocalJumpError when no block is supplied
-    #
-    def reinstate_undocumented_behaviour_from_v1_9=(value)
-      @options[:reinstate_undocumented_behaviour_from_v1_9] = value
-    end
-
-    # @private
-    def reinstate_undocumented_behaviour_from_v1_9?
-      @options[:reinstate_undocumented_behaviour_from_v1_9]
     end
 
     # Configure whether to perform strict keyword argument comparision. Only supported in Ruby >= v2.7.

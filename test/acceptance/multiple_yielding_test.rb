@@ -1,5 +1,4 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
-require 'mocha/configuration'
 
 class MultipleYieldingTest < Mocha::TestCase
   include AcceptanceTest
@@ -36,11 +35,9 @@ class MultipleYieldingTest < Mocha::TestCase
 
   def test_raises_local_jump_error_if_instructed_to_multiple_yield_but_no_block_given
     test_result = run_as_test do
-      Mocha::Configuration.override(:reinstate_undocumented_behaviour_from_v1_9 => false) do
-        m = mock('m')
-        m.stubs(:foo).multiple_yields([])
-        assert_raises(LocalJumpError) { m.foo }
-      end
+      m = mock('m')
+      m.stubs(:foo).multiple_yields([])
+      assert_raises(LocalJumpError) { m.foo }
     end
     assert_passed(test_result)
   end
