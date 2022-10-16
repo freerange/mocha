@@ -253,26 +253,9 @@ module Mocha
 
     # Reinstate undocumented behaviour from v1.9
     #
-    # Previously if {Expectation#yields} or {Expectation#multiple_yields} was called on an expectation, but no block was given when the method was invoked, the instruction to yield was ignored.
-    # Now a +LocalJumpError+ is raised.
-    #
     # Enabling this configuration option reinstates the previous behaviour, but displays a deprecation warning.
     #
     # @param [Boolean] value +true+ to reinstate undocumented behaviour; enabled by default.
-    #
-    # @example Reinstate undocumented behaviour for {Expectation#yields}
-    #   foo = mock('foo')
-    #   foo.stubs(:my_method).yields(1, 2)
-    #   foo.my_method # => raises LocalJumpError when no block is supplied
-    #
-    #   Mocha.configure do |c|
-    #     c.reinstate_undocumented_behaviour_from_v1_9 = true
-    #   end
-    #
-    #   foo = mock('foo')
-    #   foo.stubs(:my_method).yields(1, 2)
-    #   foo.my_method # => does *not* raise LocalJumpError when no block is supplied
-    #
     def reinstate_undocumented_behaviour_from_v1_9=(value)
       @options[:reinstate_undocumented_behaviour_from_v1_9] = value
     end
