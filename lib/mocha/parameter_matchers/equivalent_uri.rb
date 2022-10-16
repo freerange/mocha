@@ -1,4 +1,3 @@
-require 'mocha/deprecation'
 require 'mocha/parameter_matchers/base'
 require 'uri'
 require 'cgi'
