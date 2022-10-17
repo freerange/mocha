@@ -1,3 +1,3 @@
 module Mocha
-  VERSION = '1.15.0'.freeze
+  VERSION = '2.0.0.alpha'.freeze
 end

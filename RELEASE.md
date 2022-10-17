@@ -1,5 +1,37 @@
 # Release Notes
 
+## 2.0.0.alpha
+
+### External changes
+
+* Remove support for Ruby v1.9 - thanks to @wasabigeek (#552)
+* Support strict keyword argument matching - see docs for `Expectation#with` & `Configuration#strict_keyword_argument_matching=` - thanks to @wasabigeek (#446,#535,#544,#562)
+* Deprecate `Hash` args that don't strictly match (#563,981c31be)
+* Drop support for older versions of test-unit - gem versions of test-unit earlier than v2.5.1 and versions of test-unit
+from the Ruby v1.8 standard library are no longer supported (#540,969f4845)
+* Drop support for older versions of minitest - versions of minitest earlier than v3.3.0 are no longer supported (#541,ca69dc9e)
+* Remove deprecated `mocha/setup.rb` mechanism (642a0ff4)
+* Add missing docs for `API#stub` parameter (257b4cb4)
+* Remove optional reinstatement of v1.9 behaviour (#436,#438,#569,1473ee25)
+* Remove deprecated methods in `Configuration` (#421,e7ff7528)
+* Fail fast when mock receives invocations in another test (#440,#442,cb054d59)
+* Improve docs re using matchers in `Expectation#with` (da7237cd)
+* Expand `Expectation#with` docs re keyword arguments (fed6808d)
+* Improve docs for `strict_keyword_argument_matching` (8d8f881d)
+* Remove deprecated Rails plugin `init.rb` file (1c617175)
+
+### Internal changes
+
+* Separate linting from tests in terms of Rake tasks & CircleCI jobs - thanks to @wasabigeek (#556)
+* Remove tests specific to Ruby v1.8 behaviour (46fca7ac, 3b369e99)
+* Multi-line rubocop disable in `Mock#method_missing` (af2194c4)
+* Remove unused arg for `HashMethods#mocha_inspect` (4f59e27f)
+* Improve test runner assertions - failure vs error (eec7200a)
+* Improve test coverage of `PositionalOrKeywordHash` (c294fe70)
+* More consistent Test::Unit & Minitest integration (27dd3817)
+* Remove redundant `require` statements (d82218a8,fa17b114)
+* Add missing `require` statement (73493761)
+
 ## 1.15.0
 
 ### External changes
