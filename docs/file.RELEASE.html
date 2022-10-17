@@ -6,7 +6,7 @@
 <title>
   File: RELEASE
   
-    &mdash; Mocha 1.15.0
+    &mdash; Mocha 2.0.0.alpha
   
 </title>
 
@@ -58,6 +58,42 @@
       </div>
 
       <div id="content"><div id='filecontents'><h1 id="release-notes">Release Notes</h1>
+
+<h2 id="2-0-0-alpha">2.0.0.alpha</h2>
+
+<h3 id="external-changes">External changes</h3>
+
+<ul>
+<li>Remove support for Ruby v1.9 - thanks to @wasabigeek (#552)</li>
+<li>Support strict keyword argument matching - see docs for <code>Expectation#with</code> &amp; <code>Configuration#strict_keyword_argument_matching=</code> - thanks to @wasabigeek (#446,#535,#544,#562)</li>
+<li>Deprecate <code>Hash</code> args that don&#39;t strictly match (#563,981c31be)</li>
+<li>Drop support for older versions of test-unit - gem versions of test-unit earlier than v2.5.1 and versions of test-unit
+from the Ruby v1.8 standard library are no longer supported (#540,969f4845)</li>
+<li>Drop support for older versions of minitest - versions of minitest earlier than v3.3.0 are no longer supported (#541,ca69dc9e)</li>
+<li>Remove deprecated <code>mocha/setup.rb</code> mechanism (642a0ff4)</li>
+<li>Add missing docs for <code>API#stub</code> parameter (257b4cb4)</li>
+<li>Remove optional reinstatement of v1.9 behaviour (#436,#438,#569,1473ee25)</li>
+<li>Remove deprecated methods in <code>Configuration</code> (#421,e7ff7528)</li>
+<li>Fail fast when mock receives invocations in another test (#440,#442,cb054d59)</li>
+<li>Improve docs re using matchers in <code>Expectation#with</code> (da7237cd)</li>
+<li>Expand <code>Expectation#with</code> docs re keyword arguments (fed6808d)</li>
+<li>Improve docs for <code>strict_keyword_argument_matching</code> (8d8f881d)</li>
+<li>Remove deprecated Rails plugin <code>init.rb</code> file (1c617175)</li>
+</ul>
+
+<h3 id="internal-changes">Internal changes</h3>
+
+<ul>
+<li>Separate linting from tests in terms of Rake tasks &amp; CircleCI jobs - thanks to @wasabigeek (#556)</li>
+<li>Remove tests specific to Ruby v1.8 behaviour (46fca7ac, 3b369e99)</li>
+<li>Multi-line rubocop disable in <code>Mock#method_missing</code> (af2194c4)</li>
+<li>Remove unused arg for <code>HashMethods#mocha_inspect</code> (4f59e27f)</li>
+<li>Improve test runner assertions - failure vs error (eec7200a)</li>
+<li>Improve test coverage of <code>PositionalOrKeywordHash</code> (c294fe70)</li>
+<li>More consistent Test::Unit &amp; Minitest integration (27dd3817)</li>
+<li>Remove redundant <code>require</code> statements (d82218a8,fa17b114)</li>
+<li>Add missing <code>require</code> statement (73493761)</li>
+</ul>
 
 <h2 id="1-15-0">1.15.0</h2>
 
@@ -1116,9 +1152,9 @@ Hash with wrong number of entries.</li>
 </div>
 
       <div id="footer">
-  Generated on Wed Sep 21 19:13:39 2022 by
+  Generated on Mon Oct 17 15:37:39 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.28 (ruby-3.1.0).
 </div>
 
     </div>

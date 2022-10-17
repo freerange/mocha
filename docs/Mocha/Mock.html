@@ -6,7 +6,7 @@
 <title>
   Class: Mocha::Mock
   
-    &mdash; Mocha 1.15.0
+    &mdash; Mocha 2.0.0.alpha
   
 </title>
 
@@ -116,7 +116,7 @@
 <ul><li>
 <p>Set up default stubs in your the <code>setup</code> method of your test class and override some of those stubs in individual tests.</p>
 </li><li>
-<p>Set up different <code>once</code> expectations for the same method with different action per invocation. However, it&#39;s better to use the <span class='object_link'><a href="Expectation.html#returns-instance_method" title="Mocha::Expectation#returns (method)">Expectation#returns</a></span> method with multiple arguments to do this, as described below.</p>
+<p>Set up different <code>once</code> expectations for the same method with different action per invocation. However, it’s better to use the <span class='object_link'><a href="Expectation.html#returns-instance_method" title="Mocha::Expectation#returns (method)">Expectation#returns</a></span> method with multiple arguments to do this, as described below.</p>
 </li></ul>
 
 <p>However, there are some possible “gotchas” caused by this scheme:</p>
@@ -312,21 +312,32 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>rubocop:disable Style/MethodMissingSuper</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-311
-312
-313</pre>
+313
+314
+315</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 311</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 313</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span> <span class='comment'># rubocop:disable Style/MethodMissingSuper
-</span>  <span class='id identifier rubyid_handle_method_call'>handle_method_call</span><span class='lparen'>(</span><span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span> <span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_handle_method_call'>handle_method_call</span><span class='lparen'>(</span><span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span> <span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -470,7 +481,7 @@
         <span class='name'>expected_methods_vs_return_values</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'>Hash</span></tt>)</span>
       
       
       
@@ -514,7 +525,6 @@
       <pre class="lines">
 
 
-109
 110
 111
 112
@@ -525,10 +535,11 @@
 117
 118
 119
-120</pre>
+120
+121</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 109</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 110</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name_or_hash'>method_name_or_hash</span><span class='comma'>,</span> <span class='id identifier rubyid_backtrace'>backtrace</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_expectation'>expectation</span> <span class='op'>=</span> <span class='kw'>nil</span>
@@ -683,13 +694,13 @@
       <pre class="lines">
 
 
-234
 235
 236
-237</pre>
+237
+238</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 234</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 235</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_responds_like'>responds_like</span><span class='lparen'>(</span><span class='id identifier rubyid_responder'>responder</span><span class='rparen'>)</span>
   <span class='ivar'>@responder</span> <span class='op'>=</span> <span class='id identifier rubyid_responder'>responder</span>
@@ -807,12 +818,12 @@
       <pre class="lines">
 
 
-267
 268
-269</pre>
+269
+270</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 267</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 268</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_responds_like_instance_of'>responds_like_instance_of</span><span class='lparen'>(</span><span class='id identifier rubyid_responder_class'>responder_class</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_responds_like'>responds_like</span><span class='lparen'>(</span><span class='id identifier rubyid_responder_class'>responder_class</span><span class='period'>.</span><span class='id identifier rubyid_allocate'>allocate</span><span class='rparen'>)</span>
@@ -935,7 +946,7 @@
         <span class='name'>stubbed_methods_vs_return_values</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'>Hash</span></tt>)</span>
       
       
       
@@ -979,7 +990,6 @@
       <pre class="lines">
 
 
-147
 148
 149
 150
@@ -991,10 +1001,11 @@
 156
 157
 158
-159</pre>
+159
+160</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 147</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 148</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name_or_hash'>method_name_or_hash</span><span class='comma'>,</span> <span class='id identifier rubyid_backtrace'>backtrace</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_expectation'>expectation</span> <span class='op'>=</span> <span class='kw'>nil</span>
@@ -1088,14 +1099,14 @@
       <pre class="lines">
 
 
-179
 180
 181
 182
-183</pre>
+183
+184</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 179</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 180</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unstub'>unstub</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_method_names'>method_names</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_method_names'>method_names</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_method_name'>method_name</span><span class='op'>|</span>
@@ -1120,9 +1131,9 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Sep 21 19:13:39 2022 by
+  Generated on Mon Oct 17 15:37:40 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.28 (ruby-3.1.0).
 </div>
 
     </div>

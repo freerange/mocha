@@ -6,7 +6,7 @@
 <title>
   Module: Mocha::ParameterMatchers
   
-    &mdash; Mocha 1.15.0
+    &mdash; Mocha 2.0.0.alpha
   
 </title>
 
@@ -84,7 +84,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>lib/mocha/parameter_matchers.rb<span class="defines">,<br />
-  lib/mocha/parameter_matchers/not.rb,<br /> lib/mocha/parameter_matchers/base.rb,<br /> lib/mocha/parameter_matchers/is_a.rb,<br /> lib/mocha/parameter_matchers/all_of.rb,<br /> lib/mocha/parameter_matchers/any_of.rb,<br /> lib/mocha/parameter_matchers/equals.rb,<br /> lib/mocha/parameter_matchers/has_key.rb,<br /> lib/mocha/parameter_matchers/kind_of.rb,<br /> lib/mocha/parameter_matchers/anything.rb,<br /> lib/mocha/parameter_matchers/has_keys.rb,<br /> lib/mocha/parameter_matchers/includes.rb,<br /> lib/mocha/parameter_matchers/has_entry.rb,<br /> lib/mocha/parameter_matchers/has_value.rb,<br /> lib/mocha/parameter_matchers/optionally.rb,<br /> lib/mocha/parameter_matchers/has_entries.rb,<br /> lib/mocha/parameter_matchers/instance_of.rb,<br /> lib/mocha/parameter_matchers/responds_with.rb,<br /> lib/mocha/parameter_matchers/any_parameters.rb,<br /> lib/mocha/parameter_matchers/equivalent_uri.rb,<br /> lib/mocha/parameter_matchers/regexp_matches.rb,<br /> lib/mocha/parameter_matchers/yaml_equivalent.rb,<br /> lib/mocha/parameter_matchers/instance_methods.rb</span>
+  lib/mocha/parameter_matchers/not.rb,<br /> lib/mocha/parameter_matchers/base.rb,<br /> lib/mocha/parameter_matchers/is_a.rb,<br /> lib/mocha/parameter_matchers/all_of.rb,<br /> lib/mocha/parameter_matchers/any_of.rb,<br /> lib/mocha/parameter_matchers/equals.rb,<br /> lib/mocha/parameter_matchers/has_key.rb,<br /> lib/mocha/parameter_matchers/kind_of.rb,<br /> lib/mocha/parameter_matchers/anything.rb,<br /> lib/mocha/parameter_matchers/has_keys.rb,<br /> lib/mocha/parameter_matchers/includes.rb,<br /> lib/mocha/parameter_matchers/has_entry.rb,<br /> lib/mocha/parameter_matchers/has_value.rb,<br /> lib/mocha/parameter_matchers/optionally.rb,<br /> lib/mocha/parameter_matchers/has_entries.rb,<br /> lib/mocha/parameter_matchers/instance_of.rb,<br /> lib/mocha/parameter_matchers/responds_with.rb,<br /> lib/mocha/parameter_matchers/any_parameters.rb,<br /> lib/mocha/parameter_matchers/equivalent_uri.rb,<br /> lib/mocha/parameter_matchers/regexp_matches.rb,<br /> lib/mocha/parameter_matchers/yaml_equivalent.rb,<br /> lib/mocha/parameter_matchers/instance_methods.rb,<br /> lib/mocha/parameter_matchers/positional_or_keyword_hash.rb</span>
 </dd>
   </dl>
   
@@ -1225,12 +1225,12 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
       <pre class="lines">
 
 
+25
 26
-27
-28</pre>
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/parameter_matchers/equivalent_uri.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/parameter_matchers/equivalent_uri.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_equivalent_uri'>equivalent_uri</span><span class='lparen'>(</span><span class='id identifier rubyid_uri'>uri</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="ParameterMatchers/EquivalentUri.html" title="Mocha::ParameterMatchers::EquivalentUri (class)">EquivalentUri</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_uri'>uri</span><span class='rparen'>)</span>
@@ -1291,7 +1291,7 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
         <span class='name'>entries</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'>Hash</span></tt>)</span>
       
       
       
@@ -1492,7 +1492,7 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
         <span class='name'>single_entry_hash</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'>Hash</span></tt>)</span>
       
       
       
@@ -3054,9 +3054,9 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
 </div>
 
       <div id="footer">
-  Generated on Wed Sep 21 19:13:39 2022 by
+  Generated on Mon Oct 17 15:37:39 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.28 (ruby-3.1.0).
 </div>
 
     </div>

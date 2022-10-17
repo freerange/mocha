@@ -6,7 +6,7 @@
 <title>
   Class: Mocha::Configuration
   
-    &mdash; Mocha 1.15.0
+    &mdash; Mocha 2.0.0.alpha
   
 </title>
 
@@ -143,41 +143,6 @@
 
     <ul class="summary">
       
-        <li class="public deprecated">
-  <span class="summary_signature">
-    
-      <a href="#allow-class_method" title="allow (class method)">.<strong>allow</strong>(action) { ... } &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  <span class="deprecated note title">deprecated</span>
-  
-
-  
-    <span class="summary_desc"><strong>Deprecated.</strong> <div class='inline'>
-<p>If a block is supplied, call <span class='object_link'><a href="#override-class_method" title="Mocha::Configuration.override (method)">Configuration.override</a></span> with a <code>Hash</code> containing an entry with the <code>action</code> as the key and <code>:allow</code> as the value. If no block is supplied, call the appropriate <code>action</code> writer method with <code>value</code> set to <code>:allow</code> via <span class='object_link'><a href="../Mocha.html#configure-class_method" title="Mocha.configure (method)">configure</a></span>. The writer method will be the one of the following corresponding to the <code>action</code>:</p>
-<ul><li>
-<p><span class='object_link'><a href="#stubbing_method_unnecessarily=-instance_method" title="Mocha::Configuration#stubbing_method_unnecessarily= (method)">#stubbing_method_unnecessarily=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_method_on_non_mock_object=-instance_method" title="Mocha::Configuration#stubbing_method_on_non_mock_object= (method)">#stubbing_method_on_non_mock_object=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_non_existent_method=-instance_method" title="Mocha::Configuration#stubbing_non_existent_method= (method)">#stubbing_non_existent_method=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_non_public_method=-instance_method" title="Mocha::Configuration#stubbing_non_public_method= (method)">#stubbing_non_public_method=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_method_on_nil=-instance_method" title="Mocha::Configuration#stubbing_method_on_nil= (method)">#stubbing_method_on_nil=</a></span></p>
-</li></ul>
-</div></span>
-  
-</li>
-
-      
         <li class="public ">
   <span class="summary_signature">
     
@@ -197,76 +162,6 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>Temporarily modify <span class='object_link'><a href="" title="Mocha::Configuration (class)">Configuration</a></span> options.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public deprecated">
-  <span class="summary_signature">
-    
-      <a href="#prevent-class_method" title="prevent (class method)">.<strong>prevent</strong>(action) { ... } &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  <span class="deprecated note title">deprecated</span>
-  
-
-  
-    <span class="summary_desc"><strong>Deprecated.</strong> <div class='inline'>
-<p>If a block is supplied, call <span class='object_link'><a href="#override-class_method" title="Mocha::Configuration.override (method)">Configuration.override</a></span> with a <code>Hash</code> containing an entry with the <code>action</code> as the key and <code>:prevent</code> as the value. If no block is supplied, call the appropriate <code>action</code> writer method with <code>value</code> set to <code>:prevent</code> via <span class='object_link'><a href="../Mocha.html#configure-class_method" title="Mocha.configure (method)">configure</a></span>. The writer method will be the one of the following corresponding to the <code>action</code>:</p>
-<ul><li>
-<p><span class='object_link'><a href="#stubbing_method_unnecessarily=-instance_method" title="Mocha::Configuration#stubbing_method_unnecessarily= (method)">#stubbing_method_unnecessarily=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_method_on_non_mock_object=-instance_method" title="Mocha::Configuration#stubbing_method_on_non_mock_object= (method)">#stubbing_method_on_non_mock_object=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_non_existent_method=-instance_method" title="Mocha::Configuration#stubbing_non_existent_method= (method)">#stubbing_non_existent_method=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_non_public_method=-instance_method" title="Mocha::Configuration#stubbing_non_public_method= (method)">#stubbing_non_public_method=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_method_on_nil=-instance_method" title="Mocha::Configuration#stubbing_method_on_nil= (method)">#stubbing_method_on_nil=</a></span></p>
-</li></ul>
-</div></span>
-  
-</li>
-
-      
-        <li class="public deprecated">
-  <span class="summary_signature">
-    
-      <a href="#warn_when-class_method" title="warn_when (class method)">.<strong>warn_when</strong>(action) { ... } &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  <span class="deprecated note title">deprecated</span>
-  
-
-  
-    <span class="summary_desc"><strong>Deprecated.</strong> <div class='inline'>
-<p>If a block is supplied, call <span class='object_link'><a href="#override-class_method" title="Mocha::Configuration.override (method)">Configuration.override</a></span> with a <code>Hash</code> containing an entry with the <code>action</code> as the key and <code>:warn</code> as the value. If no block is supplied, call the appropriate <code>action</code> writer method with <code>value</code> set to <code>:warn</code> via <span class='object_link'><a href="../Mocha.html#configure-class_method" title="Mocha.configure (method)">configure</a></span>. The writer method will be the one of the following corresponding to the <code>action</code>:</p>
-<ul><li>
-<p><span class='object_link'><a href="#stubbing_method_unnecessarily=-instance_method" title="Mocha::Configuration#stubbing_method_unnecessarily= (method)">#stubbing_method_unnecessarily=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_method_on_non_mock_object=-instance_method" title="Mocha::Configuration#stubbing_method_on_non_mock_object= (method)">#stubbing_method_on_non_mock_object=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_non_existent_method=-instance_method" title="Mocha::Configuration#stubbing_non_existent_method= (method)">#stubbing_non_existent_method=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_non_public_method=-instance_method" title="Mocha::Configuration#stubbing_non_public_method= (method)">#stubbing_non_public_method=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_method_on_nil=-instance_method" title="Mocha::Configuration#stubbing_method_on_nil= (method)">#stubbing_method_on_nil=</a></span></p>
-</li></ul>
 </div></span>
   
 </li>
@@ -308,7 +203,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#reinstate_undocumented_behaviour_from_v1_9=-instance_method" title="#reinstate_undocumented_behaviour_from_v1_9= (instance method)">#<strong>reinstate_undocumented_behaviour_from_v1_9=</strong>(value)  &#x21d2; Object </a>
+      <a href="#strict_keyword_argument_matching=-instance_method" title="#strict_keyword_argument_matching= (instance method)">#<strong>strict_keyword_argument_matching=</strong>(value)  &#x21d2; Object </a>
     
 
     
@@ -323,7 +218,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Reinstate undocumented behaviour from v1.9.</p>
+<p>Perform strict keyword argument comparison.</p>
 </div></span>
   
 </li>
@@ -459,110 +354,7 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="allow-class_method">
-  
-    .<strong>allow</strong>(action) { ... } &#x21d2; <tt><span class='object_link'>Object</span></tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <div class="note deprecated"><strong>Deprecated.</strong> <div class='inline'>
-<p>If a block is supplied, call <span class='object_link'><a href="#override-class_method" title="Mocha::Configuration.override (method)">override</a></span> with a <code>Hash</code> containing an entry with the <code>action</code> as the key and <code>:allow</code> as the value. If no block is supplied, call the appropriate <code>action</code> writer method with <code>value</code> set to <code>:allow</code> via <span class='object_link'><a href="../Mocha.html#configure-class_method" title="Mocha.configure (method)">Mocha.configure</a></span>. The writer method will be the one of the following corresponding to the <code>action</code>:</p>
-<ul><li>
-<p><span class='object_link'><a href="#stubbing_method_unnecessarily=-instance_method" title="Mocha::Configuration#stubbing_method_unnecessarily= (method)">#stubbing_method_unnecessarily=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_method_on_non_mock_object=-instance_method" title="Mocha::Configuration#stubbing_method_on_non_mock_object= (method)">#stubbing_method_on_non_mock_object=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_non_existent_method=-instance_method" title="Mocha::Configuration#stubbing_non_existent_method= (method)">#stubbing_non_existent_method=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_non_public_method=-instance_method" title="Mocha::Configuration#stubbing_non_public_method= (method)">#stubbing_non_public_method=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_method_on_nil=-instance_method" title="Mocha::Configuration#stubbing_method_on_nil= (method)">#stubbing_method_on_nil=</a></span></p>
-</li></ul>
-</div></div>
-
-<p>Allow the specified <code>action</code>.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>action</span>
-      
-      
-        <span class='type'>(<tt>Symbol</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>one of <code>:stubbing_method_unnecessarily</code>, <code>:stubbing_method_on_non_mock_object</code>, <code>:stubbing_non_existent_method</code>, <code>:stubbing_non_public_method</code>, <code>:stubbing_method_on_nil</code>.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Yields:</p>
-<ul class="yield">
-  
-    <li>
-      
-      
-        <span class='type'></span>
-      
-      
-      
-        
-        <div class='inline'>
-<p>optional block during which the configuration change will be changed before being returned to its original value at the end of the block.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-317
-318
-319
-320
-321
-322
-323
-324</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 317</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_allow'>allow</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
-    <span class='const'>Deprecation</span><span class='period'>.</span><span class='id identifier rubyid_warning'>warning</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Use Mocha::Configuration.override(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_action'>action</span><span class='embexpr_end'>}</span><span class='tstring_content'>: :allow) with the same block</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='kw'>else</span>
-    <span class='const'>Deprecation</span><span class='period'>.</span><span class='id identifier rubyid_warning'>warning</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Use Mocha.configure { |c| c.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_action'>action</span><span class='embexpr_end'>}</span><span class='tstring_content'> = :allow }</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
-  <span class='id identifier rubyid_change_config'>change_config</span> <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='symbol'>:allow</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="override-class_method">
+  <h3 class="signature first" id="override-class_method">
   
     .<strong>override</strong>(temporary_options) { ... } &#x21d2; <tt><span class='object_link'>Object</span></tt> 
   
@@ -603,7 +395,7 @@
         <span class='name'>temporary_options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'>Hash</span></tt>)</span>
       
       
       
@@ -641,16 +433,16 @@
       <pre class="lines">
 
 
-396
-397
-398
-399
-400
-401
-402</pre>
+318
+319
+320
+321
+322
+323
+324</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 396</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 318</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_override'>override</span><span class='lparen'>(</span><span class='id identifier rubyid_temporary_options'>temporary_options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_original_configuration'>original_configuration</span> <span class='op'>=</span> <span class='id identifier rubyid_configuration'>configuration</span>
@@ -658,212 +450,6 @@
   <span class='kw'>yield</span>
 <span class='kw'>ensure</span>
   <span class='ivar'>@configuration</span> <span class='op'>=</span> <span class='id identifier rubyid_original_configuration'>original_configuration</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="prevent-class_method">
-  
-    .<strong>prevent</strong>(action) { ... } &#x21d2; <tt><span class='object_link'>Object</span></tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <div class="note deprecated"><strong>Deprecated.</strong> <div class='inline'>
-<p>If a block is supplied, call <span class='object_link'><a href="#override-class_method" title="Mocha::Configuration.override (method)">override</a></span> with a <code>Hash</code> containing an entry with the <code>action</code> as the key and <code>:prevent</code> as the value. If no block is supplied, call the appropriate <code>action</code> writer method with <code>value</code> set to <code>:prevent</code> via <span class='object_link'><a href="../Mocha.html#configure-class_method" title="Mocha.configure (method)">Mocha.configure</a></span>. The writer method will be the one of the following corresponding to the <code>action</code>:</p>
-<ul><li>
-<p><span class='object_link'><a href="#stubbing_method_unnecessarily=-instance_method" title="Mocha::Configuration#stubbing_method_unnecessarily= (method)">#stubbing_method_unnecessarily=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_method_on_non_mock_object=-instance_method" title="Mocha::Configuration#stubbing_method_on_non_mock_object= (method)">#stubbing_method_on_non_mock_object=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_non_existent_method=-instance_method" title="Mocha::Configuration#stubbing_non_existent_method= (method)">#stubbing_non_existent_method=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_non_public_method=-instance_method" title="Mocha::Configuration#stubbing_non_public_method= (method)">#stubbing_non_public_method=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_method_on_nil=-instance_method" title="Mocha::Configuration#stubbing_method_on_nil= (method)">#stubbing_method_on_nil=</a></span></p>
-</li></ul>
-</div></div>
-
-<p>Raise a <span class='object_link'><a href="StubbingError.html" title="Mocha::StubbingError (class)">StubbingError</a></span> if the specified <code>action</code> is attempted.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>action</span>
-      
-      
-        <span class='type'>(<tt>Symbol</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>one of <code>:stubbing_method_unnecessarily</code>, <code>:stubbing_method_on_non_mock_object</code>, <code>:stubbing_non_existent_method</code>, <code>:stubbing_non_public_method</code>, <code>:stubbing_method_on_nil</code>.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Yields:</p>
-<ul class="yield">
-  
-    <li>
-      
-      
-        <span class='type'></span>
-      
-      
-      
-        
-        <div class='inline'>
-<p>optional block during which the configuration change will be changed before being returned to its original value at the end of the block.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-365
-366
-367
-368
-369
-370
-371
-372</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 365</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_prevent'>prevent</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
-    <span class='const'>Deprecation</span><span class='period'>.</span><span class='id identifier rubyid_warning'>warning</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Use Mocha::Configuration.override(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_action'>action</span><span class='embexpr_end'>}</span><span class='tstring_content'>: :prevent) with the same block</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='kw'>else</span>
-    <span class='const'>Deprecation</span><span class='period'>.</span><span class='id identifier rubyid_warning'>warning</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Use Mocha.configure { |c| c.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_action'>action</span><span class='embexpr_end'>}</span><span class='tstring_content'> = :prevent }</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
-  <span class='id identifier rubyid_change_config'>change_config</span> <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='symbol'>:prevent</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="warn_when-class_method">
-  
-    .<strong>warn_when</strong>(action) { ... } &#x21d2; <tt><span class='object_link'>Object</span></tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <div class="note deprecated"><strong>Deprecated.</strong> <div class='inline'>
-<p>If a block is supplied, call <span class='object_link'><a href="#override-class_method" title="Mocha::Configuration.override (method)">override</a></span> with a <code>Hash</code> containing an entry with the <code>action</code> as the key and <code>:warn</code> as the value. If no block is supplied, call the appropriate <code>action</code> writer method with <code>value</code> set to <code>:warn</code> via <span class='object_link'><a href="../Mocha.html#configure-class_method" title="Mocha.configure (method)">Mocha.configure</a></span>. The writer method will be the one of the following corresponding to the <code>action</code>:</p>
-<ul><li>
-<p><span class='object_link'><a href="#stubbing_method_unnecessarily=-instance_method" title="Mocha::Configuration#stubbing_method_unnecessarily= (method)">#stubbing_method_unnecessarily=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_method_on_non_mock_object=-instance_method" title="Mocha::Configuration#stubbing_method_on_non_mock_object= (method)">#stubbing_method_on_non_mock_object=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_non_existent_method=-instance_method" title="Mocha::Configuration#stubbing_non_existent_method= (method)">#stubbing_non_existent_method=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_non_public_method=-instance_method" title="Mocha::Configuration#stubbing_non_public_method= (method)">#stubbing_non_public_method=</a></span></p>
-</li><li>
-<p><span class='object_link'><a href="#stubbing_method_on_nil=-instance_method" title="Mocha::Configuration#stubbing_method_on_nil= (method)">#stubbing_method_on_nil=</a></span></p>
-</li></ul>
-</div></div>
-
-<p>Warn if the specified <code>action</code> is attempted.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>action</span>
-      
-      
-        <span class='type'>(<tt>Symbol</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>one of <code>:stubbing_method_unnecessarily</code>, <code>:stubbing_method_on_non_mock_object</code>, <code>:stubbing_non_existent_method</code>, <code>:stubbing_non_public_method</code>, <code>:stubbing_method_on_nil</code>.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Yields:</p>
-<ul class="yield">
-  
-    <li>
-      
-      
-        <span class='type'></span>
-      
-      
-      
-        
-        <div class='inline'>
-<p>optional block during which the configuration change will be changed before being returned to its original value at the end of the block.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-341
-342
-343
-344
-345
-346
-347
-348</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 341</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_warn_when'>warn_when</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
-    <span class='const'>Deprecation</span><span class='period'>.</span><span class='id identifier rubyid_warning'>warning</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Use Mocha::Configuration.override(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_action'>action</span><span class='embexpr_end'>}</span><span class='tstring_content'>: :warn) with the same block</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='kw'>else</span>
-    <span class='const'>Deprecation</span><span class='period'>.</span><span class='id identifier rubyid_warning'>warning</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Use Mocha.configure { |c| c.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_action'>action</span><span class='embexpr_end'>}</span><span class='tstring_content'> = :warn }</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
-  <span class='id identifier rubyid_change_config'>change_config</span> <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='symbol'>:warn</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -953,12 +539,12 @@ satisfied expectations:
       <pre class="lines">
 
 
-242
-243
-244</pre>
+244
+245
+246</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 242</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 244</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_display_matching_invocations_on_failure='>display_matching_invocations_on_failure=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:display_matching_invocations_on_failure</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
@@ -969,9 +555,9 @@ satisfied expectations:
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="reinstate_undocumented_behaviour_from_v1_9=-instance_method">
+  <h3 class="signature " id="strict_keyword_argument_matching=-instance_method">
   
-    #<strong>reinstate_undocumented_behaviour_from_v1_9=</strong>(value)  &#x21d2; <tt><span class='object_link'>Object</span></tt> 
+    #<strong>strict_keyword_argument_matching=</strong>(value)  &#x21d2; <tt><span class='object_link'>Object</span></tt> 
   
 
   
@@ -980,13 +566,15 @@ satisfied expectations:
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Reinstate undocumented behaviour from v1.9</p>
+<p>Perform strict keyword argument comparison. Only supported in Ruby &gt;= v2.7.</p>
 
-<p>Previously when <span class='object_link'><a href="API.html#mock-instance_method" title="Mocha::API#mock (method)">API#mock</a></span>, <span class='object_link'><a href="API.html#stub-instance_method" title="Mocha::API#stub (method)">API#stub</a></span>, or <span class='object_link'><a href="API.html#stub_everything-instance_method" title="Mocha::API#stub_everything (method)">API#stub_everything</a></span> were called with the first argument being a symbol, they built an <strong>unnamed</strong> mock object <strong>and</strong> expected or stubbed the method identified by the symbol argument; subsequent arguments were ignored. Now these methods build a <strong>named</strong> mock with the name specified by the symbol argument; <strong>no</strong> methods are expected or stubbed and subsequent arguments <strong>are</strong> taken into account.</p>
+<p>When this option is set to <code>false</code> a positional <code>Hash</code> and a set of keyword arguments are treated the same during comparison, which can lead to false negatives in Ruby &gt;= v3.0 (see examples below). However, a deprecation warning will be displayed if a positional <code>Hash</code> matches a set of keyword arguments or vice versa. This is because <span class='object_link'><a href="#strict_keyword_argument_matching=-instance_method" title="Mocha::Configuration#strict_keyword_argument_matching= (method)">#strict_keyword_argument_matching=</a></span> will default to <code>true</code> in the future.</p>
 
-<p>Previously if <span class='object_link'><a href="Expectation.html#yields-instance_method" title="Mocha::Expectation#yields (method)">Expectation#yields</a></span> or <span class='object_link'><a href="Expectation.html#multiple_yields-instance_method" title="Mocha::Expectation#multiple_yields (method)">Expectation#multiple_yields</a></span> was called on an expectation, but no block was given when the method was invoked, the instruction to yield was ignored. Now a <code>LocalJumpError</code> is raised.</p>
+<p>For more details on keyword arguments in Ruby v3, refer to <a href="https://www.ruby-lang.org/en/news/2019/12/12/separation-of-positional-and-keyword-arguments-in-ruby-3-0" target="_parent" title="this article">this article</a>.</p>
 
-<p>Enabling this configuration option reinstates the previous behaviour, but displays a deprecation warning.</p>
+<p>Note that <code>Hash</code>-related matchers such as <span class='object_link'><a href="ParameterMatchers.html#has_value-instance_method" title="Mocha::ParameterMatchers#has_value (method)">ParameterMatchers#has_value</a></span> or <span class='object_link'><a href="ParameterMatchers.html#has_key-instance_method" title="Mocha::ParameterMatchers#has_key (method)">ParameterMatchers#has_key</a></span> will still treat a positional <code>Hash</code> and a set of keyword arguments the same, so false negatives are still possible when they are used.</p>
+
+<p>This configuration option is <code>false</code> by default to enable gradual adoption, but will be <code>true</code> by default in the future.</p>
 
 
   </div>
@@ -998,49 +586,37 @@ satisfied expectations:
     
       
         <p class="example_title"><div class='inline'>
-<p>Reinstate undocumented behaviour for <span class='object_link'><a href="API.html#mock-instance_method" title="Mocha::API#mock (method)">API#mock</a></span></p>
+<p>Loose keyword argument matching (default)</p>
 </div></p>
       
-      <pre class="example code"><code>Mocha.configure do |c|
-  c.reinstate_undocumented_behaviour_from_v1_9 = true
-end
-
-foo = mock(:bar)
-foo.inspect # =&gt; #&lt;Mock&gt;
-
-not all expectations were satisfied
-unsatisfied expectations:
-- expected exactly once, invoked never: #&lt;Mock&gt;.foo</code></pre>
-    
-      
-        <p class="example_title"><div class='inline'>
-<p>Reinstate undocumented behaviour for <span class='object_link'><a href="API.html#stub-instance_method" title="Mocha::API#stub (method)">API#stub</a></span></p>
-</div></p>
-      
-      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../Mocha.html" title="Mocha (module)">Mocha</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configure'><span class='object_link'><a href="../Mocha.html#configure-class_method" title="Mocha.configure (method)">configure</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span>
-  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_reinstate_undocumented_behaviour_from_v1_9'>reinstate_undocumented_behaviour_from_v1_9</span> <span class='op'>=</span> <span class='kw'>true</span>
+      <pre class="example code"><code>
+<span class='kw'>class</span> <span class='const'>Example</span>
+  <span class='kw'>def</span> <span class='id identifier rubyid_foo'>foo</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>bar:</span><span class='rparen'>)</span><span class='semicolon'>;</span> <span class='kw'>end</span>
 <span class='kw'>end</span>
 
-<span class='id identifier rubyid_foo'>foo</span> <span class='op'>=</span> <span class='id identifier rubyid_stub'>stub</span><span class='lparen'>(</span><span class='symbol'>:bar</span><span class='rparen'>)</span>
-<span class='id identifier rubyid_foo'>foo</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span> <span class='comment'># =&gt; #&lt;Mock&gt;
-</span><span class='id identifier rubyid_foo'>foo</span><span class='period'>.</span><span class='id identifier rubyid_bar'>bar</span> <span class='comment'># =&gt; nil</span></code></pre>
+<span class='id identifier rubyid_example'>example</span> <span class='op'>=</span> <span class='const'>Example</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+<span class='id identifier rubyid_example'>example</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:foo</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_with'>with</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>a</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>bar:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>b</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_example'>example</span><span class='period'>.</span><span class='id identifier rubyid_foo'>foo</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>a</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='label'>bar:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>b</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='comment'># This passes the test, but would result in an ArgumentError in practice</span></code></pre>
     
       
         <p class="example_title"><div class='inline'>
-<p>Reinstate undocumented behaviour for <span class='object_link'><a href="Expectation.html#yields-instance_method" title="Mocha::Expectation#yields (method)">Expectation#yields</a></span></p>
+<p>Strict keyword argument matching</p>
 </div></p>
       
-      <pre class="example code"><code><span class='id identifier rubyid_foo'>foo</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>foo</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
-<span class='id identifier rubyid_foo'>foo</span><span class='period'>.</span><span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='symbol'>:my_method</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_yields'>yields</span><span class='lparen'>(</span><span class='int'>1</span><span class='comma'>,</span> <span class='int'>2</span><span class='rparen'>)</span>
-<span class='id identifier rubyid_foo'>foo</span><span class='period'>.</span><span class='id identifier rubyid_my_method'>my_method</span> <span class='comment'># =&gt; raises LocalJumpError when no block is supplied
-</span>
+      <pre class="example code"><code>
 <span class='const'><span class='object_link'><a href="../Mocha.html" title="Mocha (module)">Mocha</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configure'><span class='object_link'><a href="../Mocha.html#configure-class_method" title="Mocha.configure (method)">configure</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span>
-  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_reinstate_undocumented_behaviour_from_v1_9'>reinstate_undocumented_behaviour_from_v1_9</span> <span class='op'>=</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_strict_keyword_argument_matching'>strict_keyword_argument_matching</span> <span class='op'>=</span> <span class='kw'>true</span>
 <span class='kw'>end</span>
 
-<span class='id identifier rubyid_foo'>foo</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>foo</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
-<span class='id identifier rubyid_foo'>foo</span><span class='period'>.</span><span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='symbol'>:my_method</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_yields'>yields</span><span class='lparen'>(</span><span class='int'>1</span><span class='comma'>,</span> <span class='int'>2</span><span class='rparen'>)</span>
-<span class='id identifier rubyid_foo'>foo</span><span class='period'>.</span><span class='id identifier rubyid_my_method'>my_method</span> <span class='comment'># =&gt; does *not* raise LocalJumpError when no block is supplied</span></code></pre>
+<span class='kw'>class</span> <span class='const'>Example</span>
+  <span class='kw'>def</span> <span class='id identifier rubyid_foo'>foo</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>bar:</span><span class='rparen'>)</span><span class='semicolon'>;</span> <span class='kw'>end</span>
+<span class='kw'>end</span>
+
+<span class='id identifier rubyid_example'>example</span> <span class='op'>=</span> <span class='const'>Example</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+<span class='id identifier rubyid_example'>example</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:foo</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_with'>with</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>a</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>bar:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>b</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_example'>example</span><span class='period'>.</span><span class='id identifier rubyid_foo'>foo</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>a</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='label'>bar:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>b</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='comment'># This now fails as expected</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -1057,7 +633,7 @@ unsatisfied expectations:
       
         &mdash;
         <div class='inline'>
-<p><code>true</code> to reinstate undocumented behaviour; enabled by default.</p>
+<p><code>true</code> to enable strict keyword argument matching; <code>false</code> by default.</p>
 </div>
       
     </li>
@@ -1071,15 +647,17 @@ unsatisfied expectations:
       <pre class="lines">
 
 
-297
-298
-299</pre>
+290
+291
+292
+293</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 297</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 290</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_reinstate_undocumented_behaviour_from_v1_9='>reinstate_undocumented_behaviour_from_v1_9=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
-  <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:reinstate_undocumented_behaviour_from_v1_9</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_strict_keyword_argument_matching='>strict_keyword_argument_matching=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Strict keyword argument matching requires Ruby 2.7 and above.</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>unless</span> <span class='const'><span class='object_link'><a href="../Mocha.html" title="Mocha (module)">Mocha</a></span></span><span class='op'>::</span><span class='const'>RUBY_V27_PLUS</span>
+  <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:strict_keyword_argument_matching</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1138,12 +716,12 @@ unsatisfied expectations:
       <pre class="lines">
 
 
-208
-209
-210</pre>
+210
+211
+212</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 208</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 210</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubbing_method_on_nil='>stubbing_method_on_nil=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:stubbing_method_on_nil</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
@@ -1167,7 +745,7 @@ unsatisfied expectations:
     
 <p>Configure whether stubbing methods on non-mock objects is allowed.</p>
 
-<p>If you like the idea of <a href="http://www.jmock.org/oopsla2004.pdf" target="_parent" title="mocking roles not objects">mocking roles not objects</a> and <a href="http://www.mockobjects.com/2007/04/test-smell-mocking-concrete-classes.html" target="_parent" title="you don&amp;#39;t like stubbing concrete classes">you don&#39;t like stubbing concrete classes</a>, this is the setting for you. However, while this restriction makes a lot of sense in Java with its <a href="http://java.sun.com/docs/books/tutorial/java/concepts/interface.html" target="_parent" title="explicit interfaces">explicit interfaces</a>, it may be moot in Ruby where roles are probably best represented as Modules.</p>
+<p>If you like the idea of <a href="http://www.jmock.org/oopsla2004.pdf" target="_parent" title="mocking roles not objects">mocking roles not objects</a> and <a href="http://www.mockobjects.com/2007/04/test-smell-mocking-concrete-classes.html" target="_parent" title="you don’t like stubbing concrete classes">you don’t like stubbing concrete classes</a>, this is the setting for you. However, while this restriction makes a lot of sense in Java with its <a href="http://java.sun.com/docs/books/tutorial/java/concepts/interface.html" target="_parent" title="explicit interfaces">explicit interfaces</a>, it may be moot in Ruby where roles are probably best represented as Modules.</p>
 
 <p>When <code>value</code> is <code>:allow</code>, do nothing. This is the default. When <code>value</code> is <code>:warn</code>, display a warning. When <code>value</code> is <code>:prevent</code>, raise a <span class='object_link'><a href="StubbingError.html" title="Mocha::StubbingError (class)">StubbingError</a></span>.</p>
 
@@ -1226,12 +804,12 @@ unsatisfied expectations:
       <pre class="lines">
 
 
-120
-121
-122</pre>
+122
+123
+124</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 120</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 122</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubbing_method_on_non_mock_object='>stubbing_method_on_non_mock_object=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:stubbing_method_on_non_mock_object</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
@@ -1310,12 +888,12 @@ unsatisfied expectations:
       <pre class="lines">
 
 
-87
-88
-89</pre>
+89
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 87</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubbing_method_unnecessarily='>stubbing_method_unnecessarily=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:stubbing_method_unnecessarily</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
@@ -1339,7 +917,7 @@ unsatisfied expectations:
     
 <p>Configure whether stubbing of non-existent methods is allowed.</p>
 
-<p>This is useful if you want to ensure that methods you&#39;re mocking really exist. A common criticism of unit tests with mock objects is that such a test may (incorrectly) pass when an equivalent non-mocking test would (correctly) fail. While you should always have some integration tests, particularly for critical business functionality, this Mocha configuration setting should catch scenarios when mocked methods and real methods have become misaligned.</p>
+<p>This is useful if you want to ensure that methods you’re mocking really exist. A common criticism of unit tests with mock objects is that such a test may (incorrectly) pass when an equivalent non-mocking test would (correctly) fail. While you should always have some integration tests, particularly for critical business functionality, this Mocha configuration setting should catch scenarios when mocked methods and real methods have become misaligned.</p>
 
 <p>When <code>value</code> is <code>:allow</code>, do nothing. This is the default. When <code>value</code> is <code>:warn</code>, display a warning. When <code>value</code> is <code>:prevent</code>, raise a <span class='object_link'><a href="StubbingError.html" title="Mocha::StubbingError (class)">StubbingError</a></span>.</p>
 
@@ -1398,12 +976,12 @@ unsatisfied expectations:
       <pre class="lines">
 
 
-153
-154
-155</pre>
+155
+156
+157</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 153</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 155</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubbing_non_existent_method='>stubbing_non_existent_method=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:stubbing_non_existent_method</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
@@ -1427,7 +1005,7 @@ unsatisfied expectations:
     
 <p>Configure whether stubbing of non-public methods is allowed.</p>
 
-<p>Many people think that it&#39;s good practice only to mock public methods. This is one way to prevent your tests being too tightly coupled to the internal implementation of a class. Such tests tend to be very brittle and not much use when refactoring.</p>
+<p>Many people think that it’s good practice only to mock public methods. This is one way to prevent your tests being too tightly coupled to the internal implementation of a class. Such tests tend to be very brittle and not much use when refactoring.</p>
 
 <p>When <code>value</code> is <code>:allow</code>, do nothing. This is the default. When <code>value</code> is <code>:warn</code>, display a warning. When <code>value</code> is <code>:prevent</code>, raise a <span class='object_link'><a href="StubbingError.html" title="Mocha::StubbingError (class)">StubbingError</a></span>.</p>
 
@@ -1487,12 +1065,12 @@ unsatisfied expectations:
       <pre class="lines">
 
 
-187
-188
-189</pre>
+189
+190
+191</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 187</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 189</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubbing_non_public_method='>stubbing_non_public_method=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:stubbing_non_public_method</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
@@ -1515,9 +1093,9 @@ unsatisfied expectations:
 </div>
 
       <div id="footer">
-  Generated on Wed Sep 21 19:13:39 2022 by
+  Generated on Mon Oct 17 15:37:40 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.28 (ruby-3.1.0).
 </div>
 
     </div>
