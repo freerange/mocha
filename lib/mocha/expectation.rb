@@ -192,6 +192,15 @@ module Mocha
     #
     # May be used with Ruby literals or variables for exact matching or with parameter matchers for less-specific matching, e.g. {ParameterMatchers#includes}, {ParameterMatchers#has_key}, etc. See {ParameterMatchers} for a list of all available parameter matchers.
     #
+    # Positional arguments were separated from keyword arguments in Ruby v3 (see {https://www.ruby-lang.org/en/news/2019/12/12/separation-of-positional-and-keyword-arguments-in-ruby-3-0 this article}). In relation to this a new configuration option ({Configuration#strict_keyword_argument_matching=}) is available in Ruby >= 2.7.
+    #
+    # When {Configuration#strict_keyword_argument_matching=} is set to +false+ (which is currently the default), a positional +Hash+ and a set of keyword arguments passed to {#with} are treated the same for the purposes of parameter matching. However, a deprecation warning will be displayed if a positional +Hash+ matches a set of keyword arguments or vice versa. This is because {Configuration#strict_keyword_argument_matching=} will default to +true+ in the future.
+    #
+    # When {Configuration#strict_keyword_argument_matching=} is set to +true+, an actual positional +Hash+ will not match an expected set of keyword arguments; and vice versa, an actual set of keyword arguments will not match an expected positional +Hash+, i.e. the parameter matching is stricter.
+    #
+    # @see ParameterMatchers
+    # @see Configuration#strict_keyword_argument_matching=
+    #
     # @param [*Array<Object,ParameterMatchers::Base>] expected_parameters_or_matchers expected parameter values or parameter matchers.
     # @yield optional block specifying custom matching.
     # @yieldparam [*Array<Object>] actual_parameters parameters with which expected method was invoked.
@@ -219,6 +228,32 @@ module Mocha
     #   object.expects(:expected_method).with(includes('string2'), anything)
     #   object.expected_method(['string1'], 'any-old-value')
     #   # => verify fails
+    #
+    # @example Loose keyword argument matching (default)
+    #
+    #   class Example
+    #     def foo(a, bar:); end
+    #   end
+    #
+    #   example = Example.new
+    #   example.expects(:foo).with('a', bar: 'b')
+    #   example.foo('a', { bar: 'b' })
+    #   # This passes the test, but would result in an ArgumentError in practice
+    #
+    # @example Strict keyword argument matching
+    #
+    #   Mocha.configure do |c|
+    #     c.strict_keyword_argument_matching = true
+    #   end
+    #
+    #   class Example
+    #     def foo(a, bar:); end
+    #   end
+    #
+    #   example = Example.new
+    #   example.expects(:foo).with('a', bar: 'b')
+    #   example.foo('a', { bar: 'b' })
+    #   # This now fails as expected
     #
     # @example Expected method must be called with a value divisible by 4.
     #   object = mock()
