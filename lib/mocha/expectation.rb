@@ -188,17 +188,17 @@ module Mocha
       at_most(1)
     end
 
-    # Modifies expectation so that the expected method must be called with +expected_parameters+.
+    # Modifies expectation so that the expected method must be called with +expected_parameters_or_matchers+.
     #
-    # May be used with parameter matchers in {ParameterMatchers}.
+    # May be used with Ruby literals or variables for exact matching or with parameter matchers for less-specific matching, e.g. {ParameterMatchers#includes}, {ParameterMatchers#has_key}, etc. See {ParameterMatchers} for a list of all available parameter matchers.
     #
-    # @param [*Array] expected_parameters parameters expected.
+    # @param [*Array<Object,ParameterMatchers::Base>] expected_parameters_or_matchers expected parameter values or parameter matchers.
     # @yield optional block specifying custom matching.
-    # @yieldparam [*Array] actual_parameters parameters with which expected method was invoked.
+    # @yieldparam [*Array<Object>] actual_parameters parameters with which expected method was invoked.
     # @yieldreturn [Boolean] +true+ if +actual_parameters+ are acceptable.
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
     #
-    # @example Expected method must be called with expected parameters.
+    # @example Expected method must be called with exact parameter values.
     #   object = mock()
     #   object.expects(:expected_method).with(:param1, :param2)
     #   object.expected_method(:param1, :param2)
@@ -207,6 +207,17 @@ module Mocha
     #   object = mock()
     #   object.expects(:expected_method).with(:param1, :param2)
     #   object.expected_method(:param3)
+    #   # => verify fails
+    #
+    # @example Expected method must be called with parameters matching parameter matchers.
+    #   object = mock()
+    #   object.expects(:expected_method).with(includes('string2'), anything)
+    #   object.expected_method(['string1', 'string2'], 'any-old-value')
+    #   # => verify succeeds
+    #
+    #   object = mock()
+    #   object.expects(:expected_method).with(includes('string2'), anything)
+    #   object.expected_method(['string1'], 'any-old-value')
     #   # => verify fails
     #
     # @example Expected method must be called with a value divisible by 4.
@@ -219,8 +230,8 @@ module Mocha
     #   object.expects(:expected_method).with() { |value| value % 4 == 0 }
     #   object.expected_method(17)
     #   # => verify fails
-    def with(*expected_parameters, &matching_block)
-      @parameters_matcher = ParametersMatcher.new(expected_parameters, &matching_block)
+    def with(*expected_parameters_or_matchers, &matching_block)
+      @parameters_matcher = ParametersMatcher.new(expected_parameters_or_matchers, &matching_block)
       self
     end
     ruby2_keywords(:with)
