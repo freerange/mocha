@@ -259,6 +259,7 @@ module Mocha
     # Enabling this configuration option reinstates the previous behaviour, but displays a deprecation warning.
     #
     # @param [Boolean] value +true+ to reinstate undocumented behaviour; disabled by default.
+    # @deprecated Fix deprecation warnings caused by reliance on v1.9 behaviour and remove calls to this method.
     #
     # @example Reinstate undocumented behaviour for {API#mock}
     #   Mocha.configure do |c|
@@ -295,6 +296,16 @@ module Mocha
     #   foo.my_method # => does *not* raise LocalJumpError when no block is supplied
     #
     def reinstate_undocumented_behaviour_from_v1_9=(value)
+      if value
+        sentence1 = 'Configuration#reinstate_undocumented_behaviour_from_v1_9= will be removed in the future.'
+        sentence2 = 'Fix deprecation warnings caused by reliance on v1.9 behaviour.'
+        sentence3 = 'See docs for API#mock, API#stub, API#stub_everything, Expectation#yields and Expectation#multiple_yields.'
+        Deprecation.warning([sentence1, sentence2, sentence3].join(' '))
+      else
+        sentence1 = 'Configuration#reinstate_undocumented_behaviour_from_v1_9= is unnecessarily being set to false, because this is now the default value.'
+        sentence2 = 'Configuration#reinstate_undocumented_behaviour_from_v1_9= will be removed in the future, so you should avoid calling it.'
+        Deprecation.warning([sentence1, sentence2].join(' '))
+      end
       @options[:reinstate_undocumented_behaviour_from_v1_9] = value
     end
 
