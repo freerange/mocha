@@ -1,5 +1,15 @@
 # Release Notes
 
+## 2.0.0.alpha.1
+
+### External changes
+
+* Improve strict keyword argument matching deprecation warning by including the source location of the stub definition (77c0d4cc)
+
+### Internal changes
+
+* Disable Style/Semicolon cop globally (8cd0b705)
+
 ## 2.0.0.alpha
 
 ### External changes
