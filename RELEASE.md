@@ -1,5 +1,16 @@
 # Release Notes
 
+## 1.16.0
+
+### External changes
+
+* Default `Configuration#reinstate_undocumented_behaviour_from_v1_9=` to `false` (6fcaf947)
+* Deprecate `Configuration#reinstate_undocumented_behaviour_from_v1_9=` (a797c5fd)
+
+### Internal changes
+
+* Remove redundant deprecation disabling in MockTest (dc8ca969)
+
 ## 1.15.0
 
 ### External changes
