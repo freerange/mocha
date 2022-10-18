@@ -48,6 +48,10 @@ Style/WhileUntilModifier:
 Style/AccessModifierDeclarations:
   Enabled: false
 
+# This is useful when using `ExecutionPoint.current` to make tests more robust
+Style/Semicolon:
+  Enabled: false
+
 # Enabling this cop results in an "Infinite loop detected" exception
 Layout/AccessModifierIndentation:
   Enabled: false

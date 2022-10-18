@@ -93,12 +93,10 @@ class ExpectationTest < Mocha::TestCase
     assert_equal backtrace, Expectation.new(nil, :expected_method, backtrace).backtrace
   end
 
-  # rubocop:disable Style/Semicolon
   def test_should_default_backtrace_to_caller
     execution_point = ExecutionPoint.current; expectation = Expectation.new(nil, :expected_method)
     assert_equal execution_point, ExecutionPoint.new(expectation.backtrace)
   end
-  # rubocop:enable Style/Semicolon
 
   def test_should_not_yield
     yielded = false
@@ -312,12 +310,10 @@ class ExpectationTest < Mocha::TestCase
     assert_equal 0, assertion_counter.count
   end
 
-  # rubocop:disable Style/Semicolon
   def test_should_store_backtrace_from_point_where_expectation_was_created
     execution_point = ExecutionPoint.current; expectation = Expectation.new(nil, :expected_method)
     assert_equal execution_point, ExecutionPoint.new(expectation.backtrace)
   end
-  # rubocop:enable Style/Semicolon
 
   class FakeMock
     def initialize(name)

@@ -12,7 +12,6 @@ module SharedTests
     assert_passed(test_result)
   end
 
-  # rubocop:disable Style/Semicolon
   def test_assertion_unsatisfied
     execution_point = nil
     test_result = run_as_test do
@@ -173,6 +172,5 @@ module SharedTests
     assert_equal execution_point, ExecutionPoint.new(exception.backtrace)
     assert_match(/undefined method `foo'/, exception.message)
   end
-  # rubocop:enable Style/Semicolon
 end
 # rubocop:enable Metrics/ModuleLength
