@@ -12,6 +12,7 @@ require 'mocha/change_state_side_effect'
 require 'mocha/cardinality'
 require 'mocha/configuration'
 require 'mocha/block_matcher'
+require 'mocha/backtrace_filter'
 
 module Mocha
   # Methods on expectations returned from {Mock#expects}, {Mock#stubs}, {ObjectMethods#expects} and {ObjectMethods#stubs}.
@@ -266,7 +267,7 @@ module Mocha
     #   object.expected_method(17)
     #   # => verify fails
     def with(*expected_parameters_or_matchers, &matching_block)
-      @parameters_matcher = ParametersMatcher.new(expected_parameters_or_matchers, &matching_block)
+      @parameters_matcher = ParametersMatcher.new(expected_parameters_or_matchers, self, &matching_block)
       self
     end
     ruby2_keywords(:with)
@@ -691,6 +692,12 @@ module Mocha
       signature = "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}#{@parameters_matcher.mocha_inspect}"
       signature << " #{@block_matcher.mocha_inspect}" if @block_matcher.mocha_inspect
       signature
+    end
+
+    # @private
+    def definition_location
+      filter = BacktraceFilter.new
+      filter.filtered(backtrace)[0]
     end
   end
 end

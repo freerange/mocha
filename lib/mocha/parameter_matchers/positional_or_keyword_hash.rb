@@ -6,8 +6,9 @@ module Mocha
   module ParameterMatchers
     # @private
     class PositionalOrKeywordHash < Base
-      def initialize(value)
+      def initialize(value, expectation)
         @value = value
+        @expectation = expectation
       end
 
       def matches?(available_parameters)
@@ -38,10 +39,11 @@ module Mocha
       end
 
       def deprecation_warning(actual, expected)
-        details = "Expected #{hash_type(expected)} (#{expected.mocha_inspect}), but received #{hash_type(actual)} (#{actual.mocha_inspect})."
+        details1 = "Expectation #{expectation_definition} expected #{hash_type(expected)} (#{expected.mocha_inspect}),".squeeze(' ')
+        details2 = "but received #{hash_type(actual)} (#{actual.mocha_inspect})."
         sentence1 = 'These will stop matching when strict keyword argument matching is enabled.'
         sentence2 = 'See the documentation for Mocha::Configuration#strict_keyword_argument_matching=.'
-        Deprecation.warning([details, sentence1, sentence2].join(' '))
+        Deprecation.warning([details1, details2, sentence1, sentence2].join(' '))
       end
 
       def hash_type(hash)
@@ -50,6 +52,12 @@ module Mocha
 
       def ruby2_keywords_hash?(hash)
         hash.is_a?(Hash) && ::Hash.ruby2_keywords_hash?(hash)
+      end
+
+      def expectation_definition
+        return nil unless @expectation
+
+        "defined at #{@expectation.definition_location}"
       end
     end
   end
