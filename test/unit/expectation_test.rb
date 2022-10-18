@@ -117,14 +117,14 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_yield_should_fail_when_the_caller_does_not_provide_a_block_and_behaviour_from_v1_9_not_retained
-    Mocha::Configuration.override(:reinstate_undocumented_behaviour_from_v1_9 => false) do
-      assert_raises(LocalJumpError) { invoke(new_expectation.yields(:foo)) }
-    end
+    assert_raises(LocalJumpError) { invoke(new_expectation.yields(:foo)) }
   end
 
   def test_yields_should_display_warning_when_caller_does_not_provide_block
-    DeprecationDisabler.disable_deprecations do
-      invoke(new_expectation.yields(:foo, 1, [2, 3]))
+    Mocha::Configuration.override(:reinstate_undocumented_behaviour_from_v1_9 => true) do
+      DeprecationDisabler.disable_deprecations do
+        invoke(new_expectation.yields(:foo, 1, [2, 3]))
+      end
     end
     assert message = Deprecation.messages.last
     assert message.include?('Stubbed method was instructed to yield (:foo, 1, [2, 3])')
@@ -133,8 +133,10 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_multiple_yields_should_display_warning_when_caller_does_not_provide_block
-    DeprecationDisabler.disable_deprecations do
-      invoke(new_expectation.multiple_yields(:foo, 1, [2, 3]))
+    Mocha::Configuration.override(:reinstate_undocumented_behaviour_from_v1_9 => true) do
+      DeprecationDisabler.disable_deprecations do
+        invoke(new_expectation.multiple_yields(:foo, 1, [2, 3]))
+      end
     end
     assert message = Deprecation.messages.last
     assert message.include?('Stubbed method was instructed to yield (2, 3)')
