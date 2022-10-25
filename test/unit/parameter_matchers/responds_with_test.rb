@@ -35,4 +35,14 @@ class RespondsWithTest < Mocha::TestCase
     matcher = responds_with(:foo, :bar)
     assert_equal 'responds_with(:foo, :bar)', matcher.mocha_inspect
   end
+
+  def test_should_match_parameter_responding_with_expected_values_for_given_messages
+    matcher = responds_with(upcase: 'FOO', reverse: 'oof')
+    assert matcher.matches?(['foo'])
+  end
+
+  def test_should_describe_matcher_with_multiple_messages_vs_results
+    matcher = responds_with(foo: :bar, baz: 123)
+    assert_equal 'all_of(responds_with(:foo, :bar), responds_with(:baz, 123))', matcher.mocha_inspect
+  end
 end
