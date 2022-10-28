@@ -42,6 +42,17 @@ from the Ruby v1.8 standard library are no longer supported (#540,969f4845)
 * Remove redundant `require` statements (d82218a8,fa17b114)
 * Add missing `require` statement (73493761)
 
+## 1.16.0
+
+### External changes
+
+* Default `Configuration#reinstate_undocumented_behaviour_from_v1_9=` to `false` (6fcaf947)
+* Deprecate `Configuration#reinstate_undocumented_behaviour_from_v1_9=` (a797c5fd)
+
+### Internal changes
+
+* Remove redundant deprecation disabling in MockTest (dc8ca969)
+
 ## 1.15.0
 
 ### External changes
