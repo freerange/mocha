@@ -6,7 +6,7 @@
 <title>
   File: RELEASE
   
-    &mdash; Mocha 2.0.0.alpha.1
+    &mdash; Mocha 2.0.0
   
 </title>
 
@@ -59,21 +59,7 @@
 
       <div id="content"><div id='filecontents'><h1 id="release-notes">Release Notes</h1>
 
-<h2 id="2-0-0-alpha-1">2.0.0.alpha.1</h2>
-
-<h3 id="external-changes">External changes</h3>
-
-<ul>
-<li>Improve strict keyword argument matching deprecation warning by including the source location of the stub definition (77c0d4cc)</li>
-</ul>
-
-<h3 id="internal-changes">Internal changes</h3>
-
-<ul>
-<li>Disable Style/Semicolon cop globally (8cd0b705)</li>
-</ul>
-
-<h2 id="2-0-0-alpha">2.0.0.alpha</h2>
+<h2 id="2-0-0">2.0.0</h2>
 
 <h3 id="external-changes">External changes</h3>
 
@@ -93,6 +79,8 @@ from the Ruby v1.8 standard library are no longer supported (#540,969f4845)</li>
 <li>Expand <code>Expectation#with</code> docs re keyword arguments (fed6808d)</li>
 <li>Improve docs for <code>strict_keyword_argument_matching</code> (8d8f881d)</li>
 <li>Remove deprecated Rails plugin <code>init.rb</code> file (1c617175)</li>
+<li>Improve strict keyword argument matching deprecation warning by including the source location of the stub definition (77c0d4cc)</li>
+<li>Add README section re semantic versioning (00758246)</li>
 </ul>
 
 <h3 id="internal-changes">Internal changes</h3>
@@ -107,6 +95,22 @@ from the Ruby v1.8 standard library are no longer supported (#540,969f4845)</li>
 <li>More consistent Test::Unit &amp; Minitest integration (27dd3817)</li>
 <li>Remove redundant <code>require</code> statements (d82218a8,fa17b114)</li>
 <li>Add missing <code>require</code> statement (73493761)</li>
+<li>Disable Style/Semicolon cop globally (8cd0b705)</li>
+</ul>
+
+<h2 id="1-16-0">1.16.0</h2>
+
+<h3 id="external-changes">External changes</h3>
+
+<ul>
+<li>Default <code>Configuration#reinstate_undocumented_behaviour_from_v1_9=</code> to <code>false</code> (6fcaf947)</li>
+<li>Deprecate <code>Configuration#reinstate_undocumented_behaviour_from_v1_9=</code> (a797c5fd)</li>
+</ul>
+
+<h3 id="internal-changes">Internal changes</h3>
+
+<ul>
+<li>Remove redundant deprecation disabling in MockTest (dc8ca969)</li>
 </ul>
 
 <h2 id="1-15-0">1.15.0</h2>
@@ -1166,7 +1170,7 @@ Hash with wrong number of entries.</li>
 </div>
 
       <div id="footer">
-  Generated on Tue Oct 18 11:27:32 2022 by
+  Generated on Tue Nov  1 13:55:27 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.0).
 </div>

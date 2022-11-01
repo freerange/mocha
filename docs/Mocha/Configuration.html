@@ -6,7 +6,7 @@
 <title>
   Class: Mocha::Configuration
   
-    &mdash; Mocha 2.0.0.alpha.1
+    &mdash; Mocha 2.0.0
   
 </title>
 
@@ -568,11 +568,11 @@ satisfied expectations:
     
 <p>Perform strict keyword argument comparison. Only supported in Ruby &gt;= v2.7.</p>
 
-<p>When this option is set to <code>false</code> a positional <code>Hash</code> and a set of keyword arguments are treated the same during comparison, which can lead to false negatives in Ruby &gt;= v3.0 (see examples below). However, a deprecation warning will be displayed if a positional <code>Hash</code> matches a set of keyword arguments or vice versa. This is because <span class='object_link'><a href="#strict_keyword_argument_matching=-instance_method" title="Mocha::Configuration#strict_keyword_argument_matching= (method)">#strict_keyword_argument_matching=</a></span> will default to <code>true</code> in the future.</p>
+<p>When this option is set to <code>false</code> a positional <code>Hash</code> and a set of keyword arguments are treated the same during comparison, which can lead to misleading passing tests in Ruby &gt;= v3.0 (see examples below). However, a deprecation warning will be displayed if a positional <code>Hash</code> matches a set of keyword arguments or vice versa. This is because <span class='object_link'><a href="#strict_keyword_argument_matching=-instance_method" title="Mocha::Configuration#strict_keyword_argument_matching= (method)">#strict_keyword_argument_matching=</a></span> will default to <code>true</code> in the future.</p>
 
 <p>For more details on keyword arguments in Ruby v3, refer to <a href="https://www.ruby-lang.org/en/news/2019/12/12/separation-of-positional-and-keyword-arguments-in-ruby-3-0" target="_parent" title="this article">this article</a>.</p>
 
-<p>Note that <code>Hash</code>-related matchers such as <span class='object_link'><a href="ParameterMatchers.html#has_value-instance_method" title="Mocha::ParameterMatchers#has_value (method)">ParameterMatchers#has_value</a></span> or <span class='object_link'><a href="ParameterMatchers.html#has_key-instance_method" title="Mocha::ParameterMatchers#has_key (method)">ParameterMatchers#has_key</a></span> will still treat a positional <code>Hash</code> and a set of keyword arguments the same, so false negatives are still possible when they are used.</p>
+<p>Note that <code>Hash</code>-related matchers such as <span class='object_link'><a href="ParameterMatchers.html#has_value-instance_method" title="Mocha::ParameterMatchers#has_value (method)">ParameterMatchers#has_value</a></span> or <span class='object_link'><a href="ParameterMatchers.html#has_key-instance_method" title="Mocha::ParameterMatchers#has_key (method)">ParameterMatchers#has_key</a></span> will still treat a positional <code>Hash</code> and a set of keyword arguments the same, so misleading passing tests are still possible when they are used.</p>
 
 <p>This configuration option is <code>false</code> by default to enable gradual adoption, but will be <code>true</code> by default in the future.</p>
 
@@ -1093,7 +1093,7 @@ satisfied expectations:
 </div>
 
       <div id="footer">
-  Generated on Tue Oct 18 11:27:32 2022 by
+  Generated on Tue Nov  1 13:55:28 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.0).
 </div>
