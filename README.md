@@ -302,6 +302,12 @@ See the [documentation](https://mocha.jamesmead.org/Mocha/Configuration.html) fo
 Only the following values are currently recognized and have an effect:
 * `debug`: Enables a debug mode which will output backtraces for each deprecation warning. This is useful for finding where in the test suite the deprecated calls are.
 
+### Semantic versioning
+
+* Every effort is made to comply with [semantic versioning](https://semver.org/).
+* However, this only applies to the behaviour documented in the public API.
+* The documented public API does *not* include the content or format of messsages displayed to the user, e.g. assertion failure messages.
+
 ### Useful Links
 
 * [Official Documentation](https://mocha.jamesmead.org)
