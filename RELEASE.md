@@ -1,16 +1,6 @@
 # Release Notes
 
-## 2.0.0.alpha.1
-
-### External changes
-
-* Improve strict keyword argument matching deprecation warning by including the source location of the stub definition (77c0d4cc)
-
-### Internal changes
-
-* Disable Style/Semicolon cop globally (8cd0b705)
-
-## 2.0.0.alpha
+## 2.0.0
 
 ### External changes
 
@@ -29,6 +19,8 @@ from the Ruby v1.8 standard library are no longer supported (#540,969f4845)
 * Expand `Expectation#with` docs re keyword arguments (fed6808d)
 * Improve docs for `strict_keyword_argument_matching` (8d8f881d)
 * Remove deprecated Rails plugin `init.rb` file (1c617175)
+* Improve strict keyword argument matching deprecation warning by including the source location of the stub definition (77c0d4cc)
+* Add README section re semantic versioning (00758246)
 
 ### Internal changes
 
@@ -41,6 +33,7 @@ from the Ruby v1.8 standard library are no longer supported (#540,969f4845)
 * More consistent Test::Unit & Minitest integration (27dd3817)
 * Remove redundant `require` statements (d82218a8,fa17b114)
 * Add missing `require` statement (73493761)
+* Disable Style/Semicolon cop globally (8cd0b705)
 
 ## 1.16.0
 
