@@ -252,11 +252,11 @@ module Mocha
 
     # Perform strict keyword argument comparison. Only supported in Ruby >= v2.7.
     #
-    # When this option is set to +false+ a positional +Hash+ and a set of keyword arguments are treated the same during comparison, which can lead to false negatives in Ruby >= v3.0 (see examples below). However, a deprecation warning will be displayed if a positional +Hash+ matches a set of keyword arguments or vice versa. This is because {#strict_keyword_argument_matching=} will default to +true+ in the future.
+    # When this option is set to +false+ a positional +Hash+ and a set of keyword arguments are treated the same during comparison, which can lead to misleading passing tests in Ruby >= v3.0 (see examples below). However, a deprecation warning will be displayed if a positional +Hash+ matches a set of keyword arguments or vice versa. This is because {#strict_keyword_argument_matching=} will default to +true+ in the future.
     #
     # For more details on keyword arguments in Ruby v3, refer to {https://www.ruby-lang.org/en/news/2019/12/12/separation-of-positional-and-keyword-arguments-in-ruby-3-0 this article}.
     #
-    # Note that +Hash+-related matchers such as {ParameterMatchers#has_value} or {ParameterMatchers#has_key} will still treat a positional +Hash+ and a set of keyword arguments the same, so false negatives are still possible when they are used.
+    # Note that +Hash+-related matchers such as {ParameterMatchers#has_value} or {ParameterMatchers#has_key} will still treat a positional +Hash+ and a set of keyword arguments the same, so misleading passing tests are still possible when they are used.
     #
     # This configuration option is +false+ by default to enable gradual adoption, but will be +true+ by default in the future.
     #
