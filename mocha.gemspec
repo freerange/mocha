@@ -21,4 +21,6 @@ Gem::Specification.new do |s|
   s.homepage = 'https://mocha.jamesmead.org'
   s.require_paths = ['lib']
   s.summary = 'Mocking and stubbing library'
+
+  s.add_runtime_dependency 'ruby2_keywords', '>= 0.0.5'
 end
