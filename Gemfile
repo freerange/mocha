@@ -28,5 +28,3 @@ if ENV['MOCHA_GENERATE_DOCS']
   gem 'redcarpet'
   gem 'yard'
 end
-
-gem 'ruby2_keywords', '~> 0.0.5'
