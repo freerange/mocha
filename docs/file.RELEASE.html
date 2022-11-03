@@ -6,7 +6,7 @@
 <title>
   File: RELEASE
   
-    &mdash; Mocha 2.0.0
+    &mdash; Mocha 2.0.1
   
 </title>
 
@@ -58,6 +58,14 @@
       </div>
 
       <div id="content"><div id='filecontents'><h1 id="release-notes">Release Notes</h1>
+
+<h2 id="2-0-1">2.0.1</h2>
+
+<h3 id="external-changes">External changes</h3>
+
+<ul>
+<li>Fix <code>LoadError</code> when using v2.0.0 with Ruby &lt; v2.7 by moving declaration of runtime dependency on <code>ruby2_keywords</code> gem from <code>Gemfile</code> to <code>mocha.gemspec</code> - thanks to @mishina2228 for reporting (#581, #582, cdeb0356)</li>
+</ul>
 
 <h2 id="2-0-0">2.0.0</h2>
 
@@ -1170,7 +1178,7 @@ Hash with wrong number of entries.</li>
 </div>
 
       <div id="footer">
-  Generated on Tue Nov  1 13:55:27 2022 by
+  Generated on Thu Nov  3 10:41:04 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.0).
 </div>
