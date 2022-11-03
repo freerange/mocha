@@ -1,5 +1,11 @@
 # Release Notes
 
+## 2.0.1
+
+### External changes
+
+* Fix `LoadError` when using v2.0.0 with Ruby < v2.7 by moving declaration of runtime dependency on `ruby2_keywords` gem from `Gemfile` to `mocha.gemspec` - thanks to @mishina2228 for reporting (#581, #582, cdeb0356)
+
 ## 2.0.0
 
 ### External changes
