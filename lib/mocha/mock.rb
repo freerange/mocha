@@ -183,11 +183,11 @@ module Mocha
       end
     end
 
-    # Constrains the {Mock} instance so that it can only expect or stub methods to which +responder+ responds. The constraint is only applied at method invocation time.
+    # Constrains the {Mock} instance so that it can only expect or stub methods to which +responder+ responds publicly. The constraint is only applied at method invocation time.
     #
-    # A +NoMethodError+ will be raised if the +responder+ does not +#respond_to?+ a method invocation (even if the method has been expected or stubbed).
+    # A +NoMethodError+ will be raised if the +responder+ does not publicly +#respond_to?+ the invoked method (even if the method has been expected or stubbed).
     #
-    # The {Mock} instance will delegate its +#respond_to?+ method to the +responder+.
+    # The {Mock} instance will delegate its +#respond_to?+ method to the +responder+. However, the +include_all+ parameter is not passed through, so only public methods on the +responder+ will be considered.
     #
     # Note that the methods on +responder+ are never actually invoked.
     #
@@ -237,11 +237,11 @@ module Mocha
       self
     end
 
-    # Constrains the {Mock} instance so that it can only expect or stub methods to which an instance of the +responder_class+ responds. The constraint is only applied at method invocation time. Note that the responder instance is instantiated using +Class#allocate+.
+    # Constrains the {Mock} instance so that it can only expect or stub methods to which an instance of the +responder_class+ responds publicly. The constraint is only applied at method invocation time. Note that the responder instance is instantiated using +Class#allocate+.
     #
-    # A +NoMethodError+ will be raised if the responder instance does not +#respond_to?+ a method invocation (even if the method has been expected or stubbed).
+    # A +NoMethodError+ will be raised if the responder instance does not publicly +#respond_to?+ the invoked method (even if the method has been expected or stubbed).
     #
-    # The {Mock} instance will delegate its +#respond_to?+ method to the responder instance.
+    # The {Mock} instance will delegate its +#respond_to?+ method to the responder instance. However, the +include_all+ parameter is not passed through, so only public methods on the +responder+  will be considered.
     #
     # Note that the methods on the responder instance are never actually invoked.
     #
@@ -329,9 +329,9 @@ module Mocha
     end
 
     # @private
-    def respond_to_missing?(symbol, include_all)
+    def respond_to_missing?(symbol, _include_all)
       if @responder
-        @responder.respond_to?(symbol, include_all)
+        @responder.respond_to?(symbol)
       else
         @everything_stubbed || all_expectations.matches_method?(symbol)
       end
