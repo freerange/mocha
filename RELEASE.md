@@ -1,5 +1,11 @@
 # Release Notes
 
+## 1.16.1
+
+### External changes
+
+* Fix regression in `Mock#responds_like` behaviour - thanks to @adrianna-chang-shopify for reporting (#580,#583,77af2af1)
+
 ## 1.16.0
 
 ### External changes
