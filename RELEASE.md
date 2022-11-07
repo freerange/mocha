@@ -1,5 +1,11 @@
 # Release Notes
 
+## 2.0.2
+
+### External changes
+
+* Fix regression in `Mock#responds_like` behaviour - thanks to @adrianna-chang-shopify for reporting (#580,#583,ba4d619e)
+
 ## 2.0.1
 
 ### External changes
@@ -41,6 +47,12 @@ from the Ruby v1.8 standard library are no longer supported (#540,969f4845)
 * Add missing `require` statement (73493761)
 * Disable Style/Semicolon cop globally (8cd0b705)
 
+## 1.16.1
+
+### External changes
+
+* Fix regression in `Mock#responds_like` behaviour - thanks to @adrianna-chang-shopify for reporting (#580,#583,77af2af1)
+
 ## 1.16.0
 
 ### External changes
@@ -51,6 +63,12 @@ from the Ruby v1.8 standard library are no longer supported (#540,969f4845)
 ### Internal changes
 
 * Remove redundant deprecation disabling in MockTest (dc8ca969)
+
+## 1.15.1
+
+### External changes
+
+* Fix regression in `Mock#responds_like` behaviour - thanks to @adrianna-chang-shopify for reporting (#580,#583,c586a08c)
 
 ## 1.15.0
 
