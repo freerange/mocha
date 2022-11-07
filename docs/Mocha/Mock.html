@@ -6,7 +6,7 @@
 <title>
   Class: Mocha::Mock
   
-    &mdash; Mocha 2.0.1
+    &mdash; Mocha 2.0.2
   
 </title>
 
@@ -211,7 +211,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Constrains the <span class='object_link'><a href="" title="Mocha::Mock (class)">Mock</a></span> instance so that it can only expect or stub methods to which <code>responder</code> responds.</p>
+<p>Constrains the <span class='object_link'><a href="" title="Mocha::Mock (class)">Mock</a></span> instance so that it can only expect or stub methods to which <code>responder</code> responds publicly.</p>
 </div></span>
   
 </li>
@@ -237,7 +237,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Constrains the <span class='object_link'><a href="" title="Mocha::Mock (class)">Mock</a></span> instance so that it can only expect or stub methods to which an instance of the <code>responder_class</code> responds.</p>
+<p>Constrains the <span class='object_link'><a href="" title="Mocha::Mock (class)">Mock</a></span> instance so that it can only expect or stub methods to which an instance of the <code>responder_class</code> responds publicly.</p>
 </div></span>
   
 </li>
@@ -574,11 +574,11 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Constrains the <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance so that it can only expect or stub methods to which <code>responder</code> responds. The constraint is only applied at method invocation time.</p>
+<p>Constrains the <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance so that it can only expect or stub methods to which <code>responder</code> responds publicly. The constraint is only applied at method invocation time.</p>
 
-<p>A <code>NoMethodError</code> will be raised if the <code>responder</code> does not <code>#respond_to?</code> a method invocation (even if the method has been expected or stubbed).</p>
+<p>A <code>NoMethodError</code> will be raised if the <code>responder</code> does not publicly <code>#respond_to?</code> the invoked method (even if the method has been expected or stubbed).</p>
 
-<p>The <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance will delegate its <code>#respond_to?</code> method to the <code>responder</code>.</p>
+<p>The <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance will delegate its <code>#respond_to?</code> method to the <code>responder</code>. However, the <code>include_all</code> parameter is not passed through, so only public methods on the <code>responder</code> will be considered.</p>
 
 <p>Note that the methods on <code>responder</code> are never actually invoked.</p>
 
@@ -727,11 +727,11 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Constrains the <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance so that it can only expect or stub methods to which an instance of the <code>responder_class</code> responds. The constraint is only applied at method invocation time. Note that the responder instance is instantiated using <tt>Class#allocate</tt>.</p>
+<p>Constrains the <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance so that it can only expect or stub methods to which an instance of the <code>responder_class</code> responds publicly. The constraint is only applied at method invocation time. Note that the responder instance is instantiated using <tt>Class#allocate</tt>.</p>
 
-<p>A <code>NoMethodError</code> will be raised if the responder instance does not <code>#respond_to?</code> a method invocation (even if the method has been expected or stubbed).</p>
+<p>A <code>NoMethodError</code> will be raised if the responder instance does not publicly <code>#respond_to?</code> the invoked method (even if the method has been expected or stubbed).</p>
 
-<p>The <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance will delegate its <code>#respond_to?</code> method to the responder instance.</p>
+<p>The <span class='object_link'><a href="" title="Mocha::Mock (class)">Mocha::Mock</a></span> instance will delegate its <code>#respond_to?</code> method to the responder instance. However, the <code>include_all</code> parameter is not passed through, so only public methods on the <code>responder</code>  will be considered.</p>
 
 <p>Note that the methods on the responder instance are never actually invoked.</p>
 
@@ -1131,7 +1131,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Nov  3 10:41:04 2022 by
+  Generated on Mon Nov  7 15:29:09 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.0).
 </div>
