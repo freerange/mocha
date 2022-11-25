@@ -44,6 +44,6 @@ class RegexpMatchesTest < Mocha::TestCase
   private
 
   def object_not_responding_to_equals_tilde
-    Class.new { undef =~ }.new
+    Class.new { undef =~ if respond_to?(:=~) }.new
   end
 end
