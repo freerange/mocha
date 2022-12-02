@@ -14,4 +14,11 @@ class BacktraceFilterTest < Mocha::TestCase
   def test_should_determine_path_for_mocha_lib_directory
     assert_match Regexp.new('/lib/$'), BacktraceFilter::LIB_DIRECTORY
   end
+
+  def test_should_handle_special_characters
+    lib_directory = '/tmp/bundle/ruby/3.2.0+3/gems/mocha-2.0.2/lib/'
+    filter = BacktraceFilter.new(lib_directory)
+    backtrace = ['/keep/me', "#{lib_directory}mocha/deprecation.rb"]
+    assert_equal ['/keep/me'], filter.filtered(backtrace)
+  end
 end
