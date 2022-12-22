@@ -9,17 +9,17 @@ class HasKeysTest < Mocha::TestCase
 
   def test_should_match_hash_including_specified_keys
     matcher = has_keys(:key_1, :key_2)
-    assert matcher.matches?([{ :key_1 => 1, :key_2 => 2, :key_3 => 3 }])
+    assert matcher.matches?([{ key_1: 1, key_2: 2, key_3: 3 }])
   end
 
   def test_should_not_match_hash_not_including_specified_keys
     matcher = has_keys(:key_1, :key_2)
-    assert !matcher.matches?([{ :key_3 => 3 }])
+    assert !matcher.matches?([{ key_3: 3 }])
   end
 
   def test_should_not_match_hash_not_including_all_keys
     matcher = has_keys(:key_1, :key_2)
-    assert !matcher.matches?([{ :key_1 => 1, :key_3 => 3 }])
+    assert !matcher.matches?([{ key_1: 1, key_3: 3 }])
   end
 
   def test_should_describe_matcher
@@ -29,12 +29,12 @@ class HasKeysTest < Mocha::TestCase
 
   def test_should_match_hash_including_specified_key_with_nested_key_matcher
     matcher = has_keys(equals(:key_1), equals(:key_2))
-    assert matcher.matches?([{ :key_1 => 1, :key_2 => 2 }])
+    assert matcher.matches?([{ key_1: 1, key_2: 2 }])
   end
 
   def test_should_not_match_hash_not_including_specified_keys_with_nested_key_matchers
     matcher = has_keys(equals(:key_1), equals(:key2))
-    assert !matcher.matches?([{ :key_2 => 2 }])
+    assert !matcher.matches?([{ key_2: 2 }])
   end
 
   def test_should_not_raise_error_on_empty_arguments

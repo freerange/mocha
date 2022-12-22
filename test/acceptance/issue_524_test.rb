@@ -14,7 +14,7 @@ class Issue524Test < Mocha::TestCase
   def test_expects_returns_last_expectation
     test_result = run_as_test do
       object = mock
-      object.expects(:method_1 => 1, :method_2 => 2).twice
+      object.expects(method_1: 1, method_2: 2).twice
       object.method_1
       object.method_2
       object.method_2
@@ -25,7 +25,7 @@ class Issue524Test < Mocha::TestCase
   def test_stubs_returns_last_expectation
     test_result = run_as_test do
       object = mock
-      object.stubs(:method_1 => 1, :method_2 => 2).twice
+      object.stubs(method_1: 1, method_2: 2).twice
       object.method_1
       object.method_2
       object.method_2

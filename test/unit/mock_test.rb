@@ -165,14 +165,14 @@ class MockTest < Mocha::TestCase
 
   def test_should_set_up_multiple_expectations_with_return_values
     mock = build_mock
-    mock.expects(:method1 => :result1, :method2 => :result2)
+    mock.expects(method1: :result1, method2: :result2)
     assert_equal :result1, mock.method1
     assert_equal :result2, mock.method2
   end
 
   def test_should_set_up_multiple_stubs_with_return_values
     mock = build_mock
-    mock.stubs(:method1 => :result1, :method2 => :result2)
+    mock.stubs(method1: :result1, method2: :result2)
     assert_equal :result1, mock.method1
     assert_equal :result2, mock.method2
   end

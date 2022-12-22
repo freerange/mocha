@@ -70,11 +70,11 @@ module SharedTests
   def test_mock_object_unexpected_invocation_in_setup
     execution_point = nil
     test_result = run_as_tests(
-      :setup => lambda {
+      setup: lambda {
         mock = mock('not expecting invocation')
         execution_point = ExecutionPoint.current; mock.unexpected
       },
-      :test_me => lambda {
+      test_me: lambda {
         assert true
       }
     )
@@ -87,11 +87,11 @@ module SharedTests
   def test_mock_object_unsatisfied_expectation_in_setup
     execution_point = nil
     test_result = run_as_tests(
-      :setup => lambda {
+      setup: lambda {
         mock = mock('expecting invocation')
         execution_point = ExecutionPoint.current; mock.expects(:expected)
       },
-      :test_me => lambda {
+      test_me: lambda {
         assert true
       }
     )
@@ -108,10 +108,10 @@ module SharedTests
   def test_mock_object_unexpected_invocation_in_teardown
     execution_point = nil
     test_result = run_as_tests(
-      :test_me => lambda {
+      test_me: lambda {
         assert true
       },
-      :teardown => lambda {
+      teardown: lambda {
         mock = mock('not expecting invocation')
         execution_point = ExecutionPoint.current; mock.unexpected
       }
@@ -159,11 +159,11 @@ module SharedTests
     execution_point = nil
     klass = Class.new
     test_result = run_as_tests(
-      :test_1 => lambda {
+      test_1: lambda {
         klass.expects(:foo)
         klass.foo
       },
-      :test_2 => lambda {
+      test_2: lambda {
         execution_point = ExecutionPoint.current; klass.foo
       }
     )

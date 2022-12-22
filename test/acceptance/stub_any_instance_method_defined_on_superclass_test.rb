@@ -46,11 +46,11 @@ class StubAnyInstanceMethodDefinedOnSuperclassTest < Mocha::TestCase
       def my_instance_method; end
     end
     test_result = run_as_tests(
-      :test_1 => lambda {
+      test_1: lambda {
         klass.any_instance.expects(:my_instance_method)
         klass.new.my_instance_method
       },
-      :test_2 => lambda {
+      test_2: lambda {
         superklass.any_instance.expects(:my_instance_method)
       }
     )

@@ -10,12 +10,12 @@ class HasValueTest < Mocha::TestCase
 
   def test_should_match_hash_including_specified_value
     matcher = has_value('value_1')
-    assert matcher.matches?([{ :key_1 => 'value_1', :key_2 => 'value_2' }])
+    assert matcher.matches?([{ key_1: 'value_1', key_2: 'value_2' }])
   end
 
   def test_should_not_match_hash_not_including_specified_value
     matcher = has_value('value_1')
-    assert !matcher.matches?([{ :key_2 => 'value_2' }])
+    assert !matcher.matches?([{ key_2: 'value_2' }])
   end
 
   def test_should_describe_matcher
@@ -25,12 +25,12 @@ class HasValueTest < Mocha::TestCase
 
   def test_should_match_hash_including_specified_value_with_nested_value_matcher
     matcher = has_value(equals('value_1'))
-    assert matcher.matches?([{ :key_1 => 'value_1', :key_2 => 'value_2' }])
+    assert matcher.matches?([{ key_1: 'value_1', key_2: 'value_2' }])
   end
 
   def test_should_not_match_hash_not_including_specified_value_with_nested_value_matcher
     matcher = has_value(equals('value_1'))
-    assert !matcher.matches?([{ :key_2 => 'value_2' }])
+    assert !matcher.matches?([{ key_2: 'value_2' }])
   end
 
   def test_should_not_raise_error_on_empty_arguments

@@ -111,7 +111,7 @@ def benchmark_test_case(klass, iterations)
     unless @silent_option
       begin
         load 'test/unit/ui/console/outputlevel.rb' unless defined?(Test::Unit::UI::Console::OutputLevel::SILENT)
-        @silent_option = { :output_level => Test::Unit::UI::Console::OutputLevel::SILENT }
+        @silent_option = { output_level: Test::Unit::UI::Console::OutputLevel::SILENT }
       rescue LoadError
         @silent_option = Test::Unit::UI::SILENT
       end
