@@ -31,7 +31,7 @@ class StubTest < Mocha::TestCase
 
   def test_should_build_stub_incorporating_two_expectations
     test_result = run_as_test do
-      foo = stub(:bar => 'bar', :baz => 'baz')
+      foo = stub(bar: 'bar', baz: 'baz')
       foo.bar
       foo.baz
     end
@@ -40,7 +40,7 @@ class StubTest < Mocha::TestCase
 
   def test_should_build_named_stub_incorporating_two_expectations
     test_result = run_as_test do
-      foo = stub('foo', :bar => 'bar', :baz => 'baz')
+      foo = stub('foo', bar: 'bar', baz: 'baz')
       foo.bar
       foo.baz
     end

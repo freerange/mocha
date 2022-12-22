@@ -39,13 +39,13 @@ module Mocha
   class Configuration
     # @private
     DEFAULTS = {
-      :stubbing_method_unnecessarily => :allow,
-      :stubbing_method_on_non_mock_object => :allow,
-      :stubbing_non_existent_method => :allow,
-      :stubbing_non_public_method => :allow,
-      :stubbing_method_on_nil => :prevent,
-      :display_matching_invocations_on_failure => false,
-      :strict_keyword_argument_matching => false
+      stubbing_method_unnecessarily: :allow,
+      stubbing_method_on_non_mock_object: :allow,
+      stubbing_non_existent_method: :allow,
+      stubbing_non_public_method: :allow,
+      stubbing_method_on_nil: :prevent,
+      display_matching_invocations_on_failure: false,
+      strict_keyword_argument_matching: false
     }.freeze
 
     attr_reader :options

@@ -125,11 +125,11 @@ class StubClassMethodDefinedOnSuperclassTest < Mocha::TestCase
       def self.my_class_method; end
     end
     test_result = run_as_tests(
-      :test_1 => lambda {
+      test_1: lambda {
         klass.expects(:my_class_method)
         klass.my_class_method
       },
-      :test_2 => lambda {
+      test_2: lambda {
         superklass.expects(:my_class_method)
       }
     )
