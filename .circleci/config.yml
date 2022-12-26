@@ -80,7 +80,7 @@ workflows:
                 - ruby:2.7
                 - ruby:3.0
                 - ruby:3.1
-                - ruby:3.2.0-preview3
+                - ruby:3.2
                 - ruby:latest
                 - jruby:9.3.9.0
               gemfile:
