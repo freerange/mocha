@@ -324,7 +324,7 @@ module Mocha
     def handle_method_call(symbol, arguments, block)
       check_expiry
       check_responder_responds_to(symbol)
-      invocation = Invocation.new(self, symbol, arguments, block)
+      invocation = Invocation.new(self, symbol, arguments, block, @responder)
 
       matching_expectations = all_expectations.matching_expectations(invocation)
 

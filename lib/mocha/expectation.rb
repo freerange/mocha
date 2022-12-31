@@ -700,7 +700,7 @@ module Mocha
 
     # @private
     def match?(invocation, ignoring_order: false)
-      order_independent_match = @method_matcher.match?(invocation.method_name) && @parameters_matcher.match?(invocation.arguments) && @block_matcher.match?(invocation.block)
+      order_independent_match = @method_matcher.match?(invocation.method_name) && @parameters_matcher.match?(invocation) && @block_matcher.match?(invocation.block)
       ignoring_order ? order_independent_match : order_independent_match && in_correct_order?
     end
 

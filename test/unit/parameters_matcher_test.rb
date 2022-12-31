@@ -2,91 +2,92 @@
 
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/parameters_matcher'
+require 'mocha/invocation'
 
 class ParametersMatcherTest < Mocha::TestCase
   include Mocha
 
   def test_should_match_any_actual_parameters_if_no_expected_parameters_specified
     parameters_matcher = ParametersMatcher.new
-    assert parameters_matcher.match?([1, 2, 3])
+    assert parameters_matcher.match?(invocation_with_arguments([1, 2, 3]))
   end
 
   def test_should_match_if_actual_parameters_are_same_as_expected_parameters
     parameters_matcher = ParametersMatcher.new([4, 5, 6])
-    assert parameters_matcher.match?([4, 5, 6])
+    assert parameters_matcher.match?(invocation_with_arguments([4, 5, 6]))
   end
 
   def test_should_not_match_if_actual_parameters_are_different_from_expected_parameters
     parameters_matcher = ParametersMatcher.new([4, 5, 6])
-    assert !parameters_matcher.match?([1, 2, 3])
+    assert !parameters_matcher.match?(invocation_with_arguments([1, 2, 3]))
   end
 
   def test_should_not_match_if_there_are_less_actual_parameters_than_expected_parameters
     parameters_matcher = ParametersMatcher.new([4, 5, 6])
-    assert !parameters_matcher.match?([4, 5])
+    assert !parameters_matcher.match?(invocation_with_arguments([4, 5]))
   end
 
   def test_should_not_match_if_there_are_more_actual_parameters_than_expected_parameters
     parameters_matcher = ParametersMatcher.new([4, 5])
-    assert !parameters_matcher.match?([4, 5, 6])
+    assert !parameters_matcher.match?(invocation_with_arguments([4, 5, 6]))
   end
 
   def test_should_not_match_if_not_all_required_parameters_are_supplied
     optionals = ParameterMatchers::Optionally.new(6, 7)
     parameters_matcher = ParametersMatcher.new([4, 5, optionals])
-    assert !parameters_matcher.match?([4])
+    assert !parameters_matcher.match?(invocation_with_arguments([4]))
   end
 
   def test_should_match_if_all_required_parameters_match_and_no_optional_parameters_are_supplied
     optionals = ParameterMatchers::Optionally.new(6, 7)
     parameters_matcher = ParametersMatcher.new([4, 5, optionals])
-    assert parameters_matcher.match?([4, 5])
+    assert parameters_matcher.match?(invocation_with_arguments([4, 5]))
   end
 
   def test_should_match_if_all_required_and_optional_parameters_match_and_some_optional_parameters_are_supplied
     optionals = ParameterMatchers::Optionally.new(6, 7)
     parameters_matcher = ParametersMatcher.new([4, 5, optionals])
-    assert parameters_matcher.match?([4, 5, 6])
+    assert parameters_matcher.match?(invocation_with_arguments([4, 5, 6]))
   end
 
   def test_should_match_if_all_required_and_optional_parameters_match_and_all_optional_parameters_are_supplied
     optionals = ParameterMatchers::Optionally.new(6, 7)
     parameters_matcher = ParametersMatcher.new([4, 5, optionals])
-    assert parameters_matcher.match?([4, 5, 6, 7])
+    assert parameters_matcher.match?(invocation_with_arguments([4, 5, 6, 7]))
   end
 
   def test_should_not_match_if_all_required_and_optional_parameters_match_but_too_many_optional_parameters_are_supplied
     optionals = ParameterMatchers::Optionally.new(6, 7)
     parameters_matcher = ParametersMatcher.new([4, 5, optionals])
-    assert !parameters_matcher.match?([4, 5, 6, 7, 8])
+    assert !parameters_matcher.match?(invocation_with_arguments([4, 5, 6, 7, 8]))
   end
 
   def test_should_not_match_if_all_required_parameters_match_but_some_optional_parameters_do_not_match
     optionals = ParameterMatchers::Optionally.new(6, 7)
     parameters_matcher = ParametersMatcher.new([4, 5, optionals])
-    assert !parameters_matcher.match?([4, 5, 6, 0])
+    assert !parameters_matcher.match?(invocation_with_arguments([4, 5, 6, 0]))
   end
 
   def test_should_not_match_if_some_required_parameters_do_not_match_although_all_optional_parameters_do_match
     optionals = ParameterMatchers::Optionally.new(6, 7)
     parameters_matcher = ParametersMatcher.new([4, 5, optionals])
-    assert !parameters_matcher.match?([4, 0, 6])
+    assert !parameters_matcher.match?(invocation_with_arguments([4, 0, 6]))
   end
 
   def test_should_not_match_if_all_required_parameters_match_but_no_optional_parameters_match
     optionals = ParameterMatchers::Optionally.new(6, 7)
     parameters_matcher = ParametersMatcher.new([4, 5, optionals])
-    assert !parameters_matcher.match?([4, 5, 0, 0])
+    assert !parameters_matcher.match?(invocation_with_arguments([4, 5, 0, 0]))
   end
 
   def test_should_match_if_actual_parameters_satisfy_matching_block
     parameters_matcher = ParametersMatcher.new { |x, y| x + y == 3 }
-    assert parameters_matcher.match?([1, 2])
+    assert parameters_matcher.match?(invocation_with_arguments([1, 2]))
   end
 
   def test_should_not_match_if_actual_parameters_do_not_satisfy_matching_block
     parameters_matcher = ParametersMatcher.new { |x, y| x + y == 3 }
-    assert !parameters_matcher.match?([2, 3])
+    assert !parameters_matcher.match?(invocation_with_arguments([2, 3]))
   end
 
   def test_should_remove_outer_array_braces
@@ -109,5 +110,11 @@ class ParametersMatcherTest < Mocha::TestCase
   def test_should_indicate_that_matcher_logic_is_defined_by_custom_block
     parameters_matcher = ParametersMatcher.new { true }
     assert_equal '(arguments_accepted_by_custom_matching_block)', parameters_matcher.mocha_inspect
+  end
+
+  private
+
+  def invocation_with_arguments(arguments)
+    Invocation.new(nil, nil, arguments, nil, nil)
   end
 end
