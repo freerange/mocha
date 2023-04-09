@@ -1,4 +1,4 @@
-## Mocha [![CircleCI status of freerange/mocha](https://circleci.com/gh/freerange/mocha.svg?style=shield&circle-token=bc1f6576c77da43ec58badde9273fa4eb1d7f53a)](https://app.circleci.com/pipelines/github/freerange/mocha) [![Gem Version](https://badge.fury.io/rb/mocha.svg)](http://badge.fury.io/rb/mocha)
+## Mocha [![CircleCI status of freerange/mocha](https://circleci.com/gh/freerange/mocha.svg?style=shield)](https://app.circleci.com/pipelines/github/freerange/mocha) [![Gem Version](https://badge.fury.io/rb/mocha.svg)](http://badge.fury.io/rb/mocha)
 
 ### Description
 
