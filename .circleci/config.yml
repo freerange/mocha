@@ -16,7 +16,7 @@ jobs:
       - run: ruby --version
       - when:
           condition:
-            equal: [ "jruby:9.3.9.0", << parameters.docker-image >>]
+            equal: [ "jruby:latest", << parameters.docker-image >>]
           steps:
             - run: apt-get update
             - run: apt-get install -y git
@@ -82,7 +82,7 @@ workflows:
                 - ruby:3.1
                 - ruby:3.2
                 - ruby:latest
-                - jruby:9.3.9.0
+                - jruby:latest
               gemfile:
                 - Gemfile
       - build:
