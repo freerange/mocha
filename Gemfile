@@ -26,5 +26,5 @@ if RUBY_VERSION >= '2.2.0'
 end
 if ENV['MOCHA_GENERATE_DOCS']
   gem 'redcarpet'
-  gem 'yard', '<= 0.9.28'
+  gem 'yard'
 end
