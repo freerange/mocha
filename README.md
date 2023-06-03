@@ -331,14 +331,12 @@ See this [list of contributors](https://github.com/freerange/mocha/graphs/contri
 * Commit & push to GitHub
 * Check CircleCI build is passing - https://app.circleci.com/pipelines/github/freerange/mocha
 
-* Sign in to Google Analytics - https://analytics.google.com/analytics/web/
-* Find the web property ID for floehopper (625523) > Mocha Documentation (UA-625523-7)
 * Generate documentation:
 
 ```bash
 $ MOCHA_GENERATE_DOCS=true bundle install
 
-$ MOCHA_GENERATE_DOCS=true GOOGLE_ANALYTICS_WEB_PROPERTY_ID=UA-625523-7 rake generate_docs
+$ MOCHA_GENERATE_DOCS=true rake generate_docs
 ```
 * Commit documentation & push to GitHub
 * Sign in to rubygems.org and find API key - https://rubygems.org/profile/edit

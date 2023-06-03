@@ -50,7 +50,7 @@ jobs:
           steps:
             - run: bundle exec rake test:performance
             - run: MOCHA_GENERATE_DOCS=1 bundle install --gemfile=<< parameters.gemfile >>
-            - run: MOCHA_GENERATE_DOCS=1 GOOGLE_ANALYTICS_WEB_PROPERTY_ID=dummy rake yardoc
+            - run: MOCHA_GENERATE_DOCS=1 rake yardoc
   lint:
     docker:
       - image: ruby:2.6
