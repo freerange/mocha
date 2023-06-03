@@ -1,5 +1,4 @@
 --output-dir docs
---template-path yard-templates
 --no-private
 lib/mocha/api.rb
 lib/mocha/hooks.rb

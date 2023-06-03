@@ -129,14 +129,8 @@ if ENV['MOCHA_GENERATE_DOCS']
     `rm -rf ./docs`
   end
 
-  task 'docs_environment' do
-    unless ENV['GOOGLE_ANALYTICS_WEB_PROPERTY_ID']
-      puts "\nWarning: GOOGLE_ANALYTICS_WEB_PROPERTY_ID was not defined\n\n"
-    end
-  end
-
   desc 'Generate documentation'
-  YARD::Rake::YardocTask.new('yardoc' => 'docs_environment') do |task|
+  YARD::Rake::YardocTask.new('yardoc') do |task|
     task.options = ['--title', "Mocha #{Mocha::VERSION}", '--fail-on-warning']
   end
 
