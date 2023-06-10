@@ -1,5 +1,31 @@
 # Release Notes
 
+## 2.0.3
+
+### External changes
+
+* Fix `BacktraceFilter` to handle special characters (e242033f, #592) - thanks to @casperisfine
+
+### Internal changes
+
+* Add Ruby v3.1 to the CircleCI build (3e460489)
+* DRY up `regexp_matches` test (ae9fed4a)
+* Fix regexp_matches tests in Ruby v3.2 (26b106a5, #590)
+* Use Ruby 1.9 hash syntax (8bc0ad2f, #598, #537) - thanks to @herwinw
+* Simplify storage of `MOCHA_OPTIONS` (b70507a1, #600) - thanks to @herwinw
+* Pin JRuby to v9.3.9.0 in CircleCI builds (b8e6d064, #591)
+* Rubocop: enable Style/FormatStringToken cop (089a688e, #603) - thanks to @herwinw
+* Remove Ruby version check from `RespondsLikeTest` (21583129)
+* Add Ruby v3.2 to CircleCI build (f7e17636, #601)
+* Use Ruby v2.6 vs v2.2 to run lint CI job (af40b7db)
+* Pin yard version to v0.9.28 to avoid `ArgumentError` (12f1eef7)
+* Revert "Pin JRuby to v9.3.9.0 in CircleCI builds" (4f5bb2f0, #591)
+* Remove invalid CircleCI token from badge URL (7078e76a)
+* Revert "Pin yard version to v0.9.28 to avoid ArgumentError" (7c6c10c5, #609)
+* Remove Google Analytics tracking code (2279c49d, #612)
+* Update `MIT-LICENSE.md` (48162b4e)
+* Update `COPYING.md` (f3152376)
+
 ## 2.0.2
 
 ### External changes
