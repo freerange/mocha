@@ -1,5 +1,11 @@
 # Release Notes
 
+## 2.0.4
+
+### Internal changes
+
+* Update `README.md`
+
 ## 2.0.3
 
 ### External changes
