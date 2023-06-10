@@ -6,7 +6,7 @@
 <title>
   File: RELEASE
   
-    &mdash; Mocha 2.0.2
+    &mdash; Mocha 2.0.3
   
 </title>
 
@@ -58,6 +58,36 @@
       </div>
 
       <div id="content"><div id='filecontents'><h1 id="release-notes">Release Notes</h1>
+
+<h2 id="2-0-3">2.0.3</h2>
+
+<h3 id="external-changes">External changes</h3>
+
+<ul>
+<li>Fix <code>BacktraceFilter</code> to handle special characters (e242033f, #592) - thanks to @casperisfine</li>
+</ul>
+
+<h3 id="internal-changes">Internal changes</h3>
+
+<ul>
+<li>Add Ruby v3.1 to the CircleCI build (3e460489)</li>
+<li>DRY up <code>regexp_matches</code> test (ae9fed4a)</li>
+<li>Fix regexp_matches tests in Ruby v3.2 (26b106a5, #590)</li>
+<li>Use Ruby 1.9 hash syntax (8bc0ad2f, #598, #537) - thanks to @herwinw</li>
+<li>Simplify storage of <code>MOCHA_OPTIONS</code> (b70507a1, #600) - thanks to @herwinw</li>
+<li>Pin JRuby to v9.3.9.0 in CircleCI builds (b8e6d064, #591)</li>
+<li>Rubocop: enable Style/FormatStringToken cop (089a688e, #603) - thanks to @herwinw</li>
+<li>Remove Ruby version check from <code>RespondsLikeTest</code> (21583129)</li>
+<li>Add Ruby v3.2 to CircleCI build (f7e17636, #601)</li>
+<li>Use Ruby v2.6 vs v2.2 to run lint CI job (af40b7db)</li>
+<li>Pin yard version to v0.9.28 to avoid <code>ArgumentError</code> (12f1eef7)</li>
+<li>Revert &quot;Pin JRuby to v9.3.9.0 in CircleCI builds&quot; (4f5bb2f0, #591)</li>
+<li>Remove invalid CircleCI token from badge URL (7078e76a)</li>
+<li>Revert &quot;Pin yard version to v0.9.28 to avoid ArgumentError&quot; (7c6c10c5, #609)</li>
+<li>Remove Google Analytics tracking code (2279c49d, #612)</li>
+<li>Update <code>MIT-LICENSE.md</code> (48162b4e)</li>
+<li>Update <code>COPYING.md</code> (f3152376)</li>
+</ul>
 
 <h2 id="2-0-2">2.0.2</h2>
 
@@ -1191,20 +1221,12 @@ Hash with wrong number of entries.</li>
 <ul>
 <li>Initial release.</li>
 </ul>
-</div><script async src="https://www.googletagmanager.com/gtag/js?id=UA-625523-7"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-625523-7');
-</script>
-</div>
+</div></div>
 
       <div id="footer">
-  Generated on Mon Nov  7 15:29:08 2022 by
+  Generated on Sat Jun 10 12:12:50 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-3.1.0).
+  0.9.28 (ruby-3.2.0).
 </div>
 
     </div>

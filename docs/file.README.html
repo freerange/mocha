@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Mocha 2.0.2
+    &mdash; Mocha 2.0.3
   
 </title>
 
@@ -57,7 +57,7 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'><h2 id="mocha">Mocha <a href="https://app.circleci.com/pipelines/github/freerange/mocha"><img src="https://circleci.com/gh/freerange/mocha.svg?style=shield&circle-token=bc1f6576c77da43ec58badde9273fa4eb1d7f53a" alt="CircleCI status of freerange/mocha"></a> <a href="http://badge.fury.io/rb/mocha"><img src="https://badge.fury.io/rb/mocha.svg" alt="Gem Version"></a></h2>
+      <div id="content"><div id='filecontents'><h2 id="mocha">Mocha <a href="https://app.circleci.com/pipelines/github/freerange/mocha"><img src="https://circleci.com/gh/freerange/mocha.svg?style=shield" alt="CircleCI status of freerange/mocha"></a> <a href="http://badge.fury.io/rb/mocha"><img src="https://badge.fury.io/rb/mocha.svg" alt="Gem Version"></a></h2>
 
 <h3 id="description">Description</h3>
 
@@ -396,14 +396,12 @@ Only the following values are currently recognized and have an effect:</p>
 <li>Bump the version in <code>lib/mocha/version.rb</code></li>
 <li>Commit &amp; push to GitHub</li>
 <li><p>Check CircleCI build is passing - <a href="https://app.circleci.com/pipelines/github/freerange/mocha">https://app.circleci.com/pipelines/github/freerange/mocha</a></p></li>
-<li><p>Sign in to Google Analytics - <a href="https://analytics.google.com/analytics/web/">https://analytics.google.com/analytics/web/</a></p></li>
-<li><p>Find the web property ID for floehopper (625523) &gt; Mocha Documentation (UA-625523-7)</p></li>
 <li><p>Generate documentation:</p></li>
 </ul>
 
 <pre class="code bash"><code class="bash">$ MOCHA_GENERATE_DOCS=true bundle install
 
-$ MOCHA_GENERATE_DOCS=true GOOGLE_ANALYTICS_WEB_PROPERTY_ID=UA-625523-7 rake generate_docs
+$ MOCHA_GENERATE_DOCS=true rake generate_docs
 </code></pre>
 
 <ul>
@@ -435,20 +433,12 @@ Pushed mocha 1.2.0 to rubygems.org.
 <p>&copy; Copyright Revieworld Ltd. 2006</p>
 
 <p>You may use, copy and redistribute this library under the same terms as <a href="http://www.ruby-lang.org/en/LICENSE.txt">Ruby itself</a> or under the <a href="http://www.opensource.org/licenses/MIT">MIT license</a>.</p>
-</div><script async src="https://www.googletagmanager.com/gtag/js?id=UA-625523-7"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-625523-7');
-</script>
-</div>
+</div></div>
 
       <div id="footer">
-  Generated on Mon Nov  7 15:29:08 2022 by
+  Generated on Sat Jun 10 12:12:50 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-3.1.0).
+  0.9.28 (ruby-3.2.0).
 </div>
 
     </div>
