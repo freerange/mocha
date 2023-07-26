@@ -23,7 +23,7 @@ module Mocha
 
         # @private
         def self.included(_mod)
-          Mocha::ExpectationErrorFactory.exception_class = ::MiniTest::Assertion
+          Mocha::ExpectationErrorFactory.exception_class = ::Minitest::Assertion
         end
 
         # @private
