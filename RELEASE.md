@@ -1,10 +1,20 @@
 # Release Notes
 
+## 2.1.0
+
+### External changes
+
+* Fix compatibility with Minitest (#614) - thanks to @kyrofa & @manewitz for reporting and to @zenspider for his input
+
+### Internal changes
+
+* Update URLs for links to Ruby & MIT licenses (d6470af4)
+
 ## 2.0.4
 
 ### Internal changes
 
-* Update `README.md`
+* Update `README.md` (e8c21e1b)
 
 ## 2.0.3
 
