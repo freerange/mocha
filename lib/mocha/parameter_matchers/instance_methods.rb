@@ -6,7 +6,7 @@ module Mocha
     # @private
     module InstanceMethods
       # @private
-      def to_matcher(_expectation = nil)
+      def to_matcher(_expectation = nil, _method_accepts_keyword_arguments = true)
         Mocha::ParameterMatchers::Equals.new(self)
       end
     end
@@ -21,7 +21,11 @@ end
 # @private
 class Hash
   # @private
-  def to_matcher(expectation = nil)
-    Mocha::ParameterMatchers::PositionalOrKeywordHash.new(self, expectation)
+  def to_matcher(expectation = nil, method_accepts_keyword_arguments = true)
+    if method_accepts_keyword_arguments
+      Mocha::ParameterMatchers::PositionalOrKeywordHash.new(self, expectation)
+    else
+      Mocha::ParameterMatchers::Equals.new(self)
+    end
   end
 end

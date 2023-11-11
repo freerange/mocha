@@ -8,6 +8,7 @@ require 'mocha/method_matcher'
 require 'mocha/parameters_matcher'
 require 'mocha/argument_iterator'
 require 'mocha/expectation_error_factory'
+require 'mocha/ruby_version'
 
 module Mocha
   # Traditional mock object.
@@ -318,7 +319,7 @@ module Mocha
     def handle_method_call(symbol, arguments, block)
       check_expiry
       check_responder_responds_to(symbol)
-      invocation = Invocation.new(self, symbol, arguments, block)
+      invocation = Invocation.new(self, symbol, arguments, block, @responder)
       if (matching_expectation_allowing_invocation = all_expectations.match_allowing_invocation(invocation))
         matching_expectation_allowing_invocation.invoke(invocation)
       elsif (matching_expectation = all_expectations.match(invocation)) || (!matching_expectation && !@everything_stubbed)
@@ -379,9 +380,13 @@ module Mocha
     end
 
     def check_responder_responds_to(symbol)
-      if @responder && !@responder.respond_to?(symbol) # rubocop:disable Style/GuardClause
-        raise NoMethodError, "undefined method `#{symbol}' for #{mocha_inspect} which responds like #{@responder.mocha_inspect}"
-      end
+      return unless @responder
+
+      legacy_behaviour_for_array_flatten = !RUBY_V23_PLUS && !@responder.respond_to?(symbol) && (symbol == :to_ary)
+
+      return if @responder.respond_to?(symbol, true) && !legacy_behaviour_for_array_flatten
+
+      raise NoMethodError, "undefined method `#{symbol}' for #{mocha_inspect} which responds like #{@responder.mocha_inspect}"
     end
 
     def check_expiry

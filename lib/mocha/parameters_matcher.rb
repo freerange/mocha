@@ -9,16 +9,13 @@ module Mocha
       @matching_block = matching_block
     end
 
-    def match?(actual_parameters = [])
+    def match?(invocation)
+      actual_parameters = invocation.arguments || []
       if @matching_block
         @matching_block.call(*actual_parameters)
       else
-        parameters_match?(actual_parameters)
+        matchers(invocation).all? { |matcher| matcher.matches?(actual_parameters) } && actual_parameters.empty?
       end
-    end
-
-    def parameters_match?(actual_parameters)
-      matchers.all? { |matcher| matcher.matches?(actual_parameters) } && actual_parameters.empty?
     end
 
     def mocha_inspect
@@ -27,8 +24,8 @@ module Mocha
       "(#{signature})"
     end
 
-    def matchers
-      @expected_parameters.map { |p| p.to_matcher(@expectation) }
+    def matchers(invocation)
+      @expected_parameters.map { |p| p.to_matcher(@expectation, invocation.method_accepts_keyword_arguments?) }
     end
   end
 end
