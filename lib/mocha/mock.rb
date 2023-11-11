@@ -309,12 +309,10 @@ module Mocha
     end
 
     # @private
-    # rubocop:disable Style/MethodMissingSuper
-    def method_missing(symbol, *arguments, &block)
+    def method_missing(symbol, *arguments, &block) # rubocop:disable Style/MethodMissingSuper
       handle_method_call(symbol, arguments, block)
     end
     ruby2_keywords(:method_missing)
-    # rubocop:enable Style/MethodMissingSuper
 
     # @private
     def handle_method_call(symbol, arguments, block)
