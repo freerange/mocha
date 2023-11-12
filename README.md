@@ -34,7 +34,7 @@ require 'mocha/test_unit'
 ```ruby
 require 'rubygems'
 gem 'mocha'
-require 'minitest/unit'
+require 'minitest/autorun'
 require 'mocha/minitest'
 ```
 
@@ -60,7 +60,7 @@ require 'mocha/test_unit'
 gem 'mocha'
 
 # Elsewhere after Bundler has loaded gems e.g. after `require 'bundler/setup'`
-require 'minitest/unit'
+require 'minitest/autorun'
 require 'mocha/minitest'
 ```
 

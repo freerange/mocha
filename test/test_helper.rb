@@ -16,12 +16,6 @@ begin
 rescue LoadError
 end
 # rubocop:enable Lint/HandleExceptions
-begin
-  require 'minitest/unit'
-# rubocop:disable Lint/HandleExceptions
-rescue LoadError
-end
-# rubocop:enable Lint/HandleExceptions
 
 module Mocha; end
 
