@@ -31,7 +31,7 @@ module Mocha
     #
     # @example Actual parameter responds with "FOO" when :upcase is invoked and "oof" when :reverse is invoked.
     #   object = mock()
-    #   object.expects(:method_1).with(responds_with(:upcase => "FOO", :reverse => "oof"))
+    #   object.expects(:method_1).with(responds_with(upcase: "FOO", reverse: "oof"))
     #   object.method_1("foo")
     #   # no error raised, because "foo".upcase == "FOO" and "foo".reverse == "oof"
     def responds_with(*options)

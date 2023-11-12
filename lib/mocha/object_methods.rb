@@ -59,7 +59,7 @@ module Mocha
     #
     # @example Setting up multiple expectations on a non-mock object.
     #   product = Product.new
-    #   product.expects(:valid? => true, :save => true)
+    #   product.expects(valid?: true, save: true)
     #
     #   # exactly equivalent to
     #
@@ -108,7 +108,7 @@ module Mocha
     #
     # @example Setting up multiple stubbed methods on a non-mock object.
     #   product = Product.new
-    #   product.stubs(:valid? => true, :save => true)
+    #   product.stubs(valid?: true, save: true)
     #
     #   # exactly equivalent to
     #

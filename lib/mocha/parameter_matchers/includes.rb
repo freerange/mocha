@@ -24,7 +24,7 @@ module Mocha
     # @example Actual parameter includes item which matches nested matcher.
     #   object = mock()
     #   object.expects(:method_1).with(includes(has_key(:key)))
-    #   object.method_1(['foo', 'bar', {:key => 'baz'}])
+    #   object.method_1(['foo', 'bar', {key: 'baz'}])
     #   # no error raised
     #
     # @example Actual parameter does not include item matching nested matcher.
@@ -44,11 +44,11 @@ module Mocha
     # @example Actual parameter is a Hash including the given key.
     #   object = mock()
     #   object.expects(:method_1).with(includes(:bar))
-    #   object.method_1({:foo => 1, :bar => 2})
+    #   object.method_1({foo: 1, bar: 2})
     #   # no error raised
     #
     # @example Actual parameter is a Hash without the given key.
-    #   object.method_1({:foo => 1, :baz => 2})
+    #   object.method_1({foo: 1, baz: 2})
     #   # error raised, because hash does not include key 'bar'
     #
     # @example Actual parameter is a Hash with a key matching the given matcher.
