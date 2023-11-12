@@ -6,9 +6,9 @@ module Mocha
   #
   # This class should only be used by authors of test libraries and not by typical "users" of Mocha.
   #
-  # For example, it is used by +Mocha::Integration::MiniTest::Adapter+ in order to have Mocha raise a +MiniTest::Assertion+ which can then be sensibly handled by +MiniTest::Unit::TestCase+.
+  # For example, it is used by +Mocha::Integration::Minitest::Adapter+ in order to have Mocha raise a +Minitest::Assertion+ which can then be sensibly handled by +Minitest::Unit::TestCase+.
   #
-  # @see Mocha::Integration::MiniTest::Adapter
+  # @see Mocha::Integration::Minitest::Adapter
   class ExpectationErrorFactory
     class << self
       # @!attribute exception_class

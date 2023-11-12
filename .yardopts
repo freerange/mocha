@@ -16,7 +16,7 @@ lib/mocha/expectation_error.rb
 lib/mocha/stubbing_error.rb
 lib/mocha/unexpected_invocation.rb
 lib/mocha/integration/test_unit/adapter.rb
-lib/mocha/integration/mini_test/adapter.rb
+lib/mocha/integration/minitest/adapter.rb
 -
 RELEASE.md
 COPYING.md

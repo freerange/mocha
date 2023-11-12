@@ -8,7 +8,7 @@ $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), 'unit'))
 $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), 'unit', 'parameter_matchers'))
 $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), 'acceptance'))
 
-require 'mocha/detection/mini_test'
+require 'mocha/detection/minitest'
 
 begin
   require 'minitest'
@@ -16,20 +16,14 @@ begin
 rescue LoadError
 end
 # rubocop:enable Lint/HandleExceptions
-begin
-  require 'minitest/unit'
-# rubocop:disable Lint/HandleExceptions
-rescue LoadError
-end
-# rubocop:enable Lint/HandleExceptions
 
 module Mocha; end
 
-if (minitest_testcase = Mocha::Detection::MiniTest.testcase) && (ENV['MOCHA_RUN_INTEGRATION_TESTS'] != 'test-unit')
+if (minitest_testcase = Mocha::Detection::Minitest.testcase) && (ENV['MOCHA_RUN_INTEGRATION_TESTS'] != 'test-unit')
   begin
     require 'minitest/autorun'
   rescue LoadError
-    MiniTest::Unit.autorun
+    Minitest::Unit.autorun
   end
   # rubocop:disable Style/ClassAndModuleChildren
   class Mocha::TestCase < minitest_testcase

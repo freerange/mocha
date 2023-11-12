@@ -42,10 +42,10 @@ namespace 'test' do # rubocop:disable Metrics/BlockLength
   end
 
   namespace 'integration' do
-    desc 'Run MiniTest integration tests (intended to be run in its own process)'
+    desc 'Run Minitest integration tests (intended to be run in its own process)'
     Rake::TestTask.new('minitest') do |t|
       t.libs << 'test'
-      t.test_files = FileList['test/integration/mini_test_test.rb']
+      t.test_files = FileList['test/integration/minitest_test.rb']
       t.verbose = true
       t.warning = true
     end
@@ -93,18 +93,18 @@ end
 # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
 def benchmark_test_case(klass, iterations)
   require 'benchmark'
-  require 'mocha/detection/mini_test'
+  require 'mocha/detection/minitest'
 
-  if defined?(MiniTest)
-    minitest_version = Gem::Version.new(Mocha::Detection::MiniTest.version)
+  if defined?(Minitest)
+    minitest_version = Gem::Version.new(Mocha::Detection::Minitest.version)
     if Gem::Requirement.new('>= 5.0.0').satisfied_by?(minitest_version)
       Minitest.seed = 1
-      result = Benchmark.realtime { iterations.times { |_i| klass.run(MiniTest::CompositeReporter.new) } }
-      MiniTest::Runnable.runnables.delete(klass)
+      result = Benchmark.realtime { iterations.times { |_i| klass.run(Minitest::CompositeReporter.new) } }
+      Minitest::Runnable.runnables.delete(klass)
       result
     else
-      MiniTest::Unit.output = StringIO.new
-      Benchmark.realtime { iterations.times { |_i| MiniTest::Unit.new.run([klass]) } }
+      Minitest::Unit.output = StringIO.new
+      Benchmark.realtime { iterations.times { |_i| Minitest::Unit.new.run([klass]) } }
     end
   else
     load 'test/unit/ui/console/testrunner.rb' unless defined?(Test::Unit::UI::Console::TestRunner)

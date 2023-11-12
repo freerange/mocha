@@ -1,17 +1,17 @@
 module Mocha
   module Detection
-    module MiniTest
+    module Minitest
       def self.testcase
         if defined?(::Minitest::Test)
           ::Minitest::Test
-        elsif defined?(::MiniTest::Unit::TestCase)
-          ::MiniTest::Unit::TestCase
+        elsif defined?(::Minitest::Unit::TestCase)
+          ::Minitest::Unit::TestCase
         end
       end
 
       def self.version
-        if defined?(::MiniTest::Unit::VERSION)
-          ::MiniTest::Unit::VERSION
+        if defined?(::Minitest::Unit::VERSION)
+          ::Minitest::Unit::VERSION
         elsif defined?(::Minitest::VERSION)
           ::Minitest::VERSION
         else
