@@ -21,12 +21,12 @@ module Mocha
       # @example Alternative ways to combine matchers with a logical AND.
       #   object = mock()
       #   object.expects(:run).with(all_of(has_key(:foo), has_key(:bar)))
-      #   object.run(:foo => 'foovalue', :bar => 'barvalue')
+      #   object.run(foo: 'foovalue', bar: 'barvalue')
       #
       #   # is exactly equivalent to
       #
       #   object.expects(:run).with(has_key(:foo) & has_key(:bar))
-      #   object.run(:foo => 'foovalue', :bar => 'barvalue)
+      #   object.run(foo: 'foovalue', bar: 'barvalue)
       def &(other)
         AllOf.new(self, other)
       end
@@ -45,12 +45,12 @@ module Mocha
       # @example Alternative ways to combine matchers with a logical OR.
       #   object = mock()
       #   object.expects(:run).with(any_of(has_key(:foo), has_key(:bar)))
-      #   object.run(:foo => 'foovalue')
+      #   object.run(foo: 'foovalue')
       #
       #   # is exactly equivalent to
       #
       #   object.expects(:run).with(has_key(:foo) | has_key(:bar))
-      #   object.run(:foo => 'foovalue')
+      #   object.run(foo: 'foovalue')
       #
       # @example Using an explicit {Equals} matcher in combination with {#|}.
       #   object.expects(:run).with(equals(1) | equals(2))

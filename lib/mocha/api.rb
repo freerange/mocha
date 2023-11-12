@@ -60,7 +60,7 @@ module Mocha
     #
     # @example Using expected_methods_vs_return_values Hash to setup expectations.
     #   def test_motor_starts_and_stops
-    #     motor = mock('motor', :start => true, :stop => true)
+    #     motor = mock('motor', start: true, stop: true)
     #     assert motor.start
     #     assert motor.stop
     #     # an error will be raised unless both Motor#start and Motor#stop have been called
@@ -88,7 +88,7 @@ module Mocha
     #
     # @example Using stubbed_methods_vs_return_values Hash to setup stubbed methods.
     #   def test_motor_starts_and_stops
-    #     motor = stub('motor', :start => true, :stop => true)
+    #     motor = stub('motor', start: true, stop: true)
     #     assert motor.start
     #     assert motor.stop
     #     # an error will not be raised even if either Motor#start or Motor#stop has not been called
@@ -115,7 +115,7 @@ module Mocha
     #
     # @example Ignore invocations of irrelevant methods.
     #   def test_motor_stops
-    #     motor = stub_everything('motor', :stop => true)
+    #     motor = stub_everything('motor', stop: true)
     #     assert_nil motor.irrelevant_method_1 # => no error raised
     #     assert_nil motor.irrelevant_method_2 # => no error raised
     #     assert motor.stop

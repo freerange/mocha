@@ -100,7 +100,7 @@ module Mocha
     #
     # @example Setup multiple expectations using +expected_methods_vs_return_values+.
     #   object = mock()
-    #   object.expects(:expected_method_one => :result_one, :expected_method_two => :result_two)
+    #   object.expects(expected_method_one: :result_one, expected_method_two: :result_two)
     #
     #   # is exactly equivalent to
     #
@@ -138,7 +138,7 @@ module Mocha
     #
     # @example Setup multiple expectations using +stubbed_methods_vs_return_values+.
     #   object = mock()
-    #   object.stubs(:stubbed_method_one => :result_one, :stubbed_method_two => :result_two)
+    #   object.stubs(stubbed_method_one: :result_one, stubbed_method_two: :result_two)
     #
     #   # is exactly equivalent to
     #

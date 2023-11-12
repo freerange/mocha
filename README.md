@@ -151,7 +151,7 @@ class MiscExampleTest < Test::Unit::TestCase
   end
 
   def test_stubbing_instance_methods_on_real_objects
-    prices = [stub(:pence => 1000), stub(:pence => 2000)]
+    prices = [stub(pence: 1000), stub(pence: 2000)]
     product = Product.new
     product.stubs(:prices).returns(prices)
     assert_equal [1000, 2000], product.prices.collect {|p| p.pence}
@@ -170,7 +170,7 @@ class MiscExampleTest < Test::Unit::TestCase
   end
 
   def test_shortcuts
-    object = stub(:method1 => :result1, :method2 => :result2)
+    object = stub(method1: :result1, method2: :result2)
     assert_equal :result1, object.method1
     assert_equal :result2, object.method2
   end
