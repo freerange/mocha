@@ -1,5 +1,5 @@
 require 'stringio'
-require 'mocha/detection/mini_test'
+require 'mocha/detection/minitest'
 
 class MinitestResult
   minitest_version = Gem::Version.new(Mocha::Detection::Minitest.version)

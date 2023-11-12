@@ -1,6 +1,6 @@
 require 'mocha/debug'
-require 'mocha/detection/mini_test'
-require 'mocha/integration/mini_test/adapter'
+require 'mocha/detection/minitest'
+require 'mocha/integration/minitest/adapter'
 
 module Mocha
   module Integration
@@ -9,10 +9,10 @@ module Mocha
         target = Detection::Minitest.testcase
         return false unless target
 
-        mini_test_version = Gem::Version.new(Detection::Minitest.version)
-        Debug.puts "Detected Minitest version: #{mini_test_version}"
+        minitest_version = Gem::Version.new(Detection::Minitest.version)
+        Debug.puts "Detected Minitest version: #{minitest_version}"
 
-        unless Minitest::Adapter.applicable_to?(mini_test_version)
+        unless Minitest::Adapter.applicable_to?(minitest_version)
           raise 'Versions of minitest earlier than v3.3.0 are not supported.'
         end
 

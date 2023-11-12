@@ -12,8 +12,8 @@ module Mocha
         include Mocha::API
 
         # @private
-        def self.applicable_to?(mini_test_version)
-          Gem::Requirement.new('>= 3.3.0').satisfied_by?(mini_test_version)
+        def self.applicable_to?(minitest_version)
+          Gem::Requirement.new('>= 3.3.0').satisfied_by?(minitest_version)
         end
 
         # @private

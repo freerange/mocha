@@ -45,7 +45,7 @@ namespace 'test' do # rubocop:disable Metrics/BlockLength
     desc 'Run Minitest integration tests (intended to be run in its own process)'
     Rake::TestTask.new('minitest') do |t|
       t.libs << 'test'
-      t.test_files = FileList['test/integration/mini_test_test.rb']
+      t.test_files = FileList['test/integration/minitest_test.rb']
       t.verbose = true
       t.warning = true
     end
@@ -93,7 +93,7 @@ end
 # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
 def benchmark_test_case(klass, iterations)
   require 'benchmark'
-  require 'mocha/detection/mini_test'
+  require 'mocha/detection/minitest'
 
   if defined?(Minitest)
     minitest_version = Gem::Version.new(Mocha::Detection::Minitest.version)
