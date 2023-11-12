@@ -3,8 +3,8 @@ module Mocha
     module TestUnit
       def self.testcase
         if defined?(::Test::Unit::TestCase) &&
-           !(defined?(::MiniTest::Unit::TestCase) && (::Test::Unit::TestCase < ::MiniTest::Unit::TestCase)) &&
-           !(defined?(::MiniTest::Spec) && (::Test::Unit::TestCase < ::MiniTest::Spec))
+           !(defined?(::Minitest::Unit::TestCase) && (::Test::Unit::TestCase < ::Minitest::Unit::TestCase)) &&
+           !(defined?(::Minitest::Spec) && (::Test::Unit::TestCase < ::Minitest::Spec))
           ::Test::Unit::TestCase
         end
       end

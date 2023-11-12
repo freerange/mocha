@@ -20,8 +20,8 @@ module TestRunner
 
     tests = methods.keys.select { |m| m.to_s[/^test/] }.map { |m| test_class.new(m) }
 
-    if Mocha::Detection::MiniTest.testcase && (ENV['MOCHA_RUN_INTEGRATION_TESTS'] != 'test-unit')
-      minitest_version = Gem::Version.new(Mocha::Detection::MiniTest.version)
+    if Mocha::Detection::Minitest.testcase && (ENV['MOCHA_RUN_INTEGRATION_TESTS'] != 'test-unit')
+      minitest_version = Gem::Version.new(Mocha::Detection::Minitest.version)
       if Gem::Requirement.new('>= 5.0.0').satisfied_by?(minitest_version)
         require File.expand_path('../minitest_result', __FILE__)
         tests.each(&:run)
@@ -29,11 +29,11 @@ module TestRunner
         test_result = MinitestResult.new(tests)
       elsif Gem::Requirement.new('> 0.0.0', '< 5.0.0').satisfied_by?(minitest_version)
         require File.expand_path('../mini_test_result', __FILE__)
-        runner = MiniTest::Unit.new
+        runner = Minitest::Unit.new
         tests.each do |test|
           test.run(runner)
         end
-        test_result = MiniTestResult.new(runner, tests)
+        test_result = MinitestResult.new(runner, tests)
       end
     else
       require File.expand_path('../test_unit_result', __FILE__)

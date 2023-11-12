@@ -7,12 +7,12 @@ module Mocha
   #
   # This module is provided as part of the +Mocha::API+ module and is therefore part of the public API, but should only be used by authors of test libraries and not by typical "users" of Mocha.
   #
-  # Integration with Test::Unit and MiniTest are provided as part of Mocha, because they are (or were once) part of the Ruby standard library. Integration with other test libraries is not provided as *part* of Mocha, but is supported by means of the methods in this module.
+  # Integration with Test::Unit and Minitest are provided as part of Mocha, because they are (or were once) part of the Ruby standard library. Integration with other test libraries is not provided as *part* of Mocha, but is supported by means of the methods in this module.
   #
   # See the code in the +Adapter+ modules for examples of how to use the methods in this module. +Mocha::ExpectationErrorFactory+ may be used if you want +Mocha+ to raise a different type of exception.
   #
   # @see Mocha::Integration::TestUnit::Adapter
-  # @see Mocha::Integration::MiniTest::Adapter
+  # @see Mocha::Integration::Minitest::Adapter
   # @see Mocha::ExpectationErrorFactory
   # @see Mocha::API
   module Hooks

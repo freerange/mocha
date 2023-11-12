@@ -7,7 +7,7 @@ require 'mocha/object_methods'
 require 'mocha/class_methods'
 
 module Mocha
-  # Methods added to +Test::Unit::TestCase+, +MiniTest::Unit::TestCase+ or equivalent.
+  # Methods added to +Test::Unit::TestCase+, +Minitest::Unit::TestCase+ or equivalent.
   # The mock creation methods are {#mock}, {#stub} and {#stub_everything}, all of which return a #{Mock}
   # which can be further modified by {Mock#responds_like} and {Mock#responds_like_instance_of} methods,
   # both of which return a {Mock}, too, and can therefore, be chained to the original creation methods.

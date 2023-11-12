@@ -4,7 +4,7 @@ require 'mocha/configuration'
 require 'mocha/mockery'
 require 'introspection'
 
-if Mocha::Detection::MiniTest.testcase && (ENV['MOCHA_RUN_INTEGRATION_TESTS'] != 'test-unit')
+if Mocha::Detection::Minitest.testcase && (ENV['MOCHA_RUN_INTEGRATION_TESTS'] != 'test-unit')
   require 'mocha/minitest'
 else
   require 'mocha/test_unit'

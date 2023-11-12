@@ -4,7 +4,7 @@
 
 * A Ruby library for [mocking](http://xunitpatterns.com/Mock%20Object.html) and [stubbing](http://xunitpatterns.com/Test%20Stub.html) - but deliberately not (yet) [faking](http://xunitpatterns.com/Fake%20Object.html) or [spying](http://xunitpatterns.com/Test%20Spy.html).
 * A unified, simple and readable syntax for both full & partial mocking.
-* Built-in support for MiniTest and Test::Unit.
+* Built-in support for Minitest and Test::Unit.
 * Supported by many other test frameworks.
 
 ### Intended Usage
@@ -18,7 +18,7 @@ Install the latest version of the gem with the following command...
 
     $ gem install mocha
 
-Note: If you are intending to use Mocha with Test::Unit or MiniTest, you should only setup Mocha *after* loading the relevant test library...
+Note: If you are intending to use Mocha with Test::Unit or Minitest, you should only setup Mocha *after* loading the relevant test library...
 
 ##### Test::Unit
 
@@ -29,7 +29,7 @@ require 'test/unit'
 require 'mocha/test_unit'
 ```
 
-##### MiniTest
+##### Minitest
 
 ```ruby
 require 'rubygems'
@@ -53,7 +53,7 @@ require 'test/unit'
 require 'mocha/test_unit'
 ```
 
-##### MiniTest
+##### Minitest
 
 ```ruby
 # Gemfile
@@ -103,9 +103,9 @@ end
 
 If you're loading Mocha using Bundler within a Rails application, you should setup Mocha manually e.g. at the bottom of your `test_helper.rb`.
 
-##### MiniTest
+##### Minitest
 
-Note that since Rails v4 (at least), `ActiveSupport::TestCase` has inherited from `Minitest::Test` or its earlier equivalents. Thus unless you are *explicitly* using Test::Unit, you are likely to be using MiniTest.
+Note that since Rails v4 (at least), `ActiveSupport::TestCase` has inherited from `Minitest::Test` or its earlier equivalents. Thus unless you are *explicitly* using Test::Unit, you are likely to be using Minitest.
 
 ```ruby
 # Gemfile in Rails app

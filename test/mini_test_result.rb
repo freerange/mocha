@@ -1,8 +1,8 @@
 require 'stringio'
 require 'mocha/detection/mini_test'
 
-class MiniTestResult
-  minitest_version = Gem::Version.new(Mocha::Detection::MiniTest.version)
+class MinitestResult
+  minitest_version = Gem::Version.new(Mocha::Detection::Minitest.version)
   if Gem::Requirement.new('<= 4.6.1').satisfied_by?(minitest_version)
     FAILURE_PATTERN = /(Failure)\:\n([^\(]+)\(([^\)]+)\) \[([^\]]+)\]\:\n(.*)\n/m
     ERROR_PATTERN   = /(Error)\:\n([^\(]+)\(([^\)]+)\)\:\n(.+?)\n/m
@@ -75,11 +75,11 @@ class MiniTestResult
   end
 
   def failures
-    @runner.report.map { |puked| MiniTestResult.parse_failure(puked) }.compact
+    @runner.report.map { |puked| MinitestResult.parse_failure(puked) }.compact
   end
 
   def errors
-    @runner.report.map { |puked| MiniTestResult.parse_error(puked) }.compact
+    @runner.report.map { |puked| MinitestResult.parse_error(puked) }.compact
   end
 
   def failure_messages

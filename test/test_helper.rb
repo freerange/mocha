@@ -19,11 +19,11 @@ end
 
 module Mocha; end
 
-if (minitest_testcase = Mocha::Detection::MiniTest.testcase) && (ENV['MOCHA_RUN_INTEGRATION_TESTS'] != 'test-unit')
+if (minitest_testcase = Mocha::Detection::Minitest.testcase) && (ENV['MOCHA_RUN_INTEGRATION_TESTS'] != 'test-unit')
   begin
     require 'minitest/autorun'
   rescue LoadError
-    MiniTest::Unit.autorun
+    Minitest::Unit.autorun
   end
   # rubocop:disable Style/ClassAndModuleChildren
   class Mocha::TestCase < minitest_testcase
