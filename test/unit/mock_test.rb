@@ -1,5 +1,6 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/macos_version'
+require 'mocha/mockery'
 require 'mocha/mock'
 require 'mocha/expectation_error_factory'
 require 'set'
@@ -350,6 +351,6 @@ class MockTest < Mocha::TestCase
   private
 
   def build_mock
-    Mock.new(nil)
+    Mock.new(Mockery.new)
   end
 end

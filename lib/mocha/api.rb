@@ -131,9 +131,11 @@ module Mocha
 
     # Builds a new sequence which can be used to constrain the order in which expectations can occur.
     #
-    # Specify that an expected invocation must occur within a named {Sequence} by using {Expectation#in_sequence}.
+    # Specify that an expected invocation must occur within a named {Sequence} by calling {Expectation#in_sequence}
+    # on each expectation or by passing a block within which all expectations should be constrained by the {Sequence}.
     #
     # @param [String] name name of sequence
+    # @yield optional block within which expectations should be constrained by the sequence
     # @return [Sequence] a new sequence
     #
     # @see Expectation#in_sequence
@@ -157,8 +159,23 @@ module Mocha
     #
     #   task_one.execute
     #   task_two.execute
+    #
+    # @example Ensure methods on egg are invoked in the correct order using a block.
+    #   egg = mock('egg')
+    #   sequence('breakfast') do
+    #     egg.expects(:crack)
+    #     egg.expects(:fry)
+    #     egg.expects(:eat)
+    #   end
     def sequence(name)
-      Sequence.new(name)
+      Sequence.new(name).tap do |seq|
+        Mockery.instance.sequences.push(seq)
+        begin
+          yield if block_given?
+        ensure
+          Mockery.instance.sequences.pop
+        end
+      end
     end
 
     # Builds a new state machine which can be used to constrain the order in which expectations can occur.
