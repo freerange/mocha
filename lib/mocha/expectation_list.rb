@@ -17,7 +17,11 @@ module Mocha
       @expectations.any? { |expectation| expectation.matches_method?(method_name) }
     end
 
-    def match(invocation)
+    def match(invocation, ignoring_order: false)
+      matching_expectations(invocation, ignoring_order: ignoring_order).first
+    end
+
+    def match_but_out_of_order(invocation)
       matching_expectations(invocation).first
     end
 
@@ -51,8 +55,8 @@ module Mocha
 
     private
 
-    def matching_expectations(invocation)
-      @expectations.select { |e| e.match?(invocation) }
+    def matching_expectations(invocation, ignoring_order: false)
+      @expectations.select { |e| e.match?(invocation, ignoring_order: ignoring_order) }
     end
   end
 end

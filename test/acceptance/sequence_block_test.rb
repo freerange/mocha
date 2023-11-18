@@ -24,6 +24,7 @@ class SequenceBlockTest < Mocha::TestCase
       mock.first
     end
     assert_failed(test_result)
+    assert_match 'second() invoked out of order', test_result.failures.first.message
   end
 
   def test_should_allow_invocations_in_sequence
@@ -87,6 +88,7 @@ class SequenceBlockTest < Mocha::TestCase
       partial_mock_one.first
     end
     assert_failed(test_result)
+    assert_match 'second() invoked out of order', test_result.failures.first.message
   end
 
   def test_should_allow_invocations_in_sequence_even_if_expected_on_partial_mocks
