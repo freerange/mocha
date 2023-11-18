@@ -633,13 +633,19 @@ module Mocha
     end
 
     # @private
+    def ordering_constraints_not_allowing_invocation_now
+      @ordering_constraints.reject(&:allows_invocation_now?)
+    end
+
+    # @private
     def matches_method?(method_name)
       @method_matcher.match?(method_name)
     end
 
     # @private
-    def match?(invocation)
-      @method_matcher.match?(invocation.method_name) && @parameters_matcher.match?(invocation.arguments) && @block_matcher.match?(invocation.block) && in_correct_order?
+    def match?(invocation, ignoring_order: false)
+      order_independent_match = @method_matcher.match?(invocation.method_name) && @parameters_matcher.match?(invocation.arguments) && @block_matcher.match?(invocation.block)
+      ignoring_order ? order_independent_match : order_independent_match && in_correct_order?
     end
 
     # @private

@@ -323,7 +323,7 @@ module Mocha
       invocation = Invocation.new(self, symbol, arguments, block)
       if (matching_expectation_allowing_invocation = all_expectations.match_allowing_invocation(invocation))
         matching_expectation_allowing_invocation.invoke(invocation)
-      elsif (matching_expectation = all_expectations.match(invocation)) || (!matching_expectation && !@everything_stubbed)
+      elsif (matching_expectation = all_expectations.match(invocation, ignoring_order: true)) || (!matching_expectation && !@everything_stubbed)
         raise_unexpected_invocation_error(invocation, matching_expectation)
       end
     end
@@ -373,7 +373,11 @@ module Mocha
       if @unexpected_invocation.nil?
         @unexpected_invocation = invocation
         matching_expectation.invoke(invocation) if matching_expectation
-        message = "#{@unexpected_invocation.call_description}\n#{@mockery.mocha_inspect}"
+        call_description = @unexpected_invocation.call_description
+        if matching_expectation && !matching_expectation.in_correct_order?
+          call_description += ' invoked out of order'
+        end
+        message = "#{call_description}\n#{@mockery.mocha_inspect}"
       else
         message = @unexpected_invocation.short_call_description
       end
