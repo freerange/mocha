@@ -133,6 +133,7 @@ module Mocha
     #
     # Specify that an expected invocation must occur within a named {Sequence} by using {Expectation#in_sequence}.
     #
+    # @param [String] name name of sequence
     # @return [Sequence] a new sequence
     #
     # @see Expectation#in_sequence
