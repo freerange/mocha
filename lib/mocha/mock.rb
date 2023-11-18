@@ -114,6 +114,7 @@ module Mocha
         method_name = args.shift
         ensure_method_not_already_defined(method_name)
         expectation = Expectation.new(self, method_name, backtrace)
+        expectation.in_sequence(@mockery.sequences.last) if @mockery.sequences.any?
         expectation.returns(args.shift) unless args.empty?
         @expectations.add(expectation)
       end
@@ -153,6 +154,7 @@ module Mocha
         ensure_method_not_already_defined(method_name)
         expectation = Expectation.new(self, method_name, backtrace)
         expectation.at_least(0)
+        expectation.in_sequence(@mockery.sequences.last) if @mockery.sequences.any?
         expectation.returns(args.shift) unless args.empty?
         @expectations.add(expectation)
       end

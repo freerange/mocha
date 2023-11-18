@@ -2,6 +2,7 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/ruby_version'
 require 'method_definer'
 require 'mocha/class_methods'
+require 'mocha/mockery'
 require 'mocha/mock'
 require 'mocha/any_instance_method'
 
@@ -130,6 +131,6 @@ class AnyInstanceMethodTest < Mocha::TestCase
   private
 
   def build_mock
-    Mock.new(nil)
+    Mock.new(Mockery.new)
   end
 end

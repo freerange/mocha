@@ -109,6 +109,10 @@ module Mocha
       @state_machines ||= []
     end
 
+    def sequences
+      @sequences ||= []
+    end
+
     def mocha_inspect
       message = ''
       message << "unsatisfied expectations:\n- #{unsatisfied_expectations.map(&:mocha_inspect).join("\n- ")}\n" if unsatisfied_expectations.any?

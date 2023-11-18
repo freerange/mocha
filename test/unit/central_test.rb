@@ -1,6 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 
 require 'mocha/central'
+require 'mocha/mockery'
 require 'mocha/mock'
 
 class CentralTest < Mocha::TestCase
@@ -93,6 +94,6 @@ class CentralTest < Mocha::TestCase
   private
 
   def build_mock
-    Mock.new(nil)
+    Mock.new(Mockery.new)
   end
 end
