@@ -171,6 +171,7 @@ module Mocha
     #
     # A test can contain multiple state machines.
     #
+    # @param [String] name name of state machine
     # @return [StateMachine] a new state machine
     #
     # @see Expectation#then
