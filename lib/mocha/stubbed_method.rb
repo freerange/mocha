@@ -16,7 +16,7 @@ module Mocha
 
     def stub
       visibility = original_method_owner.__method_visibility__(method_name)
-      use_prepended_module_for_stub_method
+      original_method_owner.__send__ :prepend, stub_method_owner
 
       self_in_scope = self
       method_name_in_scope = method_name
@@ -58,10 +58,6 @@ module Mocha
     end
 
     private
-
-    def use_prepended_module_for_stub_method
-      original_method_owner.__send__ :prepend, @stub_method_owner
-    end
 
     def mock_owner
       raise NotImplementedError
