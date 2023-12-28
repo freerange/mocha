@@ -36,7 +36,7 @@ module Mocha
 
     def prepare
       return unless original_method_owner.__method_exists__?(method_name)
-      store_original_method_visibility
+      set_visibility
       use_prepended_module_for_stub_method
     end
 
@@ -72,7 +72,7 @@ module Mocha
       Module.instance_method(@original_visibility).bind(method_owner).call(method_name)
     end
 
-    def store_original_method_visibility
+    def set_visibility
       @original_visibility = original_method_owner.__method_visibility__(method_name)
     end
 
