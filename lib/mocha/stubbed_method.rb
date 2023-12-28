@@ -10,12 +10,11 @@ module Mocha
     def initialize(stubbee, method_name)
       @stubbee = stubbee
       @original_method = nil
-      @visibility = nil
       @method_name = method_name.to_sym
     end
 
     def stub
-      set_visibility
+      visibility = original_method_owner.__method_visibility__(method_name)
       use_prepended_module_for_stub_method
 
       self_in_scope = self
@@ -24,7 +23,7 @@ module Mocha
         self_in_scope.mock.handle_method_call(method_name_in_scope, args, block)
       end
       stub_method_owner.send(:ruby2_keywords, method_name)
-      apply_visibility(stub_method_owner)
+      Module.instance_method(visibility).bind(stub_method_owner).call(method_name) if visibility
     end
 
     def unstub
@@ -58,15 +57,6 @@ module Mocha
     end
 
     private
-
-    def apply_visibility(method_owner)
-      return unless @visibility
-      Module.instance_method(@visibility).bind(method_owner).call(method_name)
-    end
-
-    def set_visibility
-      @visibility = original_method_owner.__method_visibility__(method_name)
-    end
 
     def use_prepended_module_for_stub_method
       @stub_method_owner = PrependedModule.new
