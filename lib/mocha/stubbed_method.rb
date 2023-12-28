@@ -5,12 +5,13 @@ module Mocha
   class StubbedMethod
     PrependedModule = Class.new(Module)
 
-    attr_reader :stubbee, :method_name
+    attr_reader :stubbee, :method_name, :stub_method_owner
 
     def initialize(stubbee, method_name)
       @stubbee = stubbee
       @original_method = nil
       @method_name = method_name.to_sym
+      @stub_method_owner = PrependedModule.new
     end
 
     def stub
@@ -59,12 +60,7 @@ module Mocha
     private
 
     def use_prepended_module_for_stub_method
-      @stub_method_owner = PrependedModule.new
       original_method_owner.__send__ :prepend, @stub_method_owner
-    end
-
-    def stub_method_owner
-      @stub_method_owner ||= original_method_owner
     end
 
     def mock_owner

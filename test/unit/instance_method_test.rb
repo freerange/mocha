@@ -57,7 +57,7 @@ class InstanceMethodTest < Mocha::TestCase
     method.stub
 
     expected_filename = 'stubbed_method.rb'
-    expected_line_number = 23
+    expected_line_number = 24
 
     exception = assert_raises(Exception) { klass.method_x }
     matching_line = exception.backtrace.find do |line|
@@ -66,15 +66,6 @@ class InstanceMethodTest < Mocha::TestCase
     end
 
     assert_not_nil matching_line, "Expected to find #{expected_filename}:#{expected_line_number} in the backtrace:\n #{exception.backtrace.join("\n")}"
-  end
-
-  def test_should_remove_new_method
-    klass = class_with_method(:method_x)
-    method = InstanceMethod.new(klass, :method_x)
-
-    method.remove_new_method
-
-    assert_equal false, klass.respond_to?(:method_x)
   end
 
   def test_remove_new_method_restores_original_method
@@ -136,6 +127,7 @@ class InstanceMethodTest < Mocha::TestCase
     define_instance_method(mocha, :any_expectations?) { true }
     replace_instance_method(method, :mock) { mocha }
 
+    method.stub
     method.unstub
     assert_equal mocha.unstub_method, :method_x
   end
