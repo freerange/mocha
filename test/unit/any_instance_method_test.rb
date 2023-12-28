@@ -17,11 +17,11 @@ class AnyInstanceMethodTest < Mocha::TestCase
     end
   end
 
-  def test_should_not_raise_error_preparing_to_stub_method_that_isnt_defined
+  def test_should_not_raise_error_stubbing_method_that_isnt_defined
     klass = class_with_method(:irrelevant)
     method = AnyInstanceMethod.new(klass, :method_x)
 
-    assert_nothing_raised { method.prepare }
+    assert_nothing_raised { method.stub }
   end
 
   def test_should_define_a_new_method
@@ -33,8 +33,7 @@ class AnyInstanceMethodTest < Mocha::TestCase
     define_instance_method(any_instance, :mocha) { mocha }
     define_instance_method(klass, :any_instance) { any_instance }
 
-    method.prepare
-    method.define_new_method
+    method.stub
 
     instance = klass.new
     result = instance.method_x(:param1, :param2)
@@ -52,11 +51,10 @@ class AnyInstanceMethodTest < Mocha::TestCase
     define_instance_method(any_instance, :mocha) { mocha }
     define_instance_method(klass, :any_instance) { any_instance }
 
-    method.prepare
-    method.define_new_method
+    method.stub
 
     expected_filename = 'stubbed_method.rb'
-    expected_line_number = 46
+    expected_line_number = 24
 
     exception = assert_raises(Exception) { klass.new.method_x }
     matching_line = exception.backtrace.find do |line|
@@ -71,8 +69,7 @@ class AnyInstanceMethodTest < Mocha::TestCase
     klass = class_with_method(:method_x, :original_result)
     method = AnyInstanceMethod.new(klass, :method_x)
 
-    method.prepare
-    method.define_new_method
+    method.stub
     method.remove_new_method
 
     instance = klass.new

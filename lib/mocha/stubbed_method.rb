@@ -15,8 +15,16 @@ module Mocha
     end
 
     def stub
-      prepare
-      define_new_method
+      set_visibility
+      use_prepended_module_for_stub_method
+
+      self_in_scope = self
+      method_name_in_scope = method_name
+      stub_method_owner.send(:define_method, method_name) do |*args, &block|
+        self_in_scope.mock.handle_method_call(method_name_in_scope, args, block)
+      end
+      stub_method_owner.send(:ruby2_keywords, method_name)
+      apply_visibility(stub_method_owner)
     end
 
     def unstub
@@ -32,21 +40,6 @@ module Mocha
 
     def reset_mocha
       mock_owner.reset_mocha
-    end
-
-    def prepare
-      set_visibility
-      use_prepended_module_for_stub_method
-    end
-
-    def define_new_method
-      self_in_scope = self
-      method_name_in_scope = method_name
-      stub_method_owner.send(:define_method, method_name) do |*args, &block|
-        self_in_scope.mock.handle_method_call(method_name_in_scope, args, block)
-      end
-      stub_method_owner.send(:ruby2_keywords, method_name)
-      apply_visibility(stub_method_owner)
     end
 
     def remove_new_method

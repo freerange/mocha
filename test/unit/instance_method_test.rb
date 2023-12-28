@@ -19,18 +19,18 @@ class InstanceMethodTest < Mocha::TestCase
     end
   end
 
-  def test_should_not_raise_error_preparing_to_stub_method_that_isnt_defined
+  def test_should_not_raise_error_stubbing_method_that_isnt_defined
     klass = class_with_method(:irrelevant)
     method = InstanceMethod.new(klass, :method_x)
 
-    assert_nothing_raised { method.prepare }
+    assert_nothing_raised { method.stub }
   end
 
-  def test_should_not_raise_error_preparing_to_stub_method_in_class_that_implements_method_called_method
+  def test_should_not_raise_error_stubbing_method_in_class_that_implements_method_called_method
     klass = class_with_method(:method)
     method = InstanceMethod.new(klass, :method)
 
-    assert_nothing_raised { method.prepare }
+    assert_nothing_raised { method.stub }
   end
 
   def test_should_define_a_new_method_which_should_call_mocha_method_missing
@@ -40,8 +40,7 @@ class InstanceMethodTest < Mocha::TestCase
     mocha.expects(:method_x).with(:param1, :param2).returns(:result)
     method = InstanceMethod.new(klass, :method_x)
 
-    method.prepare
-    method.define_new_method
+    method.stub
     result = klass.method_x(:param1, :param2)
 
     assert_equal :result, result
@@ -55,11 +54,10 @@ class InstanceMethodTest < Mocha::TestCase
     mocha.stubs(:method_x).raises(Exception)
     method = InstanceMethod.new(klass, :method_x)
 
-    method.prepare
-    method.define_new_method
+    method.stub
 
     expected_filename = 'stubbed_method.rb'
-    expected_line_number = 46
+    expected_line_number = 24
 
     exception = assert_raises(Exception) { klass.method_x }
     matching_line = exception.backtrace.find do |line|
@@ -84,8 +82,7 @@ class InstanceMethodTest < Mocha::TestCase
     klass.singleton_class.send(:alias_method, :_method, :method)
     method = InstanceMethod.new(klass, :method_x)
 
-    method.prepare
-    method.define_new_method
+    method.stub
     method.remove_new_method
 
     assert klass.respond_to?(:method_x)
@@ -103,36 +100,12 @@ class InstanceMethodTest < Mocha::TestCase
     klass.singleton_class.send(:alias_method, :_method, :method)
     method = InstanceMethod.new(klass, :method_x)
 
-    method.prepare
-    method.define_new_method
+    method.stub
     method.remove_new_method
 
     block_called = false
     klass.method_x { block_called = true }
     assert block_called
-  end
-
-  def test_should_call_prepare
-    klass = class_with_method(:method_x)
-    method = InstanceMethod.new(klass, :method_x)
-    method.prepare
-    define_instance_accessor(method, :prepare_called)
-    replace_instance_method(method, :prepare) { self.prepare_called = true }
-
-    method.stub
-
-    assert method.prepare_called
-  end
-
-  def test_should_call_define_new_method
-    klass = class_with_method(:method_x)
-    method = InstanceMethod.new(klass, :method_x)
-    define_instance_accessor(method, :define_called)
-    replace_instance_method(method, :define_new_method) { self.define_called = true }
-
-    method.stub
-
-    assert method.define_called
   end
 
   def test_should_call_remove_new_method
