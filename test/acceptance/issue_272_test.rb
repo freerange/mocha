@@ -37,7 +37,7 @@ class Issue272Test < Mocha::TestCase
       Klass.stubs(:foo).returns('stubbed-foo')
       # hangs in next line executing:
       # `@original_method = stubbee._method(method)`
-      # in Mocha::StubbedMethod#hide_original_method
+      # in Mocha::StubbedMethod#prepare
       # but only in Ruby v2.3, not v2.2
       Klass.stubs(:bar).returns('stubbed-bar')
       assert_equal 'stubbed-foo', Klass.foo

@@ -15,7 +15,7 @@ module Mocha
     end
 
     def stub
-      hide_original_method
+      prepare
       define_new_method
     end
 
@@ -34,7 +34,7 @@ module Mocha
       mock_owner.reset_mocha
     end
 
-    def hide_original_method
+    def prepare
       return unless original_method_owner.__method_exists__?(method_name)
       store_original_method_visibility
       use_prepended_module_for_stub_method

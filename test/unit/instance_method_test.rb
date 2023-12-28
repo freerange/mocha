@@ -19,18 +19,18 @@ class InstanceMethodTest < Mocha::TestCase
     end
   end
 
-  def test_should_not_raise_error_hiding_method_that_isnt_defined
+  def test_should_not_raise_error_preparing_to_stub_method_that_isnt_defined
     klass = class_with_method(:irrelevant)
     method = InstanceMethod.new(klass, :method_x)
 
-    assert_nothing_raised { method.hide_original_method }
+    assert_nothing_raised { method.prepare }
   end
 
-  def test_should_not_raise_error_hiding_method_in_class_that_implements_method_called_method
+  def test_should_not_raise_error_preparing_to_stub_method_in_class_that_implements_method_called_method
     klass = class_with_method(:method)
     method = InstanceMethod.new(klass, :method)
 
-    assert_nothing_raised { method.hide_original_method }
+    assert_nothing_raised { method.prepare }
   end
 
   def test_should_define_a_new_method_which_should_call_mocha_method_missing
@@ -40,7 +40,7 @@ class InstanceMethodTest < Mocha::TestCase
     mocha.expects(:method_x).with(:param1, :param2).returns(:result)
     method = InstanceMethod.new(klass, :method_x)
 
-    method.hide_original_method
+    method.prepare
     method.define_new_method
     result = klass.method_x(:param1, :param2)
 
@@ -55,7 +55,7 @@ class InstanceMethodTest < Mocha::TestCase
     mocha.stubs(:method_x).raises(Exception)
     method = InstanceMethod.new(klass, :method_x)
 
-    method.hide_original_method
+    method.prepare
     method.define_new_method
 
     expected_filename = 'stubbed_method.rb'
@@ -84,7 +84,7 @@ class InstanceMethodTest < Mocha::TestCase
     klass.singleton_class.send(:alias_method, :_method, :method)
     method = InstanceMethod.new(klass, :method_x)
 
-    method.hide_original_method
+    method.prepare
     method.define_new_method
     method.remove_new_method
 
@@ -103,7 +103,7 @@ class InstanceMethodTest < Mocha::TestCase
     klass.singleton_class.send(:alias_method, :_method, :method)
     method = InstanceMethod.new(klass, :method_x)
 
-    method.hide_original_method
+    method.prepare
     method.define_new_method
     method.remove_new_method
 
@@ -112,16 +112,16 @@ class InstanceMethodTest < Mocha::TestCase
     assert block_called
   end
 
-  def test_should_call_hide_original_method
+  def test_should_call_prepare
     klass = class_with_method(:method_x)
     method = InstanceMethod.new(klass, :method_x)
-    method.hide_original_method
-    define_instance_accessor(method, :hide_called)
-    replace_instance_method(method, :hide_original_method) { self.hide_called = true }
+    method.prepare
+    define_instance_accessor(method, :prepare_called)
+    replace_instance_method(method, :prepare) { self.prepare_called = true }
 
     method.stub
 
-    assert method.hide_called
+    assert method.prepare_called
   end
 
   def test_should_call_define_new_method
