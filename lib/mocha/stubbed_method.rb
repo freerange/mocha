@@ -10,7 +10,7 @@ module Mocha
     def initialize(stubbee, method_name)
       @stubbee = stubbee
       @original_method = nil
-      @original_visibility = nil
+      @visibility = nil
       @method_name = method_name.to_sym
     end
 
@@ -68,12 +68,12 @@ module Mocha
     private
 
     def apply_visibility(method_owner)
-      return unless @original_visibility
-      Module.instance_method(@original_visibility).bind(method_owner).call(method_name)
+      return unless @visibility
+      Module.instance_method(@visibility).bind(method_owner).call(method_name)
     end
 
     def set_visibility
-      @original_visibility = original_method_owner.__method_visibility__(method_name)
+      @visibility = original_method_owner.__method_visibility__(method_name)
     end
 
     def use_prepended_module_for_stub_method
