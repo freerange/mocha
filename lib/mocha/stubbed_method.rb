@@ -47,7 +47,7 @@ module Mocha
         self_in_scope.mock.handle_method_call(method_name_in_scope, args, block)
       end
       stub_method_owner.send(:ruby2_keywords, method_name)
-      retain_original_visibility(stub_method_owner)
+      apply_visibility(stub_method_owner)
     end
 
     def remove_new_method
@@ -67,7 +67,7 @@ module Mocha
 
     private
 
-    def retain_original_visibility(method_owner)
+    def apply_visibility(method_owner)
       return unless @original_visibility
       Module.instance_method(@original_visibility).bind(method_owner).call(method_name)
     end
