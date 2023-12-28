@@ -16,7 +16,7 @@ module Mocha
 
     def stub
       visibility = original_method_owner.__method_visibility__(method_name)
-      original_method_owner.__send__ :prepend, stub_method_owner
+      original_method_owner.__send__(:prepend, stub_method_owner)
 
       self_in_scope = self
       method_name_in_scope = method_name
