@@ -66,5 +66,17 @@ module Mocha
     def stub_method_owner
       @stub_method_owner ||= original_method_owner
     end
+
+    def mock_owner
+      raise NotImplementedError
+    end
+
+    def stubbee_method(_method_name)
+      raise NotImplementedError
+    end
+
+    def original_method_owner
+      raise NotImplementedError
+    end
   end
 end
