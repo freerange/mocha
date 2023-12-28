@@ -35,8 +35,8 @@ module Mocha
     end
 
     def prepare
-      return unless original_method_owner.__method_exists__?(method_name)
       set_visibility
+      return unless original_method_owner.__method_exists__?(method_name)
       use_prepended_module_for_stub_method
     end
 
