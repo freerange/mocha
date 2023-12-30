@@ -12,7 +12,7 @@ module Mocha
 
       def mocha(instantiate = true)
         if instantiate
-          @mocha ||= Mocha::Mockery.instance.mock_impersonating_any_instance_of(@stubba_object)
+          @mocha ||= Mocha::Mockery.instance.mock_impersonating_any_instance_of(@stubba_object).responds_like_instance_of(@stubba_object)
         else
           defined?(@mocha) ? @mocha : nil
         end
