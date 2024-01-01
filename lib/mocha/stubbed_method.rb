@@ -9,7 +9,6 @@ module Mocha
 
     def initialize(stubbee, method_name)
       @stubbee = stubbee
-      @original_method = nil
       @method_name = method_name.to_sym
       @stub_method_owner = PrependedModule.new
     end
