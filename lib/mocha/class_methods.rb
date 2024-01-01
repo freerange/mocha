@@ -7,27 +7,27 @@ module Mocha
     # @private
     class AnyInstance
       def initialize(klass)
-        @stubba_object = klass
+        @klass = klass
       end
 
       def mocha(instantiate = true)
         if instantiate
-          @mocha ||= Mocha::Mockery.instance.mock_impersonating_any_instance_of(@stubba_object)
+          @mocha ||= Mocha::Mockery.instance.mock_impersonating_any_instance_of(@klass)
         else
           defined?(@mocha) ? @mocha : nil
         end
       end
 
       def build_stubbed_method(method_name)
-        Mocha::AnyInstanceMethod.new(@stubba_object, method_name)
+        Mocha::AnyInstanceMethod.new(@klass, method_name)
       end
 
       def stubba_class
-        @stubba_object
+        @klass
       end
 
       def respond_to?(symbol, include_all = false)
-        @stubba_object.allocate.respond_to?(symbol.to_sym, include_all)
+        @klass.allocate.respond_to?(symbol.to_sym, include_all)
       end
     end
 
