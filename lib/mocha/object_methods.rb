@@ -9,9 +9,6 @@ module Mocha
   # Both {#expects} and {#stubs} return an {Expectation} which can be further modified by methods on {Expectation}.
   module ObjectMethods
     # @private
-    alias_method :_method, :method
-
-    # @private
     def mocha(instantiate = true)
       if instantiate
         @mocha ||= Mocha::Mockery.instance.mock_impersonating(self)

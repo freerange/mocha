@@ -70,7 +70,6 @@ class InstanceMethodTest < Mocha::TestCase
 
   def test_remove_new_method_restores_original_method
     klass = class_with_method(:method_x, :original_result)
-    klass.singleton_class.send(:alias_method, :_method, :method)
     method = InstanceMethod.new(klass, :method_x)
 
     method.stub
@@ -88,7 +87,6 @@ class InstanceMethodTest < Mocha::TestCase
         block.call if block_given?
       end
     end
-    klass.singleton_class.send(:alias_method, :_method, :method)
     method = InstanceMethod.new(klass, :method_x)
 
     method.stub

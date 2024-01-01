@@ -35,10 +35,6 @@ class Issue272Test < Mocha::TestCase
   def test_private_methods_in_module_used_to_extend_class_and_made_public
     test_result = run_as_test do
       Klass.stubs(:foo).returns('stubbed-foo')
-      # hangs in next line executing:
-      # `@original_method = stubbee._method(method)`
-      # in Mocha::StubbedMethod#prepare
-      # but only in Ruby v2.3, not v2.2
       Klass.stubs(:bar).returns('stubbed-bar')
       assert_equal 'stubbed-foo', Klass.foo
       assert_equal 'stubbed-bar', Klass.bar
