@@ -7,15 +7,17 @@ module Mocha
 
     attr_reader :stubbee, :method_name, :stub_method_owner
 
-    def initialize(stubbee, method_name)
+    def initialize(stubbee, mock_owner, original_method_owner, method_name)
       @stubbee = stubbee
+      @mock_owner = mock_owner
+      @original_method_owner = original_method_owner
       @method_name = method_name.to_sym
       @stub_method_owner = PrependedModule.new
     end
 
     def stub
-      visibility = original_method_owner.__method_visibility__(method_name)
-      original_method_owner.__send__(:prepend, stub_method_owner)
+      visibility = @original_method_owner.__method_visibility__(method_name)
+      @original_method_owner.__send__(:prepend, stub_method_owner)
 
       self_in_scope = self
       method_name_in_scope = method_name
@@ -34,11 +36,11 @@ module Mocha
     end
 
     def mock
-      mock_owner.mocha
+      @mock_owner.mocha
     end
 
     def reset_mocha
-      mock_owner.reset_mocha
+      @mock_owner.reset_mocha
     end
 
     def remove_new_method
@@ -54,16 +56,6 @@ module Mocha
 
     def to_s
       "#{stubbee}.#{method_name}"
-    end
-
-    private
-
-    def mock_owner
-      raise NotImplementedError
-    end
-
-    def original_method_owner
-      raise NotImplementedError
     end
   end
 end

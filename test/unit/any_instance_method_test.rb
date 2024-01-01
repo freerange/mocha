@@ -26,12 +26,13 @@ class AnyInstanceMethodTest < Mocha::TestCase
 
   def test_should_define_a_new_method
     klass = class_with_method(:method_x)
-    method = AnyInstanceMethod.new(klass, :method_x)
     mocha = build_mock
     mocha.expects(:method_x).with(:param1, :param2).returns(:result)
     any_instance = Object.new
     define_instance_method(any_instance, :mocha) { mocha }
     define_instance_method(klass, :any_instance) { any_instance }
+
+    method = AnyInstanceMethod.new(klass, :method_x)
 
     method.stub
 
@@ -44,17 +45,18 @@ class AnyInstanceMethodTest < Mocha::TestCase
 
   def test_should_include_the_filename_and_line_number_in_exceptions
     klass = class_with_method(:method_x)
-    method = AnyInstanceMethod.new(klass, :method_x)
     mocha = build_mock
     mocha.stubs(:method_x).raises(Exception)
     any_instance = Object.new
     define_instance_method(any_instance, :mocha) { mocha }
     define_instance_method(klass, :any_instance) { any_instance }
 
+    method = AnyInstanceMethod.new(klass, :method_x)
+
     method.stub
 
     expected_filename = 'stubbed_method.rb'
-    expected_line_number = 23
+    expected_line_number = 25
 
     exception = assert_raises(Exception) { klass.new.method_x }
     matching_line = exception.backtrace.find do |line|

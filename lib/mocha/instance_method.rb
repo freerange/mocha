@@ -2,14 +2,8 @@ require 'mocha/stubbed_method'
 
 module Mocha
   class InstanceMethod < StubbedMethod
-    private
-
-    def mock_owner
-      stubbee
-    end
-
-    def original_method_owner
-      stubbee.singleton_class
+    def initialize(stubbee, method_name)
+      super(stubbee, stubbee, stubbee.singleton_class, method_name)
     end
   end
 end

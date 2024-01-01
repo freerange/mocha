@@ -57,7 +57,7 @@ class InstanceMethodTest < Mocha::TestCase
     method.stub
 
     expected_filename = 'stubbed_method.rb'
-    expected_line_number = 23
+    expected_line_number = 25
 
     exception = assert_raises(Exception) { klass.method_x }
     matching_line = exception.backtrace.find do |line|
@@ -131,20 +131,18 @@ class InstanceMethodTest < Mocha::TestCase
   end
 
   def test_should_call_stubbee_reset_mocha_if_no_expectations_remaining
-    klass = class_with_method(:method_x)
-    method = InstanceMethod.new(klass, :method_x)
-    replace_instance_method(method, :remove_new_method) {}
-    mocha = Class.new
-    define_instance_method(mocha, :unstub) { |method_name| }
-    define_instance_method(mocha, :any_expectations?) { false }
-    replace_instance_method(method, :mock) { mocha }
     stubbee = Class.new do
       attr_accessor :reset_mocha_called
       def reset_mocha
         self.reset_mocha_called = true
       end
     end.new
-    replace_instance_method(method, :stubbee) { stubbee }
+    method = InstanceMethod.new(stubbee, :method_x)
+    replace_instance_method(method, :remove_new_method) {}
+    mocha = Class.new
+    define_instance_method(mocha, :unstub) { |method_name| }
+    define_instance_method(mocha, :any_expectations?) { false }
+    replace_instance_method(method, :mock) { mocha }
 
     method.unstub
 
