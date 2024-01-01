@@ -1,5 +1,5 @@
 require 'mocha/mockery'
-require 'mocha/any_instance_method'
+require 'mocha/stubbed_method'
 
 module Mocha
   # Methods added to all classes to allow mocking and stubbing on real (i.e. non-mock) objects.
@@ -19,7 +19,7 @@ module Mocha
       end
 
       def build_stubbed_method(method_name)
-        Mocha::AnyInstanceMethod.new(@klass, method_name)
+        Mocha::StubbedMethod.new(@klass, @klass.any_instance, @klass, method_name)
       end
 
       def stubba_class

@@ -44,7 +44,8 @@ class ObjectMethodsTest < Mocha::TestCase
   end
 
   def test_should_use_stubba_instance_method_for_object
-    assert_instance_of Mocha::InstanceMethod, @object.build_stubbed_method(:foo)
+    assert_equal @object, @object.build_stubbed_method(:foo).instance_variable_get(:@mock_owner)
+    assert_equal @object.singleton_class, @object.build_stubbed_method(:foo).instance_variable_get(:@original_method_owner)
   end
 
   def test_should_stub_self_for_object

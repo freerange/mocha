@@ -1,5 +1,5 @@
 require 'mocha/mockery'
-require 'mocha/instance_method'
+require 'mocha/stubbed_method'
 require 'mocha/argument_iterator'
 require 'mocha/expectation_error_factory'
 
@@ -24,7 +24,7 @@ module Mocha
 
     # @private
     def build_stubbed_method(method_name)
-      Mocha::InstanceMethod.new(self, method_name)
+      Mocha::StubbedMethod.new(self, self, singleton_class, method_name)
     end
 
     # @private

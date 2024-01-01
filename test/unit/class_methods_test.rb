@@ -51,11 +51,15 @@ class ClassMethodsTest < Mocha::TestCase
   end
 
   def test_should_use_stubba_class_method_for_class
-    assert_instance_of Mocha::InstanceMethod, @klass.build_stubbed_method(:foo)
+    stubbed_method = @klass.build_stubbed_method(:foo)
+    assert_equal @klass, stubbed_method.instance_variable_get(:@mock_owner)
+    assert_equal @klass.singleton_class, stubbed_method.instance_variable_get(:@original_method_owner)
   end
 
   def test_should_use_stubba_class_method_for_any_instance
-    assert_instance_of Mocha::AnyInstanceMethod, @klass.any_instance.build_stubbed_method(:foo)
+    stubbed_method = @klass.any_instance.build_stubbed_method(:foo)
+    assert_equal @klass.any_instance, stubbed_method.instance_variable_get(:@mock_owner)
+    assert_equal @klass, stubbed_method.instance_variable_get(:@original_method_owner)
   end
 
   def test_should_stub_self_for_class
