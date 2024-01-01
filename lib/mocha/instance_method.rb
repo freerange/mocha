@@ -8,10 +8,6 @@ module Mocha
       stubbee
     end
 
-    def stubbee_method(method_name)
-      stubbee._method(method_name)
-    end
-
     def original_method_owner
       stubbee.singleton_class
     end

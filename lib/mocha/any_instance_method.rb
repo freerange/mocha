@@ -8,10 +8,6 @@ module Mocha
       stubbee.any_instance
     end
 
-    def stubbee_method(method_name)
-      stubbee.instance_method(method_name)
-    end
-
     def original_method_owner
       stubbee
     end
