@@ -7,7 +7,7 @@ class ModuleMethodsTest < Mocha::TestCase
   end
 
   def test_should_use_stubba_module_method_for_module
-    assert_equal Mocha::InstanceMethod, @module.stubba_method
+    assert_instance_of Mocha::InstanceMethod, @module.build_stubbed_method(:foo)
   end
 
   def test_should_stub_self_for_module

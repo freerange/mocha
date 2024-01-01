@@ -51,11 +51,11 @@ class ClassMethodsTest < Mocha::TestCase
   end
 
   def test_should_use_stubba_class_method_for_class
-    assert_equal Mocha::InstanceMethod, @klass.stubba_method
+    assert_instance_of Mocha::InstanceMethod, @klass.build_stubbed_method(:foo)
   end
 
   def test_should_use_stubba_class_method_for_any_instance
-    assert_equal Mocha::AnyInstanceMethod, @klass.any_instance.stubba_method
+    assert_instance_of Mocha::AnyInstanceMethod, @klass.any_instance.build_stubbed_method(:foo)
   end
 
   def test_should_stub_self_for_class

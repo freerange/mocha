@@ -18,8 +18,8 @@ module Mocha
         end
       end
 
-      def stubba_method
-        Mocha::AnyInstanceMethod
+      def build_stubbed_method(method_name)
+        Mocha::AnyInstanceMethod.new(stubba_object, method_name)
       end
 
       def stubba_class
