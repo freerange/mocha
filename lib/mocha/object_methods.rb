@@ -24,12 +24,7 @@ module Mocha
 
     # @private
     def build_stubbed_method(method_name)
-      Mocha::InstanceMethod.new(stubba_object, method_name)
-    end
-
-    # @private
-    def stubba_object
-      self
+      Mocha::InstanceMethod.new(self, method_name)
     end
 
     # @private

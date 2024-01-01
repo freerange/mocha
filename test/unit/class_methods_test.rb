@@ -59,11 +59,11 @@ class ClassMethodsTest < Mocha::TestCase
   end
 
   def test_should_stub_self_for_class
-    assert_equal @klass, @klass.stubba_object
+    assert_equal @klass, @klass.build_stubbed_method(:foo).stubbee
   end
 
   def test_should_stub_relevant_class_for_any_instance
     any_instance = @klass.any_instance
-    assert_equal @klass, any_instance.stubba_object
+    assert_equal @klass, any_instance.build_stubbed_method(:foo).stubbee
   end
 end

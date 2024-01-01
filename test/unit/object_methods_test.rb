@@ -48,7 +48,7 @@ class ObjectMethodsTest < Mocha::TestCase
   end
 
   def test_should_stub_self_for_object
-    assert_equal @object, @object.stubba_object
+    assert_equal @object, @object.build_stubbed_method(:foo).stubbee
   end
 
   def test_nobody_expects_the_spanish_inquisition

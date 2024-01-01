@@ -19,7 +19,7 @@ module Mocha
       end
 
       def build_stubbed_method(method_name)
-        Mocha::AnyInstanceMethod.new(stubba_object, method_name)
+        Mocha::AnyInstanceMethod.new(@stubba_object, method_name)
       end
 
       def stubba_class
@@ -29,8 +29,6 @@ module Mocha
       def respond_to?(symbol, include_all = false)
         @stubba_object.allocate.respond_to?(symbol.to_sym, include_all)
       end
-
-      attr_reader :stubba_object
     end
 
     # @return [Mock] a mock object which will detect calls to any instance of this class.

@@ -11,6 +11,6 @@ class ModuleMethodsTest < Mocha::TestCase
   end
 
   def test_should_stub_self_for_module
-    assert_equal @module, @module.stubba_object
+    assert_equal @module, @module.build_stubbed_method(:foo).stubbee
   end
 end
