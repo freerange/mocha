@@ -38,6 +38,11 @@ module Mocha
         private
 
         # @private
+        def mocha_test_name
+          name
+        end
+
+        # @private
         def handle_mocha_expectation_error(exception)
           return false unless exception.is_a?(Mocha::ExpectationError)
           problem_occurred

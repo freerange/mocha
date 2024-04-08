@@ -172,5 +172,37 @@ module SharedTests
     assert_equal execution_point, ExecutionPoint.new(exception.backtrace)
     assert_match(/undefined method `foo'/, exception.message)
   end
+
+  def test_leaky_mock
+    origin = nil
+    leaky_mock = nil
+    execution_point = nil
+    test_result = run_as_tests(
+      test_1: lambda {
+        origin = mocha_test_name
+        leaky_mock ||= begin
+          bad_mock = mock(:leaky)
+          bad_mock.expects(:call)
+          bad_mock
+        end
+
+        leaky_mock.call
+      },
+      test_2: lambda {
+        leaky_mock ||= begin
+          bad_mock = mock(:leaky)
+          bad_mock.expects(:call)
+          bad_mock
+        end
+
+        execution_point = ExecutionPoint.current; leaky_mock.call
+      }
+    )
+    assert_errored(test_result)
+    exception = test_result.errors.first.exception
+    assert_equal execution_point, ExecutionPoint.new(exception.backtrace)
+    expected = /#<Mock:leaky> was instantiated in #{Regexp.escape(origin)} but it is receiving invocations within another test/
+    assert_match(expected, exception.message)
+  end
 end
 # rubocop:enable Metrics/ModuleLength
