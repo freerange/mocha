@@ -48,8 +48,8 @@ module Mocha
         instance.verify(*args)
       end
 
-      def teardown
-        instance.teardown
+      def teardown(origin = nil)
+        instance.teardown(origin)
       ensure
         @instances.pop
       end
@@ -91,9 +91,9 @@ module Mocha
       end
     end
 
-    def teardown
+    def teardown(origin = nil)
       stubba.unstub_all
-      mocks.each(&:__expire__)
+      mocks.each { |m| m.__expire__(origin) }
       reset
     end
 

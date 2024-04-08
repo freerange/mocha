@@ -35,8 +35,14 @@ module Mocha
     # Resets Mocha after a test (only for use by authors of test libraries).
     #
     # This method should be called after each individual test has finished (including after any "teardown" code).
-    def mocha_teardown
-      Mockery.teardown
+    def mocha_teardown(origin = mocha_test_name)
+      Mockery.teardown(origin)
+    end
+
+    # Returns a string representing the unit test name, to be included in some Mocha
+    # to help track down potential bugs.
+    def mocha_test_name
+      nil
     end
   end
 end

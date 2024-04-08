@@ -343,8 +343,8 @@ module Mocha
     end
 
     # @private
-    def __expire__
-      @expired = true
+    def __expire__(origin)
+      @expired = origin || true
     end
 
     # @private
@@ -393,8 +393,10 @@ module Mocha
     def check_expiry
       return unless @expired
 
+      origin = @expired == true ? 'one test' : @expired
+
       sentences = [
-        "#{mocha_inspect} was instantiated in one test but it is receiving invocations within another test.",
+        "#{mocha_inspect} was instantiated in #{origin} but it is receiving invocations within another test.",
         'This can lead to unintended interactions between tests and hence unexpected test failures.',
         'Ensure that every test correctly cleans up any state that it introduces.'
       ]
