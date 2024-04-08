@@ -159,7 +159,7 @@ class MockTest < Mocha::TestCase
     reuse_mock_test_result = run_as_test do
       Foo.logger.expects(:log).with('Foo was here')
       e = assert_raises(Mocha::StubbingError) { Foo.new.use_the_mock }
-      assert e.message.include?('#<Mock:Logger> was instantiated in one test but it is receiving invocations within another test.')
+      assert e.message.include?('#<Mock:Logger> was instantiated in FakeTest#test_me but it is receiving invocations within another test.')
       assert e.message.include?('This can lead to unintended interactions between tests and hence unexpected test failures.')
       assert e.message.include?('Ensure that every test correctly cleans up any state that it introduces.')
     end

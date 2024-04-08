@@ -46,6 +46,21 @@ module Mocha
           super
           mocha_teardown
         end
+
+        # @private
+        def mocha_test_name
+          if respond_to?(:name)
+            test_name = name
+          elsif respond_to?(:__name__) # Older minitest
+            test_name = __name__
+          end
+
+          if test_name
+            "#{self.class.name}##{test_name}"
+          else
+            self.class.name
+          end
+        end
       end
     end
   end
