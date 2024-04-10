@@ -1,5 +1,27 @@
 # Release Notes
 
+## 2.2.0
+
+### External changes
+
+* Support multiple methods in `responds_with` matcher (f086b7e4, #578) - thanks to @vlad-pisanov for the suggestion
+* Add block syntax for sequences (93fdffd, #61)
+* Improve sequence failure message (0800c6ff, #60)
+* Drop support for Ruby v2.0 (85848fb0, #642)
+* Include the original test name in expired stub error messages (ca3ff8eb, #641, #642) - thanks to @casperisfine
+
+* Avoid rubocop directive ending up in YARD docs (2a9ee81a)
+* Update docs to fix those for `Mock#method_missing` (cee0bad6)
+* Reinstate missing CNAME for GitHub Pages site (da67bb0d)
+* Use Ruby v1.9 Hash syntax in docs (6de20726, #625)
+* Add missing YARD tag for API#sequence name param (343c5979)
+* Add missing YARD tag for API#states name param (f798df83)
+
+### Internal changes
+
+* Tidy up Minitest vs MiniTest references (#626, #614, #615) - thanks to @zenspider & @Maimer for their help
+* Add Ruby v3.3 to CI build matrix (ce31b544)
+
 ## 2.1.0
 
 ### External changes
