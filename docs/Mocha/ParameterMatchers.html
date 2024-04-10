@@ -6,7 +6,7 @@
 <title>
   Module: Mocha::ParameterMatchers
   
-    &mdash; Mocha 2.1.0
+    &mdash; Mocha 2.2.0
   
 </title>
 
@@ -561,7 +561,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#responds_with-instance_method" title="#responds_with (instance method)">#<strong>responds_with</strong>(message, result)  &#x21d2; RespondsWith </a>
+      <a href="#responds_with-instance_method" title="#responds_with (instance method)">#<strong>responds_with</strong>(*options)  &#x21d2; RespondsWith </a>
     
 
     
@@ -576,7 +576,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Matches any object that responds to <code>message</code> with <code>result</code>.</p>
+<p>Parameter matcher.</p>
 </div></span>
   
 </li>
@@ -1976,7 +1976,7 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
       
       <pre class="example code"><code><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
 <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:method_1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_with'>with</span><span class='lparen'>(</span><span class='id identifier rubyid_includes'>includes</span><span class='lparen'>(</span><span class='id identifier rubyid_has_key'>has_key</span><span class='lparen'>(</span><span class='symbol'>:key</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='rparen'>)</span>
-<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_method_1'>method_1</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>foo</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>bar</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>baz</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_method_1'>method_1</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>foo</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>bar</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='label'>key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>baz</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='rbracket'>]</span><span class='rparen'>)</span>
 <span class='comment'># no error raised</span></code></pre>
     
       
@@ -2012,7 +2012,7 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
       
       <pre class="example code"><code><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
 <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:method_1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_with'>with</span><span class='lparen'>(</span><span class='id identifier rubyid_includes'>includes</span><span class='lparen'>(</span><span class='symbol'>:bar</span><span class='rparen'>)</span><span class='rparen'>)</span>
-<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_method_1'>method_1</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:foo</span> <span class='op'>=&gt;</span> <span class='int'>1</span><span class='comma'>,</span> <span class='symbol'>:bar</span> <span class='op'>=&gt;</span> <span class='int'>2</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_method_1'>method_1</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='label'>foo:</span> <span class='int'>1</span><span class='comma'>,</span> <span class='label'>bar:</span> <span class='int'>2</span><span class='rbrace'>}</span><span class='rparen'>)</span>
 <span class='comment'># no error raised</span></code></pre>
     
       
@@ -2020,7 +2020,7 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
 <p>Actual parameter is a Hash without the given key.</p>
 </div></p>
       
-      <pre class="example code"><code><span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_method_1'>method_1</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:foo</span> <span class='op'>=&gt;</span> <span class='int'>1</span><span class='comma'>,</span> <span class='symbol'>:baz</span> <span class='op'>=&gt;</span> <span class='int'>2</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+      <pre class="example code"><code><span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_method_1'>method_1</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='label'>foo:</span> <span class='int'>1</span><span class='comma'>,</span> <span class='label'>baz:</span> <span class='int'>2</span><span class='rbrace'>}</span><span class='rparen'>)</span>
 <span class='comment'># error raised, because hash does not include key &#39;bar&#39;</span></code></pre>
     
       
@@ -2806,7 +2806,11 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
       <div class="method_details ">
   <h3 class="signature " id="responds_with-instance_method">
   
-    #<strong>responds_with</strong>(message, result)  &#x21d2; <tt><span class='object_link'><a href="ParameterMatchers/RespondsWith.html" title="Mocha::ParameterMatchers::RespondsWith (class)">RespondsWith</a></span></tt> 
+    
+      <span class="overload">#<strong>responds_with</strong>(message, result)  &#x21d2; <tt><span class='object_link'><a href="ParameterMatchers/RespondsWith.html" title="Mocha::ParameterMatchers::RespondsWith (class)">RespondsWith</a></span></tt> </span>
+    
+      <span class="overload">#<strong>responds_with</strong>(messages_vs_results)  &#x21d2; <tt><span class='object_link'><a href="ParameterMatchers/RespondsWith.html" title="Mocha::ParameterMatchers::RespondsWith (class)">RespondsWith</a></span></tt> </span>
+    
   
 
   
@@ -2815,7 +2819,7 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Matches any object that responds to <code>message</code> with <code>result</code>. To put it another way, it tests the quack, not the duck.</p>
+<p>Returns parameter matcher.</p>
 
 
   </div>
@@ -2845,8 +2849,34 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
 <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_method_1'>method_1</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>foo</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='comment'># error raised, because &quot;foo&quot;.upcase != &quot;BAR&quot;</span></code></pre>
     
+      
+        <p class="example_title"><div class='inline'>
+<p>Actual parameter responds with “FOO” when :upcase is invoked and “oof” when :reverse is invoked.</p>
+</div></p>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:method_1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_with'>with</span><span class='lparen'>(</span><span class='id identifier rubyid_responds_with'>responds_with</span><span class='lparen'>(</span><span class='label'>upcase:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>FOO</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>reverse:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>oof</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_method_1'>method_1</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>foo</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='comment'># no error raised, because &quot;foo&quot;.upcase == &quot;FOO&quot; and &quot;foo&quot;.reverse == &quot;oof&quot;</span></code></pre>
+    
   </div>
-<p class="tag_title">Parameters:</p>
+
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>responds_with</strong>(message, result)  &#x21d2; <tt><span class='object_link'><a href="ParameterMatchers/RespondsWith.html" title="Mocha::ParameterMatchers::RespondsWith (class)">RespondsWith</a></span></tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+<p>Matches any object that responds to <code>message</code> with <code>result</code>. To put it another way, it tests the quack, not the duck.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
 <ul class="param">
   
     <li>
@@ -2883,6 +2913,67 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
   
 </ul>
 
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>responds_with</strong>(messages_vs_results)  &#x21d2; <tt><span class='object_link'><a href="ParameterMatchers/RespondsWith.html" title="Mocha::ParameterMatchers::RespondsWith (class)">RespondsWith</a></span></tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+<p>Matches any object that responds to all the messages with the corresponding results as specified by <code>messages_vs_results</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>messages_vs_results</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'>Hash</span>&lt;Symbol,<span class='object_link'>Object</span>&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p><code>Hash</code> of messages vs results.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ArgumentError</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if <code>messages_vs_results</code> does not contain at least one entry.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
@@ -2915,15 +3006,45 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
       <pre class="lines">
 
 
-25
-26
-27</pre>
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/parameter_matchers/responds_with.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/parameter_matchers/responds_with.rb', line 37</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_responds_with'>responds_with</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="ParameterMatchers/RespondsWith.html" title="Mocha::ParameterMatchers::RespondsWith (class)">RespondsWith</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_responds_with'>responds_with</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span>
+  <span class='kw'>when</span> <span class='int'>0</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>No arguments. Expecting at least one.</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>when</span> <span class='int'>1</span>
+    <span class='id identifier rubyid_option'>option</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Argument is not a Hash.</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_option'>option</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Argument has no entries.</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_option'>option</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+
+    <span class='id identifier rubyid_matchers'>matchers</span> <span class='op'>=</span> <span class='id identifier rubyid_option'>option</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='op'>|</span> <span class='const'><span class='object_link'><a href="ParameterMatchers/RespondsWith.html" title="Mocha::ParameterMatchers::RespondsWith (class)">RespondsWith</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='const'><span class='object_link'><a href="ParameterMatchers/AllOf.html" title="Mocha::ParameterMatchers::AllOf (class)">AllOf</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_matchers'>matchers</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='int'>2</span>
+    <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span>
+    <span class='const'><span class='object_link'><a href="ParameterMatchers/RespondsWith.html" title="Mocha::ParameterMatchers::RespondsWith (class)">RespondsWith</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Too many arguments; use either a single argument (must be a Hash) or two arguments (a message and a result).</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -3046,9 +3167,9 @@ object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
 </div>
 
       <div id="footer">
-  Generated on Sat Nov 11 14:17:31 2023 by
+  Generated on Wed Apr 10 09:23:15 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.34 (ruby-3.2.0).
+  0.9.36 (ruby-3.2.0).
 </div>
 
     </div>

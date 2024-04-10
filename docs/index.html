@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Mocha 2.1.0
+    &mdash; Mocha 2.2.0
   
 </title>
 
@@ -64,7 +64,7 @@
 <ul>
 <li>A Ruby library for <a href="http://xunitpatterns.com/Mock%20Object.html">mocking</a> and <a href="http://xunitpatterns.com/Test%20Stub.html">stubbing</a> - but deliberately not (yet) <a href="http://xunitpatterns.com/Fake%20Object.html">faking</a> or <a href="http://xunitpatterns.com/Test%20Spy.html">spying</a>.</li>
 <li>A unified, simple and readable syntax for both full &amp; partial mocking.</li>
-<li>Built-in support for MiniTest and Test::Unit.</li>
+<li>Built-in support for Minitest and Test::Unit.</li>
 <li>Supported by many other test frameworks.</li>
 </ul>
 
@@ -81,7 +81,7 @@
 <pre class="code ruby"><code class="ruby">$ gem install mocha
 </code></pre>
 
-<p>Note: If you are intending to use Mocha with Test::Unit or MiniTest, you should only setup Mocha <em>after</em> loading the relevant test library...</p>
+<p>Note: If you are intending to use Mocha with Test::Unit or Minitest, you should only setup Mocha <em>after</em> loading the relevant test library...</p>
 
 <h5 id="test-unit">Test::Unit</h5>
 
@@ -91,11 +91,11 @@
 <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mocha/test_unit</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
 
-<h5 id="minitest">MiniTest</h5>
+<h5 id="minitest">Minitest</h5>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rubygems</span><span class='tstring_end'>&#39;</span></span>
 <span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mocha</span><span class='tstring_end'>&#39;</span></span>
-<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>minitest/unit</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>minitest/autorun</span><span class='tstring_end'>&#39;</span></span>
 <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mocha/minitest</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
 
@@ -113,13 +113,13 @@
 <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mocha/test_unit</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
 
-<h5 id="minitest">MiniTest</h5>
+<h5 id="minitest">Minitest</h5>
 
 <pre class="code ruby"><code class="ruby"><span class='comment'># Gemfile
 </span><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mocha</span><span class='tstring_end'>&#39;</span></span>
 
 <span class='comment'># Elsewhere after Bundler has loaded gems e.g. after `require &#39;bundler/setup&#39;`
-</span><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>minitest/unit</span><span class='tstring_end'>&#39;</span></span>
+</span><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>minitest/autorun</span><span class='tstring_end'>&#39;</span></span>
 <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mocha/minitest</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
 
@@ -160,9 +160,9 @@
 
 <p>If you&#39;re loading Mocha using Bundler within a Rails application, you should setup Mocha manually e.g. at the bottom of your <code>test_helper.rb</code>.</p>
 
-<h5 id="minitest">MiniTest</h5>
+<h5 id="minitest">Minitest</h5>
 
-<p>Note that since Rails v4 (at least), <code>ActiveSupport::TestCase</code> has inherited from <code>Minitest::Test</code> or its earlier equivalents. Thus unless you are <em>explicitly</em> using Test::Unit, you are likely to be using MiniTest.</p>
+<p>Note that since Rails v4 (at least), <code>ActiveSupport::TestCase</code> has inherited from <code>Minitest::Test</code> or its earlier equivalents. Thus unless you are <em>explicitly</em> using Test::Unit, you are likely to be using Minitest.</p>
 
 <pre class="code ruby"><code class="ruby"><span class='comment'># Gemfile in Rails app
 </span><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mocha</span><span class='tstring_end'>&#39;</span></span>
@@ -208,7 +208,7 @@
   <span class='kw'>end</span>
 
   <span class='kw'>def</span> <span class='id identifier rubyid_test_stubbing_instance_methods_on_real_objects'>test_stubbing_instance_methods_on_real_objects</span>
-    <span class='id identifier rubyid_prices'>prices</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_stub'>stub</span><span class='lparen'>(</span><span class='symbol'>:pence</span> <span class='op'>=&gt;</span> <span class='int'>1000</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_stub'>stub</span><span class='lparen'>(</span><span class='symbol'>:pence</span> <span class='op'>=&gt;</span> <span class='int'>2000</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_prices'>prices</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_stub'>stub</span><span class='lparen'>(</span><span class='label'>pence:</span> <span class='int'>1000</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_stub'>stub</span><span class='lparen'>(</span><span class='label'>pence:</span> <span class='int'>2000</span><span class='rparen'>)</span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_product'>product</span> <span class='op'>=</span> <span class='const'>Product</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
     <span class='id identifier rubyid_product'>product</span><span class='period'>.</span><span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='symbol'>:prices</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='id identifier rubyid_prices'>prices</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_assert_equal'>assert_equal</span> <span class='lbracket'>[</span><span class='int'>1000</span><span class='comma'>,</span> <span class='int'>2000</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_product'>product</span><span class='period'>.</span><span class='id identifier rubyid_prices'>prices</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_p'>p</span><span class='op'>|</span> <span class='id identifier rubyid_p'>p</span><span class='period'>.</span><span class='id identifier rubyid_pence'>pence</span><span class='rbrace'>}</span>
@@ -227,7 +227,7 @@
   <span class='kw'>end</span>
 
   <span class='kw'>def</span> <span class='id identifier rubyid_test_shortcuts'>test_shortcuts</span>
-    <span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_stub'>stub</span><span class='lparen'>(</span><span class='symbol'>:method1</span> <span class='op'>=&gt;</span> <span class='symbol'>:result1</span><span class='comma'>,</span> <span class='symbol'>:method2</span> <span class='op'>=&gt;</span> <span class='symbol'>:result2</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_stub'>stub</span><span class='lparen'>(</span><span class='label'>method1:</span> <span class='symbol'>:result1</span><span class='comma'>,</span> <span class='label'>method2:</span> <span class='symbol'>:result2</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_assert_equal'>assert_equal</span> <span class='symbol'>:result1</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_method1'>method1</span>
     <span class='id identifier rubyid_assert_equal'>assert_equal</span> <span class='symbol'>:result2</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_method2'>method2</span>
   <span class='kw'>end</span>
@@ -436,9 +436,9 @@ Pushed mocha 1.2.0 to rubygems.org.
 </div></div>
 
       <div id="footer">
-  Generated on Sat Nov 11 14:17:31 2023 by
+  Generated on Wed Apr 10 09:23:15 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.34 (ruby-3.2.0).
+  0.9.36 (ruby-3.2.0).
 </div>
 
     </div>

@@ -6,7 +6,7 @@
 <title>
   Module: Mocha::Hooks
   
-    &mdash; Mocha 2.1.0
+    &mdash; Mocha 2.2.0
   
 </title>
 
@@ -97,7 +97,7 @@
 
 <p>This module is provided as part of the <code>Mocha::API</code> module and is therefore part of the public API, but should only be used by authors of test libraries and not by typical “users” of Mocha.</p>
 
-<p>Integration with Test::Unit and MiniTest are provided as part of Mocha, because they are (or were once) part of the Ruby standard library. Integration with other test libraries is not provided as <strong>part</strong> of Mocha, but is supported by means of the methods in this module.</p>
+<p>Integration with Test::Unit and Minitest are provided as part of Mocha, because they are (or were once) part of the Ruby standard library. Integration with other test libraries is not provided as <strong>part</strong> of Mocha, but is supported by means of the methods in this module.</p>
 
 <p>See the code in the <code>Adapter</code> modules for examples of how to use the methods in this module. <code>Mocha::ExpectationErrorFactory</code> may be used if you want <code>Mocha</code> to raise a different type of exception.</p>
 
@@ -112,7 +112,7 @@
     
       <li><span class='object_link'><a href="Integration/TestUnit/Adapter.html" title="Mocha::Integration::TestUnit::Adapter (module)">Integration::TestUnit::Adapter</a></span></li>
     
-      <li><span class='object_link'><a href="Integration/MiniTest/Adapter.html" title="Mocha::Integration::MiniTest::Adapter (module)">Integration::MiniTest::Adapter</a></span></li>
+      <li><span class='object_link'><a href="Integration/Minitest/Adapter.html" title="Mocha::Integration::Minitest::Adapter (module)">Integration::Minitest::Adapter</a></span></li>
     
       <li><span class='object_link'><a href="ExpectationErrorFactory.html" title="Mocha::ExpectationErrorFactory (class)">ExpectationErrorFactory</a></span></li>
     
@@ -162,7 +162,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#mocha_teardown-instance_method" title="#mocha_teardown (instance method)">#<strong>mocha_teardown</strong>  &#x21d2; Object </a>
+      <a href="#mocha_teardown-instance_method" title="#mocha_teardown (instance method)">#<strong>mocha_teardown</strong>(origin = mocha_test_name)  &#x21d2; Object </a>
     
 
     
@@ -178,6 +178,30 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>Resets Mocha after a test (only for use by authors of test libraries).</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mocha_test_name-instance_method" title="#mocha_test_name (instance method)">#<strong>mocha_test_name</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns a string representing the unit test name, to be included in some Mocha to help track down potential bugs.</p>
 </div></span>
   
 </li>
@@ -262,7 +286,7 @@
       <div class="method_details ">
   <h3 class="signature " id="mocha_teardown-instance_method">
   
-    #<strong>mocha_teardown</strong>  &#x21d2; <tt><span class='object_link'>Object</span></tt> 
+    #<strong>mocha_teardown</strong>(origin = mocha_test_name)  &#x21d2; <tt><span class='object_link'>Object</span></tt> 
   
 
   
@@ -294,8 +318,49 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/mocha/hooks.rb', line 38</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_mocha_teardown'>mocha_teardown</span>
-  <span class='const'>Mockery</span><span class='period'>.</span><span class='id identifier rubyid_teardown'>teardown</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_mocha_teardown'>mocha_teardown</span><span class='lparen'>(</span><span class='id identifier rubyid_origin'>origin</span> <span class='op'>=</span> <span class='id identifier rubyid_mocha_test_name'>mocha_test_name</span><span class='rparen'>)</span>
+  <span class='const'>Mockery</span><span class='period'>.</span><span class='id identifier rubyid_teardown'>teardown</span><span class='lparen'>(</span><span class='id identifier rubyid_origin'>origin</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="mocha_test_name-instance_method">
+  
+    #<strong>mocha_test_name</strong>  &#x21d2; <tt><span class='object_link'>Object</span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns a string representing the unit test name, to be included in some Mocha to help track down potential bugs.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/mocha/hooks.rb', line 44</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_mocha_test_name'>mocha_test_name</span>
+  <span class='kw'>nil</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -352,9 +417,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Nov 11 14:17:31 2023 by
+  Generated on Wed Apr 10 09:23:15 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.34 (ruby-3.2.0).
+  0.9.36 (ruby-3.2.0).
 </div>
 
     </div>

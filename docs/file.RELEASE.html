@@ -6,7 +6,7 @@
 <title>
   File: RELEASE
   
-    &mdash; Mocha 2.1.0
+    &mdash; Mocha 2.2.0
   
 </title>
 
@@ -58,6 +58,31 @@
       </div>
 
       <div id="content"><div id='filecontents'><h1 id="release-notes">Release Notes</h1>
+
+<h2 id="2-2-0">2.2.0</h2>
+
+<h3 id="external-changes">External changes</h3>
+
+<ul>
+<li>Support multiple methods in <code>responds_with</code> matcher (f086b7e4, #578) - thanks to @vlad-pisanov for the suggestion</li>
+<li>Add block syntax for sequences (93fdffd, #61)</li>
+<li>Improve sequence failure message (0800c6ff, #60)</li>
+<li>Drop support for Ruby v2.0 (85848fb0, #642)</li>
+<li><p>Include the original test name in expired stub error messages (ca3ff8eb, #641, #642) - thanks to @casperisfine</p></li>
+<li><p>Avoid rubocop directive ending up in YARD docs (2a9ee81a)</p></li>
+<li><p>Update docs to fix those for <code>Mock#method_missing</code> (cee0bad6)</p></li>
+<li><p>Reinstate missing CNAME for GitHub Pages site (da67bb0d)</p></li>
+<li><p>Use Ruby v1.9 Hash syntax in docs (6de20726, #625)</p></li>
+<li><p>Add missing YARD tag for API#sequence name param (343c5979)</p></li>
+<li><p>Add missing YARD tag for API#states name param (f798df83)</p></li>
+</ul>
+
+<h3 id="internal-changes">Internal changes</h3>
+
+<ul>
+<li>Tidy up Minitest vs MiniTest references (#626, #614, #615) - thanks to @zenspider &amp; @Maimer for their help</li>
+<li>Add Ruby v3.3 to CI build matrix (ce31b544)</li>
+</ul>
 
 <h2 id="2-1-0">2.1.0</h2>
 
@@ -1246,9 +1271,9 @@ Hash with wrong number of entries.</li>
 </div></div>
 
       <div id="footer">
-  Generated on Sat Nov 11 14:17:31 2023 by
+  Generated on Wed Apr 10 09:23:15 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.34 (ruby-3.2.0).
+  0.9.36 (ruby-3.2.0).
 </div>
 
     </div>
