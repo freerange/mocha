@@ -189,6 +189,15 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
     assert_passed(test_result)
   end
 
+  def test_should_match_keyword_args_with_nested_matcher
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(key: is_a(Integer))
+      mock.method(key: 42)
+    end
+    assert_passed(test_result)
+  end
+
   def test_should_match_last_positional_hash_with_hash_matcher
     test_result = run_as_test do
       mock = mock()

@@ -35,6 +35,11 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
     assert matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })]) # rubocop:disable Style/BracesAroundHashParameters
   end
 
+  def test_should_match_keyword_args_with_matchers_using_keyword_args
+    matcher = Hash.ruby2_keywords_hash({ key_1: is_a(String), key_2: is_a(Integer) }).to_matcher # rubocop:disable Style/BracesAroundHashParameters
+    assert matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 'foo', key_2: 2 })]) # rubocop:disable Style/BracesAroundHashParameters
+  end
+
   def test_should_match_hash_arg_with_keyword_args_but_display_deprecation_warning_if_appropriate
     expectation = Mocha::Expectation.new(self, :foo); execution_point = ExecutionPoint.current
     matcher = Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }).to_matcher(expectation) # rubocop:disable Style/BracesAroundHashParameters
