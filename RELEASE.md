@@ -1,5 +1,11 @@
 # Release Notes
 
+## 2.3.0
+
+### External changes
+
+* Fix nested parameter matching for keyword arguments (f94e2504, #648) - thanks to @CodingAnarchy for reporting
+
 ## 2.2.0
 
 ### External changes
