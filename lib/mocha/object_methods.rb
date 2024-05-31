@@ -14,7 +14,7 @@ module Mocha
     # @private
     def mocha(instantiate = true)
       if instantiate
-        @mocha ||= Mocha::Mockery.instance.mock_impersonating(self)
+        @mocha ||= Mocha::Mockery.instance.mock_impersonating(self).responds_like(self)
       else
         defined?(@mocha) ? @mocha : nil
       end
