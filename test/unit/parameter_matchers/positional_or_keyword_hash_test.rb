@@ -50,7 +50,7 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
 
     message = Mocha::Deprecation.messages.last
     location = "#{execution_point.file_name}:#{execution_point.line_number}:in `new'"
-    assert_includes message, "Expectation defined at #{location} expected keyword arguments (:key_1 => 1, :key_2 => 2)"
+    assert_includes message, "Expectation defined at #{location} expected keyword arguments (key_1: 1, key_2: 2)"
     assert_includes message, 'but received positional hash ({:key_1 => 1, :key_2 => 2})'
     assert_includes message, 'These will stop matching when strict keyword argument matching is enabled.'
     assert_includes message, 'See the documentation for Mocha::Configuration#strict_keyword_argument_matching=.'
@@ -67,7 +67,7 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
     message = Mocha::Deprecation.messages.last
     location = "#{execution_point.file_name}:#{execution_point.line_number}:in `new'"
     assert_includes message, "Expectation defined at #{location} expected positional hash ({:key_1 => 1, :key_2 => 2})"
-    assert_includes message, 'but received keyword arguments (:key_1 => 1, :key_2 => 2)'
+    assert_includes message, 'but received keyword arguments (key_1: 1, key_2: 2)'
     assert_includes message, 'These will stop matching when strict keyword argument matching is enabled.'
     assert_includes message, 'See the documentation for Mocha::Configuration#strict_keyword_argument_matching=.'
   end
@@ -124,7 +124,7 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
 
       message = Mocha::Deprecation.messages.last
       assert_includes message, 'Expectation expected positional hash ({:key_1 => 1, :key_2 => 2})'
-      assert_includes message, 'but received keyword arguments (:key_1 => 1, :key_2 => 2)'
+      assert_includes message, 'but received keyword arguments (key_1: 1, key_2: 2)'
     end
   end
 end

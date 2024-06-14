@@ -8,9 +8,14 @@ class HashInspectTest < Mocha::TestCase
   end
 
   if Mocha::RUBY_V27_PLUS
-    def test_should_return_unwrapped_hash_when_keyword_hash
+    def test_should_return_unwrapped_keyword_style_hash_when_keyword_hash
       hash = Hash.ruby2_keywords_hash(a: true, b: false)
-      assert_equal ':a => true, :b => false', hash.mocha_inspect
+      assert_equal 'a: true, b: false', hash.mocha_inspect
+    end
+
+    def test_should_return_unwrapped_hash_when_keyword_hash_keys_are_not_symbols
+      hash = Hash.ruby2_keywords_hash('a' => true, 'b' => false)
+      assert_equal '"a" => true, "b" => false', hash.mocha_inspect
     end
   end
 
