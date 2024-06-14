@@ -30,9 +30,9 @@ class PositionalAndKeywordHashInspectTest < Mocha::TestCase
     end
     if Mocha::RUBY_V27_PLUS
       assert_equal [
-        'unexpected invocation: #<Mock:mock>.method(:key => 42)',
+        'unexpected invocation: #<Mock:mock>.method(key: 42)',
         'unsatisfied expectations:',
-        '- expected exactly once, invoked never: #<Mock:mock>.method(:foo => 42)'
+        '- expected exactly once, invoked never: #<Mock:mock>.method(foo: 42)'
       ], test_result.failure_message_lines
     else
       assert_equal [
@@ -64,9 +64,9 @@ class PositionalAndKeywordHashInspectTest < Mocha::TestCase
     end
     if Mocha::RUBY_V27_PLUS
       assert_equal [
-        'unexpected invocation: #<Mock:mock>.method(1, :key => 42)',
+        'unexpected invocation: #<Mock:mock>.method(1, key: 42)',
         'unsatisfied expectations:',
-        '- expected exactly once, invoked never: #<Mock:mock>.method(1, :foo => 42)'
+        '- expected exactly once, invoked never: #<Mock:mock>.method(1, foo: 42)'
       ], test_result.failure_message_lines
     else
       assert_equal [
@@ -102,9 +102,9 @@ class PositionalAndKeywordHashInspectTest < Mocha::TestCase
         end
       end
       assert_equal [
-        'unexpected invocation: #<Mock:mock>.method(:key => 42)',
+        'unexpected invocation: #<Mock:mock>.method(key: 42)',
         'unsatisfied expectations:',
-        '- expected exactly once, invoked never: #<Mock:mock>.method(:foo => 42)'
+        '- expected exactly once, invoked never: #<Mock:mock>.method(foo: 42)'
       ], test_result.failure_message_lines
     end
 
@@ -132,9 +132,9 @@ class PositionalAndKeywordHashInspectTest < Mocha::TestCase
         end
       end
       assert_equal [
-        'unexpected invocation: #<Mock:mock>.method(1, :key => 42)',
+        'unexpected invocation: #<Mock:mock>.method(1, key: 42)',
         'unsatisfied expectations:',
-        '- expected exactly once, invoked never: #<Mock:mock>.method(1, :foo => 42)'
+        '- expected exactly once, invoked never: #<Mock:mock>.method(1, foo: 42)'
       ], test_result.failure_message_lines
     end
   end
