@@ -2,12 +2,19 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/inspect'
 
 class HashInspectTest < Mocha::TestCase
-  def test_should_keep_spacing_between_key_value
-    hash = { a: true }
-    assert_equal '{:a => true}', hash.mocha_inspect
+  def test_should_return_string_representation_of_hash
+    hash = { a: true, b: false }
+    assert_equal '{:a => true, :b => false}', hash.mocha_inspect
   end
 
-  def test_should_use_mocha_inspect_on_each_item
+  if Mocha::RUBY_V27_PLUS
+    def test_should_return_unwrapped_hash_when_keyword_hash
+      hash = Hash.ruby2_keywords_hash(a: true, b: false)
+      assert_equal ':a => true, :b => false', hash.mocha_inspect
+    end
+  end
+
+  def test_should_use_mocha_inspect_on_each_key_and_value
     hash = { a: 'mocha' }
     assert_equal %({:a => "mocha"}), hash.mocha_inspect
   end
