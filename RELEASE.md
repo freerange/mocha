@@ -1,5 +1,15 @@
 # Release Notes
 
+## 2.4.0
+
+### External changes
+
+* Improve rendering of keyword arguments (#652) - thanks to @casperisfine
+
+### Internal changes
+
+* Improvements to `#mocha_inspect` unit tests (#650)
+
 ## 2.3.0
 
 ### External changes
