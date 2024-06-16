@@ -2,9 +2,9 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/inspect'
 
 class ArrayInspectTest < Mocha::TestCase
-  def test_should_use_inspect
+  def test_should_return_string_representation_of_array
     array = [1, 2]
-    assert_equal array.inspect, array.mocha_inspect
+    assert_equal '[1, 2]', array.mocha_inspect
   end
 
   def test_should_return_unwrapped_array_when_wrapped_is_false
