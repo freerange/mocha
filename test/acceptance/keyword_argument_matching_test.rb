@@ -198,6 +198,24 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
     assert_passed(test_result)
   end
 
+  def test_should_match_keyword_args_with_matcher_built_using_keyword_args
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(has_entry(:k1, k2: 'v2'))
+      mock.method(k1: { k2: 'v2' })
+    end
+    assert_passed(test_result)
+  end
+
+  def test_should_not_match_keyword_args_with_matcher_built_using_keyword_args
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(has_entry(:k1, k2: 'v2'))
+      mock.method(k1: { k2: 'v2', k3: 'v3' })
+    end
+    assert_failed(test_result)
+  end
+
   def test_should_match_last_positional_hash_with_hash_matcher
     test_result = run_as_test do
       mock = mock()
