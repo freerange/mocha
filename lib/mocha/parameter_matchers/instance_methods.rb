@@ -6,8 +6,12 @@ module Mocha
     # @private
     module InstanceMethods
       # @private
-      def to_matcher(_expectation = nil, _top_level = false)
-        Mocha::ParameterMatchers::Equals.new(self)
+      def to_matcher(expectation = nil, top_level = false)
+        if is_a?(Hash) && top_level
+          Mocha::ParameterMatchers::PositionalOrKeywordHash.new(self, expectation)
+        else
+          Mocha::ParameterMatchers::Equals.new(self)
+        end
       end
     end
   end
@@ -16,16 +20,4 @@ end
 # @private
 class Object
   include Mocha::ParameterMatchers::InstanceMethods
-end
-
-# @private
-class Hash
-  # @private
-  def to_matcher(expectation = nil, top_level = false)
-    if top_level
-      Mocha::ParameterMatchers::PositionalOrKeywordHash.new(self, expectation)
-    else
-      Mocha::ParameterMatchers::Equals.new(self)
-    end
-  end
 end
