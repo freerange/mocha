@@ -1,5 +1,16 @@
 # Release Notes
 
+## 2.4.1
+
+### External changes
+
+* Fix regression in matchers when used with keyword arguments (#648, #655) - thanks to @ElvinEfendi for reporting
+
+### Internal changes
+
+* Reduce duplication & consolidate `#to_matcher` method definitions (600ee2aa, e9de64e4, #655)
+* Change `#to_matcher` method to use keyword arguments (3b60b7df, #655)
+
 ## 2.4.0
 
 ### External changes
