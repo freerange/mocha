@@ -4,7 +4,7 @@
 
 ### External changes
 
-* Fix regression in matchers when used with keyword arguments (#648, #655) - thanks to @ElvinEfendi for reporting
+* Fix regression in matchers when used with keyword arguments (#654 & #655) - thanks to @ElvinEfendi for reporting
 
 ### Internal changes
 
