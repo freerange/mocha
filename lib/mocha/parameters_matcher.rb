@@ -28,7 +28,7 @@ module Mocha
     end
 
     def matchers
-      @expected_parameters.map { |p| p.to_matcher(@expectation, true) }
+      @expected_parameters.map { |p| p.to_matcher(expectation: @expectation, top_level: true) }
     end
   end
 end

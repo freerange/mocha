@@ -7,7 +7,7 @@ module Mocha
     # @private
     module InstanceMethods
       # @private
-      def to_matcher(expectation = nil, top_level = false)
+      def to_matcher(expectation: nil, top_level: false)
         if is_a?(Base)
           self
         elsif is_a?(Hash) && top_level

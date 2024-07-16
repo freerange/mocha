@@ -36,13 +36,13 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
   end
 
   def test_should_match_keyword_args_with_matchers_using_keyword_args
-    matcher = Hash.ruby2_keywords_hash({ key_1: is_a(String), key_2: is_a(Integer) }).to_matcher(nil, true) # rubocop:disable Style/BracesAroundHashParameters
+    matcher = Hash.ruby2_keywords_hash({ key_1: is_a(String), key_2: is_a(Integer) }).to_matcher(top_level: true) # rubocop:disable Style/BracesAroundHashParameters
     assert matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 'foo', key_2: 2 })]) # rubocop:disable Style/BracesAroundHashParameters
   end
 
   def test_should_match_hash_arg_with_keyword_args_but_display_deprecation_warning_if_appropriate
     expectation = Mocha::Expectation.new(self, :foo); execution_point = ExecutionPoint.current
-    matcher = Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }).to_matcher(expectation, true) # rubocop:disable Style/BracesAroundHashParameters
+    matcher = Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }).to_matcher(expectation: expectation, top_level: true) # rubocop:disable Style/BracesAroundHashParameters
     DeprecationDisabler.disable_deprecations do
       assert matcher.matches?([{ key_1: 1, key_2: 2 }])
     end
@@ -58,7 +58,7 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
 
   def test_should_match_keyword_args_with_hash_arg_but_display_deprecation_warning_if_appropriate
     expectation = Mocha::Expectation.new(self, :foo); execution_point = ExecutionPoint.current
-    matcher = { key_1: 1, key_2: 2 }.to_matcher(expectation, true)
+    matcher = { key_1: 1, key_2: 2 }.to_matcher(expectation: expectation, top_level: true)
     DeprecationDisabler.disable_deprecations do
       assert matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })]) # rubocop:disable Style/BracesAroundHashParameters
     end
@@ -102,14 +102,14 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
     end
 
     def test_should_not_match_hash_arg_with_keyword_args_when_strict_keyword_args_is_enabled
-      matcher = Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }).to_matcher(nil, true) # rubocop:disable Style/BracesAroundHashParameters
+      matcher = Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }).to_matcher(top_level: true) # rubocop:disable Style/BracesAroundHashParameters
       Mocha::Configuration.override(strict_keyword_argument_matching: true) do
         assert !matcher.matches?([{ key_1: 1, key_2: 2 }])
       end
     end
 
     def test_should_not_match_keyword_args_with_hash_arg_when_strict_keyword_args_is_enabled
-      matcher = { key_1: 1, key_2: 2 }.to_matcher(nil, true)
+      matcher = { key_1: 1, key_2: 2 }.to_matcher(top_level: true)
       Mocha::Configuration.override(strict_keyword_argument_matching: true) do
         assert !matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })]) # rubocop:disable Style/BracesAroundHashParameters
       end
@@ -117,7 +117,7 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
 
     def test_should_display_deprecation_warning_even_if_parent_expectation_is_nil
       expectation = nil
-      matcher = { key_1: 1, key_2: 2 }.to_matcher(expectation, true)
+      matcher = { key_1: 1, key_2: 2 }.to_matcher(expectation: expectation, top_level: true)
       DeprecationDisabler.disable_deprecations do
         matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })]) # rubocop:disable Style/BracesAroundHashParameters
       end
