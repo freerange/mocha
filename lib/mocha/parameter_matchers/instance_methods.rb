@@ -1,3 +1,4 @@
+require 'mocha/parameter_matchers/base'
 require 'mocha/parameter_matchers/equals'
 require 'mocha/parameter_matchers/positional_or_keyword_hash'
 
@@ -6,8 +7,14 @@ module Mocha
     # @private
     module InstanceMethods
       # @private
-      def to_matcher(_expectation = nil)
-        Mocha::ParameterMatchers::Equals.new(self)
+      def to_matcher(expectation: nil, top_level: false)
+        if is_a?(Base)
+          self
+        elsif is_a?(Hash) && top_level
+          Mocha::ParameterMatchers::PositionalOrKeywordHash.new(self, expectation)
+        else
+          Mocha::ParameterMatchers::Equals.new(self)
+        end
       end
     end
   end
@@ -16,12 +23,4 @@ end
 # @private
 class Object
   include Mocha::ParameterMatchers::InstanceMethods
-end
-
-# @private
-class Hash
-  # @private
-  def to_matcher(expectation = nil)
-    Mocha::ParameterMatchers::PositionalOrKeywordHash.new(self, expectation)
-  end
 end
