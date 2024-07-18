@@ -8,9 +8,9 @@ module Mocha
     module InstanceMethods
       # @private
       def to_matcher(expectation: nil, top_level: false)
-        if is_a?(Base)
+        if Base === self
           self
-        elsif is_a?(Hash) && top_level
+        elsif Hash === self && top_level
           Mocha::ParameterMatchers::PositionalOrKeywordHash.new(self, expectation)
         else
           Mocha::ParameterMatchers::Equals.new(self)
