@@ -1,5 +1,11 @@
 # Release Notes
 
+## 2.4.2
+
+### External changes
+
+* Don't trust `Object#is_a?` in presence of mock objects (#656) - thanks to @casperisfine
+
 ## 2.4.1
 
 ### External changes
