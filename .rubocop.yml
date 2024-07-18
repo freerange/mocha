@@ -36,6 +36,11 @@ Style/WhileUntilModifier:
 Style/AccessModifierDeclarations:
   Enabled: false
 
+# `Module#===` is useful in presence of objects such as mocks
+# that may have a `is_a?` implementation that lies.
+Style/CaseEquality:
+  Enabled: false
+
 # This is useful when using `ExecutionPoint.current` to make tests more robust
 Style/Semicolon:
   Enabled: false
