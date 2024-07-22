@@ -11,6 +11,24 @@ class ParameterMatcherTest < Mocha::TestCase
     teardown_acceptance_test
   end
 
+  def test_should_match_hash_parameter_which_is_exactly_the_same
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(key_1: 'value_1')
+      mock.method(key_1: 'value_1')
+    end
+    assert_passed(test_result)
+  end
+
+  def test_should_not_match_hash_parameter_which_is_not_exactly_the_same
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(key_1: 'value_1')
+      mock.method(key_1: 'value_1', key_2: 'value_2')
+    end
+    assert_failed(test_result)
+  end
+
   def test_should_match_hash_parameter_with_specified_key
     test_result = run_as_test do
       mock = mock()
@@ -133,6 +151,33 @@ class ParameterMatcherTest < Mocha::TestCase
       mock = mock()
       mock.expects(:method).with(has_entries(:key_1 => regexp_matches(/value_1/), kind_of(String) => 'value_2'))
       mock.method(key_1: 'value_2', key_2: 'value_3')
+    end
+    assert_failed(test_result)
+  end
+
+  def test_should_match_hash_parameter_that_is_exactly_a_key_that_is_a_string_with_a_value_that_is_an_integer
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(is_a(String) => is_a(Integer))
+      mock.method('key_1' => 123)
+    end
+    assert_passed(test_result)
+  end
+
+  def test_should_not_match_hash_parameter_that_is_exactly_a_key_that_is_a_string_with_a_value_that_is_an_integer_because_value_not_integer
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(is_a(String) => is_a(Integer))
+      mock.method('key_1' => '123')
+    end
+    assert_failed(test_result)
+  end
+
+  def test_should_not_match_hash_parameter_that_is_exactly_a_key_that_is_a_string_with_a_value_that_is_an_integer_because_of_extra_entry
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(is_a(String) => is_a(Integer))
+      mock.method('key_1' => 123, 'key_2' => 'doesntmatter')
     end
     assert_failed(test_result)
   end
