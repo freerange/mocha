@@ -1,6 +1,7 @@
 require 'mocha/configuration'
 require 'mocha/deprecation'
 require 'mocha/parameter_matchers/base'
+require 'mocha/parameter_matchers/has_entries'
 
 module Mocha
   module ParameterMatchers
@@ -14,7 +15,7 @@ module Mocha
       def matches?(available_parameters)
         parameter, is_last_parameter = extract_parameter(available_parameters)
 
-        return false unless HasEntries.new(@value).matches?([parameter])
+        return false unless HasEntries.new(@value, exact: true).matches?([parameter])
 
         if is_last_parameter && !same_type_of_hash?(parameter, @value)
           return false if Mocha.configuration.strict_keyword_argument_matching?

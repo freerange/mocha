@@ -30,20 +30,23 @@ module Mocha
     # Parameter matcher which matches when actual parameter contains all expected +Hash+ entries.
     class HasEntries < Base
       # @private
-      def initialize(entries)
+      def initialize(entries, exact: false)
         @entries = entries
+        @exact = exact
       end
 
       # @private
       def matches?(available_parameters)
         parameter = available_parameters.shift
+        return false if @exact && @entries.length != parameter.length
+
         has_entry_matchers = @entries.map { |key, value| HasEntry.new(key, value) }
         AllOf.new(*has_entry_matchers).matches?([parameter])
       end
 
       # @private
       def mocha_inspect
-        "has_entries(#{@entries.mocha_inspect})"
+        @exact ? @entries.mocha_inspect : "has_entries(#{@entries.mocha_inspect})"
       end
     end
   end
