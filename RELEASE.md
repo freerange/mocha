@@ -4,7 +4,7 @@
 
 ### External changes
 
-* Fix regression when matching Hash parameter or keyword arguments (#657, #660) - thanks to @josesei for reporting and testing
+* Fix regression when matching `Hash` parameter or keyword arguments (#657, #660) - thanks to @josesei for reporting and testing
 
 ## 2.4.2
 
