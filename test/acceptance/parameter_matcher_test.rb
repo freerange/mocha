@@ -29,6 +29,15 @@ class ParameterMatcherTest < Mocha::TestCase
     assert_failed(test_result)
   end
 
+  def test_should_not_match_hash_parameter_when_method_invoked_with_no_parameters
+    test_result = run_as_test do
+      mock = mock()
+      mock.expects(:method).with(key_1: 'value_1')
+      mock.method
+    end
+    assert_failed(test_result)
+  end
+
   def test_should_match_hash_parameter_with_specified_key
     test_result = run_as_test do
       mock = mock()
