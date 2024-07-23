@@ -38,6 +38,7 @@ module Mocha
       # @private
       def matches?(available_parameters)
         parameter = available_parameters.shift
+        return false unless parameter
         return false if @exact && @entries.length != parameter.length
 
         has_entry_matchers = @entries.map { |key, value| HasEntry.new(key, value) }

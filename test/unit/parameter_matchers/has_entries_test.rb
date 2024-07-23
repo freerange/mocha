@@ -17,6 +17,16 @@ class HasEntriesTest < Mocha::TestCase
     assert !matcher.matches?([{ key_1: 'value_1', key_2: 'value_2' }])
   end
 
+  def test_should_not_match_no_arguments_when_exact_match_not_required
+    matcher = has_entries(key_1: 'value_1')
+    assert !matcher.matches?([nil])
+  end
+
+  def test_should_not_match_no_arguments_when_exact_match_required
+    matcher = HasEntries.new({ key_1: 'value_1' }, exact: true)
+    assert !matcher.matches?([nil])
+  end
+
   def test_should_describe_matcher
     matcher = has_entries(key_1: 'value_1', key_2: 'value_2')
     description = matcher.mocha_inspect
