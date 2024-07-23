@@ -1,5 +1,11 @@
 # Release Notes
 
+## 2.4.4
+
+### External changes
+
+* Fix regression when method expecting `Hash` parameter or keyword arguments is invoked with no arguments (#662, #663) - thanks to @vlad-pisanov for reporting
+
 ## 2.4.3
 
 ### External changes
