@@ -39,7 +39,8 @@ module Mocha
       def matches?(available_parameters)
         parameter = available_parameters.shift
         return false unless parameter
-        return false if @exact && @entries.length != parameter.length
+        return false unless parameter.respond_to?(:keys)
+        return false if @exact && @entries.length != parameter.keys.length
 
         has_entry_matchers = @entries.map { |key, value| HasEntry.new(key, value) }
         AllOf.new(*has_entry_matchers).matches?([parameter])

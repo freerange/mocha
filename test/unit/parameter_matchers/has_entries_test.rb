@@ -50,6 +50,18 @@ class HasEntriesTest < Mocha::TestCase
     assert !matcher.matches?([hashlike])
   end
 
+  def test_should_match_hashlike_object_with_no_length_method_when_exact_match_required
+    matcher = HasEntries.new({ key_1: 'value_1' }, exact: true)
+    hashlike = Hashlike.new(key_1: 'value_1')
+    assert matcher.matches?([hashlike])
+  end
+
+  def test_should_not_match_hashlike_object_with_no_length_method_when_exact_match_required
+    matcher = HasEntries.new({ key_1: 'value_1' }, exact: true)
+    hashlike = Hashlike.new(key_1: 'value_1', key_2: 'value_2')
+    assert !matcher.matches?([hashlike])
+  end
+
   def test_should_describe_matcher
     matcher = has_entries(key_1: 'value_1', key_2: 'value_2')
     description = matcher.mocha_inspect

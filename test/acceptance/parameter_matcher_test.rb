@@ -1,5 +1,7 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
 
+require 'hashlike'
+
 class ParameterMatcherTest < Mocha::TestCase
   include AcceptanceTest
 
@@ -20,6 +22,16 @@ class ParameterMatcherTest < Mocha::TestCase
     assert_passed(test_result)
   end
 
+  def test_should_match_hash_parameter_when_method_invoked_with_hashlike_object_with_no_length_method
+    test_result = run_as_test do
+      mock = mock()
+      hash = { key_1: 'value_1' }
+      mock.expects(:method).with(hash)
+      mock.method(Hashlike.new(key_1: 'value_1'))
+    end
+    assert_passed(test_result)
+  end
+
   def test_should_not_match_hash_parameter_which_is_not_exactly_the_same
     test_result = run_as_test do
       mock = mock()
@@ -34,6 +46,17 @@ class ParameterMatcherTest < Mocha::TestCase
       mock = mock()
       mock.expects(:method).with(key_1: 'value_1')
       mock.method
+    end
+    assert_failed(test_result)
+  end
+
+  def test_should_not_match_hash_parameter_when_method_invoked_with_empty_hashlike_object_with_no_length_method
+    test_result = run_as_test do
+      mock = mock()
+      hash = { key_1: 'value_1' }
+      mock.expects(:method).with(hash)
+      hashlike = Hashlike.new({})
+      mock.method(hashlike)
     end
     assert_failed(test_result)
   end
