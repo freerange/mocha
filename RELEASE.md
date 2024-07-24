@@ -1,5 +1,11 @@
 # Release Notes
 
+## 2.4.5
+
+### External changes
+
+* Fix regression when stubbed method expects `Hash` but receives `ActionController::Parameters` object (#662, #664) - thanks to @evgeni for reporting and testing
+
 ## 2.4.4
 
 ### External changes
