@@ -3,6 +3,7 @@ require File.expand_path('../../../test_helper', __FILE__)
 require 'mocha/parameter_matchers/has_entries'
 require 'mocha/parameter_matchers/instance_methods'
 require 'mocha/inspect'
+require 'hashlike'
 
 class HasEntriesTest < Mocha::TestCase
   include Mocha::ParameterMatchers
@@ -17,6 +18,16 @@ class HasEntriesTest < Mocha::TestCase
     assert !matcher.matches?([{ key_1: 'value_1', key_2: 'value_2' }])
   end
 
+  def test_should_match_hash_with_the_exact_specified_entries
+    matcher = HasEntries.new({ key_1: 'value_1', key_2: 'value_2' }, exact: true)
+    assert matcher.matches?([{ key_1: 'value_1', key_2: 'value_2' }])
+  end
+
+  def test_should_not_match_hash_with_the_exact_specified_entries
+    matcher = HasEntries.new({ key_1: 'value_1', key_2: 'value_2' }, exact: true)
+    assert !matcher.matches?([{ key_1: 'value_1', key_2: 'value_2', key_3: 'value_3' }])
+  end
+
   def test_should_not_match_no_arguments_when_exact_match_not_required
     matcher = has_entries(key_1: 'value_1')
     assert !matcher.matches?([nil])
@@ -25,6 +36,30 @@ class HasEntriesTest < Mocha::TestCase
   def test_should_not_match_no_arguments_when_exact_match_required
     matcher = HasEntries.new({ key_1: 'value_1' }, exact: true)
     assert !matcher.matches?([nil])
+  end
+
+  def test_should_match_hashlike_object
+    matcher = has_entries(key_1: 'value_1')
+    hashlike = Hashlike.new(key_1: 'value_1', key_2: 'value_2')
+    assert matcher.matches?([hashlike])
+  end
+
+  def test_should_not_match_hashlike_object
+    matcher = has_entries(key_1: 'value_1')
+    hashlike = Hashlike.new({})
+    assert !matcher.matches?([hashlike])
+  end
+
+  def test_should_match_hashlike_object_with_no_length_method_when_exact_match_required
+    matcher = HasEntries.new({ key_1: 'value_1' }, exact: true)
+    hashlike = Hashlike.new(key_1: 'value_1')
+    assert matcher.matches?([hashlike])
+  end
+
+  def test_should_not_match_hashlike_object_with_no_length_method_when_exact_match_required
+    matcher = HasEntries.new({ key_1: 'value_1' }, exact: true)
+    hashlike = Hashlike.new(key_1: 'value_1', key_2: 'value_2')
+    assert !matcher.matches?([hashlike])
   end
 
   def test_should_describe_matcher
