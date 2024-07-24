@@ -3,6 +3,7 @@ require File.expand_path('../../../test_helper', __FILE__)
 require 'mocha/parameter_matchers/has_entries'
 require 'mocha/parameter_matchers/instance_methods'
 require 'mocha/inspect'
+require 'hashlike'
 
 class HasEntriesTest < Mocha::TestCase
   include Mocha::ParameterMatchers
@@ -25,6 +26,18 @@ class HasEntriesTest < Mocha::TestCase
   def test_should_not_match_no_arguments_when_exact_match_required
     matcher = HasEntries.new({ key_1: 'value_1' }, exact: true)
     assert !matcher.matches?([nil])
+  end
+
+  def test_should_match_hashlike_object
+    matcher = has_entries(key_1: 'value_1')
+    hashlike = Hashlike.new(key_1: 'value_1', key_2: 'value_2')
+    assert matcher.matches?([hashlike])
+  end
+
+  def test_should_not_match_hashlike_object
+    matcher = has_entries(key_1: 'value_1')
+    hashlike = Hashlike.new({})
+    assert !matcher.matches?([hashlike])
   end
 
   def test_should_describe_matcher
