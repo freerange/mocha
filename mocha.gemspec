@@ -21,6 +21,12 @@ Gem::Specification.new do |s|
   s.homepage = 'https://mocha.jamesmead.org'
   s.require_paths = ['lib']
   s.summary = 'Mocking and stubbing library'
+  s.metadata = {
+    'bug_tracker_uri' => 'https://github.com/freerange/mocha/issues',
+    'changelog_uri' => 'https://github.com/freerange/mocha/blob/main/RELEASE.md',
+    'source_code_uri' => 'https://github.com/freerange/mocha',
+    'homepage_uri' => s.homepage
+  }
 
   s.add_runtime_dependency 'ruby2_keywords', '>= 0.0.5'
 end
