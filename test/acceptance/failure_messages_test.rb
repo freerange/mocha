@@ -52,11 +52,13 @@ class FailureMessagesTest < Mocha::TestCase
     assert_match Regexp.new("#<Mock:#{OBJECT_ADDRESS_PATTERN}>"), test_result.failures[0].message
   end
 
-  def test_should_display_string_when_expectation_was_on_string
-    test_result = run_as_test do
-      'Foo'.expects(:bar)
+  unless Mocha::RUBY_V34_PLUS
+    def test_should_display_string_when_expectation_was_on_string
+      test_result = run_as_test do
+        'Foo'.expects(:bar)
+      end
+      assert_match Regexp.new(%("Foo")), test_result.failures[0].message
     end
-    assert_match Regexp.new(%("Foo")), test_result.failures[0].message
   end
 
   def test_should_display_that_block_was_expected
