@@ -71,7 +71,8 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
 
     message = Mocha::Deprecation.messages.last
     opening_quote = Mocha::RUBY_V34_PLUS ? "'" : '`'
-    location = "#{execution_point.file_name}:#{execution_point.line_number}:in #{opening_quote}new'"
+    method_description = Mocha::RUBY_V34_PLUS ? 'Class#new' : 'new'
+    location = "#{execution_point.file_name}:#{execution_point.line_number}:in #{opening_quote}#{method_description}'"
     assert_includes message, "Expectation defined at #{location} expected keyword arguments (key_1: 1, key_2: 2)"
     assert_includes message, 'but received positional hash ({:key_1 => 1, :key_2 => 2})'
     assert_includes message, 'These will stop matching when strict keyword argument matching is enabled.'
@@ -88,7 +89,8 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
 
     message = Mocha::Deprecation.messages.last
     opening_quote = Mocha::RUBY_V34_PLUS ? "'" : '`'
-    location = "#{execution_point.file_name}:#{execution_point.line_number}:in #{opening_quote}new'"
+    method_description = Mocha::RUBY_V34_PLUS ? 'Class#new' : 'new'
+    location = "#{execution_point.file_name}:#{execution_point.line_number}:in #{opening_quote}#{method_description}'"
     assert_includes message, "Expectation defined at #{location} expected positional hash ({:key_1 => 1, :key_2 => 2})"
     assert_includes message, 'but received keyword arguments (key_1: 1, key_2: 2)'
     assert_includes message, 'These will stop matching when strict keyword argument matching is enabled.'
