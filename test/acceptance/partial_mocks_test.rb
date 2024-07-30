@@ -13,8 +13,8 @@ class PartialMockTest < Mocha::TestCase
 
   def test_should_pass_if_all_expectations_are_satisfied
     test_result = run_as_test do
-      partial_mock_one = 'partial_mock_one'
-      partial_mock_two = 'partial_mock_two'
+      partial_mock_one = Object.new
+      partial_mock_two = Object.new
 
       partial_mock_one.expects(:first)
       partial_mock_one.expects(:second)
@@ -29,8 +29,8 @@ class PartialMockTest < Mocha::TestCase
 
   def test_should_fail_if_all_expectations_are_not_satisfied
     test_result = run_as_test do
-      partial_mock_one = 'partial_mock_one'
-      partial_mock_two = 'partial_mock_two'
+      partial_mock_one = Object.new
+      partial_mock_two = Object.new
 
       partial_mock_one.expects(:first)
       partial_mock_one.expects(:second)

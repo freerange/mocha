@@ -114,11 +114,11 @@ module Mocha
     end
 
     def mocha_inspect
-      message = ''
-      message << "unsatisfied expectations:\n- #{unsatisfied_expectations.map(&:mocha_inspect).join("\n- ")}\n" if unsatisfied_expectations.any?
-      message << "satisfied expectations:\n- #{satisfied_expectations.map(&:mocha_inspect).join("\n- ")}\n" if satisfied_expectations.any?
-      message << "states:\n- #{state_machines.map(&:mocha_inspect).join("\n- ")}\n" if state_machines.any?
-      message
+      lines = []
+      lines << "unsatisfied expectations:\n- #{unsatisfied_expectations.map(&:mocha_inspect).join("\n- ")}\n" if unsatisfied_expectations.any?
+      lines << "satisfied expectations:\n- #{satisfied_expectations.map(&:mocha_inspect).join("\n- ")}\n" if satisfied_expectations.any?
+      lines << "states:\n- #{state_machines.map(&:mocha_inspect).join("\n- ")}\n" if state_machines.any?
+      lines.join
     end
 
     def on_stubbing(object, method)

@@ -3,6 +3,7 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'deprecation_disabler'
 require 'execution_point'
 require 'mocha/deprecation'
+require 'mocha/ruby_version'
 
 class KeywordArgumentMatchingTest < Mocha::TestCase
   include AcceptanceTest
@@ -24,7 +25,8 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
         mock.method({ key: 42 }) # rubocop:disable Style/BracesAroundHashParameters
       end
       if Mocha::RUBY_V27_PLUS
-        location = "#{execution_point.file_name}:#{execution_point.line_number}:in `block in #{test_name}'"
+        opening_quote = Mocha::RUBY_V34_PLUS ? "'" : '`'
+        location = "#{execution_point.file_name}:#{execution_point.line_number}:in #{opening_quote}block in #{test_name}'"
         assert_includes Mocha::Deprecation.messages.last, "Expectation defined at #{location} expected keyword arguments (key: 42)"
         assert_includes Mocha::Deprecation.messages.last, 'but received positional hash ({:key => 42})'
       end
@@ -54,7 +56,8 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
         mock.method({ key: 42 }) # rubocop:disable Style/BracesAroundHashParameters
       end
       if Mocha::RUBY_V27_PLUS
-        location = "#{execution_point.file_name}:#{execution_point.line_number}:in `block in #{test_name}'"
+        opening_quote = Mocha::RUBY_V34_PLUS ? "'" : '`'
+        location = "#{execution_point.file_name}:#{execution_point.line_number}:in #{opening_quote}block in #{test_name}'"
         assert_includes Mocha::Deprecation.messages.last, "Expectation defined at #{location} expected keyword arguments (key: 42)"
         assert_includes Mocha::Deprecation.messages.last, 'but received positional hash ({:key => 42})'
       end
@@ -102,7 +105,8 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
         mock.method(1, key: 42)
       end
       if Mocha::RUBY_V27_PLUS
-        location = "#{execution_point.file_name}:#{execution_point.line_number}:in `block in #{test_name}'"
+        opening_quote = Mocha::RUBY_V34_PLUS ? "'" : '`'
+        location = "#{execution_point.file_name}:#{execution_point.line_number}:in #{opening_quote}block in #{test_name}'"
         assert_includes Mocha::Deprecation.messages.last, "Expectation defined at #{location} expected positional hash ({:key => 42})"
         assert_includes Mocha::Deprecation.messages.last, 'but received keyword arguments (key: 42)'
       end
@@ -132,7 +136,8 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
         mock.method(1, { key: 42 }) # rubocop:disable Style/BracesAroundHashParameters
       end
       if Mocha::RUBY_V27_PLUS
-        location = "#{execution_point.file_name}:#{execution_point.line_number}:in `block in #{test_name}'"
+        opening_quote = Mocha::RUBY_V34_PLUS ? "'" : '`'
+        location = "#{execution_point.file_name}:#{execution_point.line_number}:in #{opening_quote}block in #{test_name}'"
         assert_includes Mocha::Deprecation.messages.last, "Expectation defined at #{location} expected keyword arguments (key: 42)"
         assert_includes Mocha::Deprecation.messages.last, 'but received positional hash ({:key => 42})'
       end

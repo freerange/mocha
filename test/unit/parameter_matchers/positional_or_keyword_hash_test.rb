@@ -6,6 +6,7 @@ require 'mocha/parameter_matchers/positional_or_keyword_hash'
 require 'mocha/parameter_matchers/instance_methods'
 require 'mocha/inspect'
 require 'mocha/expectation'
+require 'mocha/ruby_version'
 
 class PositionalOrKeywordHashTest < Mocha::TestCase
   include Mocha::ParameterMatchers
@@ -69,7 +70,9 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
     return unless Mocha::RUBY_V27_PLUS
 
     message = Mocha::Deprecation.messages.last
-    location = "#{execution_point.file_name}:#{execution_point.line_number}:in `new'"
+    opening_quote = Mocha::RUBY_V34_PLUS ? "'" : '`'
+    method_description = Mocha::RUBY_V34_PLUS ? 'Class#new' : 'new'
+    location = "#{execution_point.file_name}:#{execution_point.line_number}:in #{opening_quote}#{method_description}'"
     assert_includes message, "Expectation defined at #{location} expected keyword arguments (key_1: 1, key_2: 2)"
     assert_includes message, 'but received positional hash ({:key_1 => 1, :key_2 => 2})'
     assert_includes message, 'These will stop matching when strict keyword argument matching is enabled.'
@@ -85,7 +88,9 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
     return unless Mocha::RUBY_V27_PLUS
 
     message = Mocha::Deprecation.messages.last
-    location = "#{execution_point.file_name}:#{execution_point.line_number}:in `new'"
+    opening_quote = Mocha::RUBY_V34_PLUS ? "'" : '`'
+    method_description = Mocha::RUBY_V34_PLUS ? 'Class#new' : 'new'
+    location = "#{execution_point.file_name}:#{execution_point.line_number}:in #{opening_quote}#{method_description}'"
     assert_includes message, "Expectation defined at #{location} expected positional hash ({:key_1 => 1, :key_2 => 2})"
     assert_includes message, 'but received keyword arguments (key_1: 1, key_2: 2)'
     assert_includes message, 'These will stop matching when strict keyword argument matching is enabled.'
