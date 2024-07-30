@@ -22,6 +22,7 @@ if RUBY_VERSION >= '2.2.0'
   gem 'minitest'
 end
 if RUBY_VERSION >= '2.2.0'
+  gem 'jaro_winkler', '>= 1.5.5'
   gem 'rubocop', '<= 0.58.2'
 end
 if ENV['MOCHA_GENERATE_DOCS']
