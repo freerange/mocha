@@ -29,7 +29,7 @@ class IncludesExactlyTest < Mocha::TestCase
     assert !matcher.matches?([[:x, :y, :z]])
   end
 
-  def test_should_not_match_if_number_of_occurances_is_not_identical
+  def test_should_not_match_if_number_of_occurrences_is_not_identical
     matcher = includes_exactly(:x, :y, :y)
     assert !matcher.matches?([[:x, :x, :y]])
   end
@@ -44,7 +44,7 @@ class IncludesExactlyTest < Mocha::TestCase
     assert_equal 'includes_exactly(:x, :y, :z)', matcher.mocha_inspect
   end
 
-  def test_should_not_raise_error_on_emtpy_arguments
+  def test_should_not_raise_error_on_empty_arguments
     matcher = includes_exactly(:x)
     assert_nothing_raised { matcher.matches?([]) }
   end
@@ -74,7 +74,7 @@ class IncludesExactlyTest < Mocha::TestCase
     assert matcher.matches?([[:x, { key1: 'value' }]])
   end
 
-  def test_should_not_match_object_with_an_unmatched_nested_matchers
+  def test_should_not_match_object_with_an_unmatched_nested_matcher
     matcher = includes_exactly(has_key(:key1), :x)
     assert !matcher.matches?([[:x, { no_match: 'value' }]])
   end
@@ -104,7 +104,7 @@ class IncludesExactlyTest < Mocha::TestCase
     assert matcher.matches?([{ 'foo' => 1, 'bar' => 2 }])
   end
 
-  def test_should_not_match_hash_when_nested_matcher_doesn_not_match_key
+  def test_should_not_match_hash_when_nested_matcher_does_not_match_key
     matcher = includes_exactly(regexp_matches(/az/), 'foo')
     assert !matcher.matches?([{ 'foo' => 1, 'bar' => 2 }])
   end
