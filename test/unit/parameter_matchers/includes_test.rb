@@ -44,7 +44,7 @@ class IncludesTest < Mocha::TestCase
     assert_equal 'includes(:x, :y, :z)', matcher.mocha_inspect
   end
 
-  def test_should_not_raise_error_on_emtpy_arguments
+  def test_should_not_raise_error_on_empty_arguments
     matcher = includes(:x)
     assert_nothing_raised { matcher.matches?([]) }
   end
@@ -99,7 +99,7 @@ class IncludesTest < Mocha::TestCase
     assert matcher.matches?([{ 'foo' => 1, 'bar' => 2 }])
   end
 
-  def test_should_not_match_hash_when_nested_matcher_doesn_not_match_key
+  def test_should_not_match_hash_when_nested_matcher_does_not_match_key
     matcher = includes(regexp_matches(/az/))
     assert !matcher.matches?([{ 'foo' => 1, 'bar' => 2 }])
   end
