@@ -9,7 +9,12 @@ require 'mocha/inspect'
 class IncludesExactlyTest < Mocha::TestCase
   include Mocha::ParameterMatchers
 
-  def test_should_match_object_including_array_with_exact_values
+  def test_should_match_object_including_array_with_exactly_the_same_values
+    matcher = includes_exactly(:x, :y, :z)
+    assert matcher.matches?([[:x, :y, :z]])
+  end
+
+  def test_should_match_object_including_array_with_exactly_the_same_values_in_different_order
     matcher = includes_exactly(:x, :y, :z)
     assert matcher.matches?([[:y, :z, :x]])
   end
@@ -19,7 +24,7 @@ class IncludesExactlyTest < Mocha::TestCase
     assert !matcher.matches?([[:x, :y, :z]])
   end
 
-  def test_should_not_match_object_that_does_not_include_any_one_value
+  def test_should_not_match_object_that_does_not_include_one_value
     matcher = includes_exactly(:x, :y, :z, :not_included)
     assert !matcher.matches?([[:x, :y, :z]])
   end
@@ -69,12 +74,22 @@ class IncludesExactlyTest < Mocha::TestCase
     assert !matcher.matches?([:x])
   end
 
-  def test_should_match_object_with_nested_matchers
-    matcher = includes_exactly(has_key(:key1), :x)
-    assert matcher.matches?([[:x, { key1: 'value' }]])
+  def test_should_match_object_including_values_which_match_nested_matchers
+    matcher = includes_exactly(has_key(:key1), has_key(:key2))
+    assert matcher.matches?([[{ key2: 'value2' }, { key1: 'value1' }]])
   end
 
-  def test_should_not_match_object_with_an_unmatched_nested_matcher
+  def test_should_not_match_object_including_value_which_matches_one_nested_matcher_but_not_including_value_which_matches_other_nested_matcher
+    matcher = includes_exactly(has_key(:key1), has_key(:key2))
+    assert !matcher.matches?([[{ key1: 'value1' }]])
+  end
+
+  def test_should_not_match_object_including_value_which_matches_both_nested_matchers_but_also_includes_another_value
+    matcher = includes_exactly(has_key(:key1), has_key(:key2))
+    assert !matcher.matches?([[{ key2: 'value2' }, { key1: 'value1' }, :another_value]])
+  end
+
+  def test_should_not_match_object_which_doesnt_include_value_that_matches_nested_matcher
     matcher = includes_exactly(has_key(:key1), :x)
     assert !matcher.matches?([[:x, { no_match: 'value' }]])
   end
