@@ -1,4 +1,5 @@
 require 'mocha/parameter_matchers/base'
+require 'mocha/parameter_matchers/includes'
 
 module Mocha
   module ParameterMatchers
@@ -75,7 +76,7 @@ module Mocha
     #   object.method_1({'baz' => 3})
     #   # error raised, because hash does not include a key matching /ar/
     def includes_exactly(*items)
-      IncludesExactly.new(*items)
+      Includes.new(items, exact: true)
     end
 
     # Parameter matcher which matches when actual parameter includes expected values.

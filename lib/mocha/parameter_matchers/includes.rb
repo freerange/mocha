@@ -61,14 +61,15 @@ module Mocha
     #   object.method_1({'foo' => 1, 'baz' => 3})
     #   # error raised, because hash does not include a key matching /ar/
     def includes(*items)
-      Includes.new(*items)
+      Includes.new(items)
     end
 
     # Parameter matcher which matches when actual parameter includes expected values.
     class Includes < Base
       # @private
-      def initialize(*items)
+      def initialize(items, exact: false)
         @items = items
+        @exact = exact
       end
 
       # @private
@@ -82,11 +83,12 @@ module Mocha
             parameter = parameter.keys if parameter.is_a?(Hash)
             return parameter.any? { |p| @items.first.to_matcher.matches?([p]) }
           else
-            return parameter.include?(@items.first)
+            return @exact ? parameter == @items.first : parameter.include?(@items.first)
           end
           # rubocop:enable Style/GuardClause
         else
-          includes_matchers = @items.map { |item| Includes.new(item) }
+          return false if @exact && @items.length != parameter.length
+          includes_matchers = @items.map { |item| Includes.new([item]) }
           AllOf.new(*includes_matchers).matches?([parameter])
         end
       end
@@ -94,8 +96,9 @@ module Mocha
 
       # @private
       def mocha_inspect
+        description = @exact ? "includes_exactly" : "includes"
         item_descriptions = @items.map(&:mocha_inspect)
-        "includes(#{item_descriptions.join(', ')})"
+        "#{description}(#{item_descriptions.join(', ')})"
       end
     end
   end
