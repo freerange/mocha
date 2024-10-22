@@ -12,6 +12,9 @@
 
 * Fix regression when method expecting `Hash` parameter or keyword arguments is invoked with no arguments (#662, #663) - thanks to @vlad-pisanov for reporting
 
+**WARNING: This release includes a regression:**
+* A `NoMethodError` was raised when a stubbed method was expecting a `Hash`, but was invoked with an instance of `ActionController::Parameters`. See #662 for the report and #664 for the fix which was released in v2.4.5.
+
 ## 2.4.3
 
 ### External changes
@@ -28,6 +31,9 @@
 
 * Don't trust `Object#is_a?` in presence of mock objects (#656) - thanks to @casperisfine
 
+**WARNING: This release includes a regression:**
+* Keyword argument and top-level `Hash` matching became more relaxed than intended, e.g. `mock.expects(:method).with(key: "value")` accepted `mock.method(key: "value", key2: "value")` when it should not have done. See #657 & #675 for the reports and #660 for the fix which was released in v2.4.3.
+
 ## 2.4.1
 
 ### External changes
@@ -39,6 +45,9 @@
 * Reduce duplication & consolidate `#to_matcher` method definitions (600ee2aa, e9de64e4, #655)
 * Change `#to_matcher` method to use keyword arguments (3b60b7df, #655)
 
+**WARNING: This release includes a regression:**
+* Keyword argument and top-level `Hash` matching became more relaxed than intended, e.g. `mock.expects(:method).with(key: "value")` accepted `mock.method(key: "value", key2: "value")` when it should not have done. See #657 & #675 for the reports and #660 for the fix which was released in v2.4.3.
+
 ## 2.4.0
 
 ### External changes
@@ -46,6 +55,10 @@
 * Improve rendering of keyword arguments (#652) - thanks to @casperisfine
 
 ### Internal changes
+
+**WARNING: This release includes a couple of regressions:**
+* Nested parameter matching for keyword arguments became more relaxed than intended, e.g. `mock.expects(:method).with(has_entry(:k1, k2: 'v2'))` accepted `mock.method(k1: { k2: 'v2', k3: 'v3' })` when it should not have done. See #654 for the report and #655 for the fix which was released in v2.4.1.
+* Keyword argument and top-level `Hash` matching became more relaxed than intended, e.g. `mock.expects(:method).with(key: "value")` accepted `mock.method(key: "value", key2: "value")` when it should not have done. See #657 & #675 for the reports and #660 for the fix which was released in v2.4.3.
 
 * Improvements to `#mocha_inspect` unit tests (#650)
 
