@@ -18,6 +18,10 @@
 
 * Fix regression when matching `Hash` parameter or keyword arguments (#657, #660) - thanks to @josesei for reporting and testing
 
+**WARNING: This release inadvertently introduced a couple of regressions:**
+* A `NoMethodError` was raised when a stubbed method was expecting a `Hash`, but was invoked with no arguments, e.g. with `C.expects(:foo).with(bar: 42)` and invoking `C.expects(:foo)`. See #662 for the report and #663 for the fix which was released in v2.4.4.
+* A `NoMethodError` was raised when a stubbed method was expecting a `Hash`, but was invoked with an instance of `ActionController::Parameters`. See #662 for the report and #664 for the fix which was released in v2.4.5.
+
 ## 2.4.2
 
 ### External changes
@@ -50,6 +54,10 @@
 ### External changes
 
 * Fix nested parameter matching for keyword arguments (f94e2504, #648) - thanks to @CodingAnarchy for reporting
+
+**WARNING: This release inadvertently introduced a couple of regressions:**
+* Nested parameter matching for keyword arguments became more relaxed than intended, e.g. `mock.expects(:method).with(has_entry(:k1, k2: 'v2'))` accepted `mock.method(k1: { k2: 'v2', k3: 'v3' })` when it should not have done. See #654 for the report and #655 for the fix which was released in v2.4.1.
+* Keyword argument and top-level `Hash` matching became more relaxed than intended, e.g. `mock.expects(:method).with(key: "value")` accepted `mock.method(key: "value", key2: "value")` when it should not have done. See #657 & #675 for the reports and #660 for the fix which was released in v2.4.3.
 
 ## 2.2.0
 
