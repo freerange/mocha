@@ -343,6 +343,9 @@ from the Ruby v1.8 standard library are no longer supported (#540,969f4845)
 * Add documentation for Cucumber integration (13ab797b)
 * Add documentation about an undocumented feature of `API#mock`, `API#stub` & `API#stub_everything` being changed (7ed2e4e7, d30c1717)
 
+**WARNING: This release inadvertently changed some undocumented behaviour:**
+* An undocumented feature of `API#mock`, `API#stub` & `API#stub_everything` was changed. Previously when these methods were passed a single symbol, they returned a mock object that responded to the method identified by the symbol. Now Passing a single symbol is equivalent to passing a single string, i.e. it now defines the 'name' of the mock object.
+
 ## 1.10.0.beta.1
 
 * Hide `ClassMethods#method_visibility` & `#method_exists?` methods to avoid clash with Rails (#428)
@@ -486,6 +489,9 @@ from the Ruby v1.8 standard library are no longer supported (#540,969f4845)
 * Fix typo in docs for equals - thanks to @alexcoco (#254)
 * Add known issue for Ruby v1.8 to README - thanks to @chrisroos (2c642096)
 
+**WARNING: This release inadvertently introduced the possibility of causing the Ruby interpreter to hang:**
+* There is a scenario where stubbing a class method originally defined in a module hangs the Ruby interpreter due to [a bug in Ruby v2.3.1](https://bugs.ruby-lang.org/issues/12832). See #272. This was fixed in Mocha v1.2.1.
+
 ## 1.1.0
 
 * Set visibility of any instance stub method.
@@ -493,6 +499,9 @@ from the Ruby v1.8 standard library are no longer supported (#540,969f4845)
 * Improve docs for `Mock#responds_like` & `#responds_like_instance_of`.
 * Use GitHub convention for instructions on contributing to Mocha.
 * Fix typos in docs. Thanks to @10io
+
+**WARNING: This release inadvertently introduced the possibility of causing the Ruby interpreter to hang:**
+* From this release onwards, prepended modules have been used internally for stubbing methods. There is [an obscure Ruby bug](https://bugs.ruby-lang.org/issues/12876) in many (but not all) versions of Ruby between v2.0 & v2.3 which under certain circumstances may cause your Ruby interpreter to hang. See the Ruby bug report for more details. The bug has been fixed in Ruby v2.3.3 & v2.4.0.
 
 ## 1.0.0
 
@@ -556,6 +565,9 @@ relevant patch version.
 * Adapt Mocha acceptance tests to cope with changes in output from latest (v4.6.2) of MiniTest.
 * Updates to README about Rails compatibility.
 
+**NOTE: This release inadvertently caused deprecation warnings in some contexts:**
+* When used with Rails v3.2.0-v3.2.12, v3.1.0-v3.1.10 & v3.0.0-v3.0.19.
+
 ## 0.13.2
 * Stubbing of methods re-declared with different visibilty. Fixes #109.
 * Add `Mock#responds_like_instance_of`. Fixes #119.
@@ -565,9 +577,15 @@ relevant patch version.
 * Add a Gem Badge to provide a link to Mocha on Rubygems.
 * Make documentation example consistent with other examples.
 
+**NOTE: This release inadvertently caused deprecation warnings in some contexts:**
+* When used with Rails v3.2.0-v3.2.12, v3.1.0-v3.1.10 & v3.0.0-v3.0.19.
+
 ## 0.13.1
 * Fix #97 - `Mocha::ParameterMatchers#has_entry` does not work with an Array as the entry's value. Thanks to @ngokli.
 * Allow deprecation `:debug` mode to be switched on from `MOCHA_OPTIONS` environment variable.
+
+**NOTE: This release inadvertently caused deprecation warnings in some contexts:**
+* When used with Rails v3.2.0-v3.2.12, v3.1.0-v3.1.10 & v3.0.0-v3.0.19.
 
 ## 0.13.0
 * Major overhaul of MiniTest & Test::Unit integration. Mocha now integrates with later versions of the two test libraries using documented hooks rather than monkey-patching. This should mean that Mocha will integrate with new versions of either library without the need to release a new version of Mocha each time, which was clearly bad and unsustainable. Many thanks to @tenderlove, @zenspider & @kou for their help, suggestions & patience.
@@ -580,6 +598,9 @@ relevant patch version.
 * Fix #105 - Travis link in README - thanks to @cknadler.
 * Various improvements to automated testing of integration with test libraries.
 * Make deprecation warnings more prominent.
+
+**NOTE: This release inadvertently caused deprecation warnings in some contexts:**
+* When used with Rails v3.2.0-v3.2.12, v3.1.0-v3.1.10 & v3.0.0-v3.0.19.
 
 ## 0.12.7
 * Officially support minitest v4.1.0 (still monkey-patching).
@@ -617,14 +638,26 @@ relevant patch version.
 ## 0.11.4
 * Homepage has moved to http://gofreerange.com/mocha/docs.
 
+**WARNING: This release inadvertently included a Rails compatibility issue:**
+* `TypeError: superclass mismatch for class ExpectationError` raised when using Rails v3.2.13. See #115.
+
 ## 0.11.3
 * Fix for #78 i.e. alias Object#method as Object#_method, not Object#__method__ which already exists as another Ruby method.
+
+**WARNING: This release inadvertently included a Rails compatibility issue:**
+* `TypeError: superclass mismatch for class ExpectationError` raised when using Rails v3.2.13. See #115.
 
 ## 0.11.2
 * Rails has a Request class which defines its own #method method. This broke the new mechanism for stubbing a method. This release includes a slightly modified version of fix #77 provided by @sikachu. See https://github.com/rails/rails/pull/5907 for further info.
 
+**WARNING: This release inadvertently included a Rails compatibility issue:**
+* `TypeError: superclass mismatch for class ExpectationError` raised when using Rails v3.2.13. See #115.
+
 ## 0.11.1
 * In Ruby 1.8.7 methods accepting a block parameter were incorrectly restored without the block parameter after being stubbed. Fix for #76.
+
+**WARNING: This release inadvertently included a Rails compatibility issue:**
+* `TypeError: superclass mismatch for class ExpectationError` raised when using Rails v3.2.13. See #115.
 
 ## 0.11.0
 * Store original method when stubbing rather than using alias_method. This fixes #41, #47, #74 and all tests now pass on both Ruby 1.8.7 and 1.9.3.
@@ -637,6 +670,11 @@ relevant patch version.
 * Add documentation for Mock#unstub.
 * Improve documentation for ObjectMethods.
 * Provide a way to run multiple tests within a single acceptance test method.
+
+**WARNING: This release inadvertently included a significant bug - please do not use it!**
+
+**WARNING: This release inadvertently introduced a Rails compatibility issue:**
+* `TypeError: superclass mismatch for class ExpectationError` raised when using Rails v3.2.13. See #115.
 
 ## 0.10.5
 * Fix for issue #66 (hopefully without regressing on issue #63) - Mocha::Mock has Mocha::Mockery as a dependency. Stop trying to pretend otherwise. Thanks to @kennyj for reporting.
@@ -656,8 +694,12 @@ Hash with wrong number of entries.
 ## 0.10.3
 * Fix for issue #57. Gem::Requirement#=~ was only added in rubygems v1.8.0, but Object#=~ means the result of various monkey-patching checks is always false/nil for earlier versions of rubygems. However, the method it aliases #satisfied_by? has existed since Gem::Dependency was extracted from Gem::Version in rubygems v0.9.4.4, so it's much safer to use that. Thanks to fguillen for reporting and helping with diagnosis.
 
+**WARNING: This release inadvertently included a significant bug - please do not use it!**
+
 ## 0.10.2
 * Merge pull request #53. Unstubbing a method should not remove expectations for other stubbed methods. Fixes #52. Thanks to saikat.
+
+**WARNING: This release inadvertently included a significant bug - please do not use it!**
 
 ## 0.10.1
 * Merge pull request #51. Use Gem::Requirement & Gem::Version for version comparison. Fixes issue #50. Thanks to meineerde.

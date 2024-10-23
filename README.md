@@ -121,13 +121,7 @@ Follow the instructions for the relevant test framework in the [Bundler](#bundle
 
 #### Known Issues
 
-* In Mocha v1.10.0 an undocumented feature of `API#mock`, `API#stub` & `API#stub_everything` was changed. Previously when these methods were passed a single symbol, they returned a mock object that responded to the method identified by the symbol. Now Passing a single symbol is equivalent to passing a single string, i.e. it now defines the 'name' of the mock object.
-* In Mocha v1.2.0 there is a scenario where stubbing a class method originally defined in a module hangs the Ruby interpreter due to [a bug in Ruby v2.3.1](https://bugs.ruby-lang.org/issues/12832). See #272. This was fixed in Mocha v1.2.1.
-* Since v1.1.0 Mocha has used prepended modules internally for stubbing methods. There is [an obscure Ruby bug](https://bugs.ruby-lang.org/issues/12876) in many (but not all) versions of Ruby between v2.0 & v2.3 which under certain circumstances may cause your Ruby interpreter to hang. See the Ruby bug report for more details. The bug has been fixed in Ruby v2.3.3 & v2.4.0.
-* Stubbing an aliased class method, where the original method is defined in a module that's used to `extend` the class doesn't work in Ruby 1.8.x. See stub_method_defined_on_module_and_aliased_test.rb for an example of this behaviour.
-* 0.13.x versions cause a harmless, but annoying, deprecation warning when used with Rails 3.2.0-3.2.12, 3.1.0-3.1.10 & 3.0.0-3.0.19.
-* 0.11.x versions don't work with Rails 3.2.13 (`TypeError: superclass mismatch for class ExpectationError`). See #115.
-* Versions 0.10.2, 0.10.3 & 0.11.0 of the Mocha gem were broken. Please do not use these versions.
+* Prior to v1.15.0 (when support for Ruby v1.8 was dropped), stubbing an aliased class method where the original method is defined in a module that's used to `extend` the class doesn't work in Ruby v1.8. See `test/acceptance/stub_method_defined_on_module_and_aliased_test.rb` for an example of this behaviour.
 
 ### Usage
 
