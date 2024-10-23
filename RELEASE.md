@@ -1,5 +1,18 @@
 # Release Notes
 
+## 2.5.0
+
+### External changes
+
+* Add metadata to gem specification, including `changelog_uri` (#608, eb1b8ea2) - thanks to @mattbrictson
+* Fix warnings in Ruby v3.4 (#672, #669) - thanks to @radville for reporting
+* Add warnings & notes about regressions, known issues, etc to release notes (#675, #676 & #677) - thanks to @davidstosik
+
+### Internal changes
+
+* Fix `jaro_winkler` compilation errors on MacOS (5c7d14cb)
+* Fix typos in `IncludesTest` test names (6fb5a5a6)
+
 ## 2.4.5
 
 ### External changes
