@@ -12,6 +12,7 @@
 
 * Fix `jaro_winkler` compilation errors on MacOS (5c7d14cb)
 * Fix typos in `IncludesTest` test names (6fb5a5a6)
+* Fix `rubocop` version constraint for Ruby > v2.2.0 (d5c6b98a)
 
 ## 2.4.5
 
