@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Mocha 2.4.5
+    &mdash; Mocha 2.5.0
   
 </title>
 
@@ -178,13 +178,7 @@
 <h4 id="known-issues">Known Issues</h4>
 
 <ul>
-<li>In Mocha v1.10.0 an undocumented feature of <code>API#mock</code>, <code>API#stub</code> &amp; <code>API#stub_everything</code> was changed. Previously when these methods were passed a single symbol, they returned a mock object that responded to the method identified by the symbol. Now Passing a single symbol is equivalent to passing a single string, i.e. it now defines the &#39;name&#39; of the mock object.</li>
-<li>In Mocha v1.2.0 there is a scenario where stubbing a class method originally defined in a module hangs the Ruby interpreter due to <a href="https://bugs.ruby-lang.org/issues/12832">a bug in Ruby v2.3.1</a>. See #272. This was fixed in Mocha v1.2.1.</li>
-<li>Since v1.1.0 Mocha has used prepended modules internally for stubbing methods. There is <a href="https://bugs.ruby-lang.org/issues/12876">an obscure Ruby bug</a> in many (but not all) versions of Ruby between v2.0 &amp; v2.3 which under certain circumstances may cause your Ruby interpreter to hang. See the Ruby bug report for more details. The bug has been fixed in Ruby v2.3.3 &amp; v2.4.0.</li>
-<li>Stubbing an aliased class method, where the original method is defined in a module that&#39;s used to <code>extend</code> the class doesn&#39;t work in Ruby 1.8.x. See stub_method_defined_on_module_and_aliased_test.rb for an example of this behaviour.</li>
-<li>0.13.x versions cause a harmless, but annoying, deprecation warning when used with Rails 3.2.0-3.2.12, 3.1.0-3.1.10 &amp; 3.0.0-3.0.19.</li>
-<li>0.11.x versions don&#39;t work with Rails 3.2.13 (<code>TypeError: superclass mismatch for class ExpectationError</code>). See #115.</li>
-<li>Versions 0.10.2, 0.10.3 &amp; 0.11.0 of the Mocha gem were broken. Please do not use these versions.</li>
+<li>Prior to v1.15.0 (when support for Ruby v1.8 was dropped), stubbing an aliased class method where the original method is defined in a module that&#39;s used to <code>extend</code> the class doesn&#39;t work in Ruby v1.8. See <code>test/acceptance/stub_method_defined_on_module_and_aliased_test.rb</code> for an example of this behaviour.</li>
 </ul>
 
 <h3 id="usage">Usage</h3>
@@ -436,9 +430,9 @@ Pushed mocha 1.2.0 to rubygems.org.
 </div></div>
 
       <div id="footer">
-  Generated on Wed Jul 24 12:38:12 2024 by
+  Generated on Wed Oct 23 10:44:33 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.36 (ruby-3.2.0).
+  0.9.37 (ruby-3.2.0).
 </div>
 
     </div>

@@ -6,7 +6,7 @@
 <title>
   File: RELEASE
   
-    &mdash; Mocha 2.4.5
+    &mdash; Mocha 2.5.0
   
 </title>
 
@@ -59,6 +59,23 @@
 
       <div id="content"><div id='filecontents'><h1 id="release-notes">Release Notes</h1>
 
+<h2 id="2-5-0">2.5.0</h2>
+
+<h3 id="external-changes">External changes</h3>
+
+<ul>
+<li>Add metadata to gem specification, including <code>changelog_uri</code> (#608, eb1b8ea2) - thanks to @mattbrictson</li>
+<li>Fix warnings in Ruby v3.4 (#672, #669) - thanks to @radville for reporting</li>
+<li>Add warnings &amp; notes about regressions, known issues, etc to release notes (#675, #676 &amp; #677) - thanks to @davidstosik</li>
+</ul>
+
+<h3 id="internal-changes">Internal changes</h3>
+
+<ul>
+<li>Fix <code>jaro_winkler</code> compilation errors on MacOS (5c7d14cb)</li>
+<li>Fix typos in <code>IncludesTest</code> test names (6fb5a5a6)</li>
+</ul>
+
 <h2 id="2-4-5">2.4.5</h2>
 
 <h3 id="external-changes">External changes</h3>
@@ -75,6 +92,12 @@
 <li>Fix regression when method expecting <code>Hash</code> parameter or keyword arguments is invoked with no arguments (#662, #663) - thanks to @vlad-pisanov for reporting</li>
 </ul>
 
+<p><strong>WARNING: This release includes a regression:</strong></p>
+
+<ul>
+<li>A <code>NoMethodError</code> was raised when a stubbed method was expecting a <code>Hash</code>, but was invoked with an instance of <code>ActionController::Parameters</code>. See #662 for the report and #664 for the fix which was released in v2.4.5.</li>
+</ul>
+
 <h2 id="2-4-3">2.4.3</h2>
 
 <h3 id="external-changes">External changes</h3>
@@ -83,12 +106,25 @@
 <li>Fix regression when matching <code>Hash</code> parameter or keyword arguments (#657, #660) - thanks to @josesei for reporting and testing</li>
 </ul>
 
+<p><strong>WARNING: This release inadvertently introduced a couple of regressions:</strong></p>
+
+<ul>
+<li>A <code>NoMethodError</code> was raised when a stubbed method was expecting a <code>Hash</code>, but was invoked with no arguments, e.g. with <code>C.expects(:foo).with(bar: 42)</code> and invoking <code>C.expects(:foo)</code>. See #662 for the report and #663 for the fix which was released in v2.4.4.</li>
+<li>A <code>NoMethodError</code> was raised when a stubbed method was expecting a <code>Hash</code>, but was invoked with an instance of <code>ActionController::Parameters</code>. See #662 for the report and #664 for the fix which was released in v2.4.5.</li>
+</ul>
+
 <h2 id="2-4-2">2.4.2</h2>
 
 <h3 id="external-changes">External changes</h3>
 
 <ul>
 <li>Don&#39;t trust <code>Object#is_a?</code> in presence of mock objects (#656) - thanks to @casperisfine</li>
+</ul>
+
+<p><strong>WARNING: This release includes a regression:</strong></p>
+
+<ul>
+<li>Keyword argument and top-level <code>Hash</code> matching became more relaxed than intended, e.g. <code>mock.expects(:method).with(key: &quot;value&quot;)</code> accepted <code>mock.method(key: &quot;value&quot;, key2: &quot;value&quot;)</code> when it should not have done. See #657 &amp; #675 for the reports and #660 for the fix which was released in v2.4.3.</li>
 </ul>
 
 <h2 id="2-4-1">2.4.1</h2>
@@ -106,6 +142,12 @@
 <li>Change <code>#to_matcher</code> method to use keyword arguments (3b60b7df, #655)</li>
 </ul>
 
+<p><strong>WARNING: This release includes a regression:</strong></p>
+
+<ul>
+<li>Keyword argument and top-level <code>Hash</code> matching became more relaxed than intended, e.g. <code>mock.expects(:method).with(key: &quot;value&quot;)</code> accepted <code>mock.method(key: &quot;value&quot;, key2: &quot;value&quot;)</code> when it should not have done. See #657 &amp; #675 for the reports and #660 for the fix which was released in v2.4.3.</li>
+</ul>
+
 <h2 id="2-4-0">2.4.0</h2>
 
 <h3 id="external-changes">External changes</h3>
@@ -116,8 +158,12 @@
 
 <h3 id="internal-changes">Internal changes</h3>
 
+<p><strong>WARNING: This release includes a couple of regressions:</strong></p>
+
 <ul>
-<li>Improvements to <code>#mocha_inspect</code> unit tests (#650)</li>
+<li>Nested parameter matching for keyword arguments became more relaxed than intended, e.g. <code>mock.expects(:method).with(has_entry(:k1, k2: &#39;v2&#39;))</code> accepted <code>mock.method(k1: { k2: &#39;v2&#39;, k3: &#39;v3&#39; })</code> when it should not have done. See #654 for the report and #655 for the fix which was released in v2.4.1.</li>
+<li><p>Keyword argument and top-level <code>Hash</code> matching became more relaxed than intended, e.g. <code>mock.expects(:method).with(key: &quot;value&quot;)</code> accepted <code>mock.method(key: &quot;value&quot;, key2: &quot;value&quot;)</code> when it should not have done. See #657 &amp; #675 for the reports and #660 for the fix which was released in v2.4.3.</p></li>
+<li><p>Improvements to <code>#mocha_inspect</code> unit tests (#650)</p></li>
 </ul>
 
 <h2 id="2-3-0">2.3.0</h2>
@@ -126,6 +172,13 @@
 
 <ul>
 <li>Fix nested parameter matching for keyword arguments (f94e2504, #648) - thanks to @CodingAnarchy for reporting</li>
+</ul>
+
+<p><strong>WARNING: This release inadvertently introduced a couple of regressions:</strong></p>
+
+<ul>
+<li>Nested parameter matching for keyword arguments became more relaxed than intended, e.g. <code>mock.expects(:method).with(has_entry(:k1, k2: &#39;v2&#39;))</code> accepted <code>mock.method(k1: { k2: &#39;v2&#39;, k3: &#39;v3&#39; })</code> when it should not have done. See #654 for the report and #655 for the fix which was released in v2.4.1.</li>
+<li>Keyword argument and top-level <code>Hash</code> matching became more relaxed than intended, e.g. <code>mock.expects(:method).with(key: &quot;value&quot;)</code> accepted <code>mock.method(key: &quot;value&quot;, key2: &quot;value&quot;)</code> when it should not have done. See #657 &amp; #675 for the reports and #660 for the fix which was released in v2.4.3.</li>
 </ul>
 
 <h2 id="2-2-0">2.2.0</h2>
@@ -469,6 +522,12 @@ from the Ruby v1.8 standard library are no longer supported (#540,969f4845)</li>
 <li>Add documentation about an undocumented feature of <code>API#mock</code>, <code>API#stub</code> &amp; <code>API#stub_everything</code> being changed (7ed2e4e7, d30c1717)</li>
 </ul>
 
+<p><strong>WARNING: This release inadvertently changed some undocumented behaviour:</strong></p>
+
+<ul>
+<li>An undocumented feature of <code>API#mock</code>, <code>API#stub</code> &amp; <code>API#stub_everything</code> was changed. Previously when these methods were passed a single symbol, they returned a mock object that responded to the method identified by the symbol. Now Passing a single symbol is equivalent to passing a single string, i.e. it now defines the &#39;name&#39; of the mock object.</li>
+</ul>
+
 <h2 id="1-10-0-beta-1">1.10.0.beta.1</h2>
 
 <ul>
@@ -639,6 +698,12 @@ from the Ruby v1.8 standard library are no longer supported (#540,969f4845)</li>
 <li>Add known issue for Ruby v1.8 to README - thanks to @chrisroos (2c642096)</li>
 </ul>
 
+<p><strong>WARNING: This release inadvertently introduced the possibility of causing the Ruby interpreter to hang:</strong></p>
+
+<ul>
+<li>There is a scenario where stubbing a class method originally defined in a module hangs the Ruby interpreter due to <a href="https://bugs.ruby-lang.org/issues/12832">a bug in Ruby v2.3.1</a>. See #272. This was fixed in Mocha v1.2.1.</li>
+</ul>
+
 <h2 id="1-1-0">1.1.0</h2>
 
 <ul>
@@ -647,6 +712,12 @@ from the Ruby v1.8 standard library are no longer supported (#540,969f4845)</li>
 <li>Improve docs for <code>Mock#responds_like</code> &amp; <code>#responds_like_instance_of</code>.</li>
 <li>Use GitHub convention for instructions on contributing to Mocha.</li>
 <li>Fix typos in docs. Thanks to @10io</li>
+</ul>
+
+<p><strong>WARNING: This release inadvertently introduced the possibility of causing the Ruby interpreter to hang:</strong></p>
+
+<ul>
+<li>From this release onwards, prepended modules have been used internally for stubbing methods. There is <a href="https://bugs.ruby-lang.org/issues/12876">an obscure Ruby bug</a> in many (but not all) versions of Ruby between v2.0 &amp; v2.3 which under certain circumstances may cause your Ruby interpreter to hang. See the Ruby bug report for more details. The bug has been fixed in Ruby v2.3.3 &amp; v2.4.0.</li>
 </ul>
 
 <h2 id="1-0-0">1.0.0</h2>
@@ -724,6 +795,12 @@ relevant patch version.</li>
 <li>Updates to README about Rails compatibility.</li>
 </ul>
 
+<p><strong>NOTE: This release inadvertently caused deprecation warnings in some contexts:</strong></p>
+
+<ul>
+<li>When used with Rails v3.2.0-v3.2.12, v3.1.0-v3.1.10 &amp; v3.0.0-v3.0.19.</li>
+</ul>
+
 <h2 id="0-13-2">0.13.2</h2>
 
 <ul>
@@ -736,11 +813,23 @@ relevant patch version.</li>
 <li>Make documentation example consistent with other examples.</li>
 </ul>
 
+<p><strong>NOTE: This release inadvertently caused deprecation warnings in some contexts:</strong></p>
+
+<ul>
+<li>When used with Rails v3.2.0-v3.2.12, v3.1.0-v3.1.10 &amp; v3.0.0-v3.0.19.</li>
+</ul>
+
 <h2 id="0-13-1">0.13.1</h2>
 
 <ul>
 <li>Fix #97 - <code>Mocha::ParameterMatchers#has_entry</code> does not work with an Array as the entry&#39;s value. Thanks to @ngokli.</li>
 <li>Allow deprecation <code>:debug</code> mode to be switched on from <code>MOCHA_OPTIONS</code> environment variable.</li>
+</ul>
+
+<p><strong>NOTE: This release inadvertently caused deprecation warnings in some contexts:</strong></p>
+
+<ul>
+<li>When used with Rails v3.2.0-v3.2.12, v3.1.0-v3.1.10 &amp; v3.0.0-v3.0.19.</li>
 </ul>
 
 <h2 id="0-13-0">0.13.0</h2>
@@ -756,6 +845,12 @@ relevant patch version.</li>
 <li>Fix #105 - Travis link in README - thanks to @cknadler.</li>
 <li>Various improvements to automated testing of integration with test libraries.</li>
 <li>Make deprecation warnings more prominent.</li>
+</ul>
+
+<p><strong>NOTE: This release inadvertently caused deprecation warnings in some contexts:</strong></p>
+
+<ul>
+<li>When used with Rails v3.2.0-v3.2.12, v3.1.0-v3.1.10 &amp; v3.0.0-v3.0.19.</li>
 </ul>
 
 <h2 id="0-12-7">0.12.7</h2>
@@ -821,10 +916,22 @@ relevant patch version.</li>
 <li>Homepage has moved to <a href="http://gofreerange.com/mocha/docs">http://gofreerange.com/mocha/docs</a>.</li>
 </ul>
 
+<p><strong>WARNING: This release inadvertently included a Rails compatibility issue:</strong></p>
+
+<ul>
+<li><code>TypeError: superclass mismatch for class ExpectationError</code> raised when using Rails v3.2.13. See #115.</li>
+</ul>
+
 <h2 id="0-11-3">0.11.3</h2>
 
 <ul>
 <li>Fix for #78 i.e. alias Object#method as Object#<em>method, not Object#</em><em>method</em>_ which already exists as another Ruby method.</li>
+</ul>
+
+<p><strong>WARNING: This release inadvertently included a Rails compatibility issue:</strong></p>
+
+<ul>
+<li><code>TypeError: superclass mismatch for class ExpectationError</code> raised when using Rails v3.2.13. See #115.</li>
 </ul>
 
 <h2 id="0-11-2">0.11.2</h2>
@@ -833,10 +940,22 @@ relevant patch version.</li>
 <li>Rails has a Request class which defines its own #method method. This broke the new mechanism for stubbing a method. This release includes a slightly modified version of fix #77 provided by @sikachu. See <a href="https://github.com/rails/rails/pull/5907">https://github.com/rails/rails/pull/5907</a> for further info.</li>
 </ul>
 
+<p><strong>WARNING: This release inadvertently included a Rails compatibility issue:</strong></p>
+
+<ul>
+<li><code>TypeError: superclass mismatch for class ExpectationError</code> raised when using Rails v3.2.13. See #115.</li>
+</ul>
+
 <h2 id="0-11-1">0.11.1</h2>
 
 <ul>
 <li>In Ruby 1.8.7 methods accepting a block parameter were incorrectly restored without the block parameter after being stubbed. Fix for #76.</li>
+</ul>
+
+<p><strong>WARNING: This release inadvertently included a Rails compatibility issue:</strong></p>
+
+<ul>
+<li><code>TypeError: superclass mismatch for class ExpectationError</code> raised when using Rails v3.2.13. See #115.</li>
 </ul>
 
 <h2 id="0-11-0">0.11.0</h2>
@@ -852,6 +971,14 @@ relevant patch version.</li>
 <li>Add documentation for Mock#unstub.</li>
 <li>Improve documentation for ObjectMethods.</li>
 <li>Provide a way to run multiple tests within a single acceptance test method.</li>
+</ul>
+
+<p><strong>WARNING: This release inadvertently included a significant bug - please do not use it!</strong></p>
+
+<p><strong>WARNING: This release inadvertently introduced a Rails compatibility issue:</strong></p>
+
+<ul>
+<li><code>TypeError: superclass mismatch for class ExpectationError</code> raised when using Rails v3.2.13. See #115.</li>
 </ul>
 
 <h2 id="0-10-5">0.10.5</h2>
@@ -881,11 +1008,15 @@ Hash with wrong number of entries.</li>
 <li>Fix for issue #57. Gem::Requirement#=~ was only added in rubygems v1.8.0, but Object#=~ means the result of various monkey-patching checks is always false/nil for earlier versions of rubygems. However, the method it aliases #satisfied_by? has existed since Gem::Dependency was extracted from Gem::Version in rubygems v0.9.4.4, so it&#39;s much safer to use that. Thanks to fguillen for reporting and helping with diagnosis.</li>
 </ul>
 
+<p><strong>WARNING: This release inadvertently included a significant bug - please do not use it!</strong></p>
+
 <h2 id="0-10-2">0.10.2</h2>
 
 <ul>
 <li>Merge pull request #53. Unstubbing a method should not remove expectations for other stubbed methods. Fixes #52. Thanks to saikat.</li>
 </ul>
+
+<p><strong>WARNING: This release inadvertently included a significant bug - please do not use it!</strong></p>
 
 <h2 id="0-10-1">0.10.1</h2>
 
@@ -1340,9 +1471,9 @@ Hash with wrong number of entries.</li>
 </div></div>
 
       <div id="footer">
-  Generated on Wed Jul 24 12:38:12 2024 by
+  Generated on Wed Oct 23 10:44:33 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.36 (ruby-3.2.0).
+  0.9.37 (ruby-3.2.0).
 </div>
 
     </div>

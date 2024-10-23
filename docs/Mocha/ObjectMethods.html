@@ -6,7 +6,7 @@
 <title>
   Module: Mocha::ObjectMethods
   
-    &mdash; Mocha 2.4.5
+    &mdash; Mocha 2.5.0
   
 </title>
 
@@ -218,21 +218,21 @@
 <div class="tags">
   
   <div class="examples">
-    <p class="tag_title">Examples:</p>
+    <h4 class="tag_title">Examples:</h4>
     
       
-        <p class="example_title"><div class='inline'>
+        <h5 class="example_title"><div class='inline'>
 <p>Setting up an expectation on a non-mock object.</p>
-</div></p>
+</div></h5>
       
       <pre class="example code"><code><span class='id identifier rubyid_product'>product</span> <span class='op'>=</span> <span class='const'>Product</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
 <span class='id identifier rubyid_product'>product</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:save</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='kw'>true</span><span class='rparen'>)</span>
 <span class='id identifier rubyid_assert_equal'>assert_equal</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_product'>product</span><span class='period'>.</span><span class='id identifier rubyid_save'>save</span></code></pre>
     
       
-        <p class="example_title"><div class='inline'>
+        <h5 class="example_title"><div class='inline'>
 <p>Setting up multiple expectations on a non-mock object.</p>
-</div></p>
+</div></h5>
       
       <pre class="example code"><code><span class='id identifier rubyid_product'>product</span> <span class='op'>=</span> <span class='const'>Product</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
 <span class='id identifier rubyid_product'>product</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='label'>valid?:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>save:</span> <span class='kw'>true</span><span class='rparen'>)</span>
@@ -445,21 +445,21 @@
 <div class="tags">
   
   <div class="examples">
-    <p class="tag_title">Examples:</p>
+    <h4 class="tag_title">Examples:</h4>
     
       
-        <p class="example_title"><div class='inline'>
+        <h5 class="example_title"><div class='inline'>
 <p>Setting up a stubbed methods on a non-mock object.</p>
-</div></p>
+</div></h5>
       
       <pre class="example code"><code><span class='id identifier rubyid_product'>product</span> <span class='op'>=</span> <span class='const'>Product</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
 <span class='id identifier rubyid_product'>product</span><span class='period'>.</span><span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='symbol'>:save</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='kw'>true</span><span class='rparen'>)</span>
 <span class='id identifier rubyid_assert_equal'>assert_equal</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_product'>product</span><span class='period'>.</span><span class='id identifier rubyid_save'>save</span></code></pre>
     
       
-        <p class="example_title"><div class='inline'>
+        <h5 class="example_title"><div class='inline'>
 <p>Setting up multiple stubbed methods on a non-mock object.</p>
-</div></p>
+</div></h5>
       
       <pre class="example code"><code><span class='id identifier rubyid_product'>product</span> <span class='op'>=</span> <span class='const'>Product</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
 <span class='id identifier rubyid_product'>product</span><span class='period'>.</span><span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='label'>valid?:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>save:</span> <span class='kw'>true</span><span class='rparen'>)</span>
@@ -664,12 +664,12 @@
 <div class="tags">
   
   <div class="examples">
-    <p class="tag_title">Examples:</p>
+    <h4 class="tag_title">Examples:</h4>
     
       
-        <p class="example_title"><div class='inline'>
+        <h5 class="example_title"><div class='inline'>
 <p>Stubbing and unstubbing a method on a real (non-mock) object.</p>
-</div></p>
+</div></h5>
       
       <pre class="example code"><code><span class='id identifier rubyid_multiplier'>multiplier</span> <span class='op'>=</span> <span class='const'>Multiplier</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
 <span class='id identifier rubyid_multiplier'>multiplier</span><span class='period'>.</span><span class='id identifier rubyid_double'>double</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span> <span class='comment'># =&gt; 4
@@ -679,9 +679,9 @@
 </span><span class='id identifier rubyid_multiplier'>multiplier</span><span class='period'>.</span><span class='id identifier rubyid_double'>double</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span> <span class='comment'># =&gt; 4</span></code></pre>
     
       
-        <p class="example_title"><div class='inline'>
+        <h5 class="example_title"><div class='inline'>
 <p>Unstubbing multiple methods on a real (non-mock) object.</p>
-</div></p>
+</div></h5>
       
       <pre class="example code"><code><span class='id identifier rubyid_multiplier'>multiplier</span><span class='period'>.</span><span class='id identifier rubyid_unstub'>unstub</span><span class='lparen'>(</span><span class='symbol'>:double</span><span class='comma'>,</span> <span class='symbol'>:triple</span><span class='rparen'>)</span>
 
@@ -747,9 +747,9 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Jul 24 12:38:12 2024 by
+  Generated on Wed Oct 23 10:44:34 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.36 (ruby-3.2.0).
+  0.9.37 (ruby-3.2.0).
 </div>
 
     </div>
