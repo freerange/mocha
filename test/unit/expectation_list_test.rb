@@ -69,6 +69,17 @@ class ExpectationListTest < Mocha::TestCase
     assert_same expectation1, expectation_list.match_allowing_invocation(Invocation.new(:irrelevant, :my_method))
   end
 
+  def test_should_find_matching_expectation_never_allowing_invocation
+    expectation_list = ExpectationList.new
+    expectation1 = Expectation.new(nil, :my_method)
+    expectation2 = Expectation.new(nil, :my_method)
+    define_instance_method(expectation1, :invocations_never_allowed?) { true }
+    define_instance_method(expectation2, :invocations_never_allowed?) { false }
+    expectation_list.add(expectation1)
+    expectation_list.add(expectation2)
+    assert_same expectation1, expectation_list.match_never_allowing_invocation(Invocation.new(:irrelevant, :my_method))
+  end
+
   def test_should_combine_two_expectation_lists_into_one
     expectation_list1 = ExpectationList.new
     expectation_list2 = ExpectationList.new
