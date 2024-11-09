@@ -34,6 +34,10 @@ module Mocha
       @invocations.size < maximum
     end
 
+    def invocations_never_allowed?
+      maximum.zero?
+    end
+
     def satisfied?
       @invocations.size >= required
     end
