@@ -1,7 +1,6 @@
 require File.expand_path('../../../test_helper', __FILE__)
 
 require 'deprecation_disabler'
-require 'execution_point'
 require 'mocha/parameter_matchers/positional_or_keyword_hash'
 require 'mocha/parameter_matchers/instance_methods'
 require 'mocha/inspect'
@@ -62,7 +61,7 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
   end
 
   def test_should_match_hash_arg_with_keyword_args_but_display_deprecation_warning_if_appropriate
-    expectation = Mocha::Expectation.new(self, :foo); execution_point = ExecutionPoint.current
+    expectation = Mocha::Expectation.new(self, :foo)
     matcher = build_matcher(Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }), expectation) # rubocop:disable Style/BracesAroundHashParameters
     DeprecationDisabler.disable_deprecations do
       assert matcher.matches?([{ key_1: 1, key_2: 2 }])
@@ -70,9 +69,7 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
     return unless Mocha::RUBY_V27_PLUS
 
     message = Mocha::Deprecation.messages.last
-    opening_quote = Mocha::RUBY_V34_PLUS ? "'" : '`'
-    method_description = Mocha::RUBY_V34_PLUS ? 'Class#new' : 'new'
-    location = "#{execution_point.file_name}:#{execution_point.line_number}:in #{opening_quote}#{method_description}'"
+    location = expectation.definition_location
     assert_includes message, "Expectation defined at #{location} expected keyword arguments (key_1: 1, key_2: 2)"
     assert_includes message, 'but received positional hash ({:key_1 => 1, :key_2 => 2})'
     assert_includes message, 'These will stop matching when strict keyword argument matching is enabled.'
@@ -80,7 +77,7 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
   end
 
   def test_should_match_keyword_args_with_hash_arg_but_display_deprecation_warning_if_appropriate
-    expectation = Mocha::Expectation.new(self, :foo); execution_point = ExecutionPoint.current
+    expectation = Mocha::Expectation.new(self, :foo)
     matcher = build_matcher({ key_1: 1, key_2: 2 }, expectation)
     DeprecationDisabler.disable_deprecations do
       assert matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })]) # rubocop:disable Style/BracesAroundHashParameters
@@ -88,9 +85,7 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
     return unless Mocha::RUBY_V27_PLUS
 
     message = Mocha::Deprecation.messages.last
-    opening_quote = Mocha::RUBY_V34_PLUS ? "'" : '`'
-    method_description = Mocha::RUBY_V34_PLUS ? 'Class#new' : 'new'
-    location = "#{execution_point.file_name}:#{execution_point.line_number}:in #{opening_quote}#{method_description}'"
+    location = expectation.definition_location
     assert_includes message, "Expectation defined at #{location} expected positional hash ({:key_1 => 1, :key_2 => 2})"
     assert_includes message, 'but received keyword arguments (key_1: 1, key_2: 2)'
     assert_includes message, 'These will stop matching when strict keyword argument matching is enabled.'
