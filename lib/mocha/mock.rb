@@ -35,6 +35,9 @@ module Mocha
   # while an +expects(:foo).at_least_once+ expectation will always be matched
   # against invocations.
   #
+  # However, note that if the expectation that matches the invocation has a
+  # cardinality of "never", then an unexpected invocation error is reported.
+  #
   # This scheme allows you to:
   #
   # - Set up default stubs in your the +setup+ method of your test class and
@@ -326,15 +329,11 @@ module Mocha
       matching_expectations = all_expectations.matching_expectations(invocation)
 
       index = 0
-      never_allowed_expectation = nil
       while index < matching_expectations.length
         matching_expectation = matching_expectations[index]
         if matching_expectation.invocations_never_allowed?
-          never_allowed_expectation = matching_expectation
+          raise_unexpected_invocation_error(invocation, matching_expectation)
         elsif matching_expectation.invocations_allowed?
-          if never_allowed_expectation
-            invocation_not_allowed_warning(invocation, never_allowed_expectation)
-          end
           return matching_expectation.invoke(invocation)
         end
         index += 1
@@ -386,14 +385,6 @@ module Mocha
     end
 
     private
-
-    def invocation_not_allowed_warning(invocation, expectation)
-      messages = [
-        "The expectation defined at #{expectation.definition_location} does not allow invocations, but #{invocation.call_description} was invoked.",
-        'This invocation will cause the test to fail fast in a future version of Mocha.'
-      ]
-      Deprecation.warning(messages.join(' '))
-    end
 
     def raise_unexpected_invocation_error(invocation, matching_expectation)
       if @unexpected_invocation.nil?
