@@ -88,6 +88,13 @@ class ExpectationTest < Mocha::TestCase
     assert !expectation.invocations_allowed?
   end
 
+  def test_should_never_allow_invocations
+    expectation = new_expectation.never
+    assert expectation.invocations_never_allowed?
+    invoke(expectation)
+    assert expectation.invocations_never_allowed?
+  end
+
   def test_should_store_provided_backtrace
     backtrace = Object.new
     assert_equal backtrace, Expectation.new(nil, :expected_method, backtrace).backtrace

@@ -654,6 +654,11 @@ module Mocha
     end
 
     # @private
+    def invocations_never_allowed?
+      @cardinality.invocations_never_allowed?
+    end
+
+    # @private
     def satisfied?
       @cardinality.satisfied?
     end
