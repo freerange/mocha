@@ -321,10 +321,14 @@ module Mocha
       check_expiry
       check_responder_responds_to(symbol)
       invocation = Invocation.new(self, symbol, arguments, block)
-      if (matching_expectation_allowing_invocation = all_expectations.match_allowing_invocation(invocation))
+
+      matching_expectation_allowing_invocation = all_expectations.match_allowing_invocation(invocation)
+      matching_expectation_ignoring_order = all_expectations.match(invocation, ignoring_order: true)
+
+      if matching_expectation_allowing_invocation
         matching_expectation_allowing_invocation.invoke(invocation)
-      elsif (matching_expectation = all_expectations.match(invocation, ignoring_order: true)) || (!matching_expectation && !@everything_stubbed)
-        raise_unexpected_invocation_error(invocation, matching_expectation)
+      elsif matching_expectation_ignoring_order || (!matching_expectation_ignoring_order && !@everything_stubbed)
+        raise_unexpected_invocation_error(invocation, matching_expectation_ignoring_order)
       end
     end
 
