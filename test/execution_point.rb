@@ -30,6 +30,10 @@ class ExecutionPoint
     "file: #{file_name}; line: #{line_number}"
   end
 
+  def location
+    @backtrace.first
+  end
+
   def inspect
     to_s
   end
