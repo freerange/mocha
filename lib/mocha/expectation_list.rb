@@ -21,10 +21,6 @@ module Mocha
       matching_expectations(invocation, ignoring_order: ignoring_order).first
     end
 
-    def match_but_out_of_order(invocation)
-      matching_expectations(invocation).first
-    end
-
     def match_allowing_invocation(invocation)
       matching_expectations(invocation).detect(&:invocations_allowed?)
     end
