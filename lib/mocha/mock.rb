@@ -323,17 +323,20 @@ module Mocha
       check_responder_responds_to(symbol)
       invocation = Invocation.new(self, symbol, arguments, block)
 
-      matching_expectation_allowing_invocation = all_expectations.match_allowing_invocation(invocation)
-      matching_expectation_never_allowing_invocation = all_expectations.match_never_allowing_invocation(invocation)
-      matching_expectation_ignoring_order = all_expectations.match(invocation, ignoring_order: true)
+      matching_expectations = all_expectations.matching_expectations(invocation)
+      matching_expectation_allowing_invocation = matching_expectations.detect(&:invocations_allowed?)
+      matching_expectation_never_allowing_invocation = matching_expectations.detect(&:invocations_never_allowed?)
 
       if matching_expectation_allowing_invocation
         if matching_expectation_never_allowing_invocation
           invocation_not_allowed_warning(invocation, matching_expectation_never_allowing_invocation)
         end
         matching_expectation_allowing_invocation.invoke(invocation)
-      elsif matching_expectation_ignoring_order || (!matching_expectation_ignoring_order && !@everything_stubbed)
-        raise_unexpected_invocation_error(invocation, matching_expectation_ignoring_order)
+      else
+        matching_expectation_ignoring_order = all_expectations.match(invocation, ignoring_order: true)
+        if matching_expectation_ignoring_order || (!matching_expectation_ignoring_order && !@everything_stubbed)
+          raise_unexpected_invocation_error(invocation, matching_expectation_ignoring_order)
+        end
       end
     end
 

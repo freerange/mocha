@@ -373,4 +373,15 @@ class ParameterMatcherTest < Mocha::TestCase
     end
     assert_failed(test_result)
   end
+
+  def test_should_only_call_matcher_block_once
+    test_result = run_as_test do
+      number_of_invocations = 0
+      mock = mock()
+      mock.stubs(:method).with { number_of_invocations += 1; true }
+      mock.method
+      assert_equal 1, number_of_invocations
+    end
+    assert_passed(test_result)
+  end
 end

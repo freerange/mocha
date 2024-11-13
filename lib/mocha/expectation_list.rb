@@ -53,8 +53,6 @@ module Mocha
       self.class.new(to_a + other.to_a)
     end
 
-    private
-
     def matching_expectations(invocation, ignoring_order: false)
       @expectations.select { |e| e.match?(invocation, ignoring_order: ignoring_order) }
     end
