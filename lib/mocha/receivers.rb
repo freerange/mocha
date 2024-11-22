@@ -1,5 +1,5 @@
 module Mocha
-  class ObjectReceiver
+  class StubbedReceiver
     def initialize(object)
       @object = object
     end
@@ -8,7 +8,7 @@ module Mocha
       object = @object
       mocks = []
       while object
-        mocha = object.mocha(false)
+        mocha = stubbee(object).mocha(false)
         mocks << mocha if mocha
         object = object.is_a?(Class) ? object.superclass : nil
       end
@@ -16,20 +16,15 @@ module Mocha
     end
   end
 
-  class AnyInstanceReceiver
-    def initialize(klass)
-      @klass = klass
+  class InstanceReceiver < StubbedReceiver
+    def stubbee(object)
+      object
     end
+  end
 
-    def mocks
-      klass = @klass
-      mocks = []
-      while klass
-        mocha = klass.any_instance.mocha(false)
-        mocks << mocha if mocha
-        klass = klass.superclass
-      end
-      mocks
+  class AnyInstanceReceiver < StubbedReceiver
+    def stubbee(klass)
+      klass.any_instance
     end
   end
 
