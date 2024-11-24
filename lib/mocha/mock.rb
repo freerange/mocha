@@ -8,6 +8,7 @@ require 'mocha/method_matcher'
 require 'mocha/parameters_matcher'
 require 'mocha/argument_iterator'
 require 'mocha/expectation_error_factory'
+require 'mocha/deprecation'
 
 module Mocha
   # Traditional mock object.
@@ -321,10 +322,21 @@ module Mocha
       check_expiry
       check_responder_responds_to(symbol)
       invocation = Invocation.new(self, symbol, arguments, block)
-      if (matching_expectation_allowing_invocation = all_expectations.match_allowing_invocation(invocation))
+
+      matching_expectations = all_expectations.matching_expectations(invocation)
+      matching_expectation_allowing_invocation = matching_expectations.detect(&:invocations_allowed?)
+      matching_expectation_never_allowing_invocation = matching_expectations.detect(&:invocations_never_allowed?)
+
+      if matching_expectation_allowing_invocation
+        if matching_expectation_never_allowing_invocation
+          invocation_not_allowed_warning(invocation, matching_expectation_never_allowing_invocation)
+        end
         matching_expectation_allowing_invocation.invoke(invocation)
-      elsif (matching_expectation = all_expectations.match(invocation, ignoring_order: true)) || (!matching_expectation && !@everything_stubbed)
-        raise_unexpected_invocation_error(invocation, matching_expectation)
+      else
+        matching_expectation_ignoring_order = all_expectations.match(invocation, ignoring_order: true)
+        if matching_expectation_ignoring_order || (!matching_expectation_ignoring_order && !@everything_stubbed)
+          raise_unexpected_invocation_error(invocation, matching_expectation_ignoring_order)
+        end
       end
     end
 
@@ -368,6 +380,14 @@ module Mocha
     end
 
     private
+
+    def invocation_not_allowed_warning(invocation, expectation)
+      messages = [
+        "The expectation defined at #{expectation.definition_location} does not allow invocations, but #{invocation.call_description} was invoked.",
+        'This invocation will cause the test to fail fast in a future version of Mocha.'
+      ]
+      Deprecation.warning(messages.join(' '))
+    end
 
     def raise_unexpected_invocation_error(invocation, matching_expectation)
       if @unexpected_invocation.nil?

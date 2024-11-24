@@ -1,4 +1,6 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
+require 'deprecation_disabler'
+require 'execution_point'
 
 class MockedMethodDispatchTest < Mocha::TestCase
   include AcceptanceTest
@@ -71,5 +73,25 @@ class MockedMethodDispatchTest < Mocha::TestCase
       assert_equal 1, mock.method
     end
     assert_passed(test_result)
+  end
+
+  def test_should_display_deprecation_warning_if_invocation_matches_expectation_with_never_cardinality
+    execution_point = nil
+    test_result = run_as_test do
+      mock = mock('mock')
+      mock.stubs(:method)
+      mock.expects(:method).never; execution_point = ExecutionPoint.current
+      DeprecationDisabler.disable_deprecations do
+        mock.method
+      end
+    end
+    assert_passed(test_result)
+    message = Mocha::Deprecation.messages.last
+    location = execution_point.location
+    expected = [
+      "The expectation defined at #{location} does not allow invocations, but #<Mock:mock>.method() was invoked.",
+      'This invocation will cause the test to fail fast in a future version of Mocha.'
+    ]
+    assert_equal expected.join(' '), message
   end
 end

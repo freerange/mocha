@@ -25,6 +25,10 @@ module Mocha
       matching_expectations(invocation).detect(&:invocations_allowed?)
     end
 
+    def match_never_allowing_invocation(invocation)
+      matching_expectations(invocation).detect(&:invocations_never_allowed?)
+    end
+
     def verified?(assertion_counter = nil)
       @expectations.all? { |expectation| expectation.verified?(assertion_counter) }
     end
@@ -48,8 +52,6 @@ module Mocha
     def +(other)
       self.class.new(to_a + other.to_a)
     end
-
-    private
 
     def matching_expectations(invocation, ignoring_order: false)
       @expectations.select { |e| e.match?(invocation, ignoring_order: ignoring_order) }

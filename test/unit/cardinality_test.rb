@@ -22,6 +22,13 @@ class CardinalityTest < Mocha::TestCase
     assert !cardinality.invocations_allowed?
   end
 
+  def test_should_never_allow_invocations
+    cardinality = Cardinality.new.exactly(0)
+    assert cardinality.invocations_never_allowed?
+    cardinality << new_invocation
+    assert cardinality.invocations_never_allowed?
+  end
+
   def test_should_be_satisfied_if_invocations_so_far_have_reached_required_threshold
     cardinality = Cardinality.new(2, 3)
     assert !cardinality.satisfied?
