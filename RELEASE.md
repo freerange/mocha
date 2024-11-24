@@ -1,5 +1,16 @@
 # Release Notes
 
+## 2.6.0
+
+### External changes
+
+* Expectation with never cardinality should display deprecation warning (#681) - thanks to @ducmtran for reporting and testing
+
+### Internal changes
+
+* Simplify backtrace related assertions (#680)
+* Remove unused `ExpectationList#match_but_out_of_order` (f2fa9919)
+
 ## 2.5.0
 
 ### External changes
