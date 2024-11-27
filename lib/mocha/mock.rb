@@ -318,25 +318,31 @@ module Mocha
     ruby2_keywords(:method_missing)
 
     # @private
-    def handle_method_call(symbol, arguments, block)
+    def handle_method_call(symbol, arguments, block) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       check_expiry
       check_responder_responds_to(symbol)
       invocation = Invocation.new(self, symbol, arguments, block)
 
       matching_expectations = all_expectations.matching_expectations(invocation)
-      matching_expectation_allowing_invocation = matching_expectations.detect(&:invocations_allowed?)
-      matching_expectation_never_allowing_invocation = matching_expectations.detect(&:invocations_never_allowed?)
 
-      if matching_expectation_allowing_invocation
-        if matching_expectation_never_allowing_invocation
-          invocation_not_allowed_warning(invocation, matching_expectation_never_allowing_invocation)
+      index = 0
+      never_allowed_expectation = nil
+      while index < matching_expectations.length
+        matching_expectation = matching_expectations[index]
+        if matching_expectation.invocations_never_allowed?
+          never_allowed_expectation = matching_expectation
+        elsif matching_expectation.invocations_allowed?
+          if never_allowed_expectation
+            invocation_not_allowed_warning(invocation, never_allowed_expectation)
+          end
+          return matching_expectation.invoke(invocation)
         end
-        matching_expectation_allowing_invocation.invoke(invocation)
-      else
-        matching_expectation_ignoring_order = all_expectations.match(invocation, ignoring_order: true)
-        if matching_expectation_ignoring_order || (!matching_expectation_ignoring_order && !@everything_stubbed)
-          raise_unexpected_invocation_error(invocation, matching_expectation_ignoring_order)
-        end
+        index += 1
+      end
+
+      matching_expectation_ignoring_order = all_expectations.match(invocation, ignoring_order: true)
+      if matching_expectation_ignoring_order || (!matching_expectation_ignoring_order && !@everything_stubbed) # rubocop:disable Style/GuardClause
+        raise_unexpected_invocation_error(invocation, matching_expectation_ignoring_order)
       end
     end
 
