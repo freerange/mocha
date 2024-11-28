@@ -1,10 +1,19 @@
 # Release Notes
 
+## 2.6.1
+
+### External changes
+
+* Fix logic for displaying deprecation warning for expectation with never cardinality (#686) - thanks to @davidstosik for reporting
+
 ## 2.6.0
 
 ### External changes
 
 * Expectation with never cardinality should display deprecation warning (#681) - thanks to @ducmtran for reporting and testing
+
+**WARNING: This release results in some incorrect deprecation warnings:**
+* The logic for displaying the deprecation warnings is fixed in v2.6.1 (#686).
 
 ### Internal changes
 
