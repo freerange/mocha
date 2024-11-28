@@ -6,7 +6,7 @@
 <title>
   File: RELEASE
   
-    &mdash; Mocha 2.6.0
+    &mdash; Mocha 2.6.1
   
 </title>
 
@@ -59,12 +59,26 @@
 
       <div id="content"><div id='filecontents'><h1 id="release-notes">Release Notes</h1>
 
+<h2 id="2-6-1">2.6.1</h2>
+
+<h3 id="external-changes">External changes</h3>
+
+<ul>
+<li>Fix logic for displaying deprecation warning for expectation with never cardinality (#686) - thanks to @davidstosik for reporting</li>
+</ul>
+
 <h2 id="2-6-0">2.6.0</h2>
 
 <h3 id="external-changes">External changes</h3>
 
 <ul>
 <li>Expectation with never cardinality should display deprecation warning (#681) - thanks to @ducmtran for reporting and testing</li>
+</ul>
+
+<p><strong>WARNING: This release results in some incorrect deprecation warnings:</strong></p>
+
+<ul>
+<li>The logic for displaying the deprecation warnings is fixed in v2.6.1 (#686).</li>
 </ul>
 
 <h3 id="internal-changes">Internal changes</h3>
@@ -1487,7 +1501,7 @@ Hash with wrong number of entries.</li>
 </div></div>
 
       <div id="footer">
-  Generated on Sun Nov 24 10:43:27 2024 by
+  Generated on Thu Nov 28 14:57:34 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.3.6).
 </div>
