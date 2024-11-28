@@ -94,4 +94,18 @@ class MockedMethodDispatchTest < Mocha::TestCase
     ]
     assert_equal expected.join(' '), message
   end
+
+  def test_should_not_display_deprecation_warning_if_invocation_matches_expectation_allowing_invocation_before_matching_expectation_with_never_cardinality
+    test_result = run_as_test do
+      mock = mock('mock')
+      mock.expects(:method).never
+      mock.expects(:method).once
+      Mocha::Deprecation.messages = []
+      DeprecationDisabler.disable_deprecations do
+        mock.method
+      end
+    end
+    assert_passed(test_result)
+    assert Mocha::Deprecation.messages.empty?
+  end
 end
