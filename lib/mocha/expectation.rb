@@ -19,7 +19,7 @@ module Mocha
   class Expectation
     # Modifies expectation so that the number of calls to the expected method must be within a specific +range+.
     #
-    # @param [Range,Integer] range specifies the allowable range in the number of expected invocations.
+    # @param [Range,Integer] range specifies the allowable number or range in the number of expected invocations.
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
     #
     # @example Specifying a specific number of expected invocations.
@@ -44,11 +44,12 @@ module Mocha
     #   object.expected_method
     #   # => verify fails
     def times(range)
-      @cardinality.times(range)
+      range = range..range unless range.is_a?(Range)
+      @cardinality.range(range.first, range.last)
       self
     end
 
-    # Modifies expectation so that the expected method must be called exactly twice.
+    # Modifies expectation so that the expected method must be called exactly twice. Has the same effect as calling {times}(2).
     #
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
     #
@@ -70,11 +71,10 @@ module Mocha
     #   object.expected_method
     #   # => verify fails
     def twice
-      @cardinality.exactly(2)
-      self
+      times(2)
     end
 
-    # Modifies expectation so that the expected method must be called exactly once.
+    # Modifies expectation so that the expected method must be called exactly once. Has the same effect as calling {times}(1).
     #
     # Note that this is the default behaviour for an expectation, but you may wish to use it for clarity/emphasis.
     #
@@ -95,11 +95,10 @@ module Mocha
     #   object.expects(:expected_method).once
     #   # => verify fails
     def once
-      @cardinality.exactly(1)
-      self
+      times(1)
     end
 
-    # Modifies expectation so that the expected method must never be called.
+    # Modifies expectation so that the expected method must never be called. Has the same effect as calling {times}(0).
     #
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
     #
@@ -112,11 +111,11 @@ module Mocha
     #   object.expects(:expected_method).never
     #   # => verify succeeds
     def never
-      @cardinality.exactly(0)
-      self
+      times(0)
     end
 
-    # Modifies expectation so that the expected method must be called at least a +minimum_number_of_times+.
+    # Modifies expectation so that the expected method must be called at least a +minimum_number_of_times+ and at most any number of times.
+    # Has the same effect as calling {times}(+minimum_number_of_times+..Float::INFINITY).
     #
     # @param [Integer] minimum_number_of_times minimum number of expected invocations.
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
@@ -132,11 +131,12 @@ module Mocha
     #   object.expected_method
     #   # => verify fails
     def at_least(minimum_number_of_times)
-      @cardinality.at_least(minimum_number_of_times)
+      @cardinality.range(minimum_number_of_times)
       self
     end
 
-    # Modifies expectation so that the expected method must be called at least once.
+    # Modifies expectation so that the expected method must be called at least once and at most any number of times.
+    # Has the same effect as calling {at_least}(1).
     #
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
     #
@@ -153,7 +153,8 @@ module Mocha
       at_least(1)
     end
 
-    # Modifies expectation so that the expected method must be called at most a +maximum_number_of_times+.
+    # Modifies expectation so that the expected method must be called from never to at most a +maximum_number_of_times+.
+    # Has the same effect as calling {times}(0..+maximum_number_of_times+).
     #
     # @param [Integer] maximum_number_of_times maximum number of expected invocations.
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
@@ -168,11 +169,11 @@ module Mocha
     #   object.expects(:expected_method).at_most(2)
     #   3.times { object.expected_method } # => unexpected invocation
     def at_most(maximum_number_of_times)
-      @cardinality.at_most(maximum_number_of_times)
-      self
+      times(0..maximum_number_of_times)
     end
 
-    # Modifies expectation so that the expected method must be called at most once.
+    # Modifies expectation so that the expected method must be called from never to at most once.
+    # Has the same effect as calling {at_most}(1).
     #
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
     #
@@ -601,7 +602,7 @@ module Mocha
       @block_matcher = BlockMatchers::OptionalBlock.new
       @ordering_constraints = []
       @side_effects = []
-      @cardinality = Cardinality.new.exactly(1)
+      @cardinality = Cardinality.new.range(1, 1)
       @return_values = ReturnValues.new
       @yield_parameters = YieldParameters.new
       @backtrace = backtrace || caller
