@@ -90,4 +90,18 @@ class ExpectationListTest < Mocha::TestCase
     expectation_list = expectation_list1 + expectation_list2
     assert_equal [expectation1, expectation2], expectation_list.to_a
   end
+
+  def test_should_display_deprecation_warning_when_multiple_expectations_are_added
+    DeprecationDisabler.disable_deprecations do
+      expectation_list = ExpectationList.new
+      expectation1 = Expectation.new(nil, :my_method).with(:argument1, :argument2)
+      expectation2 = Expectation.new(nil, :my_method).with(:argument3, :argument4)
+      expectation_list.add(expectation1)
+      expectation_list.add(expectation2)
+    end
+    assert message = Deprecation.messages.last
+    assert message.include?('Expectations are currently searched from newest to oldest to find one that matches the invocation.')
+    assert message.include?('This search order will be reversed in the future, such that expectations are searched from oldest to newest to find one that matches the invocation.')
+    assert message.include?('This means you will have to reverse the order of `expects` and `stubs` calls on the same object if you want to retain the current behavior.')
+  end
 end
