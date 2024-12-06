@@ -156,6 +156,8 @@ module SharedTests
   end
 
   def test_real_object_expectation_does_not_leak_into_subsequent_test
+    opening_quote = Mocha::RUBY_V34_PLUS ? "'" : '`'
+
     execution_point = nil
     klass = Class.new
     test_result = run_as_tests(
@@ -170,7 +172,7 @@ module SharedTests
     assert_errored(test_result)
     exception = test_result.errors.first.exception
     assert_equal execution_point, ExecutionPoint.new(exception.backtrace)
-    assert_match(/undefined method `foo'/, exception.message)
+    assert_match(/undefined method #{opening_quote}foo'/, exception.message)
   end
 
   def test_leaky_mock
