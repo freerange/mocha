@@ -1,5 +1,26 @@
 # Release Notes
 
+## 2.7.0
+
+### External changes
+
+* Fail fast if invocation matches never expectation (#679, #678, #490, #131 & #44) - thanks to @ducmtran & @davidstosik for reporting
+
+### Internal changes
+
+* Workaround for JRuby jar-dependencies issue (#690)
+* Ruby v3.4 stacktrace uses single-quote vs backtick (#688 & #689) - thanks to Vít Ondruch
+
+**WARNING: This release fixes a very _old_ bug**
+* The bug relates to the use of `Expectation#never` in combination with other expectations on the same method.
+* Please ensure you fix the relevant deprecation warnings when running against v2.6.1 *before* upgrading to v2.7.0.
+* Previously, the following test would have passed, but now it will fail with an unexpected invocation error on the `foo.bar` line.
+
+    foo = mock('foo')
+    foo.stubs(:bar)
+    foo.expects(:bar).never
+    foo.bar
+
 ## 2.6.1
 
 ### External changes
