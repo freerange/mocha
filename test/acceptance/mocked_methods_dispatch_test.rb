@@ -1,6 +1,4 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
-require 'deprecation_disabler'
-require 'execution_point'
 
 class MockedMethodDispatchTest < Mocha::TestCase
   include AcceptanceTest
@@ -75,37 +73,30 @@ class MockedMethodDispatchTest < Mocha::TestCase
     assert_passed(test_result)
   end
 
-  def test_should_display_deprecation_warning_if_invocation_matches_expectation_with_never_cardinality
-    execution_point = nil
+  def test_should_fail_fast_if_invocation_matches_expectation_with_never_cardinality
     test_result = run_as_test do
       mock = mock('mock')
       mock.stubs(:method)
-      mock.expects(:method).never; execution_point = ExecutionPoint.current
-      DeprecationDisabler.disable_deprecations do
-        mock.method
-      end
+      mock.expects(:method).never
+      mock.method
     end
-    assert_passed(test_result)
-    message = Mocha::Deprecation.messages.last
-    location = execution_point.location
-    expected = [
-      "The expectation defined at #{location} does not allow invocations, but #<Mock:mock>.method() was invoked.",
-      'This invocation will cause the test to fail fast in a future version of Mocha.'
-    ]
-    assert_equal expected.join(' '), message
+    assert_failed(test_result)
+    assert_equal [
+      'unexpected invocation: #<Mock:mock>.method()',
+      'unsatisfied expectations:',
+      '- expected never, invoked once: #<Mock:mock>.method(any_parameters)',
+      'satisfied expectations:',
+      '- allowed any number of times, invoked never: #<Mock:mock>.method(any_parameters)'
+    ], test_result.failure_message_lines
   end
 
-  def test_should_not_display_deprecation_warning_if_invocation_matches_expectation_allowing_invocation_before_matching_expectation_with_never_cardinality
+  def test_should_not_fail_fast_if_invocation_matches_expectation_allowing_invocation_before_matching_expectation_with_never_cardinality
     test_result = run_as_test do
       mock = mock('mock')
       mock.expects(:method).never
       mock.expects(:method).once
-      Mocha::Deprecation.messages = []
-      DeprecationDisabler.disable_deprecations do
-        mock.method
-      end
+      mock.method
     end
     assert_passed(test_result)
-    assert Mocha::Deprecation.messages.empty?
   end
 end
