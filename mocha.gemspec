@@ -9,7 +9,11 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.1'
 
   s.authors = ['James Mead']
-  s.description = 'Mocking and stubbing library with JMock/SchMock syntax, which allows mocking and stubbing of methods on real (non-mock) classes.'
+  s.description = <<~EOS
+    A Ruby library for mocking and stubbing with a unified, simple and readable syntax
+    for both full & partial mocking. Built-in support for Minitest and Test::Unit.
+    Supported by many other test frameworks, e.g. RSpec.
+  EOS
   s.email = 'mocha-developer@googlegroups.com'
 
   s.files = Dir.chdir(File.expand_path('..', __FILE__)) do
