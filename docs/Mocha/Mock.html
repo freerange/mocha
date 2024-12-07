@@ -6,7 +6,7 @@
 <title>
   Class: Mocha::Mock
   
-    &mdash; Mocha 2.6.1
+    &mdash; Mocha 2.7.0
   
 </title>
 
@@ -111,6 +111,8 @@
 <p>Stubs and expectations are basically the same thing. A stub is just an expectation of zero or more invocations. The <span class='object_link'><a href="#stubs-instance_method" title="Mocha::Mock#stubs (method)">#stubs</a></span> method is syntactic sugar to make the intent of the test more explicit.</p>
 
 <p>When a method is invoked on a mock object, the mock object searches through its expectations from newest to oldest to find one that matches the invocation. After the invocation, the matching expectation might stop matching further invocations. For example, an <tt>expects(:foo).once</tt> expectation only matches once and will be ignored on future invocations while an <tt>expects(:foo).at_least_once</tt> expectation will always be matched against invocations.</p>
+
+<p>However, note that if the expectation that matches the invocation has a cardinality of “never”, then an unexpected invocation error is reported.</p>
 
 <p>This scheme allows you to:</p>
 <ul><li>
@@ -318,12 +320,12 @@
       <pre class="lines">
 
 
-315
-316
-317</pre>
+318
+319
+320</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 315</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 318</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span> <span class='comment'># rubocop:disable Style/MethodMissingSuper
 </span>  <span class='id identifier rubyid_handle_method_call'>handle_method_call</span><span class='lparen'>(</span><span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span> <span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
@@ -514,9 +516,6 @@
       <pre class="lines">
 
 
-111
-112
-113
 114
 115
 116
@@ -526,10 +525,13 @@
 120
 121
 122
-123</pre>
+123
+124
+125
+126</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 111</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 114</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name_or_hash'>method_name_or_hash</span><span class='comma'>,</span> <span class='id identifier rubyid_backtrace'>backtrace</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_expectation'>expectation</span> <span class='op'>=</span> <span class='kw'>nil</span>
@@ -685,13 +687,13 @@
       <pre class="lines">
 
 
-238
-239
-240
-241</pre>
+241
+242
+243
+244</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 238</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 241</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_responds_like'>responds_like</span><span class='lparen'>(</span><span class='id identifier rubyid_responder'>responder</span><span class='rparen'>)</span>
   <span class='ivar'>@responder</span> <span class='op'>=</span> <span class='id identifier rubyid_responder'>responder</span>
@@ -809,12 +811,12 @@
       <pre class="lines">
 
 
-271
-272
-273</pre>
+274
+275
+276</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 271</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 274</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_responds_like_instance_of'>responds_like_instance_of</span><span class='lparen'>(</span><span class='id identifier rubyid_responder_class'>responder_class</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_responds_like'>responds_like</span><span class='lparen'>(</span><span class='id identifier rubyid_responder_class'>responder_class</span><span class='period'>.</span><span class='id identifier rubyid_allocate'>allocate</span><span class='rparen'>)</span>
@@ -981,9 +983,6 @@
       <pre class="lines">
 
 
-150
-151
-152
 153
 154
 155
@@ -994,10 +993,13 @@
 160
 161
 162
-163</pre>
+163
+164
+165
+166</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 150</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 153</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name_or_hash'>method_name_or_hash</span><span class='comma'>,</span> <span class='id identifier rubyid_backtrace'>backtrace</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_expectation'>expectation</span> <span class='op'>=</span> <span class='kw'>nil</span>
@@ -1092,14 +1094,14 @@
       <pre class="lines">
 
 
-183
-184
-185
 186
-187</pre>
+187
+188
+189
+190</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 183</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 186</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unstub'>unstub</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_method_names'>method_names</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_method_names'>method_names</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_method_name'>method_name</span><span class='op'>|</span>
@@ -1116,7 +1118,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Nov 28 14:57:34 2024 by
+  Generated on Sat Dec  7 12:49:10 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.3.6).
 </div>

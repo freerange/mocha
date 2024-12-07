@@ -6,7 +6,7 @@
 <title>
   File: RELEASE
   
-    &mdash; Mocha 2.6.1
+    &mdash; Mocha 2.7.0
   
 </title>
 
@@ -58,6 +58,34 @@
       </div>
 
       <div id="content"><div id='filecontents'><h1 id="release-notes">Release Notes</h1>
+
+<h2 id="2-7-0">2.7.0</h2>
+
+<h3 id="external-changes">External changes</h3>
+
+<ul>
+<li>Fail fast if invocation matches never expectation (#679, #678, #490, #131 &amp; #44) - thanks to @ducmtran &amp; @davidstosik for reporting</li>
+</ul>
+
+<h3 id="internal-changes">Internal changes</h3>
+
+<ul>
+<li>Workaround for JRuby jar-dependencies issue (#690)</li>
+<li>Ruby v3.4 stacktrace uses single-quote vs backtick (#688 &amp; #689) - thanks to Vít Ondruch</li>
+</ul>
+
+<p><strong>WARNING: This release fixes a very <em>old</em> bug</strong></p>
+
+<ul>
+<li>The bug relates to the use of <code>Expectation#never</code> in combination with other expectations on the same method.</li>
+<li>Please ensure you fix the relevant deprecation warnings when running against v2.6.1 <em>before</em> upgrading to v2.7.0.</li>
+<li><p>Previously, the following test would have passed, but now it will fail with an unexpected invocation error on the <code>foo.bar</code> line.</p>
+
+<p>foo = mock(&#39;foo&#39;)
+foo.stubs(:bar)
+foo.expects(:bar).never
+foo.bar</p></li>
+</ul>
 
 <h2 id="2-6-1">2.6.1</h2>
 
@@ -1501,7 +1529,7 @@ Hash with wrong number of entries.</li>
 </div></div>
 
       <div id="footer">
-  Generated on Thu Nov 28 14:57:34 2024 by
+  Generated on Sat Dec  7 12:49:09 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.3.6).
 </div>

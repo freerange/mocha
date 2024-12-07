@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Mocha 2.6.1
+    &mdash; Mocha 2.7.0
   
 </title>
 
@@ -331,7 +331,7 @@
 
 <p>Stubs and expectations are basically the same thing. A stub is just an expectation of zero or more invocations. The <code>Expectation#stubs</code> method is syntactic sugar to make the intent of the test more explicit.</p>
 
-<p>When a method is invoked on a mock object, the mock object searches through its expectations from newest to oldest to find one that matches the invocation. After the invocation, the matching expectation might stop matching further invocations.</p>
+<p>When a method is invoked on a mock object, the mock object searches through its expectations from newest to oldest to find one that matches the invocation. After the invocation, the matching expectation might stop matching further invocations. If the expectation that matches the invocation has a cardinality of &quot;never&quot;, then an unexpected invocation error is reported.</p>
 
 <p>See the <a href="https://mocha.jamesmead.org/Mocha/Mock.html">documentation</a> for <code>Mocha::Mock</code> for further details.</p>
 
@@ -430,7 +430,7 @@ Pushed mocha 1.2.0 to rubygems.org.
 </div></div>
 
       <div id="footer">
-  Generated on Thu Nov 28 14:57:34 2024 by
+  Generated on Sat Dec  7 12:49:09 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.3.6).
 </div>
