@@ -1,7 +1,7 @@
 inherit_from: .rubocop_todo.yml
 
 AllCops:
-  TargetRubyVersion: 2.2 # closest to required_ruby_version of '>= 2.1'
+  TargetRubyVersion: 2.2
 
 # Even the reference in the documentation suggests that you should prefer
 # `alias_method` vs `alias`, so I don't understand why that isn't the default.
