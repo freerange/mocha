@@ -25,6 +25,10 @@ if RUBY_VERSION >= '2.2.0'
   gem 'jaro_winkler', '>= 1.5.5'
   gem 'rubocop', '> 0.56', '<= 0.58.2'
 end
+if RUBY_ENGINE == 'jruby'
+  # Workaround for https://github.com/jruby/jruby/issues/8488
+  gem 'jar-dependencies', '~> 0.4.1'
+end
 if ENV['MOCHA_GENERATE_DOCS']
   gem 'redcarpet'
   gem 'yard'
