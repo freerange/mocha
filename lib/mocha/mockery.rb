@@ -129,7 +129,6 @@ module Mocha
       check(:stubbing_non_public_method, 'non-public method', signature_proc) do
         object.stubba_class.__method_exists__?(method, false)
       end
-      check(:stubbing_method_on_nil, 'method on nil', signature_proc) { object.nil? }
       check(:stubbing_method_on_non_mock_object, 'method on non-mock object', signature_proc)
     end
 

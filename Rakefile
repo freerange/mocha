@@ -6,7 +6,7 @@ require 'bundler/setup'
 
 require 'rake/testtask'
 begin
-  # Only available with default Gemfile and in Ruby >= v2.2
+  # Only available with default Gemfile
   require 'rubocop/rake_task'
 rescue LoadError # rubocop:disable Lint/HandleExceptions
 end
