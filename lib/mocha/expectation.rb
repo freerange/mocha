@@ -194,7 +194,7 @@ module Mocha
     # May be used with Ruby literals or variables for exact matching or with parameter matchers for less-specific matching, e.g. {ParameterMatchers#includes}, {ParameterMatchers#has_key}, etc. See {ParameterMatchers} for a list of all available parameter matchers.
     #
     # Alternatively a block argument can be passed to {#with} to implement custom parameter matching. The block receives the +*actual_parameters+ as its arguments and should return +true+ if they are acceptable or +false+ otherwise. See the example below where a method is expected to be called with a value divisible by 4.
-    # The block argument takes precedence over +expected_parameters_or_matchers+.
+    # The block argument takes precedence over +expected_parameters_or_matchers+. The block may be called multiple times per invocation of the expected method and so it should be idempotent.
     #
     # Note that if {#with} is called multiple times on the same expectation, the last call takes precedence; other calls are ignored.
     #
