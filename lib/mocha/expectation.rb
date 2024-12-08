@@ -193,6 +193,11 @@ module Mocha
     #
     # May be used with Ruby literals or variables for exact matching or with parameter matchers for less-specific matching, e.g. {ParameterMatchers#includes}, {ParameterMatchers#has_key}, etc. See {ParameterMatchers} for a list of all available parameter matchers.
     #
+    # Alternatively a block argument can be passed to {#with} to implement custom parameter matching. The block receives the +*actual_parameters+ as its arguments and should return +true+ if they are acceptable or +false+ otherwise. See the example below where a method is expected to be called with a value divisible by 4.
+    # The block argument takes precedence over +expected_parameters_or_matchers+. The block may be called multiple times per invocation of the expected method and so it should be idempotent.
+    #
+    # Note that if {#with} is called multiple times on the same expectation, the last call takes precedence; other calls are ignored.
+    #
     # Positional arguments were separated from keyword arguments in Ruby v3 (see {https://www.ruby-lang.org/en/news/2019/12/12/separation-of-positional-and-keyword-arguments-in-ruby-3-0 this article}). In relation to this a new configuration option ({Configuration#strict_keyword_argument_matching=}) is available in Ruby >= 2.7.
     #
     # When {Configuration#strict_keyword_argument_matching=} is set to +false+ (which is currently the default), a positional +Hash+ and a set of keyword arguments passed to {#with} are treated the same for the purposes of parameter matching. However, a deprecation warning will be displayed if a positional +Hash+ matches a set of keyword arguments or vice versa. This is because {Configuration#strict_keyword_argument_matching=} will default to +true+ in the future.
@@ -202,10 +207,10 @@ module Mocha
     # @see ParameterMatchers
     # @see Configuration#strict_keyword_argument_matching=
     #
-    # @param [*Array<Object,ParameterMatchers::Base>] expected_parameters_or_matchers expected parameter values or parameter matchers.
+    # @param [Array<Object,ParameterMatchers::Base>] expected_parameters_or_matchers expected parameter values or parameter matchers.
     # @yield optional block specifying custom matching.
-    # @yieldparam [*Array<Object>] actual_parameters parameters with which expected method was invoked.
-    # @yieldreturn [Boolean] +true+ if +actual_parameters+ are acceptable.
+    # @yieldparam [Array<Object>] actual_parameters parameters with which expected method was invoked.
+    # @yieldreturn [Boolean] +true+ if +actual_parameters+ are acceptable; +false+ otherwise.
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
     #
     # @example Expected method must be called with exact parameter values.
@@ -256,7 +261,7 @@ module Mocha
     #   example.foo('a', { bar: 'b' })
     #   # This now fails as expected
     #
-    # @example Expected method must be called with a value divisible by 4.
+    # @example Using a block argument to expect the method to be called with a value divisible by 4.
     #   object = mock()
     #   object.expects(:expected_method).with() { |value| value % 4 == 0 }
     #   object.expected_method(16)
@@ -266,6 +271,22 @@ module Mocha
     #   object.expects(:expected_method).with() { |value| value % 4 == 0 }
     #   object.expected_method(17)
     #   # => verify fails
+    #
+    # @example Extracting a custom matcher into an instance method on the test class.
+    #   class MyTest < Minitest::Test
+    #     def test_expected_method_is_called_with_a_value_divisible_by_4
+    #       object = mock()
+    #       object.expects(:expected_method).with(&method(:divisible_by_4))
+    #       object.expected_method(16)
+    #       # => verify succeeds
+    #     end
+    #
+    #     private
+    #
+    #     def divisible_by_4(value)
+    #       value % 4 == 0
+    #     end
+    #   end
     def with(*expected_parameters_or_matchers, &matching_block)
       @parameters_matcher = ParametersMatcher.new(expected_parameters_or_matchers, self, &matching_block)
       self
