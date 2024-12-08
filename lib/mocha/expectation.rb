@@ -193,6 +193,8 @@ module Mocha
     #
     # May be used with Ruby literals or variables for exact matching or with parameter matchers for less-specific matching, e.g. {ParameterMatchers#includes}, {ParameterMatchers#has_key}, etc. See {ParameterMatchers} for a list of all available parameter matchers.
     #
+    # Alternatively a block argument can be passed to {#with} to implement custom parameter matching. The block receives the +*actual_parameters+ as its arguments and should return +true+ if they are acceptable or +false+ otherwise. See the example below where a method is expected to be called with a value divisible by 4.
+    #
     # Note that if {#with} is called multiple times on the same expectation, the last call takes precedence; other calls are ignored.
     #
     # Positional arguments were separated from keyword arguments in Ruby v3 (see {https://www.ruby-lang.org/en/news/2019/12/12/separation-of-positional-and-keyword-arguments-in-ruby-3-0 this article}). In relation to this a new configuration option ({Configuration#strict_keyword_argument_matching=}) is available in Ruby >= 2.7.
@@ -207,7 +209,7 @@ module Mocha
     # @param [Array<Object,ParameterMatchers::Base>] expected_parameters_or_matchers expected parameter values or parameter matchers.
     # @yield optional block specifying custom matching.
     # @yieldparam [Array<Object>] actual_parameters parameters with which expected method was invoked.
-    # @yieldreturn [Boolean] +true+ if +actual_parameters+ are acceptable.
+    # @yieldreturn [Boolean] +true+ if +actual_parameters+ are acceptable; +false+ otherwise.
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
     #
     # @example Expected method must be called with exact parameter values.
@@ -258,7 +260,7 @@ module Mocha
     #   example.foo('a', { bar: 'b' })
     #   # This now fails as expected
     #
-    # @example Expected method must be called with a value divisible by 4.
+    # @example Using a block argument to expect the method to be called with a value divisible by 4.
     #   object = mock()
     #   object.expects(:expected_method).with() { |value| value % 4 == 0 }
     #   object.expected_method(16)
