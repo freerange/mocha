@@ -271,6 +271,22 @@ module Mocha
     #   object.expects(:expected_method).with() { |value| value % 4 == 0 }
     #   object.expected_method(17)
     #   # => verify fails
+    #
+    # @example Extracting a custom matcher into an instance method on the test class.
+    #   class MyTest < Minitest::Test
+    #     def test_expected_method_is_called_with_a_value_divisible_by_4
+    #       object = mock()
+    #       object.expects(:expected_method).with(&method(:divisible_by_4))
+    #       object.expected_method(16)
+    #       # => verify succeeds
+    #     end
+    #
+    #     private
+    #
+    #     def divisible_by_4(value)
+    #       value % 4 == 0
+    #     end
+    #   end
     def with(*expected_parameters_or_matchers, &matching_block)
       @parameters_matcher = ParametersMatcher.new(expected_parameters_or_matchers, self, &matching_block)
       self
