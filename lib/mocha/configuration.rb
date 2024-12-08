@@ -1,4 +1,5 @@
 require 'mocha/ruby_version'
+require 'mocha/deprecation'
 
 module Mocha
   # Allows setting of configuration options. See {Configuration} for the available options.
@@ -206,8 +207,14 @@ module Mocha
     # When +value+ is +:prevent+, raise a {StubbingError}. This is the default.
     #
     # @param [Symbol] value one of +:allow+, +:warn+, +:prevent+.
+    # @deprecated This method is deprecated and will be removed in a future release. +nil+ is frozen in Ruby >= v2.2 and Mocha will be dropping support for Ruby v2.1. At that point it won't be possible to stub methods on +nil+ any more.
     #
     def stubbing_method_on_nil=(value)
+      Deprecation.warning([
+        '`Mocha::Configuration#stubbing_method_on_nil=` is deprecated and will be removed in a future release.',
+        '`nil` is frozen in Ruby >= v2.2 and Mocha will be dropping support for Ruby v2.1.',
+        "At that point it won't be possible to stub methods on `nil` any more."
+      ].join(' '))
       @options[:stubbing_method_on_nil] = value
     end
 
