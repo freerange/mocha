@@ -204,7 +204,7 @@ module Mocha
     #
     # @param [Array<Object,ParameterMatchers::Base>] expected_parameters_or_matchers expected parameter values or parameter matchers.
     # @yield optional block specifying custom matching.
-    # @yieldparam [*Array<Object>] actual_parameters parameters with which expected method was invoked.
+    # @yieldparam [Array<Object>] actual_parameters parameters with which expected method was invoked.
     # @yieldreturn [Boolean] +true+ if +actual_parameters+ are acceptable.
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
     #
