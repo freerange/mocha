@@ -103,4 +103,9 @@ class ParametersMatcherTest < Mocha::TestCase
     parameters_matcher = ParametersMatcher.new
     assert_equal '(any_parameters)', parameters_matcher.mocha_inspect
   end
+
+  def test_should_indicate_that_matcher_logic_is_defined_by_custom_block
+    parameters_matcher = ParametersMatcher.new { true }
+    assert_equal '(arguments_accepted_by_custom_matching_block)', parameters_matcher.mocha_inspect
+  end
 end

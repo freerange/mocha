@@ -22,9 +22,13 @@ module Mocha
     end
 
     def mocha_inspect
-      signature = matchers.mocha_inspect
-      signature = signature.gsub(/^\[|\]$/, '')
-      "(#{signature})"
+      if @matching_block
+        '(arguments_accepted_by_custom_matching_block)'
+      else
+        signature = matchers.mocha_inspect
+        signature = signature.gsub(/^\[|\]$/, '')
+        "(#{signature})"
+      end
     end
 
     def matchers
