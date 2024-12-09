@@ -1,5 +1,13 @@
 # Release Notes
 
+## 2.7.1
+
+### External changes
+
+* Deprecate `Configuration#stubbing_method_on_nil=` (#694)
+* Indicate when parameter matcher logic is defined by block passed to `Expectation#with` (#698, b30e4434)
+* Improve documentation for `Expectation#with`, especially when it is passed a block (#698, #682, #606 & #681)
+
 ## 2.7.0
 
 ### External changes
