@@ -6,7 +6,7 @@
 <title>
   Class: Mocha::Configuration
   
-    &mdash; Mocha 2.7.0
+    &mdash; Mocha 2.7.1
   
 </title>
 
@@ -224,7 +224,7 @@
 </li>
 
       
-        <li class="public ">
+        <li class="public deprecated">
   <span class="summary_signature">
     
       <a href="#stubbing_method_on_nil=-instance_method" title="#stubbing_method_on_nil= (instance method)">#<strong>stubbing_method_on_nil=</strong>(value)  &#x21d2; Object </a>
@@ -237,12 +237,12 @@
   
   
   
-  
+  <span class="deprecated note title">deprecated</span>
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Configure whether stubbing methods on the <code>nil</code> object is allowed.</p>
+    <span class="summary_desc"><strong>Deprecated.</strong> <div class='inline'>
+<p>This method is deprecated and will be removed in a future release. <code>nil</code> is frozen in Ruby &gt;= v2.2 and Mocha will be dropping support for Ruby v2.1. At that point it won’t be possible to stub methods on <code>nil</code> any more.</p>
 </div></span>
   
 </li>
@@ -433,16 +433,16 @@
       <pre class="lines">
 
 
-318
-319
-320
-321
-322
-323
-324</pre>
+325
+326
+327
+328
+329
+330
+331</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 318</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 325</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_override'>override</span><span class='lparen'>(</span><span class='id identifier rubyid_temporary_options'>temporary_options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_original_configuration'>original_configuration</span> <span class='op'>=</span> <span class='id identifier rubyid_configuration'>configuration</span>
@@ -539,12 +539,12 @@ satisfied expectations:
       <pre class="lines">
 
 
-244
-245
-246</pre>
+251
+252
+253</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 244</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 251</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_display_matching_invocations_on_failure='>display_matching_invocations_on_failure=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:display_matching_invocations_on_failure</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
@@ -647,13 +647,13 @@ satisfied expectations:
       <pre class="lines">
 
 
-290
-291
-292
-293</pre>
+297
+298
+299
+300</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 290</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 297</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_strict_keyword_argument_matching='>strict_keyword_argument_matching=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Strict keyword argument matching requires Ruby 2.7 and above.</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>unless</span> <span class='const'><span class='object_link'><a href="../Mocha.html" title="Mocha (module)">Mocha</a></span></span><span class='op'>::</span><span class='const'>RUBY_V27_PLUS</span>
@@ -675,7 +675,10 @@ satisfied expectations:
   
 </h3><div class="docstring">
   <div class="discussion">
-    
+    <div class="note deprecated"><strong>Deprecated.</strong> <div class='inline'>
+<p>This method is deprecated and will be removed in a future release. <code>nil</code> is frozen in Ruby &gt;= v2.2 and Mocha will be dropping support for Ruby v2.1. At that point it won’t be possible to stub methods on <code>nil</code> any more.</p>
+</div></div>
+
 <p>Configure whether stubbing methods on the <code>nil</code> object is allowed.</p>
 
 <p>This is usually done accidentally, but there might be rare cases where it is intended.</p>
@@ -716,14 +719,24 @@ satisfied expectations:
       <pre class="lines">
 
 
-210
-211
-212</pre>
+212
+213
+214
+215
+216
+217
+218
+219</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 210</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 212</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubbing_method_on_nil='>stubbing_method_on_nil=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+  <span class='const'>Deprecation</span><span class='period'>.</span><span class='id identifier rubyid_warning'>warning</span><span class='lparen'>(</span><span class='lbracket'>[</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>`Mocha::Configuration#stubbing_method_on_nil=` is deprecated and will be removed in a future release.</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>`nil` is frozen in Ruby &gt;= v2.2 and Mocha will be dropping support for Ruby v2.1.</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>At that point it won&#39;t be possible to stub methods on `nil` any more.</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'> </span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
   <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:stubbing_method_on_nil</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -804,12 +817,12 @@ satisfied expectations:
       <pre class="lines">
 
 
-122
 123
-124</pre>
+124
+125</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 122</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 123</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubbing_method_on_non_mock_object='>stubbing_method_on_non_mock_object=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:stubbing_method_on_non_mock_object</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
@@ -888,12 +901,12 @@ satisfied expectations:
       <pre class="lines">
 
 
-89
 90
-91</pre>
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubbing_method_unnecessarily='>stubbing_method_unnecessarily=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:stubbing_method_unnecessarily</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
@@ -976,12 +989,12 @@ satisfied expectations:
       <pre class="lines">
 
 
-155
 156
-157</pre>
+157
+158</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 155</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 156</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubbing_non_existent_method='>stubbing_non_existent_method=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:stubbing_non_existent_method</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
@@ -1065,12 +1078,12 @@ satisfied expectations:
       <pre class="lines">
 
 
-189
 190
-191</pre>
+191
+192</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 189</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/configuration.rb', line 190</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubbing_non_public_method='>stubbing_non_public_method=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:stubbing_non_public_method</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
@@ -1085,7 +1098,7 @@ satisfied expectations:
 </div>
 
       <div id="footer">
-  Generated on Sat Dec  7 12:49:10 2024 by
+  Generated on Mon Dec  9 12:52:25 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.3.6).
 </div>
