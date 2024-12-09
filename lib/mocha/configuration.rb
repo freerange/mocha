@@ -14,7 +14,6 @@ module Mocha
   #   Mocha.configure do |c|
   #     c.stubbing_method_unnecessarily = :prevent
   #     c.stubbing_method_on_non_mock_object = :warn
-  #     c.stubbing_method_on_nil = :allow
   #   end
   #
   def self.configure
@@ -34,7 +33,6 @@ module Mocha
   #   Mocha.configure do |c|
   #     c.stubbing_method_unnecessarily = :prevent
   #     c.stubbing_method_on_non_mock_object = :warn
-  #     c.stubbing_method_on_nil = :allow
   #   end
   #
   class Configuration
@@ -44,7 +42,6 @@ module Mocha
       stubbing_method_on_non_mock_object: :allow,
       stubbing_non_existent_method: :allow,
       stubbing_non_public_method: :allow,
-      stubbing_method_on_nil: :prevent,
       display_matching_invocations_on_failure: false,
       strict_keyword_argument_matching: false
     }.freeze
@@ -196,33 +193,6 @@ module Mocha
       @options[:stubbing_non_public_method]
     end
 
-    # Configure whether stubbing methods on the +nil+ object is allowed.
-    #
-    # This is usually done accidentally, but there might be rare cases where it is intended.
-    #
-    # This option only works for Ruby < v2.2.0. In later versions of Ruby +nil+ is frozen and so a {StubbingError} will be raised if you attempt to stub a method on +nil+.
-    #
-    # When +value+ is +:allow+, do nothing.
-    # When +value+ is +:warn+, display a warning.
-    # When +value+ is +:prevent+, raise a {StubbingError}. This is the default.
-    #
-    # @param [Symbol] value one of +:allow+, +:warn+, +:prevent+.
-    # @deprecated This method is deprecated and will be removed in a future release. +nil+ is frozen in Ruby >= v2.2 and Mocha will be dropping support for Ruby v2.1. At that point it won't be possible to stub methods on +nil+ any more.
-    #
-    def stubbing_method_on_nil=(value)
-      Deprecation.warning([
-        '`Mocha::Configuration#stubbing_method_on_nil=` is deprecated and will be removed in a future release.',
-        '`nil` is frozen in Ruby >= v2.2 and Mocha will be dropping support for Ruby v2.1.',
-        "At that point it won't be possible to stub methods on `nil` any more."
-      ].join(' '))
-      @options[:stubbing_method_on_nil] = value
-    end
-
-    # @private
-    def stubbing_method_on_nil
-      @options[:stubbing_method_on_nil]
-    end
-
     # Display matching invocations alongside expectations on Mocha-related test failure.
     #
     # @param [Boolean] value +true+ to enable display of matching invocations; disabled by default.
@@ -318,9 +288,9 @@ module Mocha
       # @param [Hash] temporary_options the configuration options to apply for the duration of the block.
       # @yield block during which the configuration change will be in force.
       #
-      # @example Temporarily allow stubbing of +nil+
-      #   Mocha::Configuration.override(stubbing_method_on_nil: :allow) do
-      #     nil.stubs(:foo)
+      # @example Temporarily prevent stubbing of non-mock object
+      #   Mocha::Configuration.override(stubbing_method_on_non_mock_object: :prevent) do
+      #     123.stubs(:to_s).returns('456')
       #   end
       def override(temporary_options)
         original_configuration = configuration
