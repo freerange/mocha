@@ -251,6 +251,30 @@ class ExpectationTest < Mocha::TestCase
     assert expectation.verified?
   end
 
+  def test_should_not_verify_successfully_if_call_expected_thrice_and_invoked_four_times
+    expectation = new_expectation.thrice
+    invoke(expectation)
+    invoke(expectation)
+    invoke(expectation)
+    invoke(expectation)
+    assert !expectation.verified?
+  end
+
+  def test_should_not_verify_successfully_if_call_expected_thrice_but_invoked_twice
+    expectation = new_expectation.thrice
+    invoke(expectation)
+    invoke(expectation)
+    assert !expectation.verified?
+  end
+
+  def test_should_verify_successfully_if_call_expected_thrice_and_invoked_thrice
+    expectation = new_expectation.thrice
+    invoke(expectation)
+    invoke(expectation)
+    invoke(expectation)
+    assert expectation.verified?
+  end
+
   def test_should_not_verify_successfully_if_call_expected_twice_and_invoked_three_times
     expectation = new_expectation.twice
     invoke(expectation)
