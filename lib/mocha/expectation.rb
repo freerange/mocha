@@ -48,6 +48,35 @@ module Mocha
       self
     end
 
+    # Modifies expectation so that the expected method must be called exactly three times. This is equivalent to calling {#times} with an argument of +3+.
+    #
+    # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
+    #
+    # @example Expected method must be invoked exactly three times.
+    #   object = mock()
+    #   object.expects(:expected_method).thrice
+    #   object.expected_method
+    #   object.expected_method
+    #   object.expected_method
+    #   # => verify succeeds
+    #
+    #   object = mock()
+    #   object.expects(:expected_method).thrice
+    #   object.expected_method
+    #   object.expected_method
+    #   object.expected_method
+    #   object.expected_method # => unexpected invocation
+    #
+    #   object = mock()
+    #   object.expects(:expected_method).thrice
+    #   object.expected_method
+    #   object.expected_method
+    #   # => verify fails
+    def thrice
+      @cardinality.exactly(3)
+      self
+    end
+
     # Modifies expectation so that the expected method must be called exactly twice. This is equivalent to calling {#times} with an argument of +2+.
     #
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
