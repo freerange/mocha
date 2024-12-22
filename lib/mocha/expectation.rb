@@ -17,12 +17,12 @@ require 'mocha/backtrace_filter'
 module Mocha
   # Methods on expectations returned from {Mock#expects}, {Mock#stubs}, {ObjectMethods#expects} and {ObjectMethods#stubs}.
   class Expectation
-    # Modifies expectation so that the number of calls to the expected method must be within a specific +range+.
+    # Modifies expectation so that the number of invocations of the expected method must be within a specified range or exactly equal to a specified number.
     #
-    # @param [Range,Integer] range specifies the allowable range in the number of expected invocations.
+    # @param [Range,Integer] range_or_number specifies the allowable range for the number of expected invocations or the specified number of expected invocations.
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
     #
-    # @example Specifying a specific number of expected invocations.
+    # @example Specifying an exact number of expected invocations.
     #   object = mock()
     #   object.expects(:expected_method).times(3)
     #   3.times { object.expected_method }
@@ -33,7 +33,7 @@ module Mocha
     #   2.times { object.expected_method }
     #   # => verify fails
     #
-    # @example Specifying a range in the number of expected invocations.
+    # @example Specifying a range for the number of expected invocations.
     #   object = mock()
     #   object.expects(:expected_method).times(2..4)
     #   3.times { object.expected_method }
@@ -43,8 +43,8 @@ module Mocha
     #   object.expects(:expected_method).times(2..4)
     #   object.expected_method
     #   # => verify fails
-    def times(range)
-      @cardinality.times(range)
+    def times(range_or_number)
+      @cardinality.times(range_or_number)
       self
     end
 
