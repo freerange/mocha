@@ -48,7 +48,7 @@ module Mocha
       self
     end
 
-    # Modifies expectation so that the expected method must be called exactly twice.
+    # Modifies expectation so that the expected method must be called exactly twice. This is equivalent to calling {#times} with an argument of +2+.
     #
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
     #
@@ -74,7 +74,7 @@ module Mocha
       self
     end
 
-    # Modifies expectation so that the expected method must be called exactly once.
+    # Modifies expectation so that the expected method must be called exactly once. This is equivalent to calling {#times} with an argument of +1+.
     #
     # Note that this is the default behaviour for an expectation, but you may wish to use it for clarity/emphasis.
     #
@@ -136,7 +136,7 @@ module Mocha
       self
     end
 
-    # Modifies expectation so that the expected method must be called at least once.
+    # Modifies expectation so that the expected method must be called at least once. This is equivalent to calling {#at_least} with an argument of +1+.
     #
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
     #
@@ -172,7 +172,7 @@ module Mocha
       self
     end
 
-    # Modifies expectation so that the expected method must be called at most once.
+    # Modifies expectation so that the expected method must be called at most once. This is equivalent to calling {#at_most} with an argument of +1+.
     #
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
     #
