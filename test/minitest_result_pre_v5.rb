@@ -16,12 +16,14 @@ class MinitestResult
   def self.parse_failure(raw)
     matches = FAILURE_PATTERN.match(raw)
     return nil unless matches
+
     Failure.new(matches[PATTERN_INDICES[:method]], matches[PATTERN_INDICES[:testcase]], [matches[4]], matches[5])
   end
 
   def self.parse_error(raw)
     matches = ERROR_PATTERN.match(raw)
     return nil unless matches
+
     backtrace = raw.gsub(ERROR_PATTERN, '').split("\n").map(&:strip)
     Error.new(matches[PATTERN_INDICES[:method]], matches[PATTERN_INDICES[:testcase]], matches[4], backtrace)
   end

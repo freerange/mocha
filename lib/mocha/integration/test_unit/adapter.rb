@@ -45,6 +45,7 @@ module Mocha
         # @private
         def handle_mocha_expectation_error(exception)
           return false unless exception.is_a?(Mocha::ExpectationError)
+
           problem_occurred
           add_failure(exception.message, exception.backtrace)
           true

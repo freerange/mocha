@@ -47,6 +47,7 @@ module Mocha
         while !available_parameters.empty? && (index < @matchers.length)
           matcher = @matchers[index]
           return false unless matcher.matches?(available_parameters)
+
           index += 1
         end
         true
