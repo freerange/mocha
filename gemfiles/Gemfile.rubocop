@@ -2,21 +2,5 @@ source 'https://rubygems.org'
 
 gemspec path: '../'
 
-gem 'jaro_winkler', '>= 1.5.5'
 gem 'rake'
-gem 'rubocop', '> 0.56', '<= 0.58.2'
-
-# Avoid breaking change in psych v4 (https://bugs.ruby-lang.org/issues/17866)
-if RUBY_VERSION >= '3.1.0'
-  gem 'psych', '< 4'
-end
-
-# Avoid base64 gem warning about it not being available in Ruby v3.4
-if RUBY_VERSION >= '3.3.0'
-  gem 'base64'
-end
-
-# Avoid ostruct gem warning about it not being available in Ruby v3.5
-if RUBY_VERSION >= '3.4.0'
-  gem 'ostruct'
-end
+gem 'rubocop'
