@@ -79,8 +79,7 @@ module Mocha
       expectation = nil
       mockery = Mocha::Mockery.instance
       iterator = ArgumentIterator.new(expected_methods_vs_return_values)
-      iterator.each do |*args|
-        method_name = args.shift
+      iterator.each do |method_name, *args|
         mockery.on_stubbing(self, method_name)
         method = stubba_method.new(stubba_object, method_name)
         mockery.stubba.stub(method)
@@ -126,8 +125,7 @@ module Mocha
       expectation = nil
       mockery = Mocha::Mockery.instance
       iterator = ArgumentIterator.new(stubbed_methods_vs_return_values)
-      iterator.each do |*args|
-        method_name = args.shift
+      iterator.each do |method_name, *args|
         mockery.on_stubbing(self, method_name)
         method = stubba_method.new(stubba_object, method_name)
         mockery.stubba.stub(method)
