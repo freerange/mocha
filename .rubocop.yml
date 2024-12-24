@@ -13,6 +13,8 @@ AllCops:
   Exclude:
     - '**/Gemfile*.lock'
 
+  NewCops: enable
+
 # Even the reference in the documentation suggests that you should prefer
 # `alias_method` vs `alias`, so I don't understand why that isn't the default.
 Style/Alias:
