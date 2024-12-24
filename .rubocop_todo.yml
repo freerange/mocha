@@ -121,12 +121,6 @@ Style/OptionalBooleanParameter:
     - 'test/acceptance/stubbing_non_public_class_method_test.rb'
     - 'test/acceptance/stubbing_non_public_instance_method_test.rb'
 
-# Offense count: 7
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantDoubleSplatHashBraces:
-  Exclude:
-    - 'test/acceptance/keyword_argument_matching_test.rb'
-
 # Offense count: 68
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, AllowedPatterns, SplitStrings.
