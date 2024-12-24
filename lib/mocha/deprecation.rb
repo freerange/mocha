@@ -9,6 +9,7 @@ module Mocha
         message = messages.join
         @messages << message
         return if mode == :disabled
+
         filter = BacktraceFilter.new
         location = filter.filtered(caller)[0]
         warn "Mocha deprecation warning at #{location}: #{message}"

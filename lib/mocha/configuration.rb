@@ -266,6 +266,7 @@ module Mocha
     #   # This now fails as expected
     def strict_keyword_argument_matching=(value)
       raise 'Strict keyword argument matching requires Ruby 2.7 and above.' unless Mocha::RUBY_V27_PLUS
+
       @options[:strict_keyword_argument_matching] = value
     end
 
