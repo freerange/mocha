@@ -3,7 +3,8 @@ $LOAD_PATH.unshift lib unless $LOAD_PATH.include?(lib)
 require 'mocha/version'
 
 DESCRIPTION =
-  'Mocking and stubbing library with JMock/SchMock syntax, which allows mocking and stubbing of methods on real (non-mock) classes.'.freeze
+  'Mocking and stubbing library with JMock/SchMock syntax, which allows ' \
+  'mocking and stubbing of methods on real (non-mock) classes.'.freeze
 
 Gem::Specification.new do |s|
   s.name = 'mocha'
