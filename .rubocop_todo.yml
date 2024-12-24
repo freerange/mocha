@@ -105,14 +105,6 @@ Style/FetchEnvVar:
   Exclude:
     - 'Rakefile'
 
-# Offense count: 4
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: literals, strict
-Style/MutableConstant:
-  Exclude:
-    - 'test/minitest_result_pre_v5.rb'
-
 # Offense count: 24
 # Configuration parameters: AllowedMethods.
 # AllowedMethods: respond_to_missing?
