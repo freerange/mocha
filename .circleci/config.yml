@@ -59,8 +59,8 @@ jobs:
       - run: ruby --version
       - run: gem --version
       - run: bundle --version
-      - run: bundle install --gemfile=Gemfile
-      - run: bundle exec rake lint
+      - run: bundle install --gemfile=gemfiles/Gemfile.rubocop
+      - run: bundle exec --gemfile=gemfiles/Gemfile.rubocop rake lint
 
 workflows:
   build-all:
