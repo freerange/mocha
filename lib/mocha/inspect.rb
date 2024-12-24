@@ -11,7 +11,7 @@ module Mocha
     end
 
     module ArrayMethods
-      def mocha_inspect(wrapped = true)
+      def mocha_inspect(wrapped: true)
         unwrapped = collect(&:mocha_inspect).join(', ')
         wrapped ? "[#{unwrapped}]" : unwrapped
       end
