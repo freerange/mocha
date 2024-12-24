@@ -35,5 +35,5 @@ Gem::Specification.new do |s|
     'source_code_uri' => 'https://github.com/freerange/mocha'
   }
 
-  s.add_runtime_dependency 'ruby2_keywords', '>= 0.0.5'
+  s.add_dependency 'ruby2_keywords', '>= 0.0.5'
 end
