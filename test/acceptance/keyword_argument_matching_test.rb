@@ -48,7 +48,8 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
   def test_should_match_hash_parameter_with_splatted_keyword_args
     test_result = run_as_test do
       mock = mock()
-      mock.expects(:method).with(**{ key: 42 }); execution_point = ExecutionPoint.current
+      kwargs = { key: 42 }
+      mock.expects(:method).with(**kwargs); execution_point = ExecutionPoint.current
       DeprecationDisabler.disable_deprecations do
         mock.method({ key: 42 })
       end
@@ -65,7 +66,8 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
     def test_should_not_match_hash_parameter_with_splatted_keyword_args_when_strict_keyword_matching_is_enabled
       test_result = run_as_test do
         mock = mock()
-        mock.expects(:method).with(**{ key: 42 })
+        kwargs = { key: 42 }
+        mock.expects(:method).with(**kwargs)
         Mocha::Configuration.override(strict_keyword_argument_matching: true) do
           mock.method({ key: 42 })
         end
@@ -78,7 +80,8 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(key: 42)
-      mock.method(**{ key: 42 })
+      kwargs = { key: 42 }
+      mock.method(**kwargs)
     end
     assert_passed(test_result)
   end
@@ -86,8 +89,9 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
   def test_should_match_splatted_hash_parameter_with_splatted_hash
     test_result = run_as_test do
       mock = mock()
-      mock.expects(:method).with(**{ key: 42 })
-      mock.method(**{ key: 42 })
+      kwargs = { key: 42 }
+      mock.expects(:method).with(**kwargs)
+      mock.method(**kwargs)
     end
     assert_passed(test_result)
   end
@@ -172,7 +176,8 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(has_key(:key))
-      mock.method(**{ key: 42 })
+      kwargs = { key: 42 }
+      mock.method(**kwargs)
     end
     assert_passed(test_result)
   end
@@ -226,7 +231,8 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
     def test_should_not_match_non_hash_args_with_keyword_args
       test_result = run_as_test do
         mock = mock()
-        mock.expects(:method).with(**{ key: 1 })
+        kwargs = { key: 1 }
+        mock.expects(:method).with(**kwargs)
         Mocha::Configuration.override(strict_keyword_argument_matching: true) do
           mock.method([2])
         end
