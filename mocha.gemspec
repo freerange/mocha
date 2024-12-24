@@ -32,7 +32,8 @@ Gem::Specification.new do |s|
     'documentation_uri' => 'https://mocha.jamesmead.org/',
     'funding_uri' => 'https://github.com/sponsors/floehopper',
     'homepage_uri' => s.homepage,
-    'source_code_uri' => 'https://github.com/freerange/mocha'
+    'source_code_uri' => 'https://github.com/freerange/mocha',
+    'rubygems_mfa_required' => 'true'
   }
 
   s.add_dependency 'ruby2_keywords', '>= 0.0.5'
