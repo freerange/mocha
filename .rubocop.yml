@@ -1,7 +1,17 @@
 inherit_from: .rubocop_todo.yml
 
+inherit_mode:
+  merge:
+    - Include
+
 AllCops:
   TargetRubyVersion: 2.2
+
+  Include:
+    - '**/Gemfile.*'
+
+  Exclude:
+    - '**/Gemfile*.lock'
 
 # Even the reference in the documentation suggests that you should prefer
 # `alias_method` vs `alias`, so I don't understand why that isn't the default.

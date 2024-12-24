@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-gemspec :path=>"../"
+gemspec path: '../'
 
 group :development do
-  gem "rake"
-  gem "minitest"
+  gem 'rake'
+  gem 'minitest'
 end
