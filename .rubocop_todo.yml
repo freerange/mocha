@@ -34,11 +34,6 @@ Lint/IdentityComparison:
 Lint/MissingSuper:
   Enabled: false
 
-# Offense count: 48
-# This cop supports safe autocorrection (--autocorrect).
-Lint/RedundantCopDisableDirective:
-  Enabled: false
-
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
 Lint/SendWithMixinArgument:

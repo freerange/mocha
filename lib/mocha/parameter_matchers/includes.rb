@@ -72,7 +72,6 @@ module Mocha
       end
 
       # @private
-      # rubocop:disable Metrics/PerceivedComplexity
       def matches?(available_parameters)
         parameter = available_parameters.shift
         return false unless parameter.respond_to?(:include?)
@@ -91,7 +90,6 @@ module Mocha
           AllOf.new(*includes_matchers).matches?([parameter])
         end
       end
-      # rubocop:enable Metrics/PerceivedComplexity
 
       # @private
       def mocha_inspect

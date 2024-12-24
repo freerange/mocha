@@ -12,8 +12,8 @@ class PositionalAndKeywordHashInspectTest < Mocha::TestCase
   def test_single_hash_parameters_in_invocation_and_expectation_print_correctly
     test_result = run_as_test do
       mock = mock('mock')
-      mock.expects(:method).with({ foo: 42 }) # rubocop:disable Style/BracesAroundHashParameters
-      mock.method({ key: 42 }) # rubocop:disable Style/BracesAroundHashParameters
+      mock.expects(:method).with({ foo: 42 })
+      mock.method({ key: 42 })
     end
     assert_equal [
       'unexpected invocation: #<Mock:mock>.method({:key => 42})',
@@ -46,8 +46,8 @@ class PositionalAndKeywordHashInspectTest < Mocha::TestCase
   def test_last_hash_parameters_in_invocation_and_expectation_print_correctly
     test_result = run_as_test do
       mock = mock('mock')
-      mock.expects(:method).with(1, { foo: 42 }) # rubocop:disable Style/BracesAroundHashParameters
-      mock.method(1, { key: 42 }) # rubocop:disable Style/BracesAroundHashParameters
+      mock.expects(:method).with(1, { foo: 42 })
+      mock.method(1, { key: 42 })
     end
     assert_equal [
       'unexpected invocation: #<Mock:mock>.method(1, {:key => 42})',
@@ -81,9 +81,9 @@ class PositionalAndKeywordHashInspectTest < Mocha::TestCase
     def test_single_hash_parameters_in_invocation_and_expectation_print_correctly_when_strict_keyword_args_is_enabled
       test_result = run_as_test do
         mock = mock('mock')
-        mock.expects(:method).with({ foo: 42 }) # rubocop:disable Style/BracesAroundHashParameters
+        mock.expects(:method).with({ foo: 42 })
         Mocha::Configuration.override(strict_keyword_argument_matching: true) do
-          mock.method({ key: 42 }) # rubocop:disable Style/BracesAroundHashParameters
+          mock.method({ key: 42 })
         end
       end
       assert_equal [
@@ -111,9 +111,9 @@ class PositionalAndKeywordHashInspectTest < Mocha::TestCase
     def test_last_hash_parameters_in_invocation_and_expectation_print_correctly_when_strict_keyword_args_is_enabled
       test_result = run_as_test do
         mock = mock('mock')
-        mock.expects(:method).with(1, { foo: 42 }) # rubocop:disable Style/BracesAroundHashParameters
+        mock.expects(:method).with(1, { foo: 42 })
         Mocha::Configuration.override(strict_keyword_argument_matching: true) do
-          mock.method(1, { key: 42 }) # rubocop:disable Style/BracesAroundHashParameters
+          mock.method(1, { key: 42 })
         end
       end
       assert_equal [
