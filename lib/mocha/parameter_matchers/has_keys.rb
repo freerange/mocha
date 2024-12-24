@@ -46,7 +46,7 @@ module Mocha
 
       # @private
       def mocha_inspect
-        "has_keys(#{@keys.mocha_inspect(false)})"
+        "has_keys(#{@keys.mocha_inspect(wrapped: false)})"
       end
     end
   end
