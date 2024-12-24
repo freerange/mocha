@@ -8,14 +8,6 @@
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: Include.
-# Include: **/*.gemspec
-Gemspec/AddRuntimeDependency:
-  Exclude:
-    - 'mocha.gemspec'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: Severity, Include.
 # Include: **/*.gemspec
 Gemspec/RequireMFA:
