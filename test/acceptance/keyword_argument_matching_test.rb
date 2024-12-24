@@ -21,7 +21,7 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
       mock = mock()
       mock.expects(:method).with(key: 42); execution_point = ExecutionPoint.current
       DeprecationDisabler.disable_deprecations do
-        mock.method({ key: 42 }) # rubocop:disable Style/BracesAroundHashParameters
+        mock.method({ key: 42 })
       end
       if Mocha::RUBY_V27_PLUS
         location = execution_point.location
@@ -38,7 +38,7 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
         mock = mock()
         mock.expects(:method).with(key: 42)
         Mocha::Configuration.override(strict_keyword_argument_matching: true) do
-          mock.method({ key: 42 }) # rubocop:disable Style/BracesAroundHashParameters
+          mock.method({ key: 42 })
         end
       end
       assert_failed(test_result)
@@ -50,7 +50,7 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
       mock = mock()
       mock.expects(:method).with(**{ key: 42 }); execution_point = ExecutionPoint.current
       DeprecationDisabler.disable_deprecations do
-        mock.method({ key: 42 }) # rubocop:disable Style/BracesAroundHashParameters
+        mock.method({ key: 42 })
       end
       if Mocha::RUBY_V27_PLUS
         location = execution_point.location
@@ -67,7 +67,7 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
         mock = mock()
         mock.expects(:method).with(**{ key: 42 })
         Mocha::Configuration.override(strict_keyword_argument_matching: true) do
-          mock.method({ key: 42 }) # rubocop:disable Style/BracesAroundHashParameters
+          mock.method({ key: 42 })
         end
       end
       assert_failed(test_result)
@@ -95,7 +95,7 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
   def test_should_match_positional_and_keyword_args_with_last_positional_hash
     test_result = run_as_test do
       mock = mock()
-      mock.expects(:method).with(1, { key: 42 }); execution_point = ExecutionPoint.current # rubocop:disable Style/BracesAroundHashParameters
+      mock.expects(:method).with(1, { key: 42 }); execution_point = ExecutionPoint.current
       DeprecationDisabler.disable_deprecations do
         mock.method(1, key: 42)
       end
@@ -112,7 +112,7 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
     def test_should_not_match_positional_and_keyword_args_with_last_positional_hash_when_strict_keyword_args_is_enabled
       test_result = run_as_test do
         mock = mock()
-        mock.expects(:method).with(1, { key: 42 }) # rubocop:disable Style/BracesAroundHashParameters
+        mock.expects(:method).with(1, { key: 42 })
         Mocha::Configuration.override(strict_keyword_argument_matching: true) do
           mock.method(1, key: 42)
         end
@@ -126,7 +126,7 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
       mock = mock()
       mock.expects(:method).with(1, key: 42); execution_point = ExecutionPoint.current
       DeprecationDisabler.disable_deprecations do
-        mock.method(1, { key: 42 }) # rubocop:disable Style/BracesAroundHashParameters
+        mock.method(1, { key: 42 })
       end
       if Mocha::RUBY_V27_PLUS
         location = execution_point.location
@@ -143,7 +143,7 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
         mock = mock()
         mock.expects(:method).with(1, key: 42)
         Mocha::Configuration.override(strict_keyword_argument_matching: true) do
-          mock.method(1, { key: 42 }) # rubocop:disable Style/BracesAroundHashParameters
+          mock.method(1, { key: 42 })
         end
       end
       assert_failed(test_result)
@@ -163,7 +163,7 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(has_key(:key))
-      mock.method({ key: 42 }) # rubocop:disable Style/BracesAroundHashParameters
+      mock.method({ key: 42 })
     end
     assert_passed(test_result)
   end
@@ -217,7 +217,7 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(1, has_key(:key))
-      mock.method(1, { key: 42 }) # rubocop:disable Style/BracesAroundHashParameters
+      mock.method(1, { key: 42 })
     end
     assert_passed(test_result)
   end
