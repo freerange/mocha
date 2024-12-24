@@ -57,7 +57,7 @@ module Mocha
     end
 
     def matches?(other)
-      return false unless other.class == self.class
+      return false unless other.instance_of?(self.class)
 
       (stubbee.object_id == other.stubbee.object_id) && (method_name == other.method_name)
     end
