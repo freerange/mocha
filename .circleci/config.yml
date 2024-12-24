@@ -53,7 +53,7 @@ jobs:
             - run: MOCHA_GENERATE_DOCS=1 rake yardoc
   lint:
     docker:
-      - image: ruby:2.6
+      - image: ruby:3.3
     steps:
       - checkout
       - run: ruby --version
