@@ -6,7 +6,7 @@ class BacktraceFilterTest < Mocha::TestCase
 
   def test_should_exclude_mocha_locations_from_backtrace
     mocha_lib = '/username/workspace/mocha_wibble/lib/'
-    backtrace = [mocha_lib + 'exclude/me/1', mocha_lib + 'exclude/me/2', '/keep/me', mocha_lib + 'exclude/me/3']
+    backtrace = ["#{mocha_lib}exclude/me/1", "#{mocha_lib}exclude/me/2", '/keep/me', "#{mocha_lib}exclude/me/3"]
     filter = BacktraceFilter.new(mocha_lib)
     assert_equal ['/keep/me'], filter.filtered(backtrace)
   end
