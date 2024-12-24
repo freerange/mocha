@@ -177,6 +177,7 @@ class InstanceMethodTest < Mocha::TestCase
     replace_instance_method(method, :mock) { mocha }
     stubbee = Class.new do
       attr_accessor :reset_mocha_called
+
       def reset_mocha
         self.reset_mocha_called = true
       end
