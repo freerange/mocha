@@ -6,16 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 5
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowAliasSyntax, AllowedMethods.
-# AllowedMethods: alias_method, public, protected, private
-Layout/EmptyLinesAroundAttributeAccessor:
-  Exclude:
-    - 'test/minitest_result_pre_v5.rb'
-    - 'test/test_unit_result.rb'
-    - 'test/unit/instance_method_test.rb'
-
 # Offense count: 13
 # Configuration parameters: AllowComments, AllowEmptyLambdas.
 Lint/EmptyBlock:

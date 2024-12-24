@@ -5,6 +5,7 @@ class TestUnitResult
     test_result = Test::Unit::TestResult.new
     class << test_result
       attr_reader :failures, :errors
+
       def failure_messages
         failures.map(&:message)
       end
