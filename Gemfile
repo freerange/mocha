@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gemspec
 
+gem 'base64'
 gem 'introspection', '~> 0.0.1'
 gem 'jaro_winkler', '>= 1.5.5'
 gem 'minitest'
