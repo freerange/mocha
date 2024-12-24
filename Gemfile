@@ -18,6 +18,11 @@ if RUBY_VERSION >= '3.3.0'
   gem 'base64'
 end
 
+# Avoid ostruct gem warning about it not being available in Ruby v3.5
+if RUBY_VERSION >= '3.4.0'
+  gem 'ostruct'
+end
+
 if RUBY_ENGINE == 'jruby'
   # Workaround for https://github.com/jruby/jruby/issues/8488
   gem 'jar-dependencies', '~> 0.4.1'
