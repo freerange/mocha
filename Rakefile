@@ -8,7 +8,7 @@ require 'rake/testtask'
 begin
   # Only available with `gemfiles/Gemfile.rubocop`
   require 'rubocop/rake_task'
-rescue LoadError # rubocop:disable Lint/HandleExceptions
+rescue LoadError
 end
 
 desc 'Run all linters and tests'
@@ -90,7 +90,6 @@ task 'lint' do
   end
 end
 
-# rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
 def benchmark_test_case(klass, iterations)
   require 'benchmark'
   require 'mocha/detection/minitest'
@@ -119,8 +118,6 @@ def benchmark_test_case(klass, iterations)
     Benchmark.realtime { iterations.times { Test::Unit::UI::Console::TestRunner.run(klass, @silent_option) } }
   end
 end
-# rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
-
 if ENV['MOCHA_GENERATE_DOCS']
   require 'yard'
 
