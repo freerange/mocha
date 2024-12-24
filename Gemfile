@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'base64'
 gem 'introspection', '~> 0.0.1'
 gem 'jaro_winkler', '>= 1.5.5'
 gem 'minitest'
@@ -12,6 +11,11 @@ gem 'rubocop', '> 0.56', '<= 0.58.2'
 # Avoid breaking change in psych v4 (https://bugs.ruby-lang.org/issues/17866)
 if RUBY_VERSION >= '3.1.0'
   gem 'psych', '< 4'
+end
+
+# Avoid base64 gem warning about it not being available in Ruby v3.4
+if RUBY_VERSION >= '3.3.0'
+  gem 'base64'
 end
 
 if RUBY_ENGINE == 'jruby'
