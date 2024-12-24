@@ -29,14 +29,6 @@ Lint/IdentityComparison:
   Exclude:
     - 'lib/mocha/stubbed_method.rb'
 
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: standard_error, runtime_error
-Lint/InheritException:
-  Exclude:
-    - 'test/unit/expectation_test.rb'
-
 # Offense count: 19
 # Configuration parameters: AllowedParentClasses.
 Lint/MissingSuper:
