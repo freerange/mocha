@@ -21,6 +21,7 @@ module Mocha
       yield_parameters.next_invocation.each do |yield_args|
         @yields << ParametersMatcher.new(yield_args)
         raise LocalJumpError unless @block
+
         @block.call(*yield_args)
       end
       return_values.next(self)

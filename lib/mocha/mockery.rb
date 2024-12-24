@@ -124,10 +124,10 @@ module Mocha
     def on_stubbing(object, method)
       signature_proc = lambda { "#{object.mocha_inspect}.#{method}" }
       check(:stubbing_non_existent_method, 'non-existent method', signature_proc) do
-        !(object.stubba_class.__method_exists__?(method, true) || object.respond_to?(method))
+        !(object.stubba_class.__method_exists__?(method) || object.respond_to?(method))
       end
       check(:stubbing_non_public_method, 'non-public method', signature_proc) do
-        object.stubba_class.__method_exists__?(method, false)
+        object.stubba_class.__method_exists__?(method, include_public_methods: false)
       end
       check(:stubbing_method_on_non_mock_object, 'method on non-mock object', signature_proc)
     end
@@ -143,9 +143,11 @@ module Mocha
     def check(action, description, signature_proc, backtrace = caller)
       treatment = Mocha.configuration.send(action)
       return if (treatment == :allow) || (block_given? && !yield)
+
       method_signature = signature_proc.call
       message = "stubbing #{description}: #{method_signature}"
       raise StubbingError.new(message, backtrace) if treatment == :prevent
+
       logger.warn(message) if treatment == :warn
     end
 

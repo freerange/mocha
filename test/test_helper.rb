@@ -12,11 +12,8 @@ require 'mocha/detection/minitest'
 
 begin
   require 'minitest'
-# rubocop:disable Lint/HandleExceptions
 rescue LoadError
 end
-# rubocop:enable Lint/HandleExceptions
-
 module Mocha; end
 
 if (minitest_testcase = Mocha::Detection::Minitest.testcase) && (ENV['MOCHA_RUN_INTEGRATION_TESTS'] != 'test-unit')

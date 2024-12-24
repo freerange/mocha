@@ -12,7 +12,7 @@ module Mocha
     alias_method :_method, :method
 
     # @private
-    def mocha(instantiate = true)
+    def mocha(instantiate: true)
       if instantiate
         @mocha ||= Mocha::Mockery.instance.mock_impersonating(self)
       else
@@ -75,11 +75,11 @@ module Mocha
       if frozen?
         raise StubbingError.new("can't stub method on frozen object: #{mocha_inspect}", caller)
       end
+
       expectation = nil
       mockery = Mocha::Mockery.instance
       iterator = ArgumentIterator.new(expected_methods_vs_return_values)
-      iterator.each do |*args|
-        method_name = args.shift
+      iterator.each do |method_name, *args|
         mockery.on_stubbing(self, method_name)
         method = stubba_method.new(stubba_object, method_name)
         mockery.stubba.stub(method)
@@ -121,11 +121,11 @@ module Mocha
       if frozen?
         raise StubbingError.new("can't stub method on frozen object: #{mocha_inspect}", caller)
       end
+
       expectation = nil
       mockery = Mocha::Mockery.instance
       iterator = ArgumentIterator.new(stubbed_methods_vs_return_values)
-      iterator.each do |*args|
-        method_name = args.shift
+      iterator.each do |method_name, *args|
         mockery.on_stubbing(self, method_name)
         method = stubba_method.new(stubba_object, method_name)
         mockery.stubba.stub(method)

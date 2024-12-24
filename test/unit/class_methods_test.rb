@@ -35,7 +35,7 @@ class ClassMethodsTest < Mocha::TestCase
   end
 
   def test_any_instance_should_not_build_mocha_if_instantiate_is_false
-    assert_nil @klass.any_instance.mocha(false)
+    assert_nil @klass.any_instance.mocha(instantiate: false)
   end
 
   def test_any_instance_should_reuse_existing_mocha
@@ -46,7 +46,7 @@ class ClassMethodsTest < Mocha::TestCase
 
   def test_any_instance_should_reuse_existing_mocha_even_if_instantiate_is_false
     mocha1 = @klass.any_instance.mocha
-    mocha2 = @klass.any_instance.mocha(false)
+    mocha2 = @klass.any_instance.mocha(instantiate: false)
     assert_equal mocha1, mocha2
   end
 

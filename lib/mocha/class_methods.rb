@@ -10,7 +10,7 @@ module Mocha
         @stubba_object = klass
       end
 
-      def mocha(instantiate = true)
+      def mocha(instantiate: true)
         if instantiate
           @mocha ||= Mocha::Mockery.instance.mock_impersonating_any_instance_of(@stubba_object)
         else
@@ -46,17 +46,16 @@ module Mocha
       if frozen?
         raise StubbingError.new("can't stub method on frozen object: #{mocha_inspect}.any_instance", caller)
       end
+
       @any_instance ||= AnyInstance.new(self)
     end
 
     # @private
-    # rubocop:disable Metrics/CyclomaticComplexity
-    def __method_visibility__(method, include_public_methods = true)
+    def __method_visibility__(method, include_public_methods: true)
       (include_public_methods && public_method_defined?(method) && :public) ||
         (protected_method_defined?(method) && :protected) ||
         (private_method_defined?(method) && :private)
     end
-    # rubocop:enable Metrics/CyclomaticComplexity
     alias_method :__method_exists__?, :__method_visibility__
   end
 end

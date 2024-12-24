@@ -14,13 +14,13 @@ class PrependTest < Mocha::TestCase
 
   module Mod1
     def my_method
-      super + ' World'
+      "#{super} World"
     end
   end
 
   module Mod2
     def my_method
-      super + ' Wide'
+      "#{super} Wide"
     end
   end
 

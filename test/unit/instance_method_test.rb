@@ -59,7 +59,7 @@ class InstanceMethodTest < Mocha::TestCase
     method.define_new_method
 
     expected_filename = 'stubbed_method.rb'
-    expected_line_number = 47
+    expected_line_number = 49
 
     exception = assert_raises(Exception) { klass.method_x }
     matching_line = exception.backtrace.find do |line|
@@ -177,6 +177,7 @@ class InstanceMethodTest < Mocha::TestCase
     replace_instance_method(method, :mock) { mocha }
     stubbee = Class.new do
       attr_accessor :reset_mocha_called
+
       def reset_mocha
         self.reset_mocha_called = true
       end
