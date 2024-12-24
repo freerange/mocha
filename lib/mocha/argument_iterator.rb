@@ -4,13 +4,11 @@ module Mocha
       @argument = argument
     end
 
-    def each
+    def each(&block)
       if @argument.is_a?(Hash)
-        @argument.each do |method_name, return_value|
-          yield method_name, return_value
-        end
+        @argument.each(&block)
       else
-        yield @argument
+        block.call(@argument)
       end
     end
   end
