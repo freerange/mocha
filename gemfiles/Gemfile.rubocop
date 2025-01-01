@@ -4,3 +4,4 @@ gemspec path: '../'
 
 gem 'rake'
 gem 'rubocop'
+gem 'rubocop-rake'
