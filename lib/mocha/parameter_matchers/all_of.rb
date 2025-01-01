@@ -28,6 +28,7 @@ module Mocha
     class AllOf < Base
       # @private
       def initialize(*matchers)
+        super()
         @matchers = matchers
       end
 

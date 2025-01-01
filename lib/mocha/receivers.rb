@@ -8,7 +8,7 @@ module Mocha
       object = @object
       mocks = []
       while object
-        mocha = object.mocha(false)
+        mocha = object.mocha(instantiate: false)
         mocks << mocha if mocha
         object = object.is_a?(Class) ? object.superclass : nil
       end
@@ -25,7 +25,7 @@ module Mocha
       klass = @klass
       mocks = []
       while klass
-        mocha = klass.any_instance.mocha(false)
+        mocha = klass.any_instance.mocha(instantiate: false)
         mocks << mocha if mocha
         klass = klass.superclass
       end

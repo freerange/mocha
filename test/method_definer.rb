@@ -5,6 +5,7 @@ module MethodDefiner
 
   def replace_instance_method(object, method_symbol, &block)
     raise "Cannot replace #{method_symbol} as #{self} does not respond to it." unless object.respond_to?(method_symbol)
+
     define_instance_method(object, method_symbol, &block)
   end
 

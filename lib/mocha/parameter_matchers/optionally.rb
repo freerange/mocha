@@ -38,6 +38,7 @@ module Mocha
     class Optionally < Base
       # @private
       def initialize(*parameters)
+        super()
         @matchers = parameters.map(&:to_matcher)
       end
 
@@ -47,6 +48,7 @@ module Mocha
         while !available_parameters.empty? && (index < @matchers.length)
           matcher = @matchers[index]
           return false unless matcher.matches?(available_parameters)
+
           index += 1
         end
         true

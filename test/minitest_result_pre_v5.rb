@@ -4,30 +4,33 @@ require 'mocha/detection/minitest'
 class MinitestResult
   minitest_version = Gem::Version.new(Mocha::Detection::Minitest.version)
   if Gem::Requirement.new('<= 4.6.1').satisfied_by?(minitest_version)
-    FAILURE_PATTERN = /(Failure)\:\n([^\(]+)\(([^\)]+)\) \[([^\]]+)\]\:\n(.*)\n/m
-    ERROR_PATTERN   = /(Error)\:\n([^\(]+)\(([^\)]+)\)\:\n(.+?)\n/m
+    FAILURE_PATTERN = /(Failure):\n([^\(]+)\(([^\)]+)\) \[([^\]]+)\]:\n(.*)\n/m.freeze
+    ERROR_PATTERN   = /(Error):\n([^\(]+)\(([^\)]+)\):\n(.+?)\n/m.freeze
     PATTERN_INDICES = { method: 2, testcase: 3 }.freeze
   else
-    FAILURE_PATTERN = /(Failure)\:\n.([^#]+)\#([^ ]+) \[([^\]]+)\]\:\n(.*)\n/m
-    ERROR_PATTERN   = /(Error)\:\n.([^#]+)\#([^ ]+)\:\n(.+?)\n/m
+    FAILURE_PATTERN = /(Failure):\n.([^#]+)\#([^ ]+) \[([^\]]+)\]:\n(.*)\n/m.freeze
+    ERROR_PATTERN   = /(Error):\n.([^#]+)\#([^ ]+):\n(.+?)\n/m.freeze
     PATTERN_INDICES = { method: 3, testcase: 2 }.freeze
   end
 
   def self.parse_failure(raw)
     matches = FAILURE_PATTERN.match(raw)
     return nil unless matches
+
     Failure.new(matches[PATTERN_INDICES[:method]], matches[PATTERN_INDICES[:testcase]], [matches[4]], matches[5])
   end
 
   def self.parse_error(raw)
     matches = ERROR_PATTERN.match(raw)
     return nil unless matches
+
     backtrace = raw.gsub(ERROR_PATTERN, '').split("\n").map(&:strip)
     Error.new(matches[PATTERN_INDICES[:method]], matches[PATTERN_INDICES[:testcase]], matches[4], backtrace)
   end
 
   class Failure
     attr_reader :method, :test_case, :location, :message
+
     def initialize(method, test_case, location, message)
       @method = method
       @test_case = test_case
@@ -39,6 +42,7 @@ class MinitestResult
   class Error
     class Exception
       attr_reader :message, :backtrace
+
       def initialize(message, location)
         @message = message
         @backtrace = location
@@ -46,6 +50,7 @@ class MinitestResult
     end
 
     attr_reader :method, :test_case, :exception
+
     def initialize(method, test_case, message, backtrace)
       @method = method
       @test_case = test_case

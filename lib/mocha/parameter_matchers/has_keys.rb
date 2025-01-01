@@ -29,6 +29,7 @@ module Mocha
     class HasKeys < Base
       # @private
       def initialize(*keys)
+        super()
         raise ArgumentError, 'No arguments. Expecting at least one.' if keys.empty?
 
         @keys = keys
@@ -46,7 +47,7 @@ module Mocha
 
       # @private
       def mocha_inspect
-        "has_keys(#{@keys.mocha_inspect(false)})"
+        "has_keys(#{@keys.mocha_inspect(wrapped: false)})"
       end
     end
   end

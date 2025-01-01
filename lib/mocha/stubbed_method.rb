@@ -23,6 +23,7 @@ module Mocha
       remove_new_method
       mock.unstub(method_name.to_sym)
       return if mock.any_expectations?
+
       reset_mocha
     end
 
@@ -36,6 +37,7 @@ module Mocha
 
     def hide_original_method
       return unless original_method_owner.__method_exists__?(method_name)
+
       store_original_method_visibility
       use_prepended_module_for_stub_method
     end
@@ -55,8 +57,10 @@ module Mocha
     end
 
     def matches?(other)
-      return false unless other.class == self.class
-      (stubbee.object_id == other.stubbee.object_id) && (method_name == other.method_name)
+      return false unless other.instance_of?(self.class)
+
+      (stubbee.object_id == other.stubbee.object_id) && # rubocop:disable Lint/IdentityComparison
+        (method_name == other.method_name)
     end
 
     alias_method :==, :eql?
@@ -69,6 +73,7 @@ module Mocha
 
     def retain_original_visibility(method_owner)
       return unless @original_visibility
+
       Module.instance_method(@original_visibility).bind(method_owner).call(method_name)
     end
 

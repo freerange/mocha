@@ -29,6 +29,7 @@ module Mocha
     class RegexpMatches < Base
       # @private
       def initialize(regexp)
+        super()
         @regexp = regexp
       end
 
@@ -36,6 +37,7 @@ module Mocha
       def matches?(available_parameters)
         parameter = available_parameters.shift
         return false unless parameter.respond_to?(:=~)
+
         parameter =~ @regexp
       end
 

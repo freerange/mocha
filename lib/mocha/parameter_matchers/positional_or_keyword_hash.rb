@@ -8,6 +8,7 @@ module Mocha
     # @private
     class PositionalOrKeywordHash < Base
       def initialize(value, expectation)
+        super()
         @value = value
         @expectation = expectation
       end

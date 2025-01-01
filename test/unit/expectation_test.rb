@@ -192,7 +192,7 @@ class ExpectationTest < Mocha::TestCase
   end
 
   def test_should_raise_custom_exception
-    exception = Class.new(Exception)
+    exception = Class.new(StandardError)
     assert_raises(exception) { invoke(new_expectation.raises(exception)) }
   end
 

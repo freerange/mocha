@@ -68,29 +68,27 @@ module Mocha
     class Includes < Base
       # @private
       def initialize(*items)
+        super()
         @items = items
       end
 
       # @private
-      # rubocop:disable Metrics/PerceivedComplexity
       def matches?(available_parameters)
         parameter = available_parameters.shift
         return false unless parameter.respond_to?(:include?)
+
         if @items.size == 1
-          # rubocop:disable Style/GuardClause
           if parameter.respond_to?(:any?) && !parameter.is_a?(String)
             parameter = parameter.keys if parameter.is_a?(Hash)
-            return parameter.any? { |p| @items.first.to_matcher.matches?([p]) }
+            parameter.any? { |p| @items.first.to_matcher.matches?([p]) }
           else
-            return parameter.include?(@items.first)
+            parameter.include?(@items.first)
           end
-          # rubocop:enable Style/GuardClause
         else
           includes_matchers = @items.map { |item| Includes.new(item) }
           AllOf.new(*includes_matchers).matches?([parameter])
         end
       end
-      # rubocop:enable Metrics/PerceivedComplexity
 
       # @private
       def mocha_inspect

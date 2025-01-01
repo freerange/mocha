@@ -64,15 +64,19 @@ class MockTest < Mocha::TestCase
 
   def test_should_be_able_to_mock_standard_object_methods
     mock = build_mock
-    OBJECT_METHODS.each { |method| mock.__expects__(method.to_sym).returns(method) }
-    OBJECT_METHODS.each { |method| assert_equal method, mock.__send__(method.to_sym) }
+    OBJECT_METHODS.each do |method|
+      mock.__expects__(method.to_sym).returns(method)
+      assert_equal method, mock.__send__(method.to_sym)
+    end
     assert mock.__verified__?
   end
 
   def test_should_be_able_to_stub_standard_object_methods
     mock = build_mock
-    OBJECT_METHODS.each { |method| mock.__stubs__(method.to_sym).returns(method) }
-    OBJECT_METHODS.each { |method| assert_equal method, mock.__send__(method.to_sym) }
+    OBJECT_METHODS.each do |method|
+      mock.__stubs__(method.to_sym).returns(method)
+      assert_equal method, mock.__send__(method.to_sym)
+    end
   end
 
   def test_should_create_and_add_expectations
