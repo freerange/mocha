@@ -28,7 +28,9 @@ module Mocha
     end
 
     # Parameter matcher which matches when actual parameter contains all expected +Hash+ entries.
-    class HasEntries < Base
+    class HasEntries
+      include BaseMethods
+
       # @private
       def initialize(entries, exact: false)
         @entries = entries

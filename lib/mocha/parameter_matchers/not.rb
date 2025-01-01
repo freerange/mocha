@@ -4,7 +4,7 @@ module Mocha
   module ParameterMatchers
     # Matches if +matcher+ does *not* match.
     #
-    # @param [Base] matcher matcher whose logic to invert.
+    # @param [BaseMethods] matcher matcher whose logic to invert.
     # @return [Not] parameter matcher.
     #
     # @see Expectation#with
@@ -26,7 +26,9 @@ module Mocha
     end
 
     # Parameter matcher which inverts the logic of the specified matcher using a logical NOT operation.
-    class Not < Base
+    class Not
+      include BaseMethods
+
       # @private
       def initialize(matcher)
         @matcher = matcher
