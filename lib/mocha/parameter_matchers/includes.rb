@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'mocha/parameter_matchers/all_of'
 require 'mocha/parameter_matchers/base'
 

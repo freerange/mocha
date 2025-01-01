@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/ruby_version'
 
 class FailureMessagesTest < Mocha::TestCase
-  OBJECT_ADDRESS_PATTERN = '0x[0-9A-Fa-f]{1,12}'.freeze
+  OBJECT_ADDRESS_PATTERN = '0x[0-9A-Fa-f]{1,12}'
 
   include AcceptanceTest
 
@@ -56,7 +58,7 @@ class FailureMessagesTest < Mocha::TestCase
   unless Mocha::RUBY_V34_PLUS
     def test_should_display_string_when_expectation_was_on_string
       test_result = run_as_test do
-        'Foo'.expects(:bar)
+        'Foo'.dup.expects(:bar)
       end
       assert_match Regexp.new(%("Foo")), test_result.failures[0].message
     end

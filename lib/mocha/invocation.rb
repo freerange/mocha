@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'mocha/parameters_matcher'
 require 'mocha/raised_exception'
 require 'mocha/return_values'
@@ -44,9 +46,9 @@ module Mocha
     end
 
     def call_description
-      description = "#{@mock.mocha_inspect}.#{@method_name}#{argument_description}"
-      description << ' { ... }' unless @block.nil?
-      description
+      strings = ["#{@mock.mocha_inspect}.#{@method_name}#{argument_description}"]
+      strings << ' { ... }' unless @block.nil?
+      strings.join
     end
 
     def short_call_description
@@ -54,9 +56,9 @@ module Mocha
     end
 
     def result_description
-      desc = "# => #{@result.mocha_inspect}"
-      desc << " after yielding #{@yields.map(&:mocha_inspect).join(', then ')}" if @yields.any?
-      desc
+      strings = ["# => #{@result.mocha_inspect}"]
+      strings << " after yielding #{@yields.map(&:mocha_inspect).join(', then ')}" if @yields.any?
+      strings.join
     end
 
     def full_description

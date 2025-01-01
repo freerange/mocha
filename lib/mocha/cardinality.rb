@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mocha
   class Cardinality
     INFINITY = 1 / 0.0

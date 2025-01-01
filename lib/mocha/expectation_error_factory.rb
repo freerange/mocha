@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'mocha/backtrace_filter'
 require 'mocha/expectation_error'
 

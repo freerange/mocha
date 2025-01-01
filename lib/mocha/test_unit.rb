@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'mocha/ruby_version'
 require 'mocha/integration/test_unit'
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mocha
   class ExceptionRaiser
     def initialize(exception, message)

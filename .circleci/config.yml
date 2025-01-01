@@ -9,6 +9,8 @@ jobs:
         type: string
     docker:
       - image: << parameters.docker-image >>
+    environment:
+      RUBYOPT=--enable-frozen-string-literal
     steps:
       - checkout
       - run: ruby --version

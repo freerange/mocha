@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'mocha/mockery'
 require 'mocha/instance_method'
 require 'mocha/argument_iterator'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'ruby2_keywords'
 require 'mocha/method_matcher'
 require 'mocha/parameters_matcher'
@@ -744,19 +746,19 @@ module Mocha
 
     # @private
     def mocha_inspect
-      message = "#{@cardinality.anticipated_times}, #{@cardinality.invoked_times}: #{method_signature}"
-      message << "; #{@ordering_constraints.map(&:mocha_inspect).join('; ')}" unless @ordering_constraints.empty?
+      strings = ["#{@cardinality.anticipated_times}, #{@cardinality.invoked_times}: #{method_signature}"]
+      strings << "; #{@ordering_constraints.map(&:mocha_inspect).join('; ')}" unless @ordering_constraints.empty?
       if Mocha.configuration.display_matching_invocations_on_failure?
-        message << @cardinality.actual_invocations
+        strings << @cardinality.actual_invocations
       end
-      message
+      strings.join
     end
 
     # @private
     def method_signature
-      signature = "#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}#{@parameters_matcher.mocha_inspect}"
-      signature << " #{@block_matcher.mocha_inspect}" if @block_matcher.mocha_inspect
-      signature
+      strings = ["#{@mock.mocha_inspect}.#{@method_matcher.mocha_inspect}#{@parameters_matcher.mocha_inspect}"]
+      strings << " #{@block_matcher.mocha_inspect}" if @block_matcher.mocha_inspect
+      strings.join
     end
 
     # @private

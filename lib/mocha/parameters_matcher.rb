@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'mocha/inspect'
 require 'mocha/parameter_matchers'
 

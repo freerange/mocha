@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module MethodDefiner
   def define_instance_method(object, method_symbol, &block)
     object.singleton_class.send(:define_method, method_symbol, block)

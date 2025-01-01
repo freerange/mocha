@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'mocha/central'
 require 'mocha/mock'
 require 'mocha/names'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'mocha/configuration'
 require 'mocha/deprecation'
 require 'mocha/ruby_version'

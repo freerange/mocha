@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mocha
   class ThrownObject
     def initialize(tag, value = nil)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mocha
   class ExpectationList
     def initialize(expectations = [])
