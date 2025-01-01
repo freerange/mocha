@@ -68,3 +68,8 @@ Layout/LineLength:
 # It's not possible to set TargetRubyVersion to Ruby < v2.2
 Gemspec/RequiredRubyVersion:
   Enabled: false
+
+# It can be useful to violate this cop in tests in order to be more explicit
+Lint/UselessTimes:
+  Exclude:
+    - 'test/**/*.rb'

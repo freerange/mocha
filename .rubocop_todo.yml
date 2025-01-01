@@ -36,16 +36,6 @@ Lint/SuppressedException:
     - 'lib/mocha/detection/test_unit.rb'
     - 'test/test_helper.rb'
 
-# Offense count: 17
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: AutoCorrect.
-Lint/UselessTimes:
-  Exclude:
-    - 'test/acceptance/expected_invocation_count_test.rb'
-    - 'test/acceptance/multiple_expectations_failure_message_test.rb'
-    - 'test/unit/expectation_test.rb'
-    - 'test/unit/mockery_test.rb'
-
 # Offense count: 34
 # Configuration parameters: AllowedMethods, AllowedPatterns, CountRepeatedAttributes.
 Metrics/AbcSize:
