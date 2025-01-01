@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 unless defined?(STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS)
   STANDARD_OBJECT_PUBLIC_INSTANCE_METHODS = Object.instance_methods + Object.private_instance_methods
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mocha
   # Used to constrain the order in which expectations can occur.
   #

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'mocha/parameter_matchers/base'
 require 'mocha/parameter_matchers/equals'
 require 'mocha/parameter_matchers/positional_or_keyword_hash'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mocha
   class MethodMatcher
     attr_reader :expected_method_name

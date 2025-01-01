@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mocha
   module ParameterMatchers
     module Methods

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'mocha/parameter_matchers/base'
 require 'uri'
 require 'cgi'

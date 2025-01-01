@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/ruby_version'
 require 'method_definer'
@@ -56,7 +58,7 @@ class AnyInstanceMethodTest < Mocha::TestCase
     method.define_new_method
 
     expected_filename = 'stubbed_method.rb'
-    expected_line_number = 49
+    expected_line_number = 51
 
     exception = assert_raises(Exception) { klass.new.method_x }
     matching_line = exception.backtrace.find do |line|

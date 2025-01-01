@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mocha
   class BacktraceFilter
     LIB_DIRECTORY = File.expand_path(File.join(File.dirname(__FILE__), '..')) + File::SEPARATOR

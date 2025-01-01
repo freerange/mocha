@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'mocha/parameters_matcher'
 require 'mocha/raised_exception'
 require 'mocha/return_values'

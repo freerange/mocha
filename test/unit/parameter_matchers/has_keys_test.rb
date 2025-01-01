@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path('../../../test_helper', __FILE__)
 
 require 'mocha/parameter_matchers/has_keys'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'mocha/api'
 require 'mocha/integration/assertion_counter'
 require 'mocha/expectation_error'

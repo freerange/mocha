@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'mocha/stubbed_method'
 
 module Mocha

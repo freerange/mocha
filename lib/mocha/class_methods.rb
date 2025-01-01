@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'mocha/mockery'
 require 'mocha/any_instance_method'
 

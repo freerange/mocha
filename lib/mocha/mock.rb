@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'ruby2_keywords'
 require 'mocha/expectation'
 require 'mocha/expectation_list'

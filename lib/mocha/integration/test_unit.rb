@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'mocha/detection/test_unit'
 require 'mocha/integration/test_unit/adapter'
 

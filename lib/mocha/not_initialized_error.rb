@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'mocha/error_with_filtered_backtrace'
 
 module Mocha
