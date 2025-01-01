@@ -9,8 +9,6 @@ jobs:
         type: string
     docker:
       - image: << parameters.docker-image >>
-    environment:
-      MOCHA_OPTIONS=debug
     steps:
       - checkout
       - run: ruby --version
