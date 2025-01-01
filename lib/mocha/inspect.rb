@@ -28,7 +28,11 @@ module Mocha
           end
         end.join(', ')
 
-        Hash.ruby2_keywords_hash?(self) ? unwrapped : "{#{unwrapped}}"
+        if Hash.ruby2_keywords_hash?(self)
+          empty? ? '**{}' : unwrapped
+        else
+          "{#{unwrapped}}"
+        end
       end
     end
 
