@@ -49,9 +49,13 @@ module Mocha
       end
 
       def teardown(origin = nil)
+        if @instances.nil?
+          raise NotInitializedError, 'Mocha::Mockery.teardown called before Mocha::Mockery.setup'
+        end
+
         instance.teardown(origin)
       ensure
-        @instances.pop
+        @instances.pop unless @instances.nil?
       end
     end
 
