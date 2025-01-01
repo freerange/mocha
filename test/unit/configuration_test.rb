@@ -40,8 +40,14 @@ class ConfigurationTest < Mocha::TestCase
     assert_equal :allow, Mocha.configuration.stubbing_method_unnecessarily
   end
 
-  def test_strict_keyword_argument_matching_works_is_false_by_default
-    assert !Mocha.configuration.strict_keyword_argument_matching?
+  if Mocha::RUBY_V30_PLUS
+    def test_strict_keyword_argument_matching_works_is_true_by_default_in_ruby_3_0_and_above
+      assert Mocha.configuration.strict_keyword_argument_matching?
+    end
+  elsif Mocha::RUBY_V27_PLUS
+    def test_strict_keyword_argument_matching_works_is_false_by_default_in_ruby_2_7
+      assert !Mocha.configuration.strict_keyword_argument_matching?
+    end
   end
 
   if Mocha::RUBY_V27_PLUS
