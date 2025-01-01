@@ -27,7 +27,9 @@ module Mocha
     end
 
     # Parameter matcher which matches URIs with equivalent query strings.
-    class EquivalentUri < Base
+    class EquivalentUri
+      include BaseMethods
+
       # @private
       def initialize(uri)
         @uri = URI.parse(uri)

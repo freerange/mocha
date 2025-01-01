@@ -65,7 +65,9 @@ module Mocha
     end
 
     # Parameter matcher which matches when actual parameter includes expected values.
-    class Includes < Base
+    class Includes
+      include BaseMethods
+
       # @private
       def initialize(*items)
         @items = items

@@ -1,14 +1,16 @@
+require 'mocha/deprecation'
+
 module Mocha
   module ParameterMatchers
-    # @abstract Subclass and implement +#matches?+ and +#mocha_inspect+ to define a custom matcher. Also add a suitably named instance method to {ParameterMatchers} to build an instance of the new matcher c.f. {#equals}.
-    class Base
+    # @abstract Include and implement +#matches?+ and +#mocha_inspect+ to define a custom matcher. Also add a suitably named instance method to {ParameterMatchers} to build an instance of the new matcher c.f. {#equals}.
+    module BaseMethods
       # A shorthand way of combining two matchers when both must match.
       #
       # Returns a new {AllOf} parameter matcher combining two matchers using a logical AND.
       #
       # This shorthand will not work with an implicit equals match. Instead, an explicit {Equals} matcher should be used.
       #
-      # @param [Base] other parameter matcher.
+      # @param [BaseMethods] other parameter matcher.
       # @return [AllOf] parameter matcher.
       #
       # @see Expectation#with
@@ -32,7 +34,7 @@ module Mocha
       #
       # This shorthand will not work with an implicit equals match. Instead, an explicit {Equals} matcher should be used.
       #
-      # @param [Base] other parameter matcher.
+      # @param [BaseMethods] other parameter matcher.
       # @return [AnyOf] parameter matcher.
       #
       # @see Expectation#with
@@ -54,6 +56,19 @@ module Mocha
       #   object.run(3) # fails
       def |(other)
         AnyOf.new(self, other)
+      end
+    end
+
+    # @deprecated Include +BaseMethods+ module instead.
+    class Base
+      include BaseMethods
+
+      # @private
+      def self.inherited(subclass)
+        super
+        Deprecation.warning(
+          "Include #{BaseMethods} module into #{subclass} instead of inheriting from #{self}."
+        )
       end
     end
   end
