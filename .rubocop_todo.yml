@@ -23,12 +23,6 @@ Lint/EmptyClass:
     - 'test/acceptance/failure_messages_test.rb'
     - 'test/unit/mockery_test.rb'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Lint/IdentityComparison:
-  Exclude:
-    - 'lib/mocha/stubbed_method.rb'
-
 # Offense count: 19
 # Configuration parameters: AllowedParentClasses.
 Lint/MissingSuper:

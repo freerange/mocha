@@ -59,7 +59,8 @@ module Mocha
     def matches?(other)
       return false unless other.instance_of?(self.class)
 
-      (stubbee.object_id == other.stubbee.object_id) && (method_name == other.method_name)
+      (stubbee.object_id == other.stubbee.object_id) && # rubocop:disable Lint/IdentityComparison
+        (method_name == other.method_name)
     end
 
     alias_method :==, :eql?
