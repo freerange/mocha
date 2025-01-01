@@ -13,7 +13,7 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
   def test_should_describe_matcher
     hash = { key_1: 1, key_2: 2 }
     matcher = build_matcher(hash)
-    assert_equal '{:key_1 => 1, :key_2 => 2}', matcher.mocha_inspect
+    assert_equal '{key_1: 1, key_2: 2}', matcher.mocha_inspect
   end
 
   def test_should_match_non_last_hash_arg_with_hash_arg
@@ -73,7 +73,7 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
     message = Mocha::Deprecation.messages.last
     location = expectation.definition_location
     assert_includes message, "Expectation defined at #{location} expected keyword arguments (key_1: 1, key_2: 2)"
-    assert_includes message, 'but received positional hash ({:key_1 => 1, :key_2 => 2})'
+    assert_includes message, 'but received positional hash ({key_1: 1, key_2: 2})'
     assert_includes message, 'These will stop matching when strict keyword argument matching is enabled.'
     assert_includes message, 'See the documentation for Mocha::Configuration#strict_keyword_argument_matching=.'
   end
@@ -90,7 +90,7 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
 
     message = Mocha::Deprecation.messages.last
     location = expectation.definition_location
-    assert_includes message, "Expectation defined at #{location} expected positional hash ({:key_1 => 1, :key_2 => 2})"
+    assert_includes message, "Expectation defined at #{location} expected positional hash ({key_1: 1, key_2: 2})"
     assert_includes message, 'but received keyword arguments (key_1: 1, key_2: 2)'
     assert_includes message, 'These will stop matching when strict keyword argument matching is enabled.'
     assert_includes message, 'See the documentation for Mocha::Configuration#strict_keyword_argument_matching=.'
@@ -153,7 +153,7 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
       end
 
       message = Mocha::Deprecation.messages.last
-      assert_includes message, 'Expectation expected positional hash ({:key_1 => 1, :key_2 => 2})'
+      assert_includes message, 'Expectation expected positional hash ({key_1: 1, key_2: 2})'
       assert_includes message, 'but received keyword arguments (key_1: 1, key_2: 2)'
     end
   end

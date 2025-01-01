@@ -3,9 +3,14 @@ require 'mocha/inspect'
 require 'mocha/ruby_version'
 
 class HashInspectTest < Mocha::TestCase
-  def test_should_return_string_representation_of_hash
+  def test_should_return_string_representation_of_hash_with_symbol_keys
     hash = { a: true, b: false }
-    assert_equal '{:a => true, :b => false}', hash.mocha_inspect
+    assert_equal '{a: true, b: false}', hash.mocha_inspect
+  end
+
+  def test_should_return_string_representation_of_hash_with_string_keys
+    hash = { 'a' => true, 'b' => false }
+    assert_equal '{"a" => true, "b" => false}', hash.mocha_inspect
   end
 
   if Mocha::RUBY_V27_PLUS
@@ -21,7 +26,9 @@ class HashInspectTest < Mocha::TestCase
   end
 
   def test_should_use_mocha_inspect_on_each_key_and_value
-    hash = { a: 'mocha' }
-    assert_equal %({:a => "mocha"}), hash.mocha_inspect
+    object1 = Object.new
+    object2 = Object.new
+    hash = { object1 => object2 }
+    assert_equal "{#{object1.mocha_inspect} => #{object2.mocha_inspect}}", hash.mocha_inspect
   end
 end

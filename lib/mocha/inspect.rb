@@ -19,19 +19,16 @@ module Mocha
 
     module HashMethods
       def mocha_inspect
-        if Hash.ruby2_keywords_hash?(self)
-          collect do |key, value|
-            case key
-            when Symbol
-              "#{key}: #{value.mocha_inspect}"
-            else
-              "#{key.mocha_inspect} => #{value.mocha_inspect}"
-            end
-          end.join(', ')
-        else
-          unwrapped = collect { |key, value| "#{key.mocha_inspect} => #{value.mocha_inspect}" }.join(', ')
-          "{#{unwrapped}}"
-        end
+        unwrapped = collect do |key, value|
+          case key
+          when Symbol
+            "#{key}: #{value.mocha_inspect}"
+          else
+            "#{key.mocha_inspect} => #{value.mocha_inspect}"
+          end
+        end.join(', ')
+
+        Hash.ruby2_keywords_hash?(self) ? unwrapped : "{#{unwrapped}}"
       end
     end
 
