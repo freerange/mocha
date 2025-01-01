@@ -13,7 +13,6 @@ module Mocha
       include BaseMethods
 
       def initialize(value, expectation)
-        super()
         @value = value
         @expectation = expectation
       end

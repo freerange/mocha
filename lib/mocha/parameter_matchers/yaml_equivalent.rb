@@ -35,7 +35,6 @@ module Mocha
 
       # @private
       def initialize(object)
-        super()
         @object = object
       end
 

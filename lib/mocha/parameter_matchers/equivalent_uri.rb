@@ -36,7 +36,6 @@ module Mocha
 
       # @private
       def initialize(uri)
-        super()
         @uri = URI.parse(uri)
       end
 

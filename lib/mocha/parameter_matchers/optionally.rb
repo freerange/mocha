@@ -44,7 +44,6 @@ module Mocha
 
       # @private
       def initialize(*parameters)
-        super()
         @matchers = parameters.map(&:to_matcher)
       end
 

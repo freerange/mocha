@@ -35,7 +35,6 @@ module Mocha
 
       # @private
       def initialize(value)
-        super()
         @value = value
       end
 

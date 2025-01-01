@@ -74,7 +74,6 @@ module Mocha
 
       # @private
       def initialize(*items)
-        super()
         @items = items
       end
 
