@@ -19,6 +19,11 @@ class HashInspectTest < Mocha::TestCase
       assert_equal 'a: true, b: false', hash.mocha_inspect
     end
 
+    def test_should_return_double_splatted_empty_hash_when_empty_keyword_hash
+      hash = Hash.ruby2_keywords_hash({})
+      assert_equal '**{}', hash.mocha_inspect
+    end
+
     def test_should_return_unwrapped_hash_when_keyword_hash_keys_are_not_symbols
       hash = Hash.ruby2_keywords_hash('a' => true, 'b' => false)
       assert_equal '"a" => true, "b" => false', hash.mocha_inspect
