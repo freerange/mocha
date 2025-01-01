@@ -26,7 +26,9 @@ module Mocha
     end
 
     # Parameter matcher which matches if specified regular expression matches actual paramter.
-    class RegexpMatches < Base
+    class RegexpMatches
+      include BaseMethods
+
       # @private
       def initialize(regexp)
         @regexp = regexp

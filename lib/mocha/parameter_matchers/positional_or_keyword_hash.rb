@@ -6,7 +6,9 @@ require 'mocha/parameter_matchers/has_entries'
 module Mocha
   module ParameterMatchers
     # @private
-    class PositionalOrKeywordHash < Base
+    class PositionalOrKeywordHash
+      include BaseMethods
+
       def initialize(value, expectation)
         @value = value
         @expectation = expectation

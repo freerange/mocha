@@ -4,7 +4,7 @@ module Mocha
   module ParameterMatchers
     # Matches if any +matchers+ match.
     #
-    # @param [*Array<Base>] matchers parameter matchers.
+    # @param [*Array<BaseMethods>] matchers parameter matchers.
     # @return [AnyOf] parameter matcher.
     #
     # @see Expectation#with
@@ -31,7 +31,9 @@ module Mocha
     end
 
     # Parameter matcher which combines a number of other matchers using a logical OR.
-    class AnyOf < Base
+    class AnyOf
+      include BaseMethods
+
       # @private
       def initialize(*matchers)
         @matchers = matchers

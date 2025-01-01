@@ -27,7 +27,9 @@ module Mocha
     end
 
     # Parameter matcher which matches when actual parameter is a specific class.
-    class IsA < Base
+    class IsA
+      include BaseMethods
+
       # @private
       def initialize(klass)
         @klass = klass

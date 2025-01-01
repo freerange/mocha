@@ -20,7 +20,9 @@ module Mocha
     end
 
     # Parameter matcher which always matches a single parameter.
-    class Anything < Base
+    class Anything
+      include BaseMethods
+
       # @private
       def matches?(available_parameters)
         available_parameters.shift

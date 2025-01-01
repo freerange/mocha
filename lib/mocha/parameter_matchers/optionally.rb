@@ -2,7 +2,7 @@ module Mocha
   module ParameterMatchers
     # Matches optional parameters if available.
     #
-    # @param [*Array<Base>] matchers matchers for optional parameters.
+    # @param [*Array<BaseMethods>] matchers matchers for optional parameters.
     # @return [Optionally] parameter matcher.
     #
     # @see Expectation#with
@@ -35,7 +35,9 @@ module Mocha
     end
 
     # Parameter matcher which allows optional parameters to be specified.
-    class Optionally < Base
+    class Optionally
+      include BaseMethods
+
       # @private
       def initialize(*parameters)
         @matchers = parameters.map(&:to_matcher)

@@ -26,7 +26,9 @@ module Mocha
     end
 
     # Parameter matcher which matches when actual parameter is a kind of specified class.
-    class KindOf < Base
+    class KindOf
+      include BaseMethods
+
       # @private
       def initialize(klass)
         @klass = klass
