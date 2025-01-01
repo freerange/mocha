@@ -34,6 +34,7 @@ module Mocha
     class AnyOf < Base
       # @private
       def initialize(*matchers)
+        super()
         @matchers = matchers
       end
 

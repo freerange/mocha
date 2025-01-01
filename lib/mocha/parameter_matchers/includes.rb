@@ -68,6 +68,7 @@ module Mocha
     class Includes < Base
       # @private
       def initialize(*items)
+        super()
         @items = items
       end
 

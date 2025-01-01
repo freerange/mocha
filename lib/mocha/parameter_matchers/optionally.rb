@@ -38,6 +38,7 @@ module Mocha
     class Optionally < Base
       # @private
       def initialize(*parameters)
+        super()
         @matchers = parameters.map(&:to_matcher)
       end
 

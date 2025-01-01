@@ -29,6 +29,7 @@ module Mocha
     class HasKey < Base
       # @private
       def initialize(key)
+        super()
         @key = key
       end
 

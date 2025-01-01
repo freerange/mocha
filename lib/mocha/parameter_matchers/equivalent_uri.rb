@@ -30,6 +30,7 @@ module Mocha
     class EquivalentUri < Base
       # @private
       def initialize(uri)
+        super()
         @uri = URI.parse(uri)
       end
 

@@ -58,6 +58,7 @@ module Mocha
     class HasEntry < Base
       # @private
       def initialize(key, value)
+        super()
         @key = key
         @value = value
       end

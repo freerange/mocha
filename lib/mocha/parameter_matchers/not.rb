@@ -29,6 +29,7 @@ module Mocha
     class Not < Base
       # @private
       def initialize(matcher)
+        super()
         @matcher = matcher
       end
 

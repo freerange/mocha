@@ -57,6 +57,7 @@ module Mocha
     class RespondsWith < Base
       # @private
       def initialize(message, result)
+        super()
         @message = message
         @result = result
       end

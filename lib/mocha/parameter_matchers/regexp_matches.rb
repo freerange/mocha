@@ -29,6 +29,7 @@ module Mocha
     class RegexpMatches < Base
       # @private
       def initialize(regexp)
+        super()
         @regexp = regexp
       end
 

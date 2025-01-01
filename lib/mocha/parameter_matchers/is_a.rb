@@ -30,6 +30,7 @@ module Mocha
     class IsA < Base
       # @private
       def initialize(klass)
+        super()
         @klass = klass
       end
 

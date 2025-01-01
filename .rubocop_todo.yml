@@ -23,11 +23,6 @@ Lint/EmptyClass:
     - 'test/acceptance/failure_messages_test.rb'
     - 'test/unit/mockery_test.rb'
 
-# Offense count: 19
-# Configuration parameters: AllowedParentClasses.
-Lint/MissingSuper:
-  Enabled: false
-
 # Offense count: 3
 # Configuration parameters: AllowComments, AllowNil.
 Lint/SuppressedException:

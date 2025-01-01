@@ -29,6 +29,7 @@ module Mocha
     class YamlEquivalent < Base
       # @private
       def initialize(object)
+        super()
         @object = object
       end
 

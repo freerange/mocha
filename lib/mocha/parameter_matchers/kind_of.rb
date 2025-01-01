@@ -29,6 +29,7 @@ module Mocha
     class KindOf < Base
       # @private
       def initialize(klass)
+        super()
         @klass = klass
       end
 

@@ -31,6 +31,7 @@ module Mocha
     class HasEntries < Base
       # @private
       def initialize(entries, exact: false)
+        super()
         @entries = entries
         @exact = exact
       end

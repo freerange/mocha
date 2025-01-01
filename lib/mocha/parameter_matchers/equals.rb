@@ -29,6 +29,7 @@ module Mocha
     class Equals < Base
       # @private
       def initialize(value)
+        super()
         @value = value
       end
 
