@@ -9,6 +9,7 @@ begin
   # Only available with `gemfiles/Gemfile.rubocop`
   require 'rubocop/rake_task'
 rescue LoadError
+  warn "Unable to load 'rubocop/rake_task', but continuing anyway" if $DEBUG
 end
 
 desc 'Run all linters and tests'

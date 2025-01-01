@@ -15,6 +15,7 @@ module Mocha
           begin
             require 'test/unit/version'
           rescue LoadError
+            warn "Unable to load 'test/unit/version', but continuing anyway" if $DEBUG
           end
           if defined?(::Test::Unit::VERSION)
             version = ::Test::Unit::VERSION

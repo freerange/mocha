@@ -13,6 +13,7 @@ require 'mocha/detection/minitest'
 begin
   require 'minitest'
 rescue LoadError
+  warn "Unable to load 'minitest', but continuing anyway" if $DEBUG
 end
 module Mocha; end
 
