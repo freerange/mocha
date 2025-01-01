@@ -35,6 +35,7 @@ module Mocha
 
       # @private
       def initialize(entries, exact: false)
+        super()
         @entries = entries
         @exact = exact
       end

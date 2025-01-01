@@ -33,6 +33,7 @@ module Mocha
 
       # @private
       def initialize(regexp)
+        super()
         @regexp = regexp
       end
 

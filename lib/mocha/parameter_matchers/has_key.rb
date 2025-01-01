@@ -33,6 +33,7 @@ module Mocha
 
       # @private
       def initialize(key)
+        super()
         @key = key
       end
 

@@ -32,6 +32,7 @@ module Mocha
 
       # @private
       def initialize(*matchers)
+        super()
         @matchers = matchers
       end
 

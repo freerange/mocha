@@ -34,6 +34,7 @@ module Mocha
 
       # @private
       def initialize(klass)
+        super()
         @klass = klass
       end
 

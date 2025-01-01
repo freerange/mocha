@@ -33,6 +33,7 @@ module Mocha
 
       # @private
       def initialize(matcher)
+        super()
         @matcher = matcher
       end
 

@@ -61,6 +61,7 @@ module Mocha
 
       # @private
       def initialize(message, result)
+        super()
         @message = message
         @result = result
       end
