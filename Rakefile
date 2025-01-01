@@ -82,6 +82,7 @@ namespace 'test' do # rubocop:disable Metrics/BlockLength
   end
 end
 
+desc 'Run linters'
 task 'lint' do
   if defined?(RuboCop::RakeTask)
     RuboCop::RakeTask.new
@@ -132,10 +133,12 @@ if ENV['MOCHA_GENERATE_DOCS']
     task.options = ['--title', "Mocha #{Mocha::VERSION}", '--fail-on-warning']
   end
 
+  desc 'Ensure custom domain remains in place for docs on GitHub Pages'
   task 'checkout_docs_cname' do
     `git checkout docs/CNAME`
   end
 
+  desc 'Ensure custom JavaScript files remain in place for docs on GitHub Pages'
   task 'checkout_docs_js' do
     `git checkout docs/js/app.js`
     `git checkout docs/js/jquery.js`

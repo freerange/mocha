@@ -1,3 +1,6 @@
+require:
+  - rubocop-rake
+
 inherit_from: .rubocop_todo.yml
 
 inherit_mode:
