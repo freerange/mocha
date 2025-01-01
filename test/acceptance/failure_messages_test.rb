@@ -56,7 +56,7 @@ class FailureMessagesTest < Mocha::TestCase
   unless Mocha::RUBY_V34_PLUS
     def test_should_display_string_when_expectation_was_on_string
       test_result = run_as_test do
-        'Foo'.expects(:bar)
+        'Foo'.dup.expects(:bar)
       end
       assert_match Regexp.new(%("Foo")), test_result.failures[0].message
     end
