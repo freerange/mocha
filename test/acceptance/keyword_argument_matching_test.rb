@@ -20,8 +20,10 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(key: 42); execution_point = ExecutionPoint.current
-      DeprecationDisabler.disable_deprecations do
-        mock.method({ key: 42 })
+      Mocha::Configuration.override(strict_keyword_argument_matching: false) do
+        DeprecationDisabler.disable_deprecations do
+          mock.method({ key: 42 })
+        end
       end
       if Mocha::RUBY_V27_PLUS
         location = execution_point.location
@@ -50,8 +52,10 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
       mock = mock()
       kwargs = { key: 42 }
       mock.expects(:method).with(**kwargs); execution_point = ExecutionPoint.current
-      DeprecationDisabler.disable_deprecations do
-        mock.method({ key: 42 })
+      Mocha::Configuration.override(strict_keyword_argument_matching: false) do
+        DeprecationDisabler.disable_deprecations do
+          mock.method({ key: 42 })
+        end
       end
       if Mocha::RUBY_V27_PLUS
         location = execution_point.location
@@ -100,8 +104,10 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(1, { key: 42 }); execution_point = ExecutionPoint.current
-      DeprecationDisabler.disable_deprecations do
-        mock.method(1, key: 42)
+      Mocha::Configuration.override(strict_keyword_argument_matching: false) do
+        DeprecationDisabler.disable_deprecations do
+          mock.method(1, key: 42)
+        end
       end
       if Mocha::RUBY_V27_PLUS
         location = execution_point.location
@@ -129,8 +135,10 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(1, key: 42); execution_point = ExecutionPoint.current
-      DeprecationDisabler.disable_deprecations do
-        mock.method(1, { key: 42 })
+      Mocha::Configuration.override(strict_keyword_argument_matching: false) do
+        DeprecationDisabler.disable_deprecations do
+          mock.method(1, { key: 42 })
+        end
       end
       if Mocha::RUBY_V27_PLUS
         location = execution_point.location
