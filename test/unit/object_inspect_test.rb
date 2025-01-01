@@ -1,5 +1,6 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/inspect'
+require 'mocha/ruby_version'
 require 'method_definer'
 
 class ObjectInspectTest < Mocha::TestCase

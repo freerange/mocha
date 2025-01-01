@@ -1,3 +1,6 @@
+require File.expand_path('../acceptance_test_helper', __FILE__)
+require 'mocha/ruby_version'
+
 class PositionalAndKeywordHashInspectTest < Mocha::TestCase
   include AcceptanceTest
 
