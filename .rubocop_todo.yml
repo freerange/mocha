@@ -6,16 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 13
-# Configuration parameters: AllowComments, AllowEmptyLambdas.
-Lint/EmptyBlock:
-  Exclude:
-    - 'test/acceptance/display_matching_invocations_alongside_expectations_test.rb'
-    - 'test/test_runner.rb'
-    - 'test/unit/any_instance_method_test.rb'
-    - 'test/unit/instance_method_test.rb'
-    - 'test/unit/mock_test.rb'
-
 # Offense count: 3
 # Configuration parameters: AllowComments, AllowNil.
 Lint/SuppressedException:

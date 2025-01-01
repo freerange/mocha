@@ -78,3 +78,8 @@ Lint/UselessTimes:
 Lint/EmptyClass:
   Exclude:
     - 'test/**/*.rb'
+
+# It can be useful to violate this cop in tests when testing methods that accept a block
+Lint/EmptyBlock:
+  Exclude:
+    - 'test/**/*.rb'
