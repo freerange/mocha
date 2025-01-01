@@ -83,3 +83,8 @@ Lint/EmptyClass:
 Lint/EmptyBlock:
   Exclude:
     - 'test/**/*.rb'
+
+# There are a mix of styles in the tests and so I don't think it's worth enforcing for now
+Naming/VariableNumber:
+  Exclude:
+    - 'test/**/*.rb'
