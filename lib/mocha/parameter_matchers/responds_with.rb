@@ -56,10 +56,11 @@ module Mocha
     end
 
     # Parameter matcher which matches if actual parameter returns expected result when specified method is invoked.
-    class RespondsWith < Base
+    class RespondsWith
+      include Base
+
       # @private
       def initialize(message, result)
-        super()
         @message = message
         @result = result
       end

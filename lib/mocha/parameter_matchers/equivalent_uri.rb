@@ -29,10 +29,11 @@ module Mocha
     end
 
     # Parameter matcher which matches URIs with equivalent query strings.
-    class EquivalentUri < Base
+    class EquivalentUri
+      include Base
+
       # @private
       def initialize(uri)
-        super()
         @uri = URI.parse(uri)
       end
 

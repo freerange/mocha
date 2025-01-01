@@ -9,9 +9,10 @@ require 'mocha/parameter_matchers/has_entries'
 module Mocha
   module ParameterMatchers
     # @private
-    class PositionalOrKeywordHash < Base
+    class PositionalOrKeywordHash
+      include Base
+
       def initialize(value, expectation)
-        super()
         @value = value
         @expectation = expectation
       end

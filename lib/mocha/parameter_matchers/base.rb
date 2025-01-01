@@ -2,8 +2,8 @@
 
 module Mocha
   module ParameterMatchers
-    # @abstract Subclass and implement +#matches?+ and +#mocha_inspect+ to define a custom matcher. Also add a suitably named instance method to {ParameterMatchers} to build an instance of the new matcher c.f. {#equals}.
-    class Base
+    # @abstract Include and implement +#matches?+ and +#mocha_inspect+ to define a custom matcher. Also add a suitably named instance method to {ParameterMatchers} to build an instance of the new matcher c.f. {#equals}.
+    module Base
       # A shorthand way of combining two matchers when both must match.
       #
       # Returns a new {AllOf} parameter matcher combining two matchers using a logical AND.

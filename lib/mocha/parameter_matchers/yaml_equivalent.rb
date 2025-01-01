@@ -28,10 +28,11 @@ module Mocha
     end
 
     # Parameter matcher which matches if actual parameter is YAML equivalent of specified object.
-    class YamlEquivalent < Base
+    class YamlEquivalent
+      include Base
+
       # @private
       def initialize(object)
-        super()
         @object = object
       end
 

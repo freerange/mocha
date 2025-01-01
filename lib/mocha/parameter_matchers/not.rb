@@ -28,10 +28,11 @@ module Mocha
     end
 
     # Parameter matcher which inverts the logic of the specified matcher using a logical NOT operation.
-    class Not < Base
+    class Not
+      include Base
+
       # @private
       def initialize(matcher)
-        super()
         @matcher = matcher
       end
 

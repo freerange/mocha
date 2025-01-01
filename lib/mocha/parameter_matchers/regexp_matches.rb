@@ -28,10 +28,11 @@ module Mocha
     end
 
     # Parameter matcher which matches if specified regular expression matches actual paramter.
-    class RegexpMatches < Base
+    class RegexpMatches
+      include Base
+
       # @private
       def initialize(regexp)
-        super()
         @regexp = regexp
       end
 

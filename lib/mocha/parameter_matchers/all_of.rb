@@ -27,10 +27,11 @@ module Mocha
     end
 
     # Parameter matcher which combines a number of other matchers using a logical AND.
-    class AllOf < Base
+    class AllOf
+      include Base
+
       # @private
       def initialize(*matchers)
-        super()
         @matchers = matchers
       end
 

@@ -57,10 +57,11 @@ module Mocha
     end
 
     # Parameter matcher which matches when actual parameter contains expected +Hash+ entry.
-    class HasEntry < Base
+    class HasEntry
+      include Base
+
       # @private
       def initialize(key, value)
-        super()
         @key = key
         @value = value
       end
