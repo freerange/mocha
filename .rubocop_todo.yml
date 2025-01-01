@@ -38,22 +38,6 @@ Style/FetchEnvVar:
   Exclude:
     - 'Rakefile'
 
-# Offense count: 19
-# Configuration parameters: AllowedMethods.
-# AllowedMethods: respond_to_missing?
-Style/OptionalBooleanParameter:
-  Exclude:
-    - 'lib/mocha/class_methods.rb'
-    - 'test/acceptance/stub_any_instance_method_test.rb'
-    - 'test/acceptance/stub_class_method_defined_on_active_record_association_proxy_test.rb'
-    - 'test/acceptance/stub_instance_method_defined_on_active_record_association_proxy_test.rb'
-    - 'test/acceptance/stub_module_method_test.rb'
-    - 'test/acceptance/stubbing_non_existent_any_instance_method_test.rb'
-    - 'test/acceptance/stubbing_non_existent_class_method_test.rb'
-    - 'test/acceptance/stubbing_non_existent_instance_method_test.rb'
-    - 'test/acceptance/stubbing_non_public_class_method_test.rb'
-    - 'test/acceptance/stubbing_non_public_instance_method_test.rb'
-
 # Offense count: 68
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, AllowedPatterns, SplitStrings.
