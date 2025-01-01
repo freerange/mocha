@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mocha
   class ChangeStateSideEffect
     def initialize(state)

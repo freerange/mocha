@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'mocha/single_return_value'
 
 module Mocha

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mocha
   class InStateOrderingConstraint
     def initialize(state_predicate)

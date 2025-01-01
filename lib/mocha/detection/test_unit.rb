@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mocha
   module Detection
     module TestUnit

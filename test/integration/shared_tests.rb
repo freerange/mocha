@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_runner'
 require 'execution_point'
 require 'mocha/ruby_version'

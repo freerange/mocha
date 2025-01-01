@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Stub
   class Matcher
     attr_accessor :value

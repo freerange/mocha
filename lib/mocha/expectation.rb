@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'ruby2_keywords'
 require 'mocha/method_matcher'
 require 'mocha/parameters_matcher'

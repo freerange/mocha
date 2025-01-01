@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mocha
   # Default exception class raised when an unexpected invocation or an unsatisfied expectation occurs.
   #

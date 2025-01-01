@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mocha
   # A state machine that is used to constrain the order of invocations.
   # An invocation can be constrained to occur when a state {#is}, or {#is_not}, active.
