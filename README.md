@@ -292,10 +292,9 @@ If you want, Mocha can generate a warning or raise an exception when:
 
 See the [documentation](https://mocha.jamesmead.org/Mocha/Configuration.html) for `Mocha::Configuration` for further details.
 
-##### MOCHA_OPTIONS
-`MOCHA_OPTIONS` is an environment variable whose value can be set to a comma-separated list, so that we can specify multiple options e.g. `MOCHA_OPTIONS=debug`.
-Only the following values are currently recognized and have an effect:
-* `debug`: Enables a debug mode which provides extra output to assist with debugging.
+### Debugging
+
+Mocha provides some extra output to help with debugging when the standard Ruby debug option (`-d`) is set.
 
 ### Semantic versioning
 

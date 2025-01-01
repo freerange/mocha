@@ -5,12 +5,12 @@ module Mocha
     module MonkeyPatcher
       def self.apply(mod, run_method_patch)
         if mod < Mocha::API
-          Debug.puts "Mocha::API already included in #{mod}"
+          warn "Mocha::API already included in #{mod}" if $DEBUG
         else
           mod.send(:include, Mocha::API)
         end
         if mod.method_defined?(:run_before_mocha)
-          Debug.puts "#{mod}#run_before_mocha method already defined"
+          warn "#{mod}#run_before_mocha method already defined" if $DEBUG
         elsif mod.method_defined?(:run)
           mod.send(:alias_method, :run_before_mocha, :run)
           mod.send(:remove_method, :run)
