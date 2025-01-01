@@ -28,12 +28,6 @@ Lint/EmptyClass:
 Lint/MissingSuper:
   Enabled: false
 
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-Lint/SendWithMixinArgument:
-  Exclude:
-    - 'lib/mocha/api.rb'
-
 # Offense count: 3
 # Configuration parameters: AllowComments, AllowNil.
 Lint/SuppressedException:
