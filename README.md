@@ -293,7 +293,7 @@ If you want, Mocha can generate a warning or raise an exception when:
 See the [documentation](https://mocha.jamesmead.org/Mocha/Configuration.html) for `Mocha::Configuration` for further details.
 
 ##### MOCHA_OPTIONS
-`MOCHA_OPTIONS` is an environment variable whose value can be set to a comma-separated list, so that we can specify multiple options e.g. `MOCHA_OPTIONS=debug,use_test_unit_gem`.
+`MOCHA_OPTIONS` is an environment variable whose value can be set to a comma-separated list, so that we can specify multiple options e.g. `MOCHA_OPTIONS=debug`.
 Only the following values are currently recognized and have an effect:
 * `debug`: Enables a debug mode which will output backtraces for each deprecation warning. This is useful for finding where in the test suite the deprecated calls are.
 
