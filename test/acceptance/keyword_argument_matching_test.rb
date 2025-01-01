@@ -28,7 +28,7 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
       if Mocha::RUBY_V27_PLUS
         location = execution_point.location
         assert_includes Mocha::Deprecation.messages.last, "Expectation defined at #{location} expected keyword arguments (key: 42)"
-        assert_includes Mocha::Deprecation.messages.last, 'but received positional hash ({:key => 42})'
+        assert_includes Mocha::Deprecation.messages.last, 'but received positional hash ({key: 42})'
       end
     end
     assert_passed(test_result)
@@ -60,7 +60,7 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
       if Mocha::RUBY_V27_PLUS
         location = execution_point.location
         assert_includes Mocha::Deprecation.messages.last, "Expectation defined at #{location} expected keyword arguments (key: 42)"
-        assert_includes Mocha::Deprecation.messages.last, 'but received positional hash ({:key => 42})'
+        assert_includes Mocha::Deprecation.messages.last, 'but received positional hash ({key: 42})'
       end
     end
     assert_passed(test_result)
@@ -111,7 +111,7 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
       end
       if Mocha::RUBY_V27_PLUS
         location = execution_point.location
-        assert_includes Mocha::Deprecation.messages.last, "Expectation defined at #{location} expected positional hash ({:key => 42})"
+        assert_includes Mocha::Deprecation.messages.last, "Expectation defined at #{location} expected positional hash ({key: 42})"
         assert_includes Mocha::Deprecation.messages.last, 'but received keyword arguments (key: 42)'
       end
     end
@@ -143,7 +143,7 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
       if Mocha::RUBY_V27_PLUS
         location = execution_point.location
         assert_includes Mocha::Deprecation.messages.last, "Expectation defined at #{location} expected keyword arguments (key: 42)"
-        assert_includes Mocha::Deprecation.messages.last, 'but received positional hash ({:key => 42})'
+        assert_includes Mocha::Deprecation.messages.last, 'but received positional hash ({key: 42})'
       end
     end
     assert_passed(test_result)
