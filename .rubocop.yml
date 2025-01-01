@@ -73,3 +73,8 @@ Gemspec/RequiredRubyVersion:
 Lint/UselessTimes:
   Exclude:
     - 'test/**/*.rb'
+
+# It can be useful to violate this cop in tests
+Lint/EmptyClass:
+  Exclude:
+    - 'test/**/*.rb'

@@ -16,13 +16,6 @@ Lint/EmptyBlock:
     - 'test/unit/instance_method_test.rb'
     - 'test/unit/mock_test.rb'
 
-# Offense count: 2
-# Configuration parameters: AllowComments.
-Lint/EmptyClass:
-  Exclude:
-    - 'test/acceptance/failure_messages_test.rb'
-    - 'test/unit/mockery_test.rb'
-
 # Offense count: 3
 # Configuration parameters: AllowComments, AllowNil.
 Lint/SuppressedException:
