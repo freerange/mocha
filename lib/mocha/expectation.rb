@@ -229,9 +229,9 @@ module Mocha
     #
     # Positional arguments were separated from keyword arguments in Ruby v3 (see {https://www.ruby-lang.org/en/news/2019/12/12/separation-of-positional-and-keyword-arguments-in-ruby-3-0 this article}). In relation to this a new configuration option ({Configuration#strict_keyword_argument_matching=}) is available in Ruby >= 2.7.
     #
-    # When {Configuration#strict_keyword_argument_matching=} is set to +false+ (which is currently the default), a positional +Hash+ and a set of keyword arguments passed to {#with} are treated the same for the purposes of parameter matching. However, a deprecation warning will be displayed if a positional +Hash+ matches a set of keyword arguments or vice versa. This is because {Configuration#strict_keyword_argument_matching=} will default to +true+ in the future.
+    # When {Configuration#strict_keyword_argument_matching=} is set to +false+ (which is the default in Ruby v2.7), a positional +Hash+ and a set of keyword arguments passed to {#with} are treated the same for the purposes of parameter matching. However, a deprecation warning will be displayed if a positional +Hash+ matches a set of keyword arguments or vice versa.
     #
-    # When {Configuration#strict_keyword_argument_matching=} is set to +true+, an actual positional +Hash+ will not match an expected set of keyword arguments; and vice versa, an actual set of keyword arguments will not match an expected positional +Hash+, i.e. the parameter matching is stricter.
+    # When {Configuration#strict_keyword_argument_matching=} is set to +true+ (which is the default in Ruby >= v3.0), an actual positional +Hash+ will not match an expected set of keyword arguments; and vice versa, an actual set of keyword arguments will not match an expected positional +Hash+, i.e. the parameter matching is stricter.
     #
     # @see ParameterMatchers
     # @see Configuration#strict_keyword_argument_matching=
@@ -264,7 +264,11 @@ module Mocha
     #   object.expected_method(['string1'], 'any-old-value')
     #   # => verify fails
     #
-    # @example Loose keyword argument matching (default)
+    # @example Loose keyword argument matching (default in Ruby v2.7).
+    #
+    #   Mocha.configure do |c|
+    #     c.strict_keyword_argument_matching = false
+    #   end
     #
     #   class Example
     #     def foo(a, bar:); end
@@ -275,7 +279,7 @@ module Mocha
     #   example.foo('a', { bar: 'b' })
     #   # This passes the test, but would result in an ArgumentError in practice
     #
-    # @example Strict keyword argument matching
+    # @example Strict keyword argument matching (default in Ruby >= 3.0).
     #
     #   Mocha.configure do |c|
     #     c.strict_keyword_argument_matching = true

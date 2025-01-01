@@ -63,8 +63,10 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
   def test_should_match_hash_arg_with_keyword_args_but_display_deprecation_warning_if_appropriate
     expectation = Mocha::Expectation.new(self, :foo)
     matcher = build_matcher(Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }), expectation)
-    DeprecationDisabler.disable_deprecations do
-      assert matcher.matches?([{ key_1: 1, key_2: 2 }])
+    Mocha::Configuration.override(strict_keyword_argument_matching: false) do
+      DeprecationDisabler.disable_deprecations do
+        assert matcher.matches?([{ key_1: 1, key_2: 2 }])
+      end
     end
     return unless Mocha::RUBY_V27_PLUS
 
@@ -79,8 +81,10 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
   def test_should_match_keyword_args_with_hash_arg_but_display_deprecation_warning_if_appropriate
     expectation = Mocha::Expectation.new(self, :foo)
     matcher = build_matcher({ key_1: 1, key_2: 2 }, expectation)
-    DeprecationDisabler.disable_deprecations do
-      assert matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })])
+    Mocha::Configuration.override(strict_keyword_argument_matching: false) do
+      DeprecationDisabler.disable_deprecations do
+        assert matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })])
+      end
     end
     return unless Mocha::RUBY_V27_PLUS
 
@@ -142,8 +146,10 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
     def test_should_display_deprecation_warning_even_if_parent_expectation_is_nil
       expectation = nil
       matcher = build_matcher({ key_1: 1, key_2: 2 }, expectation)
-      DeprecationDisabler.disable_deprecations do
-        matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })])
+      Mocha::Configuration.override(strict_keyword_argument_matching: false) do
+        DeprecationDisabler.disable_deprecations do
+          matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })])
+        end
       end
 
       message = Mocha::Deprecation.messages.last
