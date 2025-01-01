@@ -1,5 +1,6 @@
 require 'mocha/configuration'
 require 'mocha/deprecation'
+require 'mocha/ruby_version'
 require 'mocha/parameter_matchers/base'
 require 'mocha/parameter_matchers/has_entries'
 

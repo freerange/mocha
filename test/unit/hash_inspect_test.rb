@@ -1,5 +1,6 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/inspect'
+require 'mocha/ruby_version'
 
 class HashInspectTest < Mocha::TestCase
   def test_should_return_string_representation_of_hash
