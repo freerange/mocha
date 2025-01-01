@@ -28,10 +28,11 @@ module Mocha
     end
 
     # Parameter matcher which matches when actual parameter equals expected value.
-    class Equals < Base
+    class Equals
+      include Base
+
       # @private
       def initialize(value)
-        super()
         @value = value
       end
 

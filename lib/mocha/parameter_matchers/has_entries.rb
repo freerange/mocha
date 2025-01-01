@@ -30,10 +30,11 @@ module Mocha
     end
 
     # Parameter matcher which matches when actual parameter contains all expected +Hash+ entries.
-    class HasEntries < Base
+    class HasEntries
+      include Base
+
       # @private
       def initialize(entries, exact: false)
-        super()
         @entries = entries
         @exact = exact
       end

@@ -29,10 +29,11 @@ module Mocha
     end
 
     # Parameter matcher which matches when actual parameter is a specific class.
-    class IsA < Base
+    class IsA
+      include Base
+
       # @private
       def initialize(klass)
-        super()
         @klass = klass
       end
 

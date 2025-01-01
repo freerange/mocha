@@ -25,7 +25,9 @@ module Mocha
     end
 
     # Parameter matcher which always matches whatever the parameters.
-    class AnyParameters < Base
+    class AnyParameters
+      include Base
+
       # @private
       def matches?(available_parameters)
         until available_parameters.empty?

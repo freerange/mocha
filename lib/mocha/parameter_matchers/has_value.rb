@@ -28,10 +28,11 @@ module Mocha
     end
 
     # Parameter matcher which matches when actual parameter contains +Hash+ entry with expected value.
-    class HasValue < Base
+    class HasValue
+      include Base
+
       # @private
       def initialize(value)
-        super()
         @value = value
       end
 

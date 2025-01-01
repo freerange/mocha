@@ -37,10 +37,11 @@ module Mocha
     end
 
     # Parameter matcher which allows optional parameters to be specified.
-    class Optionally < Base
+    class Optionally
+      include Base
+
       # @private
       def initialize(*parameters)
-        super()
         @matchers = parameters.map(&:to_matcher)
       end
 

@@ -28,10 +28,11 @@ module Mocha
     end
 
     # Parameter matcher which matches when actual parameter contains +Hash+ with all expected keys.
-    class HasKeys < Base
+    class HasKeys
+      include Base
+
       # @private
       def initialize(*keys)
-        super()
         raise ArgumentError, 'No arguments. Expecting at least one.' if keys.empty?
 
         @keys = keys
