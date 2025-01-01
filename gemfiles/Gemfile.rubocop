@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gemspec path: '../'
 
-gem 'rake'
-gem 'rubocop'
-gem 'rubocop-rake'
+group :development do
+  gem 'rake'
+  gem 'rubocop'
+  gem 'rubocop-rake'
+end
