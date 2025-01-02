@@ -2,7 +2,7 @@
 
 require File.expand_path('../acceptance_test_helper', __FILE__)
 
-class PartialMockTest < Mocha::TestCase
+class PartialMocksTest < Mocha::TestCase
   include AcceptanceTestHelper
 
   def setup
