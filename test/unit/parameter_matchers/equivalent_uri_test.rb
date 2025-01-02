@@ -3,7 +3,7 @@
 require File.expand_path('../../../test_helper', __FILE__)
 require 'mocha/parameter_matchers/equivalent_uri'
 
-class EquivalentUriMatchesTest < Mocha::TestCase
+class EquivalentUriTest < Mocha::TestCase
   include Mocha::ParameterMatchers
 
   def test_should_match_identical_uri
