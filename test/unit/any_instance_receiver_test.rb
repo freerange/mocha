@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require File.expand_path('../../test_helper', __FILE__)
-require 'mocha/receivers'
+require 'mocha/any_instance_receiver'
 
 class AnyInstanceReceiverTest < Mocha::TestCase
   include Mocha
