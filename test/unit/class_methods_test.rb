@@ -4,7 +4,7 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/class_methods'
 require 'mocha/object_methods'
 require 'mocha/mockery'
-require 'mocha/names'
+require 'mocha/impersonating_any_instance_name'
 
 class ClassMethodsTest < Mocha::TestCase
   def setup

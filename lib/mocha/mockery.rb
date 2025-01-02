@@ -2,7 +2,9 @@
 
 require 'mocha/central'
 require 'mocha/mock'
-require 'mocha/names'
+require 'mocha/name'
+require 'mocha/impersonating_name'
+require 'mocha/impersonating_any_instance_name'
 require 'mocha/object_receiver'
 require 'mocha/any_instance_receiver'
 require 'mocha/state_machine'
