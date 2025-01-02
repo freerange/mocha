@@ -12,7 +12,7 @@ require 'mocha/in_state_ordering_constraint'
 require 'mocha/change_state_side_effect'
 require 'mocha/cardinality'
 require 'mocha/configuration'
-require 'mocha/block_matcher'
+require 'mocha/block_matchers'
 require 'mocha/backtrace_filter'
 
 module Mocha
