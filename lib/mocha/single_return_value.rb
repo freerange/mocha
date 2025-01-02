@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'mocha/is_a'
-
 module Mocha
   class SingleReturnValue
     def initialize(value)
