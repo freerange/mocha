@@ -6,7 +6,7 @@ require 'mocha/ruby_version'
 class FailureMessagesTest < Mocha::TestCase
   OBJECT_ADDRESS_PATTERN = '0x[0-9A-Fa-f]{1,12}'
 
-  include AcceptanceTest
+  include AcceptanceTestHelper
 
   def setup
     setup_acceptance_test

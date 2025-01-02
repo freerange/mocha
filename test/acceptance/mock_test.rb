@@ -3,7 +3,7 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
 
 class MockTest < Mocha::TestCase
-  include AcceptanceTest
+  include AcceptanceTestHelper
   include Mocha
 
   def setup

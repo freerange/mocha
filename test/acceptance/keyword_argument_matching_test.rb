@@ -8,7 +8,7 @@ require 'mocha/deprecation'
 require 'mocha/ruby_version'
 
 class KeywordArgumentMatchingTest < Mocha::TestCase
-  include AcceptanceTest
+  include AcceptanceTestHelper
 
   def setup
     setup_acceptance_test
