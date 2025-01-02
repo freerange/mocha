@@ -12,7 +12,7 @@ else
   require 'mocha/test_unit'
 end
 
-module AcceptanceTest
+module AcceptanceTestHelper
   class FakeLogger
     attr_reader :warnings
 
