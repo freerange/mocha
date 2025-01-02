@@ -39,7 +39,7 @@ module TestRunner
         tests.each do |test|
           test.run(runner)
         end
-        test_result = MinitestResult.new(runner, tests)
+        test_result = MinitestResultPreV5.new(runner, tests)
       end
     else
       require File.expand_path('../test_unit_result', __FILE__)

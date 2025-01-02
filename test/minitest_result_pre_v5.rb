@@ -3,7 +3,7 @@
 require 'stringio'
 require 'mocha/detection/minitest'
 
-class MinitestResult
+class MinitestResultPreV5
   minitest_version = Gem::Version.new(Mocha::Detection::Minitest.version)
   if Gem::Requirement.new('<= 4.6.1').satisfied_by?(minitest_version)
     FAILURE_PATTERN = /(Failure):\n([^\(]+)\(([^\)]+)\) \[([^\]]+)\]:\n(.*)\n/m.freeze
