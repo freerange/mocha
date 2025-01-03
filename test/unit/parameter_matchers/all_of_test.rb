@@ -4,7 +4,7 @@ require File.expand_path('../../../test_helper', __FILE__)
 
 require 'mocha/parameter_matchers/all_of'
 require 'mocha/inspect'
-require 'stub_matcher'
+require 'parameter_matchers/stub_matcher'
 
 class AllOfTest < Mocha::TestCase
   include Mocha::ParameterMatchers::Methods
