@@ -115,6 +115,7 @@ class LooseKeywordArgumentMatchingTest < Mocha::TestCase
 
   def setup
     setup_acceptance_test
+    Mocha.configure { |c| c.strict_keyword_argument_matching = false } if Mocha::RUBY_V27_PLUS
   end
 
   def teardown
@@ -126,10 +127,8 @@ class LooseKeywordArgumentMatchingTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(key: 42); execution_point = ExecutionPoint.current
-      Mocha::Configuration.override(strict_keyword_argument_matching: false) do
-        capture_deprecation_warnings do
-          mock.method({ key: 42 })
-        end
+      capture_deprecation_warnings do
+        mock.method({ key: 42 })
       end
     end
     if Mocha::RUBY_V27_PLUS
@@ -146,10 +145,8 @@ class LooseKeywordArgumentMatchingTest < Mocha::TestCase
       mock = mock()
       kwargs = { key: 42 }
       mock.expects(:method).with(**kwargs); execution_point = ExecutionPoint.current
-      Mocha::Configuration.override(strict_keyword_argument_matching: false) do
-        capture_deprecation_warnings do
-          mock.method({ key: 42 })
-        end
+      capture_deprecation_warnings do
+        mock.method({ key: 42 })
       end
     end
     if Mocha::RUBY_V27_PLUS
@@ -165,10 +162,8 @@ class LooseKeywordArgumentMatchingTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(1, { key: 42 }); execution_point = ExecutionPoint.current
-      Mocha::Configuration.override(strict_keyword_argument_matching: false) do
-        capture_deprecation_warnings do
-          mock.method(1, key: 42)
-        end
+      capture_deprecation_warnings do
+        mock.method(1, key: 42)
       end
     end
     if Mocha::RUBY_V27_PLUS
@@ -184,10 +179,8 @@ class LooseKeywordArgumentMatchingTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(1, key: 42); execution_point = ExecutionPoint.current
-      Mocha::Configuration.override(strict_keyword_argument_matching: false) do
-        capture_deprecation_warnings do
-          mock.method(1, { key: 42 })
-        end
+      capture_deprecation_warnings do
+        mock.method(1, { key: 42 })
       end
     end
     if Mocha::RUBY_V27_PLUS
@@ -204,6 +197,7 @@ class StrictKeywordArgumentMatchingTest < Mocha::TestCase
 
   def setup
     setup_acceptance_test
+    Mocha.configure { |c| c.strict_keyword_argument_matching = true }
   end
 
   def teardown
@@ -215,9 +209,7 @@ class StrictKeywordArgumentMatchingTest < Mocha::TestCase
       test_result = run_as_test do
         mock = mock()
         mock.expects(:method).with(key: 42)
-        Mocha::Configuration.override(strict_keyword_argument_matching: true) do
-          mock.method({ key: 42 })
-        end
+        mock.method({ key: 42 })
       end
       assert_failed(test_result)
     end
@@ -229,9 +221,7 @@ class StrictKeywordArgumentMatchingTest < Mocha::TestCase
         mock = mock()
         kwargs = { key: 42 }
         mock.expects(:method).with(**kwargs)
-        Mocha::Configuration.override(strict_keyword_argument_matching: true) do
-          mock.method({ key: 42 })
-        end
+        mock.method({ key: 42 })
       end
       assert_failed(test_result)
     end
@@ -242,9 +232,7 @@ class StrictKeywordArgumentMatchingTest < Mocha::TestCase
       test_result = run_as_test do
         mock = mock()
         mock.expects(:method).with(1, { key: 42 })
-        Mocha::Configuration.override(strict_keyword_argument_matching: true) do
-          mock.method(1, key: 42)
-        end
+        mock.method(1, key: 42)
       end
       assert_failed(test_result)
     end
@@ -255,9 +243,7 @@ class StrictKeywordArgumentMatchingTest < Mocha::TestCase
       test_result = run_as_test do
         mock = mock()
         mock.expects(:method).with(1, key: 42)
-        Mocha::Configuration.override(strict_keyword_argument_matching: true) do
-          mock.method(1, { key: 42 })
-        end
+        mock.method(1, { key: 42 })
       end
       assert_failed(test_result)
     end
@@ -269,9 +255,7 @@ class StrictKeywordArgumentMatchingTest < Mocha::TestCase
         mock = mock()
         kwargs = { key: 1 }
         mock.expects(:method).with(**kwargs)
-        Mocha::Configuration.override(strict_keyword_argument_matching: true) do
-          mock.method([2])
-        end
+        mock.method([2])
       end
       assert_failed(test_result)
     end
