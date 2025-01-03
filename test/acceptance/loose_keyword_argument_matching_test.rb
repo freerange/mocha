@@ -29,8 +29,8 @@ class LooseKeywordArgumentMatchingTest < Mocha::TestCase
     if Mocha::RUBY_V27_PLUS
       assert_deprecation_warning(
         test_result,
-        "Expectation defined at #{execution_point.location} expected keyword arguments (key: 42), " \
-        'but received positional hash ({key: 42})'
+        "Expectation defined at #{execution_point.location} " \
+        'expected keyword arguments (key: 42), but received positional hash ({key: 42})'
       )
     end
     assert_passed(test_result)
@@ -49,8 +49,8 @@ class LooseKeywordArgumentMatchingTest < Mocha::TestCase
     if Mocha::RUBY_V27_PLUS
       assert_deprecation_warning(
         test_result,
-        "Expectation defined at #{execution_point.location} expected keyword arguments (key: 42), " \
-        'but received positional hash ({key: 42})'
+        "Expectation defined at #{execution_point.location} " \
+        'expected keyword arguments (key: 42), but received positional hash ({key: 42})'
       )
     end
     assert_passed(test_result)
@@ -68,8 +68,8 @@ class LooseKeywordArgumentMatchingTest < Mocha::TestCase
     if Mocha::RUBY_V27_PLUS
       assert_deprecation_warning(
         test_result,
-        "Expectation defined at #{execution_point.location} expected positional hash ({key: 42}), " \
-        'but received keyword arguments (key: 42)'
+        "Expectation defined at #{execution_point.location} " \
+        'expected positional hash ({key: 42}), but received keyword arguments (key: 42)'
       )
     end
     assert_passed(test_result)
@@ -87,8 +87,8 @@ class LooseKeywordArgumentMatchingTest < Mocha::TestCase
     if Mocha::RUBY_V27_PLUS
       assert_deprecation_warning(
         test_result,
-        "Expectation defined at #{execution_point.location} expected keyword arguments (key: 42), " \
-        'but received positional hash ({key: 42})'
+        "Expectation defined at #{execution_point.location} " \
+        'expected keyword arguments (key: 42), but received positional hash ({key: 42})'
       )
     end
     assert_passed(test_result)
