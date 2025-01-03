@@ -27,10 +27,9 @@ class LooseKeywordArgumentMatchingTest < Mocha::TestCase
       end
     end
     if Mocha::RUBY_V27_PLUS
+      assert_deprecation_warning_location(test_result, execution_point)
       assert_deprecation_warning(
-        test_result,
-        "Expectation defined at #{execution_point.location} " \
-        'expected keyword arguments (key: 42), but received positional hash ({key: 42})'
+        test_result, 'expected keyword arguments (key: 42), but received positional hash ({key: 42})'
       )
     end
     assert_passed(test_result)
@@ -47,10 +46,9 @@ class LooseKeywordArgumentMatchingTest < Mocha::TestCase
       end
     end
     if Mocha::RUBY_V27_PLUS
+      assert_deprecation_warning_location(test_result, execution_point)
       assert_deprecation_warning(
-        test_result,
-        "Expectation defined at #{execution_point.location} " \
-        'expected keyword arguments (key: 42), but received positional hash ({key: 42})'
+        test_result, 'expected keyword arguments (key: 42), but received positional hash ({key: 42})'
       )
     end
     assert_passed(test_result)
@@ -66,10 +64,9 @@ class LooseKeywordArgumentMatchingTest < Mocha::TestCase
       end
     end
     if Mocha::RUBY_V27_PLUS
+      assert_deprecation_warning_location(test_result, execution_point)
       assert_deprecation_warning(
-        test_result,
-        "Expectation defined at #{execution_point.location} " \
-        'expected positional hash ({key: 42}), but received keyword arguments (key: 42)'
+        test_result, 'expected positional hash ({key: 42}), but received keyword arguments (key: 42)'
       )
     end
     assert_passed(test_result)
@@ -85,10 +82,9 @@ class LooseKeywordArgumentMatchingTest < Mocha::TestCase
       end
     end
     if Mocha::RUBY_V27_PLUS
+      assert_deprecation_warning_location(test_result, execution_point)
       assert_deprecation_warning(
-        test_result,
-        "Expectation defined at #{execution_point.location} " \
-        'expected keyword arguments (key: 42), but received positional hash ({key: 42})'
+        test_result, 'expected keyword arguments (key: 42), but received positional hash ({key: 42})'
       )
     end
     assert_passed(test_result)
@@ -98,5 +94,10 @@ class LooseKeywordArgumentMatchingTest < Mocha::TestCase
 
   def assert_deprecation_warning(test_result, expected_warning)
     assert_includes test_result.last_deprecation_warning, expected_warning
+  end
+
+  def assert_deprecation_warning_location(test_result, execution_point)
+    expected_location = "Expectation defined at #{execution_point.location}"
+    assert_deprecation_warning test_result, expected_location
   end
 end
