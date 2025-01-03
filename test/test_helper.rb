@@ -7,7 +7,6 @@ end
 $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__)))
 $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), 'unit'))
-$LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), 'unit', 'parameter_matchers'))
 $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), 'acceptance'))
 
 require 'mocha/detection/minitest'
