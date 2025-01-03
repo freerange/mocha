@@ -44,7 +44,7 @@ module TestRunner
       end
     end
 
-    test_result.tap { |r| r.deprecation_warnings = tests.flat_map(&:deprecation_warnings) }
+    test_result.tap { |r| r.last_deprecation_warning = tests.flat_map(&:deprecation_warnings).last }
   end
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 

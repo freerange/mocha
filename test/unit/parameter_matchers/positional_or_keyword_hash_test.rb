@@ -73,7 +73,7 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
     end
     return unless Mocha::RUBY_V27_PLUS
 
-    message = deprecation_warnings.last
+    message = last_deprecation_warning
     location = expectation.definition_location
     assert_includes message, "Expectation defined at #{location} expected keyword arguments (key_1: 1, key_2: 2)"
     assert_includes message, 'but received positional hash ({key_1: 1, key_2: 2})'
@@ -91,7 +91,7 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
     end
     return unless Mocha::RUBY_V27_PLUS
 
-    message = deprecation_warnings.last
+    message = last_deprecation_warning
     location = expectation.definition_location
     assert_includes message, "Expectation defined at #{location} expected positional hash ({key_1: 1, key_2: 2})"
     assert_includes message, 'but received keyword arguments (key_1: 1, key_2: 2)'
@@ -155,7 +155,7 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
         end
       end
 
-      message = deprecation_warnings.last
+      message = last_deprecation_warning
       assert_includes message, 'Expectation expected positional hash ({key_1: 1, key_2: 2})'
       assert_includes message, 'but received keyword arguments (key_1: 1, key_2: 2)'
     end

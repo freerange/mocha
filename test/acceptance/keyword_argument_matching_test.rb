@@ -29,8 +29,8 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
     end
     if Mocha::RUBY_V27_PLUS
       location = execution_point.location
-      assert_includes test_result.deprecation_warnings.last, "Expectation defined at #{location} expected keyword arguments (key: 42)"
-      assert_includes test_result.deprecation_warnings.last, 'but received positional hash ({key: 42})'
+      assert_includes test_result.last_deprecation_warning, "Expectation defined at #{location} expected keyword arguments (key: 42)"
+      assert_includes test_result.last_deprecation_warning, 'but received positional hash ({key: 42})'
     end
     assert_passed(test_result)
   end
@@ -62,8 +62,8 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
     end
     if Mocha::RUBY_V27_PLUS
       location = execution_point.location
-      assert_includes test_result.deprecation_warnings.last, "Expectation defined at #{location} expected keyword arguments (key: 42)"
-      assert_includes test_result.deprecation_warnings.last, 'but received positional hash ({key: 42})'
+      assert_includes test_result.last_deprecation_warning, "Expectation defined at #{location} expected keyword arguments (key: 42)"
+      assert_includes test_result.last_deprecation_warning, 'but received positional hash ({key: 42})'
     end
     assert_passed(test_result)
   end
@@ -115,8 +115,8 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
     end
     if Mocha::RUBY_V27_PLUS
       location = execution_point.location
-      assert_includes test_result.deprecation_warnings.last, "Expectation defined at #{location} expected positional hash ({key: 42})"
-      assert_includes test_result.deprecation_warnings.last, 'but received keyword arguments (key: 42)'
+      assert_includes test_result.last_deprecation_warning, "Expectation defined at #{location} expected positional hash ({key: 42})"
+      assert_includes test_result.last_deprecation_warning, 'but received keyword arguments (key: 42)'
     end
     assert_passed(test_result)
   end
@@ -147,8 +147,8 @@ class KeywordArgumentMatchingTest < Mocha::TestCase
     end
     if Mocha::RUBY_V27_PLUS
       location = execution_point.location
-      assert_includes test_result.deprecation_warnings.last, "Expectation defined at #{location} expected keyword arguments (key: 42)"
-      assert_includes test_result.deprecation_warnings.last, 'but received positional hash ({key: 42})'
+      assert_includes test_result.last_deprecation_warning, "Expectation defined at #{location} expected keyword arguments (key: 42)"
+      assert_includes test_result.last_deprecation_warning, 'but received positional hash ({key: 42})'
     end
     assert_passed(test_result)
   end
