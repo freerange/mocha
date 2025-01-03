@@ -34,12 +34,7 @@ module TestRunner
         Minitest::Runnable.runnables.delete(test_class)
         test_result = MinitestResult.new(tests)
       elsif Gem::Requirement.new('> 0.0.0', '< 5.0.0').satisfied_by?(minitest_version)
-        require File.expand_path('../minitest_result_pre_v5', __FILE__)
-        runner = Minitest::Unit.new
-        tests.each do |test|
-          test.run(runner)
-        end
-        test_result = MinitestResultPreV5.new(runner, tests)
+        raise "Minitest v#{minitest_version} not supported"
       end
     else
       require File.expand_path('../test_unit_result', __FILE__)
