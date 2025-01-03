@@ -7,8 +7,7 @@ module Mocha
     class << self
       attr_accessor :mode, :messages
 
-      def warning(*messages)
-        message = messages.join
+      def warning(message)
         @messages << message
         return if mode == :disabled
 
