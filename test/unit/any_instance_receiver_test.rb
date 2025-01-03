@@ -37,13 +37,3 @@ class AnyInstanceReceiverTest < Mocha::TestCase
     assert_equal [:mocha, :parent_mocha, :grandparent_mocha], receiver.mocks
   end
 end
-
-class DefaultReceiverTest < Mocha::TestCase
-  include Mocha
-
-  def test_mocks_returns_mock
-    mock = :mocha
-    receiver = DefaultReceiver.new(mock)
-    assert_equal [:mocha], receiver.mocks
-  end
-end
