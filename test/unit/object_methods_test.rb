@@ -5,7 +5,7 @@ require 'mocha/object_methods'
 require 'mocha/mockery'
 require 'mocha/mock'
 require 'mocha/expectation_error_factory'
-require 'mocha/names'
+require 'mocha/impersonating_name'
 
 class ObjectMethodsTest < Mocha::TestCase
   def setup

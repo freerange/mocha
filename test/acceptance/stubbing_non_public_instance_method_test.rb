@@ -4,7 +4,7 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 require 'mocha/configuration'
 
 class StubbingNonPublicInstanceMethodTest < Mocha::TestCase
-  include AcceptanceTest
+  include AcceptanceTestHelper
 
   def setup
     setup_acceptance_test

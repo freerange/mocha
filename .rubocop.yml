@@ -107,3 +107,16 @@ Style/OptionalBooleanParameter:
 Style/FetchEnvVar:
   AllowedVars:
     - MOCHA_RUN_INTEGRATION_TESTS
+
+Naming/FileName:
+  ExpectMatchingDefinition: true
+  CheckDefinitionPathHierarchyRoots:
+    - test/unit
+    - test/acceptance
+  Exclude:
+    - lib/mocha/version.rb
+    - lib/mocha/minitest.rb
+    - lib/mocha/test_unit.rb
+    - lib/mocha/ruby_version.rb
+    - lib/mocha/macos_version.rb
+    - test/test_helper.rb
