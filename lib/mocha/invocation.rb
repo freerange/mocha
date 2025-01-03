@@ -10,11 +10,12 @@ module Mocha
   class Invocation
     attr_reader :method_name, :block
 
-    def initialize(mock, method_name, arguments = [], block = nil)
+    def initialize(mock, method_name, arguments = [], block = nil, responder = nil)
       @mock = mock
       @method_name = method_name
       @arguments = arguments
       @block = block
+      @responder = responder
       @yields = []
       @result = nil
     end
@@ -63,6 +64,12 @@ module Mocha
 
     def full_description
       "\n  - #{call_description} #{result_description}"
+    end
+
+    def method_accepts_keyword_arguments?
+      return true unless @responder
+
+      @responder.method(@method_name).parameters.any? { |k, _v| %i[keyreq key keyrest].include?(k) }
     end
 
     private
