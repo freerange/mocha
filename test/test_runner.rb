@@ -10,7 +10,7 @@ module TestRunner
     run_as_tests(test_me: block)
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def run_as_tests(methods = {})
     base_class = Mocha::TestCase
     test_class = Class.new(base_class) do
@@ -44,9 +44,9 @@ module TestRunner
       end
     end
 
-    test_result
+    test_result.tap { |r| r.deprecation_warnings = tests.flat_map(&:deprecation_warnings) }
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def assert_passed(test_result)
     flunk "Test errored unexpectedly with message: #{test_result.errors.map(&:exception)}" if test_result.error_count > 0

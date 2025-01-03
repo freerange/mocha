@@ -7,6 +7,7 @@ class TestUnitResult
     test_result = Test::Unit::TestResult.new
     class << test_result
       attr_reader :failures, :errors
+      attr_accessor :deprecation_warnings
 
       def failure_messages
         failures.map(&:message)
