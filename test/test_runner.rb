@@ -9,7 +9,7 @@ module TestRunner
     run_as_tests(test_me: block)
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def run_as_tests(methods = {})
     base_class = Mocha::TestCase
     test_class = Class.new(base_class) do
@@ -28,19 +28,13 @@ module TestRunner
 
     if Mocha::Detection::Minitest.testcase && (ENV['MOCHA_RUN_INTEGRATION_TESTS'] != 'test-unit')
       minitest_version = Gem::Version.new(Mocha::Detection::Minitest.version)
-      if Gem::Requirement.new('>= 5.0.0').satisfied_by?(minitest_version)
-        require File.expand_path('../minitest_result', __FILE__)
-        tests.each(&:run)
-        Minitest::Runnable.runnables.delete(test_class)
-        test_result = MinitestResult.new(tests)
-      elsif Gem::Requirement.new('> 0.0.0', '< 5.0.0').satisfied_by?(minitest_version)
-        require File.expand_path('../minitest_result_pre_v5', __FILE__)
-        runner = Minitest::Unit.new
-        tests.each do |test|
-          test.run(runner)
-        end
-        test_result = MinitestResultPreV5.new(runner, tests)
-      end
+      minitest_version_supported = Gem::Requirement.new('>= 5.0.0').satisfied_by?(minitest_version)
+      raise "Minitest v#{minitest_version} not supported" unless minitest_version_supported
+
+      require File.expand_path('../minitest_result', __FILE__)
+      tests.each(&:run)
+      Minitest::Runnable.runnables.delete(test_class)
+      test_result = MinitestResult.new(tests)
     else
       require File.expand_path('../test_unit_result', __FILE__)
       test_result = TestUnitResult.build_test_result
@@ -51,7 +45,7 @@ module TestRunner
 
     test_result
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize
 
   def assert_passed(test_result)
     flunk "Test errored unexpectedly with message: #{test_result.errors.map(&:exception)}" if test_result.error_count > 0
