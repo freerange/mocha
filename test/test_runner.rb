@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'assertions'
+require 'deprecation_capture'
 
 require 'mocha/detection/minitest'
 
@@ -17,7 +18,7 @@ module TestRunner
         'FakeTest'
       end
 
-      include Assertions
+      include Assertions, DeprecationCapture
 
       methods.each do |(method_name, proc)|
         define_method(method_name, proc)
