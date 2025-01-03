@@ -16,7 +16,7 @@ class MinitestResult
     end
   end
 
-  attr_accessor :deprecation_warnings
+  attr_accessor :last_deprecation_warning
 
   def initialize(tests)
     @tests = tests

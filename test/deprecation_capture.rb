@@ -18,4 +18,8 @@ module DeprecationCapture
     end
     @deprecation_warnings
   end
+
+  def last_deprecation_warning
+    deprecation_warnings.last
+  end
 end
