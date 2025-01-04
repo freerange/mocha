@@ -3,6 +3,7 @@
 require File.expand_path('../acceptance_test_helper', __FILE__)
 
 require 'mocha/ruby_version'
+require 'mocha/configuration'
 
 if Mocha::RUBY_V27_PLUS
   class StrictKeywordArgumentMatchingTest < Mocha::TestCase
