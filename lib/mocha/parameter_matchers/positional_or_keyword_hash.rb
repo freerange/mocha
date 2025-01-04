@@ -18,14 +18,14 @@ module Mocha
       end
 
       def matches?(actual_values)
-        parameter, is_last_parameter = extract_parameter(actual_values)
+        actual_value, is_last_actual_value = extract_actual_value(actual_values)
 
-        return false unless HasEntries.new(@expected_value, exact: true).matches?([parameter])
+        return false unless HasEntries.new(@expected_value, exact: true).matches?([actual_value])
 
-        if is_last_parameter && !same_type_of_hash?(parameter, @expected_value)
+        if is_last_actual_value && !same_type_of_hash?(actual_value, @expected_value)
           return false if Mocha.configuration.strict_keyword_argument_matching?
 
-          deprecation_warning(parameter, @expected_value) if Mocha::RUBY_V27_PLUS
+          deprecation_warning(actual_value, @expected_value) if Mocha::RUBY_V27_PLUS
         end
 
         true
@@ -37,7 +37,7 @@ module Mocha
 
       private
 
-      def extract_parameter(actual_values)
+      def extract_actual_value(actual_values)
         [actual_values.shift, actual_values.empty?]
       end
 
