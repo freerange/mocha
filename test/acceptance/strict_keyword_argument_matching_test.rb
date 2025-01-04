@@ -43,7 +43,7 @@ if Mocha::RUBY_V27_PLUS
         mock.expects(:method).with(1, { key: 42 })
         mock.method(1, key: 42)
       end
-      assert_failed(test_result)
+      assert_passed(test_result)
     end
 
     def test_should_not_match_last_positional_hash_with_keyword_args
