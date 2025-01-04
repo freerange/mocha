@@ -18,7 +18,7 @@ if Mocha::RUBY_V27_PLUS
       teardown_acceptance_test
     end
 
-    def test_should_not_match_hash_parameter_with_keyword_args_when_strict_keyword_matching_is_enabled
+    def test_should_not_match_hash_parameter_with_keyword_args
       test_result = run_as_test do
         mock = mock()
         mock.expects(:method).with(key: 42)
@@ -27,7 +27,7 @@ if Mocha::RUBY_V27_PLUS
       assert_failed(test_result)
     end
 
-    def test_should_not_match_hash_parameter_with_splatted_keyword_args_when_strict_keyword_matching_is_enabled
+    def test_should_not_match_hash_parameter_with_splatted_keyword_args
       test_result = run_as_test do
         mock = mock()
         kwargs = { key: 42 }
@@ -37,7 +37,7 @@ if Mocha::RUBY_V27_PLUS
       assert_failed(test_result)
     end
 
-    def test_should_not_match_positional_and_keyword_args_with_last_positional_hash_when_strict_keyword_args_is_enabled
+    def test_should_not_match_positional_and_keyword_args_with_last_positional_hash
       test_result = run_as_test do
         mock = mock()
         mock.expects(:method).with(1, { key: 42 })
@@ -46,7 +46,7 @@ if Mocha::RUBY_V27_PLUS
       assert_failed(test_result)
     end
 
-    def test_should_not_match_last_positional_hash_with_keyword_args_when_strict_keyword_args_is_enabled
+    def test_should_not_match_last_positional_hash_with_keyword_args
       test_result = run_as_test do
         mock = mock()
         mock.expects(:method).with(1, key: 42)
