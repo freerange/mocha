@@ -12,27 +12,27 @@ module Mocha
     class PositionalOrKeywordHash
       include Base
 
-      def initialize(value, expectation)
-        @value = value
+      def initialize(expected_value, expectation)
+        @expected_value = expected_value
         @expectation = expectation
       end
 
       def matches?(available_parameters)
         parameter, is_last_parameter = extract_parameter(available_parameters)
 
-        return false unless HasEntries.new(@value, exact: true).matches?([parameter])
+        return false unless HasEntries.new(@expected_value, exact: true).matches?([parameter])
 
-        if is_last_parameter && !same_type_of_hash?(parameter, @value)
+        if is_last_parameter && !same_type_of_hash?(parameter, @expected_value)
           return false if Mocha.configuration.strict_keyword_argument_matching?
 
-          deprecation_warning(parameter, @value) if Mocha::RUBY_V27_PLUS
+          deprecation_warning(parameter, @expected_value) if Mocha::RUBY_V27_PLUS
         end
 
         true
       end
 
       def mocha_inspect
-        @value.mocha_inspect
+        @expected_value.mocha_inspect
       end
 
       private
