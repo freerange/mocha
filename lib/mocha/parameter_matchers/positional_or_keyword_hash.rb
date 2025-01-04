@@ -17,8 +17,8 @@ module Mocha
         @expectation = expectation
       end
 
-      def matches?(available_parameters)
-        parameter, is_last_parameter = extract_parameter(available_parameters)
+      def matches?(actual_values)
+        parameter, is_last_parameter = extract_parameter(actual_values)
 
         return false unless HasEntries.new(@expected_value, exact: true).matches?([parameter])
 
@@ -37,8 +37,8 @@ module Mocha
 
       private
 
-      def extract_parameter(available_parameters)
-        [available_parameters.shift, available_parameters.empty?]
+      def extract_parameter(actual_values)
+        [actual_values.shift, actual_values.empty?]
       end
 
       def same_type_of_hash?(actual, expected)
