@@ -49,21 +49,36 @@ class StrictPositionalOrKeywordHashTest < Mocha::TestCase
       assert matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })])
     end
 
-    def test_should_not_match_hash_arg_with_keyword_args
-      matcher = build_matcher(Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }))
+    def test_should_not_match_hash_arg_with_keyword_args_if_not_last_matcher
+      last_matcher = false
+      matcher = build_matcher(Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }), nil, last_matcher)
       assert !matcher.matches?([{ key_1: 1, key_2: 2 }])
     end
 
-    def test_should_not_match_keyword_args_with_hash_arg
+    def test_should_not_match_hash_arg_with_keyword_args_if_last_matcher
+      last_matcher = true
+      matcher = build_matcher(Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }), nil, last_matcher)
+      assert !matcher.matches?([{ key_1: 1, key_2: 2 }])
+    end
+
+    def test_should_not_match_keyword_args_with_hash_arg_if_not_last_matcher
       hash = { key_1: 1, key_2: 2 }
-      matcher = build_matcher(hash)
+      last_matcher = false
+      matcher = build_matcher(hash, nil, last_matcher)
       assert !matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })])
+    end
+
+    def test_should_match_keyword_args_with_hash_arg_if_last_matcher
+      hash = { key_1: 1, key_2: 2 }
+      last_matcher = true
+      matcher = build_matcher(hash, nil, last_matcher)
+      assert matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })])
     end
   end
 
   private
 
-  def build_matcher(hash, expectation = nil)
-    Mocha::ParameterMatchers::PositionalOrKeywordHash.new(hash, expectation)
+  def build_matcher(hash, expectation = nil, last = nil)
+    Mocha::ParameterMatchers::PositionalOrKeywordHash.new(hash, expectation, last)
   end
 end
