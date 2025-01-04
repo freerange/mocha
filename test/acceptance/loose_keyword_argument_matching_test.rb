@@ -4,6 +4,7 @@ require File.expand_path('../acceptance_test_helper', __FILE__)
 
 require 'execution_point'
 require 'mocha/ruby_version'
+require 'mocha/configuration'
 
 class LooseKeywordArgumentMatchingTest < Mocha::TestCase
   include AcceptanceTestHelper
