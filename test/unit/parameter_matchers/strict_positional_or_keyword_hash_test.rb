@@ -9,23 +9,19 @@ require 'mocha/expectation'
 require 'mocha/ruby_version'
 require 'mocha/configuration'
 
-class StrictPositionalOrKeywordHashTest < Mocha::TestCase
-  include Mocha::ParameterMatchers
+if Mocha::RUBY_V27_PLUS
+  class StrictPositionalOrKeywordHashTest < Mocha::TestCase
+    include Mocha::ParameterMatchers
 
-  def setup
-    return unless Mocha::RUBY_V27_PLUS
+    def setup
+      @original = Mocha.configuration.strict_keyword_argument_matching?
+      Mocha.configure { |c| c.strict_keyword_argument_matching = true }
+    end
 
-    @original = Mocha.configuration.strict_keyword_argument_matching?
-    Mocha.configure { |c| c.strict_keyword_argument_matching = true }
-  end
+    def teardown
+      Mocha.configure { |c| c.strict_keyword_argument_matching = @original }
+    end
 
-  def teardown
-    return unless Mocha::RUBY_V27_PLUS
-
-    Mocha.configure { |c| c.strict_keyword_argument_matching = @original } if Mocha::RUBY_V27_PLUS
-  end
-
-  if Mocha::RUBY_V27_PLUS
     def test_should_match_non_last_hash_arg_with_hash_arg
       hash = { key_1: 1, key_2: 2 }
       matcher = build_matcher(hash)
@@ -74,11 +70,11 @@ class StrictPositionalOrKeywordHashTest < Mocha::TestCase
       matcher = build_matcher(hash, nil, last_matcher)
       assert matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })])
     end
-  end
 
-  private
+    private
 
-  def build_matcher(hash, expectation = nil, last = nil)
-    Mocha::ParameterMatchers::PositionalOrKeywordHash.new(hash, expectation, last)
+    def build_matcher(hash, expectation = nil, last = nil)
+      Mocha::ParameterMatchers::PositionalOrKeywordHash.new(hash, expectation, last)
+    end
   end
 end
