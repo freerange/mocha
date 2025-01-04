@@ -132,14 +132,14 @@ class RespondsLikeTest < Mocha::TestCase
     assert_passed(test_result)
   end
 
-  def test_mock_which_responds_like_object_with_protected_method_raises_no_method_error_when_method_is_not_stubbed
+  def test_mock_which_responds_like_object_with_protected_method_raises_unexpected_invocation_exception_when_method_is_not_stubbed
     object = Class.new do
       def foo; end
       protected :foo
     end.new
     test_result = run_as_test do
       m = mock.responds_like(object)
-      assert_raises(NoMethodError) { m.foo } # vs Minitest::Assertion for public method
+      assert_raises(Minitest::Assertion) { m.foo }
     end
     assert_passed(test_result)
   end
@@ -170,7 +170,7 @@ class RespondsLikeTest < Mocha::TestCase
     assert_passed(test_result)
   end
 
-  def test_mock_which_responds_like_object_with_protected_method_raises_no_method_error_when_method_is_stubbed
+  def test_mock_which_responds_like_object_with_protected_method_does_not_raise_exception_when_method_is_stubbed
     object = Class.new do
       def foo; end
       protected :foo
@@ -178,7 +178,7 @@ class RespondsLikeTest < Mocha::TestCase
     test_result = run_as_test do
       m = mock.responds_like(object)
       m.stubs(:foo)
-      assert_raises(NoMethodError) { m.foo } # vs no exception for public method
+      assert_nil m.foo
     end
     assert_passed(test_result)
   end
@@ -198,14 +198,14 @@ class RespondsLikeTest < Mocha::TestCase
     assert_passed(test_result)
   end
 
-  def test_mock_which_responds_like_object_with_private_method_raises_no_method_error_when_method_is_not_stubbed
+  def test_mock_which_responds_like_object_with_private_method_raises_unexpected_invocation_exception_when_method_is_not_stubbed
     object = Class.new do
       def foo; end
       private :foo
     end.new
     test_result = run_as_test do
       m = mock.responds_like(object)
-      assert_raises(NoMethodError) { m.foo } # vs Minitest::Assertion for public method
+      assert_raises(Minitest::Assertion) { m.foo }
     end
     assert_passed(test_result)
   end
@@ -236,7 +236,7 @@ class RespondsLikeTest < Mocha::TestCase
     assert_passed(test_result)
   end
 
-  def test_mock_which_responds_like_object_with_private_method_raises_no_method_error_when_method_is_stubbed
+  def test_mock_which_responds_like_object_with_private_method_does_not_raise_exception_when_method_is_stubbed
     object = Class.new do
       def foo; end
       private :foo
@@ -244,7 +244,7 @@ class RespondsLikeTest < Mocha::TestCase
     test_result = run_as_test do
       m = mock.responds_like(object)
       m.stubs(:foo)
-      assert_raises(NoMethodError) { m.foo } # vs no exception for public method
+      assert_nil m.foo
     end
     assert_passed(test_result)
   end
