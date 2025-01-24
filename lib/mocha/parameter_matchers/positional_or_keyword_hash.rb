@@ -43,7 +43,7 @@ module Mocha
       def matches_last_actual_value?(actual_value)
         if same_type_of_hash?(actual_value, @expected_value)
           true
-        elsif last_expected_value_is_positional_hash?
+        elsif last_expected_value_is_positional_hash? # rubocop:disable Lint/DuplicateBranch
           true
         elsif Mocha.configuration.strict_keyword_argument_matching?
           false
