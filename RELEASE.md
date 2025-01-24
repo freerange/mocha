@@ -1,5 +1,42 @@
 # Release Notes
 
+## 3.0.0-rc.1
+
+### External changes
+
+* Improvements to docs for cardinality-related methods (#700)
+* Drop support for Ruby v2.1 (#628 & #695)
+* Improve gemspec description (#692 & #696)
+* Remove docs for `use_test_unit_gem` option (eaf03493)
+* Correct docs for `MOCHA_OPTIONS` "debug" value (69ef41c0)
+* Use built-in Ruby debug option vs custom module (#714 & #715)
+* Enable strict keyword argument matching by default in Ruby >= v3 (#697 & #718)
+* Use Ruby v1.9 Hash syntax in `Hash#mocha_inspect` used in failure messages (#651 & #719)
+* Improve `#mocha_inspect` for empty keyword argument `Hash` (#588 & #720) - thanks to @herwinw for reporting
+* Improve error if `Mockery.teardown` called before `Mockery.setup` (#611, #646 & #721) - thanks to @riniculous for reporting
+* Freeze string literals (#722)
+* Remove support for running tests with Minitest < v5 (#727)
+* Allow keyword arguments to match an expectation expecting *only* positional arguments (#593 & #732) - thanks to @seandilda
+for reporting
+
+### Internal changes
+
+* Add `Expectation#thrice` (#701) - thanks to @andrewn617
+* Add `base64` to Gemfile for Ruby >= v3.3.0 to avoid warning (8c49314c & a76330d6)
+* Include custom Gemfiles in Rubocop linting (04063f0d)
+* Use ruby:3.4.0-rc1 vs ruby:3.4.0-preview2 in CI in preparation for the Ruby v3.4 release (b2127407)
+* Add `ostruct` to Gemfile for Ruby >= v3.4.0 to avoid warning (2b05e09e)
+* Add Ruby v3.4 to CI build matrix (#708)
+* Fix Ruby v3.4 warnings in ObjectInspectTest (#709 & #710)
+* Rubocop-related improvements (#702 & #705)
+* Consistently use development group in Gemfiles (#706 & #716)
+* Add missing requires for 'mocha/ruby_version' (7f99db69)
+* Convert `ParameterMatchers::Base` class -> module (#712 & #723)
+* Enable `ExpectMatchingDefinition` option on `Naming/FileName` cop (#726)
+* Remove duplicate `DefaultReceiverTest` (39d99954)
+* Improvements to keyword argument matching tests (#730)
+* Improvements to keyword argument matcher unit test (#731)
+
 ## 2.8.0
 
 Many thanks to @etiennebarrie for his help in testing v3.0.0 release candidates which led to many of these changes.
