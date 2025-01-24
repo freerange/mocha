@@ -22,11 +22,11 @@ module Mocha
         actual_value, is_last_actual_value = extract_actual_value(actual_values)
 
         if !matches_entries_exactly?(actual_value)
-          return false
+          false
         elsif is_last_actual_value
-          return matches_last_actual_value?(actual_value)
+          matches_last_actual_value?(actual_value)
         else
-          return true
+          true
         end
       end
 
@@ -42,14 +42,14 @@ module Mocha
 
       def matches_last_actual_value?(actual_value)
         if same_type_of_hash?(actual_value, @expected_value)
-          return true
+          true
         elsif last_expected_value_is_positional_hash?
-          return true
+          true
         elsif Mocha.configuration.strict_keyword_argument_matching?
-          return false
+          false
         else
           deprecation_warning(actual_value, @expected_value) if Mocha::RUBY_V27_PLUS
-          return true
+          true
         end
       end
 
