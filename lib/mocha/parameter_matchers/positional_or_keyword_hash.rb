@@ -37,7 +37,7 @@ module Mocha
       def matches_last_actual_value?(actual_value)
         if same_type_of_hash?(actual_value, @expected_value)
           return true
-        elsif @last_expected_value && !ruby2_keywords_hash?(@expected_value)
+        elsif last_expected_value_is_positional_hash?
           return true
         elsif Mocha.configuration.strict_keyword_argument_matching?
           return false
@@ -45,6 +45,10 @@ module Mocha
           deprecation_warning(actual_value, @expected_value) if Mocha::RUBY_V27_PLUS
           return true
         end
+      end
+
+      def last_expected_value_is_positional_hash?
+        @last_expected_value && !ruby2_keywords_hash?(@expected_value)
       end
 
       def extract_actual_value(actual_values)
