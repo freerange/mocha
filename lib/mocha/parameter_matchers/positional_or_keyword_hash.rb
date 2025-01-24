@@ -23,13 +23,7 @@ module Mocha
 
         return false unless HasEntries.new(@expected_value, exact: true).matches?([actual_value])
 
-        if is_last_actual_value && !same_type_of_hash?(actual_value, @expected_value)
-          return true if @last_expected_value && !ruby2_keywords_hash?(@expected_value)
-
-          return false if Mocha.configuration.strict_keyword_argument_matching?
-
-          deprecation_warning(actual_value, @expected_value) if Mocha::RUBY_V27_PLUS
-        end
+        return matches_last_actual_value?(actual_value) if is_last_actual_value
 
         true
       end
@@ -39,6 +33,18 @@ module Mocha
       end
 
       private
+
+      def matches_last_actual_value?(actual_value)
+        if !same_type_of_hash?(actual_value, @expected_value)
+          return true if @last_expected_value && !ruby2_keywords_hash?(@expected_value)
+
+          return false if Mocha.configuration.strict_keyword_argument_matching?
+
+          deprecation_warning(actual_value, @expected_value) if Mocha::RUBY_V27_PLUS
+        end
+
+        true
+      end
 
       def extract_actual_value(actual_values)
         [actual_values.shift, actual_values.empty?]
