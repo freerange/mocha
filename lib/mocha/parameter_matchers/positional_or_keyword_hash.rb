@@ -21,7 +21,7 @@ module Mocha
       def matches?(actual_values)
         actual_value, is_last_actual_value = extract_actual_value(actual_values)
 
-        if !HasEntries.new(@expected_value, exact: true).matches?([actual_value])
+        if !matches_entries_exactly?(actual_value)
           return false
         elsif is_last_actual_value
           return matches_last_actual_value?(actual_value)
@@ -35,6 +35,10 @@ module Mocha
       end
 
       private
+
+      def matches_entries_exactly?(actual_value)
+        HasEntries.new(@expected_value, exact: true).matches?([actual_value])
+      end
 
       def matches_last_actual_value?(actual_value)
         if same_type_of_hash?(actual_value, @expected_value)
