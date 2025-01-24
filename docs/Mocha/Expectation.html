@@ -6,7 +6,7 @@
 <title>
   Class: Mocha::Expectation
   
-    &mdash; Mocha 2.7.1
+    &mdash; Mocha 3.0.0-rc.1
   
 </title>
 
@@ -392,6 +392,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#thrice-instance_method" title="#thrice (instance method)">#<strong>thrice</strong>  &#x21d2; Expectation </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Modifies expectation so that the expected method must be called exactly three times.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#throws-instance_method" title="#throws (instance method)">#<strong>throws</strong>(tag, object = nil)  &#x21d2; Expectation </a>
     
 
@@ -416,7 +440,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#times-instance_method" title="#times (instance method)">#<strong>times</strong>(range)  &#x21d2; Expectation </a>
+      <a href="#times-instance_method" title="#times (instance method)">#<strong>times</strong>(range_or_number)  &#x21d2; Expectation </a>
     
 
     
@@ -431,7 +455,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Modifies expectation so that the number of calls to the expected method must be within a specific <code>range</code>.</p>
+<p>Modifies expectation so that the number of invocations of the expected method must be within a specified range or exactly equal to a specified number.</p>
 </div></span>
   
 </li>
@@ -674,13 +698,13 @@
       <pre class="lines">
 
 
-134
-135
-136
-137</pre>
+164
+165
+166
+167</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 134</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 164</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_at_least'>at_least</span><span class='lparen'>(</span><span class='id identifier rubyid_minimum_number_of_times'>minimum_number_of_times</span><span class='rparen'>)</span>
   <span class='ivar'>@cardinality</span><span class='period'>.</span><span class='id identifier rubyid_at_least'>at_least</span><span class='lparen'>(</span><span class='id identifier rubyid_minimum_number_of_times'>minimum_number_of_times</span><span class='rparen'>)</span>
@@ -703,7 +727,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Modifies expectation so that the expected method must be called at least once.</p>
+<p>Modifies expectation so that the expected method must be called at least once. This is equivalent to calling <span class='object_link'><a href="#at_least-instance_method" title="Mocha::Expectation#at_least (method)">#at_least</a></span> with an argument of <code>1</code>.</p>
 
 
   </div>
@@ -754,12 +778,12 @@
       <pre class="lines">
 
 
-152
-153
-154</pre>
+182
+183
+184</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 152</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 182</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_at_least_once'>at_least_once</span>
   <span class='id identifier rubyid_at_least'>at_least</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
@@ -852,13 +876,13 @@
       <pre class="lines">
 
 
-170
-171
-172
-173</pre>
+200
+201
+202
+203</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 170</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 200</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_at_most'>at_most</span><span class='lparen'>(</span><span class='id identifier rubyid_maximum_number_of_times'>maximum_number_of_times</span><span class='rparen'>)</span>
   <span class='ivar'>@cardinality</span><span class='period'>.</span><span class='id identifier rubyid_at_most'>at_most</span><span class='lparen'>(</span><span class='id identifier rubyid_maximum_number_of_times'>maximum_number_of_times</span><span class='rparen'>)</span>
@@ -881,7 +905,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Modifies expectation so that the expected method must be called at most once.</p>
+<p>Modifies expectation so that the expected method must be called at most once. This is equivalent to calling <span class='object_link'><a href="#at_most-instance_method" title="Mocha::Expectation#at_most (method)">#at_most</a></span> with an argument of <code>1</code>.</p>
 
 
   </div>
@@ -932,12 +956,12 @@
       <pre class="lines">
 
 
-188
-189
-190</pre>
+218
+219
+220</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 188</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 218</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_at_most_once'>at_most_once</span>
   <span class='id identifier rubyid_at_most'>at_most</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
@@ -1059,13 +1083,13 @@
       <pre class="lines">
 
 
-609
-610
-611
-612</pre>
+643
+644
+645
+646</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 609</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 643</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_in_sequence'>in_sequence</span><span class='lparen'>(</span><span class='id identifier rubyid_sequence'>sequence</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_sequences'>sequences</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_sequences'>sequences</span><span class='period'>.</span><span class='id identifier rubyid_unshift'>unshift</span><span class='lparen'>(</span><span class='id identifier rubyid_sequence'>sequence</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_seq'>seq</span><span class='op'>|</span> <span class='id identifier rubyid_add_in_sequence_ordering_constraint'>add_in_sequence_ordering_constraint</span><span class='lparen'>(</span><span class='id identifier rubyid_seq'>seq</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
@@ -1179,13 +1203,13 @@
       <pre class="lines">
 
 
-396
-397
-398
-399</pre>
+430
+431
+432
+433</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 396</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 430</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_multiple_yields'>multiple_yields</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_parameter_groups'>parameter_groups</span><span class='rparen'>)</span>
   <span class='ivar'>@yield_parameters</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_parameter_groups'>parameter_groups</span><span class='rparen'>)</span>
@@ -1258,13 +1282,13 @@
       <pre class="lines">
 
 
-114
-115
-116
-117</pre>
+144
+145
+146
+147</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 114</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 144</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_never'>never</span>
   <span class='ivar'>@cardinality</span><span class='period'>.</span><span class='id identifier rubyid_exactly'>exactly</span><span class='lparen'>(</span><span class='int'>0</span><span class='rparen'>)</span>
@@ -1287,7 +1311,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Modifies expectation so that the expected method must be called exactly once.</p>
+<p>Modifies expectation so that the expected method must be called exactly once. This is equivalent to calling <span class='object_link'><a href="#times-instance_method" title="Mocha::Expectation#times (method)">#times</a></span> with an argument of <code>1</code>.</p>
 
 <p>Note that this is the default behaviour for an expectation, but you may wish to use it for clarity/emphasis.</p>
 
@@ -1345,13 +1369,13 @@
       <pre class="lines">
 
 
-97
-98
-99
-100</pre>
+127
+128
+129
+130</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 127</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_once'>once</span>
   <span class='ivar'>@cardinality</span><span class='period'>.</span><span class='id identifier rubyid_exactly'>exactly</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
@@ -1505,13 +1529,13 @@
       <pre class="lines">
 
 
-483
-484
-485
-486</pre>
+517
+518
+519
+520</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 483</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 517</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_raises'>raises</span><span class='lparen'>(</span><span class='id identifier rubyid_exception'>exception</span> <span class='op'>=</span> <span class='const'>RuntimeError</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='ivar'>@return_values</span> <span class='op'>+=</span> <span class='const'>ReturnValues</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>ExceptionRaiser</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_exception'>exception</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -1710,13 +1734,13 @@
       <pre class="lines">
 
 
-443
-444
-445
-446</pre>
+477
+478
+479
+480</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 443</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 477</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
   <span class='ivar'>@return_values</span> <span class='op'>+=</span> <span class='const'>ReturnValues</span><span class='period'>.</span><span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
@@ -1877,16 +1901,107 @@
       <pre class="lines">
 
 
-557
-558
-559
-560</pre>
+591
+592
+593
+594</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 557</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 591</span>
 
 <span class='kw'>def</span> <span class='kw'>then</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_add_side_effect'>add_side_effect</span><span class='lparen'>(</span><span class='const'>ChangeStateSideEffect</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_state'>state</span>
+  <span class='kw'>self</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="thrice-instance_method">
+  
+    #<strong>thrice</strong>  &#x21d2; <tt><span class='object_link'><a href="" title="Mocha::Expectation (class)">Expectation</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Modifies expectation so that the expected method must be called exactly three times. This is equivalent to calling <span class='object_link'><a href="#times-instance_method" title="Mocha::Expectation#times (method)">#times</a></span> with an argument of <code>3</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+        <h5 class="example_title"><div class='inline'>
+<p>Expected method must be invoked exactly three times.</p>
+</div></h5>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:expected_method</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_thrice'>thrice</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expected_method'>expected_method</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expected_method'>expected_method</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expected_method'>expected_method</span>
+<span class='comment'># =&gt; verify succeeds
+</span>
+<span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:expected_method</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_thrice'>thrice</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expected_method'>expected_method</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expected_method'>expected_method</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expected_method'>expected_method</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expected_method'>expected_method</span> <span class='comment'># =&gt; unexpected invocation
+</span>
+<span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:expected_method</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_thrice'>thrice</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expected_method'>expected_method</span>
+<span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expected_method'>expected_method</span>
+<span class='comment'># =&gt; verify fails</span></code></pre>
+    
+  </div>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Mocha::Expectation (class)">Expectation</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the same expectation, thereby allowing invocations of other <span class='object_link'><a href="" title="Mocha::Expectation (class)">Mocha::Expectation</a></span> methods to be chained.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+76
+77
+78
+79</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 76</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_thrice'>thrice</span>
+  <span class='ivar'>@cardinality</span><span class='period'>.</span><span class='id identifier rubyid_exactly'>exactly</span><span class='lparen'>(</span><span class='int'>3</span><span class='rparen'>)</span>
   <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2033,13 +2148,13 @@
       <pre class="lines">
 
 
-522
-523
-524
-525</pre>
+556
+557
+558
+559</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 522</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 556</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_throws'>throws</span><span class='lparen'>(</span><span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='ivar'>@return_values</span> <span class='op'>+=</span> <span class='const'>ReturnValues</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>Thrower</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -2053,7 +2168,7 @@
       <div class="method_details ">
   <h3 class="signature " id="times-instance_method">
   
-    #<strong>times</strong>(range)  &#x21d2; <tt><span class='object_link'><a href="" title="Mocha::Expectation (class)">Expectation</a></span></tt> 
+    #<strong>times</strong>(range_or_number)  &#x21d2; <tt><span class='object_link'><a href="" title="Mocha::Expectation (class)">Expectation</a></span></tt> 
   
 
   
@@ -2062,7 +2177,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Modifies expectation so that the number of calls to the expected method must be within a specific <code>range</code>.</p>
+<p>Modifies expectation so that the number of invocations of the expected method must be within a specified range or exactly equal to a specified number.</p>
 
 
   </div>
@@ -2074,7 +2189,7 @@
     
       
         <h5 class="example_title"><div class='inline'>
-<p>Specifying a specific number of expected invocations.</p>
+<p>Specifying an exact number of expected invocations.</p>
 </div></h5>
       
       <pre class="example code"><code><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
@@ -2089,7 +2204,7 @@
     
       
         <h5 class="example_title"><div class='inline'>
-<p>Specifying a range in the number of expected invocations.</p>
+<p>Specifying a range for the number of expected invocations.</p>
 </div></h5>
       
       <pre class="example code"><code><span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_mock'>mock</span><span class='lparen'>(</span><span class='rparen'>)</span>
@@ -2108,7 +2223,7 @@
   
     <li>
       
-        <span class='name'>range</span>
+        <span class='name'>range_or_number</span>
       
       
         <span class='type'>(<tt>Range</tt>, <tt>Integer</tt>)</span>
@@ -2117,7 +2232,7 @@
       
         &mdash;
         <div class='inline'>
-<p>specifies the allowable range in the number of expected invocations.</p>
+<p>specifies the allowable range for the number of expected invocations or the specified number of expected invocations.</p>
 </div>
       
     </li>
@@ -2149,16 +2264,16 @@
       <pre class="lines">
 
 
-46
 47
 48
-49</pre>
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 47</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_times'>times</span><span class='lparen'>(</span><span class='id identifier rubyid_range'>range</span><span class='rparen'>)</span>
-  <span class='ivar'>@cardinality</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='lparen'>(</span><span class='id identifier rubyid_range'>range</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_times'>times</span><span class='lparen'>(</span><span class='id identifier rubyid_range_or_number'>range_or_number</span><span class='rparen'>)</span>
+  <span class='ivar'>@cardinality</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='lparen'>(</span><span class='id identifier rubyid_range_or_number'>range_or_number</span><span class='rparen'>)</span>
   <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2178,7 +2293,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Modifies expectation so that the expected method must be called exactly twice.</p>
+<p>Modifies expectation so that the expected method must be called exactly twice. This is equivalent to calling <span class='object_link'><a href="#times-instance_method" title="Mocha::Expectation#times (method)">#times</a></span> with an argument of <code>2</code>.</p>
 
 
   </div>
@@ -2237,13 +2352,13 @@
       <pre class="lines">
 
 
-72
-73
-74
-75</pre>
+102
+103
+104
+105</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 102</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_twice'>twice</span>
   <span class='ivar'>@cardinality</span><span class='period'>.</span><span class='id identifier rubyid_exactly'>exactly</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span>
@@ -2349,13 +2464,13 @@
       <pre class="lines">
 
 
-581
-582
-583
-584</pre>
+615
+616
+617
+618</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 581</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 615</span>
 
 <span class='kw'>def</span> <span class='kw'>when</span><span class='lparen'>(</span><span class='id identifier rubyid_state_predicate'>state_predicate</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_add_ordering_constraint'>add_ordering_constraint</span><span class='lparen'>(</span><span class='const'>InStateOrderingConstraint</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_state_predicate'>state_predicate</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -2388,9 +2503,9 @@
 
 <p>Positional arguments were separated from keyword arguments in Ruby v3 (see <a href="https://www.ruby-lang.org/en/news/2019/12/12/separation-of-positional-and-keyword-arguments-in-ruby-3-0" target="_parent" title="this article">this article</a>). In relation to this a new configuration option (<span class='object_link'><a href="Configuration.html#strict_keyword_argument_matching=-instance_method" title="Mocha::Configuration#strict_keyword_argument_matching= (method)">Configuration#strict_keyword_argument_matching=</a></span>) is available in Ruby &gt;= 2.7.</p>
 
-<p>When <span class='object_link'><a href="Configuration.html#strict_keyword_argument_matching=-instance_method" title="Mocha::Configuration#strict_keyword_argument_matching= (method)">Configuration#strict_keyword_argument_matching=</a></span> is set to <code>false</code> (which is currently the default), a positional <code>Hash</code> and a set of keyword arguments passed to <span class='object_link'><a href="#with-instance_method" title="Mocha::Expectation#with (method)">#with</a></span> are treated the same for the purposes of parameter matching. However, a deprecation warning will be displayed if a positional <code>Hash</code> matches a set of keyword arguments or vice versa. This is because <span class='object_link'><a href="Configuration.html#strict_keyword_argument_matching=-instance_method" title="Mocha::Configuration#strict_keyword_argument_matching= (method)">Configuration#strict_keyword_argument_matching=</a></span> will default to <code>true</code> in the future.</p>
+<p>When <span class='object_link'><a href="Configuration.html#strict_keyword_argument_matching=-instance_method" title="Mocha::Configuration#strict_keyword_argument_matching= (method)">Configuration#strict_keyword_argument_matching=</a></span> is set to <code>false</code> (which is the default in Ruby v2.7), a positional <code>Hash</code> and a set of keyword arguments passed to <span class='object_link'><a href="#with-instance_method" title="Mocha::Expectation#with (method)">#with</a></span> are treated the same for the purposes of parameter matching. However, a deprecation warning will be displayed if a positional <code>Hash</code> matches a set of keyword arguments or vice versa.</p>
 
-<p>When <span class='object_link'><a href="Configuration.html#strict_keyword_argument_matching=-instance_method" title="Mocha::Configuration#strict_keyword_argument_matching= (method)">Configuration#strict_keyword_argument_matching=</a></span> is set to <code>true</code>, an actual positional <code>Hash</code> will not match an expected set of keyword arguments; and vice versa, an actual set of keyword arguments will not match an expected positional <code>Hash</code>, i.e. the parameter matching is stricter.</p>
+<p>When <span class='object_link'><a href="Configuration.html#strict_keyword_argument_matching=-instance_method" title="Mocha::Configuration#strict_keyword_argument_matching= (method)">Configuration#strict_keyword_argument_matching=</a></span> is set to <code>true</code> (which is the default in Ruby &gt;= v3.0), an actual positional <code>Hash</code> will not match an expected set of keyword arguments; and vice versa, an actual set of keyword arguments will not match an expected positional <code>Hash</code>, i.e. the parameter matching is stricter.</p>
 
 
   </div>
@@ -2432,10 +2547,14 @@
     
       
         <h5 class="example_title"><div class='inline'>
-<p>Loose keyword argument matching (default)</p>
+<p>Loose keyword argument matching (default in Ruby v2.7).</p>
 </div></h5>
       
       <pre class="example code"><code>
+<span class='const'><span class='object_link'><a href="../Mocha.html" title="Mocha (module)">Mocha</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configure'><span class='object_link'><a href="../Mocha.html#configure-class_method" title="Mocha.configure (method)">configure</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span>
+  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_strict_keyword_argument_matching'>strict_keyword_argument_matching</span> <span class='op'>=</span> <span class='kw'>false</span>
+<span class='kw'>end</span>
+
 <span class='kw'>class</span> <span class='const'>Example</span>
   <span class='kw'>def</span> <span class='id identifier rubyid_foo'>foo</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>bar:</span><span class='rparen'>)</span><span class='semicolon'>;</span> <span class='kw'>end</span>
 <span class='kw'>end</span>
@@ -2447,7 +2566,7 @@
     
       
         <h5 class="example_title"><div class='inline'>
-<p>Strict keyword argument matching</p>
+<p>Strict keyword argument matching (default in Ruby &gt;= 3.0).</p>
 </div></h5>
       
       <pre class="example code"><code>
@@ -2508,7 +2627,7 @@
         <span class='name'>expected_parameters_or_matchers</span>
       
       
-        <span class='type'>(<tt>Array&lt;<span class='object_link'>Object</span>,<span class='object_link'><a href="ParameterMatchers/Base.html" title="Mocha::ParameterMatchers::Base (class)">ParameterMatchers::Base</a></span>&gt;</tt>)</span>
+        <span class='type'>(<tt>Array&lt;<span class='object_link'>Object</span>,<span class='object_link'><a href="ParameterMatchers/Base.html" title="Mocha::ParameterMatchers::Base (module)">ParameterMatchers::Base</a></span>&gt;</tt>)</span>
       
       
       
@@ -2611,13 +2730,13 @@
       <pre class="lines">
 
 
-290
-291
-292
-293</pre>
+324
+325
+326
+327</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 290</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 324</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_with'>with</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_expected_parameters_or_matchers'>expected_parameters_or_matchers</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_matching_block'>matching_block</span><span class='rparen'>)</span>
   <span class='ivar'>@parameters_matcher</span> <span class='op'>=</span> <span class='const'>ParametersMatcher</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_expected_parameters_or_matchers'>expected_parameters_or_matchers</span><span class='comma'>,</span> <span class='kw'>self</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_matching_block'>matching_block</span><span class='rparen'>)</span>
@@ -2692,13 +2811,13 @@
       <pre class="lines">
 
 
-310
-311
-312
-313</pre>
+344
+345
+346
+347</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 310</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 344</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_with_block_given'>with_block_given</span>
   <span class='ivar'>@block_matcher</span> <span class='op'>=</span> <span class='const'>BlockMatchers</span><span class='op'>::</span><span class='const'>BlockGiven</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -2773,13 +2892,13 @@
       <pre class="lines">
 
 
-329
-330
-331
-332</pre>
+363
+364
+365
+366</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 329</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 363</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_with_no_block_given'>with_no_block_given</span>
   <span class='ivar'>@block_matcher</span> <span class='op'>=</span> <span class='const'>BlockMatchers</span><span class='op'>::</span><span class='const'>NoBlockGiven</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -2907,12 +3026,12 @@
       <pre class="lines">
 
 
-368
-369
-370</pre>
+402
+403
+404</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 368</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/expectation.rb', line 402</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_yields'>yields</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_parameters'>parameters</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_multiple_yields'>multiple_yields</span><span class='lparen'>(</span><span class='id identifier rubyid_parameters'>parameters</span><span class='rparen'>)</span>
@@ -2927,9 +3046,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Dec  9 12:52:25 2024 by
+  Generated on Fri Jan 24 15:05:27 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.3.6).
+  0.9.37 (ruby-3.4.1).
 </div>
 
     </div>

@@ -6,7 +6,7 @@
 <title>
   Module: Mocha::Hooks
   
-    &mdash; Mocha 2.7.1
+    &mdash; Mocha 3.0.0-rc.1
   
 </title>
 
@@ -268,12 +268,12 @@
       <pre class="lines">
 
 
-22
-23
-24</pre>
+24
+25
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/hooks.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/hooks.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mocha_setup'>mocha_setup</span>
   <span class='const'>Mockery</span><span class='period'>.</span><span class='id identifier rubyid_setup'>setup</span>
@@ -311,12 +311,12 @@
       <pre class="lines">
 
 
-38
-39
-40</pre>
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/hooks.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/hooks.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mocha_teardown'>mocha_teardown</span><span class='lparen'>(</span><span class='id identifier rubyid_origin'>origin</span> <span class='op'>=</span> <span class='id identifier rubyid_mocha_test_name'>mocha_test_name</span><span class='rparen'>)</span>
   <span class='const'>Mockery</span><span class='period'>.</span><span class='id identifier rubyid_teardown'>teardown</span><span class='lparen'>(</span><span class='id identifier rubyid_origin'>origin</span><span class='rparen'>)</span>
@@ -352,12 +352,12 @@
       <pre class="lines">
 
 
-44
-45
-46</pre>
+46
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/hooks.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/hooks.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mocha_test_name'>mocha_test_name</span>
   <span class='kw'>nil</span>
@@ -397,12 +397,12 @@
       <pre class="lines">
 
 
-31
-32
-33</pre>
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/hooks.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/hooks.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mocha_verify'>mocha_verify</span><span class='lparen'>(</span><span class='id identifier rubyid_assertion_counter'>assertion_counter</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='const'>Mockery</span><span class='period'>.</span><span class='id identifier rubyid_verify'>verify</span><span class='lparen'>(</span><span class='id identifier rubyid_assertion_counter'>assertion_counter</span><span class='rparen'>)</span>
@@ -417,9 +417,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Dec  9 12:52:24 2024 by
+  Generated on Fri Jan 24 15:05:27 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.3.6).
+  0.9.37 (ruby-3.4.1).
 </div>
 
     </div>
