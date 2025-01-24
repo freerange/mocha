@@ -63,7 +63,7 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
 
   private
 
-  def build_matcher(hash, expectation = nil)
-    Mocha::ParameterMatchers::PositionalOrKeywordHash.new(hash, expectation)
+  def build_matcher(hash, expectation = nil, last = nil)
+    Mocha::ParameterMatchers::PositionalOrKeywordHash.new(hash, expectation, last)
   end
 end

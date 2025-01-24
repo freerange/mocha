@@ -12,33 +12,53 @@ module Mocha
     class PositionalOrKeywordHash
       include Base
 
-      def initialize(value, expectation)
-        @value = value
+      def initialize(expected_value, expectation, last_expected_value)
+        @expected_value = expected_value
         @expectation = expectation
+        @last_expected_value = last_expected_value
       end
 
-      def matches?(available_parameters)
-        parameter, is_last_parameter = extract_parameter(available_parameters)
+      def matches?(actual_values)
+        actual_value, is_last_actual_value = extract_actual_value(actual_values)
 
-        return false unless HasEntries.new(@value, exact: true).matches?([parameter])
-
-        if is_last_parameter && !same_type_of_hash?(parameter, @value)
-          return false if Mocha.configuration.strict_keyword_argument_matching?
-
-          deprecation_warning(parameter, @value) if Mocha::RUBY_V27_PLUS
+        if !matches_entries_exactly?(actual_value)
+          false
+        elsif is_last_actual_value
+          matches_last_actual_value?(actual_value)
+        else
+          true
         end
-
-        true
       end
 
       def mocha_inspect
-        @value.mocha_inspect
+        @expected_value.mocha_inspect
       end
 
       private
 
-      def extract_parameter(available_parameters)
-        [available_parameters.shift, available_parameters.empty?]
+      def matches_entries_exactly?(actual_value)
+        HasEntries.new(@expected_value, exact: true).matches?([actual_value])
+      end
+
+      def matches_last_actual_value?(actual_value)
+        if same_type_of_hash?(actual_value, @expected_value)
+          true
+        elsif last_expected_value_is_positional_hash? # rubocop:disable Lint/DuplicateBranch
+          true
+        elsif Mocha.configuration.strict_keyword_argument_matching?
+          false
+        else
+          deprecation_warning(actual_value, @expected_value) if Mocha::RUBY_V27_PLUS
+          true
+        end
+      end
+
+      def last_expected_value_is_positional_hash?
+        @last_expected_value && !ruby2_keywords_hash?(@expected_value)
+      end
+
+      def extract_actual_value(actual_values)
+        [actual_values.shift, actual_values.empty?]
       end
 
       def same_type_of_hash?(actual, expected)
