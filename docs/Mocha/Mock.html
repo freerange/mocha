@@ -6,7 +6,7 @@
 <title>
   Class: Mocha::Mock
   
-    &mdash; Mocha 2.7.1
+    &mdash; Mocha 3.0.0-rc.1
   
 </title>
 
@@ -327,8 +327,8 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 318</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span> <span class='comment'># rubocop:disable Style/MethodMissingSuper
-</span>  <span class='id identifier rubyid_handle_method_call'>handle_method_call</span><span class='lparen'>(</span><span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span> <span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_handle_method_call'>handle_method_call</span><span class='lparen'>(</span><span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span> <span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -516,8 +516,6 @@
       <pre class="lines">
 
 
-114
-115
 116
 117
 118
@@ -528,16 +526,16 @@
 123
 124
 125
-126</pre>
+126
+127</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 114</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 116</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name_or_hash'>method_name_or_hash</span><span class='comma'>,</span> <span class='id identifier rubyid_backtrace'>backtrace</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_expectation'>expectation</span> <span class='op'>=</span> <span class='kw'>nil</span>
   <span class='id identifier rubyid_iterator'>iterator</span> <span class='op'>=</span> <span class='const'>ArgumentIterator</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name_or_hash'>method_name_or_hash</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_iterator'>iterator</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='op'>|</span>
-    <span class='id identifier rubyid_method_name'>method_name</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_shift'>shift</span>
+  <span class='id identifier rubyid_iterator'>iterator</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_method_name'>method_name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='op'>|</span>
     <span class='id identifier rubyid_ensure_method_not_already_defined'>ensure_method_not_already_defined</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name'>method_name</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_expectation'>expectation</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_method_name'>method_name</span><span class='comma'>,</span> <span class='id identifier rubyid_backtrace'>backtrace</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_expectation'>expectation</span><span class='period'>.</span><span class='id identifier rubyid_in_sequence'>in_sequence</span><span class='lparen'>(</span><span class='ivar'>@mockery</span><span class='period'>.</span><span class='id identifier rubyid_sequences'>sequences</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@mockery</span><span class='period'>.</span><span class='id identifier rubyid_sequences'>sequences</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span>
@@ -983,7 +981,6 @@
       <pre class="lines">
 
 
-153
 154
 155
 156
@@ -999,13 +996,12 @@
 166</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 153</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/mock.rb', line 154</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name_or_hash'>method_name_or_hash</span><span class='comma'>,</span> <span class='id identifier rubyid_backtrace'>backtrace</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_expectation'>expectation</span> <span class='op'>=</span> <span class='kw'>nil</span>
   <span class='id identifier rubyid_iterator'>iterator</span> <span class='op'>=</span> <span class='const'>ArgumentIterator</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name_or_hash'>method_name_or_hash</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_iterator'>iterator</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='op'>|</span>
-    <span class='id identifier rubyid_method_name'>method_name</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_shift'>shift</span>
+  <span class='id identifier rubyid_iterator'>iterator</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_method_name'>method_name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='op'>|</span>
     <span class='id identifier rubyid_ensure_method_not_already_defined'>ensure_method_not_already_defined</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name'>method_name</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_expectation'>expectation</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Expectation.html" title="Mocha::Expectation (class)">Expectation</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_method_name'>method_name</span><span class='comma'>,</span> <span class='id identifier rubyid_backtrace'>backtrace</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_expectation'>expectation</span><span class='period'>.</span><span class='id identifier rubyid_at_least'>at_least</span><span class='lparen'>(</span><span class='int'>0</span><span class='rparen'>)</span>
@@ -1118,9 +1114,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Dec  9 12:52:24 2024 by
+  Generated on Fri Jan 24 15:05:27 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.3.6).
+  0.9.37 (ruby-3.4.1).
 </div>
 
     </div>
