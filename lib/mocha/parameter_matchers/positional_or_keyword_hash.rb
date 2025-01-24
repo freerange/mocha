@@ -21,11 +21,13 @@ module Mocha
       def matches?(actual_values)
         actual_value, is_last_actual_value = extract_actual_value(actual_values)
 
-        return false unless HasEntries.new(@expected_value, exact: true).matches?([actual_value])
-
-        return matches_last_actual_value?(actual_value) if is_last_actual_value
-
-        true
+        if !HasEntries.new(@expected_value, exact: true).matches?([actual_value])
+          return false
+        elsif is_last_actual_value
+          return matches_last_actual_value?(actual_value)
+        else
+          return true
+        end
       end
 
       def mocha_inspect
