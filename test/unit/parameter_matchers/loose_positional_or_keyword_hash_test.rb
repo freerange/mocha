@@ -27,23 +27,7 @@ class LoosePositionalOrKeywordHashTest < Mocha::TestCase
     Mocha.configure { |c| c.strict_keyword_argument_matching = @original }
   end
 
-  def test_expected_non_last_keywords_hash_should_match_actual_hash_but_display_deprecation_warning
-    expectation = Mocha::Expectation.new(self, :foo)
-    matcher = build_matcher(Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }), expectation, false)
-    capture_deprecation_warnings do
-      assert matcher.matches?([{ key_1: 1, key_2: 2 }])
-    end
-    return unless Mocha::RUBY_V27_PLUS
-
-    message = last_deprecation_warning
-    location = expectation.definition_location
-    assert_includes message, "Expectation defined at #{location} expected keyword arguments (key_1: 1, key_2: 2)"
-    assert_includes message, 'but received positional hash ({key_1: 1, key_2: 2})'
-    assert_includes message, 'These will stop matching when strict keyword argument matching is enabled.'
-    assert_includes message, 'See the documentation for Mocha::Configuration#strict_keyword_argument_matching=.'
-  end
-
-  def test_expected_last_keywords_hash_should_match_actual_hash_but_display_deprecation_warning
+  def test_expected_keywords_hash_should_match_actual_hash_but_display_deprecation_warning
     expectation = Mocha::Expectation.new(self, :foo)
     matcher = build_matcher(Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }), expectation, true)
     capture_deprecation_warnings do
@@ -59,23 +43,7 @@ class LoosePositionalOrKeywordHashTest < Mocha::TestCase
     assert_includes message, 'See the documentation for Mocha::Configuration#strict_keyword_argument_matching=.'
   end
 
-  def test_expected_non_last_hash_should_match_actual_keywords_hash_but_display_deprecation_warning
-    expectation = Mocha::Expectation.new(self, :foo)
-    matcher = build_matcher({ key_1: 1, key_2: 2 }, expectation, false)
-    capture_deprecation_warnings do
-      assert matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })])
-    end
-    return unless Mocha::RUBY_V27_PLUS
-
-    message = last_deprecation_warning
-    location = expectation.definition_location
-    assert_includes message, "Expectation defined at #{location} expected positional hash ({key_1: 1, key_2: 2})"
-    assert_includes message, 'but received keyword arguments (key_1: 1, key_2: 2)'
-    assert_includes message, 'These will stop matching when strict keyword argument matching is enabled.'
-    assert_includes message, 'See the documentation for Mocha::Configuration#strict_keyword_argument_matching=.'
-  end
-
-  def test_expected_last_hash_should_match_actual_keywords_hash_but_not_display_deprecation_warning
+  def test_expected_hash_should_match_actual_keywords_hash_but_not_display_deprecation_warning
     expectation = Mocha::Expectation.new(self, :foo)
     matcher = build_matcher({ key_1: 1, key_2: 2 }, expectation, true)
     capture_deprecation_warnings do
@@ -102,6 +70,6 @@ class LoosePositionalOrKeywordHashTest < Mocha::TestCase
   private
 
   def build_matcher(hash, expectation = nil, last = nil)
-    Mocha::ParameterMatchers::PositionalOrKeywordHash.new(hash, expectation, last)
+    Mocha::ParameterMatchers::PositionalOrKeywordHash.new(hash, expectation)
   end
 end
