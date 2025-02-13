@@ -12,7 +12,7 @@ module Mocha
     class PositionalOrKeywordHash
       include Base
 
-      def initialize(expected_value, expectation, last_expected_value = false)
+      def initialize(expected_value, expectation)
         @expected_value = expected_value
         @expectation = expectation
       end

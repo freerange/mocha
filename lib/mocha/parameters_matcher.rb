@@ -34,13 +34,7 @@ module Mocha
     end
 
     def matchers
-      @expected_parameters.map.with_index do |parameter, index|
-        parameter.to_matcher(
-          expectation: @expectation,
-          top_level: true,
-          last: index == @expected_parameters.length - 1
-        )
-      end
+      @expected_parameters.map { |parameter| parameter.to_matcher(expectation: @expectation, top_level: true) }
     end
   end
 end
