@@ -29,8 +29,7 @@ class LoosePositionalOrKeywordHashTest < Mocha::TestCase
 
   def test_expected_non_last_keywords_hash_should_match_actual_hash_but_display_deprecation_warning
     expectation = Mocha::Expectation.new(self, :foo)
-    last_matcher = false
-    matcher = build_matcher(Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }), expectation, last_matcher)
+    matcher = build_matcher(Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }), expectation, false)
     capture_deprecation_warnings do
       assert matcher.matches?([{ key_1: 1, key_2: 2 }])
     end
@@ -46,8 +45,7 @@ class LoosePositionalOrKeywordHashTest < Mocha::TestCase
 
   def test_expected_last_keywords_hash_should_match_actual_hash_but_display_deprecation_warning
     expectation = Mocha::Expectation.new(self, :foo)
-    last_matcher = true
-    matcher = build_matcher(Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }), expectation, last_matcher)
+    matcher = build_matcher(Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }), expectation, true)
     capture_deprecation_warnings do
       assert matcher.matches?([{ key_1: 1, key_2: 2 }])
     end
@@ -63,8 +61,7 @@ class LoosePositionalOrKeywordHashTest < Mocha::TestCase
 
   def test_expected_non_last_hash_should_match_actual_keywords_hash_but_display_deprecation_warning
     expectation = Mocha::Expectation.new(self, :foo)
-    last_matcher = false
-    matcher = build_matcher({ key_1: 1, key_2: 2 }, expectation, last_matcher)
+    matcher = build_matcher({ key_1: 1, key_2: 2 }, expectation, false)
     capture_deprecation_warnings do
       assert matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })])
     end
@@ -80,8 +77,7 @@ class LoosePositionalOrKeywordHashTest < Mocha::TestCase
 
   def test_expected_last_hash_should_match_actual_keywords_hash_but_not_display_deprecation_warning
     expectation = Mocha::Expectation.new(self, :foo)
-    last_matcher = true
-    matcher = build_matcher({ key_1: 1, key_2: 2 }, expectation, last_matcher)
+    matcher = build_matcher({ key_1: 1, key_2: 2 }, expectation, true)
     capture_deprecation_warnings do
       assert matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })])
     end
