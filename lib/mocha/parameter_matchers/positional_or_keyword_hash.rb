@@ -12,10 +12,9 @@ module Mocha
     class PositionalOrKeywordHash
       include Base
 
-      def initialize(expected_value, expectation, last_expected_value)
+      def initialize(expected_value, expectation, last_expected_value = false)
         @expected_value = expected_value
         @expectation = expectation
-        @last_expected_value = last_expected_value
       end
 
       def matches?(actual_values)
@@ -54,7 +53,7 @@ module Mocha
       end
 
       def last_expected_value_is_positional_hash?
-        @last_expected_value && !ruby2_keywords_hash?(@expected_value)
+        !ruby2_keywords_hash?(@expected_value)
       end
 
       def extract_actual_value(actual_values)
