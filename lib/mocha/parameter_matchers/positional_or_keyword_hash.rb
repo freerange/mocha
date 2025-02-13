@@ -18,11 +18,10 @@ module Mocha
       end
 
       def matches?(actual_values)
-        actual_value, is_last_actual_value = extract_actual_value(actual_values)
-
+        actual_value = actual_values.shift
         if !matches_entries_exactly?(actual_value)
           false
-        elsif is_last_actual_value
+        elsif actual_values.empty?
           matches_last_actual_value?(actual_value)
         else
           true
@@ -40,9 +39,9 @@ module Mocha
       end
 
       def matches_last_actual_value?(actual_value)
-        if same_type_of_hash?(actual_value, @expected_value)
+        if ruby2_keywords_hash?(actual_value) == ruby2_keywords_hash?(@expected_value)
           true
-        elsif last_expected_value_is_positional_hash? # rubocop:disable Lint/DuplicateBranch
+        elsif !ruby2_keywords_hash?(@expected_value)
           true
         elsif Mocha.configuration.strict_keyword_argument_matching?
           false
@@ -50,18 +49,6 @@ module Mocha
           deprecation_warning(actual_value, @expected_value) if Mocha::RUBY_V27_PLUS
           true
         end
-      end
-
-      def last_expected_value_is_positional_hash?
-        !ruby2_keywords_hash?(@expected_value)
-      end
-
-      def extract_actual_value(actual_values)
-        [actual_values.shift, actual_values.empty?]
-      end
-
-      def same_type_of_hash?(actual, expected)
-        ruby2_keywords_hash?(actual) == ruby2_keywords_hash?(expected)
       end
 
       def deprecation_warning(actual, expected)
