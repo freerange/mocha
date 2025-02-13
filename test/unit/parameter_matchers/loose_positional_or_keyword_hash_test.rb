@@ -27,7 +27,7 @@ class LoosePositionalOrKeywordHashTest < Mocha::TestCase
     Mocha.configure { |c| c.strict_keyword_argument_matching = @original }
   end
 
-  def test_should_match_hash_arg_with_keyword_args_but_display_deprecation_warning_if_not_last_matcher
+  def test_expected_non_last_keywords_hash_should_match_actual_hash_but_display_deprecation_warning
     expectation = Mocha::Expectation.new(self, :foo)
     last_matcher = false
     matcher = build_matcher(Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }), expectation, last_matcher)
@@ -44,7 +44,7 @@ class LoosePositionalOrKeywordHashTest < Mocha::TestCase
     assert_includes message, 'See the documentation for Mocha::Configuration#strict_keyword_argument_matching=.'
   end
 
-  def test_should_match_hash_arg_with_keyword_args_but_display_deprecation_warning_if_last_matcher
+  def test_expected_last_keywords_hash_should_match_actual_hash_but_display_deprecation_warning
     expectation = Mocha::Expectation.new(self, :foo)
     last_matcher = true
     matcher = build_matcher(Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }), expectation, last_matcher)
@@ -61,7 +61,7 @@ class LoosePositionalOrKeywordHashTest < Mocha::TestCase
     assert_includes message, 'See the documentation for Mocha::Configuration#strict_keyword_argument_matching=.'
   end
 
-  def test_should_match_keyword_args_with_hash_arg_but_display_deprecation_warning_if_not_last_matcher
+  def test_expected_non_last_hash_should_match_actual_keywords_hash_but_display_deprecation_warning
     expectation = Mocha::Expectation.new(self, :foo)
     last_matcher = false
     matcher = build_matcher({ key_1: 1, key_2: 2 }, expectation, last_matcher)
@@ -78,7 +78,7 @@ class LoosePositionalOrKeywordHashTest < Mocha::TestCase
     assert_includes message, 'See the documentation for Mocha::Configuration#strict_keyword_argument_matching=.'
   end
 
-  def test_should_match_keyword_args_with_hash_arg_but_not_display_deprecation_warning_if_last_matcher
+  def test_expected_last_hash_should_match_actual_keywords_hash_but_not_display_deprecation_warning
     expectation = Mocha::Expectation.new(self, :foo)
     last_matcher = true
     matcher = build_matcher({ key_1: 1, key_2: 2 }, expectation, last_matcher)

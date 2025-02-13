@@ -22,49 +22,49 @@ if Mocha::RUBY_V27_PLUS
       Mocha.configure { |c| c.strict_keyword_argument_matching = @original }
     end
 
-    def test_should_match_non_last_hash_arg_with_hash_arg
+    def test_expected_hash_should_match_actual_non_last_hash
       hash = { key_1: 1, key_2: 2 }
       matcher = build_matcher(hash)
       assert matcher.matches?([{ key_1: 1, key_2: 2 }, %w[a b]])
     end
 
-    def test_should_not_match_non_hash_arg_with_hash_arg
+    def test_expected_hash_should_not_match_actual_non_hash
       hash = { key_1: 1, key_2: 2 }
       matcher = build_matcher(hash)
       assert !matcher.matches?([%w[a b]])
     end
 
-    def test_should_match_hash_arg_with_hash_arg
+    def test_expected_hash_should_match_actual_hash
       hash = { key_1: 1, key_2: 2 }
       matcher = build_matcher(hash)
       assert matcher.matches?([{ key_1: 1, key_2: 2 }])
     end
 
-    def test_should_match_keyword_args_with_keyword_args
+    def test_expected_keywords_hash_should_match_actual_keywords_hash
       matcher = build_matcher(Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }))
       assert matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })])
     end
 
-    def test_should_not_match_hash_arg_with_keyword_args_if_not_last_matcher
+    def test_expected_non_last_keywords_hash_should_not_match_actual_hash
       last_matcher = false
       matcher = build_matcher(Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }), nil, last_matcher)
       assert !matcher.matches?([{ key_1: 1, key_2: 2 }])
     end
 
-    def test_should_not_match_hash_arg_with_keyword_args_if_last_matcher
+    def test_expected_last_keywords_hash_should_not_match_actual_hash
       last_matcher = true
       matcher = build_matcher(Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }), nil, last_matcher)
       assert !matcher.matches?([{ key_1: 1, key_2: 2 }])
     end
 
-    def test_should_not_match_keyword_args_with_hash_arg_if_not_last_matcher
+    def test_expected_non_last_hash_should_not_match_actual_keywords_hash
       hash = { key_1: 1, key_2: 2 }
       last_matcher = false
       matcher = build_matcher(hash, nil, last_matcher)
       assert !matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })])
     end
 
-    def test_should_match_keyword_args_with_hash_arg_if_last_matcher
+    def test_expected_last_hash_should_match_actual_keywords_hash
       hash = { key_1: 1, key_2: 2 }
       last_matcher = true
       matcher = build_matcher(hash, nil, last_matcher)
