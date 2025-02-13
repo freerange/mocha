@@ -29,7 +29,7 @@ class LoosePositionalOrKeywordHashTest < Mocha::TestCase
 
   def test_expected_keywords_hash_should_match_actual_hash_but_display_deprecation_warning
     expectation = Mocha::Expectation.new(self, :foo)
-    matcher = build_matcher(Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }), expectation, true)
+    matcher = build_matcher(Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }), expectation)
     capture_deprecation_warnings do
       assert matcher.matches?([{ key_1: 1, key_2: 2 }])
     end
@@ -45,7 +45,7 @@ class LoosePositionalOrKeywordHashTest < Mocha::TestCase
 
   def test_expected_hash_should_match_actual_keywords_hash_but_not_display_deprecation_warning
     expectation = Mocha::Expectation.new(self, :foo)
-    matcher = build_matcher({ key_1: 1, key_2: 2 }, expectation, true)
+    matcher = build_matcher({ key_1: 1, key_2: 2 }, expectation)
     capture_deprecation_warnings do
       assert matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })])
     end
@@ -56,7 +56,7 @@ class LoosePositionalOrKeywordHashTest < Mocha::TestCase
 
   def test_should_display_deprecation_warning_even_if_parent_expectation_is_nil
     expectation = nil
-    matcher = build_matcher(Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }), expectation, true)
+    matcher = build_matcher(Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }), expectation)
     capture_deprecation_warnings do
       assert matcher.matches?([{ key_1: 1, key_2: 2 }])
     end
@@ -69,7 +69,7 @@ class LoosePositionalOrKeywordHashTest < Mocha::TestCase
 
   private
 
-  def build_matcher(hash, expectation = nil, last = nil)
+  def build_matcher(hash, expectation = nil)
     Mocha::ParameterMatchers::PositionalOrKeywordHash.new(hash, expectation)
   end
 end
