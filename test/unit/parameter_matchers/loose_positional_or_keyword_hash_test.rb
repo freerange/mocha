@@ -88,15 +88,15 @@ class LoosePositionalOrKeywordHashTest < Mocha::TestCase
 
   def test_should_display_deprecation_warning_even_if_parent_expectation_is_nil
     expectation = nil
-    matcher = build_matcher({ key_1: 1, key_2: 2 }, expectation)
+    matcher = build_matcher(Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }), expectation, true)
     capture_deprecation_warnings do
-      matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })])
+      assert matcher.matches?([{ key_1: 1, key_2: 2 }])
     end
     return unless Mocha::RUBY_V27_PLUS
 
     message = last_deprecation_warning
-    assert_includes message, 'Expectation expected positional hash ({key_1: 1, key_2: 2})'
-    assert_includes message, 'but received keyword arguments (key_1: 1, key_2: 2)'
+    assert_includes message, 'Expectation expected keyword arguments (key_1: 1, key_2: 2)'
+    assert_includes message, 'but received positional hash ({key_1: 1, key_2: 2})'
   end
 
   private
