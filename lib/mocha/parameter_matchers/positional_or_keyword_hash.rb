@@ -41,15 +41,11 @@ module Mocha
       def matches_entries_exactly?(actual_value)
         HasEntries.new(@expected_value, exact: true).matches?([actual_value])
       end
-
-      def ruby2_keywords_hash?(hash)
-        hash.is_a?(Hash) && ::Hash.ruby2_keywords_hash?(hash)
-      end
     end
 
     class KeywordsHash < PositionalOrKeywordHash
       def matches_last_actual_value?(actual_value)
-        if ruby2_keywords_hash?(actual_value)
+        if actual_value.is_a?(Hash) && Hash.ruby2_keywords_hash?(actual_value)
           true
         elsif Mocha.configuration.strict_keyword_argument_matching?
           false
