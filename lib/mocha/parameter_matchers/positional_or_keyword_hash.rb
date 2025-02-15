@@ -23,13 +23,7 @@ module Mocha
 
       def matches?(actual_values)
         actual_value = actual_values.shift
-        if !matches_entries_exactly?(actual_value)
-          false
-        elsif actual_values.empty?
-          matches_last_actual_value?(actual_value)
-        else
-          true
-        end
+        matches_entries_exactly?(actual_value) && (actual_values.any? || matches_last_actual_value?(actual_value))
       end
 
       def mocha_inspect
