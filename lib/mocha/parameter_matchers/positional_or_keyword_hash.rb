@@ -43,6 +43,7 @@ module Mocha
       end
 
       def deprecation_warning(actual, expected)
+        expectation_definition = @expectation ? "defined at #{@expectation.definition_location}" : ''
         details1 = "Expectation #{expectation_definition} expected #{hash_type(expected)} (#{expected.mocha_inspect}),".squeeze(' ')
         details2 = "but received #{hash_type(actual)} (#{actual.mocha_inspect})."
         sentence1 = 'These will stop matching when strict keyword argument matching is enabled.'
@@ -56,10 +57,6 @@ module Mocha
 
       def ruby2_keywords_hash?(hash)
         hash.is_a?(Hash) && ::Hash.ruby2_keywords_hash?(hash)
-      end
-
-      def expectation_definition
-        @expectation ? "defined at #{@expectation.definition_location}" : ''
       end
     end
 
