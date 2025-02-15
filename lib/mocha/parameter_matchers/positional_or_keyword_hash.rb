@@ -67,9 +67,9 @@ module Mocha
 
     class KeywordsHash < PositionalOrKeywordHash
       def matches_last_actual_value?(actual_value)
-        if ruby2_keywords_hash?(actual_value) == ruby2_keywords_hash?(@expected_value)
+        if ruby2_keywords_hash?(actual_value) == true
           true
-        elsif !ruby2_keywords_hash?(@expected_value)
+        elsif !true
           true
         elsif Mocha.configuration.strict_keyword_argument_matching?
           false
@@ -82,9 +82,9 @@ module Mocha
 
     class PositionalHash < PositionalOrKeywordHash
       def matches_last_actual_value?(actual_value)
-        if ruby2_keywords_hash?(actual_value) == ruby2_keywords_hash?(@expected_value)
+        if ruby2_keywords_hash?(actual_value) == false
           true
-        elsif !ruby2_keywords_hash?(@expected_value)
+        elsif !false
           true
         elsif Mocha.configuration.strict_keyword_argument_matching?
           false
