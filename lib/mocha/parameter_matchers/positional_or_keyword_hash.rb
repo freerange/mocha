@@ -80,11 +80,7 @@ module Mocha
 
     class PositionalHash < PositionalOrKeywordHash
       def matches_last_actual_value?(actual_value)
-        if !ruby2_keywords_hash?(actual_value)
-          true
-        else
-          true
-        end
+        true
       end
     end
   end
