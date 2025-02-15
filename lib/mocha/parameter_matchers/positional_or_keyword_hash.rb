@@ -42,10 +42,6 @@ module Mocha
         HasEntries.new(@expected_value, exact: true).matches?([actual_value])
       end
 
-      def hash_type(hash)
-        ruby2_keywords_hash?(hash) ? 'keyword arguments' : 'positional hash'
-      end
-
       def ruby2_keywords_hash?(hash)
         hash.is_a?(Hash) && ::Hash.ruby2_keywords_hash?(hash)
       end
@@ -65,8 +61,8 @@ module Mocha
 
       def deprecation_warning(actual, expected)
         expectation_definition = @expectation ? "defined at #{@expectation.definition_location}" : ''
-        details1 = "Expectation #{expectation_definition} expected #{hash_type(expected)} (#{expected.mocha_inspect}),".squeeze(' ')
-        details2 = "but received #{hash_type(actual)} (#{actual.mocha_inspect})."
+        details1 = "Expectation #{expectation_definition} expected keyword arguments (#{expected.mocha_inspect}),".squeeze(' ')
+        details2 = "but received positional hash (#{actual.mocha_inspect})."
         sentence1 = 'These will stop matching when strict keyword argument matching is enabled.'
         sentence2 = 'See the documentation for Mocha::Configuration#strict_keyword_argument_matching=.'
         Deprecation.warning([details1, details2, sentence1, sentence2].join(' '))
