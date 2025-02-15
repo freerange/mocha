@@ -13,7 +13,7 @@ module Mocha
         if Base === self
           self
         elsif Hash === self && top_level
-          Mocha::ParameterMatchers::PositionalOrKeywordHash.new(self, expectation)
+          Mocha::ParameterMatchers::PositionalOrKeywordHash.for(self, expectation)
         else
           Mocha::ParameterMatchers::Equals.new(self)
         end

@@ -12,6 +12,10 @@ module Mocha
     class PositionalOrKeywordHash
       include Base
 
+      def self.for(expected_value, expectation)
+        (Hash.ruby2_keywords_hash?(expected_value) ? KeywordsHash : PositionalHash).new(expected_value, expectation)
+      end
+
       def initialize(expected_value, expectation)
         @expected_value = expected_value
         @expectation = expectation
@@ -72,6 +76,12 @@ module Mocha
 
         "defined at #{@expectation.definition_location}"
       end
+    end
+
+    class KeywordsHash < PositionalOrKeywordHash
+    end
+
+    class PositionalHash < PositionalOrKeywordHash
     end
   end
 end
