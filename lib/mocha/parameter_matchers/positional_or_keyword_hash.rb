@@ -42,19 +42,6 @@ module Mocha
         HasEntries.new(@expected_value, exact: true).matches?([actual_value])
       end
 
-      def matches_last_actual_value?(actual_value)
-        if ruby2_keywords_hash?(actual_value) == ruby2_keywords_hash?(@expected_value)
-          true
-        elsif !ruby2_keywords_hash?(@expected_value)
-          true
-        elsif Mocha.configuration.strict_keyword_argument_matching?
-          false
-        else
-          deprecation_warning(actual_value, @expected_value) if Mocha::RUBY_V27_PLUS
-          true
-        end
-      end
-
       def deprecation_warning(actual, expected)
         details1 = "Expectation #{expectation_definition} expected #{hash_type(expected)} (#{expected.mocha_inspect}),".squeeze(' ')
         details2 = "but received #{hash_type(actual)} (#{actual.mocha_inspect})."
@@ -79,9 +66,33 @@ module Mocha
     end
 
     class KeywordsHash < PositionalOrKeywordHash
+      def matches_last_actual_value?(actual_value)
+        if ruby2_keywords_hash?(actual_value) == ruby2_keywords_hash?(@expected_value)
+          true
+        elsif !ruby2_keywords_hash?(@expected_value)
+          true
+        elsif Mocha.configuration.strict_keyword_argument_matching?
+          false
+        else
+          deprecation_warning(actual_value, @expected_value) if Mocha::RUBY_V27_PLUS
+          true
+        end
+      end
     end
 
     class PositionalHash < PositionalOrKeywordHash
+      def matches_last_actual_value?(actual_value)
+        if ruby2_keywords_hash?(actual_value) == ruby2_keywords_hash?(@expected_value)
+          true
+        elsif !ruby2_keywords_hash?(@expected_value)
+          true
+        elsif Mocha.configuration.strict_keyword_argument_matching?
+          false
+        else
+          deprecation_warning(actual_value, @expected_value) if Mocha::RUBY_V27_PLUS
+          true
+        end
+      end
     end
   end
 end
