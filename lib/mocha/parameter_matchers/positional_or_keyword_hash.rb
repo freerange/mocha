@@ -67,9 +67,7 @@ module Mocha
 
     class KeywordsHash < PositionalOrKeywordHash
       def matches_last_actual_value?(actual_value)
-        if ruby2_keywords_hash?(actual_value) == true
-          true
-        elsif !true
+        if ruby2_keywords_hash?(actual_value)
           true
         elsif Mocha.configuration.strict_keyword_argument_matching?
           false
@@ -82,14 +80,9 @@ module Mocha
 
     class PositionalHash < PositionalOrKeywordHash
       def matches_last_actual_value?(actual_value)
-        if ruby2_keywords_hash?(actual_value) == false
+        if !ruby2_keywords_hash?(actual_value)
           true
-        elsif !false
-          true
-        elsif Mocha.configuration.strict_keyword_argument_matching?
-          false
         else
-          deprecation_warning(actual_value, @expected_value) if Mocha::RUBY_V27_PLUS
           true
         end
       end
