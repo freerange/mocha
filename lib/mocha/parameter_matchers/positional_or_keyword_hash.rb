@@ -59,9 +59,7 @@ module Mocha
       end
 
       def expectation_definition
-        return nil unless @expectation
-
-        "defined at #{@expectation.definition_location}"
+        @expectation ? "defined at #{@expectation.definition_location}" : ''
       end
     end
 
