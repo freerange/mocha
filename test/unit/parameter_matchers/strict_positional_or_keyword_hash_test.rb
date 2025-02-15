@@ -55,7 +55,7 @@ if Mocha::RUBY_V27_PLUS
     private
 
     def build_matcher(hash)
-      Mocha::ParameterMatchers::PositionalOrKeywordHash.new(hash, nil)
+      Mocha::ParameterMatchers::PositionalOrKeywordHash.for(hash, nil)
     end
   end
 end
