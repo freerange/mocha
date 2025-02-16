@@ -20,7 +20,7 @@ module Mocha
       def matches?(actual_values)
         actual_value = actual_values.shift
         matches_entries_exactly?(actual_value) &&
-          (!Hash.ruby2_keywords_hash?(@expected_value) || matches_last_actual_value?(actual_value))
+          (!Hash.ruby2_keywords_hash?(@expected_value) || matches_keywords_hash?(actual_value))
       end
 
       def mocha_inspect
@@ -33,7 +33,7 @@ module Mocha
         HasEntries.new(@expected_value, exact: true).matches?([actual_value])
       end
 
-      def matches_last_actual_value?(actual_value)
+      def matches_keywords_hash?(actual_value)
         if actual_value.is_a?(Hash) && Hash.ruby2_keywords_hash?(actual_value)
           true
         elsif Mocha.configuration.strict_keyword_argument_matching?
