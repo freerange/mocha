@@ -19,8 +19,7 @@ module Mocha
 
       def matches?(actual_values)
         actual_value = actual_values.shift
-        matches_entries_exactly?(actual_value) &&
-          (!Hash.ruby2_keywords_hash?(@expected_value) || matches_keywords_hash?(actual_value))
+        matches_entries_exactly?(actual_value) && (!keywords_hash?(@expected_value) || matches_keywords_hash?(actual_value))
       end
 
       def mocha_inspect
@@ -34,7 +33,7 @@ module Mocha
       end
 
       def matches_keywords_hash?(actual_value)
-        if actual_value.is_a?(Hash) && Hash.ruby2_keywords_hash?(actual_value)
+        if keywords_hash?(actual_value)
           true
         elsif Mocha.configuration.strict_keyword_argument_matching?
           false
@@ -51,6 +50,10 @@ module Mocha
         sentence1 = 'These will stop matching when strict keyword argument matching is enabled.'
         sentence2 = 'See the documentation for Mocha::Configuration#strict_keyword_argument_matching=.'
         Deprecation.warning([details1, details2, sentence1, sentence2].join(' '))
+      end
+
+      def keywords_hash?(hash)
+        hash.is_a?(Hash) && Hash.ruby2_keywords_hash?(hash)
       end
     end
   end
