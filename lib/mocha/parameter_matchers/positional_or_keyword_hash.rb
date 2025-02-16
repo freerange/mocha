@@ -33,14 +33,11 @@ module Mocha
       end
 
       def matches_keywords_hash?(actual_value)
-        if keywords_hash?(actual_value)
-          true
-        elsif Mocha.configuration.strict_keyword_argument_matching?
-          false
-        else
-          deprecation_warning(actual_value, @expected_value) if Mocha::RUBY_V27_PLUS
-          true
-        end
+        return true if keywords_hash?(actual_value)
+        return false if Mocha.configuration.strict_keyword_argument_matching?
+
+        deprecation_warning(actual_value, @expected_value) if Mocha::RUBY_V27_PLUS
+        true
       end
 
       def deprecation_warning(actual, expected)
