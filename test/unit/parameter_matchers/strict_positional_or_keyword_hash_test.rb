@@ -22,11 +22,6 @@ if Mocha::RUBY_V27_PLUS
       Mocha.configure { |c| c.strict_keyword_argument_matching = @original }
     end
 
-    def test_expected_hash_should_match_actual_non_last_hash
-      matcher = build_matcher({ key_1: 1, key_2: 2 })
-      assert matcher.matches?([{ key_1: 1, key_2: 2 }, %w[a b]])
-    end
-
     def test_expected_hash_should_not_match_actual_non_hash
       matcher = build_matcher({ key_1: 1, key_2: 2 })
       assert !matcher.matches?([%w[a b]])

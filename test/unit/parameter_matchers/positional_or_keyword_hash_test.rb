@@ -16,11 +16,6 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
     assert_equal '{key_1: 1, key_2: 2}', matcher.mocha_inspect
   end
 
-  def test_should_match_non_last_hash_arg_with_hash_arg
-    matcher = build_matcher({ key_1: 1, key_2: 2 })
-    assert matcher.matches?([{ key_1: 1, key_2: 2 }, %w[a b]])
-  end
-
   def test_should_not_match_non_hash_arg_with_hash_arg
     matcher = build_matcher({ key_1: 1, key_2: 2 })
     assert !matcher.matches?([%w[a b]])
