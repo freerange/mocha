@@ -12,10 +12,6 @@ module Mocha
     class PositionalOrKeywordHash
       include Base
 
-      def self.for(expected_value, expectation)
-        (Hash.ruby2_keywords_hash?(expected_value) ? KeywordsHash : PositionalHash).new(expected_value, expectation)
-      end
-
       def initialize(expected_value, expectation)
         @expected_value = expected_value
         @expectation = expectation
@@ -23,7 +19,8 @@ module Mocha
 
       def matches?(actual_values)
         actual_value = actual_values.shift
-        matches_entries_exactly?(actual_value) && matches_last_actual_value?(actual_value)
+        matches_entries_exactly?(actual_value) &&
+          (!Hash.ruby2_keywords_hash?(@expected_value) || matches_last_actual_value?(actual_value))
       end
 
       def mocha_inspect
@@ -35,9 +32,7 @@ module Mocha
       def matches_entries_exactly?(actual_value)
         HasEntries.new(@expected_value, exact: true).matches?([actual_value])
       end
-    end
 
-    class KeywordsHash < PositionalOrKeywordHash
       def matches_last_actual_value?(actual_value)
         if actual_value.is_a?(Hash) && Hash.ruby2_keywords_hash?(actual_value)
           true
@@ -56,12 +51,6 @@ module Mocha
         sentence1 = 'These will stop matching when strict keyword argument matching is enabled.'
         sentence2 = 'See the documentation for Mocha::Configuration#strict_keyword_argument_matching=.'
         Deprecation.warning([details1, details2, sentence1, sentence2].join(' '))
-      end
-    end
-
-    class PositionalHash < PositionalOrKeywordHash
-      def matches_last_actual_value?(actual_value)
-        true
       end
     end
   end
