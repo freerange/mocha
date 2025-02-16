@@ -70,6 +70,6 @@ class LoosePositionalOrKeywordHashTest < Mocha::TestCase
   private
 
   def build_matcher(hash, expectation = nil)
-    Mocha::ParameterMatchers::PositionalOrKeywordHash.for(hash, expectation)
+    Mocha::ParameterMatchers::PositionalOrKeywordHash.new(hash, expectation)
   end
 end
