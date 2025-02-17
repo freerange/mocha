@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gemspec
 
 group :development do
+  gem 'benchmark'
   gem 'introspection', '~> 0.0.1'
   gem 'minitest'
   gem 'rake'
