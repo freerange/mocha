@@ -1,5 +1,18 @@
 version: 2.1
 
+commands:
+  run-fail-fast:
+    description: "Execute command and fail on any warning in output"
+    parameters:
+      command:
+        type: string
+    steps:
+      - run: << parameters.command >> 2>&1 | tee output.log
+      - run: |
+          if grep -q "warning:" output.log; then
+            echo "Warnings found in test output. Failing the job."
+            exit 1
+          fi
 jobs:
   build:
     parameters:
@@ -29,28 +42,32 @@ jobs:
           condition:
             equal: ["Gemfile", << parameters.gemfile >>]
           steps:
-            - run: bundle exec rake test
+            - run-fail-fast:
+                command: bundle exec rake test
       - when:
           condition:
             matches:
               pattern: ".*minitest.*"
               value: << parameters.gemfile >>
           steps:
-            - run: MOCHA_RUN_INTEGRATION_TESTS=minitest bundle exec --gemfile=<< parameters.gemfile >> rake test
+            - run-fail-fast:
+                command: MOCHA_RUN_INTEGRATION_TESTS=minitest bundle exec --gemfile=<< parameters.gemfile >> rake test
       - when:
           condition:
             matches:
               pattern: ".*test-unit.*"
               value: << parameters.gemfile >>
           steps:
-            - run: MOCHA_RUN_INTEGRATION_TESTS=test-unit bundle exec --gemfile=<< parameters.gemfile >> rake test
+            - run-fail-fast:
+                command: MOCHA_RUN_INTEGRATION_TESTS=test-unit bundle exec --gemfile=<< parameters.gemfile >> rake test
       - when:
           condition:
             and:
               - equal: ["ruby:latest", << parameters.docker-image >>]
               - equal: ["Gemfile", << parameters.gemfile >>]
           steps:
-            - run: bundle exec rake test:performance
+            - run-fail-fast:
+                command: bundle exec rake test:performance
             - run: MOCHA_GENERATE_DOCS=1 bundle install --gemfile=<< parameters.gemfile >>
             - run: RUBYOPT=--disable-frozen-string-literal MOCHA_GENERATE_DOCS=1 rake docs docs:coverage
   lint:
