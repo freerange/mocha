@@ -56,10 +56,9 @@ class LooseKeywordArgumentMatchingTest < Mocha::TestCase
   end
 
   def test_should_match_positional_and_keyword_args_with_last_positional_hash
-    execution_point = nil
     test_result = run_as_test do
       mock = mock()
-      mock.expects(:method).with(1, { key: 42 }); execution_point = ExecutionPoint.current
+      mock.expects(:method).with(1, { key: 42 })
       capture_deprecation_warnings do
         mock.method(1, key: 42)
       end
