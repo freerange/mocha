@@ -20,7 +20,7 @@ module Mocha
       end
 
       def logger
-        @logger || Logger.new
+        @logger ||= Logger.new
       end
     end
   end

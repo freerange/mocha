@@ -10,6 +10,18 @@ module Mocha
   #
   # Both {#expects} and {#stubs} return an {Expectation} which can be further modified by methods on {Expectation}.
   module ObjectMethods
+    if RUBY_PLATFORM == 'java'
+      # @private
+      module JRubyAliasMethodWarningFilter
+        def warn(message, *args)
+          super unless /ObjectMethods#method accesses caller method's state and should not be aliased/.match?(message)
+        end
+      end
+
+      # using public_send as calling extend directly causes YARD to warn about Undocumentable mixin
+      Warning.public_send(:extend, JRubyAliasMethodWarningFilter) # rubocop:disable Lint/SendWithMixinArgument, Style/SendWithLiteralMethodName
+    end
+
     # @private
     alias_method :_method, :method
 

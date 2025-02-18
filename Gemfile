@@ -7,6 +7,7 @@ group :development do
   gem 'introspection', '~> 0.0.1'
   gem 'minitest'
   gem 'rake'
+  gem 'rdoc'
 
   if ENV['MOCHA_GENERATE_DOCS']
     gem 'redcarpet'
