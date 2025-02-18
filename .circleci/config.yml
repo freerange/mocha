@@ -9,8 +9,6 @@ jobs:
         type: string
     docker:
       - image: << parameters.docker-image >>
-    environment:
-      RUBYOPT: --enable-frozen-string-literal
     steps:
       - checkout
       - run: ruby --version
@@ -23,6 +21,10 @@ jobs:
       - run: gem --version
       - run: bundle --version
       - run: bundle install --gemfile=<< parameters.gemfile >>
+      - run: |
+          if [ "<< parameters.docker-image >>" > "ruby:2.2" ]; then
+            export RUBYOPT="--enable-frozen-string-literal"
+          fi
       - when:
           condition:
             equal: ["Gemfile", << parameters.gemfile >>]
