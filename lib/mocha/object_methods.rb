@@ -10,8 +10,20 @@ module Mocha
   #
   # Both {#expects} and {#stubs} return an {Expectation} which can be further modified by methods on {Expectation}.
   module ObjectMethods
-    # @private
-    alias_method :_method, :method
+    if RUBY_ENGINE == 'jruby'
+      require 'mocha/ignoring_warning'
+      extend IgnoringWarning
+
+      # @private
+      JRUBY_ALIAS_SPECIAL_METHODS_WARNING = /accesses caller method's state and should not be aliased/.freeze
+
+      ignoring_warning(JRUBY_ALIAS_SPECIAL_METHODS_WARNING) do
+        alias_method :_method, :method
+      end
+    else
+      alias_method :_method, :method
+    end
+
 
     # @private
     def mocha(instantiate: true)
