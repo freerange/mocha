@@ -1,0 +1,33 @@
+inherit_from: ../.rubocop.yml # Inherit from the global configuration
+
+# It can be useful to violate this cop in tests in order to be more explicit
+Lint/UselessTimes:
+  Enabled: false
+
+# It can be useful to violate this cop in tests
+Lint/EmptyClass:
+  Enabled: false
+
+# It can be useful to violate this cop in tests when testing methods that accept a block
+Lint/EmptyBlock:
+  Enabled: false
+
+# There are a mix of styles in the tests and so I don't think it's worth enforcing for now
+Naming/VariableNumber:
+  Enabled: false
+
+# These methods from Ruby core are legitimately overridden in the tests
+Style/OptionalBooleanParameter:
+  AllowedMethods:
+    - respond_to?
+    - public_methods
+    - protected_methods
+    - private_methods
+    - public_instance_methods
+    - protected_instance_methods
+    - private_instance_methods
+
+Naming/FileName:
+  CheckDefinitionPathHierarchyRoots:
+    - test/unit
+    - test/acceptance
