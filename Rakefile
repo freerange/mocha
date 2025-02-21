@@ -161,7 +161,7 @@ if ENV['MOCHA_GENERATE_DOCS']
       end
 
       covered_percent = match[1].to_f
-      min_coverage = 95.0
+      min_coverage = 100.0
 
       if covered_percent < min_coverage
         puts "Documentation coverage is #{covered_percent}%, which is below the required #{min_coverage}%."
