@@ -157,7 +157,7 @@ if ENV['MOCHA_GENERATE_DOCS']
       abort 'Error: Could not determine documentation coverage.' unless match
 
       coverage_percentage = match[:coverage_percentage].to_f
-      minimum_percentage = 95.0
+      minimum_percentage = 100.0
 
       if coverage_percentage < minimum_percentage
         abort "Documentation coverage is #{coverage_percentage}%, which is below the required #{minimum_percentage}%."
