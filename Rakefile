@@ -146,6 +146,26 @@ if ENV['MOCHA_GENERATE_DOCS']
 
   desc 'Generate documentation'
   task 'generate_docs' => %w[clobber_yardoc yardoc checkout_docs_cname checkout_docs_js]
+
+  namespace :docs do
+    desc 'Check documentation coverage'
+    task :coverage do
+      stats_output = `yard stats --list-undoc`
+      puts stats_output
+
+      match = stats_output.match(/(?<coverage_percentage>\d+\.\d+)% documented/);
+      abort 'Error: Could not determine documentation coverage.' unless match
+
+      coverage_percentage = match[:coverage_percentage].to_f
+      minimum_percentage = 95.0
+
+      if coverage_percentage < minimum_percentage
+        abort "Documentation coverage is #{coverage_percentage}%, which is below the required #{minimum_percentage}%."
+      else
+        puts "Documentation coverage is #{coverage_percentage}%, which is at or above the required #{minimum_percentage}%."
+      end
+    end
+  end
 end
 
 task 'release' => ['default', 'rubygems:release']
