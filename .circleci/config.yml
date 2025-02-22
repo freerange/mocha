@@ -10,13 +10,13 @@ jobs:
     docker:
       - image: << parameters.docker-image >>
     environment:
-      RUBYOPT=--enable-frozen-string-literal
+      RUBYOPT: --enable-frozen-string-literal
     steps:
       - checkout
       - run: ruby --version
       - when:
           condition:
-            equal: [ "jruby:latest", << parameters.docker-image >>]
+            equal: ["jruby:latest", << parameters.docker-image >>]
           steps:
             - run: apt-get update
             - run: apt-get install -y git
@@ -25,7 +25,7 @@ jobs:
       - run: bundle install --gemfile=<< parameters.gemfile >>
       - when:
           condition:
-            equal: [ "Gemfile", << parameters.gemfile >>]
+            equal: ["Gemfile", << parameters.gemfile >>]
           steps:
             - run: bundle exec rake test
       - when:
@@ -45,8 +45,8 @@ jobs:
       - when:
           condition:
             and:
-              - equal: [ "ruby:latest", << parameters.docker-image >> ]
-              - equal: [ "Gemfile", << parameters.gemfile >>]
+              - equal: ["ruby:latest", << parameters.docker-image >>]
+              - equal: ["Gemfile", << parameters.gemfile >>]
           steps:
             - run: bundle exec rake test:performance
             - run: MOCHA_GENERATE_DOCS=1 bundle install --gemfile=<< parameters.gemfile >>
