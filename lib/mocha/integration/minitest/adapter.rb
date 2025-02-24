@@ -6,6 +6,7 @@ require 'mocha/expectation_error_factory'
 
 module Mocha
   module Integration
+    # Contains {Adapter} that integrates Mocha into recent versions of Minitest.
     module Minitest
       # Integrates Mocha into recent versions of Minitest.
       #

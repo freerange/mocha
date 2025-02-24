@@ -120,3 +120,7 @@ Naming/FileName:
     - lib/mocha/ruby_version.rb
     - lib/mocha/macos_version.rb
     - test/test_helper.rb
+
+Metrics/BlockLength:
+  Exclude:
+    - "Rakefile"

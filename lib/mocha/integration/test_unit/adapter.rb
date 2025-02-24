@@ -6,6 +6,7 @@ require 'mocha/expectation_error'
 
 module Mocha
   module Integration
+    # Contains {Adapter} that integrates Mocha into recent versions of Test::Unit.
     module TestUnit
       # Integrates Mocha into recent versions of Test::Unit.
       #
