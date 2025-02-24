@@ -19,7 +19,7 @@ Naming/VariableNumber:
 # These methods from Ruby core are legitimately overridden in the tests
 Style/OptionalBooleanParameter:
   AllowedMethods:
-    - respond_to?
+    - respond_to_missing?
     - public_methods
     - protected_methods
     - private_methods
