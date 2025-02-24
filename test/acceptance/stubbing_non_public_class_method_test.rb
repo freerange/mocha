@@ -150,7 +150,7 @@ class StubbingNonPublicClassMethodTest < Mocha::TestCase
     Mocha.configure { |c| c.stubbing_non_public_method = :prevent }
     klass = Class.new do
       class << self
-        def respond_to?(method, _include_all = false)
+        def respond_to_missing?(method, _include_all = false)
           (method == :method_to_which_class_responds)
         end
       end
