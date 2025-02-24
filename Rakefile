@@ -25,7 +25,7 @@ task 'test' do
   end
 end
 
-namespace 'test' do # rubocop:disable Metrics/BlockLength
+namespace 'test' do
   desc 'Run unit tests'
   Rake::TestTask.new('units') do |t|
     t.libs << 'test'
@@ -123,31 +123,28 @@ end
 if ENV['MOCHA_GENERATE_DOCS']
   require 'yard'
 
-  desc 'Remove generated documentation'
-  task 'clobber_yardoc' do
-    `rm -rf ./docs`
-  end
-
-  desc 'Generate documentation'
-  YARD::Rake::YardocTask.new('yardoc') do |task|
-    task.options = ['--title', "Mocha #{Mocha::VERSION}", '--fail-on-warning']
-  end
-
-  desc 'Ensure custom domain remains in place for docs on GitHub Pages'
-  task 'checkout_docs_cname' do
-    `git checkout docs/CNAME`
-  end
-
-  desc 'Ensure custom JavaScript files remain in place for docs on GitHub Pages'
-  task 'checkout_docs_js' do
-    `git checkout docs/js/app.js`
-    `git checkout docs/js/jquery.js`
-  end
-
-  desc 'Generate documentation'
-  task 'generate_docs' => %w[clobber_yardoc yardoc checkout_docs_cname checkout_docs_js]
-
   namespace :docs do
+    desc 'Remove generated documentation'
+    task :clobber do
+      `rm -rf ./docs`
+    end
+
+    desc 'Generate documentation'
+    YARD::Rake::YardocTask.new(:generate) do |task|
+      task.options = ['--title', "Mocha #{Mocha::VERSION}", '--fail-on-warning']
+    end
+
+    desc 'Ensure custom domain remains in place for docs on GitHub Pages'
+    task :ensure_cname do
+      `git checkout docs/CNAME`
+    end
+
+    desc 'Ensure custom JavaScript files remain in place for docs on GitHub Pages'
+    task :ensure_js do
+      `git checkout docs/js/app.js`
+      `git checkout docs/js/jquery.js`
+    end
+
     desc 'Check documentation coverage'
     task :coverage do
       stats_output = `yard stats --list-undoc`
@@ -166,6 +163,9 @@ if ENV['MOCHA_GENERATE_DOCS']
       end
     end
   end
+
+  desc 'Prepare documentation for publication on GitHub Pages'
+  task 'docs' => %w[docs:clobber docs:generate docs:ensure_cname docs:ensure_js]
 end
 
 task 'release' => ['default', 'rubygems:release']

@@ -50,7 +50,7 @@ jobs:
           steps:
             - run: bundle exec rake test:performance
             - run: MOCHA_GENERATE_DOCS=1 bundle install --gemfile=<< parameters.gemfile >>
-            - run: RUBYOPT=--disable-frozen-string-literal MOCHA_GENERATE_DOCS=1 rake yardoc docs:coverage
+            - run: RUBYOPT=--disable-frozen-string-literal MOCHA_GENERATE_DOCS=1 rake docs docs:coverage
   lint:
     docker:
       - image: ruby:3.3
