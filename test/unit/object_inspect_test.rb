@@ -30,6 +30,8 @@ class ObjectInspectTest < Mocha::TestCase
     object = Object.new
 
     if Mocha::RUBY_V34_PLUS
+      require 'mocha/ignoring_warning'
+      include Mocha::IgnoringWarning
       ignoring_warning(/warning: redefining 'object_id' may cause serious problems/) do
         replace_instance_method(object, :object_id) do
           flunk 'should not call `Object#object_id`'
@@ -63,17 +65,5 @@ class ObjectInspectTest < Mocha::TestCase
     address = id * 2
     address += 0x100000000 if address < 0
     "#<#{klass}:0x#{Kernel.format('%<address>x', address: address)}>"
-  end
-
-  def ignoring_warning(pattern)
-    original_warn = Warning.method(:warn)
-    Warning.singleton_class.define_method(:warn) do |message|
-      original_warn.call(message) unless message =~ pattern
-    end
-
-    yield
-  ensure
-    Warning.singleton_class.undef_method(:warn)
-    Warning.singleton_class.define_method(:warn, original_warn)
   end
 end
