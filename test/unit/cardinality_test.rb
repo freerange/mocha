@@ -14,7 +14,7 @@ class CardinalityTest < Mocha::TestCase
   end
 
   def test_should_allow_invocations_if_invocation_count_has_not_yet_reached_maximum
-    cardinality = Cardinality.new(2, 3)
+    cardinality = Cardinality.new.range(2, 3)
     assert cardinality.invocations_allowed?
     cardinality << new_invocation
     assert cardinality.invocations_allowed?
@@ -32,7 +32,7 @@ class CardinalityTest < Mocha::TestCase
   end
 
   def test_should_be_satisfied_if_invocations_so_far_have_reached_required_threshold
-    cardinality = Cardinality.new(2, 3)
+    cardinality = Cardinality.new.range(2, 3)
     assert !cardinality.satisfied?
     cardinality << new_invocation
     assert !cardinality.satisfied?
