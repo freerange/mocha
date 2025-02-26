@@ -127,7 +127,7 @@ module Mocha
       times(1)
     end
 
-    # Modifies expectation so that the expected method must never be called.
+    # Modifies expectation so that the expected method must never be called. This is equivalent to calling {#times} with an argument of +0+.
     #
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
     #
@@ -180,7 +180,7 @@ module Mocha
       at_least(1)
     end
 
-    # Modifies expectation so that the expected method must be called at most a +maximum_number_of_times+.
+    # Modifies expectation so that the expected method must be called at most a +maximum_number_of_times+. This is equivalent to calling {#times} with an argument of +0..maximum_number_of_times+
     #
     # @param [Integer] maximum_number_of_times maximum number of expected invocations.
     # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
