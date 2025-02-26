@@ -184,7 +184,7 @@ class InstanceMethodTest < Mocha::TestCase
         self.reset_mocha_called = true
       end
     end.new
-    replace_instance_method(method, :stubbee) { stubbee }
+    replace_instance_method(method, :stubba_object) { stubbee }
 
     method.unstub
 
