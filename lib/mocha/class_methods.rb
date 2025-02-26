@@ -28,8 +28,8 @@ module Mocha
         @stubba_object
       end
 
-      def respond_to?(symbol, include_all = false)
-        @stubba_object.allocate.respond_to?(symbol.to_sym, include_all)
+      def stubba_respond_to?(symbol)
+        @stubba_object.allocate.respond_to?(symbol.to_sym)
       end
 
       attr_reader :stubba_object

@@ -72,37 +72,6 @@ Layout/LineLength:
 Gemspec/RequiredRubyVersion:
   Enabled: false
 
-# It can be useful to violate this cop in tests in order to be more explicit
-Lint/UselessTimes:
-  Exclude:
-    - 'test/**/*.rb'
-
-# It can be useful to violate this cop in tests
-Lint/EmptyClass:
-  Exclude:
-    - 'test/**/*.rb'
-
-# It can be useful to violate this cop in tests when testing methods that accept a block
-Lint/EmptyBlock:
-  Exclude:
-    - 'test/**/*.rb'
-
-# There are a mix of styles in the tests and so I don't think it's worth enforcing for now
-Naming/VariableNumber:
-  Exclude:
-    - 'test/**/*.rb'
-
-# These methods from Ruby core are legitimately overridden in the tests
-Style/OptionalBooleanParameter:
-  AllowedMethods:
-    - respond_to?
-    - public_methods
-    - protected_methods
-    - private_methods
-    - public_instance_methods
-    - protected_instance_methods
-    - private_instance_methods
-
 # This cop is useful for required environment variables, but not for optional ones
 Style/FetchEnvVar:
   AllowedVars:
@@ -110,9 +79,6 @@ Style/FetchEnvVar:
 
 Naming/FileName:
   ExpectMatchingDefinition: true
-  CheckDefinitionPathHierarchyRoots:
-    - test/unit
-    - test/acceptance
   Exclude:
     - lib/mocha/version.rb
     - lib/mocha/minitest.rb
