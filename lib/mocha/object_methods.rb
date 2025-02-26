@@ -4,14 +4,21 @@ require 'mocha/mockery'
 require 'mocha/instance_method'
 require 'mocha/argument_iterator'
 require 'mocha/expectation_error_factory'
+require 'mocha/ignoring_warning'
 
 module Mocha
   # Methods added to all objects to allow mocking and stubbing on real (i.e. non-mock) objects.
   #
   # Both {#expects} and {#stubs} return an {Expectation} which can be further modified by methods on {Expectation}.
   module ObjectMethods
+    extend IgnoringWarning
+
     # @private
-    alias_method :_method, :method
+    JRUBY_ALIAS_SPECIAL_METHODS_WARNING = /accesses caller method's state and should not be aliased/.freeze
+
+    ignoring_warning(JRUBY_ALIAS_SPECIAL_METHODS_WARNING, if_: RUBY_ENGINE == 'jruby') do
+      alias_method :_method, :method
+    end
 
     # @private
     def mocha(instantiate: true)

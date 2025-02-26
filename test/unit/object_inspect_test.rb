@@ -3,10 +3,12 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/inspect'
 require 'mocha/ruby_version'
+require 'mocha/ignoring_warning'
 require 'method_definer'
 
 class ObjectInspectTest < Mocha::TestCase
   include MethodDefiner
+  include Mocha::IgnoringWarning
 
   def test_should_return_default_string_representation_of_object_not_including_instance_variables
     object = Object.new
@@ -29,13 +31,7 @@ class ObjectInspectTest < Mocha::TestCase
   def test_should_use_underscored_id_instead_of_object_id_or_id_so_that_they_can_be_stubbed
     object = Object.new
 
-    if Mocha::RUBY_V34_PLUS
-      ignoring_warning(/warning: redefining 'object_id' may cause serious problems/) do
-        replace_instance_method(object, :object_id) do
-          flunk 'should not call `Object#object_id`'
-        end
-      end
-    else
+    ignoring_warning(/warning: redefining 'object_id' may cause serious problems/, if_: Mocha::RUBY_V34_PLUS) do
       replace_instance_method(object, :object_id) do
         flunk 'should not call `Object#object_id`'
       end
@@ -63,17 +59,5 @@ class ObjectInspectTest < Mocha::TestCase
     address = id * 2
     address += 0x100000000 if address < 0
     "#<#{klass}:0x#{Kernel.format('%<address>x', address: address)}>"
-  end
-
-  def ignoring_warning(pattern)
-    original_warn = Warning.method(:warn)
-    Warning.singleton_class.define_method(:warn) do |message|
-      original_warn.call(message) unless message =~ pattern
-    end
-
-    yield
-  ensure
-    Warning.singleton_class.undef_method(:warn)
-    Warning.singleton_class.define_method(:warn, original_warn)
   end
 end
