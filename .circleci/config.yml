@@ -7,12 +7,7 @@ commands:
       command:
         type: string
     steps:
-      - run: << parameters.command >> 2>&1 | tee output.log
-      - run: |
-          if grep -q "warning:" output.log; then
-            echo "Warnings found in test output. Failing the job."
-            exit 1
-          fi
+      - run: << parameters.command >> 2>&1 | tee >(grep -q "warning:" && exit 1)
 jobs:
   build:
     parameters:
