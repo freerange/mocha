@@ -25,7 +25,7 @@ module Mocha
       #   object.method_1('string')
       #   # error raised, because method_1 was not called with an Integer
       #
-      def is_a(klass) # rubocop:disable Naming/PredicateName
+      def is_a(klass) # rubocop:disable Naming/PredicatePrefix
         IsA.new(klass)
       end
     end

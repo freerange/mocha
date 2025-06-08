@@ -26,7 +26,7 @@ module Mocha
       #   object.method_1('key_1' => 1, 'key_2' => 99)
       #   # error raised, because method_1 was not called with Hash containing entries: 'key_1' => 1, 'key_2' => 2
       #
-      def has_entries(entries) # rubocop:disable Naming/PredicateName
+      def has_entries(entries) # rubocop:disable Naming/PredicatePrefix
         HasEntries.new(entries)
       end
     end

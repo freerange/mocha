@@ -43,7 +43,7 @@ module Mocha
       #   object.method_1('key_1' => 2, 'key_2' => 1)
       #   # error raised, because method_1 was not called with Hash containing entry: 'key_1' => 1
       #
-      def has_entry(*options) # rubocop:disable Naming/PredicateName
+      def has_entry(*options) # rubocop:disable Naming/PredicatePrefix
         case options.length
         when 0
           raise ArgumentError, 'No arguments. Expecting at least one.'
