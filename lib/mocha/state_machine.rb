@@ -83,7 +83,7 @@ module Mocha
     #
     # @param [String] unexpected_state_name name of unexpected state.
     # @return [StatePredicate] state predicate which, when queried, will indicate whether the {StateMachine} is *not* in the state specified by +unexpected_state_name+.
-    def is_not(unexpected_state_name) # rubocop:disable Naming/PredicateName
+    def is_not(unexpected_state_name) # rubocop:disable Naming/PredicatePrefix
       StatePredicate.new(self, unexpected_state_name, 'is not') { |current, given| current != given }
     end
 
