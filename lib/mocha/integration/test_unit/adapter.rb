@@ -46,7 +46,7 @@ module Mocha
         end
 
         # @private
-        def handle_mocha_expectation_error(exception)
+        def handle_mocha_expectation_error(exception) # rubocop:disable Naming/PredicateMethod
           return false unless exception.is_a?(Mocha::ExpectationError)
 
           problem_occurred

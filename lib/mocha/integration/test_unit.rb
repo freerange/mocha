@@ -6,7 +6,7 @@ require 'mocha/integration/test_unit/adapter'
 module Mocha
   module Integration
     module TestUnit
-      def self.activate
+      def self.activate # rubocop:disable Naming/PredicateMethod
         target = Detection::TestUnit.testcase
         return false unless target
 
