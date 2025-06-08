@@ -11,10 +11,10 @@ AllCops:
   TargetRubyVersion: 2.2
 
   Include:
-    - '**/Gemfile.*'
+    - "**/Gemfile.*"
 
   Exclude:
-    - '**/Gemfile*.lock'
+    - "**/Gemfile*.lock"
 
   NewCops: enable
 
