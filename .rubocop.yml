@@ -1,4 +1,4 @@
-require:
+plugins:
   - rubocop-rake
 
 inherit_from: .rubocop_todo.yml
