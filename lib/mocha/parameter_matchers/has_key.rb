@@ -23,7 +23,7 @@ module Mocha
     #   object.method_1('key_2' => 2)
     #   # error raised, because method_1 was not called with Hash containing key: 'key_1'
     #
-    def has_key(key) # rubocop:disable Naming/PredicateName
+    def has_key(key) # rubocop:disable Naming/PredicatePrefix
       HasKey.new(key)
     end
 
