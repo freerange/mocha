@@ -14,7 +14,7 @@ class Bug18914Test < Mocha::TestCase
   end
 
   class AlwaysEql
-    def my_method
+    def my_method # rubocop:disable Naming/PredicateMethod
       true
     end
 

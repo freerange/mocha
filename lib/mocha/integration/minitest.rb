@@ -6,7 +6,7 @@ require 'mocha/integration/minitest/adapter'
 module Mocha
   module Integration
     module Minitest
-      def self.activate
+      def self.activate # rubocop:disable Naming/PredicateMethod
         target = Detection::Minitest.testcase
         return false unless target
 
