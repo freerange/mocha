@@ -5,27 +5,14 @@ module Mocha
     INFINITY = 1 / 0.0
 
     def initialize(required = 0, maximum = INFINITY)
-      update(required, maximum)
+      range(required, maximum)
       @invocations = []
     end
 
-    def exactly(count)
-      update(count, count)
-    end
-
-    def at_least(count)
-      update(count, INFINITY)
-    end
-
-    def at_most(count)
-      update(0, count)
-    end
-
-    def times(range_or_count)
-      case range_or_count
-      when Range then update(range_or_count.first, range_or_count.last)
-      else update(range_or_count, range_or_count)
-      end
+    def range(at_least = 0, at_most = INFINITY)
+      @required = at_least
+      @maximum = at_most
+      self
     end
 
     def <<(invocation)
@@ -64,20 +51,20 @@ module Mocha
       if allowed_any_number_of_times?
         'allowed any number of times'
       elsif required.zero? && maximum.zero?
-        "expected #{count(maximum)}"
+        "expected #{times(maximum)}"
       elsif required == maximum
-        "expected exactly #{count(required)}"
+        "expected exactly #{times(required)}"
       elsif infinite?(maximum)
-        "expected at least #{count(required)}"
+        "expected at least #{times(required)}"
       elsif required.zero?
-        "expected at most #{count(maximum)}"
+        "expected at most #{times(maximum)}"
       else
-        "expected between #{required} and #{count(maximum)}"
+        "expected between #{required} and #{times(maximum)}"
       end
     end
 
     def invoked_times
-      "invoked #{count(@invocations.size)}"
+      "invoked #{times(@invocations.size)}"
     end
 
     def actual_invocations
@@ -88,19 +75,13 @@ module Mocha
 
     attr_reader :required, :maximum
 
-    def count(number)
+    def times(number)
       case number
       when 0 then 'never'
       when 1 then 'once'
       when 2 then 'twice'
       else "#{number} times"
       end
-    end
-
-    def update(required, maximum)
-      @required = required
-      @maximum = maximum
-      self
     end
 
     def infinite?(number)
