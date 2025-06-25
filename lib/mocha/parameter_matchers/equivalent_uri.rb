@@ -15,13 +15,13 @@ module Mocha
       #
       # @example Actual URI is equivalent.
       #   object = mock()
-      #   object.expects(:method_1).with(equivalent_uri('http://example.com/foo?a=1&b=2))
+      #   object.expects(:method_1).with(equivalent_uri('http://example.com/foo?a=1&b=2'))
       #   object.method_1('http://example.com/foo?b=2&a=1')
       #   # no error raised
       #
       # @example Actual URI is not equivalent.
       #   object = mock()
-      #   object.expects(:method_1).with(equivalent_uri('http://example.com/foo?a=1&b=2))
+      #   object.expects(:method_1).with(equivalent_uri('http://example.com/foo?a=1&b=2'))
       #   object.method_1('http://example.com/foo?a=1&b=3')
       #   # error raised, because the query parameters were different
       def equivalent_uri(uri)
