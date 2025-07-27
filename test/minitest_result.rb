@@ -5,6 +5,7 @@ require 'forwardable'
 class MinitestResult
   class Failure
     extend Forwardable
+
     def_delegators :@failure, :message, :backtrace
 
     def initialize(failure)
