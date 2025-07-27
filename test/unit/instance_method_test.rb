@@ -230,6 +230,7 @@ class InstanceMethodTest < Mocha::TestCase
   def test_should_match_if_other_instance_method_has_same_stubbee_and_same_method_but_stubbee_equal_method_lies_like_active_record_association_proxy
     stubbee = Class.new do
       extend ClassMethods
+
       def equal?(_other)
         false
       end

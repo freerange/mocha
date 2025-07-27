@@ -53,6 +53,7 @@ class StubAnyInstanceMethodTest < Mocha::TestCase
     end
     klass = Class.new do
       include module_with_private_method
+
       public :my_included_method
     end
     instance = klass.new

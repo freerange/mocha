@@ -63,6 +63,7 @@ class UnstubbingTest < Mocha::TestCase
       end
       private :my_module_method
       extend self
+
       class << self
         public :my_module_method
       end
