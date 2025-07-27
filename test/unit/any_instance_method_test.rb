@@ -15,6 +15,7 @@ class AnyInstanceMethodTest < Mocha::TestCase
   def class_with_method(method, result = nil)
     Class.new do
       extend ClassMethods
+
       define_method(method) { result } if method
     end
   end

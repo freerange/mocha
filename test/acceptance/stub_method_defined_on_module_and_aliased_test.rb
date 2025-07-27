@@ -22,6 +22,7 @@ class StubMethodDefinedOnModuleAndAliasedTest < Mocha::TestCase
 
     klass = Class.new do
       extend mod
+
       class << self
         alias_method :aliased_module_instance_method, :module_instance_method
       end
