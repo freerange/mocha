@@ -1,0 +1,17 @@
+name: Main
+
+on: push
+
+jobs:
+  create-release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Extract Release Notes
+        run: awk -v ver="${{ github.ref_name }}" '/^## / { if (p) { exit }; if ("v"$2 == ver) { p=1; next } } p && NF' RELEASE.md > ${{ github.workspace }}-RELEASE_NOTES.txt
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: ${{ github.workspace }}-RELEASE_NOTES.txt
