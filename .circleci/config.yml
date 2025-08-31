@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  slack: circleci/slack@5.2.3
+
 commands:
   run-fail-fast:
     description: "Execute command and fail on any warning in output"
@@ -77,6 +80,22 @@ jobs:
       - run: bundle install --gemfile=gemfiles/Gemfile.rubocop
       - run: bundle exec --gemfile=gemfiles/Gemfile.rubocop rake lint
 
+  notify-success:
+    docker:
+      - image: cimg/base:current
+    steps:
+      - slack/notify:
+          event: pass
+          template: basic_success_1
+
+  notify-failure:
+    docker:
+      - image: cimg/base:current
+    steps:
+      - slack/notify:
+          event: fail
+          template: basic_fail_1
+
 workflows:
   build-all:
     jobs: &all-jobs
@@ -100,6 +119,7 @@ workflows:
                 - jruby:latest
               gemfile:
                 - Gemfile
+            alias: matrix-1
       - build:
           matrix:
             parameters:
@@ -108,6 +128,26 @@ workflows:
               gemfile:
                 - gemfiles/Gemfile.minitest.latest
                 - gemfiles/Gemfile.test-unit.latest
+            aliases:
+              - ruby-latest-minitest
+              - ruby-latest-test-unit
+            alias: matrix-2
+
+      - notify-success:
+          requires:
+            - lint
+            - matrix-1
+            - matrix-2
+          context:
+            - "Slack secrets"
+      - notify-failure:
+          requires:
+            - lint
+            - matrix-1
+            - matrix-2
+          context:
+            - "Slack secrets"
+
   weekly:
     triggers:
       - schedule:
