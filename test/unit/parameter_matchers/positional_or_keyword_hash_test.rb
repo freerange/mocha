@@ -12,32 +12,22 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
   include Mocha::ParameterMatchers
 
   def test_should_describe_matcher
-    hash = { key_1: 1, key_2: 2 }
-    matcher = build_matcher(hash)
+    matcher = build_matcher({ key_1: 1, key_2: 2 })
     assert_equal '{key_1: 1, key_2: 2}', matcher.mocha_inspect
   end
 
-  def test_should_match_non_last_hash_arg_with_hash_arg
-    hash = { key_1: 1, key_2: 2 }
-    matcher = build_matcher(hash)
-    assert matcher.matches?([{ key_1: 1, key_2: 2 }, %w[a b]])
-  end
-
   def test_should_not_match_non_hash_arg_with_hash_arg
-    hash = { key_1: 1, key_2: 2 }
-    matcher = build_matcher(hash)
+    matcher = build_matcher({ key_1: 1, key_2: 2 })
     assert !matcher.matches?([%w[a b]])
   end
 
   def test_should_match_hash_arg_with_hash_arg
-    hash = { key_1: 1, key_2: 2 }
-    matcher = build_matcher(hash)
+    matcher = build_matcher({ key_1: 1, key_2: 2 })
     assert matcher.matches?([{ key_1: 1, key_2: 2 }])
   end
 
   def test_should_not_match_hash_arg_with_different_hash_arg
-    hash = { key_1: 1 }
-    matcher = build_matcher(hash)
+    matcher = build_matcher({ key_1: 1 })
     assert !matcher.matches?([{ key_1: 1, key_2: 2 }])
   end
 
@@ -63,7 +53,7 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
 
   private
 
-  def build_matcher(hash, expectation = nil, last = nil)
-    Mocha::ParameterMatchers::PositionalOrKeywordHash.new(hash, expectation, last)
+  def build_matcher(hash)
+    Mocha::ParameterMatchers::PositionalOrKeywordHash.new(hash, nil)
   end
 end
