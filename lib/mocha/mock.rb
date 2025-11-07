@@ -276,8 +276,9 @@ module Mocha
     end
 
     # @private
-    def initialize(mockery, name = nil, receiver = nil)
+    def initialize(mockery, assertion_counter = nil, name = nil, receiver = nil)
       @mockery = mockery
+      @assertion_counter = assertion_counter
       @name = name || DefaultName.new(self)
       @receiver = receiver || DefaultReceiver.new(self)
       @expectations = ExpectationList.new
@@ -389,7 +390,10 @@ module Mocha
     def raise_unexpected_invocation_error(invocation, matching_expectation)
       if @unexpected_invocation.nil?
         @unexpected_invocation = invocation
-        matching_expectation.invoke(invocation) if matching_expectation
+        if matching_expectation
+          matching_expectation.invoke(invocation)
+          @assertion_counter.increment
+        end
         call_description = @unexpected_invocation.call_description
         if matching_expectation && !matching_expectation.in_correct_order?
           call_description += ' invoked out of order'
