@@ -23,6 +23,14 @@ class MochaTestResultTest < Mocha::TestCase
     assert_equal 1, test_result.assertion_count
   end
 
+  def test_should_not_include_unexpected_invocation_failure_in_assertion_count
+    test_result = run_as_test do
+      object = mock
+      object.message
+    end
+    assert_equal 0, test_result.assertion_count
+  end
+
   def test_should_include_assertions_in_assertion_count
     test_result = run_as_test do
       assert true
