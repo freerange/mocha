@@ -47,7 +47,7 @@ class MochaTestResultTest < Mocha::TestCase
     assert_equal 1, test_result.failure_count
   end
 
-  def test_should_include_unexpected_verification_failure_in_failure_count
+  def test_should_include_unexpected_invocation_failure_in_failure_count
     test_result = run_as_test do
       object = mock
       object.message
