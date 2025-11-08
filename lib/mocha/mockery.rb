@@ -46,7 +46,7 @@ module Mocha
         @instances.last || Null.build
       end
 
-      def setup(assertion_counter = nil)
+      def setup(assertion_counter)
         @instances ||= []
         mockery = new(assertion_counter)
         mockery.logger = instance.logger unless @instances.empty?

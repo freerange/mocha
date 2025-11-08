@@ -21,7 +21,7 @@ class MockeryTest < Mocha::TestCase
   include Mocha
 
   def setup
-    Mockery.setup
+    Mockery.setup(SimpleCounter.new)
   end
 
   def teardown

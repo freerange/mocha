@@ -5,10 +5,11 @@ require 'mocha/class_methods'
 require 'mocha/object_methods'
 require 'mocha/mockery'
 require 'mocha/impersonating_any_instance_name'
+require 'simple_counter'
 
 class ClassMethodsTest < Mocha::TestCase
   def setup
-    Mocha::Mockery.setup
+    Mocha::Mockery.setup(SimpleCounter.new)
     @klass = Class.new.extend(Mocha::ClassMethods, Mocha::ObjectMethods)
   end
 
