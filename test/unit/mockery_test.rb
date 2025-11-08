@@ -4,6 +4,7 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/mockery'
 require 'mocha/state_machine'
 require 'mocha/expectation_error_factory'
+require 'simple_counter'
 
 class MockeryNeverSetupTest < Mocha::TestCase
   include Mocha
@@ -185,6 +186,6 @@ class MockeryTest < Mocha::TestCase
   private
 
   def build_mockery
-    Mockery.new
+    Mockery.new(SimpleCounter.new)
   end
 end

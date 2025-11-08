@@ -97,6 +97,7 @@ class CentralTest < Mocha::TestCase
   private
 
   def build_mock
-    Mock.new(Mockery.new, SimpleCounter.new)
+    counter = SimpleCounter.new
+    Mock.new(Mockery.new(counter), counter)
   end
 end

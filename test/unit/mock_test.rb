@@ -356,6 +356,6 @@ class MockTest < Mocha::TestCase
   private
 
   def build_mock(assertion_counter = nil)
-    Mock.new(Mockery.new, assertion_counter)
+    Mock.new(Mockery.new(assertion_counter), assertion_counter)
   end
 end
