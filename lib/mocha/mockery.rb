@@ -17,6 +17,10 @@ require 'mocha/expectation_error_factory'
 module Mocha
   class Mockery
     class Null < self
+      def self.build
+        new(nil)
+      end
+
       def add_mock(*)
         raise_not_initialized_error
       end
@@ -39,7 +43,7 @@ module Mocha
 
     class << self
       def instance
-        @instances.last || Null.new
+        @instances.last || Null.build
       end
 
       def setup(assertion_counter = nil)
@@ -64,7 +68,7 @@ module Mocha
       end
     end
 
-    def initialize(assertion_counter = nil)
+    def initialize(assertion_counter)
       @assertion_counter = assertion_counter
     end
 
