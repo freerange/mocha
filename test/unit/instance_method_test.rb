@@ -243,6 +243,6 @@ class InstanceMethodTest < Mocha::TestCase
   private
 
   def build_mock
-    Mock.new(Mockery.new)
+    Mock.new(Mockery.new, SimpleCounter.new)
   end
 end

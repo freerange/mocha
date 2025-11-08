@@ -276,7 +276,7 @@ module Mocha
     end
 
     # @private
-    def initialize(mockery, assertion_counter = nil, name = nil, receiver = nil)
+    def initialize(mockery, assertion_counter, name = nil, receiver = nil)
       @mockery = mockery
       @assertion_counter = assertion_counter
       @name = name || DefaultName.new(self)
