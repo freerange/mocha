@@ -6,10 +6,11 @@ require 'mocha/mockery'
 require 'mocha/mock'
 require 'mocha/expectation_error_factory'
 require 'mocha/impersonating_name'
+require 'simple_counter'
 
 class ObjectMethodsTest < Mocha::TestCase
   def setup
-    Mocha::Mockery.setup
+    Mocha::Mockery.setup(SimpleCounter.new)
     @object = Object.new.extend(Mocha::ObjectMethods)
   end
 
