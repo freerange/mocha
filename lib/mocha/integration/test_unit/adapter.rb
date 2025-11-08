@@ -34,8 +34,7 @@ module Mocha
           mod.exception_handler(:handle_mocha_expectation_error)
 
           mod.cleanup after: :append do
-            assertion_counter = Integration::AssertionCounter.new(self)
-            mocha_verify(assertion_counter)
+            mocha_verify
           end
 
           mod.teardown :mocha_teardown, after: :append

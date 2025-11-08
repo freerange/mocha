@@ -146,7 +146,8 @@ class MockTest < Mocha::TestCase
   end
 
   def test_should_increment_assertion_counter_for_every_verified_expectation
-    mock = build_mock
+    assertion_counter = SimpleCounter.new
+    mock = build_mock(assertion_counter)
 
     mock.expects(:method1)
     mock.method1
@@ -154,9 +155,7 @@ class MockTest < Mocha::TestCase
     mock.expects(:method2)
     mock.method2
 
-    assertion_counter = SimpleCounter.new
-
-    mock.__verified__?(assertion_counter)
+    mock.__verified__?
 
     assert_equal 2, assertion_counter.count
   end
@@ -356,7 +355,7 @@ class MockTest < Mocha::TestCase
 
   private
 
-  def build_mock
-    Mock.new(Mockery.new)
+  def build_mock(assertion_counter = nil)
+    Mock.new(Mockery.new, assertion_counter)
   end
 end

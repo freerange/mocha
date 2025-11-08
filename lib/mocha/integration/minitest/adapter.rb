@@ -31,6 +31,7 @@ module Mocha
 
         # @private
         def before_setup
+          assertion_counter = Integration::AssertionCounter.new(self)
           mocha_setup(assertion_counter)
           super
         end
@@ -39,7 +40,7 @@ module Mocha
         def before_teardown
           return unless passed?
 
-          mocha_verify(assertion_counter)
+          mocha_verify
         ensure
           super
         end
@@ -63,11 +64,6 @@ module Mocha
           else
             self.class.name
           end
-        end
-
-        # @private
-        def assertion_counter
-          @assertion_counter ||= Integration::AssertionCounter.new(self)
         end
       end
     end

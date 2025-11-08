@@ -30,8 +30,8 @@ module Mocha
     # This is equivalent to a series of "assertions".
     #
     # This method should be called at the end of each individual test, before it has been determined whether or not the test has passed.
-    def mocha_verify(assertion_counter = nil)
-      Mockery.verify(assertion_counter)
+    def mocha_verify
+      Mockery.verify
     end
 
     # Resets Mocha after a test (only for use by authors of test libraries).

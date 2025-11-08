@@ -356,8 +356,8 @@ module Mocha
     end
 
     # @private
-    def __verified__?(assertion_counter = nil)
-      @expectations.verified?(assertion_counter)
+    def __verified__?
+      @expectations.verified?(@assertion_counter)
     end
 
     # @private
