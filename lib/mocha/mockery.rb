@@ -49,8 +49,8 @@ module Mocha
         @instances.push(mockery)
       end
 
-      def verify(*args)
-        instance.verify(*args)
+      def verify
+        instance.verify
       end
 
       def teardown(origin = nil)
@@ -88,8 +88,8 @@ module Mocha
       add_state_machine(StateMachine.new(name))
     end
 
-    def verify(assertion_counter = nil)
-      unless mocks.all? { |mock| mock.__verified__?(assertion_counter) }
+    def verify
+      unless mocks.all?(&:__verified__?)
         message = "not all expectations were satisfied\n#{mocha_inspect}"
         backtrace = if unsatisfied_expectations.empty?
                       caller
