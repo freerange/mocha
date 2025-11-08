@@ -17,6 +17,10 @@ require 'mocha/expectation_error_factory'
 module Mocha
   class Mockery
     class Null < self
+      def self.build
+        new(nil)
+      end
+
       def add_mock(*)
         raise_not_initialized_error
       end
@@ -39,18 +43,18 @@ module Mocha
 
     class << self
       def instance
-        @instances.last || Null.new
+        @instances.last || Null.build
       end
 
-      def setup
+      def setup(assertion_counter)
         @instances ||= []
-        mockery = new
+        mockery = new(assertion_counter)
         mockery.logger = instance.logger unless @instances.empty?
         @instances.push(mockery)
       end
 
-      def verify(*args)
-        instance.verify(*args)
+      def verify
+        instance.verify
       end
 
       def teardown(origin = nil)
@@ -64,28 +68,32 @@ module Mocha
       end
     end
 
+    def initialize(assertion_counter)
+      @assertion_counter = assertion_counter
+    end
+
     def named_mock(name)
-      add_mock(Mock.new(self, Name.new(name)))
+      add_mock(Mock.new(self, @assertion_counter, Name.new(name)))
     end
 
     def unnamed_mock
-      add_mock(Mock.new(self))
+      add_mock(Mock.new(self, @assertion_counter))
     end
 
     def mock_impersonating(object)
-      add_mock(Mock.new(self, ImpersonatingName.new(object), ObjectReceiver.new(object)))
+      add_mock(Mock.new(self, @assertion_counter, ImpersonatingName.new(object), ObjectReceiver.new(object)))
     end
 
     def mock_impersonating_any_instance_of(klass)
-      add_mock(Mock.new(self, ImpersonatingAnyInstanceName.new(klass), AnyInstanceReceiver.new(klass)))
+      add_mock(Mock.new(self, @assertion_counter, ImpersonatingAnyInstanceName.new(klass), AnyInstanceReceiver.new(klass)))
     end
 
     def new_state_machine(name)
       add_state_machine(StateMachine.new(name))
     end
 
-    def verify(assertion_counter = nil)
-      unless mocks.all? { |mock| mock.__verified__?(assertion_counter) }
+    def verify
+      unless mocks.all?(&:__verified__?)
         message = "not all expectations were satisfied\n#{mocha_inspect}"
         backtrace = if unsatisfied_expectations.empty?
                       caller

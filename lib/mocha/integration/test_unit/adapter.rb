@@ -26,13 +26,15 @@ module Mocha
 
         # @private
         def self.included(mod)
-          mod.setup :mocha_setup, before: :prepend
+          mod.setup before: :prepend do
+            assertion_counter = Integration::AssertionCounter.new(self)
+            mocha_setup(assertion_counter)
+          end
 
           mod.exception_handler(:handle_mocha_expectation_error)
 
           mod.cleanup after: :append do
-            assertion_counter = Integration::AssertionCounter.new(self)
-            mocha_verify(assertion_counter)
+            mocha_verify
           end
 
           mod.teardown :mocha_teardown, after: :append

@@ -7,6 +7,7 @@ require 'mocha/class_methods'
 require 'mocha/mockery'
 require 'mocha/mock'
 require 'mocha/any_instance_method'
+require 'simple_counter'
 
 class AnyInstanceMethodTest < Mocha::TestCase
   include MethodDefiner
@@ -134,6 +135,7 @@ class AnyInstanceMethodTest < Mocha::TestCase
   private
 
   def build_mock
-    Mock.new(Mockery.new)
+    counter = SimpleCounter.new
+    Mock.new(Mockery.new(counter), counter)
   end
 end
