@@ -21,7 +21,7 @@ module Mocha
     # Prepares Mocha before a test (only for use by authors of test libraries).
     #
     # This method should be called before each individual test starts (including before any "setup" code).
-    def mocha_setup(assertion_counter = nil)
+    def mocha_setup(assertion_counter)
       Mockery.setup(assertion_counter)
     end
 
