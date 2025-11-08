@@ -31,7 +31,7 @@ module Mocha
       matching_expectations(invocation).detect(&:invocations_never_allowed?)
     end
 
-    def verified?(assertion_counter = nil)
+    def verified?(assertion_counter)
       @expectations.all? { |expectation| expectation.verified?(assertion_counter) }
     end
 
