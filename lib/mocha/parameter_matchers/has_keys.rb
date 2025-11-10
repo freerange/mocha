@@ -1,4 +1,5 @@
 require 'mocha/parameter_matchers/base'
+require 'mocha/parameter_matchers/deprecations'
 
 module Mocha
   module ParameterMatchers
@@ -26,6 +27,8 @@ module Mocha
         HasKeys.new(*keys)
       end
     end
+
+    define_deprecated_matcher_method(:has_keys)
 
     # Parameter matcher which matches when actual parameter contains +Hash+ with all expected keys.
     class HasKeys

@@ -1,4 +1,5 @@
 require 'mocha/parameter_matchers/base'
+require 'mocha/parameter_matchers/deprecations'
 
 module Mocha
   module ParameterMatchers
@@ -31,6 +32,8 @@ module Mocha
         AnyOf.new(*matchers)
       end
     end
+
+    define_deprecated_matcher_method(:any_of)
 
     # Parameter matcher which combines a number of other matchers using a logical OR.
     class AnyOf

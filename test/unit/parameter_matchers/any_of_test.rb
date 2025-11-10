@@ -3,6 +3,7 @@ require File.expand_path('../../../test_helper', __FILE__)
 require 'mocha/parameter_matchers/any_of'
 require 'mocha/inspect'
 require 'stub_matcher'
+require 'parameter_matchers_test_helper'
 
 class AnyOfTest < Mocha::TestCase
   include Mocha::ParameterMatchers::Methods
@@ -21,4 +22,6 @@ class AnyOfTest < Mocha::TestCase
     matcher = any_of(Stub::Matcher.new(false), Stub::Matcher.new(true), Stub::Matcher.new(false))
     assert_equal 'any_of(matcher(false), matcher(true), matcher(false))', matcher.mocha_inspect
   end
+
+  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:any_of)
 end

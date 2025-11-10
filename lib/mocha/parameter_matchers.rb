@@ -3,6 +3,7 @@ module Mocha
   module ParameterMatchers; end
 end
 
+require 'mocha/parameter_matchers/deprecations'
 require 'mocha/parameter_matchers/instance_methods'
 
 require 'mocha/parameter_matchers/all_of'

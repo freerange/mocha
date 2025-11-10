@@ -1,3 +1,5 @@
+require 'mocha/parameter_matchers/deprecations'
+
 module Mocha
   module ParameterMatchers
     module Methods
@@ -35,6 +37,8 @@ module Mocha
         Optionally.new(*matchers)
       end
     end
+
+    define_deprecated_matcher_method(:optionally)
 
     # Parameter matcher which allows optional parameters to be specified.
     class Optionally

@@ -4,6 +4,7 @@ require 'mocha/parameter_matchers/has_entry'
 require 'mocha/parameter_matchers/instance_methods'
 require 'mocha/parameter_matchers/equals'
 require 'mocha/inspect'
+require 'parameter_matchers_test_helper'
 
 class HasEntryTest < Mocha::TestCase
   include Mocha::ParameterMatchers::Methods
@@ -130,4 +131,6 @@ class HasEntryTest < Mocha::TestCase
     matcher = has_entry(has_entry(key_1: 'value_1') => has_entry(key_3: 'value_3'))
     assert matcher.matches?([{ { key_1: 'value_1', key_2: 'value_2' } => { key_3: 'value_3', key_4: 'value_4' }, key_5: 'value_5' }])
   end
+
+  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:has_entry, key: 'value')
 end

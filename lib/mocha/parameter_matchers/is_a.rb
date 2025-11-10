@@ -1,4 +1,5 @@
 require 'mocha/parameter_matchers/base'
+require 'mocha/parameter_matchers/deprecations'
 
 module Mocha
   module ParameterMatchers
@@ -27,6 +28,8 @@ module Mocha
         IsA.new(klass)
       end
     end
+
+    define_deprecated_matcher_method(:is_a)
 
     # Parameter matcher which matches when actual parameter is a specific class.
     class IsA

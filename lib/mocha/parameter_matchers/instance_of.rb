@@ -1,4 +1,5 @@
 require 'mocha/parameter_matchers/base'
+require 'mocha/parameter_matchers/deprecations'
 
 module Mocha
   module ParameterMatchers
@@ -26,6 +27,8 @@ module Mocha
         InstanceOf.new(klass)
       end
     end
+
+    define_deprecated_matcher_method(:instance_of)
 
     # Parameter matcher which matches when actual parameter is an instance of the specified class.
     class InstanceOf

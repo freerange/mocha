@@ -1,4 +1,5 @@
 require 'mocha/parameter_matchers/base'
+require 'mocha/parameter_matchers/deprecations'
 
 module Mocha
   module ParameterMatchers
@@ -26,6 +27,8 @@ module Mocha
         Equals.new(value)
       end
     end
+
+    define_deprecated_matcher_method(:equals)
 
     # Parameter matcher which matches when actual parameter equals expected value.
     class Equals

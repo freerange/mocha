@@ -2,6 +2,7 @@ require File.expand_path('../../../test_helper', __FILE__)
 
 require 'mocha/parameter_matchers/instance_of'
 require 'mocha/inspect'
+require 'parameter_matchers_test_helper'
 
 class InstanceOfTest < Mocha::TestCase
   include Mocha::ParameterMatchers::Methods
@@ -20,4 +21,6 @@ class InstanceOfTest < Mocha::TestCase
     matcher = instance_of(String)
     assert_equal 'instance_of(String)', matcher.mocha_inspect
   end
+
+  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:instance_of, String)
 end

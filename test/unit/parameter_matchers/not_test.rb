@@ -3,6 +3,7 @@ require File.expand_path('../../../test_helper', __FILE__)
 require 'mocha/parameter_matchers/not'
 require 'mocha/inspect'
 require 'stub_matcher'
+require 'parameter_matchers_test_helper'
 
 class NotTest < Mocha::TestCase
   include Mocha::ParameterMatchers::Methods
@@ -21,4 +22,6 @@ class NotTest < Mocha::TestCase
     matcher = Not(Stub::Matcher.new(true))
     assert_equal 'Not(matcher(true))', matcher.mocha_inspect
   end
+
+  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:Not, false)
 end
