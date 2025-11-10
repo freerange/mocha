@@ -8,7 +8,7 @@ require 'mocha/expectation'
 require 'mocha/ruby_version'
 
 class PositionalOrKeywordHashTest < Mocha::TestCase
-  include Mocha::ParameterMatchers
+  include Mocha::ParameterMatchers::Methods
 
   def test_should_describe_matcher
     hash = { key_1: 1, key_2: 2 }

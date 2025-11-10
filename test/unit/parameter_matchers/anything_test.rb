@@ -4,7 +4,7 @@ require 'mocha/parameter_matchers/anything'
 require 'mocha/inspect'
 
 class AnythingTest < Mocha::TestCase
-  include Mocha::ParameterMatchers
+  include Mocha::ParameterMatchers::Methods
 
   def test_should_match_anything
     matcher = anything

@@ -6,7 +6,7 @@ require 'mocha/parameter_matchers/equals'
 require 'mocha/inspect'
 
 class HasEntryTest < Mocha::TestCase
-  include Mocha::ParameterMatchers
+  include Mocha::ParameterMatchers::Methods
 
   def test_should_match_hash_including_specified_key_value_pair
     matcher = has_entry(:key_1, 'value_1')

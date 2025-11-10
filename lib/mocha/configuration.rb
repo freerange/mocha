@@ -263,7 +263,7 @@ module Mocha
     #
     # For more details on keyword arguments in Ruby v3, refer to {https://www.ruby-lang.org/en/news/2019/12/12/separation-of-positional-and-keyword-arguments-in-ruby-3-0 this article}.
     #
-    # Note that +Hash+-related matchers such as {ParameterMatchers#has_value} or {ParameterMatchers#has_key} will still treat a positional +Hash+ and a set of keyword arguments the same, so misleading passing tests are still possible when they are used.
+    # Note that +Hash+-related matchers such as {ParameterMatchers::Methods#has_value} or {ParameterMatchers::Methods#has_key} will still treat a positional +Hash+ and a set of keyword arguments the same, so misleading passing tests are still possible when they are used.
     #
     # This configuration option is +false+ by default to enable gradual adoption, but will be +true+ by default in the future.
     #

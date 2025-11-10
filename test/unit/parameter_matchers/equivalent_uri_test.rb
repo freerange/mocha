@@ -2,7 +2,7 @@ require File.expand_path('../../../test_helper', __FILE__)
 require 'mocha/parameter_matchers/equivalent_uri'
 
 class EquivalentUriMatchesTest < Mocha::TestCase
-  include Mocha::ParameterMatchers
+  include Mocha::ParameterMatchers::Methods
 
   def test_should_match_identical_uri
     matcher = equivalent_uri('http://example.com/foo?a=1&b=2')

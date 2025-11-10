@@ -4,7 +4,7 @@ require 'mocha/parameter_matchers/yaml_equivalent'
 require 'mocha/inspect'
 
 class YamlEquivalentTest < Mocha::TestCase
-  include Mocha::ParameterMatchers
+  include Mocha::ParameterMatchers::Methods
 
   def test_should_match_parameter_matching_yaml_representation_of_object
     matcher = yaml_equivalent([1, 2, 3])
