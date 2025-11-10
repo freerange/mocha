@@ -45,7 +45,7 @@ module Mocha
       when 0
         raise ArgumentError, 'No arguments. Expecting at least one.'
       when 1
-        key, value = parse_option(options[0])
+        key, value = HasEntry.parse_option(options[0])
       when 2
         key, value = options
       else
@@ -76,24 +76,22 @@ module Mocha
       def mocha_inspect
         "has_entry(#{@key.mocha_inspect} => #{@value.mocha_inspect})"
       end
-    end
 
-    private
-
-    # @private
-    def parse_option(option)
-      case option
-      when Hash
-        case option.length
-        when 0
-          raise ArgumentError, 'Argument has no entries.'
-        when 1
-          option.first
+      # @private
+      def self.parse_option(option)
+        case option
+        when Hash
+          case option.length
+          when 0
+            raise ArgumentError, 'Argument has no entries.'
+          when 1
+            option.first
+          else
+            raise ArgumentError, 'Argument has multiple entries. Use Mocha::ParameterMatchers#has_entries instead.'
+          end
         else
-          raise ArgumentError, 'Argument has multiple entries. Use Mocha::ParameterMatchers#has_entries instead.'
+          raise ArgumentError, 'Argument is not a Hash.'
         end
-      else
-        raise ArgumentError, 'Argument is not a Hash.'
       end
     end
   end
