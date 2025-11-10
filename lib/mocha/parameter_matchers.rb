@@ -1,6 +1,33 @@
+require 'mocha/deprecation'
+
 module Mocha
   # Used as parameters for {Expectation#with} to restrict the parameter values which will match the expectation. Can be nested.
-  module ParameterMatchers; end
+  module ParameterMatchers
+    # @private
+    def self.const_missing(name)
+      if name == :AllOf
+        ParameterMatchersImpl.const_get(name)
+      else
+        super
+      end
+    end
+
+    # @private
+    def self.included(base)
+      base.define_singleton_method(:const_missing) do |name|
+        if name == :AllOf
+          Mocha::ParameterMatchers.const_get(name).tap do |mod|
+            Deprecation.warning "#{name} is deprecated. Use #{mod} instead."
+          end
+        else
+          super(name)
+        end
+      end
+    end
+  end
+
+  # @private
+  module ParameterMatchersImpl; end
 end
 
 require 'mocha/parameter_matchers/instance_methods'

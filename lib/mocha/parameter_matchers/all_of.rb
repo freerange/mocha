@@ -21,7 +21,7 @@ module Mocha
     #   object.method_1([1, 2])
     #   # error raised, because method_1 was not called with object including 1 and 3
     def all_of(*matchers)
-      AllOf.new(*matchers)
+      ParameterMatchersImpl::AllOf.new(*matchers)
     end
 
     # Parameter matcher which combines a number of other matchers using a logical AND.
@@ -44,5 +44,13 @@ module Mocha
         "all_of(#{@matchers.map(&:mocha_inspect).join(', ')})"
       end
     end
+  end
+
+  module ParameterMatchersImpl
+    AllOf = Mocha::ParameterMatchers::AllOf
+  end
+
+  module ParameterMatchers
+    remove_const :AllOf
   end
 end
