@@ -1,4 +1,5 @@
 require 'mocha/parameter_matchers/base'
+require 'mocha/parameter_matchers/deprecations'
 
 module Mocha
   module ParameterMatchers
@@ -26,6 +27,8 @@ module Mocha
         Not.new(matcher)
       end
     end
+
+    define_deprecated_matcher_method(:Not)
 
     # Parameter matcher which inverts the logic of the specified matcher using a logical NOT operation.
     class Not

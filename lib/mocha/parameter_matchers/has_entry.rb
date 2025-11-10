@@ -1,4 +1,5 @@
 require 'mocha/parameter_matchers/base'
+require 'mocha/parameter_matchers/deprecations'
 
 module Mocha
   module ParameterMatchers
@@ -55,6 +56,8 @@ module Mocha
         HasEntry.new(key, value)
       end
     end
+
+    define_deprecated_matcher_method(:has_entry)
 
     # Parameter matcher which matches when actual parameter contains expected +Hash+ entry.
     class HasEntry

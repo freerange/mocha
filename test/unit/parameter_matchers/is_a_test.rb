@@ -2,6 +2,7 @@ require File.expand_path('../../../test_helper', __FILE__)
 
 require 'mocha/parameter_matchers/is_a'
 require 'mocha/inspect'
+require 'parameter_matchers_test_helper'
 
 class IsATest < Mocha::TestCase
   include Mocha::ParameterMatchers::Methods
@@ -20,4 +21,6 @@ class IsATest < Mocha::TestCase
     matcher = is_a(Integer)
     assert_equal 'is_a(Integer)', matcher.mocha_inspect
   end
+
+  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:is_a, Integer)
 end

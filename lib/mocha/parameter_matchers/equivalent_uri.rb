@@ -1,4 +1,5 @@
 require 'mocha/parameter_matchers/base'
+require 'mocha/parameter_matchers/deprecations'
 require 'uri'
 require 'cgi'
 
@@ -27,6 +28,8 @@ module Mocha
         EquivalentUri.new(uri)
       end
     end
+
+    define_deprecated_matcher_method(:equivalent_uri)
 
     # Parameter matcher which matches URIs with equivalent query strings.
     class EquivalentUri
