@@ -4,7 +4,7 @@ require 'mocha/parameter_matchers/equals'
 require 'mocha/inspect'
 
 class EqualsTest < Mocha::TestCase
-  include Mocha::ParameterMatchers
+  include Mocha::ParameterMatchers::Methods
 
   def test_should_match_object_that_equals_value
     matcher = equals('x')

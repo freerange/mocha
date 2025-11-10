@@ -2,21 +2,23 @@ require 'mocha/parameter_matchers/base'
 
 module Mocha
   module ParameterMatchers
-    # Matches any object.
-    #
-    # @return [Anything] parameter matcher.
-    #
-    # @see Expectation#with
-    #
-    # @example Any object will match.
-    #   object = mock()
-    #   object.expects(:method_1).with(anything)
-    #   object.method_1('foo')
-    #   object.method_1(789)
-    #   object.method_1(:bar)
-    #   # no error raised
-    def anything
-      Anything.new
+    module Methods
+      # Matches any object.
+      #
+      # @return [Anything] parameter matcher.
+      #
+      # @see Expectation#with
+      #
+      # @example Any object will match.
+      #   object = mock()
+      #   object.expects(:method_1).with(anything)
+      #   object.method_1('foo')
+      #   object.method_1(789)
+      #   object.method_1(:bar)
+      #   # no error raised
+      def anything
+        Anything.new
+      end
     end
 
     # Parameter matcher which always matches a single parameter.

@@ -32,7 +32,7 @@ module Mocha
   #   sheep.chew
   #   sheep.foo # => raises NoMethodError exception
   module API
-    include ParameterMatchers
+    include ParameterMatchers::Methods
     include Hooks
 
     # @private

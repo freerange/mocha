@@ -2,27 +2,29 @@ require 'mocha/parameter_matchers/base'
 
 module Mocha
   module ParameterMatchers
-    # Matches +Hash+ containing +key+.
-    #
-    # @param [Object] key expected key.
-    # @return [HasKey] parameter matcher.
-    #
-    # @see Expectation#with
-    #
-    # @example Actual parameter contains entry with expected key.
-    #   object = mock()
-    #   object.expects(:method_1).with(has_key('key_1'))
-    #   object.method_1('key_1' => 1, 'key_2' => 2)
-    #   # no error raised
-    #
-    # @example Actual parameter does not contain entry with expected key.
-    #   object = mock()
-    #   object.expects(:method_1).with(has_key('key_1'))
-    #   object.method_1('key_2' => 2)
-    #   # error raised, because method_1 was not called with Hash containing key: 'key_1'
-    #
-    def has_key(key) # rubocop:disable Naming/PredicateName
-      HasKey.new(key)
+    module Methods
+      # Matches +Hash+ containing +key+.
+      #
+      # @param [Object] key expected key.
+      # @return [HasKey] parameter matcher.
+      #
+      # @see Expectation#with
+      #
+      # @example Actual parameter contains entry with expected key.
+      #   object = mock()
+      #   object.expects(:method_1).with(has_key('key_1'))
+      #   object.method_1('key_1' => 1, 'key_2' => 2)
+      #   # no error raised
+      #
+      # @example Actual parameter does not contain entry with expected key.
+      #   object = mock()
+      #   object.expects(:method_1).with(has_key('key_1'))
+      #   object.method_1('key_2' => 2)
+      #   # error raised, because method_1 was not called with Hash containing key: 'key_1'
+      #
+      def has_key(key) # rubocop:disable Naming/PredicateName
+        HasKey.new(key)
+      end
     end
 
     # Parameter matcher which matches when actual parameter contains +Hash+ entry with expected key.

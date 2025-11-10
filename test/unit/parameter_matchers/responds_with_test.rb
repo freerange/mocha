@@ -5,7 +5,7 @@ require 'mocha/parameter_matchers/instance_methods'
 require 'mocha/inspect'
 
 class RespondsWithTest < Mocha::TestCase
-  include Mocha::ParameterMatchers
+  include Mocha::ParameterMatchers::Methods
 
   def test_should_match_parameter_responding_with_expected_value
     matcher = responds_with(:upcase, 'FOO')

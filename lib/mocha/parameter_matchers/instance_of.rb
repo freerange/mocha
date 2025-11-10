@@ -2,27 +2,29 @@ require 'mocha/parameter_matchers/base'
 
 module Mocha
   module ParameterMatchers
-    # Matches any object that is an instance of +klass+
-    #
-    # @param [Class] klass expected class.
-    # @return [InstanceOf] parameter matcher.
-    #
-    # @see Expectation#with
-    # @see Kernel#instance_of?
-    #
-    # @example Actual parameter is an instance of +String+.
-    #   object = mock()
-    #   object.expects(:method_1).with(instance_of(String))
-    #   object.method_1('string')
-    #   # no error raised
-    #
-    # @example Actual parameter is not an instance of +String+.
-    #   object = mock()
-    #   object.expects(:method_1).with(instance_of(String))
-    #   object.method_1(99)
-    #   # error raised, because method_1 was not called with an instance of String
-    def instance_of(klass)
-      InstanceOf.new(klass)
+    module Methods
+      # Matches any object that is an instance of +klass+
+      #
+      # @param [Class] klass expected class.
+      # @return [InstanceOf] parameter matcher.
+      #
+      # @see Expectation#with
+      # @see Kernel#instance_of?
+      #
+      # @example Actual parameter is an instance of +String+.
+      #   object = mock()
+      #   object.expects(:method_1).with(instance_of(String))
+      #   object.method_1('string')
+      #   # no error raised
+      #
+      # @example Actual parameter is not an instance of +String+.
+      #   object = mock()
+      #   object.expects(:method_1).with(instance_of(String))
+      #   object.method_1(99)
+      #   # error raised, because method_1 was not called with an instance of String
+      def instance_of(klass)
+        InstanceOf.new(klass)
+      end
     end
 
     # Parameter matcher which matches when actual parameter is an instance of the specified class.

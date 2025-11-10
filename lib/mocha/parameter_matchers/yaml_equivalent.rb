@@ -3,26 +3,28 @@ require 'yaml'
 
 module Mocha
   module ParameterMatchers
-    # Matches any YAML that represents the specified +object+
-    #
-    # @param [Object] object object whose YAML to compare.
-    # @return [YamlEquivalent] parameter matcher.
-    #
-    # @see Expectation#with
-    #
-    # @example Actual parameter is YAML equivalent of specified +object+.
-    #   object = mock()
-    #   object.expects(:method_1).with(yaml_equivalent(1, 2, 3))
-    #   object.method_1("--- \n- 1\n- 2\n- 3\n")
-    #   # no error raised
-    #
-    # @example Actual parameter is not YAML equivalent of specified +object+.
-    #   object = mock()
-    #   object.expects(:method_1).with(yaml_equivalent(1, 2, 3))
-    #   object.method_1("--- \n- 1\n- 2\n")
-    #   # error raised, because method_1 was not called with YAML representing the specified Array
-    def yaml_equivalent(object)
-      YamlEquivalent.new(object)
+    module Methods
+      # Matches any YAML that represents the specified +object+
+      #
+      # @param [Object] object object whose YAML to compare.
+      # @return [YamlEquivalent] parameter matcher.
+      #
+      # @see Expectation#with
+      #
+      # @example Actual parameter is YAML equivalent of specified +object+.
+      #   object = mock()
+      #   object.expects(:method_1).with(yaml_equivalent(1, 2, 3))
+      #   object.method_1("--- \n- 1\n- 2\n- 3\n")
+      #   # no error raised
+      #
+      # @example Actual parameter is not YAML equivalent of specified +object+.
+      #   object = mock()
+      #   object.expects(:method_1).with(yaml_equivalent(1, 2, 3))
+      #   object.method_1("--- \n- 1\n- 2\n")
+      #   # error raised, because method_1 was not called with YAML representing the specified Array
+      def yaml_equivalent(object)
+        YamlEquivalent.new(object)
+      end
     end
 
     # Parameter matcher which matches if actual parameter is YAML equivalent of specified object.

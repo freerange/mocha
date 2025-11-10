@@ -2,28 +2,30 @@ require 'mocha/parameter_matchers/base'
 
 module Mocha
   module ParameterMatchers
-    # Matches any object that is a +klass+.
-    #
-    # @param [Class] klass expected class.
-    # @return [IsA] parameter matcher.
-    #
-    # @see Expectation#with
-    # @see Kernel#is_a?
-    #
-    # @example Actual parameter is a +Integer+.
-    #   object = mock()
-    #   object.expects(:method_1).with(is_a(Integer))
-    #   object.method_1(99)
-    #   # no error raised
-    #
-    # @example Actual parameter is not a +Integer+.
-    #   object = mock()
-    #   object.expects(:method_1).with(is_a(Integer))
-    #   object.method_1('string')
-    #   # error raised, because method_1 was not called with an Integer
-    #
-    def is_a(klass) # rubocop:disable Naming/PredicateName
-      IsA.new(klass)
+    module Methods
+      # Matches any object that is a +klass+.
+      #
+      # @param [Class] klass expected class.
+      # @return [IsA] parameter matcher.
+      #
+      # @see Expectation#with
+      # @see Kernel#is_a?
+      #
+      # @example Actual parameter is a +Integer+.
+      #   object = mock()
+      #   object.expects(:method_1).with(is_a(Integer))
+      #   object.method_1(99)
+      #   # no error raised
+      #
+      # @example Actual parameter is not a +Integer+.
+      #   object = mock()
+      #   object.expects(:method_1).with(is_a(Integer))
+      #   object.method_1('string')
+      #   # error raised, because method_1 was not called with an Integer
+      #
+      def is_a(klass) # rubocop:disable Naming/PredicateName
+        IsA.new(klass)
+      end
     end
 
     # Parameter matcher which matches when actual parameter is a specific class.
