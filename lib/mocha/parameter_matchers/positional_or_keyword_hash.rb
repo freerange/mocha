@@ -2,6 +2,7 @@ require 'mocha/configuration'
 require 'mocha/deprecation'
 require 'mocha/parameter_matchers/base'
 require 'mocha/parameter_matchers/has_entries'
+require 'mocha/parameter_matchers/deprecations'
 
 module Mocha
   module ParameterMatchers
@@ -64,5 +65,7 @@ module Mocha
         "defined at #{@expectation.definition_location}"
       end
     end
+
+    provide_deprecated_access_to(:PositionalOrKeywordHash)
   end
 end

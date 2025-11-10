@@ -55,4 +55,5 @@ class HasValueTest < Mocha::TestCase
   end
 
   include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:has_value, 'value')
+  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_class(:HasValue)
 end

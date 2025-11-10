@@ -51,5 +51,7 @@ module Mocha
         "regexp_matches(#{@regexp.mocha_inspect})"
       end
     end
+
+    provide_deprecated_access_to(:RegexpMatches)
   end
 end

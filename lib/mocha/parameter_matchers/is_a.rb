@@ -51,5 +51,7 @@ module Mocha
         "is_a(#{@klass.mocha_inspect})"
       end
     end
+
+    provide_deprecated_access_to(:IsA)
   end
 end

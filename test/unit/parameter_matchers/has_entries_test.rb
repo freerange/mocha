@@ -96,4 +96,5 @@ class HasEntriesTest < Mocha::TestCase
   end
 
   include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:has_entries, key: 'value')
+  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_class(:HasEntries)
 end

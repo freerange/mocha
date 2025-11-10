@@ -23,4 +23,5 @@ class KindOfTest < Mocha::TestCase
   end
 
   include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:kind_of, Integer)
+  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_class(:KindOf)
 end

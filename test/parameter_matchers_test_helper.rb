@@ -39,4 +39,32 @@ module ParameterMatchersTestHelper
       end
     end
   end
+
+  def self.deprecation_tests_for_matcher_class(class_name)
+    Module.new do
+      def self.included(base)
+        base.prepend SetupMethods
+      end
+
+      define_method :test_should_deprecate_referencing_matcher_class_from_test_class do
+        DeprecationDisabler.disable_deprecations do
+          self.class.const_get(class_name)
+        end
+        assert_includes(
+          Mocha::Deprecation.messages,
+          "Referencing #{class_name} outside its namespace is deprecated. Use fully-qualified Mocha::ParameterMatchers::#{class_name} instead."
+        )
+      end
+
+      define_method :test_should_allow_referencing_fully_qualified_matcher_class_from_test_class do
+        DeprecationDisabler.disable_deprecations do
+          self.class.const_get("Mocha::ParameterMatchers::#{class_name}")
+        end
+        refute_includes(
+          Mocha::Deprecation.messages,
+          "Referencing #{class_name} outside its namespace is deprecated. Use fully-qualified Mocha::ParameterMatchers::#{class_name} instead."
+        )
+      end
+    end
+  end
 end

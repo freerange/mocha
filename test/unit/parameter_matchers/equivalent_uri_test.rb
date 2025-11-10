@@ -41,4 +41,5 @@ class EquivalentUriMatchesTest < Mocha::TestCase
   end
 
   include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:equivalent_uri, 'http://example.com')
+  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_class(:EquivalentUri)
 end
