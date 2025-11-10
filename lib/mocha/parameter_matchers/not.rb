@@ -50,5 +50,7 @@ module Mocha
         "Not(#{@matcher.mocha_inspect})"
       end
     end
+
+    provide_deprecated_access_to(:Not)
   end
 end

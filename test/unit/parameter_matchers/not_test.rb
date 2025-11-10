@@ -24,4 +24,5 @@ class NotTest < Mocha::TestCase
   end
 
   include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:Not, false)
+  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_class(:Not)
 end

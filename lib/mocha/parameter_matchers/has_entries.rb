@@ -58,5 +58,7 @@ module Mocha
         @exact ? @entries.mocha_inspect : "has_entries(#{@entries.mocha_inspect})"
       end
     end
+
+    provide_deprecated_access_to(:HasEntries)
   end
 end

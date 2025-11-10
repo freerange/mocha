@@ -1,4 +1,5 @@
 require 'mocha/deprecation'
+require 'mocha/parameter_matchers/deprecations'
 
 module Mocha
   module ParameterMatchers
@@ -71,5 +72,7 @@ module Mocha
         )
       end
     end
+
+    provide_deprecated_access_to(:Base)
   end
 end
