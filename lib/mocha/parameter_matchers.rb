@@ -1,5 +1,5 @@
 module Mocha
-  # Used as parameters for {Expectation#with} to restrict the parameter values which will match the expectation. Can be nested.
+  # Matcher classes used as parameters for {Expectation#with} to restrict the parameter values which will match the expectation. Can be nested. Build matcher instances in tests using methods in {Methods}, e.g. {Methods#includes}.
   module ParameterMatchers; end
 end
 
