@@ -6,7 +6,7 @@
 <title>
   Class: Mocha::Expectation
   
-    &mdash; Mocha 3.0.0-rc.1
+    &mdash; Mocha 3.0.0-rc.2
   
 </title>
 
@@ -2495,7 +2495,7 @@
     
 <p>Modifies expectation so that the expected method must be called with <code>expected_parameters_or_matchers</code>.</p>
 
-<p>May be used with Ruby literals or variables for exact matching or with parameter matchers for less-specific matching, e.g. <span class='object_link'><a href="ParameterMatchers.html#includes-instance_method" title="Mocha::ParameterMatchers#includes (method)">ParameterMatchers#includes</a></span>, <span class='object_link'><a href="ParameterMatchers.html#has_key-instance_method" title="Mocha::ParameterMatchers#has_key (method)">ParameterMatchers#has_key</a></span>, etc. See <span class='object_link'><a href="ParameterMatchers.html" title="Mocha::ParameterMatchers (module)">ParameterMatchers</a></span> for a list of all available parameter matchers.</p>
+<p>May be used with Ruby literals or variables for exact matching or with parameter matchers for less-specific matching, e.g. <span class='object_link'><a href="ParameterMatchers/Methods.html#includes-instance_method" title="Mocha::ParameterMatchers::Methods#includes (method)">ParameterMatchers::Methods#includes</a></span>, <span class='object_link'><a href="ParameterMatchers/Methods.html#has_key-instance_method" title="Mocha::ParameterMatchers::Methods#has_key (method)">ParameterMatchers::Methods#has_key</a></span>, etc. See <span class='object_link'><a href="ParameterMatchers.html" title="Mocha::ParameterMatchers (module)">ParameterMatchers</a></span> for a list of all available parameter matchers.</p>
 
 <p>Alternatively a block argument can be passed to <span class='object_link'><a href="#with-instance_method" title="Mocha::Expectation#with (method)">#with</a></span> to implement custom parameter matching. The block receives the <tt>*actual_parameters</tt> as its arguments and should return <code>true</code> if they are acceptable or <code>false</code> otherwise. See the example below where a method is expected to be called with a value divisible by 4. The block argument takes precedence over <code>expected_parameters_or_matchers</code>. The block may be called multiple times per invocation of the expected method and so it should be idempotent.</p>
 
@@ -2627,7 +2627,7 @@
         <span class='name'>expected_parameters_or_matchers</span>
       
       
-        <span class='type'>(<tt>Array&lt;<span class='object_link'>Object</span>,<span class='object_link'><a href="ParameterMatchers/Base.html" title="Mocha::ParameterMatchers::Base (module)">ParameterMatchers::Base</a></span>&gt;</tt>)</span>
+        <span class='type'>(<tt>Array&lt;<span class='object_link'>Object</span>,<span class='object_link'><a href="ParameterMatchers/BaseMethods.html" title="Mocha::ParameterMatchers::BaseMethods (module)">ParameterMatchers::BaseMethods</a></span>&gt;</tt>)</span>
       
       
       
@@ -3046,9 +3046,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 24 15:05:27 2025 by
+  Generated on Tue Nov 11 14:27:03 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.1).
+  0.9.37 (ruby-3.3.0).
 </div>
 
     </div>

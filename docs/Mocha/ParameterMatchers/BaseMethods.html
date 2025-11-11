@@ -4,9 +4,9 @@
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
-  Module: Mocha::ParameterMatchers::Base
+  Module: Mocha::ParameterMatchers::BaseMethods
   
-    &mdash; Mocha 3.0.0-rc.1
+    &mdash; Mocha 3.0.0-rc.2
   
 </title>
 
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
 <script type="text/javascript">
-  pathId = "Mocha::ParameterMatchers::Base";
+  pathId = "Mocha::ParameterMatchers::BaseMethods";
   relpath = '../../';
 </script>
 
@@ -39,7 +39,7 @@
     <a href="../../_index.html">Index (B)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../../Mocha.html" title="Mocha (module)">Mocha</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../ParameterMatchers.html" title="Mocha::ParameterMatchers (module)">ParameterMatchers</a></span></span>
      &raquo; 
-    <span class="title">Base</span>
+    <span class="title">BaseMethods</span>
   
 </div>
 
@@ -59,7 +59,7 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><h1>Module: Mocha::ParameterMatchers::Base
+      <div id="content"><h1>Module: Mocha::ParameterMatchers::BaseMethods
   <span class="abstract note title">Abstract</span>
   
   
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/mocha/parameter_matchers/base.rb</dd>
+    <dd>lib/mocha/parameter_matchers/base_methods.rb</dd>
   </dl>
   
 </div>
@@ -93,7 +93,7 @@
     <div class="note abstract">
   <strong>This module is abstract.</strong>
   <div class='inline'>
-<p>Include and implement <code>#matches?</code> and <code>#mocha_inspect</code> to define a custom matcher. Also add a suitably named instance method to <span class='object_link'><a href="../ParameterMatchers.html" title="Mocha::ParameterMatchers (module)">Mocha::ParameterMatchers</a></span> to build an instance of the new matcher c.f. <span class='object_link'><a href="../ParameterMatchers.html#equals-instance_method" title="Mocha::ParameterMatchers#equals (method)">#equals</a></span>.</p>
+<p>Include and implement <code>#matches?</code> and <code>#mocha_inspect</code> to define a custom matcher. Also add a suitably named instance method to <span class='object_link'><a href="Methods.html" title="Mocha::ParameterMatchers::Methods (module)">Methods</a></span> to build an instance of the new matcher c.f. <span class='object_link'><a href="Methods.html#equals-instance_method" title="Mocha::ParameterMatchers::Methods#equals (method)">Methods#equals</a></span>.</p>
 </div>
 </div>
 
@@ -224,7 +224,7 @@ object.run(foo: &#39;foovalue&#39;, bar: &#39;barvalue)</code></pre>
         <span class='name'>other</span>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="" title="Mocha::ParameterMatchers::Base (module)">Base</a></span></tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Mocha::ParameterMatchers::BaseMethods (module)">BaseMethods</a></span></tt>)</span>
       
       
       
@@ -269,12 +269,12 @@ object.run(foo: &#39;foovalue&#39;, bar: &#39;barvalue)</code></pre>
       <pre class="lines">
 
 
-27
-28
-29</pre>
+29
+30
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/parameter_matchers/base.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/parameter_matchers/base_methods.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='op'>&amp;</span><span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="AllOf.html" title="Mocha::ParameterMatchers::AllOf (class)">AllOf</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
@@ -326,7 +326,7 @@ object.run(foo: &#39;foovalue&#39;, bar: &#39;barvalue)</code></pre>
     
       
         <h5 class="example_title"><div class='inline'>
-<p>Using an explicit <span class='object_link'><a href="Equals.html" title="Mocha::ParameterMatchers::Equals (class)">Equals</a></span> matcher in combination with <span class='object_link'><a href="#%7C-instance_method" title="Mocha::ParameterMatchers::Base#| (method)">#|</a></span>.</p>
+<p>Using an explicit <span class='object_link'><a href="Equals.html" title="Mocha::ParameterMatchers::Equals (class)">Equals</a></span> matcher in combination with <span class='object_link'><a href="#%7C-instance_method" title="Mocha::ParameterMatchers::BaseMethods#| (method)">#|</a></span>.</p>
 </div></h5>
       
       <pre class="example code"><code><span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='symbol'>:run</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_with'>with</span><span class='lparen'>(</span><span class='id identifier rubyid_equals'>equals</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span> <span class='op'>|</span> <span class='id identifier rubyid_equals'>equals</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -343,7 +343,7 @@ object.run(foo: &#39;foovalue&#39;, bar: &#39;barvalue)</code></pre>
         <span class='name'>other</span>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="" title="Mocha::ParameterMatchers::Base (module)">Base</a></span></tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Mocha::ParameterMatchers::BaseMethods (module)">BaseMethods</a></span></tt>)</span>
       
       
       
@@ -388,12 +388,12 @@ object.run(foo: &#39;foovalue&#39;, bar: &#39;barvalue)</code></pre>
       <pre class="lines">
 
 
-57
-58
-59</pre>
+59
+60
+61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/parameter_matchers/base.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/parameter_matchers/base_methods.rb', line 59</span>
 
 <span class='kw'>def</span> <span class='op'>|</span><span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="AnyOf.html" title="Mocha::ParameterMatchers::AnyOf (class)">AnyOf</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
@@ -408,9 +408,9 @@ object.run(foo: &#39;foovalue&#39;, bar: &#39;barvalue)</code></pre>
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 24 15:05:27 2025 by
+  Generated on Tue Nov 11 14:27:03 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.1).
+  0.9.37 (ruby-3.3.0).
 </div>
 
     </div>

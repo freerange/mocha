@@ -6,7 +6,7 @@
 <title>
   Module: Mocha::ObjectMethods
   
-    &mdash; Mocha 3.0.0-rc.1
+    &mdash; Mocha 3.0.0-rc.2
   
 </title>
 
@@ -68,6 +68,11 @@
   
 
   
+  
+  <dl>
+      <dt>Extended by:</dt>
+      <dd>IgnoringWarning</dd>
+  </dl>
   
   
   
@@ -187,6 +192,7 @@
   
 
 
+  
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
@@ -370,18 +376,6 @@
       <pre class="lines">
 
 
-73
-74
-75
-76
-77
-78
-79
-80
-81
-82
-83
-84
 85
 86
 87
@@ -389,10 +383,22 @@
 89
 90
 91
-92</pre>
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/object_methods.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/object_methods.rb', line 85</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expects'>expects</span><span class='lparen'>(</span><span class='id identifier rubyid_expected_methods_vs_return_values'>expected_methods_vs_return_values</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_expected_methods_vs_return_values'>expected_methods_vs_return_values</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>the[^a-z]*spanish[^a-z]*inquisition</span><span class='regexp_end'>/i</span></span>
@@ -597,26 +603,26 @@
       <pre class="lines">
 
 
-122
-123
-124
-125
-126
-127
-128
-129
-130
-131
-132
-133
 134
 135
 136
 137
-138</pre>
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/object_methods.rb', line 122</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/object_methods.rb', line 134</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stubs'>stubs</span><span class='lparen'>(</span><span class='id identifier rubyid_stubbed_methods_vs_return_values'>stubbed_methods_vs_return_values</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_frozen?'>frozen?</span>
@@ -719,16 +725,16 @@
       <pre class="lines">
 
 
-163
-164
-165
-166
-167
-168
-169</pre>
+175
+176
+177
+178
+179
+180
+181</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/mocha/object_methods.rb', line 163</span>
+      <pre class="code"><span class="info file"># File 'lib/mocha/object_methods.rb', line 175</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unstub'>unstub</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_method_names'>method_names</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_mockery'>mockery</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Mocha.html" title="Mocha (module)">Mocha</a></span></span><span class='op'>::</span><span class='const'>Mockery</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
@@ -747,9 +753,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 24 15:05:27 2025 by
+  Generated on Tue Nov 11 14:27:03 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.1).
+  0.9.37 (ruby-3.3.0).
 </div>
 
     </div>

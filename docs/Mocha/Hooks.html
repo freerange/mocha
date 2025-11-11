@@ -6,7 +6,7 @@
 <title>
   Module: Mocha::Hooks
   
-    &mdash; Mocha 3.0.0-rc.1
+    &mdash; Mocha 3.0.0-rc.2
   
 </title>
 
@@ -138,7 +138,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#mocha_setup-instance_method" title="#mocha_setup (instance method)">#<strong>mocha_setup</strong>  &#x21d2; Object </a>
+      <a href="#mocha_setup-instance_method" title="#mocha_setup (instance method)">#<strong>mocha_setup</strong>(assertion_counter)  &#x21d2; Object </a>
     
 
     
@@ -210,7 +210,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#mocha_verify-instance_method" title="#mocha_verify (instance method)">#<strong>mocha_verify</strong>(assertion_counter = nil)  &#x21d2; Object </a>
+      <a href="#mocha_verify-instance_method" title="#mocha_verify (instance method)">#<strong>mocha_verify</strong>  &#x21d2; Object </a>
     
 
     
@@ -243,7 +243,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="mocha_setup-instance_method">
   
-    #<strong>mocha_setup</strong>  &#x21d2; <tt><span class='object_link'>Object</span></tt> 
+    #<strong>mocha_setup</strong>(assertion_counter)  &#x21d2; <tt><span class='object_link'>Object</span></tt> 
   
 
   
@@ -275,8 +275,8 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/mocha/hooks.rb', line 24</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_mocha_setup'>mocha_setup</span>
-  <span class='const'>Mockery</span><span class='period'>.</span><span class='id identifier rubyid_setup'>setup</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_mocha_setup'>mocha_setup</span><span class='lparen'>(</span><span class='id identifier rubyid_assertion_counter'>assertion_counter</span><span class='rparen'>)</span>
+  <span class='const'>Mockery</span><span class='period'>.</span><span class='id identifier rubyid_setup'>setup</span><span class='lparen'>(</span><span class='id identifier rubyid_assertion_counter'>assertion_counter</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -370,7 +370,7 @@
       <div class="method_details ">
   <h3 class="signature " id="mocha_verify-instance_method">
   
-    #<strong>mocha_verify</strong>(assertion_counter = nil)  &#x21d2; <tt><span class='object_link'>Object</span></tt> 
+    #<strong>mocha_verify</strong>  &#x21d2; <tt><span class='object_link'>Object</span></tt> 
   
 
   
@@ -404,8 +404,8 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/mocha/hooks.rb', line 33</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_mocha_verify'>mocha_verify</span><span class='lparen'>(</span><span class='id identifier rubyid_assertion_counter'>assertion_counter</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='const'>Mockery</span><span class='period'>.</span><span class='id identifier rubyid_verify'>verify</span><span class='lparen'>(</span><span class='id identifier rubyid_assertion_counter'>assertion_counter</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_mocha_verify'>mocha_verify</span>
+  <span class='const'>Mockery</span><span class='period'>.</span><span class='id identifier rubyid_verify'>verify</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -417,9 +417,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 24 15:05:27 2025 by
+  Generated on Tue Nov 11 14:27:03 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.1).
+  0.9.37 (ruby-3.3.0).
 </div>
 
     </div>

@@ -6,7 +6,7 @@
 <title>
   Class: Mocha::StateMachine
   
-    &mdash; Mocha 3.0.0-rc.1
+    &mdash; Mocha 3.0.0-rc.2
   
 </title>
 
@@ -570,7 +570,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/mocha/state_machine.rb', line 86</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_is_not'>is_not</span><span class='lparen'>(</span><span class='id identifier rubyid_unexpected_state_name'>unexpected_state_name</span><span class='rparen'>)</span> <span class='comment'># rubocop:disable Naming/PredicateName
+<span class='kw'>def</span> <span class='id identifier rubyid_is_not'>is_not</span><span class='lparen'>(</span><span class='id identifier rubyid_unexpected_state_name'>unexpected_state_name</span><span class='rparen'>)</span> <span class='comment'># rubocop:disable Naming/PredicatePrefix
 </span>  <span class='const'><span class='object_link'><a href="StateMachine/StatePredicate.html" title="Mocha::StateMachine::StatePredicate (class)">StatePredicate</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_unexpected_state_name'>unexpected_state_name</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>is not</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_current'>current</span><span class='comma'>,</span> <span class='id identifier rubyid_given'>given</span><span class='op'>|</span> <span class='id identifier rubyid_current'>current</span> <span class='op'>!=</span> <span class='id identifier rubyid_given'>given</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -664,9 +664,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 24 15:05:27 2025 by
+  Generated on Tue Nov 11 14:27:03 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.1).
+  0.9.37 (ruby-3.3.0).
 </div>
 
     </div>
