@@ -6,7 +6,7 @@
 <title>
   File: RELEASE
   
-    &mdash; Mocha 2.7.1
+    &mdash; Mocha 2.8.0
   
 </title>
 
@@ -58,6 +58,25 @@
       </div>
 
       <div id="content"><div id='filecontents'><h1 id="release-notes">Release Notes</h1>
+
+<h2 id="2-8-0">2.8.0</h2>
+
+<p>Many thanks to @etiennebarrie for his help in testing v3.0.0 release candidates which led to many of these changes.</p>
+
+<h3 id="external-changes">External changes</h3>
+
+<ul>
+<li>Extract <code>ParameterMatchers::BaseMethods</code> module and deprecate inheriting from <code>ParameterMatchers::Base</code> class (0ddfbe4b)</li>
+<li>Move matcher builder methods into <code>ParameterMatchers::Methods</code> module and only include that module into <code>API</code> (2de41423)</li>
+<li>Provide deprecated access to matcher builder methods when including <code>ParameterMatchers</code> module (299488e1)</li>
+<li>Provide deprecated access to matcher classes, e.g. <code>ParameterMatchers::Equals</code>, from within tests/specs (dcced1b4)</li>
+</ul>
+
+<h3 id="internal-changes">Internal changes</h3>
+
+<ul>
+<li>Move <code>ParameterMatchers#parse_option</code> -&gt; <code>HasEntry.parse_option</code> (9e2a6f66)</li>
+</ul>
 
 <h2 id="2-7-1">2.7.1</h2>
 
@@ -1539,9 +1558,9 @@ Hash with wrong number of entries.</li>
 </div></div>
 
       <div id="footer">
-  Generated on Mon Dec  9 12:52:24 2024 by
+  Generated on Tue Nov 11 14:06:42 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.3.6).
+  0.9.37 (ruby-3.3.0).
 </div>
 
     </div>
