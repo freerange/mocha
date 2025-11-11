@@ -1,5 +1,4 @@
 require 'mocha/parameter_matchers/base'
-require 'mocha/parameter_matchers/deprecations'
 
 module Mocha
   module ParameterMatchers
@@ -21,8 +20,6 @@ module Mocha
         Anything.new
       end
     end
-
-    define_deprecated_matcher_method(:anything)
 
     # Parameter matcher which always matches a single parameter.
     class Anything

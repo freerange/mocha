@@ -2,7 +2,6 @@ require File.expand_path('../../../test_helper', __FILE__)
 
 require 'mocha/parameter_matchers/yaml_equivalent'
 require 'mocha/inspect'
-require 'parameter_matchers_test_helper'
 
 class YamlEquivalentTest < Mocha::TestCase
   include Mocha::ParameterMatchers::Methods
@@ -21,6 +20,4 @@ class YamlEquivalentTest < Mocha::TestCase
     matcher = yaml_equivalent([1, 2, 3])
     assert_equal 'yaml_equivalent([1, 2, 3])', matcher.mocha_inspect
   end
-
-  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:yaml_equivalent, 123)
 end

@@ -1,5 +1,4 @@
 require 'mocha/parameter_matchers/base'
-require 'mocha/parameter_matchers/deprecations'
 
 module Mocha
   module ParameterMatchers
@@ -26,8 +25,6 @@ module Mocha
         AllOf.new(*matchers)
       end
     end
-
-    define_deprecated_matcher_method(:all_of)
 
     # Parameter matcher which combines a number of other matchers using a logical AND.
     class AllOf

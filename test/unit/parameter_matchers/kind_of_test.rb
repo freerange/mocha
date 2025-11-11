@@ -2,7 +2,6 @@ require File.expand_path('../../../test_helper', __FILE__)
 
 require 'mocha/parameter_matchers/kind_of'
 require 'mocha/inspect'
-require 'parameter_matchers_test_helper'
 
 class KindOfTest < Mocha::TestCase
   include Mocha::ParameterMatchers::Methods
@@ -21,6 +20,4 @@ class KindOfTest < Mocha::TestCase
     matcher = kind_of(Integer)
     assert_equal 'kind_of(Integer)', matcher.mocha_inspect
   end
-
-  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:kind_of, Integer)
 end

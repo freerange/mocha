@@ -1,7 +1,6 @@
 require 'mocha/parameter_matchers/base'
 require 'mocha/parameter_matchers/all_of'
 require 'mocha/parameter_matchers/has_entry'
-require 'mocha/parameter_matchers/deprecations'
 
 module Mocha
   module ParameterMatchers
@@ -29,8 +28,6 @@ module Mocha
         HasEntries.new(entries)
       end
     end
-
-    define_deprecated_matcher_method(:has_entries)
 
     # Parameter matcher which matches when actual parameter contains all expected +Hash+ entries.
     class HasEntries

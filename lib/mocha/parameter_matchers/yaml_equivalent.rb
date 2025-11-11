@@ -1,5 +1,4 @@
 require 'mocha/parameter_matchers/base'
-require 'mocha/parameter_matchers/deprecations'
 require 'yaml'
 
 module Mocha
@@ -27,8 +26,6 @@ module Mocha
         YamlEquivalent.new(object)
       end
     end
-
-    define_deprecated_matcher_method(:yaml_equivalent)
 
     # Parameter matcher which matches if actual parameter is YAML equivalent of specified object.
     class YamlEquivalent

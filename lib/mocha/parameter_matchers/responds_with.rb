@@ -1,6 +1,5 @@
 require 'mocha/parameter_matchers/base'
 require 'mocha/parameter_matchers/all_of'
-require 'mocha/parameter_matchers/deprecations'
 require 'yaml'
 
 module Mocha
@@ -55,8 +54,6 @@ module Mocha
         end
       end
     end
-
-    define_deprecated_matcher_method(:responds_with)
 
     # Parameter matcher which matches if actual parameter returns expected result when specified method is invoked.
     class RespondsWith

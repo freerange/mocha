@@ -3,7 +3,6 @@ require File.expand_path('../../../test_helper', __FILE__)
 require 'mocha/parameter_matchers/responds_with'
 require 'mocha/parameter_matchers/instance_methods'
 require 'mocha/inspect'
-require 'parameter_matchers_test_helper'
 
 class RespondsWithTest < Mocha::TestCase
   include Mocha::ParameterMatchers::Methods
@@ -46,6 +45,4 @@ class RespondsWithTest < Mocha::TestCase
     matcher = responds_with(foo: :bar, baz: 123)
     assert_equal 'all_of(responds_with(:foo, :bar), responds_with(:baz, 123))', matcher.mocha_inspect
   end
-
-  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:responds_with, :foo, :bar)
 end

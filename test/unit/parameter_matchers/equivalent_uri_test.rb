@@ -1,6 +1,5 @@
 require File.expand_path('../../../test_helper', __FILE__)
 require 'mocha/parameter_matchers/equivalent_uri'
-require 'parameter_matchers_test_helper'
 
 class EquivalentUriMatchesTest < Mocha::TestCase
   include Mocha::ParameterMatchers::Methods
@@ -39,6 +38,4 @@ class EquivalentUriMatchesTest < Mocha::TestCase
     matcher = equivalent_uri('http://example.com/foo?a=&b=2')
     assert matcher.matches?(['http://example.com/foo?a=&b=2'])
   end
-
-  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:equivalent_uri, 'http://example.com')
 end

@@ -1,6 +1,5 @@
 require 'mocha/parameter_matchers/all_of'
 require 'mocha/parameter_matchers/base'
-require 'mocha/parameter_matchers/deprecations'
 
 module Mocha
   module ParameterMatchers
@@ -66,8 +65,6 @@ module Mocha
         Includes.new(*items)
       end
     end
-
-    define_deprecated_matcher_method(:includes)
 
     # Parameter matcher which matches when actual parameter includes expected values.
     class Includes

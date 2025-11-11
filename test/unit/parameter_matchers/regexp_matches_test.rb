@@ -2,7 +2,6 @@ require File.expand_path('../../../test_helper', __FILE__)
 
 require 'mocha/parameter_matchers/regexp_matches'
 require 'mocha/inspect'
-require 'parameter_matchers_test_helper'
 
 class RegexpMatchesTest < Mocha::TestCase
   include Mocha::ParameterMatchers::Methods
@@ -47,6 +46,4 @@ class RegexpMatchesTest < Mocha::TestCase
   def object_not_responding_to_equals_tilde
     Class.new { undef =~ if respond_to?(:=~) }.new
   end
-
-  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:regexp_matches, /oo/)
 end

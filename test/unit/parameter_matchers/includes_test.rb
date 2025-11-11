@@ -5,7 +5,6 @@ require 'mocha/parameter_matchers/instance_methods'
 require 'mocha/parameter_matchers/has_key'
 require 'mocha/parameter_matchers/regexp_matches'
 require 'mocha/inspect'
-require 'parameter_matchers_test_helper'
 
 class IncludesTest < Mocha::TestCase
   include Mocha::ParameterMatchers::Methods
@@ -104,6 +103,4 @@ class IncludesTest < Mocha::TestCase
     matcher = includes(regexp_matches(/az/))
     assert !matcher.matches?([{ 'foo' => 1, 'bar' => 2 }])
   end
-
-  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:includes)
 end

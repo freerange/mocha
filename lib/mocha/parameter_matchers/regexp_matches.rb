@@ -1,5 +1,4 @@
 require 'mocha/parameter_matchers/base'
-require 'mocha/parameter_matchers/deprecations'
 
 module Mocha
   module ParameterMatchers
@@ -27,8 +26,6 @@ module Mocha
         RegexpMatches.new(regexp)
       end
     end
-
-    define_deprecated_matcher_method(:regexp_matches)
 
     # Parameter matcher which matches if specified regular expression matches actual paramter.
     class RegexpMatches
