@@ -58,18 +58,5 @@ module Mocha
         AnyOf.new(self, other)
       end
     end
-
-    # @deprecated Include +BaseMethods+ module instead.
-    class Base
-      include BaseMethods
-
-      # @private
-      def self.inherited(subclass)
-        super
-        Deprecation.warning(
-          "Include #{BaseMethods} module into #{subclass} instead of inheriting from #{self}."
-        )
-      end
-    end
   end
 end
