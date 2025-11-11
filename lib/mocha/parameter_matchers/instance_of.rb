@@ -50,7 +50,5 @@ module Mocha
         "instance_of(#{@klass.mocha_inspect})"
       end
     end
-
-    provide_deprecated_access_to(:InstanceOf)
   end
 end

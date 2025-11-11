@@ -23,5 +23,4 @@ class YamlEquivalentTest < Mocha::TestCase
   end
 
   include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:yaml_equivalent, 123)
-  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_class(:YamlEquivalent)
 end

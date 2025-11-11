@@ -24,5 +24,4 @@ class AllOfTest < Mocha::TestCase
   end
 
   include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:all_of)
-  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_class(:AllOf)
 end

@@ -49,5 +49,4 @@ class RegexpMatchesTest < Mocha::TestCase
   end
 
   include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:regexp_matches, /oo/)
-  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_class(:RegexpMatches)
 end

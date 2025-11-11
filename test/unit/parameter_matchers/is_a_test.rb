@@ -23,5 +23,4 @@ class IsATest < Mocha::TestCase
   end
 
   include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:is_a, Integer)
-  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_class(:IsA)
 end

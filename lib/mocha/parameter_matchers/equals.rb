@@ -50,7 +50,5 @@ module Mocha
         @value.mocha_inspect
       end
     end
-
-    provide_deprecated_access_to(:Equals)
   end
 end

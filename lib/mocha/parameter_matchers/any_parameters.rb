@@ -44,7 +44,5 @@ module Mocha
         'any_parameters'
       end
     end
-
-    provide_deprecated_access_to(:AnyParameters)
   end
 end

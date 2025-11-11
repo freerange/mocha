@@ -55,7 +55,5 @@ module Mocha
         "any_of(#{@matchers.map(&:mocha_inspect).join(', ')})"
       end
     end
-
-    provide_deprecated_access_to(:AnyOf)
   end
 end

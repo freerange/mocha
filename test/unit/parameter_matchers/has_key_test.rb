@@ -54,5 +54,4 @@ class HasKeyTest < Mocha::TestCase
   end
 
   include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:has_key, :key)
-  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_class(:HasKey)
 end

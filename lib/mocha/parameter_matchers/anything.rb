@@ -39,7 +39,5 @@ module Mocha
         'anything'
       end
     end
-
-    provide_deprecated_access_to(:Anything)
   end
 end

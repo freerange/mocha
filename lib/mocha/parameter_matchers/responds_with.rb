@@ -79,7 +79,5 @@ module Mocha
         "responds_with(#{@message.mocha_inspect}, #{@result.mocha_inspect})"
       end
     end
-
-    provide_deprecated_access_to(:RespondsWith)
   end
 end

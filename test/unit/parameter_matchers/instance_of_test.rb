@@ -23,5 +23,4 @@ class InstanceOfTest < Mocha::TestCase
   end
 
   include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:instance_of, String)
-  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_class(:InstanceOf)
 end

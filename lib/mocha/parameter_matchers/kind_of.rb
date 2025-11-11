@@ -52,7 +52,5 @@ module Mocha
         "kind_of(#{@klass.mocha_inspect})"
       end
     end
-
-    provide_deprecated_access_to(:KindOf)
   end
 end

@@ -52,7 +52,5 @@ module Mocha
         "yaml_equivalent(#{@object.mocha_inspect})"
       end
     end
-
-    provide_deprecated_access_to(:YamlEquivalent)
   end
 end

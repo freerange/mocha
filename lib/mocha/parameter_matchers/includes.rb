@@ -105,7 +105,5 @@ module Mocha
         "includes(#{item_descriptions.join(', ')})"
       end
     end
-
-    provide_deprecated_access_to(:Includes)
   end
 end

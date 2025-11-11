@@ -99,7 +99,5 @@ module Mocha
         end
       end
     end
-
-    provide_deprecated_access_to(:HasEntry)
   end
 end

@@ -48,5 +48,4 @@ class RespondsWithTest < Mocha::TestCase
   end
 
   include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:responds_with, :foo, :bar)
-  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_class(:RespondsWith)
 end

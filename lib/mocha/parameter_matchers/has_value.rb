@@ -51,7 +51,5 @@ module Mocha
         "has_value(#{@value.mocha_inspect})"
       end
     end
-
-    provide_deprecated_access_to(:HasValue)
   end
 end

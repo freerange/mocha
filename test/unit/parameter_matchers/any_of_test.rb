@@ -24,5 +24,4 @@ class AnyOfTest < Mocha::TestCase
   end
 
   include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:any_of)
-  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_class(:AnyOf)
 end

@@ -51,7 +51,5 @@ module Mocha
         "has_key(#{@key.mocha_inspect})"
       end
     end
-
-    provide_deprecated_access_to(:HasKey)
   end
 end

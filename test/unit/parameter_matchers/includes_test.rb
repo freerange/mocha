@@ -106,5 +106,4 @@ class IncludesTest < Mocha::TestCase
   end
 
   include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:includes)
-  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_class(:Includes)
 end

@@ -60,7 +60,5 @@ module Mocha
         URI::Generic::COMPONENT.inject({}) { |h, k| h.merge(k => uri.__send__(k)) }.merge(query: query_hash)
       end
     end
-
-    provide_deprecated_access_to(:EquivalentUri)
   end
 end
