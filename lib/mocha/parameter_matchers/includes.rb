@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'mocha/parameter_matchers/all_of'
-require 'mocha/parameter_matchers/base'
+require 'mocha/parameter_matchers/base_methods'
 
 module Mocha
   module ParameterMatchers
