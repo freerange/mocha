@@ -1,5 +1,20 @@
 # Release Notes
 
+## 2.8.0
+
+Many thanks to @etiennebarrie for his help in testing v3.0.0 release candidates which led to many of these changes.
+
+### External changes
+
+* Extract `ParameterMatchers::BaseMethods` module and deprecate inheriting from `ParameterMatchers::Base` class (0ddfbe4b)
+* Move matcher builder methods into `ParameterMatchers::Methods` module and only include that module into `API` (2de41423)
+* Provide deprecated access to matcher builder methods when including `ParameterMatchers` module (299488e1)
+* Provide deprecated access to matcher classes, e.g. `ParameterMatchers::Equals`, from within tests/specs (dcced1b4)
+
+### Internal changes
+
+* Move `ParameterMatchers#parse_option` -> `HasEntry.parse_option` (9e2a6f66)
+
 ## 2.7.1
 
 ### External changes
