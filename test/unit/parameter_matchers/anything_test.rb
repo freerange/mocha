@@ -2,9 +2,10 @@ require File.expand_path('../../../test_helper', __FILE__)
 
 require 'mocha/parameter_matchers/anything'
 require 'mocha/inspect'
+require 'parameter_matchers_test_helper'
 
 class AnythingTest < Mocha::TestCase
-  include Mocha::ParameterMatchers
+  include Mocha::ParameterMatchers::Methods
 
   def test_should_match_anything
     matcher = anything
@@ -16,4 +17,6 @@ class AnythingTest < Mocha::TestCase
     matcher = anything
     assert_equal 'anything', matcher.mocha_inspect
   end
+
+  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:anything)
 end

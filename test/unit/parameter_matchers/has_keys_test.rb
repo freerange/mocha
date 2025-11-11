@@ -3,9 +3,10 @@ require File.expand_path('../../../test_helper', __FILE__)
 require 'mocha/parameter_matchers/has_keys'
 require 'mocha/parameter_matchers/instance_methods'
 require 'mocha/inspect'
+require 'parameter_matchers_test_helper'
 
 class HasKeysTest < Mocha::TestCase
-  include Mocha::ParameterMatchers
+  include Mocha::ParameterMatchers::Methods
 
   def test_should_match_hash_including_specified_keys
     matcher = has_keys(:key_1, :key_2)
@@ -61,4 +62,7 @@ class HasKeysTest < Mocha::TestCase
     e = assert_raises(ArgumentError) { has_keys }
     assert_equal 'No arguments. Expecting at least one.', e.message
   end
+
+  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:has_keys, :key)
+  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_class(:HasKeys)
 end

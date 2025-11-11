@@ -1,8 +1,12 @@
 module Mocha
-  # Used as parameters for {Expectation#with} to restrict the parameter values which will match the expectation. Can be nested.
-  module ParameterMatchers; end
+  # Matcher classes used as parameters for {Expectation#with} to restrict the parameter values which will match the expectation. Can be nested. Build matcher instances in tests using methods in {Methods}, e.g. {Methods#includes}.
+  module ParameterMatchers
+    # These methods build instances of the {ParameterMatchers} classes which are used with {Expectation#with} to restrict the parameter values. Can be nested, e.g. see {Methods#all_of} examples.
+    module Methods; end
+  end
 end
 
+require 'mocha/parameter_matchers/deprecations'
 require 'mocha/parameter_matchers/instance_methods'
 
 require 'mocha/parameter_matchers/all_of'

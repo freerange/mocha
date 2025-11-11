@@ -6,9 +6,10 @@ require 'mocha/parameter_matchers/instance_methods'
 require 'mocha/inspect'
 require 'mocha/expectation'
 require 'mocha/ruby_version'
+require 'parameter_matchers_test_helper'
 
 class PositionalOrKeywordHashTest < Mocha::TestCase
-  include Mocha::ParameterMatchers
+  include Mocha::ParameterMatchers::Methods
 
   def test_should_describe_matcher
     hash = { key_1: 1, key_2: 2 }
@@ -151,6 +152,8 @@ class PositionalOrKeywordHashTest < Mocha::TestCase
       assert_includes message, 'but received keyword arguments (key_1: 1, key_2: 2)'
     end
   end
+
+  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_class(:PositionalOrKeywordHash)
 
   private
 

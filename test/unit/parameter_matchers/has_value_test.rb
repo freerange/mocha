@@ -4,9 +4,10 @@ require 'mocha/parameter_matchers/has_value'
 require 'mocha/parameter_matchers/instance_methods'
 require 'mocha/parameter_matchers/equals'
 require 'mocha/inspect'
+require 'parameter_matchers_test_helper'
 
 class HasValueTest < Mocha::TestCase
-  include Mocha::ParameterMatchers
+  include Mocha::ParameterMatchers::Methods
 
   def test_should_match_hash_including_specified_value
     matcher = has_value('value_1')
@@ -52,4 +53,7 @@ class HasValueTest < Mocha::TestCase
     matcher = has_value('value_1')
     assert !matcher.matches?(['value_1'])
   end
+
+  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:has_value, 'value')
+  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_class(:HasValue)
 end

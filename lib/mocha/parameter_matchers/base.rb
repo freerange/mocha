@@ -1,8 +1,9 @@
 require 'mocha/deprecation'
+require 'mocha/parameter_matchers/deprecations'
 
 module Mocha
   module ParameterMatchers
-    # @abstract Include and implement +#matches?+ and +#mocha_inspect+ to define a custom matcher. Also add a suitably named instance method to {ParameterMatchers} to build an instance of the new matcher c.f. {#equals}.
+    # @abstract Include and implement +#matches?+ and +#mocha_inspect+ to define a custom matcher. Also add a suitably named instance method to {Methods} to build an instance of the new matcher c.f. {Methods#equals}.
     module BaseMethods
       # A shorthand way of combining two matchers when both must match.
       #
@@ -71,5 +72,7 @@ module Mocha
         )
       end
     end
+
+    provide_deprecated_access_to(:Base)
   end
 end

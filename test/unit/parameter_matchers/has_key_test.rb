@@ -3,9 +3,10 @@ require File.expand_path('../../../test_helper', __FILE__)
 require 'mocha/parameter_matchers/has_key'
 require 'mocha/parameter_matchers/instance_methods'
 require 'mocha/inspect'
+require 'parameter_matchers_test_helper'
 
 class HasKeyTest < Mocha::TestCase
-  include Mocha::ParameterMatchers
+  include Mocha::ParameterMatchers::Methods
 
   def test_should_match_hash_including_specified_key
     matcher = has_key(:key_1)
@@ -51,4 +52,7 @@ class HasKeyTest < Mocha::TestCase
     matcher = has_key(:key)
     assert !matcher.matches?([:key])
   end
+
+  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:has_key, :key)
+  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_class(:HasKey)
 end

@@ -3,9 +3,10 @@ require File.expand_path('../../../test_helper', __FILE__)
 require 'mocha/parameter_matchers/all_of'
 require 'mocha/inspect'
 require 'stub_matcher'
+require 'parameter_matchers_test_helper'
 
 class AllOfTest < Mocha::TestCase
-  include Mocha::ParameterMatchers
+  include Mocha::ParameterMatchers::Methods
 
   def test_should_match_if_all_matchers_match
     matcher = all_of(Stub::Matcher.new(true), Stub::Matcher.new(true), Stub::Matcher.new(true))
@@ -21,4 +22,7 @@ class AllOfTest < Mocha::TestCase
     matcher = all_of(Stub::Matcher.new(true), Stub::Matcher.new(false), Stub::Matcher.new(true))
     assert_equal 'all_of(matcher(true), matcher(false), matcher(true))', matcher.mocha_inspect
   end
+
+  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_method(:all_of)
+  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_class(:AllOf)
 end
