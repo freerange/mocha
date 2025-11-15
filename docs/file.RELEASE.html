@@ -6,7 +6,7 @@
 <title>
   File: RELEASE
   
-    &mdash; Mocha 2.8.0
+    &mdash; Mocha 2.8.1
   
 </title>
 
@@ -59,6 +59,15 @@
 
       <div id="content"><div id='filecontents'><h1 id="release-notes">Release Notes</h1>
 
+<h2 id="2-8-1">2.8.1</h2>
+
+<h3 id="external-changes">External changes</h3>
+
+<ul>
+<li>Restore unqualified access to <code>ParameterMatchers</code> matcher classes, but deprecate such access (5231a4f7)</li>
+<li>Restore unqualified access to <code>ParameterMatchers::BaseMethods</code>, but deprecate such access (8a898567)</li>
+</ul>
+
 <h2 id="2-8-0">2.8.0</h2>
 
 <p>Many thanks to @etiennebarrie for his help in testing v3.0.0 release candidates which led to many of these changes.</p>
@@ -76,6 +85,13 @@
 
 <ul>
 <li>Move <code>ParameterMatchers#parse_option</code> -&gt; <code>HasEntry.parse_option</code> (9e2a6f66)</li>
+</ul>
+
+<p><strong>WARNING: This release accidentally removed access to ParameterMatchers classes</strong></p>
+
+<ul>
+<li>Fully-qualified access from within a test/spec class still works, e.g. <code>Mocha::ParameterMatchers::HasKey</code>, but unqualified access does not work, e.g. <code>HasKey</code>.</li>
+<li>The mistake has been fixed in v2.8.1 where unqualified access is restored but deprecated. Unqualified access will be removed in v3.</li>
 </ul>
 
 <h2 id="2-7-1">2.7.1</h2>
@@ -1558,7 +1574,7 @@ Hash with wrong number of entries.</li>
 </div></div>
 
       <div id="footer">
-  Generated on Tue Nov 11 14:06:42 2025 by
+  Generated on Sat Nov 15 16:26:40 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.3.0).
 </div>
