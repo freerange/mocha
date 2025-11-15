@@ -1,5 +1,11 @@
 # Release Notes
 
+## 2.8.2
+
+### External changes
+
+* Improve source location of deprecation warning for `ParameterMatchers` matcher classes (c5171488)
+
 ## 2.8.1
 
 ### External changes
