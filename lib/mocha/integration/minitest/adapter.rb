@@ -1,6 +1,7 @@
 require 'mocha/api'
 require 'mocha/integration/assertion_counter'
 require 'mocha/expectation_error_factory'
+require 'mocha/parameter_matchers/deprecations'
 
 module Mocha
   module Integration
@@ -22,7 +23,8 @@ module Mocha
         end
 
         # @private
-        def self.included(_mod)
+        def self.included(mod)
+          mod.extend(Mocha::ParameterMatchers::Deprecations)
           Mocha::ExpectationErrorFactory.exception_class = ::Minitest::Assertion
         end
 

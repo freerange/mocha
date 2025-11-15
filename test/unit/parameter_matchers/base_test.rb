@@ -6,8 +6,6 @@ require 'mocha/deprecation'
 require 'parameter_matchers_test_helper'
 
 class BaseTest < Mocha::TestCase
-  include Mocha::ParameterMatchers::Methods
-
   def test_should_deprecate_inheriting_from_base_matcher_class
     subclass = nil
     DeprecationDisabler.disable_deprecations do

@@ -1,5 +1,6 @@
 require 'deprecation_disabler'
 require 'mocha/deprecation'
+require 'mocha/parameter_matchers/deprecations'
 
 module ParameterMatchersTestHelper
   module SetupMethods
@@ -44,6 +45,7 @@ module ParameterMatchersTestHelper
     Module.new do
       def self.included(base)
         base.prepend SetupMethods
+        base.extend Mocha::ParameterMatchers::Deprecations
       end
 
       define_method :test_should_deprecate_referencing_matcher_class_from_test_class do

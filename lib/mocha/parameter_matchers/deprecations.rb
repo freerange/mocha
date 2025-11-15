@@ -3,19 +3,17 @@ require 'set'
 
 module Mocha
   module ParameterMatchers
-    module Methods
+    module Deprecations
       # @private
-      def self.included(base)
-        base.define_singleton_method(:const_missing) do |name|
-          if ParameterMatchers.access_deprecated?(name)
-            Mocha::ParameterMatchers.const_get(name).tap do |mod|
-              Deprecation.warning(
-                "Referencing #{name} outside its namespace is deprecated. Use fully-qualified #{mod} instead."
-              )
-            end
-          else
-            super(name)
+      def const_missing(name)
+        if ParameterMatchers.access_deprecated?(name)
+          ParameterMatchers.const_get(name).tap do |mod|
+            Deprecation.warning(
+              "Referencing #{name} outside its namespace is deprecated. Use fully-qualified #{mod} instead."
+            )
           end
+        else
+          super(name)
         end
       end
     end
