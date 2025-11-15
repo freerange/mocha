@@ -7,11 +7,11 @@ module Mocha
       # @private
       def const_missing(name)
         if ParameterMatchers.access_deprecated?(name)
-          ParameterMatchers.const_get(name).tap do |mod|
-            Deprecation.warning(
-              "Referencing #{name} outside its namespace is deprecated. Use fully-qualified #{mod} instead."
-            )
-          end
+          mod = ParameterMatchers.const_get(name)
+          Deprecation.warning(
+            "Referencing #{name} outside its namespace is deprecated. Use fully-qualified #{mod} instead."
+          )
+          mod
         else
           super(name)
         end
