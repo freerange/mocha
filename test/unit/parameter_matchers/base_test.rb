@@ -18,4 +18,5 @@ class BaseTest < Mocha::TestCase
   end
 
   include ParameterMatchersTestHelper.deprecation_tests_for_matcher_class(:Base)
+  include ParameterMatchersTestHelper.deprecation_tests_for_matcher_class(:BaseMethods)
 end

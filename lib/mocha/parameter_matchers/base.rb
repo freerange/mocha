@@ -60,6 +60,8 @@ module Mocha
       end
     end
 
+    provide_deprecated_access_to(:BaseMethods)
+
     # @deprecated Include +BaseMethods+ module instead.
     class Base
       include BaseMethods
