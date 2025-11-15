@@ -1,5 +1,12 @@
 # Release Notes
 
+## 2.8.1
+
+### External changes
+
+* Restore unqualified access to `ParameterMatchers` matcher classes, but deprecate such access (5231a4f7)
+* Restore unqualified access to `ParameterMatchers::BaseMethods`, but deprecate such access (8a898567)
+
 ## 2.8.0
 
 Many thanks to @etiennebarrie for his help in testing v3.0.0 release candidates which led to many of these changes.
@@ -14,6 +21,10 @@ Many thanks to @etiennebarrie for his help in testing v3.0.0 release candidates 
 ### Internal changes
 
 * Move `ParameterMatchers#parse_option` -> `HasEntry.parse_option` (9e2a6f66)
+
+**WARNING: This release accidentally removed access to ParameterMatchers classes**
+* Fully-qualified access from within a test/spec class still works, e.g. `Mocha::ParameterMatchers::HasKey`, but unqualified access does not work, e.g. `HasKey`.
+* The mistake has been fixed in v2.8.1 where unqualified access is restored but deprecated. Unqualified access will be removed in v3.
 
 ## 2.7.1
 
