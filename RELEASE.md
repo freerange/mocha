@@ -1,33 +1,6 @@
 # Release Notes
 
-## 3.0.0-rc.2
-
-### External changes
-
-* Fix compatibility with Ruby 3.5 (#755) - thanks to @Earlopain
-* Add missing quotes to docs for `Mocha::ParameterMatchers::Methods#equivalent_uri` (#757) - thanks to @bensherman
-* Increment assertion count on never expected invocation (#763 & #764)
-* Remove deprecated `ParameterMatchers::Base` class; include `ParameterMatchers::BaseMethods` module instead (415ae768)
-* Remove deprecated `ParameterMatcher` methods now available in `ParameterMatcher::Methods` (8de49979)
-* Removed deprecated access to `ParameterMatcher` classes (6ea9e3f5)
-
-### Internal changes
-
-* Remove workaround for JRuby jar-dependencies issue (#737)
-* Add benchmark to `Gemfile` to fix warning (#733 & #740) - thanks to @nitishr
-* Add documentation coverage check (#707, #743 & #745) - thanks to @nitishr
-* Fix `Lint/LiteralAsCondition` violation (#746) - thanks to @nitishr
-* Fix rdoc-related warning when running doc rake task (#741 & #747)
-* Fail fast in CI builds on any Ruby warnings (#729 & #741) - thanks to @nitishr
-* Add `ObjectMethods#stubba_respond_to?` and use instead of `Object#respond_to?` (#713, #742 & #750) - thanks to @nitishr
-* Rename `#stubbee` -> `#stubba_object` and `#mock_owner` -> `#stubbee` (#463 & #751) - thanks to @nitishr
-* Fix `enable-frozen-string-literal` in CI build (#752) - thanks to @nitishr
-* Various rubocop fixed (#754 & #756)
-* Fix `Layout/EmptyLinesAfterModuleInclusion` violations (3f683220)
-* Auto-correct `Style/RedundantParentheses` violations (0277a592)
-* Automatically retry failed CI builds (9bbdbc66)
-
-## 3.0.0-rc.1
+## 3.0.0
 
 ### External changes
 
@@ -42,9 +15,14 @@
 * Improve `#mocha_inspect` for empty keyword argument `Hash` (#588 & #720) - thanks to @herwinw for reporting
 * Improve error if `Mockery.teardown` called before `Mockery.setup` (#611, #646 & #721) - thanks to @riniculous for reporting
 * Freeze string literals (#722)
-* Remove support for running tests with Minitest < v5 (#727)
 * Allow keyword arguments to match an expectation expecting *only* positional arguments (#593 & #732) - thanks to @seandilda
 for reporting
+* Fix compatibility with Ruby 3.5 (#755) - thanks to @Earlopain
+* Add missing quotes to docs for `Mocha::ParameterMatchers::Methods#equivalent_uri` (#757) - thanks to @bensherman
+* Increment assertion count on never expected invocation (#763 & #764)
+* Remove deprecated `ParameterMatchers::Base` class; include `ParameterMatchers::BaseMethods` module instead (415ae768)
+* Remove deprecated `ParameterMatcher` methods now available in `ParameterMatcher::Methods` (8de49979)
+* Removed deprecated access to `ParameterMatcher` classes (6ea9e3f5)
 
 ### Internal changes
 
@@ -63,6 +41,27 @@ for reporting
 * Remove duplicate `DefaultReceiverTest` (39d99954)
 * Improvements to keyword argument matching tests (#730)
 * Improvements to keyword argument matcher unit test (#731)
+* Remove support for running tests with Minitest < v5 (#727)
+* Remove workaround for JRuby jar-dependencies issue (#737)
+* Add benchmark to `Gemfile` to fix warning (#733 & #740) - thanks to @nitishr
+* Add documentation coverage check (#707, #743 & #745) - thanks to @nitishr
+* Fix `Lint/LiteralAsCondition` violation (#746) - thanks to @nitishr
+* Fix rdoc-related warning when running doc rake task (#741 & #747)
+* Fail fast in CI builds on any Ruby warnings (#729 & #741) - thanks to @nitishr
+* Add `ObjectMethods#stubba_respond_to?` and use instead of `Object#respond_to?` (#713, #742 & #750) - thanks to @nitishr
+* Rename `#stubbee` -> `#stubba_object` and `#mock_owner` -> `#stubbee` (#463 & #751) - thanks to @nitishr
+* Fix `enable-frozen-string-literal` in CI build (#752) - thanks to @nitishr
+* Various rubocop fixed (#754 & #756)
+* Fix `Layout/EmptyLinesAfterModuleInclusion` violations (3f683220)
+* Auto-correct `Style/RedundantParentheses` violations (0277a592)
+* Automatically retry failed CI builds (9bbdbc66)
+
+## 2.8.1
+
+### External changes
+
+* Restore unqualified access to `ParameterMatchers` matcher classes, but deprecate such access (5231a4f7)
+* Restore unqualified access to `ParameterMatchers::BaseMethods`, but deprecate such access (8a898567)
 
 ## 2.8.0
 
