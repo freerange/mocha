@@ -330,7 +330,7 @@ See this [list of contributors](https://github.com/freerange/mocha/graphs/contri
 ```bash
 $ MOCHA_GENERATE_DOCS=true bundle install
 
-$ MOCHA_GENERATE_DOCS=true rake generate_docs
+$ MOCHA_GENERATE_DOCS=true rake docs
 ```
 * Commit documentation & push to GitHub
 * Sign in to rubygems.org and find API key - https://rubygems.org/profile/edit
