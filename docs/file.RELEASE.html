@@ -6,7 +6,7 @@
 <title>
   File: RELEASE
   
-    &mdash; Mocha 3.0.0-rc.2
+    &mdash; Mocha 3.0.0
   
 </title>
 
@@ -59,38 +59,7 @@
 
       <div id="content"><div id='filecontents'><h1 id="release-notes">Release Notes</h1>
 
-<h2 id="3-0-0-rc-2">3.0.0-rc.2</h2>
-
-<h3 id="external-changes">External changes</h3>
-
-<ul>
-<li>Fix compatibility with Ruby 3.5 (#755) - thanks to @Earlopain</li>
-<li>Add missing quotes to docs for <code>Mocha::ParameterMatchers::Methods#equivalent_uri</code> (#757) - thanks to @bensherman</li>
-<li>Increment assertion count on never expected invocation (#763 &amp; #764)</li>
-<li>Remove deprecated <code>ParameterMatchers::Base</code> class; include <code>ParameterMatchers::BaseMethods</code> module instead (415ae768)</li>
-<li>Remove deprecated <code>ParameterMatcher</code> methods now available in <code>ParameterMatcher::Methods</code> (8de49979)</li>
-<li>Removed deprecated access to <code>ParameterMatcher</code> classes (6ea9e3f5)</li>
-</ul>
-
-<h3 id="internal-changes">Internal changes</h3>
-
-<ul>
-<li>Remove workaround for JRuby jar-dependencies issue (#737)</li>
-<li>Add benchmark to <code>Gemfile</code> to fix warning (#733 &amp; #740) - thanks to @nitishr</li>
-<li>Add documentation coverage check (#707, #743 &amp; #745) - thanks to @nitishr</li>
-<li>Fix <code>Lint/LiteralAsCondition</code> violation (#746) - thanks to @nitishr</li>
-<li>Fix rdoc-related warning when running doc rake task (#741 &amp; #747)</li>
-<li>Fail fast in CI builds on any Ruby warnings (#729 &amp; #741) - thanks to @nitishr</li>
-<li>Add <code>ObjectMethods#stubba_respond_to?</code> and use instead of <code>Object#respond_to?</code> (#713, #742 &amp; #750) - thanks to @nitishr</li>
-<li>Rename <code>#stubbee</code> -&gt; <code>#stubba_object</code> and <code>#mock_owner</code> -&gt; <code>#stubbee</code> (#463 &amp; #751) - thanks to @nitishr</li>
-<li>Fix <code>enable-frozen-string-literal</code> in CI build (#752) - thanks to @nitishr</li>
-<li>Various rubocop fixed (#754 &amp; #756)</li>
-<li>Fix <code>Layout/EmptyLinesAfterModuleInclusion</code> violations (3f683220)</li>
-<li>Auto-correct <code>Style/RedundantParentheses</code> violations (0277a592)</li>
-<li>Automatically retry failed CI builds (9bbdbc66)</li>
-</ul>
-
-<h2 id="3-0-0-rc-1">3.0.0-rc.1</h2>
+<h2 id="3-0-0">3.0.0</h2>
 
 <h3 id="external-changes">External changes</h3>
 
@@ -106,9 +75,14 @@
 <li>Improve <code>#mocha_inspect</code> for empty keyword argument <code>Hash</code> (#588 &amp; #720) - thanks to @herwinw for reporting</li>
 <li>Improve error if <code>Mockery.teardown</code> called before <code>Mockery.setup</code> (#611, #646 &amp; #721) - thanks to @riniculous for reporting</li>
 <li>Freeze string literals (#722)</li>
-<li>Remove support for running tests with Minitest &lt; v5 (#727)</li>
 <li>Allow keyword arguments to match an expectation expecting <em>only</em> positional arguments (#593 &amp; #732) - thanks to @seandilda
 for reporting</li>
+<li>Fix compatibility with Ruby 3.5 (#755) - thanks to @Earlopain</li>
+<li>Add missing quotes to docs for <code>Mocha::ParameterMatchers::Methods#equivalent_uri</code> (#757) - thanks to @bensherman</li>
+<li>Increment assertion count on never expected invocation (#763 &amp; #764)</li>
+<li>Remove deprecated <code>ParameterMatchers::Base</code> class; include <code>ParameterMatchers::BaseMethods</code> module instead (415ae768)</li>
+<li>Remove deprecated <code>ParameterMatcher</code> methods now available in <code>ParameterMatcher::Methods</code> (8de49979)</li>
+<li>Removed deprecated access to <code>ParameterMatcher</code> classes (6ea9e3f5)</li>
 </ul>
 
 <h3 id="internal-changes">Internal changes</h3>
@@ -129,6 +103,29 @@ for reporting</li>
 <li>Remove duplicate <code>DefaultReceiverTest</code> (39d99954)</li>
 <li>Improvements to keyword argument matching tests (#730)</li>
 <li>Improvements to keyword argument matcher unit test (#731)</li>
+<li>Remove support for running tests with Minitest &lt; v5 (#727)</li>
+<li>Remove workaround for JRuby jar-dependencies issue (#737)</li>
+<li>Add benchmark to <code>Gemfile</code> to fix warning (#733 &amp; #740) - thanks to @nitishr</li>
+<li>Add documentation coverage check (#707, #743 &amp; #745) - thanks to @nitishr</li>
+<li>Fix <code>Lint/LiteralAsCondition</code> violation (#746) - thanks to @nitishr</li>
+<li>Fix rdoc-related warning when running doc rake task (#741 &amp; #747)</li>
+<li>Fail fast in CI builds on any Ruby warnings (#729 &amp; #741) - thanks to @nitishr</li>
+<li>Add <code>ObjectMethods#stubba_respond_to?</code> and use instead of <code>Object#respond_to?</code> (#713, #742 &amp; #750) - thanks to @nitishr</li>
+<li>Rename <code>#stubbee</code> -&gt; <code>#stubba_object</code> and <code>#mock_owner</code> -&gt; <code>#stubbee</code> (#463 &amp; #751) - thanks to @nitishr</li>
+<li>Fix <code>enable-frozen-string-literal</code> in CI build (#752) - thanks to @nitishr</li>
+<li>Various rubocop fixed (#754 &amp; #756)</li>
+<li>Fix <code>Layout/EmptyLinesAfterModuleInclusion</code> violations (3f683220)</li>
+<li>Auto-correct <code>Style/RedundantParentheses</code> violations (0277a592)</li>
+<li>Automatically retry failed CI builds (9bbdbc66)</li>
+</ul>
+
+<h2 id="2-8-1">2.8.1</h2>
+
+<h3 id="external-changes">External changes</h3>
+
+<ul>
+<li>Restore unqualified access to <code>ParameterMatchers</code> matcher classes, but deprecate such access (5231a4f7)</li>
+<li>Restore unqualified access to <code>ParameterMatchers::BaseMethods</code>, but deprecate such access (8a898567)</li>
 </ul>
 
 <h2 id="2-8-0">2.8.0</h2>
@@ -1630,9 +1627,9 @@ Hash with wrong number of entries.</li>
 </div></div>
 
       <div id="footer">
-  Generated on Tue Nov 11 14:27:02 2025 by
+  Generated on Mon Dec 15 10:54:36 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.3.0).
+  0.9.38 (ruby-3.3.0).
 </div>
 
     </div>
