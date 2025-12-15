@@ -56,6 +56,12 @@ for reporting
 * Auto-correct `Style/RedundantParentheses` violations (0277a592)
 * Automatically retry failed CI builds (9bbdbc66)
 
+## 2.8.2
+
+### External changes
+
+* Improve source location of deprecation warning for `ParameterMatchers` matcher classes (c5171488)
+
 ## 2.8.1
 
 ### External changes
