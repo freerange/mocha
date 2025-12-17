@@ -1,5 +1,11 @@
 # Release Notes
 
+## 3.0.1
+
+### External changes
+
+* Fix Mocha/RSpec integration by reinstating argument default value for `Hooks#mocha_setup` (#768 & #769) - thanks to @mackuba for reporting.
+
 ## 3.0.0
 
 ### External changes
