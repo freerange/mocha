@@ -330,7 +330,7 @@ See this [list of contributors](https://github.com/freerange/mocha/graphs/contri
 ```bash
 $ MOCHA_GENERATE_DOCS=true bundle install
 
-$ MOCHA_GENERATE_DOCS=true rake docs
+$ MOCHA_GENERATE_DOCS=true bundle exec rake docs
 ```
 * Commit documentation & push to GitHub
 * Sign in to rubygems.org and find API key - https://rubygems.org/profile/edit
@@ -342,7 +342,7 @@ $ curl -u <email-address> -H 'OTP:<one-time-password>' https://rubygems.org/api/
 * Release gem to Rubygems:
 
 ```bash
-$ rake release
+$ bundle exec rake release
 [runs tests]
 mocha 1.2.0 built to pkg/mocha-1.2.0.gem.
 Tagged v1.2.0.
