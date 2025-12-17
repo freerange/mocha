@@ -18,10 +18,15 @@ module Mocha
   # @see Mocha::ExpectationErrorFactory
   # @see Mocha::API
   module Hooks
+    # @private
+    class NullAssertionCounter
+      def increment; end
+    end
+
     # Prepares Mocha before a test (only for use by authors of test libraries).
     #
     # This method should be called before each individual test starts (including before any "setup" code).
-    def mocha_setup(assertion_counter)
+    def mocha_setup(assertion_counter = NullAssertionCounter.new)
       Mockery.setup(assertion_counter)
     end
 
