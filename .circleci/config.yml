@@ -27,7 +27,7 @@ jobs:
             equal: ["jruby:latest", << parameters.docker-image >>]
           steps:
             - run: apt-get update
-            - run: apt-get install -y git
+            - run: apt-get install -y git build-essential
       - run: gem --version
       - run: bundle --version
       - run: bundle install --gemfile=<< parameters.gemfile >>
