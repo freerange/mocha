@@ -92,15 +92,16 @@ task 'lint' do
   end
 end
 
-def benchmark_test_case(klass, iterations)
+def benchmark_test_case(klass, iterations) # rubocop:disable Metrics/AbcSize
   require 'benchmark'
   require 'mocha/detection/minitest'
 
   if defined?(Minitest)
     minitest_version = Gem::Version.new(Mocha::Detection::Minitest.version)
     if Gem::Requirement.new('>= 5.0.0').satisfied_by?(minitest_version)
+      run_method = Gem::Requirement.new('>= 6.0.0').satisfied_by?(minitest_version) ? :run_suite : :run
       Minitest.seed = 1
-      result = Benchmark.realtime { iterations.times { |_i| klass.run(Minitest::CompositeReporter.new) } }
+      result = Benchmark.realtime { iterations.times { |_i| klass.public_send(run_method, Minitest::CompositeReporter.new) } }
       Minitest::Runnable.runnables.delete(klass)
       result
     else
