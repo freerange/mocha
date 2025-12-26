@@ -9,6 +9,7 @@ group :development do
   gem 'rake'
 
   if ENV['MOCHA_GENERATE_DOCS']
+    gem 'irb'
     gem 'rdoc'
     gem 'redcarpet'
     gem 'yard'
