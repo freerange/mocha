@@ -42,6 +42,25 @@ namespace 'test' do
     t.warning = true
   end
 
+  desc 'Run each test in isolation'
+  task 'isolated' do
+    test_files = FileList['test/unit/**/*_test.rb', 'test/acceptance/*_test.rb']
+    failed_tests = []
+
+    test_files.each do |test_file|
+      puts "\n=== Running #{test_file} in isolation ==="
+      system("ruby -Itest -w #{test_file}") || (failed_tests << test_file)
+    end
+
+    if failed_tests.any?
+      puts "\n❌ #{failed_tests.size} test file(s) failed:"
+      failed_tests.each { |f| puts "  - #{f}" }
+      exit 1
+    else
+      puts "\n✅ All #{test_files.size} test files passed in isolation!"
+    end
+  end
+
   namespace 'integration' do
     desc 'Run Minitest integration tests (intended to be run in its own process)'
     Rake::TestTask.new('minitest') do |t|

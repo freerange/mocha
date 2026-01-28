@@ -3,6 +3,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 require 'mocha/ruby_version'
 require 'method_definer'
+require 'simple_counter'
 require 'mocha/class_methods'
 require 'mocha/mockery'
 require 'mocha/mock'
