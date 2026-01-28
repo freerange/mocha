@@ -5,7 +5,8 @@ require 'mocha/ruby_version'
 
 module Mocha
   class StubbedMethod
-    PrependedModule = Class.new(Module)
+    class PrependedModule < Module
+    end
 
     attr_reader :stubba_object, :method_name
 
