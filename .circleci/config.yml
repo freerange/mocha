@@ -1,7 +1,7 @@
 version: 2.1
 
 commands:
-  run-fail-fast:
+  run-fail-on-warning:
     description: "Execute command and fail on any warning in output"
     parameters:
       command:
@@ -40,7 +40,7 @@ jobs:
           condition:
             equal: ["Gemfile", << parameters.gemfile >>]
           steps:
-            - run-fail-fast:
+            - run-fail-on-warning:
                 command: bundle exec rake test
       - when:
           condition:
@@ -48,7 +48,7 @@ jobs:
               pattern: ".*minitest.*"
               value: << parameters.gemfile >>
           steps:
-            - run-fail-fast:
+            - run-fail-on-warning:
                 command: MOCHA_RUN_INTEGRATION_TESTS=minitest bundle exec --gemfile=<< parameters.gemfile >> rake test
       - when:
           condition:
@@ -56,7 +56,7 @@ jobs:
               pattern: ".*test-unit.*"
               value: << parameters.gemfile >>
           steps:
-            - run-fail-fast:
+            - run-fail-on-warning:
                 command: MOCHA_RUN_INTEGRATION_TESTS=test-unit bundle exec --gemfile=<< parameters.gemfile >> rake test
       - when:
           condition:
@@ -65,7 +65,7 @@ jobs:
               - equal: ["Gemfile", << parameters.gemfile >>]
           steps:
             - run: bundle exec rake test:isolated
-            - run-fail-fast:
+            - run-fail-on-warning:
                 command: bundle exec rake test:performance
             - run: MOCHA_GENERATE_DOCS=1 bundle install --gemfile=<< parameters.gemfile >>
             - run: RUBYOPT=--disable-frozen-string-literal MOCHA_GENERATE_DOCS=1 rake docs docs:coverage
