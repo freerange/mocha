@@ -134,9 +134,10 @@ module Mocha
     #
     # When +value+ is +:allow+, do nothing. This is the default.
     # When +value+ is +:warn+, display a warning.
+    # When +value+ is +:warn_with_location+, display a warning including file and line number where the stub was made.
     # When +value+ is +:prevent+, raise a {StubbingError}.
     #
-    # @param [Symbol] value one of +:allow+, +:warn+, +:prevent+.
+    # @param [Symbol] value one of +:allow+, +:warn+, +:warn_with_location+, +:prevent+.
     #
     # @example Preventing stubbing of a non-existent method
     #

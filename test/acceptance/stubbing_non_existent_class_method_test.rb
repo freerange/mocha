@@ -34,6 +34,17 @@ class StubbingNonExistentClassMethodTest < Mocha::TestCase
     assert @logger.warnings.include?("stubbing non-existent method: #{klass.mocha_inspect}.non_existent_method")
   end
 
+  def test_should_warn_with_location_when_stubbing_non_existent_class_method
+    Mocha.configure { |c| c.stubbing_non_existent_method = :warn_with_location }
+    klass = Class.new
+    test_result = run_as_test do
+      klass.stubs(:non_existent_method)
+    end
+    assert_passed(test_result)
+    warning = @logger.warnings.find { |w| w.include?("stubbing non-existent method: #{klass.mocha_inspect}.non_existent_method") }
+    assert warning.include?('stubbing_non_existent_class_method_test.rb:')
+  end
+
   def test_should_prevent_stubbing_non_existent_class_method
     Mocha.configure { |c| c.stubbing_non_existent_method = :prevent }
     klass = Class.new

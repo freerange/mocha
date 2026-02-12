@@ -13,6 +13,7 @@ require 'mocha/configuration'
 require 'mocha/stubbing_error'
 require 'mocha/not_initialized_error'
 require 'mocha/expectation_error_factory'
+require 'mocha/backtrace_filter'
 
 module Mocha
   class Mockery
@@ -166,6 +167,12 @@ module Mocha
       raise StubbingError.new(message, backtrace) if treatment == :prevent
 
       logger.warn(message) if treatment == :warn
+
+      return unless treatment == :warn_with_location
+
+      filter = BacktraceFilter.new
+      filtered_backtrace = filter.filtered(backtrace)
+      logger.warn(message, filtered_backtrace.first)
     end
 
     def expectations

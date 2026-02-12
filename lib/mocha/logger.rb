@@ -6,8 +6,10 @@ module Mocha
       @io = io
     end
 
-    def warn(message)
-      @io.puts "WARNING: #{message}"
+    def warn(message, location = nil)
+      output = "WARNING: #{message}"
+      output += " at #{location}" if location
+      @io.puts output
     end
   end
 end

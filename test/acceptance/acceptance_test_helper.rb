@@ -20,8 +20,10 @@ module AcceptanceTestHelper
       @warnings = []
     end
 
-    def warn(message)
-      @warnings << message
+    def warn(message, location = nil)
+      output = message
+      output += " at #{location}" if location
+      @warnings << output
     end
   end
 
