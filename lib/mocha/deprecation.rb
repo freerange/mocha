@@ -5,7 +5,7 @@ require 'mocha/backtrace_filter'
 module Mocha
   class Deprecation
     class Logger
-      def warning(message)
+      def call(message)
         filter = BacktraceFilter.new
         location = filter.filtered(caller)[0]
         warn "Mocha deprecation warning at #{location}: #{message}"
