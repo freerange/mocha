@@ -6,7 +6,7 @@
 <title>
   File: RELEASE
   
-    &mdash; Mocha 3.0.1
+    &mdash; Mocha 3.0.2
   
 </title>
 
@@ -58,6 +58,28 @@
       </div>
 
       <div id="content"><div id='filecontents'><h1 id="release-notes">Release Notes</h1>
+
+<h2 id="3-0-2">3.0.2</h2>
+
+<h3 id="external-changes">External changes</h3>
+
+<ul>
+<li>Fix <code>NoMethodError</code> on deprecation warning - broken since v3.0.0 (#790)</li>
+</ul>
+
+<h3 id="internal-changes">Internal changes</h3>
+
+<ul>
+<li>Update commands in release docs to use <code>bundle exec</code> (7692c735)</li>
+<li>Fix <code>test:performance</code> rake task for minitest v6 (d925ad27)</li>
+<li>Fix prism gem install on JRuby (683c27b4)</li>
+<li>Add Ruby v4.0-rc to CI build matrix and change weekly build to nightly (#777)</li>
+<li>Add Ruby v4.0 to CI build matrix (6ced2025)</li>
+<li>Add irb to <code>Gemfile</code> to fix warning in Ruby v4 (a0fc7798)</li>
+<li>Auto-correct <code>Style/EmptyClassDefinition</code> violation (9ba0a09f)</li>
+<li>Ensure every test can run in isolation (be12ef06)</li>
+<li>Rename <code>run-fail-fast</code> CircleCI command -&gt; <code>run-fail-on-warning</code> (72fc6fe8)</li>
+</ul>
 
 <h2 id="3-0-1">3.0.1</h2>
 
@@ -1643,9 +1665,9 @@ Hash with wrong number of entries.</li>
 </div></div>
 
       <div id="footer">
-  Generated on Wed Dec 17 11:04:42 2025 by
+  Generated on Fri Feb 13 16:28:12 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.38 (ruby-3.3.0).
+  0.9.38 (ruby-4.0.0).
 </div>
 
     </div>
