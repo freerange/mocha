@@ -1,5 +1,23 @@
 # Release Notes
 
+## 3.0.2
+
+### External changes
+
+* Fix `NoMethodError` on deprecation warning - broken since v3.0.0 (#790)
+
+### Internal changes
+
+* Update commands in release docs to use `bundle exec` (7692c735)
+* Fix `test:performance` rake task for minitest v6 (d925ad27)
+* Fix prism gem install on JRuby (683c27b4)
+* Add Ruby v4.0-rc to CI build matrix and change weekly build to nightly (#777)
+* Add Ruby v4.0 to CI build matrix (6ced2025)
+* Add irb to `Gemfile` to fix warning in Ruby v4 (a0fc7798)
+* Auto-correct `Style/EmptyClassDefinition` violation (9ba0a09f)
+* Ensure every test can run in isolation (be12ef06)
+* Rename `run-fail-fast` CircleCI command -> `run-fail-on-warning` (72fc6fe8)
+
 ## 3.0.1
 
 ### External changes
