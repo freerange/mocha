@@ -5,7 +5,6 @@ require 'test_runner'
 require 'fake_logger'
 require 'mocha/configuration'
 require 'mocha/mockery'
-require 'mocha/logger'
 require 'introspection'
 
 if Mocha::Detection::Minitest.testcase && (ENV['MOCHA_RUN_INTEGRATION_TESTS'] != 'test-unit')
@@ -15,14 +14,12 @@ else
 end
 
 module AcceptanceTestHelper
-  attr_reader :logger
-
   include TestRunner
+  include FakeLogger::TestHelper
 
   def setup_acceptance_test
     Mocha::Configuration.reset_configuration
-    @logger = FakeLogger.new
-    Mocha::Logger.logger = @logger
+    FakeLogger::TestHelper.setup
   end
 
   def teardown_acceptance_test

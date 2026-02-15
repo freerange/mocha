@@ -9,8 +9,6 @@ module Mocha
         logger.warning(*args)
       end
 
-      private
-
       def logger
         @logger ||= new
       end
