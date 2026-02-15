@@ -82,11 +82,11 @@ class LooseKeywordArgumentMatchingTest < Mocha::TestCase
   private
 
   def assert_deprecation_warning(expected_warning)
-    assert_includes logger.warnings.last, expected_warning
+    assert_includes logger.deprecation_warnings.last, expected_warning
   end
 
   def assert_no_deprecation_warning
-    warning = logger.warnings.last
+    warning = logger.deprecation_warnings.last
     assert_nil warning, "Unexpected deprecation warning: #{warning}"
   end
 

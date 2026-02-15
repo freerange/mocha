@@ -3,14 +3,20 @@
 require 'mocha/logger'
 
 class FakeLogger
-  attr_reader :warnings
-
   def initialize
-    @warnings = []
+    @warnings_by_category = Hash.new { |h, k| h[k] = [] }
   end
 
-  def warning(message)
-    @warnings << message
+  def warning(message, category: nil)
+    @warnings_by_category[category] << message
+  end
+
+  def warnings(category: nil)
+    @warnings_by_category[category]
+  end
+
+  def deprecation_warnings
+    @warnings_by_category[:deprecation]
   end
 
   module TestHelper
