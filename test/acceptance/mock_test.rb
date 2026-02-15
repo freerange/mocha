@@ -142,26 +142,26 @@ class MockTest < Mocha::TestCase
 
   class Foo
     class << self
-      attr_accessor :logger
+      attr_accessor :bar
     end
 
     def use_the_mock
-      self.class.logger.log('Foo was here')
+      self.class.bar.baz('Foo was here')
     end
   end
 
   def test_should_raise_stubbing_error_if_mock_receives_invocations_in_another_test
     use_mock_test_result = run_as_test do
-      Foo.logger = mock('Logger')
-      Foo.logger.expects(:log).with('Foo was here')
+      Foo.bar = mock('Bar')
+      Foo.bar.expects(:baz).with('Foo was here')
       Foo.new.use_the_mock
     end
     assert_passed(use_mock_test_result)
 
     reuse_mock_test_result = run_as_test do
-      Foo.logger.expects(:log).with('Foo was here')
+      Foo.bar.expects(:baz).with('Foo was here')
       e = assert_raises(Mocha::StubbingError) { Foo.new.use_the_mock }
-      assert e.message.include?('#<Mock:Logger> was instantiated in FakeTest#test_me but it is receiving invocations within another test.')
+      assert e.message.include?('#<Mock:Bar> was instantiated in FakeTest#test_me but it is receiving invocations within another test.')
       assert e.message.include?('This can lead to unintended interactions between tests and hence unexpected test failures.')
       assert e.message.include?('Ensure that every test correctly cleans up any state that it introduces.')
     end
