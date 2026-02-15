@@ -20,7 +20,7 @@ module Mocha
       filter = BacktraceFilter.new
       location = filter.filtered(caller)[0]
       prefix = ['Mocha', category, 'warning'].compact.join(' ')
-      warn("#{prefix} at #{location}: #{message}")
+      warn("#{prefix}: #{message} (at #{location})")
     end
   end
 end
