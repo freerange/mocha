@@ -20,7 +20,7 @@ class StubbingNonExistentAnyInstanceMethodTest < Mocha::TestCase
     test_result = run_as_test do
       klass.any_instance.stubs(:non_existent_method)
     end
-    assert !@logger.warnings.include?("stubbing non-existent method: #{klass.any_instance.mocha_inspect}.non_existent_method")
+    assert !logger.warnings.include?("stubbing non-existent method: #{klass.any_instance.mocha_inspect}.non_existent_method")
     assert_passed(test_result)
   end
 
@@ -31,7 +31,7 @@ class StubbingNonExistentAnyInstanceMethodTest < Mocha::TestCase
       klass.any_instance.stubs(:non_existent_method)
     end
     assert_passed(test_result)
-    assert @logger.warnings.include?("stubbing non-existent method: #{klass.any_instance.mocha_inspect}.non_existent_method")
+    assert logger.warnings.include?("stubbing non-existent method: #{klass.any_instance.mocha_inspect}.non_existent_method")
   end
 
   def test_should_prevent_stubbing_non_existent_any_instance_method
@@ -49,7 +49,7 @@ class StubbingNonExistentAnyInstanceMethodTest < Mocha::TestCase
     test_result = run_as_test do
       klass.any_instance.stubs(:non_existent_method)
     end
-    assert !@logger.warnings.include?("stubbing non-existent method: #{klass.any_instance.mocha_inspect}.non_existent_method")
+    assert !logger.warnings.include?("stubbing non-existent method: #{klass.any_instance.mocha_inspect}.non_existent_method")
     assert_passed(test_result)
   end
 
