@@ -20,7 +20,7 @@ module AcceptanceTestHelper
       @warnings = []
     end
 
-    def warn(message)
+    def warning(message)
       @warnings << message
     end
   end
