@@ -20,11 +20,11 @@ class StubbingNonPublicAnyInstanceMethodTest < Mocha::TestCase
       def private_method; end
       private :private_method
     end
-    test_result = run_as_test do
+    test_result, stderr = run_as_test_capturing_stderr do
       klass.any_instance.stubs(:private_method)
     end
     assert_passed(test_result)
-    assert !@logger.warnings.include?("stubbing non-public method: #{klass.any_instance.mocha_inspect}.private_method")
+    assert !stderr.include?("stubbing non-public method: #{klass.any_instance.mocha_inspect}.private_method")
   end
 
   def test_should_allow_stubbing_protected_any_instance_method
@@ -33,11 +33,11 @@ class StubbingNonPublicAnyInstanceMethodTest < Mocha::TestCase
       def protected_method; end
       protected :protected_method
     end
-    test_result = run_as_test do
+    test_result, stderr = run_as_test_capturing_stderr do
       klass.any_instance.stubs(:protected_method)
     end
     assert_passed(test_result)
-    assert !@logger.warnings.include?("stubbing non-public method: #{klass.any_instance.mocha_inspect}.protected_method")
+    assert !stderr.include?("stubbing non-public method: #{klass.any_instance.mocha_inspect}.protected_method")
   end
 
   def test_should_warn_when_stubbing_private_any_instance_method
@@ -46,11 +46,11 @@ class StubbingNonPublicAnyInstanceMethodTest < Mocha::TestCase
       def private_method; end
       private :private_method
     end
-    test_result = run_as_test do
+    test_result, stderr = run_as_test_capturing_stderr do
       klass.any_instance.stubs(:private_method)
     end
     assert_passed(test_result)
-    assert @logger.warnings.include?("stubbing non-public method: #{klass.any_instance.mocha_inspect}.private_method")
+    assert stderr.include?("stubbing non-public method: #{klass.any_instance.mocha_inspect}.private_method")
   end
 
   def test_should_warn_when_stubbing_protected_any_instance_method
@@ -59,11 +59,11 @@ class StubbingNonPublicAnyInstanceMethodTest < Mocha::TestCase
       def protected_method; end
       protected :protected_method
     end
-    test_result = run_as_test do
+    test_result, stderr = run_as_test_capturing_stderr do
       klass.any_instance.stubs(:protected_method)
     end
     assert_passed(test_result)
-    assert @logger.warnings.include?("stubbing non-public method: #{klass.any_instance.mocha_inspect}.protected_method")
+    assert stderr.include?("stubbing non-public method: #{klass.any_instance.mocha_inspect}.protected_method")
   end
 
   def test_should_prevent_stubbing_private_any_instance_method
@@ -97,11 +97,11 @@ class StubbingNonPublicAnyInstanceMethodTest < Mocha::TestCase
       def private_method; end
       private :private_method
     end
-    test_result = run_as_test do
+    test_result, stderr = run_as_test_capturing_stderr do
       klass.any_instance.stubs(:private_method)
     end
     assert_passed(test_result)
-    assert !@logger.warnings.include?("stubbing non-public method: #{klass.any_instance.mocha_inspect}.private_method")
+    assert !stderr.include?("stubbing non-public method: #{klass.any_instance.mocha_inspect}.private_method")
   end
 
   def test_should_default_to_allow_stubbing_protected_any_instance_method
@@ -109,11 +109,11 @@ class StubbingNonPublicAnyInstanceMethodTest < Mocha::TestCase
       def protected_method; end
       protected :protected_method
     end
-    test_result = run_as_test do
+    test_result, stderr = run_as_test_capturing_stderr do
       klass.any_instance.stubs(:protected_method)
     end
     assert_passed(test_result)
-    assert !@logger.warnings.include?("stubbing non-public method: #{klass.any_instance.mocha_inspect}.protected_method")
+    assert !stderr.include?("stubbing non-public method: #{klass.any_instance.mocha_inspect}.protected_method")
   end
 
   def test_should_allow_stubbing_public_any_instance_method

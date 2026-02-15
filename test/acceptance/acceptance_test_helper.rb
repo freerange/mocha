@@ -13,31 +13,22 @@ else
 end
 
 module AcceptanceTestHelper
-  class FakeLogger
-    attr_reader :warnings
-
-    def initialize
-      @warnings = []
-    end
-
-    def warn(message)
-      @warnings << message
-    end
-  end
-
-  attr_reader :logger
-
   include TestRunner
 
   def setup_acceptance_test
     Mocha::Configuration.reset_configuration
-    @logger = FakeLogger.new
-    mockery = Mocha::Mockery.instance
-    mockery.logger = @logger
   end
 
   def teardown_acceptance_test
     Mocha::Configuration.reset_configuration
+  end
+
+  def run_as_test_capturing_stderr(&block)
+    test_result = nil
+    _, stderr = capture_io do
+      test_result = run_as_test(&block)
+    end
+    [test_result, stderr]
   end
 
   include Introspection::Assertions

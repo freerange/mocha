@@ -16,22 +16,22 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
 
   def test_should_allow_stubbing_method_unnecessarily
     Mocha.configure { |c| c.stubbing_method_unnecessarily = :allow }
-    test_result = run_as_test do
+    test_result, stderr = run_as_test_capturing_stderr do
       mock = mock('mock')
       mock.stubs(:public_method)
     end
     assert_passed(test_result)
-    assert !@logger.warnings.include?('stubbing method unnecessarily: #<Mock:mock>.public_method(any_parameters)')
+    assert !stderr.include?('stubbing method unnecessarily: #<Mock:mock>.public_method(any_parameters)')
   end
 
   def test_should_warn_when_stubbing_method_unnecessarily
     Mocha.configure { |c| c.stubbing_method_unnecessarily = :warn }
-    test_result = run_as_test do
+    test_result, stderr = run_as_test_capturing_stderr do
       mock = mock('mock')
       mock.stubs(:public_method)
     end
     assert_passed(test_result)
-    assert @logger.warnings.include?('stubbing method unnecessarily: #<Mock:mock>.public_method(any_parameters)')
+    assert stderr.include?('stubbing method unnecessarily: #<Mock:mock>.public_method(any_parameters)')
   end
 
   def test_should_prevent_stubbing_method_unnecessarily
@@ -45,12 +45,12 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
   end
 
   def test_should_default_to_allow_stubbing_method_unnecessarily
-    test_result = run_as_test do
+    test_result, stderr = run_as_test_capturing_stderr do
       mock = mock('mock')
       mock.stubs(:public_method)
     end
     assert_passed(test_result)
-    assert !@logger.warnings.include?('stubbing method unnecessarily: #<Mock:mock>.public_method(any_parameters)')
+    assert !stderr.include?('stubbing method unnecessarily: #<Mock:mock>.public_method(any_parameters)')
   end
 
   def test_should_allow_stubbing_method_when_stubbed_method_is_invoked

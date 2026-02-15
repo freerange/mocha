@@ -19,11 +19,11 @@ class StubbingOnNonMockObjectTest < Mocha::TestCase
     non_mock_object = Class.new do
       def existing_method; end
     end
-    test_result = run_as_test do
+    test_result, stderr = run_as_test_capturing_stderr do
       non_mock_object.stubs(:existing_method)
     end
     assert_passed(test_result)
-    assert !@logger.warnings.include?("stubbing method on non-mock object: #{non_mock_object.mocha_inspect}.existing_method")
+    assert !stderr.include?("stubbing method on non-mock object: #{non_mock_object.mocha_inspect}.existing_method")
   end
 
   def test_should_warn_on_stubbing_method_on_non_mock_object
@@ -31,11 +31,11 @@ class StubbingOnNonMockObjectTest < Mocha::TestCase
     non_mock_object = Class.new do
       def existing_method; end
     end
-    test_result = run_as_test do
+    test_result, stderr = run_as_test_capturing_stderr do
       non_mock_object.stubs(:existing_method)
     end
     assert_passed(test_result)
-    assert @logger.warnings.include?("stubbing method on non-mock object: #{non_mock_object.mocha_inspect}.existing_method")
+    assert stderr.include?("stubbing method on non-mock object: #{non_mock_object.mocha_inspect}.existing_method")
   end
 
   def test_should_prevent_stubbing_method_on_non_mock_object
@@ -54,11 +54,11 @@ class StubbingOnNonMockObjectTest < Mocha::TestCase
     non_mock_object = Class.new do
       def existing_method; end
     end
-    test_result = run_as_test do
+    test_result, stderr = run_as_test_capturing_stderr do
       non_mock_object.stubs(:existing_method)
     end
     assert_passed(test_result)
-    assert !@logger.warnings.include?("stubbing method on non-mock object: #{non_mock_object.mocha_inspect}.existing_method")
+    assert !stderr.include?("stubbing method on non-mock object: #{non_mock_object.mocha_inspect}.existing_method")
   end
 
   def test_should_allow_stubbing_method_on_mock_object
