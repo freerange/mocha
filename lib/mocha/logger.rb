@@ -6,7 +6,7 @@ module Mocha
       @io = $stderr
     end
 
-    def warn(message)
+    def warning(message)
       @io.puts "WARNING: #{message}"
     end
   end
