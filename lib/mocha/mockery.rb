@@ -69,6 +69,7 @@ module Mocha
 
     def initialize(assertion_counter)
       @assertion_counter = assertion_counter
+      @logger = Logger.new($stderr)
     end
 
     def named_mock(name)
@@ -148,10 +149,6 @@ module Mocha
       check(:stubbing_method_on_non_mock_object, 'method on non-mock object', signature_proc)
     end
 
-    def logger
-      @logger ||= Logger.new($stderr)
-    end
-
     private
 
     def check(action, description, signature_proc, backtrace = caller)
@@ -162,7 +159,7 @@ module Mocha
       message = "stubbing #{description}: #{method_signature}"
       raise StubbingError.new(message, backtrace) if treatment == :prevent
 
-      logger.warn(message) if treatment == :warn
+      @logger.warn(message) if treatment == :warn
     end
 
     def expectations
