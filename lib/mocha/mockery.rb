@@ -69,7 +69,7 @@ module Mocha
 
     def initialize(assertion_counter)
       @assertion_counter = assertion_counter
-      @logger = Logger.new($stderr)
+      @logger = Logger.new
     end
 
     def named_mock(name)

@@ -2,8 +2,8 @@
 
 module Mocha
   class Logger
-    def initialize(io)
-      @io = io
+    def initialize
+      @io = $stderr
     end
 
     def warn(message)
