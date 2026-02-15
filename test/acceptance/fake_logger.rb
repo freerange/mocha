@@ -15,7 +15,12 @@ class FakeLogger
 
   module TestHelper
     def self.setup
+      @original_logger = Mocha::Logger.logger
       Mocha::Logger.logger = FakeLogger.new
+    end
+
+    def self.teardown
+      Mocha::Logger.logger = @original_logger
     end
 
     def logger

@@ -23,6 +23,7 @@ module AcceptanceTestHelper
   end
 
   def teardown_acceptance_test
+    FakeLogger::TestHelper.teardown
     Mocha::Configuration.reset_configuration
   end
 
