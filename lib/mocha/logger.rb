@@ -2,12 +2,8 @@
 
 module Mocha
   class Logger
-    def initialize
-      @io = $stderr
-    end
-
     def warning(message)
-      @io.puts "WARNING: #{message}"
+      warn "WARNING: #{message}"
     end
   end
 end
