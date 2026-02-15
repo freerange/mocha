@@ -17,7 +17,10 @@ module Mocha
     end
 
     def warning(message, category: nil)
-      warn "WARNING: #{message}"
+      filter = BacktraceFilter.new
+      location = filter.filtered(caller)[0]
+      prefix = ['Mocha', category, 'warning'].compact.join(' ')
+      warn("#{prefix} at #{location}: #{message}")
     end
   end
 end
