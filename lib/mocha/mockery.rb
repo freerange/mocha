@@ -49,7 +49,6 @@ module Mocha
       def setup(assertion_counter)
         @instances ||= []
         mockery = new(assertion_counter)
-        mockery.logger = instance.logger unless @instances.empty?
         @instances.push(mockery)
       end
 
@@ -148,8 +147,6 @@ module Mocha
       end
       check(:stubbing_method_on_non_mock_object, 'method on non-mock object', signature_proc)
     end
-
-    attr_writer :logger
 
     def logger
       @logger ||= Logger.new($stderr)
