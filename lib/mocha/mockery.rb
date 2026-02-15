@@ -165,7 +165,7 @@ module Mocha
       message = "stubbing #{description}: #{method_signature}"
       raise StubbingError.new(message, backtrace) if treatment == :prevent
 
-      logger.warn(message) if treatment == :warn
+      logger.warning(message) if treatment == :warn
     end
 
     def expectations
