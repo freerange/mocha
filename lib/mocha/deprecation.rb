@@ -9,7 +9,7 @@ module Mocha
       def warning(message)
         filter = BacktraceFilter.new
         location = filter.filtered(caller)[0]
-        Logger.warning("Mocha deprecation warning at #{location}: #{message}")
+        Logger.warning("Mocha deprecation warning at #{location}: #{message}", category: :deprecation)
       end
     end
   end
