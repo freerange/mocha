@@ -11,6 +11,6 @@ class DeprecationTest < Minitest::Test
     _, stderr = capture_io do
       Mocha::Deprecation.warning('test-message'); execution_point = ExecutionPoint.current
     end
-    assert_includes stderr, "Mocha deprecation warning at #{execution_point.location}: test-message"
+    assert_includes stderr, "Mocha deprecation warning: test-message (at #{execution_point.location})"
   end
 end
