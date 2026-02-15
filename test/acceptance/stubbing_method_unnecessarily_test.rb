@@ -21,7 +21,7 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
       mock.stubs(:public_method)
     end
     assert_passed(test_result)
-    assert !@logger.warnings.include?('stubbing method unnecessarily: #<Mock:mock>.public_method(any_parameters)')
+    assert !logger.warnings.include?('stubbing method unnecessarily: #<Mock:mock>.public_method(any_parameters)')
   end
 
   def test_should_warn_when_stubbing_method_unnecessarily
@@ -31,7 +31,7 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
       mock.stubs(:public_method)
     end
     assert_passed(test_result)
-    assert @logger.warnings.include?('stubbing method unnecessarily: #<Mock:mock>.public_method(any_parameters)')
+    assert logger.warnings.include?('stubbing method unnecessarily: #<Mock:mock>.public_method(any_parameters)')
   end
 
   def test_should_prevent_stubbing_method_unnecessarily
@@ -50,7 +50,7 @@ class StubbingMethodUnnecessarilyTest < Mocha::TestCase
       mock.stubs(:public_method)
     end
     assert_passed(test_result)
-    assert !@logger.warnings.include?('stubbing method unnecessarily: #<Mock:mock>.public_method(any_parameters)')
+    assert !logger.warnings.include?('stubbing method unnecessarily: #<Mock:mock>.public_method(any_parameters)')
   end
 
   def test_should_allow_stubbing_method_when_stubbed_method_is_invoked
