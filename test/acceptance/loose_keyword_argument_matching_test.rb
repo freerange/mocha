@@ -23,16 +23,14 @@ class LooseKeywordArgumentMatchingTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(key: 42); execution_point = ExecutionPoint.current
-      capture_deprecation_warnings do
-        mock.method({ key: 42 })
-      end
+      mock.method({ key: 42 })
     end
     assert_passed(test_result)
     return unless Mocha::RUBY_V27_PLUS
 
-    assert_deprecation_warning_location(test_result, execution_point)
+    assert_deprecation_warning_location(execution_point)
     assert_deprecation_warning(
-      test_result, 'expected keyword arguments (key: 42), but received positional hash ({key: 42})'
+      'expected keyword arguments (key: 42), but received positional hash ({key: 42})'
     )
   end
 
@@ -42,16 +40,14 @@ class LooseKeywordArgumentMatchingTest < Mocha::TestCase
       mock = mock()
       kwargs = { key: 42 }
       mock.expects(:method).with(**kwargs); execution_point = ExecutionPoint.current
-      capture_deprecation_warnings do
-        mock.method({ key: 42 })
-      end
+      mock.method({ key: 42 })
     end
     assert_passed(test_result)
     return unless Mocha::RUBY_V27_PLUS
 
-    assert_deprecation_warning_location(test_result, execution_point)
+    assert_deprecation_warning_location(execution_point)
     assert_deprecation_warning(
-      test_result, 'expected keyword arguments (key: 42), but received positional hash ({key: 42})'
+      'expected keyword arguments (key: 42), but received positional hash ({key: 42})'
     )
   end
 
@@ -59,14 +55,12 @@ class LooseKeywordArgumentMatchingTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(1, { key: 42 })
-      capture_deprecation_warnings do
-        mock.method(1, key: 42)
-      end
+      mock.method(1, key: 42)
     end
     assert_passed(test_result)
     return unless Mocha::RUBY_V27_PLUS
 
-    assert_no_deprecation_warning(test_result)
+    assert_no_deprecation_warning
   end
 
   def test_should_match_last_positional_hash_with_keyword_args
@@ -74,32 +68,30 @@ class LooseKeywordArgumentMatchingTest < Mocha::TestCase
     test_result = run_as_test do
       mock = mock()
       mock.expects(:method).with(1, key: 42); execution_point = ExecutionPoint.current
-      capture_deprecation_warnings do
-        mock.method(1, { key: 42 })
-      end
+      mock.method(1, { key: 42 })
     end
     assert_passed(test_result)
     return unless Mocha::RUBY_V27_PLUS
 
-    assert_deprecation_warning_location(test_result, execution_point)
+    assert_deprecation_warning_location(execution_point)
     assert_deprecation_warning(
-      test_result, 'expected keyword arguments (key: 42), but received positional hash ({key: 42})'
+      'expected keyword arguments (key: 42), but received positional hash ({key: 42})'
     )
   end
 
   private
 
-  def assert_deprecation_warning(test_result, expected_warning)
-    assert_includes test_result.last_deprecation_warning, expected_warning
+  def assert_deprecation_warning(expected_warning)
+    assert_includes logger.warnings.last, expected_warning
   end
 
-  def assert_no_deprecation_warning(test_result)
-    warning = test_result.last_deprecation_warning
+  def assert_no_deprecation_warning
+    warning = logger.warnings.last
     assert_nil warning, "Unexpected deprecation warning: #{warning}"
   end
 
-  def assert_deprecation_warning_location(test_result, execution_point)
+  def assert_deprecation_warning_location(execution_point)
     expected_location = "Expectation defined at #{execution_point.location}"
-    assert_deprecation_warning test_result, expected_location
+    assert_deprecation_warning expected_location
   end
 end
