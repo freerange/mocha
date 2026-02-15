@@ -152,7 +152,7 @@ module Mocha
     attr_writer :logger
 
     def logger
-      @logger ||= Logger.new($stderr)
+      @logger ||= Logger.new
     end
 
     private
