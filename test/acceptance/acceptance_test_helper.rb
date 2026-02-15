@@ -4,6 +4,7 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'test_runner'
 require 'mocha/configuration'
 require 'mocha/mockery'
+require 'mocha/logger'
 require 'introspection'
 
 if Mocha::Detection::Minitest.testcase && (ENV['MOCHA_RUN_INTEGRATION_TESTS'] != 'test-unit')
@@ -32,8 +33,7 @@ module AcceptanceTestHelper
   def setup_acceptance_test
     Mocha::Configuration.reset_configuration
     @logger = FakeLogger.new
-    mockery = Mocha::Mockery.instance
-    mockery.logger = @logger
+    Mocha::Logger.logger = @logger
   end
 
   def teardown_acceptance_test
