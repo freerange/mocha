@@ -2,6 +2,7 @@
 
 require File.expand_path('../../test_helper', __FILE__)
 require 'test_runner'
+require 'fake_logger'
 require 'mocha/configuration'
 require 'mocha/mockery'
 require 'mocha/logger'
@@ -14,18 +15,6 @@ else
 end
 
 module AcceptanceTestHelper
-  class FakeLogger
-    attr_reader :warnings
-
-    def initialize
-      @warnings = []
-    end
-
-    def warning(message)
-      @warnings << message
-    end
-  end
-
   attr_reader :logger
 
   include TestRunner
