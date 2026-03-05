@@ -52,22 +52,12 @@ module Mocha
   end
 end
 
-class Object
-  include Mocha::Inspect::ObjectMethods
-end
+Object.include(Mocha::Inspect::ObjectMethods)
 
-class Array
-  include Mocha::Inspect::ArrayMethods
-end
+Array.include(Mocha::Inspect::ArrayMethods)
 
-class Hash
-  include Mocha::Inspect::HashMethods
-end
+Hash.include(Mocha::Inspect::HashMethods)
 
-class Time
-  include Mocha::Inspect::TimeMethods
-end
+Time.include(Mocha::Inspect::TimeMethods)
 
-class Date
-  include Mocha::Inspect::DateMethods
-end
+Date.include(Mocha::Inspect::DateMethods)

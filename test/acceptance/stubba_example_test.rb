@@ -2,7 +2,7 @@
 
 require File.expand_path('../acceptance_test_helper', __FILE__)
 
-class Widget
+Widget = Class.new do
   def model
     'original_model'
   end
@@ -18,7 +18,7 @@ class Widget
   end
 end
 
-module Thingy
+Thingy = Module.new do
   def self.wotsit
     :hoojamaflip
   end
