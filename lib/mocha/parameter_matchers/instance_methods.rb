@@ -23,6 +23,6 @@ module Mocha
 end
 
 # @private
-class Object
+class Object # rubocop:disable Style/OneClassPerFile
   include Mocha::ParameterMatchers::InstanceMethods
 end
