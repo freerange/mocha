@@ -18,9 +18,9 @@ module Mocha
 
     def warning(message, category: nil)
       filter = BacktraceFilter.new
-      location = filter.filtered(caller)[0]
+      location = filter.filtered_locations(caller_locations)[0]
       prefix = ['Mocha', category, 'warning'].compact.join(' ')
-      warn("#{prefix}: #{message} (at #{location})")
+      warn("#{prefix}: #{message} (at #{location.path}:#{location.lineno})")
     end
   end
 end

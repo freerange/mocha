@@ -12,6 +12,10 @@ module Mocha
       backtrace.reject { |line| exclude?(line) }
     end
 
+    def filtered_locations(locations)
+      locations.reject { |location| exclude?(location.path) }
+    end
+
     private
 
     def exclude?(path)
