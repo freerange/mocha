@@ -9,7 +9,13 @@ module Mocha
     end
 
     def filtered(backtrace)
-      backtrace.reject { |line| File.expand_path(line).start_with?(@lib_directory) }
+      backtrace.reject { |line| exclude?(line) }
+    end
+
+    private
+
+    def exclude?(path)
+      File.expand_path(path).start_with?(@lib_directory)
     end
   end
 end
