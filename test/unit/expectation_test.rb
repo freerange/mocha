@@ -97,9 +97,9 @@ class ExpectationTest < Mocha::TestCase
     assert expectation.invocations_never_allowed?
   end
 
-  def test_should_store_provided_backtrace
-    backtrace = Object.new
-    assert_equal backtrace, Expectation.new(nil, :expected_method, backtrace).backtrace
+  def test_should_store_provided_backtrace_locations
+    backtrace_locations = Object.new
+    assert_same backtrace_locations, Expectation.new(nil, :expected_method, backtrace_locations).backtrace_locations
   end
 
   def test_should_default_backtrace_to_caller

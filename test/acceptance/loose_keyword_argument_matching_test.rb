@@ -91,7 +91,7 @@ class LooseKeywordArgumentMatchingTest < Mocha::TestCase
   end
 
   def assert_deprecation_warning_location(execution_point)
-    expected_location = "Expectation defined at #{execution_point.location}"
+    expected_location = "Expectation defined at #{execution_point}"
     assert_deprecation_warning expected_location
   end
 end

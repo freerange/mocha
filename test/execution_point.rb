@@ -30,7 +30,7 @@ class ExecutionPoint
   end
 
   def to_s
-    "file: #{file_name}; line: #{line_number}"
+    "#{file_name}:#{line_number}"
   end
 
   def location
