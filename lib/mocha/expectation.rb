@@ -646,10 +646,10 @@ module Mocha
     end
 
     # @private
-    attr_reader :backtrace
+    attr_reader :backtrace_locations
 
     # @private
-    def initialize(mock, expected_method_name, backtrace = nil)
+    def initialize(mock, expected_method_name, backtrace_locations = nil)
       @mock = mock
       @method_matcher = MethodMatcher.new(expected_method_name.to_sym)
       @parameters_matcher = ParametersMatcher.new
@@ -659,7 +659,7 @@ module Mocha
       @cardinality = Cardinality.new.exactly(1)
       @return_values = ReturnValues.new
       @yield_parameters = YieldParameters.new
-      @backtrace = backtrace || caller
+      @backtrace_locations = backtrace_locations || caller_locations
     end
 
     # @private
@@ -761,9 +761,15 @@ module Mocha
     end
 
     # @private
+    def backtrace
+      backtrace_locations.map(&:to_s)
+    end
+
+    # @private
     def definition_location
       filter = BacktraceFilter.new
-      filter.filtered(backtrace)[0]
+      location = filter.filtered_locations(backtrace_locations)[0]
+      "#{location.path}:#{location.lineno}"
     end
   end
 end

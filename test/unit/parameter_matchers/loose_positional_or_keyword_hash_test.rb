@@ -2,27 +2,31 @@
 
 require File.expand_path('../../../test_helper', __FILE__)
 
-require 'deprecation_capture'
 require 'mocha/parameter_matchers/positional_or_keyword_hash'
 require 'mocha/parameter_matchers/instance_methods'
 require 'mocha/inspect'
 require 'mocha/expectation'
 require 'mocha/ruby_version'
 require 'mocha/configuration'
+require 'fake_logger'
 
 class LoosePositionalOrKeywordHashTest < Mocha::TestCase
   include Mocha::ParameterMatchers::Methods
-  include DeprecationCapture
+  include FakeLogger::TestHelper
 
   def setup
     return unless Mocha::RUBY_V27_PLUS
 
     @original = Mocha.configuration.strict_keyword_argument_matching?
     Mocha.configure { |c| c.strict_keyword_argument_matching = false }
+
+    FakeLogger::TestHelper.setup
   end
 
   def teardown
     return unless Mocha::RUBY_V27_PLUS
+
+    FakeLogger::TestHelper.teardown
 
     Mocha.configure { |c| c.strict_keyword_argument_matching = @original }
   end
@@ -31,12 +35,10 @@ class LoosePositionalOrKeywordHashTest < Mocha::TestCase
     expectation = Mocha::Expectation.new(self, :foo)
     last_matcher = false
     matcher = build_matcher(Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }), expectation, last_matcher)
-    capture_deprecation_warnings do
-      assert matcher.matches?([{ key_1: 1, key_2: 2 }])
-    end
+    assert matcher.matches?([{ key_1: 1, key_2: 2 }])
     return unless Mocha::RUBY_V27_PLUS
 
-    message = last_deprecation_warning
+    message = logger.deprecation_warnings.last
     location = expectation.definition_location
     assert_includes message, "Expectation defined at #{location} expected keyword arguments (key_1: 1, key_2: 2)"
     assert_includes message, 'but received positional hash ({key_1: 1, key_2: 2})'
@@ -48,12 +50,10 @@ class LoosePositionalOrKeywordHashTest < Mocha::TestCase
     expectation = Mocha::Expectation.new(self, :foo)
     last_matcher = true
     matcher = build_matcher(Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 }), expectation, last_matcher)
-    capture_deprecation_warnings do
-      assert matcher.matches?([{ key_1: 1, key_2: 2 }])
-    end
+    assert matcher.matches?([{ key_1: 1, key_2: 2 }])
     return unless Mocha::RUBY_V27_PLUS
 
-    message = last_deprecation_warning
+    message = logger.deprecation_warnings.last
     location = expectation.definition_location
     assert_includes message, "Expectation defined at #{location} expected keyword arguments (key_1: 1, key_2: 2)"
     assert_includes message, 'but received positional hash ({key_1: 1, key_2: 2})'
@@ -65,12 +65,10 @@ class LoosePositionalOrKeywordHashTest < Mocha::TestCase
     expectation = Mocha::Expectation.new(self, :foo)
     last_matcher = false
     matcher = build_matcher({ key_1: 1, key_2: 2 }, expectation, last_matcher)
-    capture_deprecation_warnings do
-      assert matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })])
-    end
+    assert matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })])
     return unless Mocha::RUBY_V27_PLUS
 
-    message = last_deprecation_warning
+    message = logger.deprecation_warnings.last
     location = expectation.definition_location
     assert_includes message, "Expectation defined at #{location} expected positional hash ({key_1: 1, key_2: 2})"
     assert_includes message, 'but received keyword arguments (key_1: 1, key_2: 2)'
@@ -82,23 +80,19 @@ class LoosePositionalOrKeywordHashTest < Mocha::TestCase
     expectation = Mocha::Expectation.new(self, :foo)
     last_matcher = true
     matcher = build_matcher({ key_1: 1, key_2: 2 }, expectation, last_matcher)
-    capture_deprecation_warnings do
-      assert matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })])
-    end
+    assert matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })])
     return unless Mocha::RUBY_V27_PLUS
 
-    assert_nil last_deprecation_warning
+    assert_nil logger.deprecation_warnings.last
   end
 
   def test_should_display_deprecation_warning_even_if_parent_expectation_is_nil
     expectation = nil
     matcher = build_matcher({ key_1: 1, key_2: 2 }, expectation)
-    capture_deprecation_warnings do
-      matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })])
-    end
+    matcher.matches?([Hash.ruby2_keywords_hash({ key_1: 1, key_2: 2 })])
     return unless Mocha::RUBY_V27_PLUS
 
-    message = last_deprecation_warning
+    message = logger.deprecation_warnings.last
     assert_includes message, 'Expectation expected positional hash ({key_1: 1, key_2: 2})'
     assert_includes message, 'but received keyword arguments (key_1: 1, key_2: 2)'
   end

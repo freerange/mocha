@@ -88,18 +88,18 @@ class MockTest < Mocha::TestCase
     assert_equal [expectation1, expectation2].to_set, mock.__expectations__.to_set
   end
 
-  def test_should_pass_backtrace_into_expectation
+  def test_should_pass_backtrace_locations_into_expectation
     mock = build_mock
-    backtrace = Object.new
-    expectation = mock.expects(:method1, backtrace)
-    assert_equal backtrace, expectation.backtrace
+    backtrace_locations = []
+    expectation = mock.expects(:method1, backtrace_locations)
+    assert_same backtrace_locations, expectation.backtrace_locations
   end
 
-  def test_should_pass_backtrace_into_stub
+  def test_should_pass_backtrace_locations_into_stub
     mock = build_mock
-    backtrace = Object.new
-    stub = mock.stubs(:method1, backtrace)
-    assert_equal backtrace, stub.backtrace
+    backtrace_locations = []
+    stub = mock.stubs(:method1, backtrace_locations)
+    assert_same backtrace_locations, stub.backtrace_locations
   end
 
   def test_should_create_and_add_stubs

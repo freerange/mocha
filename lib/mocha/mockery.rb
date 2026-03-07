@@ -49,7 +49,6 @@ module Mocha
       def setup(assertion_counter)
         @instances ||= []
         mockery = new(assertion_counter)
-        mockery.logger = instance.logger unless @instances.empty?
         @instances.push(mockery)
       end
 
@@ -149,12 +148,6 @@ module Mocha
       check(:stubbing_method_on_non_mock_object, 'method on non-mock object', signature_proc)
     end
 
-    attr_writer :logger
-
-    def logger
-      @logger ||= Logger.new($stderr)
-    end
-
     private
 
     def check(action, description, signature_proc, backtrace = caller)
@@ -165,7 +158,7 @@ module Mocha
       message = "stubbing #{description}: #{method_signature}"
       raise StubbingError.new(message, backtrace) if treatment == :prevent
 
-      logger.warn(message) if treatment == :warn
+      Logger.warning(message) if treatment == :warn
     end
 
     def expectations
