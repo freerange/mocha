@@ -1,5 +1,17 @@
 # Release Notes
 
+## 3.1.0
+
+### External changes
+
+* Format warnings consistently and include source location (#794)
+
+### Internal changes
+
+* Fix `Style/OneClassPerFile` violations (#796)
+* Remove `mise.toml` which was added accidentally (6c5f84db)
+* Add `.ruby-version` to `.gitignore` (8516ccc1)
+
 ## 3.0.2
 
 ### External changes
