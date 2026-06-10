@@ -113,12 +113,12 @@ module Mocha
     #   object = mock()
     #   object.expects(:expected_method_one).returns(:result_one)
     #   object.expects(:expected_method_two).returns(:result_two)
-    def expects(method_name_or_hash, backtrace = nil)
+    def expects(method_name_or_hash, backtrace_locations = nil)
       expectation = nil
       iterator = ArgumentIterator.new(method_name_or_hash)
       iterator.each do |method_name, *args|
         ensure_method_not_already_defined(method_name)
-        expectation = Expectation.new(self, method_name, backtrace)
+        expectation = Expectation.new(self, method_name, backtrace_locations)
         expectation.in_sequence(@mockery.sequences.last) if @mockery.sequences.any?
         expectation.returns(args.shift) unless args.empty?
         @expectations.add(expectation)
@@ -151,12 +151,12 @@ module Mocha
     #   object = mock()
     #   object.stubs(:stubbed_method_one).returns(:result_one)
     #   object.stubs(:stubbed_method_two).returns(:result_two)
-    def stubs(method_name_or_hash, backtrace = nil)
+    def stubs(method_name_or_hash, backtrace_locations = nil)
       expectation = nil
       iterator = ArgumentIterator.new(method_name_or_hash)
       iterator.each do |method_name, *args|
         ensure_method_not_already_defined(method_name)
-        expectation = Expectation.new(self, method_name, backtrace)
+        expectation = Expectation.new(self, method_name, backtrace_locations)
         expectation.at_least(0)
         expectation.in_sequence(@mockery.sequences.last) if @mockery.sequences.any?
         expectation.returns(args.shift) unless args.empty?
