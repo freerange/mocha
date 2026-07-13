@@ -74,7 +74,7 @@ Gemspec/RequiredRubyVersion:
 
 # This cop is useful for required environment variables, but not for optional ones
 Style/FetchEnvVar:
-  AllowedVars:
+  AllowedVariables:
     - MOCHA_RUN_INTEGRATION_TESTS
 
 Naming/FileName:
