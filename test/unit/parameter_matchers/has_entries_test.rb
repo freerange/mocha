@@ -69,9 +69,8 @@ class HasEntriesTest < Mocha::TestCase
     description = matcher.mocha_inspect
     matches = /has_entries\((.*)\)/.match(description)
     assert_not_nil matches[0]
-    # rubocop:disable Security/Eval
+    # rubocop:disable-next Security/Eval
     entries = eval(matches[1], binding, __FILE__, __LINE__)
-    # rubocop:enable Security/Eval
     assert_equal 'value_1', entries[:key_1]
     assert_equal 'value_2', entries[:key_2]
   end

@@ -24,7 +24,7 @@ if (minitest_testcase = Mocha::Detection::Minitest.testcase) && (ENV['MOCHA_RUN_
   rescue LoadError
     Minitest::Unit.autorun
   end
-  # rubocop:disable Style/ClassAndModuleChildren
+  # rubocop:disable-next Style/ClassAndModuleChildren
   class Mocha::TestCase < minitest_testcase
     def assert_nothing_raised(exception = StandardError)
       yield
@@ -37,15 +37,13 @@ if (minitest_testcase = Mocha::Detection::Minitest.testcase) && (ENV['MOCHA_RUN_
     alias_method :assert_not_same, :refute_same
     alias_method :assert_no_match, :refute_match
   end
-  # rubocop:enable Style/ClassAndModuleChildren
 else
   require 'test/unit'
-  # rubocop:disable Style/ClassAndModuleChildren
+  # rubocop:disable-next Style/ClassAndModuleChildren
   class Mocha::TestCase < Test::Unit::TestCase
     def test_dummy
       # Some versions (?) of Test::Unit try to run this base class as a test case
       # and it fails because it has no test methods, so I'm adding a dummy test.
     end
   end
-  # rubocop:enable Style/ClassAndModuleChildren
 end

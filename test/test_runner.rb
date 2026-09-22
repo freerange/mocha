@@ -9,7 +9,7 @@ module TestRunner
     run_as_tests(test_me: block)
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def run_as_tests(methods = {})
     base_class = Mocha::TestCase
     test_class = Class.new(base_class) do
@@ -45,7 +45,6 @@ module TestRunner
 
     test_result
   end
-  # rubocop:enable Metrics/AbcSize
 
   def assert_passed(test_result)
     flunk "Test errored unexpectedly with message: #{test_result.errors.map(&:exception)}" if test_result.error_count > 0

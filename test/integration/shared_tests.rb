@@ -4,7 +4,7 @@ require 'test_runner'
 require 'execution_point'
 require 'mocha/ruby_version'
 
-# rubocop:disable Metrics/ModuleLength
+# rubocop:disable-next Metrics/ModuleLength
 module SharedTests
   include TestRunner
 
@@ -210,4 +210,3 @@ module SharedTests
     assert_match(expected, exception.message)
   end
 end
-# rubocop:enable Metrics/ModuleLength
