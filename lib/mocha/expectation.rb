@@ -6,6 +6,7 @@ require 'mocha/parameters_matcher'
 require 'mocha/expectation_error'
 require 'mocha/return_values'
 require 'mocha/exception_raiser'
+require 'mocha/executes_return_value'
 require 'mocha/thrower'
 require 'mocha/yield_parameters'
 require 'mocha/in_state_ordering_constraint'
@@ -476,6 +477,47 @@ module Mocha
     #   y # => 2
     def returns(*values)
       @return_values += ReturnValues.build(*values)
+      self
+    end
+
+    # Modifies expectation so that when the expected method is called, it executes the supplied block and returns its result.
+    # The block receives the method's positional arguments, keyword arguments and caller's block.
+    # It runs only when the expectation is invoked, not while matching arguments with {#with}.
+    # Exceptions raised by the block propagate to the caller.
+    #
+    # May be combined with {#returns}, {#raises} and further calls to {#executes} to define consecutive results.
+    # The final result in the sequence is repeated; a final implementation block is executed on every subsequent invocation.
+    #
+    # @yield The implementation to execute when the expected method is invoked.
+    # @return [Expectation] the same expectation, thereby allowing invocations of other {Expectation} methods to be chained.
+    # @raise [ArgumentError] if no implementation block is supplied.
+    # @see #then
+    #
+    # @example Compute a result from positional and keyword arguments.
+    #   calculator = mock()
+    #   calculator.stubs(:multiply).executes { |value, by:| value * by }
+    #   calculator.multiply(3, by: 2) # => 6
+    #   calculator.multiply(4, by: 3) # => 12
+    #
+    # @example Invoke the caller's block with each item in a collection.
+    #   collection = mock()
+    #   collection.stubs(:map).executes do |&block|
+    #     [1, 2, 3].map(&block)
+    #   end
+    #   collection.map { |value| value * 2 } # => [2, 4, 6]
+    #
+    # @example Return a setup job first, then consume the pending jobs on subsequent calls.
+    #   pending_jobs = [:import, :publish]
+    #   queue = mock()
+    #   queue.stubs(:next_job).returns(:setup).then.executes { pending_jobs.shift }
+    #   queue.next_job # => :setup
+    #   queue.next_job # => :import
+    #   queue.next_job # => :publish
+    #   queue.next_job # => nil
+    def executes(&implementation)
+      raise ArgumentError, '#executes requires a block' unless implementation
+
+      @return_values += ReturnValues.new(ExecutesReturnValue.new(implementation))
       self
     end
 
