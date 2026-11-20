@@ -85,8 +85,19 @@ module Mocha
     end
 
     def use_prepended_module_for_stub_method
+      @stub_method_owner = reusable_prepended_module
+      return if @stub_method_owner
+
       @stub_method_owner = PrependedModule.new
       original_method_owner.__send__ :prepend, @stub_method_owner
+    end
+
+    def reusable_prepended_module
+      candidate = original_method_owner.ancestors.first
+      return unless candidate.is_a?(PrependedModule)
+      return if candidate.method_defined?(method_name) || candidate.private_method_defined?(method_name)
+
+      candidate
     end
 
     def stub_method_owner
