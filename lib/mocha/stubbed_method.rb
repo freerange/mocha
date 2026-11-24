@@ -85,8 +85,24 @@ module Mocha
     end
 
     def use_prepended_module_for_stub_method
+      @stub_method_owner = reusable_prepended_module
+      return if @stub_method_owner
+
       @stub_method_owner = PrependedModule.new
       original_method_owner.__send__ :prepend, @stub_method_owner
+    end
+
+    def reusable_prepended_module
+      # Object#clone copies an object's singleton class together with the modules prepended to it, so
+      # a later stub added to a module on a plain object's singleton class would leak into its clones.
+      # Only the singleton class of a class or module is a subclass of Module.
+      return if original_method_owner.singleton_class? && !(original_method_owner <= Module)
+
+      candidate = original_method_owner.ancestors.first
+      return unless candidate.is_a?(PrependedModule)
+      return if candidate.method_defined?(method_name) || candidate.private_method_defined?(method_name)
+
+      candidate
     end
 
     def stub_method_owner
