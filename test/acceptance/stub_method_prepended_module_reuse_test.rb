@@ -91,4 +91,25 @@ class StubMethodPrependedModuleReuseTest < Mocha::TestCase
     assert_passed(test_result)
     assert_equal :original_return_value, klass.my_class_method
   end
+
+  def test_should_not_leak_stub_on_object_into_clone_made_after_earlier_stub
+    klass = Class.new do
+      def my_instance_method
+        :original_return_value
+      end
+
+      def my_other_instance_method
+        :original_return_value
+      end
+    end
+    test_result = run_as_test do
+      instance = klass.new
+      instance.stubs(:my_instance_method).returns(:stubbed_return_value)
+      clone = instance.clone
+      instance.stubs(:my_other_instance_method).returns(:stubbed_return_value)
+      assert_equal :stubbed_return_value, instance.my_other_instance_method
+      assert_equal :original_return_value, clone.my_other_instance_method
+    end
+    assert_passed(test_result)
+  end
 end

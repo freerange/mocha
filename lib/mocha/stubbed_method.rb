@@ -93,6 +93,11 @@ module Mocha
     end
 
     def reusable_prepended_module
+      # Object#clone copies an object's singleton class together with the modules prepended to it, so
+      # a later stub added to a module on a plain object's singleton class would leak into its clones.
+      # Only the singleton class of a class or module is a subclass of Module.
+      return if original_method_owner.singleton_class? && !(original_method_owner <= Module)
+
       candidate = original_method_owner.ancestors.first
       return unless candidate.is_a?(PrependedModule)
       return if candidate.method_defined?(method_name) || candidate.private_method_defined?(method_name)
