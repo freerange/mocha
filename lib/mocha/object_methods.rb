@@ -21,8 +21,15 @@ module Mocha
     end
 
     # @private
+    SHAREABLE_MOCKS = {}.compare_by_identity
+
+    # @private
     def mocha(instantiate: true)
-      if instantiate
+      if mocha_shareable? && instantiate
+        SHAREABLE_MOCKS[self] ||= Mocha::Mockery.instance.mock_impersonating(self)
+      elsif mocha_shareable?
+        SHAREABLE_MOCKS[self]
+      elsif instantiate
         @mocha ||= Mocha::Mockery.instance.mock_impersonating(self)
       else
         defined?(@mocha) ? @mocha : nil
@@ -31,7 +38,17 @@ module Mocha
 
     # @private
     def reset_mocha
-      @mocha = nil
+      if mocha_shareable?
+        SHAREABLE_MOCKS.delete(self)
+      else
+        @mocha = nil
+      end
+    end
+
+    # @private
+    # Classes and modules can still have instance variables when shareable.
+    def mocha_shareable?
+      !(Module === self) && defined?(Ractor) && Ractor.shareable?(self)
     end
 
     # @private
